@@ -1,5 +1,5 @@
 const express = require("express");
-//const { createTelefuncCaller } = require("telefunc");
+const { createTelefuncCaller } = require("telefunc");
 
 const isProduction = process.env.NODE_ENV === "production";
 const root = __dirname;
@@ -20,8 +20,8 @@ async function startServer() {
     });
   }
 
-  /*
   const callTelefunc = createTelefuncCaller({ viteDevServer, isProduction, root });
+  /*
   app.use(express.text())
   app.all("/_telefunc", async (req, res, next) => {
     const {originalUrl: url, method, body, headers } = req
