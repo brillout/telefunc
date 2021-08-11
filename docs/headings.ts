@@ -9,7 +9,7 @@ export const headings: Heading[] = [
   {
     level: 2,
     title: 'Introduction',
-    titleDocument: 'vite-plugin-ssr',
+    titleDocument: 'Telefunc',
     url: '/'
   },
   {

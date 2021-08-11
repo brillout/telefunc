@@ -5,7 +5,7 @@ export { runTest };
 function runTest(cmd: "npm run dev" | "npm run prod") {
   run(cmd);
 
-  test("remote shell with telefunc works", async () => {
+  test("remote shell with telefunc", async () => {
     page.goto(`${urlBase}/`);
     expect(await page.textContent("body")).not.toContain("node_modules");
     await page.click("button");
