@@ -6,18 +6,14 @@ function runTest(cmd: "npm run dev" | "npm run prod") {
   run(cmd);
 
   test("remote shell with telefunc", async () => {
-    expect(1).toBe(1);
-    console.log(1)
     page.goto(`${urlBase}/`);
-    console.log(2)
     expect(await page.textContent("body")).not.toContain("node_modules");
-    console.log(3)
-    await page.click("button");
-    console.log(4)
-    /*
+    await page.click("button#cmd-dir");
+    let n = 0
+    let start = new Date().getTime()
     await autoRetry(async () => {
+      console.log(++n, ((new Date().getTime() - start)/1000))
       expect(await page.textContent("body")).toContain("node_modules");
     });
-    */
   });
 }
