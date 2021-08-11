@@ -1,3 +1,5 @@
+## Programmatic
+
 Permissions are defined programmatically.
 
 ~~~js
@@ -12,7 +14,6 @@ async function deletePost() {
   // See Authentication guide for an introduction about `getContext()`.
   const context = getContext()
 
-  // Only admins are allowed to remove posts
   if( !context.user.isAdmin ) {
     // The user is not an admin — we abort.
     throw new Abort()
@@ -22,6 +23,8 @@ async function deletePost() {
 }
 ~~~
 
+## Telefunctions are public
+
 It is crucial to define permissions; never do something like this:
 
 ~~~js
@@ -29,12 +32,12 @@ It is crucial to define permissions; never do something like this:
 // Environment: Node.js
 
 export async function executeQuery(query) {
-  const result = await database.runSQL(query);
-  return result;
-};
+  const result = await database.runSQL(query)
+  return result
+}
 ~~~
 
-Always remember that telefunctions are public: anyone in the world can call your telefunctions.
+Telefunctions are public: anyone in the world can call your telefunctions.
 
 ~~~js
 // Environment: Anyone's browser dev console
@@ -42,14 +45,16 @@ Always remember that telefunctions are public: anyone in the world can call your
 // Anyone in the world can go to your website,
 // open the browser's web dev console, and call your telefunctions.
 
-const users = await server.executeQuery('SELECT login, password FROM users;');
+const users = await server.executeQuery('SELECT login, password FROM users;')
 users.forEach(({login, password}) => {
   // W00t I have all passwords ｡^‿^｡
-  console.log(login, password);
-});
+  console.log(login, password)
+})
 ~~~
 
-You should `throw new Abort()` only for *unexpected* errors.
+## `throw` only unexpected errors
+
+You should `throw new Abort()` only for unexpected errors.
 For expected errors return a JavaScript value instead.
 
 ~~~js
@@ -58,17 +63,17 @@ For expected errors return a JavaScript value instead.
 
 import { getContext } from 'telefunc'
 
-export { getTodoList }
-server.getTodoList = async function() {
-  const isLoggedIn = getContext().user;
+export async function getTodoList() {
+  const isLoggedIn = getContext().user
   // The user may not be logged in: this is an *expected* error.
   if( isLoggedIn ) {
-    // Instead of `throw new Abort()` we return a plain JavaScript object `{ isNotLoggedIn: true }`.
-    // The frontend can then for example redirect to the login page.
-    return { isNotLoggedIn : true};
+    // Instead of `throw new Abort()` we return aplain JavaScript object
+    // `{ isNotLoggedIn: true }`.
+    // The frontend can then, for example, redirect the user to the login page.
+    return { isNotLoggedIn : true }
   }
   // ...
-};
+}
 ~~~
 
 If your app is bug-free and no-one is trying to hack you, then nothing unexpected would happen, and your `throw new Abort()` will never be called.
