@@ -12,7 +12,7 @@ function runTest(cmd: "npm run dev" | "npm run prod") {
     let n = 0
     let start = new Date().getTime()
     await autoRetry(async () => {
-      console.log(++n, ((new Date().getTime() - start)/1000))
+      // console.log(++n, ((new Date().getTime() - start)/1000))
       expect(await page.textContent("body")).toContain("node_modules");
     });
   });
