@@ -6,12 +6,12 @@ function runTest(cmd: "npm run dev" | "npm run prod") {
   run(cmd);
 
   test("remote shell with telefunc", async () => {
-    page.goto(`${urlBase}/`);
-    expect(await page.textContent("body")).not.toContain("node_modules");
     if( isWindows() ) {
       // Running Node.js' exec in windows hangs the GitHub action
       return;
     }
+    page.goto(`${urlBase}/`);
+    expect(await page.textContent("body")).not.toContain("node_modules");
     await page.click("button#cmd-ls");
     await autoRetry(async () => {
       expect(await page.textContent("body")).toContain("node_modules");
