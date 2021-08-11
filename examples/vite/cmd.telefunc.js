@@ -6,6 +6,7 @@ export { runShellCommand };
 async function runShellCommand(cmd) {
   const context = getContext();
   const { userAgent } = context;
+  console.log(10, cmd)
   try {
     const cmdResult = await runCmd(cmd);
     console.log(11, cmdResult)
