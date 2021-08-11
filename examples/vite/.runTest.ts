@@ -17,8 +17,8 @@ function runTest(cmd: "npm run dev" | "npm run prod") {
     let start = new Date().getTime();
     console.log(31)
     try {
-      const r = await exec('dir');
-      console.log('r1',r);
+      // const r = await exec('dir');
+      // console.log('r1',r);
     } catch(err) {
       console.log('r2',err);
     }
@@ -36,7 +36,3 @@ function runTest(cmd: "npm run dev" | "npm run prod") {
 const util = require("util");
 const exec = util.promisify(require("child_process").exec);
 */
-
-function runCmd(command) {
-  return exec(command);
-}
