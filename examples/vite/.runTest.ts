@@ -16,6 +16,13 @@ function runTest(cmd: "npm run dev" | "npm run prod") {
     let n = 0;
     let start = new Date().getTime();
     console.log(31)
+    let resolve
+    const promise = new Promise(r => resolve = r)
+    execAsync('dir', function() {
+      console.log('a', arguments)
+      resolve()
+    })
+    await promise
     try {
       // const r = await exec('dir');
       // console.log('r1',r);
