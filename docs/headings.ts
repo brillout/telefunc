@@ -43,8 +43,13 @@ export const headings: Heading[] = [
   },
   {
     level: 2,
-    title: 'Permissions',
-    url: '/permissions'
+    title: 'Permission & Validation',
+    url: '/permission'
+  },
+  {
+    level: 2,
+    title: 'Authentication',
+    url: '/auth'
   },
   {
     level: 2,
