@@ -1,6 +1,6 @@
 {
   "private": true,
-  "// We don't add examples/** nor boilerplates/** to `workspaces` because we have a custom linkage logic": "",
+  "// We don't add examples/** to `workspaces` because we have a custom linkage logic": "",
   "workspaces": [
     "telefunc/",
     "libframe/test/",
@@ -32,7 +32,7 @@
     "========= Install & linkage": "",
     "// Fetch the libframe/ workspace so that its dependencies are installed as well": "",
     "preinstall": "bash -c '[[ `git submodule status libframe` == -* ]] && git submodule update --init libframe/ || :'",
-    "// Install dependencies of all examples and boilerplates": "",
+    "// Install dependencies of all examples": "",
     "install:examples": "cd libframe/scripts/ && yarn install:examples",
     "// Symlink **/node_modules/telefunc/ to /telefunc/": "",
     "link-examples": "cd libframe/scripts/ && yarn link-examples",
@@ -42,7 +42,7 @@
     "link-vite": "cd libframe/scripts/ && yarn link-vite",
     "// Install **/node_modules/vite/ from npm registry": "",
     "unlink-vite": "cd libframe/scripts/ && yarn link-vite",
-    "// Update dependencies of `telefunc/`, examples, and boilerplates": "",
+    "// Update dependencies of `telefunc/` and examples": "",
     "bump": "cd libframe/scripts/ && yarn bump",
     "========= Release": "",
     "release": "cd libframe/scripts/ && yarn release",
