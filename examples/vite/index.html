@@ -1,12 +1,20 @@
 <!DOCTYPE html>
 <html>
   <body>
-    <button>Message Server</button>
-    <p>
-      Messages:
-    </p>
-    <p id="messages">None</p>
-    <script type="module" src="/main.js"></script>
+    <div>
+      <h1>Remote Shell</h1>
+      <button class="cmd">ls</button>
+      <button class="cmd">ls ~</button>
+      <button class="cmd">date</button>
+      <button class="cmd">uname -a</button>
+      <button class="cmd">wrong-cmd</button>
+    </div>
+    <br />
+    <form>
+      <input type="text" />
+      <button type="submit">Run</button>
+    </form>
+    <pre id="result"></pre>
+    <script type="module" src="/client.js"></script>
   </body>
 </html>
-

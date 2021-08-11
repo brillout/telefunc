@@ -9,20 +9,30 @@ function build(): Plugin {
     name: "telefunc:build",
     apply: "build",
     config: (config) => {
-      if (!isSSR(config)) {
-        return;
-      }
-      const viteEntry = getViteEntry();
-      const input = {
-        ...viteEntry,
-        ...normalizeRollupInput(config.build?.rollupOptions?.input),
-      };
-      return {
-        build: {
-          rollupOptions: { input },
-        },
+      const configMod = {
         ssr: { external: ["vite-plugin-ssr"] },
       };
+      if (!isSSR(config)) {
+        return {
+          ...configMod,
+          build: {
+            outDir: "dist/client",
+          },
+        };
+      } else {
+        const viteEntry = getViteEntry();
+        const input = {
+          ...viteEntry,
+          ...normalizeRollupInput(config.build?.rollupOptions?.input),
+        };
+        return {
+          ...configMod,
+          build: {
+            rollupOptions: { input },
+            outDir: "dist/server",
+          },
+        };
+      }
     },
   };
 }
@@ -39,7 +49,7 @@ function normalizeRollupInput(input?: InputOption): Record<string, string> {
     return Object.fromEntries(input.map((i) => [i, i]));
   }
   */
-  assert(isObject(input))
+  assert(isObject(input));
   return input;
 }
 
@@ -48,8 +58,8 @@ function getViteEntry() {
   const pluginDist = `../../../dist`;
   const esmPath = require.resolve(`${pluginDist}/esm/vite/${fileName}.js`);
   const viteEntry = {
-    [fileName]: esmPath
-  }
+    [fileName]: esmPath,
+  };
   return viteEntry;
 }
 

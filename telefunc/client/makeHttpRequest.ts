@@ -1,4 +1,4 @@
-import { assert } from "./assert";
+import { assert, assertUsage } from "./assert";
 import { parse } from "@brillout/json-s";
 // @ts-ignore
 import fetch = require("@brillout/fetch");
@@ -14,9 +14,10 @@ async function makeHttpRequest(
   body: HttpRequestBody | undefined,
   telefunctionName: TelefunctionName
 ): Promise<TelefunctionResult> {
+  const method = 'POST'
   const makeRequest = addHandli(() =>
     fetch(url, {
-      method: "POST",
+      method,
       body,
       credentials: "same-origin",
       headers: {
@@ -41,17 +42,22 @@ async function makeHttpRequest(
   }
 
   const statusCode = response.status;
-  assert(statusCode === 500 || statusCode === 200);
   const isOk = response.ok;
+  const installErr = `Telefunc doesn't seem to be (properly) installed on your server. Make sure to reply all HTTP requests made to \`${url}\` with \`callTelefunc()\` (for both \`GET\` and \`POST\` HTTP methods)`
+  assertUsage(
+    statusCode === 500 || statusCode === 200,
+    `${installErr}. (The HTTP ${method} request made to \`${url}\` returned a status code of \`${statusCode}\` which Telefunc never uses.)`
+  );
   assert([true, false].includes(isOk));
   assert(isOk === (statusCode === 200));
 
   if (statusCode === 200) {
     const responseBody = await response.text();
     const value = parse(responseBody);
-    assert(value);
-    assert(isObject(value));
-    assert("telefuncResult" in value);
+    assertUsage(
+      isObject(value) && "telefuncResult" in value,
+      `${installErr}. (The HTTP ${method} request made to \`${url}\` returned an HTTP response body that Telefunc never generates.)`
+    );
     const telefuncResult: unknown = value.telefuncResult;
     return telefuncResult;
   } else {
