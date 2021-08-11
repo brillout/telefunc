@@ -1,19 +1,18 @@
 import { getContext } from "telefunc";
-import { runCmd } from "./runCmd";
+import util from "util";
+import { exec as execWithCallback } from "child_process";
+const exec = util.promisify(execWithCallback);
 
 export { runShellCommand };
 
 async function runShellCommand(cmd) {
   const context = getContext();
   const { userAgent } = context;
-  console.log(10, cmd)
   try {
-    const cmdResult = await runCmd(cmd);
-    console.log(11, cmdResult)
+    const cmdResult = await exec(cmd);
     const { stdout } = cmdResult;
     return stdout;
   } catch (cmdResult) {
-    console.log(22, cmdResult)
     const { stderr } = cmdResult;
     return JSON.stringify(
       {
