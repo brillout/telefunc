@@ -1,5 +1,5 @@
 const express = require("express");
-import { createTelefuncCaller } from "telefunc";
+const { createTelefuncCaller } = require("telefunc");
 
 const isProduction = process.env.NODE_ENV === "production";
 const root = __dirname;
