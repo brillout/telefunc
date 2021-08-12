@@ -1,21 +1,22 @@
-## Programmatic
+## `Abort`
 
-Permissions are defined programmatically.
+We define permissions by using `Abort`.
 
 ~~~js
-// *.telefunc.js
+// posts.telefunc.js
 // Environment: Node.js
 
 import { getContext, Abort } from 'telefunc'
 
 export { deletePost }
 
-async function deletePost() {
-  // See Authentication guide for an introduction about `getContext()`.
+async function deletePost(id) {
+  // See the guide "Authentication" for an introduction about `getContext()`
   const context = getContext()
 
-  if( !context.user.isAdmin ) {
-    // The user is not an admin — we abort.
+  // Only admins should be able to delete posts
+  if( !context.user?.isAdmin ) {
+    // The user is not an admin — we abort
     throw new Abort()
   }
 
@@ -25,10 +26,10 @@ async function deletePost() {
 
 ## Telefunctions are public
 
-It is crucial to define permissions; never do something like this:
+We should never do something like this:
 
 ~~~js
-// *.telefunc.js
+// query.telefunc.js
 // Environment: Node.js
 
 export async function executeQuery(query) {
@@ -37,48 +38,67 @@ export async function executeQuery(query) {
 }
 ~~~
 
-Telefunctions are public: anyone in the world can call your telefunctions.
+Telefunctions are public: anyone in the world can call our telefunctions.
 
 ~~~js
 // Environment: Anyone's browser dev console
 
-// Anyone in the world can go to your website,
-// open the browser's web dev console, and call your telefunctions.
+// Anyone in the world can go to our website,
+// open the browser's web dev console, and call our telefunctions.
 
-const users = await server.executeQuery('SELECT login, password FROM users;')
+const users = await executeQuery('SELECT login, password FROM users;')
 users.forEach(({login, password}) => {
   // W00t I have all passwords ｡^‿^｡
   console.log(login, password)
 })
 ~~~
 
-## `throw` only unexpected errors
-
-You should `throw new Abort()` only for unexpected errors.
-For expected errors return a JavaScript value instead.
+Instead we should use `Abort`:
 
 ~~~js
-// *.telefunc.js
+// query.telefunc.js
+// Environment: Node.js
+
+import { getContext, Abort } from 'telefunc'
+
+export async function executeQuery(query) {
+  const context = getContext()
+
+  // Only admins should be able to run arbitrary SQL queries.
+  if( !context.user?.isAdmin ) {
+    throw new Abort()
+  }
+
+  const result = await database.runSQL(query)
+  return result
+}
+~~~
+
+## `Abort` or `return someValue`
+
+There are situations where we don't want to `Abort` upon wrong permissions. For example:
+
+~~~js
+// todo.telefunc.js
 // Environment: Node.js
 
 import { getContext } from 'telefunc'
 
 export async function getTodoList() {
-  const isLoggedIn = getContext().user
-  // The user may not be logged in: this is an *expected* error.
-  if( isLoggedIn ) {
-    // Instead of `throw new Abort()` we return aplain JavaScript object
-    // `{ isNotLoggedIn: true }`.
-    // The frontend can then, for example, redirect the user to the login page.
+  const { user } = getContext()
+
+  // The user is not logged in
+  if( !user ) {
+    // It is expected that the user may not be logged-in (for example when the user's session
+    // expires). We `return { isNotLoggedIn: true }` instead of `throw new Abort()` so that
+    // the frontend know what's going on and can redirect the user to the login page.
     return { isNotLoggedIn : true }
   }
+
   // ...
 }
 ~~~
 
-If your app is bug-free and no-one is trying to hack you, then nothing unexpected would happen, and your `throw new Abort()` will never be called.
+Note that Telefunc doesn't provide finer-grained exceptions (`NotLoggedIn`, `InvalidFormInput`, ...) because for fine-grain control we simply return JavaScript values instead of throwing exceptions.
 
-You can think of `throw new Abort()` as a safeguard for bugs & hackers. For anything else return a JavaScript value.
-
-That's why Telefunc only provides `Abort` and doesn't provide fine-grain exceptions (`NotLoggedIn`, `InvalidFormInput`, ...):
-for expected errors, you return a plain JavaScript value instead of throwing exceptions.
+We either `throw new Abort()` or `return someValue`.
