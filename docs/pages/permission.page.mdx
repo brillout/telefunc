@@ -1,6 +1,6 @@
-## `Abort`
+## `Abort()`
 
-We define permissions by using `Abort`.
+We define permissions by using `throw new Abort()`.
 
 ~~~js
 // posts.telefunc.js
@@ -53,7 +53,7 @@ users.forEach(({login, password}) => {
 })
 ~~~
 
-Instead we should use `Abort`:
+Instead we should use `throw new Abort()`:
 
 ~~~js
 // query.telefunc.js
@@ -74,9 +74,9 @@ export async function executeQuery(query) {
 }
 ~~~
 
-## `Abort` or `return someValue`
+## Either `Abort()` or `return`
 
-There are situations where we don't want to `Abort` upon wrong permissions. For example:
+There are situations where we don't want to `Abort()` upon wrong permissions. For example:
 
 ~~~js
 // todo.telefunc.js
