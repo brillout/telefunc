@@ -1,6 +1,6 @@
-import { Heading } from 'libframe-docs/types'
+import { HeadingDefinition } from 'libframe-docs/types'
 
-export const headings: Heading[] = [
+export const headings: HeadingDefinition[] = [
   {
     level: 1,
     title: 'Overview',
