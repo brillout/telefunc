@@ -1,0 +1,56 @@
+Your frontend can use telefunctions to use any SQL/ORM query.
+
+```js
+// movies.telefunc.js
+// Environment: Node.js server
+
+import sql from 'some-sql-client'
+
+export { getStarWarsMovies }
+
+// We define a new telefunction `getStarWarsMovies()`.
+// Telefunctions are always exectued in Node.js — we can use SQL/ORM queries.
+async function getStarWarsMovies(text) {
+  const movies = await sql.query('SELECT id, text, year FROM movies WHERE franchise = "Star Wars";')
+
+  /* With an ORM:
+    const movies = Movies.findAll({
+      where: {
+        franchise: 'Star Wars',
+      },
+      select: ['id', 'text', 'year']
+    )}
+  */
+
+  return movies
+};
+```
+
+```js
+// Environment: Browser
+
+// `movies.telefunc.js` is not actually imported; the Telefunc transformer transpiles `*.telefunc.js`
+// files into a thin library that makes HTTP requests. More infos at https://telefunc.com/how-it-works
+//  More infos at <a href="https://telefunc.com/how-it-works">ewuh</a>
+import { getStarWarsMovies } from './movies.telefunc'
+
+// We call a our telefunction `getStarWarsMovies()` remotely from the browser
+const movies = await getStarWarsMovies()
+// Print all Star Wars movies in the browser's dev console
+console.log(movies)
+```
+
+Creating telefunctions is cheap; instead of creating generic telefunctions we can simply create a new telefunction for each frontend need.
+No more brittle abstration between frontend and backend;
+the frontend can now directly use the full power of SQL/ORM queries.
+No abstraction needed.
+No generatic endpoints needed.
+No additional abstraction needed.
+
+
+> Historically, an API layer was needed because frontend and backend were deployed independently of each other.
+>
+> The increasingly ubiquitous practice of deploying frontend and backend hand-in-hand makes the API layer obsolete.
+>
+> For example, if you use Next.js, then you always deploy your React frontend and your backend serverless functions hand-in-hand.
+> With such archtitecture, Telefunc (and RPC in general) is a delightful fit.

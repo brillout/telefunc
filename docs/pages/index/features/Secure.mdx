@@ -1,0 +1,48 @@
+```js
+// todo.telefunc.js
+// Environment: Node.js server
+
+import { Todo } from './my/data/models/Todo'
+
+export { createTodoItem }
+
+async function createTodoItem(text) {
+  const context = getContext()
+
+  if( !context.user ) {
+    // The user is not logged-in. We abort.
+    // With Wildcard, you define permissions programmatically
+    // which we talk more about in the "Permissions" section.
+    // The user is not an admin — we abort
+    throw new Abort()
+  }
+
+  // With an ORM:
+  const newTodo = new Todo({text, authorId: context.user.id});
+  await newTodo.save();
+
+  /* With SQL:
+  const db = require('your-favorite-sql-query-builder');
+  const [newTodo] = await db.query(
+    "INSERT INTO todos VALUES (:text, :authorId);",
+    {text, authorId: context.user.id}
+  );
+  */
+
+  return newTodo;
+};
+```
+
+```js
+// Environment: Browser
+
+// Telefunc transforms `.telefunc.js` files
+import { createTodoItem } from './todo.telefunc'
+
+function onSubmit(text) {
+  const new Todo = await createTodoItem(text)
+  // ...
+}
+```
+
+

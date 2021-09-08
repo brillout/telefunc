@@ -1,6 +1,8 @@
 import React from "react";
 import { Emoji } from "libframe-docs/utils/Emoji";
 import { FeatureList } from "libframe-docs/landing-page/features/FeatureList";
+import Simple from './Simple.mdx'
+import Secure from './Secure.mdx'
 
 export { Features };
 
@@ -17,35 +19,13 @@ function Features() {
           desc: (
             <>
               <p>
-                Telefunctions make{" "}
-                <b>all server utilities available to the frontend</b>.
+                Your <b>frontend can simply use SQL/ORM queries</b> to retrieve
+                & mutate data.
               </p>
-              <p>
-                Your <b>frontend can simply use any SQL/ORM query</b> to
-                retrieve & mutate data. No API needed.
-              </p>
+              <p>Say goodbye to the API layer.</p>
             </>
           ),
-          learnMore: (
-            <>
-              <p>
-                Your server utilities are one telefunction away; The frontend
-                can use any The frontend can use any server utility to do it's
-                job. Use any SQL With <code>vite-plugin-ssr</code> you integrate
-                tools manually instead of using a plugin system.
-              </p>
-              <p></p>
-              <>
-                The barrier between frontend and backend is almost non-existent;
-                it really is just a telefunction.
-              </>
-              (Thanks to recent trend continously deploying Frontend & Backend
-              together, there is no API needed anymore!) Historically, APIs were
-              historically needed because frontend and backed was deployed
-              independently of each other; with the now ubiquitous continous
-              deployement, APIs are not needed anymore
-            </>
-          ),
+          learnMore: <Simple/>
         },
         {
           title: (
@@ -56,7 +36,7 @@ function Features() {
           desc: (
             <>
               <p>
-                Thanks to Telefunc's novel <code>Abort()</code> feature,{" "}
+                Thanks to Telefunc's novel <code>Abort()</code> design,{" "}
                 <b>permissions can be defined programmatically</b>.
               </p>
               <p>
@@ -65,7 +45,7 @@ function Features() {
               </p>
             </>
           ),
-          learnMore: <></>,
+          learnMore: <Secure/>
         },
         {
           title: (
@@ -112,27 +92,47 @@ function Features() {
         {
           title: (
             <>
+              <Emoji name="typescript" /> TypeScript
+            </>
+          ),
+          desc: (
+            <>
+              <p>
+                First-class & <b>seamless TypeScript support out-of-the-box</b>.
+              </p>
+              <p>
+                Use your types across frontend and backend for{" "}
+                <b>end-to-end type safety</b>.
+              </p>
+              <p></p>
+            </>
+          ),
+          learnMore: <>Bla</>,
+        },
+        {
+          title: (
+            <>
               <Emoji name="plug" /> Any stack
             </>
           ),
           desc: (
             <>
               <p>
-                Telefunc supports most bundlers (Webpack/Vite/Rollup) and has
-                first-class support for both React SSR and Vue SSR.
+                Telefunc supports <b>Webpack</b>, <b>Vite</b>, and <b>Rollup</b> and has
+                first-class support for <b>React SSR</b> and <b>Vue SSR</b>.
               </p>
               <p>
-                In other words, it works with your favorite stack (CRA, Next.js,
-                Nuxt, Gatsby, SvelteKit, <code>vite-plugin-ssr</code>, etc.)
+                In other words, it works with any stack (CRA, Next.js,
+                Nuxt, Gatsby, SvelteKit, <code>vite-plugin-ssr</code>, <b>Cloudflare Workers</b>, etc.)
               </p>
               <p>
-                Also, Telefunc has been designed to work with non-JavaScript
-                backends such as Ruby on Rails or Django.
+                Also, Telefunc has been designed to work with <b>non-JavaScript
+                backends such as Ruby on Rails or Django</b>.
               </p>
             </>
           ),
-          isSecondaryFeature: true,
         },
+        /*
         {
           title: (
             <>
@@ -152,6 +152,12 @@ function Features() {
           ),
           isSecondaryFeature: true,
         },
+        {
+          title: <>Bla</>,
+          desc: <></>,
+          isSecondaryFeature: true,
+        },
+        */
       ]}
     />
   );
