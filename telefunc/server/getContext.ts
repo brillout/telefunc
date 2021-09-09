@@ -2,6 +2,7 @@ import { assertUsage, assert, isObject } from "./utils";
 
 export { getContext };
 export { setContext };
+export { resetContext };
 
 let _context: null | Record<string, unknown> = null;
 let _isSSR: null | boolean = null;
@@ -15,13 +16,19 @@ function getContext<T = Record<string, any>>(): T {
 }
 
 function setContext(context: Record<string, unknown>, isSSR: boolean) {
-  assert((_context === null));
-  assert((_isSSR === null));
+  assert(_context === null);
+  assert(_isSSR === null);
   assert(isObject(context));
   _context = context;
   _isSSR = isSSR;
   process.nextTick(() => {
-    _context = null;
-    _isSSR = null;
+    // `resetContext()` should have been called by now
+    assert(_context === null);
+    assert(_isSSR === null);
   });
+}
+
+function resetContext() {
+  _context = null;
+  _isSSR = null;
 }

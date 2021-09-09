@@ -20,7 +20,7 @@ import {
   TelefuncFilesUntyped,
   Config,
 } from "./types";
-import { setContext } from "./getContext";
+import { setContext, resetContext } from "./getContext";
 import { resolve } from "path";
 
 export { setTelefuncFiles };
@@ -198,6 +198,8 @@ async function executeTelefunc(telefuncContext: {
     telefuncHasErrored = true;
     telefuncError = err;
   }
+
+  resetContext();
 
   let telefuncResult: unknown;
   if (!telefuncHasErrored) {
