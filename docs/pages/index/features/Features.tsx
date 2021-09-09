@@ -19,7 +19,7 @@ function Features() {
           desc: (
             <>
               <p>
-                Your <b>frontend can simply use SQL/ORM queries</b> to retrieve
+                Your <b>frontend can directly use SQL/ORM queries</b> to retrieve
                 & mutate data.
               </p>
               <p>Say goodbye to the API layer.</p>

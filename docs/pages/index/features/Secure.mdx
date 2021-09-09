@@ -1,29 +1,26 @@
+With Telefunc, you defined permissions programmatically:
+
 ```js
 // todo.telefunc.js
 // Environment: Node.js server
 
-import { Todo } from './my/data/models/Todo'
+import { Abort, getContext } from 'telefunc'
 
 export { createTodoItem }
 
 async function createTodoItem(text) {
+  // We talk more about `getContext()` in the "Authentication" guide
   const context = getContext()
 
-  if( !context.user ) {
-    // The user is not logged-in. We abort.
-    // With Wildcard, you define permissions programmatically
-    // which we talk more about in the "Permissions" section.
-    // The user is not an admin — we abort
+  if (!context.user) {
+    // The user is not logged in — we abort
     throw new Abort()
   }
 
-  // With an ORM:
   const newTodo = new Todo({text, authorId: context.user.id});
   await newTodo.save();
-
-  /* With SQL:
-  const db = require('your-favorite-sql-query-builder');
-  const [newTodo] = await db.query(
+  /* Or if we use SQL:
+  const [newTodo] = await sql.query(
     "INSERT INTO todos VALUES (:text, :authorId);",
     {text, authorId: context.user.id}
   );
@@ -36,7 +33,8 @@ async function createTodoItem(text) {
 ```js
 // Environment: Browser
 
-// Telefunc transforms `.telefunc.js` files
+// `todo.telefunc.js` is not actually imported (the Telefunc transformer transpiles
+//  all `*.telefunc.js` imports)
 import { createTodoItem } from './todo.telefunc'
 
 function onSubmit(text) {
@@ -45,4 +43,51 @@ function onSubmit(text) {
 }
 ```
 
+You define permissions by using `throw new Abort()` to interupt execution when a permission is not fulfilled.
 
+Programmatic permissions enables you to easily
+define and re-use arbitrary complex permissions.
+
+```js
+// checkPermission.js
+// Environment: Node.js server
+
+import { Abort, getContext } from 'telefunc'
+
+export { checkPermission }
+
+funcion checkPermission(role) {
+  const context = getContext()
+
+  // Anonymous users are forbidden
+  if (!context.user) {
+    throw new Abort()
+  }
+
+  // Admins are allowed to do anything
+  if (context.user?.isAdmin) {
+    return;
+  }
+
+  if( !hasPermision(context.user.role, role) ){
+    throw new Abort()
+  }
+
+  // ...
+}
+```
+
+```js
+// *.telefunc.js
+
+import { checkPermission } from './checkPermission'
+
+export { someTelefunction }
+
+function someTelefunction() {
+  // We can re-use `checkPermission()` in all our telefunctions
+  checkPermission()
+
+  // ...
+}
+```
