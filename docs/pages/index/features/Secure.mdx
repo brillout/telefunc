@@ -1,4 +1,4 @@
-With Telefunc, you defined permissions programmatically:
+Permissions can simply be defined programmatically:
 
 ```js
 // todo.telefunc.js
@@ -12,32 +12,32 @@ async function createTodoItem(text) {
   // We talk more about `getContext()` in the "Authentication" guide
   const context = getContext()
 
+  // Only logged-in users can create a new to-do item
   if (!context.user) {
-    // The user is not logged in — we abort
     throw new Abort()
   }
 
-  const newTodo = new Todo({text, authorId: context.user.id});
-  await newTodo.save();
+  const newTodo = new Todo({text, authorId: context.user.id})
+  await newTodo.save()
   /* Or if we use SQL:
   const [newTodo] = await sql.query(
-    "INSERT INTO todos VALUES (:text, :authorId);",
+    'INSERT INTO todos VALUES (:text, :authorId);',
     {text, authorId: context.user.id}
-  );
+  )
   */
 
-  return newTodo;
-};
+  return newTodo
+}
 ```
 
 ```js
 // Environment: Browser
 
 // `todo.telefunc.js` is not actually imported (the Telefunc transformer transpiles
-//  all `*.telefunc.js` imports)
+// `*.telefunc.js` imports)
 import { createTodoItem } from './todo.telefunc'
 
-function onSubmit(text) {
+async function onSubmit(text) {
   const new Todo = await createTodoItem(text)
   // ...
 }
@@ -45,7 +45,7 @@ function onSubmit(text) {
 
 You define permissions by using `throw new Abort()` to interupt execution when a permission is not fulfilled.
 
-Programmatic permissions enables you to easily
+Programmatic permissions enables to easily
 define and re-use arbitrary complex permissions.
 
 ```js
@@ -65,8 +65,8 @@ funcion checkPermission(role) {
   }
 
   // Admins are allowed to do anything
-  if (context.user?.isAdmin) {
-    return;
+  if (context.user.role === 'admin') {
+    return
   }
 
   if( !hasPermision(context.user.role, role) ){

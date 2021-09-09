@@ -36,7 +36,7 @@ function Features() {
           desc: (
             <>
               <p>
-                Thanks to Telefunc's novel <code>Abort()</code> design,{" "}
+                Thanks to Telefunc's <code>Abort()</code>,{" "}
                 <b>permissions can be defined programmatically</b>.
               </p>
               <p>

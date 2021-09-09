@@ -23,7 +23,7 @@ async function getStarWarsMovies(text) {
   */
 
   return movies
-};
+}
 ```
 
 ```js
@@ -35,13 +35,13 @@ import { getStarWarsMovies } from './movies.telefunc'
 
 // We call our telefunction `getStarWarsMovies()`, remotely from the browser
 const movies = await getStarWarsMovies()
-// Print all Star Wars movies in the browser's dev console
+// Print the movies in the browser's dev console
 console.log(movies)
 ```
 
-Creating new telefunctions is cheap; instead of trying to create generic telefunctions and trying to re-use them, we simply create a new telefunction for each frontend need.
+Creating new telefunctions is cheap; instead of trying to create generic telefunctions and re-use them, we simply create a new telefunction for each frontend need.
 
-In other words, instead of thinking in terms of generic enpdoints, your frontend simply direclty use any SQL/ORM query it needs to do its job.
+In other words, instead of thinking in terms of generic enpdoints, the frontend simply direclty use any SQL/ORM query it needs to do its job.
 
 This essentially means that we remove the API layer abstraction.
 
