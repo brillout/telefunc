@@ -95,7 +95,7 @@ function getTelefuncServer(config: ConfigPrivate) {
   const telefuncServer__serverSideUsage =
     typeof global !== "undefined" &&
     global &&
-    global.__INTERNAL_telefuncServer_nodejs;
+    (global as any).__INTERNAL_telefuncServer_nodejs;
   const telefuncServer =
     telefuncServer__testing || telefuncServer__serverSideUsage || null;
 

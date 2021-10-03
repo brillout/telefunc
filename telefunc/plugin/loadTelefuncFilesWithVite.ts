@@ -15,7 +15,7 @@ async function loadTelefuncFilesWithVite(telefuncContext: {
   const userDist = `${telefuncContext._root}/dist`
   const prodPath = `${userDist}/server/${viteEntryFile}`
   const pluginDist = `../../../dist`
-  const devPath = `${pluginDist}/esm/vite/${viteEntryFile}`
+  const devPath = `${pluginDist}/esm/plugin/${viteEntryFile}`
 
   const errorMessage =
     'Make sure to run `vite build && vite build --ssr` before running your Node.js server with `createTelefuncCaller({ isProduction: true })`'

@@ -20,14 +20,20 @@
       "import": "./dist/esm/index.js"
     },
     "./client": {
-      "browser": "./dist/esm/client/index.js"
+      "browser": "./dist/esm/client/index.js",
+      "import": "./dist/esm/client/index.js",
+      "default": "./dist/esm/client/index.js"
     },
     "./server": {
       "node": "./dist/cjs/server/index.js"
     },
     "./vite": {
-      "node": "./dist/cjs/vite/index.js"
+      "node": "./dist/cjs/plugin/vite.js"
+    },
+    "./webpack": {
+      "node": "./dist/cjs/plugin/webpack.js"
     }
+
   },
   "dependencies": {
     "@brillout/fetch": "^0.2.1",

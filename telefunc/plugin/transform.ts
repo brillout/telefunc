@@ -1,8 +1,6 @@
 import { init, parse } from "es-module-lexer";
 import { relative } from "path";
-import {
-  createUnplugin,
-} from "unplugin";
+import { createUnplugin } from "unplugin";
 import { Plugin } from "vite";
 import { assert } from "../server/utils";
 
@@ -45,31 +43,34 @@ const unpluginTransform = createUnplugin(() => {
   return {
     name: "telefunc:transform",
     vite: {
-      config: (config) => {
+      configResolved: (config) => {
         root = config.root || root;
+      },
+      config: () => {
         return {
           ssr: { external: ["telefunc"] },
           optimizeDeps: { include: ["telefunc/client"] },
         };
       },
     },
+    transformInclude(id) {
+      return id.includes(".telefunc.");
+    },
     async transform(src: string, id: string, ssr: undefined | boolean) {
       if (ssr) {
         return null;
       }
-      if (id.includes(".telefunc.")) {
-        assert(root);
-        const filepath = "/" + relative(root, id);
-        assert(!filepath.startsWith("/."));
-        await init;
-        const exports = parse(src)[1];
-        return {
-          code: getCode(exports, filepath),
-          map: null,
-        };
-      }
+      assert(root);
+      const filepath = "/" + relative(root, id);
+      assert(!filepath.startsWith("/."));
+      await init;
+      const exports = parse(src)[1];
+      return {
+        code: getCode(exports, filepath),
+        map: null,
+      };
     },
-  }
+  };
 });
 
 function getCode(exports: readonly string[], filePath: string) {

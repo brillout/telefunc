@@ -13,7 +13,7 @@ import {
   isPromise,
   objectAssign,
 } from "./utils";
-import { loadTelefuncFilesWithVite } from "../vite/loadTelefuncFilesWithVite";
+import { loadTelefuncFilesWithVite } from "../plugin/loadTelefuncFilesWithVite";
 import {
   RequestProps,
   TelefuncFiles,
@@ -215,6 +215,7 @@ async function executeTelefunc(telefuncContext: {
     }
   }
 
+  // console.log({ telefuncResult, telefuncHasErrored, telefuncError })
   return { telefuncResult, telefuncHasErrored, telefuncError };
 }
 
