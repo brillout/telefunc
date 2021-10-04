@@ -209,10 +209,11 @@ function getTelefunctionsProxy(config: ConfigPrivate): Telefunctions {
     }
 
     return function (this: unknown, ...telefunctionArgs: TelefunctionArgs) {
-      assertUsage(
-        !isBinded(this, telefunctionsProxy),
-        "Binding the context object with `bind()` is deprecated."
-      );
+      console.log(telefunctionArgs, telefunctionsProxy)
+      // assertUsage(
+      //   !isBinded(this, telefunctionsProxy),
+      //   "Binding the context object with `bind()` is deprecated."
+      // );
 
       return callTelefunction(telefunctionName, telefunctionArgs, config);
     };

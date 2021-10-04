@@ -22,6 +22,7 @@
     "./client": {
       "browser": "./dist/esm/client/index.js",
       "import": "./dist/esm/client/index.js",
+      "node": "./dist/cjs/client/index.js",
       "default": "./dist/esm/client/index.js"
     },
     "./server": {

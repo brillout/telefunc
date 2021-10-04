@@ -9,33 +9,20 @@ startServer();
 async function startServer() {
   const app = express();
 
-  let viteDevServer;
-  if (isProduction) {
-    app.use(express.static(`${root}/dist/client`));
-  } else {
-    const vite = require("vite");
-    viteDevServer = await vite.createServer({
-      root,
-      server: { middlewareMode: 'html' },
-    });
-  }
+  app.use(express.static(`${root}/dist`));
 
-  const callTelefunc = createTelefuncCaller({ viteDevServer, isProduction, root });
-  app.use(express.text())
+  const callTelefunc = createTelefuncCaller({ isProduction, root });
+  app.use(express.text());
   app.all("/_telefunc", async (req, res, next) => {
-    const {originalUrl: url, method, body, headers } = req
-    const userAgent = headers['user-agent']
+    const { originalUrl: url, method, body, headers } = req;
+    const userAgent = headers["user-agent"];
     const context = {
       userAgent,
     };
-    const result = await callTelefunc({  url, method, body }, context);
+    const result = await callTelefunc({ url, method, body }, context);
     if (!result) return next();
     res.status(result.statusCode).type(result.contentType).send(result.body);
   });
-
-  if( viteDevServer ){
-    app.use(viteDevServer.middlewares);
-  }
 
   const port = process.env.PORT || 3000;
   app.listen(port);
