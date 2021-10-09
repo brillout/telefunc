@@ -1,7 +1,7 @@
 import { init, parse } from "es-module-lexer";
 import { relative } from "path";
 import { Plugin } from "vite";
-import { assert } from "../server/utils";
+import { assert, isObject } from "../server/utils";
 
 export { transform };
 
@@ -16,8 +16,8 @@ function transform(): Plugin {
         optimizeDeps: { include: ["telefunc/client"] },
       };
     },
-    async transform(src: string, id: string, ssr: boolean) {
-      if (ssr) {
+    async transform(src, id, options) {
+      if (isSSR(options)) {
         return;
       }
       if (id.includes(".telefunc.")) {
@@ -43,4 +43,17 @@ function getCode(exports: readonly string[], filePath: string) {
     code += `export const ${exportName} = server['${filePath}:${exportName}'];\n`;
   });
   return code;
+}
+
+function isSSR(options: undefined | boolean | { ssr: boolean }): boolean {
+  if (options === undefined) {
+    return false;
+  }
+  if (typeof options === "boolean") {
+    return options;
+  }
+  if (isObject(options)) {
+    return !!options.ssr;
+  }
+  assert(false);
 }
