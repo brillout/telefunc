@@ -52,6 +52,7 @@ function isSSR(options: undefined | boolean | { ssr: boolean }): boolean {
 function isTelefunc(id: string) {
   return id.includes(".telefunc.");
 }
+
 async function interTransform(src: string, id: string, root: string) {
   assert(root);
   const filepath = "/" + relative(root, id);
