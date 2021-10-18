@@ -10,7 +10,7 @@ async function loadTelefuncFilesWithVite(telefuncContext: {
   _viteDevServer?: ViteDevServer;
   _isProduction: boolean;
 }): Promise<TelefuncFilesUntyped> {
-  const viteEntryFile = 'importTelefuncFiles.js'
+  const viteEntryFile = 'importTelefuncFiles/vite.js'
   assert(moduleExists(`./${viteEntryFile}`, __dirname))
   const userDist = `${telefuncContext._root}/dist`
   const prodPath = `${userDist}/server/${viteEntryFile}`

@@ -1,4 +1,5 @@
 import { init, parse } from "es-module-lexer";
+import * as path from "path";
 import { relative } from "path";
 import { createUnplugin } from "unplugin";
 import { assert, isObject } from "../server/utils";
@@ -30,13 +31,31 @@ const unpluginTransform = createUnplugin(() => {
         return interTransform(src, id, root);
       },
     },
-    transformInclude: isTelefunc,
-    transform: (src, id) => interTransform(src, id, root),
+    transformInclude: (id) => isTelefunc(id) || isImportFiles(id),
+    transform: (src, id) => {
+      if (isImportFiles(id)) {
+        const importFilesDir = `${__dirname}/importTelefuncFiles/`;
+        const contextDir = path.relative(importFilesDir, root);
+
+        return {
+          code: src.replace("RELATIVE_PATH_TO_ROOT", contextDir),
+          map: null,
+        };
+      }
+      if (isSSR()) {
+        return;
+      }
+      return interTransform(src, id, root);
+    },
   };
 });
 
 // https://github.com/vitejs/vite/discussions/5109#discussioncomment-1450726
-function isSSR(options: undefined | boolean | { ssr: boolean }): boolean {
+function isSSR(options?: undefined | boolean | { ssr: boolean }): boolean {
+  // webpack specific
+  if (process.argv.includes("--ssr")) {
+    return true;
+  }
   if (options === undefined) {
     return false;
   }
@@ -49,6 +68,9 @@ function isSSR(options: undefined | boolean | { ssr: boolean }): boolean {
   assert(false);
 }
 
+function isImportFiles(id: string) {
+  return id.includes("/importTelefuncFiles/");
+}
 function isTelefunc(id: string) {
   return id.includes(".telefunc.");
 }

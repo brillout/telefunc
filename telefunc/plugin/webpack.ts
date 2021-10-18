@@ -1,23 +1,12 @@
-import { Plugin } from "vite";
 import { unpluginTransform } from "./transform";
-import { build } from "./build";
-import { importBuild } from "vite-plugin-import-build";
-import { getImportBuildCode } from "./getImportBuildCode";
+import { createUnplugin, UnpluginInstance } from "unplugin";
+import { unpluginBuild } from "./build";
 
-export default unpluginTransform.webpack;
+export default plugin;
 
-function plugin(): Plugin[] {
-  return [
-    {
-      name: "telefunc:config",
-      config: () => ({
-        ssr: { external: ["telefunc"] },
-        optimizeDeps: { include: ["telefunc/client"] },
-      }),
-    },
-    unpluginTransform.vite(),
-    // transform(),
-    build(),
-    importBuild(getImportBuildCode()),
-  ];
+function plugin(): ReturnType<UnpluginInstance<{}>["webpack"]> {
+  return createUnplugin(() => ({
+    ...unpluginTransform.raw(undefined, { framework: "webpack" }),
+    ...unpluginBuild.raw(undefined, { framework: "webpack" }),
+  })).webpack();
 }

@@ -1,11 +1,14 @@
 {
     "main": "index.js",
     "scripts": {
-        "start": "webpack-dev-server --config webpack.dev.js --mode development",
-        "build": "webpack --config webpack.js --mode production",
+        "start": "npm run build && npm run preview",
+        "build": "npm run build:client && npm run build:ssr",
+        "build:client": "webpack --config webpack.js --mode production",
+        "build:ssr": "webpack --config webpack.js --mode production --ssr",
         "preview": "NODE_ENV=production node ./server.js"
     },
     "devDependencies": {
+        "@types/webpack": "^5.28.0",
         "babel-core": "^6.26.3",
         "babel-loader": "^7.1.4",
         "babel-preset-env": "^1.7.0",
