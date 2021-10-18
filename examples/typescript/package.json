@@ -1,8 +1,13 @@
 {
   "scripts": {
-    "start": "node ./server"
+    "dev": "npm run server",
+    "prod": "npm run build && npm run server:prod",
+    "build": "vite build && vite build --ssr",
+    "server": "node server.js",
+    "server:prod": "cross-env NODE_ENV=production node server.js"
   },
   "dependencies": {
+    "cross-env": "^7.0.3",
     "express": "^4.17.1",
     "telefunc": "0.1.0-beta.1",
     "vite": "^2.3.6"
