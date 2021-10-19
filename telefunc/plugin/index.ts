@@ -1,5 +1,5 @@
 import { Plugin } from "vite";
-import { transform, unpluginTransform } from "./transform";
+import { unpluginTransform } from "./transform";
 import { build } from "./build";
 import { importBuild } from "vite-plugin-import-build";
 import { getImportBuildCode } from "./getImportBuildCode";

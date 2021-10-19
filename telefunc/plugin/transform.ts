@@ -3,6 +3,10 @@ import * as path from "path";
 import { relative } from "path";
 import { createUnplugin } from "unplugin";
 import { assert, isObject } from "../server/utils";
+import {
+  getImportBuildCode,
+  getImportBuildCodeWebpack,
+} from "./getImportBuildCode";
 
 export { unpluginTransform };
 
@@ -31,14 +35,11 @@ const unpluginTransform = createUnplugin(() => {
         return interTransform(src, id, root);
       },
     },
-    transformInclude: (id) => isTelefunc(id) || isImportFiles(id),
+    transformInclude: (id) => isTelefunc(id) || isImportBuildFile(id),
     transform: (src, id) => {
-      if (isImportFiles(id)) {
-        const importFilesDir = `${__dirname}/importTelefuncFiles/`;
-        const contextDir = path.relative(importFilesDir, root);
-
+      if (isImportBuildFile(id)) {
         return {
-          code: src.replace("RELATIVE_PATH_TO_ROOT", contextDir),
+          code: getImportBuildCodeWebpack(root),
           map: null,
         };
       }
@@ -68,8 +69,8 @@ function isSSR(options?: undefined | boolean | { ssr: boolean }): boolean {
   assert(false);
 }
 
-function isImportFiles(id: string) {
-  return id.includes("/importTelefuncFiles/");
+function isImportBuildFile(id: string) {
+  return id.includes("importBuild.js");
 }
 function isTelefunc(id: string) {
   return id.includes(".telefunc.");

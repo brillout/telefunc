@@ -3,6 +3,7 @@ import type { InputOption } from "rollup";
 import { assert, isObject } from "../server/utils";
 import { createUnplugin } from "unplugin";
 import * as path from "path";
+import { Compiler } from "webpack";
 
 export { build };
 
@@ -43,10 +44,27 @@ export const unpluginBuild = createUnplugin(() => {
   return {
     name: "telefunc:build",
     // better way to emit files?
-    async webpack(compiler) {
+    async webpack(compiler: Compiler) {
+      // = {telefunc: 'commonjs2 telefunc'}
       if (!isSSR()) {
-        return
+        return;
       }
+
+      // No additonal files emitting, so no different result than client build
+      compiler.hooks.shouldEmit.tap("telefunc", (compilation) => {
+        Object.keys(compilation.assets).forEach((k) => {
+          if (k.includes("server/importBuild.js")) {
+            return;
+          }
+
+          delete compilation.assets[k];
+        });
+        return true;
+      });
+
+      compiler.options.externals = normalizeWebpackExternals(
+        compiler.options.externals
+      )!;
       let entry: Record<string, unknown>;
       if (typeof compiler.options.entry === "function") {
         entry = await compiler.options.entry();
@@ -54,20 +72,31 @@ export const unpluginBuild = createUnplugin(() => {
         entry = compiler.options.entry;
       }
 
-      // faster build through building only the telefunc files 
-      // TODO: remove assets so no different assets on the second build
-      Object.keys(entry).forEach((k) => delete entry[k])
+
+      // faster build through building only the telefunc files
+      Object.keys(entry).forEach((k) => delete entry[k]);
 
       const telefuncDist = path.resolve(
         path.dirname(require.resolve("telefunc")),
         ".."
       );
-      entry["server/importTelefuncFiles"] = {
-        import: [`${telefuncDist}/esm/plugin/importTelefuncFiles/webpack.js`],
+
+      entry["server/importBuild"] = {
+        import: [`${telefuncDist}/esm/plugin/importBuild.js`],
       };
     },
   };
 });
+
+function normalizeWebpackExternals(
+  externals?: Compiler["options"]["externals"]
+) {
+  if (!externals) {
+    return { telefunc: "commonjs2 telefunc" };
+  }
+  // if user defines externals, they need to add telefunc to the object
+  return externals;
+}
 
 function normalizeRollupInput(input?: InputOption): Record<string, string> {
   if (!input) {
