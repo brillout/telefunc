@@ -45,7 +45,6 @@ export const unpluginBuild = createUnplugin(() => {
     name: "telefunc:build",
     // better way to emit files?
     async webpack(compiler: Compiler) {
-      // = {telefunc: 'commonjs2 telefunc'}
       if (!isSSR()) {
         return;
       }
@@ -56,7 +55,9 @@ export const unpluginBuild = createUnplugin(() => {
           if (k.includes("server/importBuild.js")) {
             return;
           }
-
+          if (k.includes("server/importTelefuncFiles.js")) {
+            return;
+          }
           delete compilation.assets[k];
         });
         return true;
@@ -72,7 +73,6 @@ export const unpluginBuild = createUnplugin(() => {
         entry = compiler.options.entry;
       }
 
-
       // faster build through building only the telefunc files
       Object.keys(entry).forEach((k) => delete entry[k]);
 
@@ -80,6 +80,9 @@ export const unpluginBuild = createUnplugin(() => {
         path.dirname(require.resolve("telefunc")),
         ".."
       );
+      entry["server/importTelefuncFiles"] = {
+        import: [`${telefuncDist}/esm/plugin/importTelefuncFiles/webpack.js`],
+      };
 
       entry["server/importBuild"] = {
         import: [`${telefuncDist}/esm/plugin/importBuild.js`],
@@ -92,7 +95,10 @@ function normalizeWebpackExternals(
   externals?: Compiler["options"]["externals"]
 ) {
   if (!externals) {
-    return { telefunc: "commonjs2 telefunc" };
+    return {
+      telefunc: "commonjs2 telefunc",
+      "./importTelefuncFiles.js": "commonjs2 ./importTelefuncFiles.js",
+    };
   }
   // if user defines externals, they need to add telefunc to the object
   return externals;

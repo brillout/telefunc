@@ -1,11 +1,9 @@
 import { init, parse } from "es-module-lexer";
-import * as path from "path";
 import { relative } from "path";
 import { createUnplugin } from "unplugin";
 import { assert, isObject } from "../server/utils";
 import {
   getImportBuildCode,
-  getImportBuildCodeWebpack,
 } from "./getImportBuildCode";
 
 export { unpluginTransform };
@@ -35,11 +33,18 @@ const unpluginTransform = createUnplugin(() => {
         return interTransform(src, id, root);
       },
     },
-    transformInclude: (id) => isTelefunc(id) || isImportBuildFile(id),
+    transformInclude: (id) =>
+      isTelefunc(id) || isImportBuildFile(id) || isImportTelefuncFilesFile(id),
     transform: (src, id) => {
+      if (isImportTelefuncFilesFile(id)) {
+        return {
+          code: src.replace("@telefunc/REPLACE_PATH", root),
+          map: null,
+        };
+      }
       if (isImportBuildFile(id)) {
         return {
-          code: getImportBuildCodeWebpack(root),
+          code: getImportBuildCode(),
           map: null,
         };
       }
@@ -69,9 +74,14 @@ function isSSR(options?: undefined | boolean | { ssr: boolean }): boolean {
   assert(false);
 }
 
+function isImportTelefuncFilesFile(id: string) {
+  return id.includes("/importTelefuncFiles/");
+}
+
 function isImportBuildFile(id: string) {
   return id.includes("importBuild.js");
 }
+
 function isTelefunc(id: string) {
   return id.includes(".telefunc.");
 }

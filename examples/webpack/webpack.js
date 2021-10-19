@@ -2,6 +2,11 @@ const path = require("path");
 const telefunc = require("telefunc/webpack").default;
 
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+
+function isSSR() {
+  return process.argv.includes("--ssr");
+}
+
 module.exports = {
   entry: { main: "./client.ts" },
   module: {
@@ -24,4 +29,8 @@ module.exports = {
       inject: true,
     }),
   ],
+  output: {
+    // setting this in the compiler doesn't work, so users should include this line in their configs
+    libraryTarget: isSSR ? "commonjs-module" : undefined,
+  },
 };
