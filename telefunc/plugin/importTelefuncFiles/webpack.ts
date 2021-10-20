@@ -1,3 +1,6 @@
+/* @telefunc/webpack */
+export { importTelefuncFiles };
+
 function importTelefuncFiles() {
   const telefuncFiles: Record<string, unknown> = {};
 
@@ -15,4 +18,4 @@ function importTelefuncFiles() {
   return { telefuncFiles };
 }
 
-export { importTelefuncFiles };
+

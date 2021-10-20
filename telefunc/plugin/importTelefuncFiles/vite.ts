@@ -1,3 +1,4 @@
+/* @telefunc/vite */
 export { importTelefuncFiles };
 
 function importTelefuncFiles(): { telefuncFiles: Record<string, unknown> } {
@@ -7,3 +8,4 @@ function importTelefuncFiles(): { telefuncFiles: Record<string, unknown> } {
   const telefuncFiles = import.meta.globEager("/**/*.telefunc.*([a-zA-Z0-9])");
   return { telefuncFiles };
 }
+

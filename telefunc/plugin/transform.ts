@@ -2,9 +2,7 @@ import { init, parse } from "es-module-lexer";
 import { relative } from "path";
 import { createUnplugin } from "unplugin";
 import { assert, isObject } from "../server/utils";
-import {
-  getImportBuildCode,
-} from "./getImportBuildCode";
+import { getImportBuildCode } from "./getImportBuildCode";
 
 export { unpluginTransform };
 

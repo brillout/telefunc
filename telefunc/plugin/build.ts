@@ -3,7 +3,7 @@ import type { InputOption } from "rollup";
 import { assert, isObject } from "../server/utils";
 import { createUnplugin } from "unplugin";
 import * as path from "path";
-import { Compiler } from "webpack";
+import { Compiler, webpack } from "webpack";
 
 export { build };
 

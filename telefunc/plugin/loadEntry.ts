@@ -2,9 +2,9 @@ import { assert, assertUsage, moduleExists } from '../server/utils'
 import { resolve as pathResolve } from 'path'
 import type { ViteDevServer } from 'vite'
 
-export { loadViteEntry }
+export { loadEntry }
 
-async function loadViteEntry({
+async function loadEntry({
   devPath,
   prodPath,
   isProduction,
