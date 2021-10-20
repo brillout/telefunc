@@ -31,6 +31,6 @@ module.exports = {
   ],
   output: {
     // setting this in the compiler doesn't work, so users should include this line in their configs
-    libraryTarget: isSSR ? "commonjs-module" : undefined,
+    libraryTarget: isSSR() ? "commonjs-module" : undefined,
   },
 };

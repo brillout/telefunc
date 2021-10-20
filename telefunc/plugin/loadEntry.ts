@@ -27,7 +27,7 @@ async function loadEntry({
     const devPathResolved = requireResolve(devPath)
     try {
       moduleExports = await viteDevServer.ssrLoadModule(devPathResolved)
-    } catch (err) {
+    } catch (err: any) {
       viteDevServer.ssrFixStacktrace(err)
       throw err
     }
