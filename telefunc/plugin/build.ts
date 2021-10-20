@@ -3,6 +3,7 @@ import type { InputOption } from "rollup";
 import { assert, isObject } from "../server/utils";
 import { createUnplugin } from "unplugin";
 import * as path from "path";
+import { isWebpack } from "./utils/isWebpack";
 import { Compiler, webpack } from "webpack";
 
 export { build };
@@ -121,7 +122,9 @@ function normalizeRollupInput(input?: InputOption): Record<string, string> {
 }
 
 function getViteEntry() {
-  const fileName = "importTelefuncFiles/vite";
+  const fileName = isWebpack()
+    ? "importTelefuncFiles"
+    : "importTelefuncFiles/vite";
   const pluginDist = `../../../dist`;
   const esmPath = require.resolve(`${pluginDist}/esm/plugin/${fileName}.js`);
   const viteEntry = {

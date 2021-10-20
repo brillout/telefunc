@@ -2,27 +2,33 @@ import { assert, hasProp, isObject, moduleExists } from "../server/utils";
 import type { ViteDevServer } from "vite";
 import { TelefuncFilesUntyped } from "../server/types";
 import { loadEntry } from "./loadEntry";
+import { isWebpack } from "./utils/isWebpack";
 
 export { loadTelefuncFilesWithVite };
 
-type Env = "webpack" | "vite" | "none"
+type Env = "webpack" | "vite" | "none";
 
+// TODO: improve overall code structure
 async function loadTelefuncFilesWithVite(telefuncContext: {
   _root: string;
   _viteDevServer?: ViteDevServer;
   _isProduction: boolean;
 }): Promise<TelefuncFilesUntyped> {
-  const env = getEnv(telefuncContext)
+  const env = getEnv(telefuncContext);
 
-  const entryFile = "importTelefuncFiles/vite.js";
+  const entryFile =
+    env === "webpack"
+      ? "importTelefuncFiles.js"
+      : "importTelefuncFiles/vite.js";
   const devEntryFile = `importTelefuncFiles/${env}.js`;
-  assert(moduleExists(`./${entryFile}`, __dirname));
+  // TODO: re-use assert?
+  //assert(moduleExists(`./${entryFile}`, __dirname));
   const userDist = `${telefuncContext._root}/dist`;
   const prodPath = `${userDist}/server/${entryFile}`;
   const pluginDist = `../../../dist`;
   const devPath = `${pluginDist}/esm/plugin/${devEntryFile}`;
 
-  const errorMessage = getProdErrorMessage(env)
+  const errorMessage = getProdErrorMessage(env);
 
   const moduleExports = await loadEntry({
     devPath,
@@ -49,6 +55,9 @@ function isObjectOfObjects(
 function getEnv({ _viteDevServer }: Record<string, unknown>): Env {
   if (_viteDevServer) {
     return "vite";
+  }
+  if (isWebpack()) {
+    return "webpack";
   }
   // TODO: determine environments so we can show proper error messages
   return "none";
