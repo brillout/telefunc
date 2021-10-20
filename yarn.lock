@@ -398,15 +398,15 @@
   resolved "https://registry.yarnpkg.com/@brillout/json-s/-/json-s-0.2.0.tgz#4ef2cc02803da43790bdff90a0b0a5762161ff6f"
   integrity sha512-kYmNGXGrBXqF4rmIXDpQVUFK9af1DF38BjUXgEwnPk1bZv3dFVjn8iu4CgE+LP5KvMyyDWfGhQfIPuX+pc3jNg==
 
-"@brillout/libassert@^0.2.2":
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/@brillout/libassert/-/libassert-0.2.2.tgz#44fdfc82f14e0d94db5a7126e20f648e15f01695"
-  integrity sha512-arJuwVfosl6149hiMLBai7X7BciLag+iXPLVrDXwIAfIn/3BetR+zMyP56lfFUha4nCCg/ERYKEXU1qS4p9BMQ==
-
 "@brillout/libassert@^0.4.2":
   version "0.4.2"
   resolved "https://registry.yarnpkg.com/@brillout/libassert/-/libassert-0.4.2.tgz#e536e86edd4799796c95c436f05298c8ab1504f9"
   integrity sha512-8B3gmpeOlwnrWQh5c1lxBIKeUs7dGAxTt8q5hjlNuFZdGsV+AByoD6oQRmvCOHcu7bEQW7lYRIN8gfAIwqvYUQ==
+
+"@brillout/libassert@^0.5.2":
+  version "0.5.2"
+  resolved "https://registry.yarnpkg.com/@brillout/libassert/-/libassert-0.5.2.tgz#692a80d9759485f157c7fb5333aa3e194d4a1d04"
+  integrity sha512-TG2GK3hOsQ9IOpnpOxP4PyZAs4UvYE43aonAlOXY3esr9BzXUV9cetpaYeMTH1lsuBesZo57/YdTNm+KpPX/zw==
 
 "@brillout/path-to-regexp@^0.1.2":
   version "0.1.2"

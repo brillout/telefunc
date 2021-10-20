@@ -1,6 +1,6 @@
 import { stringify } from "@brillout/json-s";
 import { makeHttpRequest } from "./makeHttpRequest";
-import { assert, assertUsage } from "./assert";
+import { assert, assertUsage } from "./utils";
 import type {
   TelefunctionName,
   TelefunctionResult,

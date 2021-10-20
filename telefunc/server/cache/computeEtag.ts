@@ -1,4 +1,4 @@
-import { assert } from "../utils/assert";
+import { assert } from "../utils";
 import { createHash } from "crypto";
 
 export { computeEtag };
