@@ -121,7 +121,7 @@ function normalizeRollupInput(input?: InputOption): Record<string, string> {
 }
 
 function getViteEntry() {
-  const fileName = "importTelefuncFiles";
+  const fileName = "importTelefuncFiles/vite";
   const pluginDist = `../../../dist`;
   const esmPath = require.resolve(`${pluginDist}/esm/plugin/${fileName}.js`);
   const viteEntry = {

@@ -14,7 +14,7 @@ async function loadTelefuncFilesWithVite(telefuncContext: {
 }): Promise<TelefuncFilesUntyped> {
   const env = getEnv(telefuncContext)
 
-  const entryFile = "importTelefuncFiles.js";
+  const entryFile = "importTelefuncFiles/vite.js";
   const devEntryFile = `importTelefuncFiles/${env}.js`;
   assert(moduleExists(`./${entryFile}`, __dirname));
   const userDist = `${telefuncContext._root}/dist`;
