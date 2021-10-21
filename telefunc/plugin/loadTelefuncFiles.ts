@@ -10,7 +10,6 @@ export { loadTelefuncFiles };
 
 type BundlerName = "webpack" | "vite" | null;
 
-// TODO: improve overall code structure
 async function loadTelefuncFiles(telefuncContext: {
   _root: string;
   _viteDevServer?: ViteDevServer;
@@ -42,7 +41,6 @@ function getBundlerName({
   if (isWebpack()) {
     return "webpack";
   }
-  // TODO: determine environments so we can show proper error messages
   return null;
 }
 

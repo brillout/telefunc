@@ -29,7 +29,7 @@
       "node": "./dist/cjs/plugin/vite/index.js"
     },
     "./webpack": {
-      "node": "./dist/cjs/plugin/webpack.js"
+      "node": "./dist/cjs/plugin/webpack/index.js"
     }
   },
   "dependencies": {

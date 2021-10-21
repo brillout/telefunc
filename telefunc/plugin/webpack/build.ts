@@ -1,7 +1,7 @@
 import { createUnplugin } from "unplugin";
 import { resolve, dirname } from "path";
 import { Compiler } from "webpack";
-import { assert, moduleExists } from "../server/utils";
+import { assert, moduleExists } from "../../server/utils";
 import { isSSR } from "./isSSR";
 
 export const unpluginBuild = createUnplugin(() => {
@@ -52,7 +52,7 @@ export const unpluginBuild = createUnplugin(() => {
         };
       }
       {
-        const filePath = `${telefuncDist}/esm/plugin/importBuild.js`;
+        const filePath = `${telefuncDist}/esm/plugin/webpack/importBuild.js`;
         assert(moduleExists(filePath));
         entry["server/importBuild"] = {
           import: [filePath],

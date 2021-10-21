@@ -1,9 +1,9 @@
 import { createUnplugin } from "unplugin";
-import { assert } from "../server/utils";
+import { assert } from "../../server/utils";
 import { getImportBuildCode } from "./getImportBuildCode";
 import { isSSR } from "./isSSR";
-import { isTelefuncFile } from "./isTelefuncFile";
-import { transformTelefuncFile } from "./transformTelefuncFile";
+import { isTelefuncFile } from "../isTelefuncFile";
+import { transformTelefuncFile } from "../transformTelefuncFile";
 
 export { unpluginTransform };
 
