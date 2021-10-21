@@ -1,4 +1,4 @@
-import { assert, assertUsage, moduleExists } from '../server/utils'
+import { assert, assertUsage, moduleExists } from '../../server/utils'
 import { resolve as pathResolve } from 'path'
 import type { ViteDevServer } from 'vite'
 

@@ -1,8 +1,7 @@
-import { init, parse } from "es-module-lexer";
-import { relative } from "path";
 import { createUnplugin } from "unplugin";
 import { assert, isObject } from "../server/utils";
 import { getImportBuildCode } from "./getImportBuildCode";
+import { transformTelefuncFile } from "./transformTelefuncFile";
 
 export { unpluginTransform };
 
@@ -28,7 +27,7 @@ const unpluginTransform = createUnplugin(() => {
         if (isSSR(options)) {
           return;
         }
-        return interTransform(src, id, root);
+        return transformTelefuncFile(src, id, root);
       },
     },
     transformInclude: (id) =>
@@ -49,7 +48,7 @@ const unpluginTransform = createUnplugin(() => {
       if (isSSR()) {
         return;
       }
-      return interTransform(src, id, root);
+      return transformTelefuncFile(src, id, root);
     },
   };
 });
@@ -82,26 +81,4 @@ function isImportBuildFile(id: string) {
 
 function isTelefunc(id: string) {
   return id.includes(".telefunc.");
-}
-
-async function interTransform(src: string, id: string, root: string) {
-  assert(root);
-  const filepath = "/" + relative(root, id);
-  assert(!filepath.startsWith("/."));
-  await init;
-  const exports = parse(src)[1];
-  return {
-    code: getCode(exports, filepath),
-    map: null,
-  };
-}
-
-function getCode(exports: readonly string[], filePath: string) {
-  let code = `import { server } from 'telefunc/client'
-
-  `;
-  exports.forEach((exportName) => {
-    code += `export const ${exportName} = server['${filePath}:${exportName}'];\n`;
-  });
-  return code;
 }

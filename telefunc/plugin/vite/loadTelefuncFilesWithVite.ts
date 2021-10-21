@@ -1,7 +1,7 @@
-import { assert, hasProp, isObject, moduleExists } from "../server/utils";
+import { assert, hasProp, isObject, moduleExists } from "../../server/utils";
 import type { ViteDevServer } from "vite";
 import { loadViteEntry } from './loadViteEntry'
-import {TelefuncFilesUntyped} from "../server/types";
+import {TelefuncFilesUntyped} from "../../server/types";
 
 export { loadTelefuncFilesWithVite };
 
