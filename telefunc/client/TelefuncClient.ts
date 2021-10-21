@@ -1,6 +1,6 @@
 import { stringify } from "@brillout/json-s";
 import { makeHttpRequest } from "./makeHttpRequest";
-import { assert, assertUsage } from "./assert";
+import { assert, assertUsage } from "./utils";
 import type {
   TelefunctionName,
   TelefunctionResult,
@@ -95,7 +95,7 @@ function getTelefuncServer(config: ConfigPrivate) {
   const telefuncServer__serverSideUsage =
     typeof global !== "undefined" &&
     global &&
-    global.__INTERNAL_telefuncServer_nodejs;
+    (global as any).__INTERNAL_telefuncServer_nodejs;
   const telefuncServer =
     telefuncServer__testing || telefuncServer__serverSideUsage || null;
 

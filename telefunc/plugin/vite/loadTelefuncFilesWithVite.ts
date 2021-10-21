@@ -1,7 +1,8 @@
-import { assert, hasProp, isObject, moduleExists } from "../server/utils";
+import { assert, hasProp, isObject, moduleExists } from "../../server/utils";
 import type { ViteDevServer } from "vite";
 import { loadViteEntry } from './loadViteEntry'
-import {TelefuncFilesUntyped} from "../server/types";
+import {TelefuncFilesUntyped} from "../../server/types";
+import {importTelefuncFilesFilePath} from "./importTelefuncFilesPath";
 
 export { loadTelefuncFilesWithVite };
 
@@ -12,10 +13,11 @@ async function loadTelefuncFilesWithVite(telefuncContext: {
 }): Promise<TelefuncFilesUntyped> {
   const viteEntryFile = 'importTelefuncFiles.js'
   assert(moduleExists(`./${viteEntryFile}`, __dirname))
+
   const userDist = `${telefuncContext._root}/dist`
   const prodPath = `${userDist}/server/${viteEntryFile}`
-  const pluginDist = `../../../dist`
-  const devPath = `${pluginDist}/esm/vite/${viteEntryFile}`
+
+  const devPath = importTelefuncFilesFilePath
 
   const errorMessage =
     'Make sure to run `vite build && vite build --ssr` before running your Node.js server with `createTelefuncCaller({ isProduction: true })`'

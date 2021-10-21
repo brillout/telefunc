@@ -1,5 +1,5 @@
 import { isAbsolute, resolve } from 'path'
-import { assert } from './assert'
+import { assert } from '../utils'
 
 export { moduleExists }
 

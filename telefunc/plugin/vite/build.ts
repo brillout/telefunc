@@ -1,6 +1,10 @@
 import { Plugin } from "vite";
 import type { InputOption } from "rollup";
-import { assert, isObject } from "../server/utils";
+import { assert, isObject } from "../../server/utils";
+import {
+  importTelefuncFilesFileNameBase,
+  importTelefuncFilesFilePath,
+} from "./importTelefuncFilesPath";
 
 export { build };
 
@@ -54,11 +58,8 @@ function normalizeRollupInput(input?: InputOption): Record<string, string> {
 }
 
 function getViteEntry() {
-  const fileName = "importTelefuncFiles";
-  const pluginDist = `../../../dist`;
-  const esmPath = require.resolve(`${pluginDist}/esm/vite/${fileName}.js`);
   const viteEntry = {
-    [fileName]: esmPath,
+    [importTelefuncFilesFileNameBase]: importTelefuncFilesFilePath,
   };
   return viteEntry;
 }

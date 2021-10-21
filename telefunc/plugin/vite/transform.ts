@@ -1,7 +1,7 @@
-import { init, parse } from "es-module-lexer";
-import { relative } from "path";
 import { Plugin } from "vite";
-import { assert, isObject } from "../server/utils";
+import { assert, isObject } from "../../server/utils";
+import { isTelefuncFile } from "../isTelefuncFile";
+import { transformTelefuncFile } from "../transformTelefuncFile";
 
 export { transform };
 
@@ -20,31 +20,15 @@ function transform(): Plugin {
       if (isSSR(options)) {
         return;
       }
-      if (id.includes(".telefunc.")) {
+      if (isTelefuncFile(id)) {
         assert(root);
-        const filePath = "/" + relative(root, id);
-        assert(!filePath.startsWith("/."));
-        await init;
-        const exports = parse(src)[1];
-        return {
-          code: getCode(exports, filePath),
-          map: null,
-        };
+        return transformTelefuncFile(src, id, root);
       }
     },
   };
 }
 
-function getCode(exports: readonly string[], filePath: string) {
-  let code = `import { server } from 'telefunc/client';
-
-`;
-  exports.forEach((exportName) => {
-    code += `export const ${exportName} = server['${filePath}:${exportName}'];\n`;
-  });
-  return code;
-}
-
+// https://github.com/vitejs/vite/discussions/5109#discussioncomment-1450726
 function isSSR(options: undefined | boolean | { ssr: boolean }): boolean {
   if (options === undefined) {
     return false;

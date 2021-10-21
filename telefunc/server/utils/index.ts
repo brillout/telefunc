@@ -1,5 +1,4 @@
 export * from '../../shared/utils'
-export * from './assert'
 export * from './hasProp'
 export * from './isCallable'
 export * from './isPlainObject'
