@@ -32,6 +32,7 @@ async function loadTelefuncFiles(telefuncContext: {
   );
 }
 
+// TODO: rethink this
 function getBundlerName({
   _viteDevServer,
 }: Record<string, unknown>): BundlerName {
@@ -41,7 +42,11 @@ function getBundlerName({
   if (isWebpack()) {
     return "webpack";
   }
+  // TODO: how to add check for prod?
+  return "vite"
+  /*
   return null;
+  */
 }
 
 function isWebpack() {
