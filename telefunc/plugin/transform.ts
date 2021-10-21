@@ -1,37 +1,22 @@
 import { createUnplugin } from "unplugin";
-import { assert, isObject } from "../server/utils";
+import { assert } from "../server/utils";
 import { getImportBuildCode } from "./getImportBuildCode";
+import { isSSR } from "./isSSR";
+import { isTelefuncFile } from "./isTelefuncFile";
 import { transformTelefuncFile } from "./transformTelefuncFile";
 
 export { unpluginTransform };
 
-// @ts-ignore
-const unpluginTransform = createUnplugin(() => {
-  // better way to handle config.root in webpack/rollup?
+const unpluginTransform = createUnplugin((_userPlugin, meta) => {
+  assert(meta.framework === "webpack");
+  // better way to handle config.root?
   let root = process.cwd();
   return {
     name: "telefunc:transform",
-    vite: {
-      configResolved: (config) => {
-        root = config.root || root;
-      },
-      config: () => {
-        return {
-          ssr: { external: ["telefunc"] },
-        };
-      },
-      transform(src, id, options) {
-        if (!isTelefunc(id)) {
-          return;
-        }
-        if (isSSR(options)) {
-          return;
-        }
-        return transformTelefuncFile(src, id, root);
-      },
-    },
     transformInclude: (id) =>
-      isTelefunc(id) || isImportBuildFile(id) || isImportTelefuncFilesFile(id),
+      isTelefuncFile(id) ||
+      isImportBuildFile(id) ||
+      isImportTelefuncFilesFile(id),
     transform: (src, id) => {
       if (isImportTelefuncFilesFile(id)) {
         return {
@@ -45,40 +30,29 @@ const unpluginTransform = createUnplugin(() => {
           map: null,
         };
       }
-      if (isSSR()) {
-        return;
+      if (isTelefuncFile(id)) {
+        if (isSSR()) {
+          return;
+        }
+        return transformTelefuncFile(src, id, root);
       }
-      return transformTelefuncFile(src, id, root);
+      assert(false);
     },
   };
 });
 
-// https://github.com/vitejs/vite/discussions/5109#discussioncomment-1450726
-function isSSR(options?: undefined | boolean | { ssr: boolean }): boolean {
-  // webpack specific
-  if (process.argv.includes("--ssr")) {
-    return true;
-  }
-  if (options === undefined) {
-    return false;
-  }
-  if (typeof options === "boolean") {
-    return options;
-  }
-  if (isObject(options)) {
-    return !!options.ssr;
-  }
-  assert(false);
-}
-
 function isImportTelefuncFilesFile(id: string) {
-  return id.includes("/importTelefuncFiles/");
+  // TODO: make test more robust
+  //assert(pathIsNormalized(id));
+  return id.includes("importTelefuncFiles");
 }
 
 function isImportBuildFile(id: string) {
+  //assert(pathIsNormalized(id));
   return id.includes("importBuild.js");
 }
 
-function isTelefunc(id: string) {
-  return id.includes(".telefunc.");
+// Make sure paths are UNIX-like, even on windows
+function pathIsNormalized(filePath: string) {
+  return !filePath.includes("\\");
 }

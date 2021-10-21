@@ -24,9 +24,10 @@ async function loadViteEntry({
     moduleExports = require_(prodPathResolved)
   } else {
     assert(viteDevServer)
-    const devPathResolved = requireResolve(devPath)
+    devPath = requireResolve(devPath)
+    assert(moduleExists(devPath))
     try {
-      moduleExports = await viteDevServer.ssrLoadModule(devPathResolved)
+      moduleExports = await viteDevServer.ssrLoadModule(devPath)
     } catch (err) {
       viteDevServer.ssrFixStacktrace(err)
       throw err
@@ -45,4 +46,3 @@ function requireResolve(modulePath: string): string {
   const req = require
   return req.resolve(modulePath)
 }
-

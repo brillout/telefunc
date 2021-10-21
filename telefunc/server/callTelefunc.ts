@@ -13,7 +13,7 @@ import {
   isPromise,
   objectAssign,
 } from "./utils";
-import { loadTelefuncFilesWithVite } from "../plugin/loadTelefuncFilesWithVite";
+import { loadTelefuncFiles } from "../plugin/loadTelefuncFiles";
 import {
   RequestProps,
   TelefuncFiles,
@@ -355,7 +355,7 @@ async function getTelefuncFiles(telefuncContext: {
     return telefuncFilesManuallySet;
   }
   assert(hasProp(telefuncContext, "_root", "string"));
-  const telefuncFiles = await loadTelefuncFilesWithVite(telefuncContext);
+  const telefuncFiles = await loadTelefuncFiles(telefuncContext);
   return telefuncFiles;
 }
 

@@ -1,6 +1,7 @@
 import { Plugin } from "vite";
 import { assert, isObject } from "../../server/utils";
-import {transformTelefuncFile} from "../transformTelefuncFile";
+import { isTelefuncFile } from "../isTelefuncFile";
+import { transformTelefuncFile } from "../transformTelefuncFile";
 
 export { transform };
 
@@ -19,14 +20,15 @@ function transform(): Plugin {
       if (isSSR(options)) {
         return;
       }
-      if (id.includes(".telefunc.")) {
+      if (isTelefuncFile(id)) {
         assert(root);
-        return transformTelefuncFile(src, id, root)
+        return transformTelefuncFile(src, id, root);
       }
     },
   };
 }
 
+// https://github.com/vitejs/vite/discussions/5109#discussioncomment-1450726
 function isSSR(options: undefined | boolean | { ssr: boolean }): boolean {
   if (options === undefined) {
     return false;

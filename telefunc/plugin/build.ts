@@ -1,45 +1,8 @@
-import { Plugin } from "vite";
-import type { InputOption } from "rollup";
-import { assert, isObject } from "../server/utils";
 import { createUnplugin } from "unplugin";
-import * as path from "path";
-import { isWebpack } from "./utils/isWebpack";
-import { Compiler, webpack } from "webpack";
-
-export { build };
-
-function build(): Plugin {
-  return {
-    name: "telefunc:build",
-    apply: "build",
-    config: (config) => {
-      const configMod = {
-        ssr: { external: ["vite-plugin-ssr"] },
-      };
-      if (!isSSR(config)) {
-        return {
-          ...configMod,
-          build: {
-            outDir: "dist/client",
-          },
-        };
-      } else {
-        const viteEntry = getViteEntry();
-        const input = {
-          ...viteEntry,
-          ...normalizeRollupInput(config.build?.rollupOptions?.input),
-        };
-        return {
-          ...configMod,
-          build: {
-            rollupOptions: { input },
-            outDir: "dist/server",
-          },
-        };
-      }
-    },
-  };
-}
+import { resolve, dirname } from "path";
+import { Compiler } from "webpack";
+import { assert, moduleExists } from "../server/utils";
+import { isSSR } from "./isSSR";
 
 export const unpluginBuild = createUnplugin(() => {
   return {
@@ -77,17 +40,24 @@ export const unpluginBuild = createUnplugin(() => {
       // faster build through building only the telefunc files
       Object.keys(entry).forEach((k) => delete entry[k]);
 
-      const telefuncDist = path.resolve(
-        path.dirname(require.resolve("telefunc")),
-        ".."
+      const telefuncDist = resolve(
+        dirname(require.resolve("telefunc")),
+        "../../dist/"
       );
-      entry["server/importTelefuncFiles"] = {
-        import: [`${telefuncDist}/esm/plugin/importTelefuncFiles/webpack.js`],
-      };
-
-      entry["server/importBuild"] = {
-        import: [`${telefuncDist}/esm/plugin/importBuild.js`],
-      };
+      {
+        const filePath = `${telefuncDist}/esm/plugin/webpack/importTelefuncFiles.js`;
+        assert(moduleExists(filePath));
+        entry["server/importTelefuncFiles"] = {
+          import: [filePath],
+        };
+      }
+      {
+        const filePath = `${telefuncDist}/esm/plugin/importBuild.js`;
+        assert(moduleExists(filePath));
+        entry["server/importBuild"] = {
+          import: [filePath],
+        };
+      }
     },
   };
 });
@@ -103,36 +73,4 @@ function normalizeWebpackExternals(
   }
   // if user defines externals, they need to add telefunc to the object
   return externals;
-}
-
-function normalizeRollupInput(input?: InputOption): Record<string, string> {
-  if (!input) {
-    return {};
-  }
-  /*
-  if (typeof input === "string") {
-    return { [input]: input };
-  }
-  if (Array.isArray(input)) {
-    return Object.fromEntries(input.map((i) => [i, i]));
-  }
-  */
-  assert(isObject(input));
-  return input;
-}
-
-function getViteEntry() {
-  const fileName = isWebpack()
-    ? "importTelefuncFiles"
-    : "importTelefuncFiles/vite";
-  const pluginDist = `../../../dist`;
-  const esmPath = require.resolve(`${pluginDist}/esm/plugin/${fileName}.js`);
-  const viteEntry = {
-    [fileName]: esmPath,
-  };
-  return viteEntry;
-}
-
-function isSSR(config?: { build?: { ssr?: boolean | string } }): boolean {
-  return !!config?.build?.ssr || process.argv.includes("--ssr");
 }
