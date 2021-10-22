@@ -19,7 +19,7 @@ function Features() {
           desc: (
             <>
               <p>
-                Your <b>frontend can directly use SQL/ORM queries</b> to retrieve & mutate data.
+                Telefunctions enables your frontend to <b>directly use SQL/ORM queries</b> to retrieve & mutate data.
               </p>
               <p>Say goodbye to the API layer.</p>
             </>
