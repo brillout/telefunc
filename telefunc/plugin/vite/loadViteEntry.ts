@@ -28,8 +28,8 @@ async function loadViteEntry({
     assert(moduleExists(devPath))
     try {
       moduleExports = await viteDevServer.ssrLoadModule(devPath)
-    } catch (err) {
-      viteDevServer.ssrFixStacktrace(err)
+    } catch (err: unknown) {
+      viteDevServer.ssrFixStacktrace(err as Error)
       throw err
     }
   }
