@@ -48,7 +48,7 @@
 }
 @media screen and (min-width: 1229px) {
   #header-logo h1 {
-    font-size: 3.0em;
+    font-size: 3em;
   }
 }
 
@@ -124,4 +124,3 @@
     text-align: center;
   }
 }
-

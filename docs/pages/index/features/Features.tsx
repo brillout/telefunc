@@ -1,10 +1,10 @@
-import React from "react";
-import { Emoji } from "libframe-docs/utils/Emoji";
-import { FeatureList } from "libframe-docs/landing-page/features/FeatureList";
+import React from 'react'
+import { Emoji } from 'libframe-docs/utils/Emoji'
+import { FeatureList } from 'libframe-docs/landing-page/features/FeatureList'
 import Simple from './Simple.mdx'
 import Secure from './Secure.mdx'
 
-export { Features };
+export { Features }
 
 function Features() {
   return (
@@ -19,13 +19,12 @@ function Features() {
           desc: (
             <>
               <p>
-                Your <b>frontend can directly use SQL/ORM queries</b> to retrieve
-                & mutate data.
+                Your <b>frontend can directly use SQL/ORM queries</b> to retrieve & mutate data.
               </p>
               <p>Say goodbye to the API layer.</p>
             </>
           ),
-          learnMore: <Simple/>
+          learnMore: <Simple />,
         },
         {
           title: (
@@ -36,16 +35,14 @@ function Features() {
           desc: (
             <>
               <p>
-                Thanks to Telefunc's <code>Abort()</code>,{" "}
-                <b>permissions can be defined programmatically</b>.
+                Thanks to Telefunc's <code>Abort()</code>, <b>permissions can be defined programmatically</b>.
               </p>
               <p>
-                It's both <b>simple</b> and <b>flexible</b>. Say goodbye to ACL
-                mess.
+                It's both <b>simple</b> and <b>flexible</b>. Say goodbye to ACL mess.
               </p>
             </>
           ),
-          learnMore: <Secure/>
+          learnMore: <Secure />,
         },
         {
           title: (
@@ -56,14 +53,12 @@ function Features() {
           desc: (
             <>
               <p>
-                The frontend can tap into the <b>full power of the server</b>;
-                highly tailored & optimized SQL/ORM queries can be used for
-                high-performance data retrieval & mutations.
+                The frontend can tap into the <b>full power of the server</b>; highly tailored & optimized SQL/ORM
+                queries can be used for high-performance data retrieval & mutations.
               </p>
               <p>
-                <b>Fast Node.js cold start</b>: telefunctions are lazy-loaded so
-                that adding telefunctions doesn't increase the cold start of
-                your serverless functions.
+                <b>Fast Node.js cold start</b>: telefunctions are lazy-loaded so that adding telefunctions doesn't
+                increase the cold start of your serverless functions.
               </p>
             </>
           ),
@@ -80,8 +75,7 @@ function Features() {
                 The source code of Telefunc has <b>no known bug</b>.
               </p>
               <p>
-                Every release is assailed against a heavy suite of{" "}
-                <b>automated tests</b>.
+                Every release is assailed against a heavy suite of <b>automated tests</b>.
               </p>
               <p>
                 <b>Used in production</b> by many comp&shy;anies.
@@ -101,8 +95,7 @@ function Features() {
                 First-class & <b>seamless TypeScript support out-of-the-box</b>.
               </p>
               <p>
-                Use your types across frontend and backend for{" "}
-                <b>end-to-end type safety</b>.
+                Use your types across frontend and backend for <b>end-to-end type safety</b>.
               </p>
               <p></p>
             </>
@@ -118,16 +111,16 @@ function Features() {
           desc: (
             <>
               <p>
-                Telefunc supports <b>Webpack</b>, <b>Vite</b>, and <b>Rollup</b> and has
-                first-class support for <b>React SSR</b> and <b>Vue SSR</b>.
+                Telefunc supports <b>Webpack</b>, <b>Vite</b>, and <b>Rollup</b> and has first-class support for{' '}
+                <b>React SSR</b> and <b>Vue SSR</b>.
               </p>
               <p>
-                In other words, it works with any stack (CRA, Next.js,
-                Nuxt, Gatsby, SvelteKit, <code>vite-plugin-ssr</code>, <b>Cloudflare Workers</b>, etc.)
+                In other words, it works with any stack (CRA, Next.js, Nuxt, Gatsby, SvelteKit,{' '}
+                <code>vite-plugin-ssr</code>, <b>Cloudflare Workers</b>, etc.)
               </p>
               <p>
-                Also, Telefunc has been designed to work with <b>non-JavaScript
-                backends such as Ruby on Rails or Django</b>.
+                Also, Telefunc has been designed to work with{' '}
+                <b>non-JavaScript backends such as Ruby on Rails or Django</b>.
               </p>
             </>
           ),
@@ -160,5 +153,5 @@ function Features() {
         */
       ]}
     />
-  );
+  )
 }

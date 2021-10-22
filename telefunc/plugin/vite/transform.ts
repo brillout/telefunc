@@ -1,43 +1,43 @@
-import { Plugin } from "vite";
-import { assert, isObject } from "../../server/utils";
-import { isTelefuncFile } from "../isTelefuncFile";
-import { transformTelefuncFile } from "../transformTelefuncFile";
+import { Plugin } from 'vite'
+import { assert, isObject } from '../../server/utils'
+import { isTelefuncFile } from '../isTelefuncFile'
+import { transformTelefuncFile } from '../transformTelefuncFile'
 
-export { transform };
+export { transform }
 
 function transform(): Plugin {
-  let root: undefined | string;
+  let root: undefined | string
   return {
-    name: "telefunc:transform",
+    name: 'telefunc:transform',
     config: (config) => {
-      root = config.root || process.cwd();
+      root = config.root || process.cwd()
       return {
-        ssr: { external: ["telefunc"] },
-        optimizeDeps: { include: ["telefunc/client"] },
-      };
+        ssr: { external: ['telefunc'] },
+        optimizeDeps: { include: ['telefunc/client'] },
+      }
     },
     async transform(src, id, options) {
       if (isSSR(options)) {
-        return;
+        return
       }
       if (isTelefuncFile(id)) {
-        assert(root);
-        return transformTelefuncFile(src, id, root);
+        assert(root)
+        return transformTelefuncFile(src, id, root)
       }
     },
-  };
+  }
 }
 
 // https://github.com/vitejs/vite/discussions/5109#discussioncomment-1450726
 function isSSR(options: undefined | boolean | { ssr: boolean }): boolean {
   if (options === undefined) {
-    return false;
+    return false
   }
-  if (typeof options === "boolean") {
-    return options;
+  if (typeof options === 'boolean') {
+    return options
   }
   if (isObject(options)) {
-    return !!options.ssr;
+    return !!options.ssr
   }
-  assert(false);
+  assert(false)
 }

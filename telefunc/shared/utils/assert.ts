@@ -19,11 +19,11 @@ function assert(condition: unknown, debugInfo?: unknown): asserts condition {
   const debugStr = !debugInfo
     ? ''
     : ` Debug info (this is for the \`${projectInfo.name}\` maintainers; you can ignore this): \`${JSON.stringify(
-        debugInfo
+        debugInfo,
       )}\`.`
   const internalError = newError(
     `${internalErrorPrefix} You stumbled upon a bug in \`${projectInfo.name}\`'s source code (an internal \`assert()\` failed). This should definitely not be happening, and you should create a new GitHub issue at ${projectInfo.githubRepository}/issues/new that includes this error stack (the error stack is usually enough to debug internal errors). Or reach out on Discord. A fix will be written promptly.${debugStr}`,
-    numberOfStackTraceLinesToRemove
+    numberOfStackTraceLinesToRemove,
   )
   throw internalError
 }
@@ -43,4 +43,3 @@ function assertWarning(condition: unknown, errorMessage: string): void {
   }
   console.warn(`${warningPrefix} ${errorMessage}`)
 }
-

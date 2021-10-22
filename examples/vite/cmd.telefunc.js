@@ -1,19 +1,19 @@
-import { getContext } from "telefunc";
-import util from "util";
-import { exec as execWithCallback } from "child_process";
-const exec = util.promisify(execWithCallback);
+import { getContext } from 'telefunc'
+import util from 'util'
+import { exec as execWithCallback } from 'child_process'
+const exec = util.promisify(execWithCallback)
 
-export { runShellCommand };
+export { runShellCommand }
 
 async function runShellCommand(cmd) {
-  const context = getContext();
-  const { userAgent } = context;
+  const context = getContext()
+  const { userAgent } = context
   try {
-    const cmdResult = await exec(cmd);
-    const { stdout } = cmdResult;
-    return stdout;
+    const cmdResult = await exec(cmd)
+    const { stdout } = cmdResult
+    return stdout
   } catch (cmdResult) {
-    const { stderr } = cmdResult;
+    const { stderr } = cmdResult
     return JSON.stringify(
       {
         cmd,
@@ -21,7 +21,7 @@ async function runShellCommand(cmd) {
         userAgent,
       },
       null,
-      2
-    );
+      2,
+    )
   }
 }

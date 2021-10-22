@@ -1,5 +1,5 @@
-export { isTelefuncFile };
+export { isTelefuncFile }
 
 function isTelefuncFile(filePath: string) {
-  return filePath.includes(".telefunc.");
+  return filePath.includes('.telefunc.')
 }

@@ -1,6 +1,6 @@
-import { isCallable } from "./isCallable";
+import { isCallable } from './isCallable'
 
-export { hasProp };
+export { hasProp }
 
 // prettier-ignore
 function hasProp<ObjectType, PropName extends PropertyKey>(obj: ObjectType, prop: PropName, type: 'boolean'):  obj is ObjectType & Record<PropName, boolean>;

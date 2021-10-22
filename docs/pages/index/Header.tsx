@@ -1,16 +1,16 @@
-import React from "react";
-import "./Header.css";
-import iconTelefunc from "../../icons/telefunc.svg";
+import React from 'react'
+import './Header.css'
+import iconTelefunc from '../../icons/telefunc.svg'
 
-export { Header };
+export { Header }
 
 function Header() {
   return (
     <div
       style={{
         //*
-        display: "flex",
-        alignItems: "center",
+        display: 'flex',
+        alignItems: 'center',
         //*/
       }}
     >
@@ -19,7 +19,7 @@ function Header() {
         <RightSide />
       </div>
     </div>
-  );
+  )
 }
 
 function LeftSide() {
@@ -28,23 +28,23 @@ function LeftSide() {
       <div
         id="header-logo"
         style={{
-          display: "flex",
-          alignItems: "center",
+          display: 'flex',
+          alignItems: 'center',
         }}
       >
         <img src={iconTelefunc} />
         <h1>Telefunc</h1>
       </div>
     </div>
-  );
+  )
 }
 
 function RightSide() {
   return (
-    <div id="header-right-side" style={{ marginLeft: 60, fontSize: "2em" }}>
+    <div id="header-right-side" style={{ marginLeft: 60, fontSize: '2em' }}>
       Remote Functions.
       <br />
       Instead of API.
     </div>
-  );
+  )
 }

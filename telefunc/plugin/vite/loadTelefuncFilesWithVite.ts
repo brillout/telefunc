@@ -1,15 +1,15 @@
-import { assert, hasProp, isObject, moduleExists } from "../../server/utils";
-import type { ViteDevServer } from "vite";
+import { assert, hasProp, isObject, moduleExists } from '../../server/utils'
+import type { ViteDevServer } from 'vite'
 import { loadViteEntry } from './loadViteEntry'
-import {TelefuncFilesUntyped} from "../../server/types";
-import {importTelefuncFilesFilePath} from "./importTelefuncFilesPath";
+import { TelefuncFilesUntyped } from '../../server/types'
+import { importTelefuncFilesFilePath } from './importTelefuncFilesPath'
 
-export { loadTelefuncFilesWithVite };
+export { loadTelefuncFilesWithVite }
 
 async function loadTelefuncFilesWithVite(telefuncContext: {
-  _root: string;
-  _viteDevServer?: ViteDevServer;
-  _isProduction: boolean;
+  _root: string
+  _viteDevServer?: ViteDevServer
+  _isProduction: boolean
 }): Promise<TelefuncFilesUntyped> {
   const viteEntryFile = 'importTelefuncFiles.js'
   assert(moduleExists(`./${viteEntryFile}`, __dirname))
@@ -27,17 +27,17 @@ async function loadTelefuncFilesWithVite(telefuncContext: {
     prodPath,
     errorMessage,
     viteDevServer: telefuncContext._viteDevServer,
-    isProduction: telefuncContext._isProduction
+    isProduction: telefuncContext._isProduction,
   })
 
   assert(hasProp(moduleExports, 'importTelefuncFiles', 'function'))
   const globResult = moduleExports.importTelefuncFiles()
   assert(hasProp(globResult, 'telefuncFiles', 'object'))
-  const telefuncFiles = globResult.telefuncFiles;
+  const telefuncFiles = globResult.telefuncFiles
   assert(isObjectOfObjects(telefuncFiles))
-  return telefuncFiles;
+  return telefuncFiles
 }
 
 function isObjectOfObjects(obj: unknown): obj is Record<string, Record<string, unknown>> {
-   return isObject(obj) && Object.values(obj).every(isObject)
+  return isObject(obj) && Object.values(obj).every(isObject)
 }

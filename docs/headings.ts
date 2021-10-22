@@ -4,56 +4,56 @@ export const headings: HeadingDefinition[] = [
   {
     level: 1,
     title: 'Overview',
-    titleEmoji: 'compass'
+    titleEmoji: 'compass',
   },
   {
     level: 2,
     title: 'Introduction',
     titleDocument: 'Telefunc',
-    url: '/'
+    url: '/',
   },
   {
     level: 2,
     title: 'Tour',
-    url: '/tour'
+    url: '/tour',
   },
   {
     level: 1,
     title: 'Get Started',
-    titleEmoji: 'seedling'
+    titleEmoji: 'seedling',
   },
   {
     level: 2,
     title: 'Scaffold new app',
-    url: '/scaffold'
+    url: '/scaffold',
   },
   {
     level: 2,
     title: 'Add to existing app',
-    url: '/add'
+    url: '/add',
   },
   {
     level: 1,
     title: 'Guides',
-    titleEmoji: 'books'
+    titleEmoji: 'books',
   },
   {
     level: 4,
-    title: 'Basics'
+    title: 'Basics',
   },
   {
     level: 2,
     title: 'Permission',
-    url: '/permission'
+    url: '/permission',
   },
   {
     level: 2,
     title: 'Authentication',
-    url: '/auth'
+    url: '/auth',
   },
   {
     level: 2,
     title: 'Error Handling',
-    url: '/error-handling'
+    url: '/error-handling',
   },
 ]

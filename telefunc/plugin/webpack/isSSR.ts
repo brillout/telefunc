@@ -1,5 +1,5 @@
-export { isSSR };
+export { isSSR }
 
 function isSSR(): boolean {
-  return process.argv.includes("--ssr");
+  return process.argv.includes('--ssr')
 }

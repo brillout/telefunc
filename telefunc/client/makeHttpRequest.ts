@@ -1,112 +1,105 @@
-import { assert, assertUsage } from "./utils";
-import { parse } from "@brillout/json-s";
+import { assert, assertUsage } from './utils'
+import { parse } from '@brillout/json-s'
 // @ts-ignore
-import fetch = require("@brillout/fetch");
-import { TelefunctionName, TelefunctionResult } from "../shared/types";
-import { HttpRequestBody, HttpRequestUrl } from "./TelefuncClient";
-import { isObject } from "./utils";
+import fetch = require('@brillout/fetch')
+import { TelefunctionName, TelefunctionResult } from '../shared/types'
+import { HttpRequestBody, HttpRequestUrl } from './TelefuncClient'
+import { isObject } from './utils'
 
-export { makeHttpRequest };
-export { TelefuncError };
+export { makeHttpRequest }
+export { TelefuncError }
 
 async function makeHttpRequest(
   url: HttpRequestUrl,
   body: HttpRequestBody | undefined,
-  telefunctionName: TelefunctionName
+  telefunctionName: TelefunctionName,
 ): Promise<TelefunctionResult> {
   const method = 'POST'
   const makeRequest = addHandli(() =>
     fetch(url, {
       method,
       body,
-      credentials: "same-origin",
+      credentials: 'same-origin',
       headers: {
-        "Content-Type": "text/plain",
+        'Content-Type': 'text/plain',
       },
-    })
-  );
+    }),
+  )
 
-  let response;
-  let isConnectionError: boolean = false;
+  let response
+  let isConnectionError: boolean = false
   try {
-    response = await makeRequest();
+    response = await makeRequest()
   } catch (_) {
-    isConnectionError = true;
+    isConnectionError = true
   }
 
   if (isConnectionError) {
-    throw new TelefuncError("No Server Connection", {
+    throw new TelefuncError('No Server Connection', {
       isConnectionError: true,
       isCodeError: false,
-    });
+    })
   }
 
-  const statusCode = response.status;
-  const isOk = response.ok;
+  const statusCode = response.status
+  const isOk = response.ok
   const installErr = `Telefunc doesn't seem to be (properly) installed on your server. Make sure to reply all HTTP requests made to \`${url}\` with \`callTelefunc()\` (for both \`GET\` and \`POST\` HTTP methods)`
   assertUsage(
     statusCode === 500 || statusCode === 200,
-    `${installErr}. (The HTTP ${method} request made to \`${url}\` returned a status code of \`${statusCode}\` which Telefunc never uses.)`
-  );
-  assert([true, false].includes(isOk));
-  assert(isOk === (statusCode === 200));
+    `${installErr}. (The HTTP ${method} request made to \`${url}\` returned a status code of \`${statusCode}\` which Telefunc never uses.)`,
+  )
+  assert([true, false].includes(isOk))
+  assert(isOk === (statusCode === 200))
 
   if (statusCode === 200) {
-    const responseBody = await response.text();
-    const value = parse(responseBody);
+    const responseBody = await response.text()
+    const value = parse(responseBody)
     assertUsage(
-      isObject(value) && "telefuncResult" in value,
-      `${installErr}. (The HTTP ${method} request made to \`${url}\` returned an HTTP response body that Telefunc never generates.)`
-    );
-    const telefuncResult: unknown = value.telefuncResult;
-    return telefuncResult;
+      isObject(value) && 'telefuncResult' in value,
+      `${installErr}. (The HTTP ${method} request made to \`${url}\` returned an HTTP response body that Telefunc never generates.)`,
+    )
+    const telefuncResult: unknown = value.telefuncResult
+    return telefuncResult
   } else {
-    const codeErrorText = `The telefunc \`${telefunctionName}\` threw an error. Check the server logs for more information.`;
+    const codeErrorText = `The telefunc \`${telefunctionName}\` threw an error. Check the server logs for more information.`
     throw new TelefuncError(codeErrorText, {
       isConnectionError: false,
       isCodeError: true,
-    });
+    })
   }
 }
 
 class TelefuncError extends Error {
-  isCodeError: boolean;
-  isConnectionError: boolean;
+  isCodeError: boolean
+  isConnectionError: boolean
   constructor(
     message: string,
-    {
-      isCodeError,
-      isConnectionError,
-    }: { isCodeError: boolean; isConnectionError: boolean }
+    { isCodeError, isConnectionError }: { isCodeError: boolean; isConnectionError: boolean },
   ) {
-    super(message);
+    super(message)
 
     // Bugfix: https://github.com/Microsoft/TypeScript-wiki/blob/master/Breaking-Changes.md#extending-built-ins-like-error-array-and-map-may-no-longer-work
-    Object.setPrototypeOf(this, TelefuncError.prototype);
+    Object.setPrototypeOf(this, TelefuncError.prototype)
 
-    this.isConnectionError = isConnectionError;
-    this.isCodeError = isCodeError;
+    this.isConnectionError = isConnectionError
+    this.isCodeError = isCodeError
 
-    assert(this.message === message);
-    assert(this.isConnectionError !== this.isCodeError);
+    assert(this.message === message)
+    assert(this.isConnectionError !== this.isCodeError)
   }
 }
 
 function addHandli(fetcher: () => Promise<TelefunctionResult>) {
   return () => {
-    if (
-      typeof window !== "undefined" &&
-      window.handli &&
-      window.handli.constructor === Function
-    ) {
-      return window.handli(fetcher);
+    if (typeof window !== 'undefined' && window.handli && window.handli.constructor === Function) {
+      return window.handli(fetcher)
     }
-    return fetcher();
-  };
+    return fetcher()
+  }
 }
 
 declare global {
   interface Window {
-    handli?: any;
+    handli?: any
   }
 }

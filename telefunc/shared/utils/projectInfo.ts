@@ -4,5 +4,5 @@ export const projectInfo = {
   name: 'Telefunc',
   npmPackageName: 'telefunc',
   version: PROJECT_VERSION,
-  githubRepository: 'https://github.com/brillout/telefunc'
+  githubRepository: 'https://github.com/brillout/telefunc',
 }

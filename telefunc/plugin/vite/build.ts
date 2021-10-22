@@ -1,49 +1,46 @@
-import { Plugin } from "vite";
-import type { InputOption } from "rollup";
-import { assert, isObject } from "../../server/utils";
-import {
-  importTelefuncFilesFileNameBase,
-  importTelefuncFilesFilePath,
-} from "./importTelefuncFilesPath";
+import { Plugin } from 'vite'
+import type { InputOption } from 'rollup'
+import { assert, isObject } from '../../server/utils'
+import { importTelefuncFilesFileNameBase, importTelefuncFilesFilePath } from './importTelefuncFilesPath'
 
-export { build };
+export { build }
 
 function build(): Plugin {
   return {
-    name: "telefunc:build",
-    apply: "build",
+    name: 'telefunc:build',
+    apply: 'build',
     config: (config) => {
       const configMod = {
-        ssr: { external: ["vite-plugin-ssr"] },
-      };
+        ssr: { external: ['vite-plugin-ssr'] },
+      }
       if (!isSSR(config)) {
         return {
           ...configMod,
           build: {
-            outDir: "dist/client",
+            outDir: 'dist/client',
           },
-        };
+        }
       } else {
-        const viteEntry = getViteEntry();
+        const viteEntry = getViteEntry()
         const input = {
           ...viteEntry,
           ...normalizeRollupInput(config.build?.rollupOptions?.input),
-        };
+        }
         return {
           ...configMod,
           build: {
             rollupOptions: { input },
-            outDir: "dist/server",
+            outDir: 'dist/server',
           },
-        };
+        }
       }
     },
-  };
+  }
 }
 
 function normalizeRollupInput(input?: InputOption): Record<string, string> {
   if (!input) {
-    return {};
+    return {}
   }
   /*
   if (typeof input === "string") {
@@ -53,17 +50,17 @@ function normalizeRollupInput(input?: InputOption): Record<string, string> {
     return Object.fromEntries(input.map((i) => [i, i]));
   }
   */
-  assert(isObject(input));
-  return input;
+  assert(isObject(input))
+  return input
 }
 
 function getViteEntry() {
   const viteEntry = {
     [importTelefuncFilesFileNameBase]: importTelefuncFilesFilePath,
-  };
-  return viteEntry;
+  }
+  return viteEntry
 }
 
 function isSSR(config: { build?: { ssr?: boolean | string } }): boolean {
-  return !!config?.build?.ssr;
+  return !!config?.build?.ssr
 }

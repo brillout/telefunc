@@ -1,23 +1,23 @@
-import { telefuncClient } from "./global-instance";
-import { TelefuncError } from "./makeHttpRequest";
+import { telefuncClient } from './global-instance'
+import { TelefuncError } from './makeHttpRequest'
 
-export { TelefuncError };
-export const { config } = telefuncClient;
+export { TelefuncError }
+export const { config } = telefuncClient
 
 const server = telefuncClient.telefunctions
-export { server };
+export { server }
 
-if (typeof window !== "undefined") {
+if (typeof window !== 'undefined') {
   window.telefunc = {
     server,
     config,
     TelefuncError,
-  } as never;
+  } as never
 }
 
 // TypeScript users should never use `window.telefunc`
 declare global {
   interface Window {
-    telefunc: never;
+    telefunc: never
   }
 }

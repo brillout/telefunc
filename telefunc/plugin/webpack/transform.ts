@@ -1,58 +1,55 @@
-import { createUnplugin } from "unplugin";
-import { assert } from "../../server/utils";
-import { getImportBuildCode } from "./getImportBuildCode";
-import { isSSR } from "./isSSR";
-import { isTelefuncFile } from "../isTelefuncFile";
-import { transformTelefuncFile } from "../transformTelefuncFile";
+import { createUnplugin } from 'unplugin'
+import { assert } from '../../server/utils'
+import { getImportBuildCode } from './getImportBuildCode'
+import { isSSR } from './isSSR'
+import { isTelefuncFile } from '../isTelefuncFile'
+import { transformTelefuncFile } from '../transformTelefuncFile'
 
-export { unpluginTransform };
+export { unpluginTransform }
 
 const unpluginTransform = createUnplugin((_userPlugin, meta) => {
-  assert(meta.framework === "webpack");
+  assert(meta.framework === 'webpack')
   // better way to handle config.root?
-  let root = process.cwd();
+  let root = process.cwd()
   return {
-    name: "telefunc:transform",
-    transformInclude: (id) =>
-      isTelefuncFile(id) ||
-      isImportBuildFile(id) ||
-      isImportTelefuncFilesFile(id),
+    name: 'telefunc:transform',
+    transformInclude: (id) => isTelefuncFile(id) || isImportBuildFile(id) || isImportTelefuncFilesFile(id),
     transform: (src, id) => {
       if (isImportTelefuncFilesFile(id)) {
         return {
-          code: src.replace("@telefunc/REPLACE_PATH", root),
+          code: src.replace('@telefunc/REPLACE_PATH', root),
           map: null,
-        };
+        }
       }
       if (isImportBuildFile(id)) {
         return {
           code: getImportBuildCode(),
           map: null,
-        };
+        }
       }
       if (isTelefuncFile(id)) {
         if (isSSR()) {
-          return;
+          return
         }
-        return transformTelefuncFile(src, id, root);
+        return transformTelefuncFile(src, id, root)
       }
-      assert(false);
+      assert(false)
     },
-  };
-});
+  }
+})
 
 function isImportTelefuncFilesFile(id: string) {
   // TODO: make test more robust
   //assert(pathIsNormalized(id));
-  return id.includes("importTelefuncFiles");
+  return id.includes('importTelefuncFiles')
 }
 
 function isImportBuildFile(id: string) {
   //assert(pathIsNormalized(id));
-  return id.includes("importBuild.js");
+  return id.includes('importBuild.js')
 }
 
 // Make sure paths are UNIX-like, even on windows
 function pathIsNormalized(filePath: string) {
-  return !filePath.includes("\\");
+  return !filePath.includes('\\')
 }

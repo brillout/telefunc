@@ -1,25 +1,25 @@
-import type { ViteDevServer } from "vite";
-export * from "../shared/types";
-import { Telefunctions } from "../shared/types";
+import type { ViteDevServer } from 'vite'
+export * from '../shared/types'
+import { Telefunctions } from '../shared/types'
 
 export type RequestProps = {
-  url: string;
-  method: string;
-  body: string | unknown;
+  url: string
+  method: string
+  body: string | unknown
 }
 
 export type Config = {
-  viteDevServer?: ViteDevServer;
-  root?: string;
-  isProduction: boolean;
-  baseUrl: string;
-  urlPath: string;
-  disableCache: boolean;
-};
+  viteDevServer?: ViteDevServer
+  root?: string
+  isProduction: boolean
+  baseUrl: string
+  urlPath: string
+  disableCache: boolean
+}
 
-export type TelefuncContextUserProvided = Record<string, unknown>;
+export type TelefuncContextUserProvided = Record<string, unknown>
 
-type TelefuncFilePath = string;
-export type TelefuncFiles = Record<TelefuncFilePath, Telefunctions>;
-type FileExports = Record<string, unknown>;
-export type TelefuncFilesUntyped = Record<TelefuncFilePath, FileExports>;
+type TelefuncFilePath = string
+export type TelefuncFiles = Record<TelefuncFilePath, Telefunctions>
+type FileExports = Record<string, unknown>
+export type TelefuncFilesUntyped = Record<TelefuncFilePath, FileExports>

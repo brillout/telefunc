@@ -1,2 +1,2 @@
-import "libframe-docs/_default.page.client";
-import "./importAssets";
+import 'libframe-docs/_default.page.client'
+import './importAssets'
