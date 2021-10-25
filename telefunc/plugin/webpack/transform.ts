@@ -4,8 +4,11 @@ import { getImportBuildCode } from './getImportBuildCode'
 import { isSSR } from './isSSR'
 import { isTelefuncFile } from '../isTelefuncFile'
 import { transformTelefuncFile } from '../transformTelefuncFile'
+import { relative } from 'path'
 
 export { unpluginTransform }
+
+const isWin = process.platform === 'win32'
 
 const unpluginTransform = createUnplugin((_userPlugin, meta) => {
   assert(meta.framework === 'webpack')
@@ -16,8 +19,10 @@ const unpluginTransform = createUnplugin((_userPlugin, meta) => {
     transformInclude: (id) => isTelefuncFile(id) || isImportBuildFile(id) || isImportTelefuncFilesFile(id),
     transform: (src, id) => {
       if (isImportTelefuncFilesFile(id)) {
+        const rootPathForWin = relative(__dirname,root ).replaceAll('\\','/')
+
         return {
-          code: src.replace('@telefunc/REPLACE_PATH', root),
+          code: src.replace('@telefunc/REPLACE_PATH', isWin ? rootPathForWin : root),
           map: null,
         }
       }
