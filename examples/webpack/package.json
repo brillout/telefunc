@@ -4,7 +4,7 @@
     "build": "npm run build:client && npm run build:ssr",
     "build:client": "webpack --config webpack.js --mode production",
     "build:ssr": "webpack --config webpack.js --mode production --ssr",
-    "preview": "NODE_ENV=production node ./server.js"
+    "preview": "cross-env NODE_ENV=production node ./server.js"
   },
   "devDependencies": {
     "@types/webpack": "^5.28.0",
