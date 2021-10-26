@@ -13,6 +13,7 @@ function runTest(cmd: 'npm run dev' | 'npm run prod') {
     page.goto(`${urlBase}/`)
     expect(await page.textContent('body')).not.toContain('node_modules')
     await page.click('button#cmd-ls')
+    // `autoRetry` to ensure JavaScript has loaded & executed
     await autoRetry(async () => {
       expect(await page.textContent('body')).toContain('node_modules')
     })
