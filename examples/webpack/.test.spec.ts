@@ -1,4 +1,4 @@
-import { page, run, urlBase } from '../../libframe/test/setup'
+import { page, run, urlBase, autoRetry } from '../../libframe/test/setup'
 
 run('npm run start')
 
