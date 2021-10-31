@@ -4,7 +4,6 @@ run('npm run start')
 
 test('webpack telefunction call', async () => {
   await page.goto(`${urlBase}/`)
-
   // `autoRetry` to ensure JavaScript has loaded & executed
   await autoRetry(async () => {
     const text = await page.textContent('#view')
