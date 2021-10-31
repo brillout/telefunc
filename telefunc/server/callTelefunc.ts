@@ -6,7 +6,7 @@ import { assert, assertUsage, cast, checkType, hasProp, isCallable, isObject, is
 import { loadTelefuncFiles } from '../plugin/loadTelefuncFiles'
 import { RequestProps, TelefuncFiles, TelefuncFilesUntyped, Config } from './types'
 import { setContext, resetContext } from './getContext'
-import { resolve } from 'path'
+import { posix } from 'path'
 
 export { setTelefuncFiles }
 export { callTelefunc }
@@ -328,6 +328,6 @@ function handleError(err: unknown, config: Config) {
 
 function getTelefuncUrlPath(telefuncContext: { _baseUrl: string; _urlPath: string }) {
   const { _baseUrl, _urlPath } = telefuncContext
-  const urlPathResolved = resolve(_baseUrl, _urlPath)
+  const urlPathResolved = posix.resolve(_baseUrl, _urlPath)
   return urlPathResolved
 }
