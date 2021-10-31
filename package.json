@@ -41,8 +41,5 @@
     "========= Clean": "",
     "// Remove all generated files": "",
     "clean": "git clean -Xdf"
-  },
-  "devDependencies": {
-    "kill-port": "^1.6.1"
   }
 }
