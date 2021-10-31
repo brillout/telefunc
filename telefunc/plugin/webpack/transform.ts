@@ -19,7 +19,7 @@ const unpluginTransform = createUnplugin((_userPlugin, meta) => {
     transformInclude: (id) => isTelefuncFile(id) || isImportBuildFile(id) || isImportTelefuncFilesFile(id),
     transform: (src, id) => {
       if (isImportTelefuncFilesFile(id)) {
-        const rootPathForWin = relative(__dirname,root ).replaceAll('\\','/')
+        const rootPathForWin = relative(__dirname,root ).replace(/\\/g,'/')
 
         return {
           code: src.replace('@telefunc/REPLACE_PATH', isWin ? rootPathForWin : root),
