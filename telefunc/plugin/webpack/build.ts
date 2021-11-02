@@ -40,14 +40,14 @@ export const unpluginBuild = createUnplugin(() => {
 
       const telefuncDist = resolve(dirname(require.resolve('telefunc')), '../../dist/')
       {
-        const filePath = join(telefuncDist,'/esm/plugin/webpack/importTelefuncFiles.js')
+        const filePath = join(telefuncDist, '/esm/plugin/webpack/importTelefuncFiles.js')
         assert(moduleExists(filePath))
         entry['server/importTelefuncFiles'] = {
           import: [filePath],
         }
       }
       {
-        const filePath = join(telefuncDist,'/esm/plugin/webpack/importBuild.js')
+        const filePath = join(telefuncDist, '/esm/plugin/webpack/importBuild.js')
         assert(moduleExists(filePath))
         entry['server/importBuild'] = {
           import: [filePath],
