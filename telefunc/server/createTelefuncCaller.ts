@@ -2,6 +2,7 @@ import { assertUsage, hasProp, isPlainObject } from './utils'
 import type { ViteDevServer } from 'vite'
 import { callTelefunc } from './callTelefunc'
 import { RequestProps, Config } from './types'
+import { normalize as pathNormalize } from 'path'
 
 export { createTelefuncCaller }
 
@@ -39,7 +40,7 @@ function createTelefuncCaller({
   }
 }
 
-function assertArgs(config: unknown, args: unknown[]) {
+function assertArgs(config: unknown, args: unknown[]): void {
   assertUsage(
     args.length === 1,
     '`createTelefuncCaller()`: all arguments should be passed as a single argument object.',
@@ -60,33 +61,48 @@ function assertArgs(config: unknown, args: unknown[]) {
     hasProp(config, 'baseUrl', 'string'),
     '`createTelefuncCaller({ baseUrl })`: argument `baseUrl` should be a string.',
   )
-  const _baseUrl = config.baseUrl
-  const _disableCache = config.disableCache
   const _isProduction = config.isProduction
-  let _viteDevServer: undefined | ViteDevServer = undefined
-  let _root: undefined | string
   if (_isProduction) {
-    _viteDevServer = undefined
-    _root = undefined
     if ('root' in config && config.root !== undefined) {
       assertUsage(
         hasProp(config, 'root', 'string'),
         '`createTelefuncCaller({ root })`: argument `root` should be a string.',
       )
-      _root = config.root
     }
-    return { _viteDevServer, _root, _isProduction, _baseUrl, _disableCache }
   } else {
-    assertUsage(
-      hasProp(config, 'viteDevServer'),
-      '`createTelefuncCaller({ viteDevServer })`: argument `viteDevServer` is missing.',
-    )
     assertUsage(
       hasProp(config, 'root', 'string'),
       '`createTelefuncCaller({ root })`: argument `root` should be a string.',
     )
-    _viteDevServer = config.viteDevServer as ViteDevServer
-    _root = config.root
-    return { _viteDevServer, _root, _isProduction, _baseUrl, _disableCache }
+
+    assertUsage(
+      hasProp(config, 'viteDevServer'),
+      '`createTelefuncCaller({ viteDevServer, isProduction })`: if `isProduction` is not `true`, then `viteDevServer` cannot be `undefined`.',
+    )
+
+    {
+      const wrongViteDevServerValueError =
+        '`createTelefuncCaller({ viteDevServer, isProduction })`: if `isProduction` is not `true`, then `viteDevServer` should be `viteDevServer = await vite.createServer(/*...*/)`.'
+      const { viteDevServer } = config
+      assertUsage(
+        hasProp(viteDevServer, 'config') &&
+          hasProp(viteDevServer.config, 'root') &&
+          typeof viteDevServer.config.root === 'string',
+        wrongViteDevServerValueError,
+      )
+      assertUsage(
+        pathNormalize(viteDevServer.config.root) === pathNormalize(config.root),
+        '`createTelefuncCaller({ viteDevServer, root })`: wrong `root` value, make sure that `path.normalize(root) === path.normalize(viteDevServer.root)`.',
+      )
+
+      assertUsage(
+        hasProp(viteDevServer, 'config', 'object') && hasProp(viteDevServer.config, 'plugins', 'array'),
+        wrongViteDevServerValueError,
+      )
+      assertUsage(
+        (viteDevServer as any as ViteDevServer).config.plugins.find((plugin) => plugin.name.startsWith('telefunc')),
+        'Telefunc Vite plugin is not installed. Make sure to add it to your `vite.config.js`.',
+      )
+    }
   }
 }
