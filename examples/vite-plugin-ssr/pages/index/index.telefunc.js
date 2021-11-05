@@ -1,2 +1,2 @@
-// Make DB queries available to the frontend
+// Make DB queries callable from the frontend
 export { addTodoItem, getTodoItems, clearTodoItems } from '../../db/queries'
