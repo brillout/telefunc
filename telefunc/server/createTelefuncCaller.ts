@@ -35,8 +35,12 @@ function createTelefuncCaller({
    * @param context The context object
    * @returns HTTP response
    */
-  return async function (requestProps: RequestProps, telefuncContext: Record<string, unknown>) {
-    return callTelefunc(requestProps, telefuncContext, config, Array.from(arguments))
+  return async function (requestProps: RequestProps) {
+    assertUsage(
+      arguments.length === 1,
+      '`callTelefunc(/* ... */, context)` is deprecated. Use `provideContext(context)` instead, see https://telefunc.com/provideContext',
+    )
+    return callTelefunc(requestProps, config, Array.from(arguments))
   }
 }
 

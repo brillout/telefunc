@@ -5,7 +5,7 @@ import { BodyParsed, Telefunction, Telefunctions } from '../shared/types'
 import { assert, assertUsage, cast, checkType, hasProp, isCallable, isObject, isPromise, objectAssign } from './utils'
 import { loadTelefuncFiles } from '../plugin/loadTelefuncFiles'
 import { RequestProps, TelefuncFiles, TelefuncFilesUntyped, Config } from './types'
-import { setContext, resetContext } from './getContext'
+import { getContextOrUndefined, provideContextOrNull } from './getContext'
 import { posix } from 'path'
 
 export { setTelefuncFiles }
@@ -27,9 +27,9 @@ type Result = Promise<null | {
   contentType: 'text/plain'
 }>
 
-async function callTelefunc(requestProps: RequestProps, telefuncContext: {}, config: Config, args: unknown[]): Result {
+async function callTelefunc(requestProps: RequestProps, config: Config, args: unknown[]): Result {
   try {
-    return await callTelefunc_(requestProps, telefuncContext, config, args)
+    return await callTelefunc_(requestProps, config, args)
   } catch (err: unknown) {
     handleError(err, config)
     return {
@@ -41,11 +41,14 @@ async function callTelefunc(requestProps: RequestProps, telefuncContext: {}, con
   }
 }
 
-async function callTelefunc_(requestProps: RequestProps, telefuncContext: {}, config: Config, args: unknown[]): Result {
-  validateArgs(requestProps, telefuncContext, args)
+async function callTelefunc_(requestProps: RequestProps, config: Config, args: unknown[]): Result {
+  validateArgs(requestProps, args)
+  const telefuncContext = {}
+
   objectAssign(telefuncContext, {
     _url: requestProps.url,
     _method: requestProps.method,
+    _providedContext: getContextOrUndefined() || null
   })
 
   objectAssign(telefuncContext, {
@@ -152,13 +155,14 @@ async function executeTelefunc(telefuncContext: {
   _telefunctionName: string
   _telefunctionArgs: unknown[]
   _telefuncs: Record<string, Telefunction>
+  _providedContext: Record<string, unknown> | null
 }) {
   const telefunctionName = telefuncContext._telefunctionName
   const telefunctionArgs = telefuncContext._telefunctionArgs
   const telefuncs = telefuncContext._telefuncs
   const telefunc = telefuncs[telefunctionName]
 
-  setContext(telefuncContext, false)
+  provideContextOrNull(telefuncContext._providedContext)
 
   let resultSync: unknown
   let telefuncError: unknown
@@ -170,13 +174,11 @@ async function executeTelefunc(telefuncContext: {
     telefuncError = err
   }
 
-  resetContext()
-
   let telefuncResult: unknown
   if (!telefuncHasErrored) {
     assertUsage(
       isPromise(resultSync),
-      `Your telefunc ${telefunctionName} did not return a promise. A telefunc should always return a promise. To solve this, you can simply use a \`async function\` (or \`async () => {}\`) instead of a normal function.`,
+      `Your telefunction ${telefunctionName} did not return a promise. A telefunction should always return a promise. E.g. define ${telefunctionName} as a \`async function\` (or \`async () => {}\`).`,
     )
     try {
       telefuncResult = await resultSync
@@ -233,21 +235,13 @@ function parseBody({ url, body }: { url: string; body: unknown }) {
   return { body, bodyParsed }
 }
 
-function validateArgs(requestProps: unknown, telefuncContext: unknown, args: unknown[]) {
+function validateArgs(requestProps: unknown, args: unknown[]) {
+  assertUsage(requestProps, '`callTelefunc(requestProps)`: argument `requestProps` is missing.')
   assertUsage(
-    args.length === 2,
-    'You are providing more than 2 arguments to `callTelefunc()` but `callTelefunc()` accepts only two arguments',
+    args.length === 1,
+    '`callTelefunc()`: all arguments should be passed as a single argument object.'
   )
-  assertUsage(requestProps, '`callTelefunc(requestProps, telefuncContext)`: argument `requestProps` is missing.')
-  assertUsage(
-    isObject(requestProps),
-    '`callTelefunc(requestProps, telefuncContext)`: argument `requestProps` should be an object.',
-  )
-  assertUsage(telefuncContext, '`callTelefunc(requestProps, telefuncContext)`: argument `telefuncContext` is missing.')
-  assertUsage(
-    isObject(telefuncContext),
-    '`callTelefunc(requestProps, telefuncContext)`: argument `telefuncContext` should be an object.',
-  )
+  assertUsage(isObject(requestProps), '`callTelefunc(requestProps)`: argument `requestProps` should be an object.')
   assertUsage(hasProp(requestProps, 'url'), '`callTelefunc({ url })`: argument `url` is missing.')
   assertUsage(hasProp(requestProps, 'url', 'string'), '`callTelefunc({ url })`: argument `url` should be a string.')
   assertUsage(hasProp(requestProps, 'method'), '`callTelefunc({ method })`: argument `method` is missing.')

@@ -16,14 +16,11 @@
   "module": "./dist/esm/index.js",
   "exports": {
     ".": {
-      "node": "./dist/cjs/index.js",
-      "import": "./dist/esm/index.js"
+      "node": "./dist/cjs/server/index.js",
+      "browser": "./dist/cjs/server/client.js"
     },
     "./client": {
       "browser": "./dist/esm/client/index.js"
-    },
-    "./server": {
-      "node": "./dist/cjs/server/index.js"
     },
     "./vite": {
       "node": "./dist/cjs/plugin/vite/index.js"

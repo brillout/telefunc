@@ -14,4 +14,12 @@ function runTest(cmd: 'npm run dev' | 'npm run prod') {
       expect(await page.textContent('body')).toContain('node_modules')
     })
   })
+
+  test('telefunc context', async () => {
+    await page.click('button#wrong-cmd')
+    await autoRetry(async () => {
+      expect(await page.textContent('body')).toContain('userAgent')
+    })
+    expect(await page.textContent('body')).toContain('HeadlessChrome/')
+  })
 }

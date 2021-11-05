@@ -1,16 +1,6 @@
-import { assertUsage } from './utils'
-export { getContext } from './getContext'
+import { assertEnv } from './assertEnv'
 export { createTelefuncCaller } from './createTelefuncCaller'
+export { getContext, provideContext } from './getContext'
+export { setTelefuncFiles as __internal_setTelefuncFiles } from './callTelefunc'
 
-assertNodejs()
-
-function assertNodejs() {
-  const isNodejs = typeof 'process' !== 'undefined' && process && process.versions && process.versions.node
-  assertUsage(
-    isNodejs,
-    [
-      'You are loading the module `telefunc` in the browser.',
-      'The module `telefunc` is meant for your Node.js server. Load `telefunc/client` instead.',
-    ].join(' '),
-  )
-}
+assertEnv()
