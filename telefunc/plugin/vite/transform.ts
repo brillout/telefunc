@@ -1,5 +1,5 @@
 import { Plugin } from 'vite'
-import { assert, isObject } from '../../server/utils'
+import { assert, toPosixPath, isObject, assertPosixPath } from '../../server/utils'
 import { isTelefuncFile } from '../isTelefuncFile'
 import { transformTelefuncFile } from '../transformTelefuncFile'
 
@@ -10,7 +10,10 @@ function transform(): Plugin {
   return {
     name: 'telefunc:transform',
     config: (config) => {
-      root = config.root || process.cwd()
+      root = config.root
+        ? // Not sure why but Vite doens't seem to always normalize config.root
+          toPosixPath(config.root)
+        : toPosixPath(process.cwd())
       return {
         ssr: { external: ['telefunc'] },
         optimizeDeps: { include: ['telefunc/client'] },

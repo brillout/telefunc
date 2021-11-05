@@ -1,5 +1,5 @@
 import { createUnplugin } from 'unplugin'
-import { assert } from '../../server/utils'
+import { assert, toPosixPath } from '../../server/utils'
 import { getImportBuildCode } from './getImportBuildCode'
 import { isSSR } from './isSSR'
 import { isTelefuncFile } from '../isTelefuncFile'
@@ -36,7 +36,7 @@ const unpluginTransform = createUnplugin((_userPlugin, meta) => {
         if (isSSR()) {
           return
         }
-        return transformTelefuncFile(src, id, root)
+        return transformTelefuncFile(src, toPosixPath(id), toPosixPath(root))
       }
       assert(false)
     },

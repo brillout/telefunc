@@ -12,8 +12,8 @@
     "tsc:watch:esm": "tsc --outDir dist/esm/ --incremental --watch",
     "tsc:watch:cjs": "tsc --outDir dist/cjs/ --incremental --watch --module CommonJS --target ES2017"
   },
-  "main": "./dist/cjs/index.js",
-  "module": "./dist/esm/index.js",
+  "main": "./dist/cjs/server/index.js",
+  "module": "./dist/esm/server/index.js",
   "exports": {
     ".": {
       "node": "./dist/cjs/server/index.js",

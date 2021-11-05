@@ -1,14 +1,20 @@
 import { init, parse } from 'es-module-lexer'
-import { relative } from 'path'
+import { posix } from 'path'
 import { assert } from '../server/utils'
+import { assertPosixPath } from '../server/utils/assertPosixPath'
 
 export { transformTelefuncFile }
 
 async function transformTelefuncFile(src: string, id: string, root: string) {
-  assert(root)
-  const filepath = '/' + relative(root, id)
+  assertPosixPath(id)
+  assertPosixPath(root)
+
+  const filepath = '/' + posix.relative(root, id)
   assert(!filepath.startsWith('/.'))
+  assertPosixPath(filepath)
+
   await init
+
   const exports = parse(src)[1]
   return {
     code: getCode(exports, filepath),

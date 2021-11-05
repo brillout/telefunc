@@ -38,7 +38,7 @@ export const unpluginBuild = createUnplugin(() => {
       // faster build through building only the telefunc files
       Object.keys(entry).forEach((k) => delete entry[k])
 
-      const telefuncDist = resolve(dirname(require.resolve('telefunc')), '../../dist/')
+      const telefuncDist = resolve(dirname(require.resolve('telefunc')), '../../../dist/')
       {
         const filePath = join(telefuncDist, '/esm/plugin/webpack/importTelefuncFiles.js')
         assert(moduleExists(filePath))
