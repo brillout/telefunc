@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { addTodoItem, getTodoItems, clearTodoItems } from '../../todoItems.telefunc'
+import { addTodoItem, getTodoItems, clearTodoItems } from './index.telefunc'
 
 export { Page }
 

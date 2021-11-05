@@ -1,4 +1,4 @@
-import { getTodoItems } from '../../todoItems.telefunc'
+import { getTodoItems } from './index.telefunc'
 
 export { onBeforeRender }
 
