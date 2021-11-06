@@ -9,14 +9,11 @@ export { provideContextOrNull_async }
 let contextStore: AsyncLocalStorage<Record<string, unknown>>
 
 function getContext_async<T = Record<string, unknown>>(): T {
+  assertUsage(contextStore, 'TODO')
   const context = contextStore.getStore()
   assertUsage(context !== undefined, 'TODO')
   assert(isObject(context))
   return context as T
-}
-
-function getContextOrUndefined_async(): Record<string, unknown> | undefined {
-  return undefined
 }
 
 function provideContext_async(context: Record<string, unknown>) {
@@ -25,6 +22,10 @@ function provideContext_async(context: Record<string, unknown>) {
   contextStore.enterWith(context)
 }
 
-function provideContextOrNull_async(_context: Record<string, unknown> | null) {
+// We don't need this
+function provideContextOrNull_async(_context: Record<string, unknown> | null): void {
   return
+}
+function getContextOrUndefined_async(): Record<string, unknown> | undefined {
+  return undefined
 }

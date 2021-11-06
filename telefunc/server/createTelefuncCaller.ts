@@ -3,6 +3,7 @@ import type { ViteDevServer } from 'vite'
 import { callTelefunc } from './callTelefunc'
 import { RequestProps, Config } from './types'
 import { normalize as pathNormalize } from 'path'
+import {installAsyncMode} from './getContext'
 
 let telefuncConfig: Config | null = null
 
@@ -13,7 +14,7 @@ function getTelefuncConfig(): Config | null {
   return telefuncConfig
 }
 
-function createTelefuncCaller({
+async function createTelefuncCaller({
   viteDevServer,
   root,
   isProduction,
@@ -35,6 +36,8 @@ function createTelefuncCaller({
     '`createTelefuncCaller()`: You are calling `createTelefuncCaller()` a second time which is forbidden; it should be called only once.')
   telefuncConfig = { viteDevServer, root, isProduction, baseUrl, disableCache, urlPath }
   assertArgs(telefuncConfig, Array.from(arguments))
+
+  await installAsyncMode()
 
   /**
    * Get the HTTP response of a telefunction call.

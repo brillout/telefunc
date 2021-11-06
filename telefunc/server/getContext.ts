@@ -24,7 +24,10 @@ let _getContextOrUndefined = getContextOrUndefined_sync
 let _provideContext = provideContext_sync
 let _provideContextOrNull = provideContextOrNull_sync
 
+let isAsyncMode = false
 async function installAsyncMode() {
+  if (isAsyncMode) return
+  isAsyncMode = true
   const { getContext_async, getContextOrUndefined_async, provideContext_async, provideContextOrNull_async } =
     await import('./getContext/async')
   _getContext = getContext_async

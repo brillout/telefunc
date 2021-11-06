@@ -20,7 +20,7 @@ async function startServer() {
     })
   }
 
-  const callTelefunc = createTelefuncCaller({ viteDevServer, isProduction, root })
+  const callTelefunc = await createTelefuncCaller({ viteDevServer, isProduction, root })
   app.use(express.text())
   app.all('/_telefunc', async (req, res, next) => {
     const { originalUrl: url, method, body, headers } = req

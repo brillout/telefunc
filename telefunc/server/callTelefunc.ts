@@ -48,7 +48,7 @@ async function callTelefunc_(requestProps: RequestProps, config: Config, args: u
   objectAssign(telefuncContext, {
     _url: requestProps.url,
     _method: requestProps.method,
-    _providedContext: getContextOrUndefined() || null
+    _providedContext: getContextOrUndefined() || null,
   })
 
   objectAssign(telefuncContext, {
@@ -237,10 +237,7 @@ function parseBody({ url, body }: { url: string; body: unknown }) {
 
 function validateArgs(requestProps: unknown, args: unknown[]) {
   assertUsage(requestProps, '`callTelefunc(requestProps)`: argument `requestProps` is missing.')
-  assertUsage(
-    args.length === 1,
-    '`callTelefunc()`: all arguments should be passed as a single argument object.'
-  )
+  assertUsage(args.length === 1, '`callTelefunc()`: all arguments should be passed as a single argument object.')
   assertUsage(isObject(requestProps), '`callTelefunc(requestProps)`: argument `requestProps` should be an object.')
   assertUsage(hasProp(requestProps, 'url'), '`callTelefunc({ url })`: argument `url` is missing.')
   assertUsage(hasProp(requestProps, 'url', 'string'), '`callTelefunc({ url })`: argument `url` should be a string.')
