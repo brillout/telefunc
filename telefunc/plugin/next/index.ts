@@ -1,12 +1,15 @@
 import type { NextConfig } from 'next'
-import { WebpackCompiler } from 'unplugin'
+import { resolve } from 'path'
 
 export default plugin
 
 function plugin(nextConfig: NextConfig = {}): NextConfig {
   return Object.assign({}, nextConfig, {
     webpack: (config, options) => {
-      // console.log(options.config.compress)
+      config.module.rules.push({
+        test: /\.telefunc\./,
+        use: [{ loader: resolve(__dirname, './loader.js') }],
+      })
 
       if (typeof nextConfig.webpack === 'function') {
         return nextConfig.webpack(config, options)
