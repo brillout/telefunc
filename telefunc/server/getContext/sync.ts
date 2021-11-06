@@ -7,7 +7,7 @@ export { provideContextOrNull_sync }
 
 let _context: undefined | null | Record<string, unknown> = undefined
 
-function getContext_sync<T = Record<string, any>>(): T {
+function getContext_sync<T = Record<string, unknown>>(): T {
   /*
   const wrongUsageError = _isSSR
     ? 'You are using Telfunc with SSR. Make sure to enable SSR: `createTelefuncCaller({ enableSSR: true })`.'
