@@ -1,39 +1,34 @@
-import { assertUsage, assert, isObject } from './utils'
+// Infrastructure to toggle async/sync mode for context provisioning
+
+import {
+  getContext_sync,
+  getContextOrUndefined_sync,
+  provideContext_sync,
+  provideContextOrNull_sync,
+} from './getContext/sync'
+
+export { installAsyncMode }
 
 export { getContext }
 export { getContextOrUndefined }
 export { provideContext }
 export { provideContextOrNull }
 
-let _context: undefined | null | Record<string, unknown> = undefined
+const getContext = () => _getContext()
+const getContextOrUndefined = () => _getContextOrUndefined()
+const provideContext = (ctx: Parameters<typeof _provideContext>[0]) => _provideContext(ctx)
+const provideContextOrNull = (ctx: Parameters<typeof _provideContextOrNull>[0]) => _provideContextOrNull(ctx)
 
-function getContext<T = Record<string, any>>(): T {
-  /*
-  const wrongUsageError = _isSSR
-    ? 'You are using Telfunc with SSR. Make sure to enable SSR: `createTelefuncCaller({ enableSSR: true })`.'
-    : 'Make sure to call `getContext()` before using any `await` operations. You can first `const context = getContext()` and then access `context` after `await` operations.'
-    */
-  assertUsage(_context !== undefined, "TODO")
-  assertUsage(_context !== null, "TODO")
-  return _context as T
-}
+let _getContext = getContext_sync
+let _getContextOrUndefined = getContextOrUndefined_sync
+let _provideContext = provideContext_sync
+let _provideContextOrNull = provideContextOrNull_sync
 
-function getContextOrUndefined(): Record<string, unknown> | undefined {
-  assert(_context !== null)
-  return _context
-}
-
-function provideContext(context: Record<string, unknown>) {
-  assertUsage(isObject(context), "TODO")
-  _context = context
-  process.nextTick(() => {
-    _context = undefined
-  })
-}
-
-function provideContextOrNull(context: Record<string, unknown> | null) {
-  if( context === null ) {
-    return
-  }
-  provideContext(context)
+async function installAsyncMode() {
+  const { getContext_async, getContextOrUndefined_async, provideContext_async, provideContextOrNull_async } =
+    await import('./getContext/async')
+  _getContext = getContext_async
+  _getContextOrUndefined = getContextOrUndefined_async
+  _provideContext = provideContext_async
+  _provideContextOrNull = provideContextOrNull_async
 }

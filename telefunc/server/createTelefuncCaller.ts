@@ -1,10 +1,17 @@
-import { assertUsage, hasProp, isPlainObject } from './utils'
+import { assert, assertUsage, hasProp, isPlainObject } from './utils'
 import type { ViteDevServer } from 'vite'
 import { callTelefunc } from './callTelefunc'
 import { RequestProps, Config } from './types'
 import { normalize as pathNormalize } from 'path'
 
+let telefuncConfig: Config | null = null
+
 export { createTelefuncCaller }
+export { getTelefuncConfig }
+
+function getTelefuncConfig(): Config | null {
+  return telefuncConfig
+}
 
 function createTelefuncCaller({
   viteDevServer,
@@ -24,8 +31,10 @@ function createTelefuncCaller({
   /** Base URL (default: `/`). */
   baseUrl?: string
 }) {
-  const config: Config = { viteDevServer, root, isProduction, baseUrl, disableCache, urlPath }
-  assertArgs(config, Array.from(arguments))
+  assertUsage(telefuncConfig===null,
+    '`createTelefuncCaller()`: You are calling `createTelefuncCaller()` a second time which is forbidden; it should be called only once.')
+  telefuncConfig = { viteDevServer, root, isProduction, baseUrl, disableCache, urlPath }
+  assertArgs(telefuncConfig, Array.from(arguments))
 
   /**
    * Get the HTTP response of a telefunction call.
@@ -40,7 +49,8 @@ function createTelefuncCaller({
       arguments.length === 1,
       '`callTelefunc(/* ... */, context)` is deprecated. Use `provideContext(context)` instead, see https://telefunc.com/provideContext',
     )
-    return callTelefunc(requestProps, config, Array.from(arguments))
+    assert(telefuncConfig)
+    return callTelefunc(requestProps, telefuncConfig, Array.from(arguments))
   }
 }
 
