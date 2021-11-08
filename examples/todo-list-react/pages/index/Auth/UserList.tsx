@@ -15,7 +15,7 @@ function UserList({ userList }: { userList: User[] }) {
             signin(user.id)
           }}
         >
-          Log-in as {user.name}
+          Login as {user.name}
         </Button>
       ))}
     </p>
