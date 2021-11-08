@@ -23,6 +23,6 @@ class TodoModel {
   }
   static _init(userId: UserId) {
     data.todoLists[userId] = data.todoLists[userId] || []
-    return data.todoLists[userId]
+    return data.todoLists[userId]!
   }
 }
