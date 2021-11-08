@@ -14,9 +14,10 @@ export { getContextOrUndefined }
 export { provideContext }
 export { provideContextOrNull }
 
-const getContext = () => _getContext()
+const getContext = <Context>() => _getContext<Context>()
 const getContextOrUndefined = () => _getContextOrUndefined()
-const provideContext = (ctx: Parameters<typeof _provideContext>[0]) => _provideContext(ctx)
+const provideContext = <Context extends Record<string, unknown> = Record<string, unknown>>(ctx: Context) =>
+  _provideContext(ctx)
 const provideContextOrNull = (ctx: Parameters<typeof _provideContextOrNull>[0]) => _provideContextOrNull(ctx)
 
 let _getContext = getContext_sync

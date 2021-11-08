@@ -1,6 +1,7 @@
-const express = require('express')
-const { createTelefuncCaller, provideContext } = require('telefunc')
-const { createPageRenderer } = require('vite-plugin-ssr')
+import express from 'express'
+import { createPageRenderer } from 'vite-plugin-ssr'
+import { createTelefuncCaller, provideContext } from 'telefunc'
+import {Context} from '../telefunc/Context'
 
 const isProduction = process.env.NODE_ENV === 'production'
 const root = `${__dirname}/..`
@@ -22,17 +23,23 @@ async function startServer() {
     app.use(viteDevServer.middlewares)
   }
 
+  app.use(function (_req, _res, next) {
+    provideContext<Context>({
+      user: {
+        id: 1,
+        name: 'Rom',
+      },
+    })
+    next()
+  })
+
   const callTelefunc = await createTelefuncCaller({ viteDevServer, isProduction, root })
   app.use(express.text())
   app.all('/_telefunc', async (req, res, next) => {
-    const { originalUrl: url, method, body, headers } = req
-    const userAgent = headers['user-agent']
-    provideContext({
-      userAgent,
-    })
-    const result = await callTelefunc({ url, method, body })
-    if (!result) return next()
-    res.status(result.statusCode).type(result.contentType).send(result.body)
+    const httpResponse = await callTelefunc({ url: req.originalUrl, method: req.method, body: req.body })
+    if (!httpResponse) return next()
+    const { body, statusCode, contentType } = httpResponse
+    res.status(statusCode).type(contentType).send(body)
   })
 
   const renderPage = createPageRenderer({ viteDevServer, isProduction, root })
