@@ -1,5 +1,6 @@
 import React from 'react'
 import { User } from '../../../db/User'
+import { Button } from '../utils/TextInputForm'
 import { logout } from './session'
 
 export { UserInfo }
@@ -7,10 +8,7 @@ export { UserInfo }
 function UserInfo({ user }: { user: User }) {
   return (
     <p>
-      User: <b>{user.name}</b>.{' '}
-      <button onClick={() => logout()} style={{ display: 'inline-block' }}>
-        Logout
-      </button>
+      User: <b>{user.name}</b>. <Button onClick={() => logout()}>Logout</Button>
     </p>
   )
 }

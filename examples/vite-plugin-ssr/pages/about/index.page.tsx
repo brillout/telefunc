@@ -8,9 +8,9 @@ function Page() {
       <h1>About</h1>
       <p>This app showcases:</p>
       <ul>
-        <li>RPC instead of API. (Using Telefunc.)</li>
-        <li>SSR. (Using Vite + vite-plugin-ssr.)</li>
-        <li>Authentication. (Using Telefunc's context provisioning.)</li>
+        <li>RPC, with Telefunc.</li>
+        <li>SSR, with vite-plugin-ssr.</li>
+        <li>Authentication, with Telefunc's context SSR provisioning.</li>
       </ul>
     </>
   )

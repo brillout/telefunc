@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 
 export { TextInputForm }
 export { useFocusInput }
+export { Button }
 
 function TextInputForm({
   onSubmit,
@@ -19,7 +20,7 @@ function TextInputForm({
   return (
     <Form
       onSubmit={async () => {
-        if( text === '' ) {
+        if (text === '') {
           return
         }
         await onSubmit(text)
@@ -85,5 +86,17 @@ function Form({
         {children}
       </fieldset>
     </form>
+  )
+}
+
+function Button({ onClick, children }: { onClick: () => void; children: React.ReactNode }) {
+  const [disabled, setDisable] = useState(true)
+  useEffect(() => {
+    setDisable(false)
+  }, [])
+  return (
+    <button onClick={() => onClick()} style={{ display: 'inline-block', marginRight: 7 }} disabled={disabled}>
+      {children}
+    </button>
   )
 }
