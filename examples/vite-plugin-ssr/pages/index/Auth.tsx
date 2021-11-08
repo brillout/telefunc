@@ -1,41 +1,20 @@
 import React, { useState } from 'react'
 import { User } from '../../db/User'
-import { createAccount } from './Auth.telefunc'
-import { SingleTextInputForm } from './TodoList/Form'
+import { CreateAccount } from './Auth/CreateAccount'
+import { UserList } from './Auth/UserList'
 
 export { Auth }
-export { UserInfo }
+export { UserInfo } from './Auth/UserInfo'
 
 function Auth({ userListInitial }: { userListInitial: User[] }) {
   const [userList, setUserList] = useState(userListInitial)
+  const onNewAccount = (userList: User[]) => {
+    setUserList(userList)
+  }
   return (
     <>
-      <CreateAccount
-        onNewAccount={(userList) => {
-          setUserList(userList)
-        }}
-      />
-      <div>{userList.map((user) => user.name)}</div>
-    </>
-  )
-}
-
-function CreateAccount({ onNewAccount }: { onNewAccount: (userList: User[]) => void }) {
-  return (
-    <SingleTextInputForm
-      onSubmit={async (name: string) => {
-        const userList = await createAccount(name)
-        onNewAccount(userList)
-      }}
-      submitButtonText="Create Account"
-    />
-  )
-}
-
-function UserInfo({ user }: { user: User }) {
-  return (
-    <>
-      <p>Logged User: {user.name}</p>
+      <CreateAccount onNewAccount={onNewAccount} />
+      <UserList userList={userList} />
     </>
   )
 }

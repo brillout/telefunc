@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "strict": true,
+    "noUncheckedIndexedAccess": true,
     "module": "ES2020",
     "moduleResolution": "Node",
     "target": "ES2017",

@@ -1,37 +1,21 @@
-import React, { useState, useRef } from 'react'
+import React from 'react'
 import { onNewTodo, onClear } from './NewTodo.telefunc'
-import { Form } from './Form'
+import { TextInputForm, useFocusInput } from '../utils/TextInputForm'
 import { TodoItem } from '../../../db'
 
 export { NewTodo }
 
 function NewTodo({ onTodoListUpdate }: { onTodoListUpdate: (todoItems: TodoItem[]) => void }) {
-  const [text, setText] = useState('')
-  const inputEl = useRef<HTMLInputElement>(null)
-  const focusInput = () => {
-    inputEl.current!.focus()
-  }
+  const focusInput = useFocusInput()
   return (
-    <Form
-      onSubmit={async () => {
+    <TextInputForm
+      onSubmit={async (text) => {
         const todoItems = await onNewTodo({ text })
         onTodoListUpdate(todoItems)
-        setText('')
       }}
-      onAfterHydration={focusInput}
-      onAfterSubmit={focusInput}
+      submitButtonText="Add To-do"
+      focusInput={focusInput}
     >
-      <input
-        type="text"
-        value={text}
-        ref={inputEl}
-        onChange={(ev) => {
-          setText(ev.target.value)
-        }}
-      />
-      <button type="submit" style={{ margin: '0 10px' }}>
-        Add Todo
-      </button>
       <button
         type="button"
         onClick={async () => {
@@ -42,6 +26,6 @@ function NewTodo({ onTodoListUpdate }: { onTodoListUpdate: (todoItems: TodoItem[
       >
         Clear All
       </button>
-    </Form>
+    </TextInputForm>
   )
 }

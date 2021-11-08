@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@brillout/fetch": "^0.2.1",
-    "@brillout/json-s": "^0.2.0",
+    "@brillout/json-s": "^0.3.0",
     "@brillout/libassert": "^0.5.2",
     "@brillout/url-props": "^0.1.1",
     "@universal-adapter/express": "^0.8.0",

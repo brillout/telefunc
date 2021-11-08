@@ -11,13 +11,15 @@ type UserId = number
 
 class UserModel {
   static add(name: string) {
-    const { users } = data
-    const id = Object.keys(users).length
+    const id = Object.keys(data.users).length
     data.users[id] = { id, name }
   }
   static getAll() {
-    const { users } = data
-    const userList = Object.values(users)
+    const userList = Object.values(data.users)
     return userList
+  }
+  static getOne(id: UserId) {
+    const user = data.users[id] || null
+    return user
   }
 }

@@ -1,17 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react'
 
-export { Form }
-export { SingleTextInputForm }
+export { TextInputForm }
+export { useFocusInput }
 
-function useFocusInput() {
-  const inputEl = useRef<HTMLInputElement>(null)
-  const focusInput = () => {
-    inputEl.current!.focus()
-  }
-  focusInput.inputEl = inputEl
-  return focusInput
-}
-function SingleTextInputForm({
+function TextInputForm({
   onSubmit,
   submitButtonText,
   focusInput,
@@ -27,6 +19,9 @@ function SingleTextInputForm({
   return (
     <Form
       onSubmit={async () => {
+        if( text === '' ) {
+          return
+        }
         await onSubmit(text)
         setText('')
       }}
@@ -47,6 +42,15 @@ function SingleTextInputForm({
       {children}
     </Form>
   )
+}
+
+function useFocusInput() {
+  const inputEl = useRef<HTMLInputElement>(null)
+  const focusInput = () => {
+    inputEl.current!.focus()
+  }
+  focusInput.inputEl = inputEl
+  return focusInput
 }
 
 function Form({

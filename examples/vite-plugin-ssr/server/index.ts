@@ -1,7 +1,9 @@
 import express from 'express'
 import { createPageRenderer } from 'vite-plugin-ssr'
 import { createTelefuncCaller, provideContext } from 'telefunc'
-import {Context} from '../telefunc/Context'
+import { Context } from '../telefunc/Context'
+import cookieParser from 'cookie-parser'
+import { getLoggedUser } from './getLoggedUser'
 
 const isProduction = process.env.NODE_ENV === 'production'
 const root = `${__dirname}/..`
@@ -23,13 +25,11 @@ async function startServer() {
     app.use(viteDevServer.middlewares)
   }
 
-  app.use(function (_req, _res, next) {
+  app.use(cookieParser())
+  app.use(function (req, _res, next) {
+    const user = getLoggedUser(req.cookies)
     provideContext<Context>({
-      user: null/* {
-        id: 1,
-        name: 'Rom',
-      },
-      */
+      user,
     })
     next()
   })
