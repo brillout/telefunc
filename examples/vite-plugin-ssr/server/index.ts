@@ -25,10 +25,11 @@ async function startServer() {
 
   app.use(function (_req, _res, next) {
     provideContext<Context>({
-      user: {
+      user: null/* {
         id: 1,
         name: 'Rom',
       },
+      */
     })
     next()
   })

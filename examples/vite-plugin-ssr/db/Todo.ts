@@ -1,35 +1,28 @@
-export { Todo }
-export type { TodoItem, User, UserId }
+import { data } from './data'
+import { UserId } from './User'
+
+export { TodoModel }
+export type { TodoItem }
 
 type TodoItem = {
   text: string
 }
 
-type UserId = number
-type User = {
-  id: UserId
-  name: string
-}
-
-const db: Record<UserId, TodoItem[]> = {}
-
-class Todo {
+class TodoModel {
   static add(userId: UserId, todoItemNew: TodoItem) {
-    this._init(userId)
-    const todoItems = db[userId]
+    const todoItems = this._init(userId)
     todoItems.push(todoItemNew)
   }
   static getAll(userId: UserId) {
-    this._init(userId)
-    const todoItems = db[userId]
+    const todoItems = this._init(userId)
     return todoItems
   }
   static deleteAll(userId: UserId) {
-    this._init(userId)
-    const todoItems = db[userId]
+    const todoItems = this._init(userId)
     todoItems.length = 0
   }
   static _init(userId: UserId) {
-    db[userId] = db[userId] || []
+    data.todoLists[userId] = data.todoLists[userId] || []
+    return data.todoLists[userId]
   }
 }

@@ -1,6 +1,53 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 
 export { Form }
+export { SingleTextInputForm }
+
+function useFocusInput() {
+  const inputEl = useRef<HTMLInputElement>(null)
+  const focusInput = () => {
+    inputEl.current!.focus()
+  }
+  focusInput.inputEl = inputEl
+  return focusInput
+}
+function SingleTextInputForm({
+  onSubmit,
+  submitButtonText,
+  focusInput,
+  children,
+}: {
+  onSubmit: (text: string) => Promise<void>
+  submitButtonText: string
+  focusInput?: ReturnType<typeof useFocusInput>
+  children?: React.ReactNode
+}) {
+  focusInput = focusInput || useFocusInput()
+  const [text, setText] = useState('')
+  return (
+    <Form
+      onSubmit={async () => {
+        await onSubmit(text)
+        setText('')
+      }}
+      onAfterHydration={focusInput}
+      onAfterSubmit={focusInput}
+    >
+      <input
+        type="text"
+        value={text}
+        ref={focusInput.inputEl}
+        onChange={(ev) => {
+          setText(ev.target.value)
+        }}
+      />
+      <button type="submit" style={{ margin: '0 10px' }}>
+        {submitButtonText}
+      </button>
+      {children}
+    </Form>
+  )
+}
 
 function Form({
   children,

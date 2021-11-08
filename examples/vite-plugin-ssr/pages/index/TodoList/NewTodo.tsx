@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react'
 import { onNewTodo, onClear } from './NewTodo.telefunc'
 import { Form } from './Form'
-import { TodoItem } from '../../../db/Todo'
+import { TodoItem } from '../../../db'
 
 export { NewTodo }
 

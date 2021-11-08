@@ -1,7 +1,7 @@
-import type { User } from '../db/Todo'
+import type { User } from '../db'
 
 export type { Context }
 
 type Context = {
-  user: User
+  user: null | User
 }
