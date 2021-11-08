@@ -25,19 +25,18 @@ function runTest(cmd: 'npm run dev' | 'npm run prod') {
     await page.goto(`${urlBase}/`)
     await page.waitForSelector('button:not([disabled]) >> text=Logout')
     await page.click('text=Logout')
-    await autoRetry(async () => {
-      expect(await page.textContent('body')).toContain('Login')
-    })
 
+    await page.waitForSelector('button:not([disabled]) >> text=Create Account')
+    expect(await page.textContent('body')).toContain('Login')
     await page.fill('input[type="text"]', 'Seb')
     await page.click('text=Create Account')
-    await page.waitForSelector('button >> text=Login as Seb')
 
     await page.click('button >> text=Login as Seb')
     expect(await page.textContent('body')).toContain('User: Seb')
     expect((await page.$$('li')).length).toBe(1)
     expect(await page.textContent('body')).not.toContain('Cherries')
 
+    await page.waitForSelector('fieldset:not([disabled])')
     await page.fill('input[type="text"]', 'Apples')
     await page.click('button[type="submit"]')
     await autoRetry(async () => {
