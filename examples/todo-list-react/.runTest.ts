@@ -26,11 +26,12 @@ function runTest(cmd: 'npm run dev' | 'npm run prod') {
     await page.waitForSelector('button:not([disabled]) >> text=Logout')
     await page.click('text=Logout')
 
-    await page.waitForSelector('button:not([disabled]) >> text=Create Account')
+    await page.waitForSelector('fieldset:not([disabled])')
     expect(await page.textContent('body')).toContain('Login')
     await page.fill('input[type="text"]', 'Seb')
     await page.click('text=Create Account')
 
+    await page.waitForSelector('button:not([disabled]) >> text=Login as Seb')
     await page.click('button >> text=Login as Seb')
     expect(await page.textContent('body')).toContain('User: Seb')
     expect((await page.$$('li')).length).toBe(1)
