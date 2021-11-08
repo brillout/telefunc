@@ -1,4 +1,6 @@
-import { User, UserModel } from '../db'
+// Environment: Node.js
+
+import { User, UserModel } from '../../db'
 
 export { getLoggedUser }
 

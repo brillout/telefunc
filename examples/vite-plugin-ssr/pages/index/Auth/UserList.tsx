@@ -1,7 +1,7 @@
 import React from 'react'
 import { User } from '../../../db/User'
 import { Button } from '../utils/TextInputForm'
-import { signin } from './session'
+import { signin } from '../../../auth/client/session'
 
 export { UserList }
 

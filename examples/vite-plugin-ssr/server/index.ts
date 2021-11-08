@@ -3,7 +3,7 @@ import { createPageRenderer } from 'vite-plugin-ssr'
 import { createTelefuncCaller, provideContext } from 'telefunc'
 import { Context } from '../telefunc/Context'
 import cookieParser from 'cookie-parser'
-import { getLoggedUser } from './getLoggedUser'
+import { getLoggedUser } from '../auth/server/getLoggedUser'
 
 const isProduction = process.env.NODE_ENV === 'production'
 const root = `${__dirname}/..`
