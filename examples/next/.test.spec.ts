@@ -1,5 +1,6 @@
 import { page, run, urlBase, autoRetry } from '../../libframe/test/setup'
 
+run('npm run build')
 run('npm run start')
 
 test('telefunction call', async () => {
