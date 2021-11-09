@@ -20,7 +20,8 @@
       "browser": "./dist/cjs/server/client.js"
     },
     "./client": {
-      "browser": "./dist/esm/client/index.js"
+      "browser": "./dist/esm/client/index.js",
+      "node": "./dist/cjs/client/index.js"
     },
     "./vite": {
       "node": "./dist/cjs/plugin/vite/index.js"
