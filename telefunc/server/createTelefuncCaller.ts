@@ -1,9 +1,9 @@
 import { assert, assertUsage, hasProp, isPlainObject } from './utils'
 import type { ViteDevServer } from 'vite'
 import { callTelefunc } from './callTelefunc'
-import { RequestProps, Config } from './types'
+import { RequestProps, Config, Telefunctions } from './types'
 import { normalize as pathNormalize } from 'path'
-import {installAsyncMode} from './getContext'
+import { installAsyncMode } from './getContext'
 
 let telefuncConfig: Config | null = null
 
@@ -16,6 +16,7 @@ function getTelefuncConfig(): Config | null {
 
 async function createTelefuncCaller({
   viteDevServer,
+  telefunctions,
   root,
   isProduction,
   baseUrl = '/',
@@ -23,6 +24,7 @@ async function createTelefuncCaller({
   disableCache = false,
 }: {
   viteDevServer?: ViteDevServer
+  telefunctions: Record<string, Telefunctions>
   root?: string
   isProduction: boolean
   /** URL at which Telefunc HTTP requests are served (default: `_telefunc`). */
@@ -32,9 +34,11 @@ async function createTelefuncCaller({
   /** Base URL (default: `/`). */
   baseUrl?: string
 }) {
-  assertUsage(telefuncConfig===null,
-    '`createTelefuncCaller()`: You are calling `createTelefuncCaller()` a second time which is forbidden; it should be called only once.')
-  telefuncConfig = { viteDevServer, root, isProduction, baseUrl, disableCache, urlPath }
+  // assertUsage(
+  //   telefuncConfig === null,
+  //   '`createTelefuncCaller()`: You are calling `createTelefuncCaller()` a second time which is forbidden; it should be called only once.',
+  // )
+  telefuncConfig = { viteDevServer, root, isProduction, baseUrl, disableCache, urlPath, telefunctions }
   assertArgs(telefuncConfig, Array.from(arguments))
 
   await installAsyncMode()
@@ -92,6 +96,9 @@ function assertArgs(config: unknown, args: unknown[]): void {
       '`createTelefuncCaller({ root })`: argument `root` should be a string.',
     )
 
+    if (hasProp(config, 'telefunctions')) {
+      return
+    }
     assertUsage(
       hasProp(config, 'viteDevServer'),
       '`createTelefuncCaller({ viteDevServer, isProduction })`: if `isProduction` is not `true`, then `viteDevServer` cannot be `undefined`.',
