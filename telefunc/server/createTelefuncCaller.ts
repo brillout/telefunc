@@ -24,7 +24,7 @@ async function createTelefuncCaller({
   disableCache = false,
 }: {
   viteDevServer?: ViteDevServer
-  telefunctions: Record<string, Telefunctions>
+  telefunctions?: Record<string, Telefunctions>
   root?: string
   isProduction: boolean
   /** URL at which Telefunc HTTP requests are served (default: `_telefunc`). */
