@@ -8,7 +8,7 @@ import { loadTelefuncFilesWithWebpack } from './webpack/loadTelefuncFilesWithWeb
 
 export { loadTelefuncFiles }
 
-type BundlerName = 'webpack' | 'vite' | null
+type BundlerName = 'webpack' | 'nextjs' | 'vite' | null
 
 async function loadTelefuncFiles(telefuncContext: {
   _root: string
@@ -37,6 +37,9 @@ function getBundlerName({ _viteDevServer }: Record<string, unknown>): BundlerNam
   if (isWebpack()) {
     return 'webpack'
   }
+  if (isNextjs()) {
+    return 'nextjs'
+  }
   // TODO: how to add check for prod?
   return 'vite'
   /*
@@ -48,6 +51,10 @@ function isWebpack() {
   // TODO: make this test more robust
   const webpackConfigFile = 'webpack.js'
   return pathExits(join(process.cwd(), webpackConfigFile))
+}
+
+function isNextjs() {
+  return pathExits(join(process.cwd(), '.next'))
 }
 
 function pathExits(path: string) {
