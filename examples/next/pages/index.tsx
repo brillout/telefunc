@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { getPerson, Person, getIsServer } from '../telefunc/persons.telefunc'
 
 const Home: NextPage = () => {
@@ -15,7 +15,9 @@ const Home: NextPage = () => {
     })
   }
 
-  fetchPerson()
+  useEffect(() => {
+    fetchPerson()
+  }, [])
 
   return (
     <div id="view">
