@@ -1,5 +1,5 @@
-import { TodoModel, TodoItem } from '../../../db'
-import { getUserId } from '../../../telefunc/utils'
+import { TodoModel, TodoItem } from '#root/db'
+import { getUserId } from '#root/telefunc/utils'
 
 export { onNewTodo }
 export { onClear }

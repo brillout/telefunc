@@ -1,7 +1,7 @@
 import React from 'react'
-import { User } from '../../../db/User'
-import { Button } from '../utils/TextInputForm'
-import { logout } from '../../../auth/client/session'
+import { User } from '#root/db/User'
+import { Button } from '#root/components/forms/Button'
+import { logout } from '#root/auth/client/session'
 
 export { UserInfo }
 

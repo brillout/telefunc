@@ -1,5 +1,5 @@
-import { TodoModel, UserModel } from '../../db'
-import { getUser } from '../../telefunc/utils'
+import { TodoModel, UserModel } from '#root/db'
+import { getUser } from '#root/telefunc/utils'
 
 export { onBeforeRender }
 export type PageProps = PromiseType<ReturnType<typeof onBeforeRender>>['pageContext']['pageProps']

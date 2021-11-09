@@ -1,4 +1,4 @@
-import { UserModel } from '../../../db'
+import { UserModel } from '#root/db'
 
 export { createAccount }
 

@@ -1,6 +1,6 @@
 import { getContext, Abort } from 'telefunc'
 import type { Context } from './Context'
-import type { User } from '../db'
+import type { User } from '#root/db'
 
 export { getUser }
 export { getUserId }
@@ -11,7 +11,7 @@ function getUserId() {
 }
 function getUser(): User
 function getUser({ allowAnynomous }: { allowAnynomous: true }): null | User
-function getUser({ allowAnynomous = true } = {}) {
+function getUser({ allowAnynomous = false } = {}) {
   const context = getContext<Context>()
   const { user } = context
   if (!user && !allowAnynomous) {

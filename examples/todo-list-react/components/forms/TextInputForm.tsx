@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from 'react'
 
 export { TextInputForm }
 export { useFocusInput }
-export { Button }
 
 function TextInputForm({
   onSubmit,
@@ -86,17 +85,5 @@ function Form({
         {children}
       </fieldset>
     </form>
-  )
-}
-
-function Button({ onClick, children }: { onClick: () => void; children: React.ReactNode }) {
-  const [disabled, setDisable] = useState(true)
-  useEffect(() => {
-    setDisable(false)
-  }, [])
-  return (
-    <button onClick={() => onClick()} style={{ display: 'inline-block', marginRight: 7 }} disabled={disabled}>
-      {children}
-    </button>
   )
 }

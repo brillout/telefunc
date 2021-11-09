@@ -4,4 +4,9 @@ import ssr from 'vite-plugin-ssr/plugin'
 
 export default {
   plugins: [react(), ssr(), telefunc()],
+  resolve: {
+    alias: {
+      '#root': __dirname,
+    },
+  },
 }

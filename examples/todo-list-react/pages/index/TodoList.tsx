@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { TodoItem } from '../../db/Todo'
+import { TodoItem } from '#root/db/Todo'
 import { NewTodo } from './TodoList/NewTodo'
 
 export { TodoList }

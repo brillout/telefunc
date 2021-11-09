@@ -1,7 +1,7 @@
 import React from 'react'
 import { onNewTodo, onClear } from './NewTodo.telefunc'
-import { TextInputForm, useFocusInput } from '../utils/TextInputForm'
-import { TodoItem } from '../../../db'
+import { TextInputForm, useFocusInput } from '#root/components/forms/TextInputForm'
+import { TodoItem } from '#root/db'
 
 export { NewTodo }
 

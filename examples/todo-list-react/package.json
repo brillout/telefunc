@@ -25,6 +25,10 @@
     "vite": "2.6.7",
     "vite-plugin-ssr": "^0.3.26"
   },
+  "imports": {
+    "#root/*": "./*.ts",
+    "#root/db": "./db/index.ts"
+  },
   "name": "example-todo-list-react",
   "version": "0.0.0"
 }

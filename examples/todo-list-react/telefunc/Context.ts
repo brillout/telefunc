@@ -1,4 +1,4 @@
-import type { User } from '../db'
+import type { User } from '#root/db'
 
 export type { Context }
 
