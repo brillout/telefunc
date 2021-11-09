@@ -10,6 +10,7 @@ export type RequestProps = {
 
 export type Config = {
   viteDevServer?: ViteDevServer
+  telefunctions?: Record<string, Telefunctions>
   root?: string
   isProduction: boolean
   baseUrl: string
