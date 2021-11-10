@@ -1,8 +1,8 @@
-Example of implementing a to-do list app using:
+Example of implementing a to-do list with:
  - Telefunc
  - [Vite](https://vitejs.dev)
  - [vite-plugin-ssr](https://vite-plugin-ssr.com)
- - Authentication, using Telefunc's SSR context provisioning
+ - Authentication
 
 To run it:
 

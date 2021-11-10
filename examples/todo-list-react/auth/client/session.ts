@@ -1,11 +1,10 @@
 // Environment: Browser
 
+import { COOKIE_NAME } from '../COOKIE_NAME'
 import { setCookie } from './cookie'
 
 export { signin }
 export { logout }
-
-const COOKIE_NAME = 'user-id'
 
 function signin(userId: number) {
   setCookie(COOKIE_NAME, JSON.stringify(userId))

@@ -28,6 +28,9 @@ async function startServer() {
   app.use(cookieParser())
   app.use(function (req, _res, next) {
     const user = getLoggedUser(req.cookies)
+    // We use `provideContext()` for *all* requests. (Not only for Telefunc's URL `/_telefunc` but also for SSR URLs such as `/about`.)
+    // That way, the context is always available, including while rendering HTML on the server-side.
+    // More infos at https://telefunc.com/ssr
     provideContext<Context>({
       user,
     })
@@ -35,7 +38,7 @@ async function startServer() {
   })
 
   const callTelefunc = await createTelefuncCaller({ viteDevServer, isProduction, root })
-  app.use(express.text())
+  app.use(express.text()) // Parse & make HTTP request body available at `req.body`
   app.all('/_telefunc', async (req, res, next) => {
     const httpResponse = await callTelefunc({ url: req.originalUrl, method: req.method, body: req.body })
     if (!httpResponse) return next()

@@ -5,10 +5,6 @@ import type { User } from '#root/db'
 export { getUser }
 export { getUserId }
 
-function getUserId() {
-  const user = getUser()
-  return user.id
-}
 function getUser(): User
 function getUser({ allowAnynomous }: { allowAnynomous: true }): null | User
 function getUser({ allowAnynomous = false } = {}) {
@@ -18,4 +14,9 @@ function getUser({ allowAnynomous = false } = {}) {
     throw Abort()
   }
   return user
+}
+
+function getUserId() {
+  const user = getUser()
+  return user.id
 }

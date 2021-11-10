@@ -13,8 +13,8 @@ async function onBeforeRender() {
   }
 }
 
-// This is *not* a telefunction. We don't need a telefunction here since `.page.server.js` files are always called in Node.js
-// Note that we can still use our utility function `getUser()` (Telefunc's `getContext()` also works outside of Telefunctions.)
+// This is *not* a telefunction. We don't need a telefunction here since this `.page.server.js` file is always called in Node.js.
+// Note that we can still use our utility function `getUser()` (Telefunc's `getContext()` also works outside of telefunctions.)
 async function getInitialData() {
   const user = getUser({ allowAnynomous: true })
   if (!user) {
