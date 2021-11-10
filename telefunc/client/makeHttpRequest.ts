@@ -1,7 +1,5 @@
 import { assert, assertUsage } from './utils'
 import { parse } from '@brillout/json-s'
-// @ts-ignore
-import fetch = require('@brillout/fetch')
 import { TelefunctionName, TelefunctionResult } from '../shared/types'
 import { HttpRequestBody, HttpRequestUrl } from './TelefuncClient'
 import { isObject } from './utils'
@@ -15,26 +13,18 @@ async function makeHttpRequest(
   telefunctionName: TelefunctionName,
 ): Promise<TelefunctionResult> {
   const method = 'POST'
-  const makeRequest = addHandli(() =>
-    fetch(url, {
+
+  let response: Response
+  try {
+    response = await fetch(url, {
       method,
       body,
       credentials: 'same-origin',
       headers: {
         'Content-Type': 'text/plain',
       },
-    }),
-  )
-
-  let response
-  let isConnectionError: boolean = false
-  try {
-    response = await makeRequest()
+    })
   } catch (_) {
-    isConnectionError = true
-  }
-
-  if (isConnectionError) {
     throw new TelefuncError('No Server Connection', {
       isConnectionError: true,
       isCodeError: false,
@@ -86,15 +76,6 @@ class TelefuncError extends Error {
 
     assert(this.message === message)
     assert(this.isConnectionError !== this.isCodeError)
-  }
-}
-
-function addHandli(fetcher: () => Promise<TelefunctionResult>) {
-  return () => {
-    if (typeof window !== 'undefined' && window.handli && window.handli.constructor === Function) {
-      return window.handli(fetcher)
-    }
-    return fetcher()
   }
 }
 
