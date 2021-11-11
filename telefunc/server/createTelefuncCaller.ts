@@ -34,10 +34,10 @@ async function createTelefuncCaller({
   /** Base URL (default: `/`). */
   baseUrl?: string
 }) {
-  // assertUsage(
-  //   telefuncConfig === null,
-  //   '`createTelefuncCaller()`: You are calling `createTelefuncCaller()` a second time which is forbidden; it should be called only once.',
-  // )
+  assertUsage(
+    telefuncConfig === null,
+    '`createTelefuncCaller()`: You are calling `createTelefuncCaller()` a second time which is forbidden; it should be called only once.',
+  )
   telefuncConfig = { viteDevServer, root, isProduction, baseUrl, disableCache, urlPath, telefunctions }
   assertArgs(telefuncConfig, Array.from(arguments))
 
