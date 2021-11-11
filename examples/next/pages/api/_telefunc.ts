@@ -5,7 +5,7 @@ import * as personsTelefunctions from '../../telefunc/persons.telefunc'
 const callTelefuncPromise = createTelefuncCaller({
   isProduction: process.env.NODE_ENV === 'production',
   root: process.cwd(),
-  telefunctions: { '/telefunc/persons.telefunc.ts': personsTelefunctions as any },
+  telefunctions: { '/telefunc/persons.telefunc.ts': personsTelefunctions },
   urlPath: '/api/_telefunc',
 })
 
