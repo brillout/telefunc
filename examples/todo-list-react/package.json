@@ -28,8 +28,5 @@
     "#root/db": "./db/index.ts"
   },
   "name": "example-todo-list-react",
-  "version": "0.0.0",
-  "devDependencies": {
-    "@types/cookie-parser": "^1.4.2"
-  }
+  "version": "0.0.0"
 }
