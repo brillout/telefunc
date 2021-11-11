@@ -19,5 +19,9 @@ export default async function _telefunc(
 
   const result = await callTelefunc({ url, method, body })
 
-  res.writeHead(result?.statusCode || 500).end(result?.body || 'Internal server error')
+  if (result) {
+    res.writeHead(result.statusCode).end(result.body)
+    return
+  }
+  res.writeHead(500).end('Internal server error')
 }
