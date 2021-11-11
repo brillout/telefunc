@@ -10,12 +10,12 @@ const callTelefuncPromise = createTelefuncCaller({
 })
 
 export default async function _telefunc(
-  req: GetServerSidePropsContext['req'] & { body: string },
+  req: GetServerSidePropsContext['req'] & { url: string; method: string; body: string },
   res: GetServerSidePropsContext['res'],
 ) {
   let callTelefunc = await callTelefuncPromise
 
-  const { url = '', method = 'POST', body } = req
+  const { url, method, body } = req
 
   const httpResponse = await callTelefunc({ url, method, body })
 
