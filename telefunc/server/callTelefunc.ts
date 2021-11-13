@@ -2,7 +2,18 @@ import { stringify } from '@brillout/json-s'
 import { parse } from '@brillout/json-s'
 import type { ViteDevServer } from 'vite'
 import { BodyParsed, Telefunction, Telefunctions } from '../shared/types'
-import { assert, assertUsage, cast, checkType, hasProp, isCallable, isObject, isPromise, objectAssign } from './utils'
+import {
+  assert,
+  assertUsage,
+  assertWarning,
+  cast,
+  checkType,
+  hasProp,
+  isCallable,
+  isObject,
+  isPromise,
+  objectAssign,
+} from './utils'
 import { loadTelefuncFiles } from '../plugin/loadTelefuncFiles'
 import { RequestProps, TelefuncFiles, TelefuncFilesUntyped, Config } from './types'
 import { getContextOrUndefined, provideContextOrNull } from './getContext'
@@ -302,9 +313,10 @@ function assertTelefunction(
     telefuncFileName: string
   },
 ): asserts telefunction is Telefunction {
+  const errPrefix = `The telefunction \`${exportName}\` defined in \`${telefuncFileName}\``
   assertUsage(
     isCallable(telefunction),
-    `The telefunc \`${exportName}\` defined in \`${telefuncFileName}\` is not a function. A tele-*func*tion should always be a function.`,
+    `${errPrefix} is not a function. A tele-*func*tion should always be a function.`,
   )
 }
 
