@@ -11,6 +11,11 @@ function plugin(nextConfig: NextConfig = {}): NextConfig {
         use: [{ loader: resolve(__dirname, './loader.js') }],
       })
 
+      config.module.rules.push({
+        test: /api\/_telefunc/,
+        use: [{ loader: resolve(__dirname, './loader.js') }],
+      })
+
       if (typeof nextConfig.webpack === 'function') {
         return nextConfig.webpack(config, options)
       }
