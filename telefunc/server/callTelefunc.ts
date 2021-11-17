@@ -21,6 +21,7 @@ import { posix } from 'path'
 
 export { setTelefuncFiles }
 export { callTelefunc }
+export { addTelefunction as __internal_addTelefunction }
 
 type TelefuncContextRequestProps = {
   _url: string
@@ -263,8 +264,15 @@ function validateArgs(requestProps: unknown, args: unknown[]) {
 }
 
 var telefuncFilesManuallySet: undefined | TelefuncFiles
+
 function setTelefuncFiles(telefuncFiles: TelefuncFiles) {
   telefuncFilesManuallySet = telefuncFiles
+}
+
+function addTelefunction(telefunctionName: string, telefunction: Telefunction, filename: string) {
+  telefuncFilesManuallySet = telefuncFilesManuallySet || {}
+
+  telefuncFilesManuallySet[filename] = { ...telefuncFilesManuallySet[filename], [telefunctionName]: telefunction }
 }
 
 async function getTelefuncs(telefuncContext: {
