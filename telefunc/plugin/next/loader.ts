@@ -11,7 +11,7 @@ module.exports = async function (input) {
   const id = this.resource
   const root = this._compiler!.context
 
-  if (isTelefuncRouteFile(id)) {
+  if (isTelefuncRouteFile(id) && input.includes('@telefunc')) {
     const { code } = await transformTelefuncRouteFile(input, id, root)
     return code
   }
