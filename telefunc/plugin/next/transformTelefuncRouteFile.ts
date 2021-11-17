@@ -10,8 +10,6 @@ async function transformTelefuncRouteFile(src: string, id: string, root: string)
   const importsCode = getImportsCode(files)
   const routeCode = getRouteCode(root)
 
-  console.log(importsCode + routeCode)
-
   return {
     code: importsCode + routeCode,
     map: null,
