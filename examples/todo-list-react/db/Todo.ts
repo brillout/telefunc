@@ -1,12 +1,16 @@
+import { shield } from 'telefunc'
 import { data } from './data'
 import { UserId } from './User'
 
 export { TodoModel }
+export { TodoItemShield }
 export type { TodoItem }
 
-type TodoItem = {
-  text: string
-}
+const t = shield.type
+const TodoItemShield = t.object({
+  text: t.string,
+})
+type TodoItem = typeof TodoItemShield
 
 class TodoModel {
   static add(userId: UserId, todoItemNew: TodoItem) {
