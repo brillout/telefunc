@@ -41,6 +41,7 @@
     "@universal-adapter/hapi": "^0.8.0",
     "@universal-adapter/koa": "^0.8.0",
     "es-module-lexer": "^0.7.1",
+    "fast-glob": "^3.2.7",
     "unplugin": "^0.2.16",
     "vite-plugin-import-build": "^0.1.1"
   },
