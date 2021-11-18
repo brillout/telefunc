@@ -2,13 +2,12 @@ import { page, run, urlBase, autoRetry, fetchHtml } from '../../libframe/test/se
 
 export { runTest }
 
-function runTest(cmd: 'npm run dev' | 'npm run prod') {
+function runTest(cmd: 'npm run test:dev' | 'npm run test:prod') {
   run(cmd)
 
   test('Add to-do item', async () => {
     await page.goto(`${urlBase}/`)
     expect(await page.textContent('body')).toContain('todo list')
-    await page.waitForSelector('fieldset:not([disabled])')
     await page.fill('input[placeholder="Title"]', 'title')
     await page.fill('input[placeholder="Content"]', 'content')
     await page.click('button[type="submit"]')
