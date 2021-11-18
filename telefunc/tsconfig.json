@@ -15,5 +15,7 @@
     "declaration": true,
     "declarationMap": true,
     "stripInternal": true
-  }
+  },
+  "exclude": ["./node_modules/", "./dist/", "**/*.spec.ts"],
+  "include": ["./**/*"]
 }
