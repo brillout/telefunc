@@ -135,7 +135,7 @@ const type = (() => {
   const tuple = <T extends unknown[]>(elements: [...T]): T => {
     const verifier = (input: unknown, breadcrumbs: string) => {
       if (!Array.isArray(input)) {
-        return errorMessage(breadcrumbs, getTypeName(input), 'array')
+        return errorMessage(breadcrumbs, getTypeName(input), 'tuple')
       }
       const errorMessages = [...Array(Math.max(input.length, elements.length)).keys()]
         .map((i) =>
@@ -217,6 +217,7 @@ const type = (() => {
     undefined: value(undefined),
     optional: <T>(param: T): T | undefined => or(param, value(undefined)),
     nullable: <T>(param: T): T | null => or(param, value(null)),
+    object: <T extends Record<string, unknown>>(param: T): T => param,
   }
 })()
 shield.type = type
