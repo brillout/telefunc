@@ -4,10 +4,9 @@ export { transformTelefuncFileSSR }
 
 async function transformTelefuncFileSSR(src: string, id: string, root: string) {
   const exports = parse(src)[1]
-  console.log(getCode(exports, src, id.replace(root, '')))
 
   return {
-    code: '',
+    code: getCode(exports, src, id.replace(root, '')),
     map: null,
   }
 }
