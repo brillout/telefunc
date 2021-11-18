@@ -1,35 +1,24 @@
-import { useState } from "react";
+import { useState } from 'react'
+import { addTodo } from './todo.telefunc'
 
-export default function NewTodo() {
-  const [title, setTitle] = useState('');
+export default function NewTodo({ refetch }: { refetch: () => void }) {
+  const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
 
   return (
     <form
-      onSubmit={e => {
-        e.preventDefault();
-        if (!title || !content) return;
-        // addTodo({ title, content });
-        setTitle('');
-        setContent('');
+      onSubmit={async (e) => {
+        e.preventDefault()
+        if (!title || !content) return
+        await addTodo({ title, content })
+        setTitle('')
+        setContent('')
+        refetch()
       }}
     >
-      <input
-        type="text"
-        placeholder="Title"
-        value={title}
-        onChange={e => setTitle(e.target.value)}
-      />
-      <input
-        type="text"
-        placeholder="Content"
-        value={content}
-        onChange={e => setContent(e.target.value)}
-      />
+      <input type="text" placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)} />
+      <input type="text" placeholder="Content" value={content} onChange={(e) => setContent(e.target.value)} />
       <button type="submit">Add Todo</button>
     </form>
-  );
-
-
+  )
 }
-
