@@ -2,9 +2,11 @@
   "name": "prisma-react",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc && vite build",
-    "serve": "vite preview"
+    "dev": "npm run server",
+    "prod": "npm run build && npm run server:prod",
+    "build": "vite build && vite build --ssr",
+    "server": "esno ./server",
+    "server:prod": "cross-env NODE_ENV=production esno ./server"
   },
   "dependencies": {
     "@prisma/client": "^3.5.0",
@@ -18,7 +20,8 @@
     "esno": "^0.12.0",
     "prisma": "^3.5.0",
     "typescript": "^4.3.2",
-    "vite": "^2.6.4"
+    "vite": "^2.6.4",
+    "telefunc": "0.1.0-beta.1"
   },
   "prisma": {
     "seed": "esno prisma/seed.ts"
