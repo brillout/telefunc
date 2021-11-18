@@ -3,6 +3,8 @@ import { toPosixPath } from '../../server/utils'
 import { isSSR } from './isSSR'
 import { transformTelefuncFile } from '../transformTelefuncFile'
 import { transformTelefuncRouteFile } from './transformTelefuncRouteFile'
+import { isTelefuncFile } from '../isTelefuncFile'
+import { transformTelefuncFileSSR } from './transformTelefuncFileSSR'
 
 export type PromiseType<T extends Promise<any>> = T extends Promise<infer U> ? U : never
 
@@ -16,8 +18,9 @@ module.exports = async function (input) {
     return code
   }
 
-  if (isSSR(compiler.name)) {
-    return input
+  if (isTelefuncFile(id) && isSSR(compiler.name)) {
+    const { code } = await transformTelefuncFileSSR(input, id, root)
+    return code
   }
 
   const { code } = await transformTelefuncFile(input, toPosixPath(id), toPosixPath(root))
