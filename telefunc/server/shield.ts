@@ -1,4 +1,4 @@
-import { assert, assertUsage, assertWarning, isPlainObject } from './utils'
+import { assert, assertUsage, isPlainObject, isCallable, unique } from './utils'
 
 export { shield }
 export { shieldIsMissing }
@@ -6,181 +6,144 @@ export { shieldApply }
 
 type ShieldFunction = <T extends unknown[], T2 extends [...T]>(
   telefunction: (...args: T2) => unknown,
-  telefunctionParameters: T2,
-) => unknown
-type ShieldType = typeof type
+  telefunctionShield: T2,
+) => void
+type Type = typeof type
 
-const shieldKey = Symbol('shieldKey')
+const _shield = Symbol('_shield')
 
-const shield = <ShieldFunction & { type: ShieldType }>function (telefunction, telefunctionShield) {
-  ;(telefunction as any as Record<any, unknown>)[shieldKey as any] = telefunctionShield
+const shield = <ShieldFunction & { type: Type }>function (telefunction, telefunctionShield) {
+  ;(telefunction as any as Record<any, unknown>)[_shield as any] = telefunctionShield
 }
 type Telefunction = Function
+
 function shieldIsMissing(telefunction: Telefunction): boolean {
   const telefunctionShield = getTelefunctionShield(telefunction)
   return telefunctionShield === null
 }
-function shieldApply(telefunction: Telefunction, args: unknown[]): boolean {
+
+function shieldApply(telefunction: Telefunction, args: unknown[]): true | string {
   const telefunctionShield = getTelefunctionShield(telefunction)
   assert(telefunctionShield !== null)
   return verifyOuter(telefunctionShield, args)
 }
 
 function getTelefunctionShield(telefunction: Telefunction) {
-  return (telefunction as any)[shieldKey] || null
+  return (telefunction as any)[_shield] || null
 }
 
-function verifyOuter(params: unknown, args: unknown): boolean {
+function verifyOuter(verifier: unknown, args: unknown): true | string {
   assert(Array.isArray(args))
-  if (Array.isArray(params)) {
-    params = type.tuple(params)
+  if (Array.isArray(verifier)) {
+    verifier = shield.type.tuple(verifier)
   }
-  if ((params as any)[isShieldTuple]) {
-    return verifyRecursive(params, args, `[tuple]`)
+  if (isVerifierTuple(verifier)) {
+    return verifyRecursive(verifier, args, '[root]')
   }
-  assertUsage(false, 'TODO')
-  /*
-  return params.every((param, key) => {
-    return verifyRecursive(param, args[key], `Argument ${key}`)
-  })
-  */
-}
-function verifyRecursive(param: unknown, arg: unknown, breadcrumbs: string): boolean {
-  if (isShield(param)) {
-    const bool = param(arg, breadcrumbs)
-    assert([true, false].includes(bool))
-    //assertWarning(bool===true, 'Wrong type: '+breadcrumbs) // TODO
-    return bool
-  }
-  if (isPlainObject(param)) {
-    if (!isPlainObject(arg)) {
-      return false
-    }
-    return unique([...Object.keys(param), ...Object.keys(arg)]).every((key) => {
-      return verifyRecursive(param[key], arg[key], `${breadcrumbs} > ${key}`)
-    })
-  }
-  assertUsage(false, 'TODO - ' + breadcrumbs)
-}
-
-function assertIsShield(param: unknown, breadcrumbs: string): asserts param is Param {
-  assertUsage(isShield(param), 'TODO - ' + breadcrumbs)
-  assert(isCallable(param))
-  /*
-  assertUsage(hasProp(param, '_type'), 'TODO')
-  const t = param._type
-  assertUsage(isIncluded(t, tTypes), 'TODO')
-  */
-}
-
-const _isShield = Symbol('_isShield')
-function isShield(thing: unknown): thing is Param {
-  return (thing as any)[_isShield] === true
-}
-
-/*
-function isIncluded<T extends unknown[] | readonly unknown[]>(item: unknown, list: T): item is T[number] {
-  return list.includes(item)
-}
-*/
-
-/*
-type Param = {
-  _type: (
-  |  typeof tString 
-  |  typeof tNumber
-  |  typeof tOr 
-  |  typeof tTuple 
-  |  typeof tValue
-  |  typeof tArray 
+  assertUsage(
+    false,
+    '[shield()] Second argument should be an array: e.g. `shield(telefunction, [shield.type.string])` instead of `shield(telefunction, shield.type.string)`.',
   )
 }
-*/
+function verifyRecursive(verifier: unknown, arg: unknown, breadcrumbs: string): true | string {
+  assert(breadcrumbs.startsWith('[root]'))
 
-type Param = (input: unknown, breadcrumbs?: string) => boolean
+  if (isVerifier(verifier)) {
+    return verifier(arg, breadcrumbs)
+  }
 
-//type P = { [K in (typof types)])[number]
-/*
-type TTypes = typeof tTypes[number]
+  if (isPlainObject(verifier)) {
+    const obj = verifier
+    return verifyObject(obj, arg, breadcrumbs)
+  }
 
-const tString = Symbol('tString')
-const tNumber = Symbol('tNumber')
-const tOr = Symbol('tOr')
-const tTuple = Symbol('tTuple')
-const tValue = Symbol('tValue')
-const tArray = Symbol('tArray')
-const tObject = Symbol('tObject')
-
-const tTypes: readonly Param[] = [tString, tNumber, tOr, tTuple, tValue, tArray, tObject] as const
-
-const _string = {
-  verifier: (input: unknown) => typeof input === 'string',
-  typeCloak: null as any as string,
+  assertUsage(
+    !Array.isArray(verifier),
+    breadcrumbs +
+      ' is a plain JavaScript array which is forbidden: use `shield.type.tuple([/* ... */])` instead of plain JavaScript Array `[/* ... */]`.',
+  )
+  assertUsage(
+    false,
+    `${breadcrumbs} is \`typeof === '${typeof verifier}'\` which is forbidden. Use \`shield.type[x]\` or a plain JavaScript Object instead.`,
+  )
 }
 
-const _number = {
-  verifier: (input: unknown) => typeof input === 'number',
-  typeCloak: null as any as number,
+function verifyObject(obj: Record<string, unknown>, arg: unknown, breadcrumbs: string): true | string {
+  if (!isPlainObject(arg)) {
+    return `${breadcrumbs}: should be an object`
+  }
+  for (const key of unique([...Object.keys(obj), ...Object.keys(arg)])) {
+    const res = verifyRecursive(obj[key], arg[key], `${breadcrumbs} > [object] key ${key}`)
+    if (res !== true) {
+      return res
+    }
+  }
+  return true
 }
 
-const spec = [
-  {
-    typeName: 'string',
-    typeCloak: null as any as string,
-    verifier: () => {}
-  },
-  {
-    typeName: 'number',
-    typeCloak: null as any as number,
-    verifier: () => {}
-  },
-] as const
-
-const specT = spec.map(s => {
-  const { typeName, typeCloak, verifier } = s
-  return [typeName, verifier as any as typeof typeCloak]
-})
-const oo = objectFromEntries(specT)
-*/
-
-const isShieldTuple = Symbol('isShieldTuple')
 const type = (() => {
   const or = <T extends unknown[]>(...elements: T): T[number] => {
-    const verifier = (input: unknown, breadcrumbs: string) =>
-      elements.some((el) => verifyRecursive(el, input, `${breadcrumbs}`))
-    mark(verifier)
+    const verifier = (input: unknown, breadcrumbs: string) => {
+      const typeTargets = elements.map((el) => verifyRecursive(el, input, `${breadcrumbs}`))
+      if (typeTargets.includes(true)) {
+        return true
+      }
+      return `${breadcrumbs}: wrong type`
+    }
+    markVerifier(verifier)
     return verifier as any
   }
   const tuple = <T extends unknown[]>(elements: [...T]): T => {
-    const verifier = (input: unknown, breadcrumbs: string) =>
-      Array.isArray(input) &&
-      [...Array(Math.max(input.length, elements.length)).keys()].every((i) =>
-        verifyRecursive(elements[i], input[i], `${breadcrumbs} > tuple element ${i}`),
-      )
-    ;(verifier as any)[isShieldTuple] = true
-    mark(verifier)
+    const verifier = (input: unknown, breadcrumbs: string) => {
+      if (!Array.isArray(input)) {
+        return errorMessage(breadcrumbs, getTypeName(input), 'array')
+      }
+      const errorMessages = [...Array(Math.max(input.length, elements.length)).keys()]
+        .map((i) => verifyRecursive(elements[i], input[i], `${breadcrumbs} > [tuple] element ${i}`))
+        .filter((res) => res !== true)
+      if (errorMessages.length === 0) {
+        return true
+      }
+      return errorMessages[0]
+    }
+    markVerifier(verifier)
+    markVerifierTuple(verifier)
     return verifier as any
   }
   const array = <T>(arrayType: T): T[] => {
-    const verifier = (input: unknown, breadcrumbs: string) =>
-      Array.isArray(input) && input.every((_, i) => verifyRecursive(arrayType, input[i], breadcrumbs))
-    mark(verifier)
+    const verifier = (input: unknown, breadcrumbs: string) => {
+      if (!Array.isArray(input)) {
+        return errorMessage(breadcrumbs, getTypeName(input), 'array')
+      }
+      const errorMessages = input
+        .map((_, i) => verifyRecursive(arrayType, input[i], `${breadcrumbs} > [array] element ${i}`))
+        .filter((res) => res !== true)
+      if (errorMessages.length === 0) {
+        return true
+      }
+      return errorMessages[0]
+    }
+    markVerifier(verifier)
     return verifier as any
   }
+
   const value = <T extends Readonly<number> | Readonly<string> | Readonly<boolean> | undefined | null>(val: T): T => {
-    const verifier = (input: unknown) => input === val
-    mark(verifier)
+    const verifier = (input: unknown, breadcrumbs: string) =>
+      input === val ? true : errorMessage(breadcrumbs, String(input), String(val))
+    markVerifier(verifier)
     return verifier as any
   }
 
   const string = ((): string => {
-    const verifier = (input: unknown) => typeof input === 'string'
-    mark(verifier)
+    const verifier = (input: unknown, breadcrumbs: string) =>
+      typeof input === 'string' ? true : errorMessage(breadcrumbs, getTypeName(input), 'string')
+    markVerifier(verifier)
     return verifier as any
   })()
   const number = ((): number => {
-    const verifier = (input: unknown) => typeof input === 'number'
-    mark(verifier)
+    const verifier = (input: unknown, breadcrumbs: string) =>
+      typeof input === 'number' ? true : errorMessage(breadcrumbs, getTypeName(input), 'number')
+    markVerifier(verifier)
     return verifier as any
   })()
 
@@ -199,86 +162,58 @@ const type = (() => {
     nullable: <T>(param: T): T | null => or(param, value(null)),
   }
 })()
-
-function mark(verifier: Function & { [_isShield]?: true }) {
-  assert(isCallable(verifier))
-  verifier[_isShield] = true
-}
-
-/*
-const _or = <T extends unknown[]>(...elements: T): T[number] => {
-  return {
-    _type: tOr,
-    verifier: (input: unknown) => elements.some((el) => verifyRecursive(el, input)),
-  } as any
-}
-
-const _value = <T extends Readonly<number> | Readonly<string> | Readonly<boolean> | undefined | null>(val: T): T => {
-  return {
-    _type: tValue,
-    verifier: (input: unknown) => input === val,
-  } as any
-}
-
-const _tuple = <T extends unknown[]>(elements: [...T]): T => {
-  return {
-    _type: tTuple,
-    verifier: (input: unknown) => Array.isArray(input) && input.every((_, i) => verifyRecursive(elements[i], input[i])),
-  } as any
-}
-
-const _optional = <T>(param: T): T | undefined => _or(param, _value(undefined))
-const _nullable = <T>(param: T): T | null => _or(param, _value(null))
-const _array = <T>(arrayType: T): T[] => {
-  return {
-    _type: tArray,
-    _verifier: (input: unknown) => Array.isArray(input) && input.every((_, i) => verifyRecursive(arrayType, input[i])),
-  } as any
-}
-const _object = <T>(param: T): T => param
-/*
-const _object = <T>(param: T): T => {
-  return {
-    _type: tObject,
-    _verifier: (input: unknown) => isPlainObject(input)// TODO && input.every((_, i) => verifyRecursive(arrayType, input[i]))
-  } as any
-}
-function isPlainObject(value: unknown): value is Record<string, unknown> {
-  return typeof value === 'object' && value !== null && value.constructor === Object
-}
-*/
-
-/*
-const type = {
-  string: _string,
-  number: _number,
-  or: _or,
-  tuple: _tuple,
-  value: _value,
-  optional: _optional,
-  nullable: _nullable,
-  array: _array,
-  object: _object,
-  true: _value(true),
-  false: _value(false),
-  null: _value(null),
-  undefined: _value(undefined),
-}
-*/
 shield.type = type
 
-/*
-function objectFromEntries<P extends PropertyKey, A extends ReadonlyArray<readonly [P, any]>>(
-  array: A,
-): { [K in A[number][0]]: Extract<A[number], readonly [K, any]>[1] } {
-  return Object.fromEntries(array) as any
-}
-*/
-
-function isCallable<T extends Function>(thing: T | unknown): thing is T {
-  return thing instanceof Function || typeof thing === 'function'
+function errorMessage(breadcrumbs: string, is: string, should: string) {
+  return `${breadcrumbs} is \`${is}\` but should be \`${should}\`.`
 }
 
-function unique<T>(arr: T[]): T[] {
-  return Array.from(new Set(arr))
+const _isVerifier = Symbol('_isVerifier')
+function isVerifier(thing: unknown): thing is Verifier {
+  return typeof thing === 'object' && (thing as any)[_isVerifier] === true
+}
+function markVerifier(verifier: Verifier) {
+  assert(isCallable(verifier))
+  verifier[_isVerifier] = true
+}
+
+const _isVerifierTuple = Symbol('_isVerifierTuple')
+function isVerifierTuple(thing: unknown): thing is Verifier {
+  return isVerifier(thing) && thing[_isVerifierTuple] === true
+}
+function markVerifierTuple(verifier: Verifier & { [_isVerifierTuple]?: true }) {
+  assert(isCallable(verifier))
+  verifier[_isVerifierTuple] = true
+}
+
+type Verifier = ((input: unknown, breadcrumbs: string) => true | string) & {
+  [_isVerifier]?: true
+  [_isVerifierTuple]?: true
+}
+
+function getTypeName(thing: unknown): string {
+  if (thing === null) {
+    return 'null'
+  }
+  if (thing === undefined) {
+    return 'undefined'
+  }
+
+  const thingTypeof = typeof thing
+  if (['string', 'number'].includes(typeof thing)) {
+    return thingTypeof
+  }
+
+  if (typeof thing === 'object' && thing !== null) {
+    if (thing.constructor === Date) {
+      return 'date'
+    }
+    if (Array.isArray(thing)) {
+      return 'array'
+    }
+    return 'object'
+  }
+
+  // json-s supports RegExp but not `shield`; make sure to show a prettier error.
+  assert(false, `Could not retrieve type of following value: \`${JSON.stringify(thing)}\`.`)
 }

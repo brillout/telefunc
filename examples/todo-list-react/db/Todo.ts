@@ -7,9 +7,9 @@ export { TodoItemShield }
 export type { TodoItem }
 
 const t = shield.type
-const TodoItemShield = t.object({
+const TodoItemShield = {
   text: t.string,
-})
+}
 type TodoItem = typeof TodoItemShield
 
 class TodoModel {
