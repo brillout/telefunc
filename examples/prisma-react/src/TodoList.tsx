@@ -1,9 +1,36 @@
 import { Todo } from '@prisma/client'
 import { useEffect, useState } from 'react'
 import NewTodo from './NewTodo'
-import { getTodos } from './todo.telefunc'
+import { deleteTodo, getTodos, toggleTodo } from './todo.telefunc'
 
 export { TodoList }
+
+function TodoItem({ refetch, ...todo }: Todo & { refetch: () => void }) {
+  return (
+    <li key={todo.id}>
+      <h2>
+        {todo.title}{' '}
+        <button
+          onClick={async () => {
+            await toggleTodo(todo.id)
+            refetch()
+          }}
+        >
+          {todo.completed ? '✅' : '❌'}
+        </button>
+      </h2>
+      <p>{todo.content}</p>
+      <button
+        onClick={async () => {
+          await deleteTodo(todo.id)
+          refetch()
+        }}
+      >
+        remove
+      </button>
+    </li>
+  )
+}
 
 function TodoList() {
   const [todoItems, setTodoItems] = useState<Todo[]>([])
@@ -16,20 +43,11 @@ function TodoList() {
 
   return (
     <>
-      <NewTodo
-        onTodoListUpdate={(todoItems) => {
-          setTodoItems(todoItems)
-        }}
-      />
+      <NewTodo refetch={fetch} />
       <hr />
       <ul>
         {todoItems.map((todoItem, i) => (
-          <li key={todoItem.id}>
-            <h2>
-              {i + 1}- {todoItem.title} {todoItem.completed ? '✅' : '❌'}
-            </h2>
-            <p>{todoItem.content}</p>
-          </li>
+          <TodoItem key={i} refetch={fetch} {...todoItem} />
         ))}
       </ul>
     </>
