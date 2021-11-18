@@ -34,9 +34,11 @@ function TodoItem({ refetch, ...todo }: Todo & { refetch: () => void }) {
 
 function TodoList() {
   const [todoItems, setTodoItems] = useState<Todo[]>([])
+
   const fetch = async () => {
     setTodoItems(await getTodos())
   }
+
   useEffect(() => {
     fetch()
   }, [])
