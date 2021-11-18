@@ -1,2 +1,2 @@
 import { runTest } from './.runTest'
-runTest('npm run dev')
+runTest('npm run test:dev')

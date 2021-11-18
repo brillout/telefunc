@@ -6,7 +6,9 @@
     "prod": "npm run build && npm run server:prod",
     "build": "vite build && vite build --ssr",
     "server": "esno ./server",
-    "server:prod": "cross-env NODE_ENV=production esno ./server"
+    "server:prod": "cross-env NODE_ENV=production esno ./server",
+    "test:dev": "npx prisma migrate dev --name init && npx prisma db seed && npm run dev",
+    "test:prod": "npx prisma migrate dev --name init && npx prisma db seed && npm run prod"
   },
   "dependencies": {
     "@prisma/client": "^3.5.0",
