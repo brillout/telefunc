@@ -8,13 +8,13 @@ import { loadTelefuncFilesWithWebpack } from './webpack/loadTelefuncFilesWithWeb
 
 export { loadTelefuncFiles }
 
-type BundlerName = 'webpack' | 'vite' | null
+type BundlerName = 'webpack' | 'nextjs' | 'vite' | null
 
 async function loadTelefuncFiles(telefuncContext: {
   _root: string
   _viteDevServer?: ViteDevServer
   _isProduction: boolean
-}): Promise<TelefuncFilesUntyped> {
+}): Promise<TelefuncFilesUntyped | null> {
   const bundlerName = getBundlerName(telefuncContext)
 
   if (bundlerName === 'vite') {
@@ -25,8 +25,13 @@ async function loadTelefuncFiles(telefuncContext: {
     return loadTelefuncFilesWithWebpack(telefuncContext)
   }
 
+  if (bundlerName === 'nextjs') {
+    // TODO: WIP
+    return null 
+  }
+
   assert(bundlerName === null)
-  assertUsage(false, 'Only Vite and Webpack are supported for now. Let us know about your stack on Discord or GitHub.')
+  assertUsage(false, 'Only Vite, Nextjs and Webpack are supported for now. Let us know about your stack on Discord or GitHub.')
 }
 
 // TODO: rethink this
@@ -36,6 +41,9 @@ function getBundlerName({ _viteDevServer }: Record<string, unknown>): BundlerNam
   }
   if (isWebpack()) {
     return 'webpack'
+  }
+  if (isNextjs()) {
+    return 'nextjs'
   }
   // TODO: how to add check for prod?
   return 'vite'
@@ -48,6 +56,10 @@ function isWebpack() {
   // TODO: make this test more robust
   const webpackConfigFile = 'webpack.js'
   return pathExits(join(process.cwd(), webpackConfigFile))
+}
+
+function isNextjs() {
+  return pathExits(join(process.cwd(), '.next'))
 }
 
 function pathExits(path: string) {

@@ -20,7 +20,8 @@
       "browser": "./dist/cjs/server/client.js"
     },
     "./client": {
-      "browser": "./dist/esm/client/index.js"
+      "browser": "./dist/esm/client/index.js",
+      "node": "./dist/cjs/client/index.js"
     },
     "./vite": {
       "node": "./dist/cjs/plugin/vite/index.js"
@@ -30,6 +31,9 @@
     },
     "./nuxt": {
       "node": "./dist/cjs/plugin/nuxt/index.js"
+    },
+    "./next": {
+      "node": "./dist/cjs/plugin/next/index.js"
     }
   },
   "dependencies": {
@@ -40,6 +44,7 @@
     "@universal-adapter/hapi": "^0.8.0",
     "@universal-adapter/koa": "^0.8.0",
     "es-module-lexer": "^0.7.1",
+    "fast-glob": "^3.2.7",
     "unplugin": "^0.2.16",
     "vite-plugin-import-build": "^0.1.1"
   },
