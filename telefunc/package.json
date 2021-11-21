@@ -44,6 +44,7 @@
     "@universal-adapter/express": "^0.8.0",
     "@universal-adapter/hapi": "^0.8.0",
     "@universal-adapter/koa": "^0.8.0",
+    "body-parser": "^1.19.0",
     "es-module-lexer": "^0.7.1",
     "fast-glob": "^3.2.7",
     "unplugin": "^0.2.16",
@@ -58,7 +59,16 @@
     "typescript": "^4.1.3",
     "vite": "^2.4.3"
   },
-  "keywords": ["rpc", "api", "node-api", "graphql", "rest", "restful", "fullstack", "typescript"],
+  "keywords": [
+    "rpc",
+    "api",
+    "node-api",
+    "graphql",
+    "rest",
+    "restful",
+    "fullstack",
+    "typescript"
+  ],
   "description": "Remote functions. Instead of API.",
   "repository": "https://github.com/telefunc/telefunc",
   "homepage": "https://telefunc.com",
