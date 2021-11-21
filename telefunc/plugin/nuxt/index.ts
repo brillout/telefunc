@@ -3,6 +3,7 @@ import { resolve } from 'path'
 import { _telefunc } from './_telefunc'
 
 const _telefuncModule: Module = function telefuncModule() {
+
   this.extendBuild((config) => {
     config.module!.rules.push({
       test: /\.telefunc\./,
