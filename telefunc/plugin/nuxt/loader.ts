@@ -7,6 +7,7 @@ import { isTelefuncFile } from '../isTelefuncFile'
 export type PromiseType<T extends Promise<any>> = T extends Promise<infer U> ? U : never
 
 module.exports = async function (input) {
+  return input
   const compiler = this._compiler!
   const id = this.resource
   const root = this._compiler!.context
