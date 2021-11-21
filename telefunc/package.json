@@ -32,6 +32,9 @@
     },
     "./next": {
       "node": "./dist/cjs/plugin/next/index.js"
+    },
+    "./nuxt": {
+      "node": "./dist/cjs/plugin/nuxt/index.js"
     }
   },
   "dependencies": {
