@@ -1,4 +1,4 @@
-import { Context, Middleware } from '@nuxt/types'
+import { Context } from '@nuxt/types'
 import { createTelefuncCaller } from 'telefunc'
 
 export { _telefunc }
