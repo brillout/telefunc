@@ -29,6 +29,7 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    "telefunc/nuxt"
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
