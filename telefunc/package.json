@@ -27,6 +27,9 @@
     },
     "./webpack": {
       "node": "./dist/cjs/plugin/webpack/index.js"
+    },
+    "./nuxt": {
+      "node": "./dist/cjs/plugin/nuxt/index.js"
     }
   },
   "dependencies": {
