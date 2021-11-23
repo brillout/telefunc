@@ -27,7 +27,11 @@ function getCode(exports: readonly string[], filePath: string) {
 
 `
   exports.forEach((exportName) => {
-    code += `export const ${exportName} = server['${filePath}:${exportName}'];\n`
+    if (exportName === 'default') {
+      code += `export default server['${filePath}:${exportName}'];\n`
+    } else {
+      code += `export const ${exportName} = server['${filePath}:${exportName}'];\n`
+    }
   })
   return code
 }
