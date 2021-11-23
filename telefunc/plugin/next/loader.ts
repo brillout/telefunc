@@ -19,7 +19,7 @@ module.exports = async function (input) {
   }
 
   if (isTelefuncFile(id) && isSSR(compiler.name)) {
-    const { code } = await transformTelefuncFileSSR(input, id, root)
+    const { code } = await transformTelefuncFileSSR(input, toPosixPath(id), toPosixPath(root))
     return code
   }
 

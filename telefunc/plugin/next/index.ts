@@ -12,7 +12,7 @@ function plugin(nextConfig: NextConfig = {}): NextConfig {
       })
 
       config.module.rules.push({
-        test: /api\/_telefunc/,
+        test: /api(\/|\\)_telefunc/,
         use: [{ loader: resolve(__dirname, './loader.js') }],
       })
 
