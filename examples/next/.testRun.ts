@@ -3,8 +3,8 @@ import { page, run, urlBase, autoRetry, isGithubAction } from '../../libframe/te
 export { testRun }
 
 function testRun(cmd: 'npm run prod' | 'npm run dev') {
-  if (isGithubAction()) {
-    test("SKIPED: Next.js doesn't work in GitHub Actions", () => {})
+  if (cmd === 'npm run prod' && isGithubAction()) {
+    test("SKIPED: Next.js prod build doesn't work in GitHub Actions", () => {})
     return
   }
 
