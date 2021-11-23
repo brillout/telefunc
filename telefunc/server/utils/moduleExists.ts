@@ -1,5 +1,5 @@
 import { isAbsolute, resolve } from 'path'
-import { assert } from '../utils'
+import { assert, nodeRequire } from '../utils'
 
 export { moduleExists }
 
@@ -10,11 +10,8 @@ function moduleExists(modulePath: string, __dirname?: string): boolean {
   }
   assert(isAbsolute(modulePath))
 
-  // `req` instead of `require` so that Webpack doesn't do dynamic dependency analysis
-  const req = require
-
   try {
-    req.resolve(modulePath)
+    nodeRequire.resolve(modulePath)
     return true
   } catch (err) {
     return false
