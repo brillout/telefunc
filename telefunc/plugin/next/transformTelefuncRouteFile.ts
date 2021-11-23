@@ -1,12 +1,15 @@
 import * as glob from 'fast-glob'
 import { dirname, relative } from 'path'
+import { toPosixPath } from '../../server/utils'
 
 export { transformTelefuncRouteFile }
 
 async function transformTelefuncRouteFile(routeCode: string, id: string, root: string) {
   const currentDir = dirname(id)
+  const currentDirNormalized = toPosixPath(currentDir)
   const relativeRoot = relative(currentDir, root)
-  const files = await glob(`${relativeRoot}/**/*.telefunc.*`, { cwd: currentDir })
+  const relativeRootNormalized = toPosixPath(relativeRoot)
+  const files = await glob(`${relativeRootNormalized}/**/*.telefunc.*`, { cwd: currentDirNormalized })
   const importsCode = getImportsCode(files)
 
   return {
