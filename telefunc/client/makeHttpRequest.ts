@@ -15,7 +15,6 @@ async function makeHttpRequest(
   const method = 'POST'
 
   let response: Response
-  console.log('req', url)
   try {
     response = await fetch(url, {
       method,
@@ -31,7 +30,6 @@ async function makeHttpRequest(
       isCodeError: false,
     })
   }
-  console.log('response', url)
 
   const statusCode = response.status
   const isOk = response.ok
