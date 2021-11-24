@@ -1,4 +1,4 @@
-import { page, run, urlBase, isGitHubAction } from '../../libframe/test/setup'
+import { page, run, urlBase, autoRetry, isGitHubAction } from '../../libframe/test/setup'
 
 export { testRun }
 
@@ -20,10 +20,12 @@ function testRun(cmd: 'npm run prod' | 'npm run dev') {
   test('telefunction call', async () => {
     await page.goto(`${urlBase}/`)
 
+    await autoRetry(async () => {
+      const text = await page.textContent('#view')
+      expect(text).toContain('First name: Alan')
+    })
+
     const text = await page.textContent('#view')
-
-    expect(text).toContain('First name: Alan')
-
     expect(text).toContain('Last name: Turing')
     expect(text).toContain('server: true')
   })
