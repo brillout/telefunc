@@ -1,4 +1,4 @@
-import { page, run, urlBase, autoRetry, isGitHubAction } from '../../libframe/test/setup'
+import { page, run, urlBase, isGitHubAction } from '../../libframe/test/setup'
 
 export { testRun }
 
