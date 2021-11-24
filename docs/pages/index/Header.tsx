@@ -27,7 +27,7 @@ function Header() {
           </div>
         </div>
       </div>
-    {/*
+      {/*
       <div style={{ display: 'inline-block' }}>
         <em>Define functions on the server, call them remotely from the browser.</em>
       </div>

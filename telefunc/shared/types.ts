@@ -5,6 +5,6 @@ export type BodyParsed = {
   args: unknown[]
 }
 export type TelefunctionArgs = any[]
-export type Telefunction = ((...args: TelefunctionArgs) => TelefunctionResult)
+export type Telefunction = (...args: TelefunctionArgs) => TelefunctionResult
 
 export type Telefunctions = Record<TelefunctionName, Telefunction>

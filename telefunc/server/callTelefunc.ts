@@ -285,7 +285,7 @@ async function getTelefuncs(telefuncContext: {
   telefuncs: Record<string, Telefunction>
 }> {
   const telefuncFiles = await getTelefuncFiles(telefuncContext)
-  assert(telefuncFiles || telefuncContext._telefunctions, "No telefunctions found")
+  assert(telefuncFiles || telefuncContext._telefunctions, 'No telefunctions found')
   const telefuncs: Telefunctions = {}
 
   Object.entries(telefuncFiles || telefuncContext._telefunctions || false).forEach(

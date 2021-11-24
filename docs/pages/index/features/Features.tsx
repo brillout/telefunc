@@ -82,7 +82,9 @@ function Features() {
               <p>
                 Use your types across frontend and backend to enable <b>end-to-end type safety</b>.
               </p>
-              <p><code>shield()</code> infers types so you define your times only once for both runtime and compile-time.</p>
+              <p>
+                <code>shield()</code> infers types so you define your times only once for both runtime and compile-time.
+              </p>
               <p>
                 From TypeScript's perspective, the frontend directly imports server functions (TypeScript doens't know
                 that the
