@@ -18,15 +18,11 @@ function Features() {
           ),
           desc: (
             <>
-              <p>
-                Telefunc simplifies your frontend-backend liason: it's now all really just a function.
-              </p>
+              <p>Telefunc simplifies your frontend-backend liason: it's now all really just a function.</p>
               <p>
                 Your frontend can <b>directly use any SQL/ORM query</b> to retrieve & mutate data.
               </p>
-              <p>
-                Say goodbye to the API layer, which is an unnecessary indirection for the vast majority of apps.
-              </p>
+              <p>Say goodbye to the API layer, which is an unnecessary indirection for the vast majority of apps.</p>
             </>
           ),
           learnMore: <Simple />,
@@ -47,8 +43,7 @@ function Features() {
                 It's both <b>simple</b> and <b>flexible</b>.
               </p>
               <p>
-            Say goodbye to declaratively
-                defined permissions, which are inherently messy and thus a security hazard.
+                Say goodbye to declaratively defined permissions, which are inherently messy and thus a security hazard.
               </p>
             </>
           ),
@@ -87,9 +82,11 @@ function Features() {
               <p>
                 Use your types across frontend and backend to enable <b>end-to-end type safety</b>.
               </p>
+              <p><code>shield()</code> infers types so you define your times only once for both runtime and compile-time.</p>
               <p>
-                From TypeScript perspective, the frontend imoports server functions (TypeScript doens't know that the
-                server function is actullay transformed). This means TypeScript just works.
+                From TypeScript's perspective, the frontend directly imports server functions (TypeScript doens't know
+                that the
+                <code>.telefunc.js</code> files are transformed). In other words: TypeScript just works.
               </p>
             </>
           ),
@@ -104,10 +101,10 @@ function Features() {
           desc: (
             <>
               <p>
-                Telefunc supports React, Vue, SSR, Webpack, and Vite. In other words, it works with:{' '}
-                <b>Next.js</b>, <b>Nuxt</b>, <b>Gatsby</b>, <b>SvelteKit</b>, <b>CRA</b>, <b>etc.</b>
+                Telefunc supports React, Vue, SSR, Webpack, and Vite. In other words, it works with: <b>Next.js</b>,{' '}
+                <b>Nuxt</b>, <b>Gatsby</b>, <b>SvelteKit</b>, <b>CRA</b>, <b>etc.</b>
               </p>
-              <p>You want to change your stack? Bring Telefunc along.</p>
+              <p>You want to change your stack? You can bring Telefunc along.</p>
             </>
           ),
         },
@@ -120,8 +117,8 @@ function Features() {
           desc: (
             <>
               <p>
-                The source code of Telefunc has <b>no known bug</b> (bugs are fixed swiftly),
-                and every release is assailed against a heavy suite of <b>automated tests</b>.
+                The source code of Telefunc has <b>no known bug</b> (bugs are fixed swiftly), and every release is
+                assailed against a heavy suite of <b>automated tests</b>.
               </p>
             </>
           ),
