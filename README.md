@@ -14,5 +14,5 @@ Chat: [Discord - Vike Land - #telefunc](https://discord.gg/3DYWwk4xRQ)
 
 Have a question? Want a feature? A tool integration is not working? Chat on
 <a href="https://discord.gg/3DYWwk4xRQ">Discord</a> or open a
-<a href="https://github.com/brillout/telefunc/issues/new">GitHub ticket</a>.
+<a href="https://github.com/vikejs/telefunc/issues/new">GitHub ticket</a>.
 

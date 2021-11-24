@@ -3,6 +3,7 @@ import { Header } from './Header'
 import { Features } from './features/Features'
 import { ContactUs } from 'libframe-docs/landing-page/ContactUs'
 import { HorizontalLine } from 'libframe-docs/landing-page/HorizontalLine'
+import { projectInfo } from '../../utils'
 
 export { Page }
 
@@ -13,7 +14,7 @@ function Page() {
       <HorizontalLine primary={true} />
       <Features />
       <HorizontalLine />
-      <ContactUs githubRepoName="brillout/telefunc" discordInvite="3DYWwk4xRQ" />
+      <ContactUs githubRepository={projectInfo.githubRepository} discordInvite={projectInfo.discordInvite} />
       <div style={{ height: 70 }} />
     </>
   )
