@@ -18,9 +18,6 @@ function testRun(cmd: 'npm run prod' | 'npm run dev') {
   })
 
   test('telefunction call', async () => {
-    if (isGithubAction()) {
-    }
-
     await page.goto(`${urlBase}/`)
 
     // `autoRetry` to ensure async remote Telefunction call has finished
