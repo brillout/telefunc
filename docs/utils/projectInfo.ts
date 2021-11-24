@@ -1,8 +1,10 @@
 const PROJECT_VERSION = '0.1.0-beta.1'
 
 export const projectInfo = {
-  name: 'Telefunc',
-  version: PROJECT_VERSION,
-  githubRepository: 'https://github.com/vikejs/telefunc',
-  discordInvite: "3DYWwk4xRQ"
+  projectName: 'Telefunc' as const,
+  projectVersion: PROJECT_VERSION,
+  githubRepository: 'https://github.com/vikejs/telefunc' as const,
+  githubIssues: 'https://github.com/vikejs/telefunc/issues/new' as const,
+  discordInvite: 'https://discord.com/invite/3DYWwk4xRQ' as const,
+  twitterProfile: 'https://twitter.com/brillout' as const,
 }

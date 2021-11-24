@@ -10,9 +10,9 @@ Version history & breaking changes: [CHANGELOG.md](CHANGELOG.md)
 
 Follow: [twitter.com/brillout](https://twitter.com/brillout)
 <br/>
-Chat: [Discord - Vike Land - #telefunc](https://discord.gg/3DYWwk4xRQ)
+Chat: [Discord - Vike Land - #telefunc](https://discord.com/invite/3DYWwk4xRQ)
 
 Have a question? Want a feature? A tool integration is not working? Chat on
-<a href="https://discord.gg/3DYWwk4xRQ">Discord</a> or open a
+<a href="https://discord.com/invite/3DYWwk4xRQ">Discord</a> or open a
 <a href="https://github.com/vikejs/telefunc/issues/new">GitHub ticket</a>.
 
