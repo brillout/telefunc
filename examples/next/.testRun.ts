@@ -1,9 +1,9 @@
-import { page, run, urlBase, autoRetry, isGitHubAction } from '../../libframe/test/setup'
+import { page, run, urlBase, autoRetry, isGithubAction } from '../../libframe/test/setup'
 
 export { testRun }
 
 function testRun(cmd: 'npm run prod' | 'npm run dev') {
-  if (cmd === 'npm run prod' && isGitHubAction()) {
+  if (cmd === 'npm run prod' && isGithubAction()) {
     test("SKIPED: Next.js prod build doesn't work in GitHub Actions", () => {})
     return
   }
