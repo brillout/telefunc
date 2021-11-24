@@ -2,7 +2,7 @@ import React from 'react'
 import { Emoji } from 'libframe-docs/utils/Emoji'
 import { FeatureList } from 'libframe-docs/landing-page/features/FeatureList'
 import Simple from './Simple.mdx'
-import Secure from './Secure.mdx'
+import Permissions from './Permissions.mdx'
 
 export { Features }
 
@@ -19,15 +19,14 @@ function Features() {
           desc: (
             <>
               <p>
-                The idea is simple: you define functions on the server and call remotely from the client.
+                Telefunc simplifies your frontend-backend liason: it's now all really just a function.
               </p>
               <p>
-                Telefunctions enables your frontend to <b>directly use SQL/ORM queries</b> to retrieve & mutate data.
+                Your frontend can <b>directly use any SQL/ORM query</b> to retrieve & mutate data.
               </p>
-            <p>
-              This means that your frontend can use any SQL/ORM query to "directly" retrieve and mutate data.
-            </p>
-              <p>Not only is that powerful, but it's fundamentally simpler than a RESTful/GraphQL API.</p>
+              <p>
+                Say goodbye to the API layer, which is an unnecessary indirection for the vast majority of apps.
+              </p>
             </>
           ),
           learnMore: <Simple />,
@@ -35,56 +34,41 @@ function Features() {
         {
           title: (
             <>
-              <Emoji name="shield" /> Secure
+              <Emoji name="shield" /> Permissions
             </>
           ),
           desc: (
             <>
               <p>
-                Thanks to Telefunc's <code>Abort()</code>, <b>permissions can be defined programmatically</b>.
+                Telefunc's <code>Abort()</code> and <code>shield()</code> enable{' '}
+                <b>programmatically defined permissions</b>.
               </p>
               <p>
-                It's both <b>simple</b> and <b>flexible</b>. Say goodbye to ACL mess.
+                It's both <b>simple</b> and <b>flexible</b>.
+              </p>
+              <p>
+            Say goodbye to declaratively
+                defined permissions, which are inherently messy and thus a security hazard.
               </p>
             </>
           ),
-          learnMore: <Secure />,
+          learnMore: <Permissions />,
         },
         {
           title: (
             <>
-              <Emoji name="high-voltage" /> High-performance
+              <Emoji name="high-voltage" /> Performance
             </>
           ),
           desc: (
             <>
               <p>
                 The frontend can tap into the <b>full power of the server</b>; highly tailored & optimized SQL/ORM
-                queries can be used for high-performance data retrieval & mutations.
+                queries can be used for highly-performant data retrieval & mutations.
               </p>
               <p>
                 <b>Fast Node.js cold start</b>: telefunctions are lazy-loaded so that adding telefunctions doesn't
                 increase the cold start of your serverless functions.
-              </p>
-            </>
-          ),
-        },
-        {
-          title: (
-            <>
-              <Emoji name="gem-stone" /> Rock-solid
-            </>
-          ),
-          desc: (
-            <>
-              <p>
-                The source code of Telefunc has <b>no known bug</b>.
-              </p>
-              <p>
-                Every release is assailed against a heavy suite of <b>automated tests</b>.
-              </p>
-              <p>
-                <b>Used in production</b> by many comp&shy;anies.
               </p>
             </>
           ),
@@ -98,15 +82,15 @@ function Features() {
           desc: (
             <>
               <p>
-                First-class & <b>seamless TypeScript support out-of-the-box</b>.
+                <b>Seamless TypeScript support</b> out-of-the-box.
               </p>
               <p>
-                Use your types across frontend and backend for <b>end-to-end type safety</b>.
+                Use your types across frontend and backend to enable <b>end-to-end type safety</b>.
               </p>
               <p>
-            From TypeScript perspective, the frontend imoports server functions (TypeScript doens't know that the server function is actullay transformed).
-            This means TypeScript just works.
-            </p>
+                From TypeScript perspective, the frontend imoports server functions (TypeScript doens't know that the
+                server function is actullay transformed). This means TypeScript just works.
+              </p>
             </>
           ),
           learnMore: <>Bla</>,
@@ -120,16 +104,24 @@ function Features() {
           desc: (
             <>
               <p>
-                Telefunc supports <b>Webpack</b>, <b>Vite</b>, and <b>Rollup</b> and has first-class support for{' '}
-                <b>React SSR</b> and <b>Vue SSR</b>.
+                Telefunc supports React, Vue, SSR, Webpack, and Vite. In other words, it works with:{' '}
+                <b>Next.js</b>, <b>Nuxt</b>, <b>Gatsby</b>, <b>SvelteKit</b>, <b>CRA</b>, <b>etc.</b>
               </p>
+              <p>You want to change your stack? Bring Telefunc along.</p>
+            </>
+          ),
+        },
+        {
+          title: (
+            <>
+              <Emoji name="gem-stone" /> Rock-solid
+            </>
+          ),
+          desc: (
+            <>
               <p>
-                In other words, it works with any stack (CRA, Next.js, Nuxt, Gatsby, SvelteKit,{' '}
-                <code>vite-plugin-ssr</code>, <b>Cloudflare Workers</b>, etc.)
-              </p>
-              <p>
-                Also, Telefunc has been designed to work with{' '}
-                <b>non-JavaScript backends such as Ruby on Rails or Django</b>.
+                The source code of Telefunc has <b>no known bug</b> (bugs are fixed swiftly),
+                and every release is assailed against a heavy suite of <b>automated tests</b>.
               </p>
             </>
           ),

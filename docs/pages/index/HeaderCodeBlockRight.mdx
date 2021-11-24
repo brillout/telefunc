@@ -1,20 +1,24 @@
-```js
-// /client/index.js
+```jsx
+// CreateTodo.jsx
 // Environment: Browser
 
-// This doesn't actually import `hello.telefunc.js`:
-// Telefunc transforms `hello.telefunc.js` into a thin
-// HTTP client.
-import { hello } from '../server/hello.telefunc.js'
+// This doesn't actually import `todo.telefunc.js`:
+// Telefunc transforms `todo.telefunc.js` into a
+// thin HTTP client.
+import { onNewTodo } from './todo.telefunc.js'
 
-async function main() {
-  // Behind the scenes, when calling `hello()`, Telefunc makes an
-  // HTTP request `POST /_telefunc` and the Node.js server will
-  // call `hello()` and return the result to the browser.
-  // In other words`hello()` is never imported
-  // nor called in the browser.
-  const { message, isServer } = await hello('Eva')
-  console.log(message) // Pritns `Welcome Eva`
-  console.log(isServer) // Pritns `true`
+async function onClick(form) {
+  const text = form.input.value
+  // Behind the scenes, Telefunc makes an HTTP request.
+  await onNewTodo(text)
+}
+
+function CreateTodo() {
+  return (
+    <form>
+      <input input="text"></input>
+      <button onClick={onClick}>Add To-Do</button>
+    </form>
+  )
 }
 ```

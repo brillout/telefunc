@@ -17,13 +17,13 @@ function Header() {
         <div style={{ width: 465 }}>
           <HeaderCodeBlockLeft />
           <div style={{ textAlign: 'center' }}>
-            <em>Define functions on the server.</em>
+            <em>Node.js</em>
           </div>
         </div>
         <div style={{ width: 465, marginLeft: 10 }}>
           <HeaderCodeBlockRight />
           <div style={{ textAlign: 'center' }}>
-            <em>Call them remotely from the browser.</em>
+            <em>Browser</em>
           </div>
         </div>
       </div>

@@ -1,16 +1,25 @@
 ```js
-// /server/hello.telefunc.js
+// todo.telefunc.js
 // Environment: Node.js Server
+
+import { Abort, getContext } from 'telefunc'
 
 // Telefunc makes functions exported in `*.telefunc.js`
 // remotely callable from the browser.
-export { hello }
+export { onNewTodo }
 
-function hello(name) {
-  const message = 'Welcome, ' + name
-  return {
-    message,
-    isServer: typeof window === 'undefined'
-  }
+async function onNewTodo(text) {
+  const { user } = getContext()
+  if (user === null) throw Abort
+
+  // With an ORM:
+  const todoItem = new Todo({text, authorId: user.id})
+  await todoItem.save()
+
+  // Or with SQL:
+  await executeSQL(
+    "INSERT INTO todo_items VALUES (:text, :authorId)",
+    {text, authorId: user.id}
+  )
 }
 ```
