@@ -43,6 +43,11 @@ export const headings: HeadingDefinition[] = [
   },
   {
     level: 2,
+    title: '`Abort()` & `shield()`',
+    url: '/shield',
+  },
+  {
+    level: 2,
     title: 'Permission',
     url: '/permission',
   },

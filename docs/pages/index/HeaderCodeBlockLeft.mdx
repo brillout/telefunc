@@ -1,0 +1,16 @@
+```js
+// /server/hello.telefunc.js
+// Environment: Node.js Server
+
+// Telefunc makes functions exported in `*.telefunc.js`
+// remotely callable from the browser.
+export { hello }
+
+function hello(name) {
+  const message = 'Welcome, ' + name
+  return {
+    message,
+    isServer: typeof window === 'undefined'
+  }
+}
+```

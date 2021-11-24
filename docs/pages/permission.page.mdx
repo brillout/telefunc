@@ -26,55 +26,7 @@ async function deletePost(id) {
 
 ## Telefunctions are public
 
-We should never do something like this:
-
-~~~js
-// query.telefunc.js
-// Environment: Node.js
-
-export async function executeQuery(query) {
-  const result = await database.runSQL(query)
-  return result
-}
-~~~
-
-Telefunctions are public: anyone in the world can call our telefunctions.
-
-~~~js
-// Environment: Anyone's browser dev console
-
-// Anyone in the world can go to our website,
-// open the browser's web dev console, and call our telefunctions.
-
-const users = await executeQuery('SELECT login, password FROM users;')
-users.forEach(({login, password}) => {
-  // W00t I have all passwords ｡^‿^｡
-  console.log(login, password)
-})
-~~~
-
-Instead we should use `throw new Abort()`:
-
-~~~js
-// query.telefunc.js
-// Environment: Node.js
-
-import { getContext, Abort } from 'telefunc'
-
-export async function executeQuery(query) {
-  const context = getContext()
-
-  // Only admins should be able to run arbitrary SQL queries.
-  if( !context.user?.isAdmin ) {
-    throw new Abort()
-  }
-
-  const result = await database.runSQL(query)
-  return result
-}
-~~~
-
-## Either `Abort()` or `return`
+## `Abort()` or `return`
 
 There are situations where we don't want to `Abort()` upon wrong permissions. For example:
 

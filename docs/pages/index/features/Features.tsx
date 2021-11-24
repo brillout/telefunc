@@ -19,9 +19,15 @@ function Features() {
           desc: (
             <>
               <p>
+                The idea is simple: you define functions on the server and call remotely from the client.
+              </p>
+              <p>
                 Telefunctions enables your frontend to <b>directly use SQL/ORM queries</b> to retrieve & mutate data.
               </p>
-              <p>Say goodbye to the API layer.</p>
+            <p>
+              This means that your frontend can use any SQL/ORM query to "directly" retrieve and mutate data.
+            </p>
+              <p>Not only is that powerful, but it's fundamentally simpler than a RESTful/GraphQL API.</p>
             </>
           ),
           learnMore: <Simple />,
@@ -97,7 +103,10 @@ function Features() {
               <p>
                 Use your types across frontend and backend for <b>end-to-end type safety</b>.
               </p>
-              <p></p>
+              <p>
+            From TypeScript perspective, the frontend imoports server functions (TypeScript doens't know that the server function is actullay transformed).
+            This means TypeScript just works.
+            </p>
             </>
           ),
           learnMore: <>Bla</>,
