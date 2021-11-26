@@ -1,8 +1,8 @@
 ```js
 // todo.telefunc.js
-// Environment: Node.js Server
+// Environment: Node.js server
 
-import { Abort, getContext, shield } from 'telefunc'
+import { shield, Abort, getContext } from 'telefunc'
 
 // Telefunc makes functions exported in `*.telefunc.js`
 // remotely callable from the browser.
@@ -11,7 +11,7 @@ export { onNewTodo }
 shield(onNewTodo, [shield.type.string])
 async function onNewTodo(text) {
   const { user } = getContext()
-  if (user === null) throw Abort
+  if (user === null) throw Abort()
 
   // With an ORM:
   const todoItem = new Todo({text, authorId: user.id})
