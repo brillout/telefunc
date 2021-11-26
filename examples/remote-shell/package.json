@@ -12,6 +12,6 @@
     "telefunc": "0.1.0-beta.1",
     "vite": "^2.3.6"
   },
-  "name": "example-vite",
+  "name": "example-remote-shell",
   "version": "0.0.0"
 }
