@@ -3,7 +3,7 @@ import { page, run, urlBase, autoRetry, fetchHtml } from '../../libframe/test/se
 export { testRun }
 
 function testRun(cmd: 'npm run dev' | 'npm run prod') {
-  run(cmd)
+  run(cmd, { additionalTimeout: 120 * 1000 })
 
   test('Telefunc works', async () => {
     {

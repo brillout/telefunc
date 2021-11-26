@@ -62,6 +62,15 @@ export const headings: HeadingDefinition[] = [
     url: '/file-structure',
   },
   {
+    level: 4,
+    title: 'More',
+  },
+  {
+    level: 2,
+    title: 'RPC vs REST vs GraphQL',
+    url: '/RPC-vs-REST-vs-GraphQL',
+  },
+  {
     level: 1,
     title: 'Integration',
     titleEmoji: 'plug',

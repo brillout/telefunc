@@ -5,6 +5,7 @@ import { importBuild } from 'vite-plugin-import-build'
 import { getImportBuildCode } from './getImportBuildCode'
 
 export default plugin
+export { plugin as telefunc }
 
 function plugin(): Plugin[] {
   return [

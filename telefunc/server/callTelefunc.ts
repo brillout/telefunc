@@ -5,7 +5,6 @@ import { BodyParsed, Telefunction, Telefunctions } from '../shared/types'
 import {
   assert,
   assertUsage,
-  assertWarning,
   cast,
   checkType,
   hasProp,

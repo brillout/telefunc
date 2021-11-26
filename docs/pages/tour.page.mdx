@@ -1,0 +1,48 @@
+Reading recommendation:
+ - For seniors already familiar with RPC: only [Inversion of Control](#inversion-of-control) and [TypeScript](#typescript)
+ - For anyone else: everything.
+
+## Hello World
+
+```js
+// hello.telefunc.js
+// Environment: Node.js server
+
+export { hello }
+
+async function hello(name) {
+  return 'Welcome ' + name
+}
+```
+
+```html
+<html>
+  <body>
+    <div id="view">Loading...</div>
+    <script type="module">
+      import { hello } from './hello.telefunc.js'
+      const message = await hello('Eva')
+      console.log(message) // Prints Eva
+    </script>
+  </body>
+</html>
+```
+
+## How it works
+
+> It's **important to have a clear understanding of how Telefunc works**;
+> it will ensure that we properly secure our Telefunctions with `shield()` and `Abort()` and induces increased productivity.
+
+## ORM/SQL instead of REST/GraphQL
+
+## Telefunctions are cheap
+
+## Inversion of control
+
+In a classical REST/GraphQL, it is the backend who determines & controls the structure of the API.
+
+With the Telefunc it's the other way around: it is the frontend who determines & controls telefunctions.
+
+## TypeScript
+
+We highly recommend to use Telefunc with TypeScript.

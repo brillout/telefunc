@@ -30,11 +30,7 @@ async function loadTelefuncFiles(telefuncContext: {
     return null
   }
 
-  assert(bundlerName === null)
-  assertUsage(
-    false,
-    'Only Vite, Nextjs and Webpack are supported for now. Let us know about your stack on Discord or GitHub.',
-  )
+  return null
 }
 
 // TODO: rethink this
@@ -48,11 +44,7 @@ function getBundlerName({ _viteDevServer }: Record<string, unknown>): BundlerNam
   if (isNextjs()) {
     return 'nextjs'
   }
-  // TODO: how to add check for prod?
-  return 'vite'
-  /*
   return null;
-  */
 }
 
 function isWebpack() {
