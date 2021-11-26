@@ -2,17 +2,7 @@ import { stringify } from '@brillout/json-s'
 import { parse } from '@brillout/json-s'
 import type { ViteDevServer } from 'vite'
 import { BodyParsed, Telefunction, Telefunctions } from '../shared/types'
-import {
-  assert,
-  assertUsage,
-  cast,
-  checkType,
-  hasProp,
-  isCallable,
-  isObject,
-  isPromise,
-  objectAssign,
-} from './utils'
+import { assert, assertUsage, cast, checkType, hasProp, isCallable, isObject, isPromise, objectAssign } from './utils'
 import { loadTelefuncFiles } from '../plugin/loadTelefuncFiles'
 import { RequestProps, TelefuncFiles, TelefuncFilesUntyped, Config } from './types'
 import { getContextOrUndefined, provideContextOrNull } from './getContext'
@@ -66,7 +56,7 @@ async function callTelefunc_(requestProps: RequestProps, config: Config, args: u
     _isProduction: config.isProduction,
     _root: config.root,
     _viteDevServer: config.viteDevServer,
-    _telefunctions: config.telefunctions,
+    _telefunctionsProvidedManuallyByUser: config.telefunctions || null,
     _baseUrl: config.baseUrl,
     _disableCache: config.disableCache,
     _urlPath: config.urlPath,
@@ -277,17 +267,17 @@ function addTelefunction(telefunctionName: string, telefunction: Telefunction, f
 async function getTelefuncs(telefuncContext: {
   _viteDevServer?: ViteDevServer
   _root?: string
-  _telefunctions?: Record<string, Telefunctions>
+  _telefunctionsProvidedManuallyByUser: null | TelefuncFiles
   _isProduction: boolean
 }): Promise<{
   telefuncFiles: TelefuncFiles
   telefuncs: Record<string, Telefunction>
 }> {
   const telefuncFiles = await getTelefuncFiles(telefuncContext)
-  assert(telefuncFiles || telefuncContext._telefunctions, 'No telefunctions found')
+  assert(telefuncFiles || telefuncContext._telefunctionsProvidedManuallyByUser, 'No telefunctions found')
   const telefuncs: Telefunctions = {}
 
-  Object.entries(telefuncFiles || telefuncContext._telefunctions || false).forEach(
+  Object.entries(telefuncFiles || telefuncContext._telefunctionsProvidedManuallyByUser || false).forEach(
     ([telefuncFileName, telefuncFileExports]) => {
       Object.entries(telefuncFileExports).forEach(([exportName, exportValue]) => {
         const telefunctionName = telefuncFileName + ':' + exportName
@@ -301,13 +291,14 @@ async function getTelefuncs(telefuncContext: {
   )
 
   cast<TelefuncFiles>(telefuncFiles)
-  return { telefuncFiles: telefuncFiles || telefuncContext._telefunctions, telefuncs }
+  return { telefuncFiles: telefuncFiles || telefuncContext._telefunctionsProvidedManuallyByUser, telefuncs }
 }
 
 async function getTelefuncFiles(telefuncContext: {
   _viteDevServer?: ViteDevServer
   _root?: string
   _isProduction: boolean
+  _telefunctionsProvidedManuallyByUser: null | TelefuncFiles
 }): Promise<TelefuncFilesUntyped | null> {
   if (telefuncFilesManuallySet) {
     return telefuncFilesManuallySet

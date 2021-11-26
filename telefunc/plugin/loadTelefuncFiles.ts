@@ -1,23 +1,28 @@
-import { assert, assertUsage } from '../server/utils'
 import type { ViteDevServer } from 'vite'
-import { TelefuncFilesUntyped } from '../server/types'
+import type { TelefuncFiles, TelefuncFilesUntyped } from '../server/types'
 import { join } from 'path'
 import { statSync } from 'fs'
 import { loadTelefuncFilesWithVite } from './vite/loadTelefuncFilesWithVite'
 import { loadTelefuncFilesWithWebpack } from './webpack/loadTelefuncFilesWithWebpack'
+import { assert } from '../shared/utils'
 
 export { loadTelefuncFiles }
 
-type BundlerName = 'webpack' | 'nextjs' | 'vite' | null
+type BundlerName = 'webpack' | 'nextjs' | 'vite' | 'unknown'
 
 async function loadTelefuncFiles(telefuncContext: {
   _root: string
   _viteDevServer?: ViteDevServer
+  _telefunctionsProvidedManuallyByUser: null | TelefuncFiles
   _isProduction: boolean
 }): Promise<TelefuncFilesUntyped | null> {
   const bundlerName = getBundlerName(telefuncContext)
 
-  if (bundlerName === 'vite') {
+  if (telefuncContext._telefunctionsProvidedManuallyByUser) {
+    return telefuncContext._telefunctionsProvidedManuallyByUser
+  }
+
+  if (bundlerName === 'vite' || bundlerName === 'unknown') {
     return loadTelefuncFilesWithVite(telefuncContext)
   }
 
@@ -30,7 +35,7 @@ async function loadTelefuncFiles(telefuncContext: {
     return null
   }
 
-  return null
+  assert(false)
 }
 
 // TODO: rethink this
@@ -44,7 +49,7 @@ function getBundlerName({ _viteDevServer }: Record<string, unknown>): BundlerNam
   if (isNextjs()) {
     return 'nextjs'
   }
-  return null;
+  return 'unknown'
 }
 
 function isWebpack() {
