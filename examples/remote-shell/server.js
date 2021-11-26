@@ -16,7 +16,7 @@ async function startServer() {
     const vite = require('vite')
     viteDevServer = await vite.createServer({
       root,
-      server: { middlewareMode: 'ssr' },
+      server: { middlewareMode: 'html' },
     })
   }
 
