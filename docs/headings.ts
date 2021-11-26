@@ -61,4 +61,14 @@ export const headings: HeadingDefinition[] = [
     title: 'File Structure',
     url: '/file-structure',
   },
+  {
+    level: 1,
+    title: 'Integration',
+    titleEmoji: 'plug',
+  },
+  {
+    level: 2,
+    title: 'TypeScript',
+    url: '/typescript',
+  },
 ]
