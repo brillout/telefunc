@@ -1,6 +1,6 @@
 Reading recommendation:
- - For seniors already familiar with RPC: only [Inversion of Control](#inversion-of-control) and [TypeScript](#typescript)
- - For anyone else: everything.
+ - Seniors already familiar with RPC: only sections [Inversion of Control](#inversion-of-control) and [TypeScript](#typescript).
+ - Anyone else: all sections.
 
 ## Hello World
 
@@ -10,32 +10,118 @@ Reading recommendation:
 
 export { hello }
 
-async function hello(name) {
-  return 'Welcome ' + name
+async function hello({ name }) {
+  const message = 'Welcome ' + name
+  return { message }
 }
 ```
 
 ```html
+<!-- index.html -->
+<!-- Environment: Browser -->
+
 <html>
   <body>
-    <div id="view">Loading...</div>
     <script type="module">
+      // This doesn't actually import `hello.telefunc.js`: Telefunc transforms
+      // `hello.telefunc.js` into a thin HTTP client.
       import { hello } from './hello.telefunc.js'
-      const message = await hello('Eva')
+      // Behind the scenes, Telefunc makes an HTTP request.
+      const { message } = await hello({ name: 'Eva' })
       console.log(message) // Prints Eva
     </script>
   </body>
 </html>
 ```
 
+The file `hello.telefunc.js` and the function `hello()` are never loaded in the browser.
+In other words:
+
+```js
+  // hello.telefunc.js
+
+  export { hello }
+
+  async function hello({ name }) {
+    console.log(isServer()) // Always prints true
+    const message = 'Welcome ' + name
+    return { message }
+  }
+
+  function isServer() {
+    // Test whether this code is executed in the browser or in Node.js
+    return typeof window === "undefined"
+  }
+```
+
+Let's see how it works.
+Telefunc transforms all `import '*.telefunc.js'` into a thin HTTP client, let's see how it works.
+
 ## How it works
 
-> It's **important to have a clear understanding of how Telefunc works**;
-> it will ensure that we properly secure our Telefunctions with `shield()` and `Abort()` and induces increased productivity.
+> **It's important to understand the Telefunc mechanism**:
+> it makes us more productive as we will have a natural understanding of how to properly protect our Telefunctions with `shield()` and `Abort()`.
+
+Let's see what happens when we do the following somewhere in our browser-side JavaScript.
+
+```js
+// Environment: Browser
+
+import { hello } from 'hello.telefunc.js'
+
+const message = await hello('Eva')
+```
+
+The first thing is that the Telefunc transform will transform `hello.telefunc.js` in the following.
+
+```js
+// hello.telefunc.js (after applying Telefunc transformer)
+// Environement: Browser
+
+import { __internal_makeHttpRequest } 'telefunc/client'
+
+export const hello = (...args) => __internal_makeHttpRequest('/hello.telefunc.js:hello', args)
+```
+
+This means that original `hello.telefunc.js` file is never loaded in the browser.
+
+This also means that our call `const message = await hello('Eva')` will call the `__internal_makeHttpRequest()` function instead of calling our original `hello()` implementation.
+
+The `__internal_makeHttpRequest()` function makes following HTTP request.
+
+```
+(Environment: Internet Network)
+
+POST /_telefunc HTTP/1.1
+{"telefunctionPath":"/hello.telefunc.js:hello","telefunctionArguments":[{"name":"Eva"}]}
+```
+
+Our Node.js server will reply the following HTTP response.
+
+```
+(Environment: Internet Network)
+
+HTTP/1.1 200 OK
+{"telefunctionResult":{"message":"Welcome Eva"}}
+```
+
+The `__internal_makeHttpRequest()` function then deserializes the HTTP body `{"telefunctionResult":"Welcome Eva"}` and returns the JavaScript string `'Welcome Eva'`.
+
+## Telefunctions need to be protected
+
+Anyone in the world can open his terminal an make an HTTP request
+
+```js
+curl -d '{"name":"/hello.telefunc.js:hello","args":[""]}' http://100.115.92.199:3001/_telefunc
+```
+
+We cannot assume
+request sim
+
+Our Node.js server cannot g
+Because 
 
 ## ORM/SQL instead of REST/GraphQL
-
-## Telefunctions are cheap
 
 ## Inversion of control
 
