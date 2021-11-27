@@ -1,7 +1,7 @@
 import type { Module } from '@nuxt/types'
 import * as bodyParser from 'body-parser'
 import { resolve } from 'path'
-import { _telefunc } from './_telefunc'
+import { _telefunc } from './telefunc.middleware'
 
 const _telefuncModule: Module = function telefuncModule() {
 
