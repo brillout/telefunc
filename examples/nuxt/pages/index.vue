@@ -1,10 +1,10 @@
 <template>
   <div id="view">
-    First name: {{ firstName }}
+    First name: {{ person.firstName }}
     <br />
-    Last name: {{ lastName }}
+    Last name: {{ person.lastName }}
     <br />
-    server: {{ isServer ? 'true' : 'false' }}
+    server: {{ telefunctionWasRunInServer ? 'true' : 'false' }}
   </div>
 </template>
 
@@ -13,17 +13,15 @@
 
 export default {
   mounted: function () {
-    this.$store.dispatch('fetch')
+    this.$store.dispatch('person')
+    this.$store.dispatch('telefunctionWasRunInServer')
   },
   computed: {
-    firstName: function () {
-      return this.$store.state.firstName
+    person: function () {
+      return { firstName: this.$store.state.firstName, lastName: this.$store.state.lastName }
     },
-    lastName: function () {
-      return this.$store.state.lastName
-    },
-    isServer: function () {
-      return this.$store.state.isServer
+    telefunctionWasRunInServer: function () {
+      return this.$store.state.telefunctionWasRunInServer
     },
   },
 }
