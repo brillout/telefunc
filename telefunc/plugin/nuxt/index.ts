@@ -18,4 +18,5 @@ const _telefuncModule: Module = function telefuncModule() {
 
 export default _telefuncModule
 
+// nuxt suggests exporting package.json for plugins 
 module.exports.meta = require('../../../../package.json')
