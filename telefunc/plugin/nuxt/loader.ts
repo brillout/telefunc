@@ -1,7 +1,7 @@
 import type { LoaderDefinitionFunction } from 'webpack'
 import { toPosixPath } from '../../server/utils'
 import { isTelefuncFile } from '../isTelefuncFile'
-import { isSSR } from '../next/isSSR'
+import { isSSR } from './isSSR'
 import { transformTelefuncFileSSR } from '../transformTelefuncFileSSR'
 import { transformTelefuncFile } from '../transformTelefuncFile'
 
