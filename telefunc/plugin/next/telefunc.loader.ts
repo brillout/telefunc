@@ -2,7 +2,7 @@ import type { LoaderDefinitionFunction } from 'webpack'
 import { toPosixPath } from '../../server/utils'
 import { isSSR } from './isSSR'
 import { transformTelefuncFile } from '../transformTelefuncFile'
-import { transformTelefuncFileSSR } from './transformTelefuncFileSSR'
+import { transformTelefuncFileSSR } from '../transformTelefuncFileSSR'
 
 module.exports = async function (input) {
   const compiler = this._compiler!
