@@ -18,7 +18,7 @@ const persons = [
   },
 ]
 
-// should be true even in client (telefunctionWasRunInServer)
+// Always returns true, since telefunctions always run on the server-side (telefunctionWasRunInServer)
 async function getIsServer() {
   return typeof window === 'undefined'
 }
