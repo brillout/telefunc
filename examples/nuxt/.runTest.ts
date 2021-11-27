@@ -7,12 +7,14 @@ function runTest(cmd: 'npm run dev' | 'npm run prod') {
 
   test('telefunction call', async () => {
     await page.goto(`${urlBase}/`)
+
+    let text: string
     // `autoRetry` to ensure JavaScript has loaded & executed
     await autoRetry(async () => {
-      const text = await page.textContent('#view')
+      text = await page.textContent('#view')
       expect(text).toContain('First name: Alan')
-      expect(text).toContain('Last name: Turing')
-      expect(text).toContain('server: true')
     })
+    expect(text).toContain('Last name: Turing')
+    expect(text).toContain('server: true')
   })
 }
