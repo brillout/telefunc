@@ -4,6 +4,7 @@ import { Compiler } from 'webpack'
 import { assert, moduleExists } from '../../server/utils'
 import { isSSR } from './isSSR'
 
+// @ts-ignore
 export const unpluginBuild = createUnplugin(() => {
   return {
     name: 'telefunc:build',
