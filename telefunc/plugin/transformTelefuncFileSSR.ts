@@ -1,5 +1,5 @@
 import { parse } from 'es-module-lexer'
-import { assertPosixPath } from '../../server/utils'
+import { assertPosixPath } from '../server/utils'
 
 export { transformTelefuncFileSSR }
 

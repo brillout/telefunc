@@ -2,10 +2,8 @@ import type { LoaderDefinitionFunction } from 'webpack'
 import { toPosixPath } from '../../server/utils'
 import { isTelefuncFile } from '../isTelefuncFile'
 import { isSSR } from '../next/isSSR'
-import { transformTelefuncFileSSR } from '../next/transformTelefuncFileSSR'
+import { transformTelefuncFileSSR } from '../transformTelefuncFileSSR'
 import { transformTelefuncFile } from '../transformTelefuncFile'
-
-export type PromiseType<T extends Promise<any>> = T extends Promise<infer U> ? U : never
 
 module.exports = async function (input) {
   const compiler = this._compiler!
