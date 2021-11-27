@@ -18,7 +18,7 @@ const persons = [
   },
 ]
 
-// should be true even in client
+// should be true even in client (telefunctionWasRunInServer)
 async function getIsServer() {
   return typeof window === 'undefined'
 }
