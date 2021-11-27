@@ -3,24 +3,28 @@ import { getPerson, getIsServer } from '../telefunc/persons.telefunc'
 export const state = () => ({
   firstName: '',
   lastName: '',
-  isServer: false,
+  telefunctionWasRunInServer: false,
 })
 
 export const mutations = {
-  set(state, { firstName, lastName, isServer }) {
+  setPerson(state, { firstName, lastName }) {
     state.firstName = firstName
     state.lastName = lastName
-    state.isServer = isServer
+  },
+  setTelefunctionWasRunInServer(state, value) {
+    state.telefunctionWasRunInServer = value
   },
 }
-export const actions = {
-  async fetch({ commit }) {
-    const person = await getPerson(0)
-    const isServer = await getIsServer()
 
-    commit('set', {
-      ...person,
-      isServer,
-    })
+export const actions = {
+  async person({ commit }) {
+    const person = await getPerson(0)
+
+    commit('setPerson', person)
+  },
+  async telefunctionWasRunInServer({ commit }) {
+    const value = await getIsServer()
+
+    commit('setTelefunctionWasRunInServer', value)
   },
 }
