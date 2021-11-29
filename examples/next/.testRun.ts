@@ -9,11 +9,11 @@ function testRun(cmd: 'npm run prod' | 'npm run dev') {
   }
 
   run(cmd, {
-    serverIsRunningMessage: 'started server on',
+    serverIsReadyMessage: 'started server on',
     /* Attempt to figure out why Next.js doesn't properly run in GitHub Actions:
     debug: true,
     additionalTimeout: 240 * 1000,
-    serverIsRunningDelay: 20 * 1000,
+    serverIsReadyDelay: 20 * 1000,
     //*/
   })
 
