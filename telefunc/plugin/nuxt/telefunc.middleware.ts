@@ -1,5 +1,5 @@
 import { Context } from '@nuxt/types'
-import { createTelefuncCaller } from 'telefunc'
+import { createTelefuncCaller } from '../../server'
 import { assert } from '../../shared/utils'
 
 export { _telefunc }
