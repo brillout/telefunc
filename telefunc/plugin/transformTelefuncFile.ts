@@ -5,7 +5,7 @@ import { assertPosixPath } from '../server/utils/assertPosixPath'
 
 export { transformTelefuncFile }
 
-async function transformTelefuncFile(src: string, id: string, root: string, exportsSupport = false) {
+async function transformTelefuncFile(src: string, id: string, root: string, packageJsonExportsSupported = true) {
   assertPosixPath(id)
   assertPosixPath(root)
 
@@ -17,13 +17,13 @@ async function transformTelefuncFile(src: string, id: string, root: string, expo
 
   const exports = parse(src)[1]
   return {
-    code: getCode(exports, filepath, exportsSupport),
+    code: getCode(exports, filepath, packageJsonExportsSupported),
     map: null,
   }
 }
 
-function getCode(exports: readonly string[], filePath: string, exportsSupport: boolean) {
-  let code = `import { server } from '${exportsSupport ? 'telefunc/client': 'telefunc/dist/esm/client'}';
+function getCode(exports: readonly string[], filePath: string, packageJsonExportsSupported: boolean) {
+  let code = `import { server } from '${packageJsonExportsSupported ? 'telefunc/client': 'telefunc/dist/esm/client'}';
 
 `
   exports.forEach((exportName) => {

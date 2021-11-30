@@ -1,5 +1,5 @@
 export { isSSR }
 
-function isSSR(name?: string): boolean {
-  return name === 'server'
+function isSSR(compiler: { name?: string }): boolean {
+  return compiler.name === 'server'
 }

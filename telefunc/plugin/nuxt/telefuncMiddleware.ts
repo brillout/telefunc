@@ -1,15 +1,15 @@
 import { Context } from '@nuxt/types'
-import { createTelefuncCaller } from 'telefunc'
+import { createTelefuncCaller } from '../../server'
 import { assert } from '../../shared/utils'
 
-export { _telefunc }
+export { telefuncMiddleware }
 
 const callTelefuncPromise = createTelefuncCaller({
   isProduction: process.env.NODE_ENV === 'production',
   root: process.cwd(),
 })
 
-const _telefunc = async (
+const telefuncMiddleware = async (
   req: Context['req'] & { url: string; method: string; body: string },
   res: Context['res'],
   next: Context['next'],
@@ -24,10 +24,6 @@ const _telefunc = async (
   let callTelefunc = await callTelefuncPromise
 
   const httpResponse = await callTelefunc({ url, method, body })
-
-  if (httpResponse) {
-    res.writeHead(httpResponse.statusCode).end(httpResponse.body)
-    return
-  }
   assert(httpResponse)
+  res.writeHead(httpResponse.statusCode).end(httpResponse.body)
 }

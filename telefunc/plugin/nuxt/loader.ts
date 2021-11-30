@@ -12,11 +12,11 @@ module.exports = async function (input) {
 
   assert(isTelefuncFile(id))
 
-  if (isSSR(compiler.name)) {
-    const { code } = await transformTelefuncFileSSR(input, id, root)
+  if (isSSR(compiler)) {
+    const { code } = await transformTelefuncFileSSR(input, toPosixPath(id), toPosixPath(root))
     return code
   }
 
-  const { code } = await transformTelefuncFile(input, toPosixPath(id), toPosixPath(root))
+  const { code } = await transformTelefuncFile(input, toPosixPath(id), toPosixPath(root), false)
   return code
 } as LoaderDefinitionFunction

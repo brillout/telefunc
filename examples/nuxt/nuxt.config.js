@@ -1,26 +1,14 @@
+import { SERVER_IS_READY } from './SERVER_IS_READY'
+
 export default {
-  // Global page headers: https://go.nuxtjs.dev/config-head
-  head: {
-    title: 'nuxt',
-    htmlAttrs: {
-      lang: 'en'
-    },
-    meta: [
-      { charset: 'utf-8' },
-      { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: '' },
-      { name: 'format-detection', content: 'telephone=no' }
-    ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-    ]
-  },
+  modules: ['telefunc/nuxt', sendServerIsReadyMessage],
+  telemetry: false,
+}
 
-  // Auto import components: https://go.nuxtjs.dev/config-components
-  components: true,
-
-  // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [
-    "telefunc/nuxt"
-  ],
+// Nuxt uses the logging library `consola` which breaks `libframe/test`'s log listening mechanism;
+// we need to log a custom message so that `libframe/test` can know when the build is finished.
+function sendServerIsReadyMessage() {
+  this.nuxt.hook('build:done', () => {
+    process.stdout.write(`${SERVER_IS_READY}\n`)
+  })
 }
