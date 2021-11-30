@@ -17,6 +17,6 @@ module.exports = async function (input) {
     return code
   }
 
-  const { code } = await transformTelefuncFile(input, toPosixPath(id), toPosixPath(root))
+  const { code } = await transformTelefuncFile(input, toPosixPath(id), toPosixPath(root), false)
   return code
 } as LoaderDefinitionFunction

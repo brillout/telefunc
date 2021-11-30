@@ -5,7 +5,7 @@ import { assertPosixPath } from '../server/utils/assertPosixPath'
 
 export { transformTelefuncFile }
 
-async function transformTelefuncFile(src: string, id: string, root: string, exportsSupport = false) {
+async function transformTelefuncFile(src: string, id: string, root: string, exportsSupport = true) {
   assertPosixPath(id)
   assertPosixPath(root)
 
