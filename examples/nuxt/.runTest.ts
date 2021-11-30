@@ -3,7 +3,7 @@ import { page, urlBase, autoRetry, run } from '../../libframe/test/setup'
 export { runTest }
 
 function runTest(cmd: 'npm run dev' | 'npm run prod') {
-  run(cmd)
+  run(cmd, { serverIsReadyMessage: 'Listening on: http://localhost:3000/' })
 
   test('telefunction call', async () => {
     await page.goto(`${urlBase}/`)
