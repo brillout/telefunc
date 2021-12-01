@@ -13,7 +13,7 @@ module.exports = async function (input) {
   assert(isTelefuncFile(id))
 
   if (isSSR(compiler.name)) {
-    const { code } = await transformTelefuncFileSSR(input, id, root)
+    const { code } = await transformTelefuncFileSSR(input, toPosixPath(id), toPosixPath(root))
     return code
   }
 
