@@ -1,12 +1,10 @@
 import { page, urlBase, autoRetry, run } from '../../libframe/test/setup'
+import { NUXT_APP_IS_READY } from './NUXT_APP_IS_READY'
 
 export { runTest }
 
 function runTest(cmd: 'npm run dev' | 'npm run prod') {
-  test('SKIPED: Nuxt server logs cannot be listened to', () => {})
-  /*
-  const additionalTimeout = 120 * 1000
-  run(cmd, { serverIsReadyMessage: 'Listening on: http://localhost:3000/', additionalTimeout })
+  run(cmd, { serverIsReadyMessage: NUXT_APP_IS_READY })
 
   test('telefunction call', async () => {
     await page.goto(`${urlBase}/`)
@@ -20,5 +18,4 @@ function runTest(cmd: 'npm run dev' | 'npm run prod') {
     expect(text).toContain('Last name: Turing')
     expect(text).toContain('server: true')
   })
-  //*/
 }
