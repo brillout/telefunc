@@ -9,8 +9,6 @@
 </template>
 
 <script>
-// I'd like to see how vue devs would refactor this, as I am a React dev
-
 export default {
   mounted: function () {
     this.$store.dispatch('loadData')
