@@ -1,12 +1,12 @@
 import { page, urlBase, autoRetry, run } from '../../libframe/test/setup'
-import { NUXT_APP_IS_READY } from './NUXT_APP_IS_READY'
+import { SERVER_IS_READY } from './SERVER_IS_READY'
 
 export { runTest }
 
 function runTest(cmd: 'npm run dev' | 'npm run prod') {
   const serverIsReadyDelay = 30 * 1000
   const additionalTimeout = serverIsReadyDelay
-  run(cmd, { serverIsReadyMessage: NUXT_APP_IS_READY, serverIsReadyDelay, additionalTimeout })
+  run(cmd, { serverIsReadyMessage: SERVER_IS_READY, serverIsReadyDelay, additionalTimeout })
 
   test('telefunction call', async () => {
     await page.goto(`${urlBase}/`)

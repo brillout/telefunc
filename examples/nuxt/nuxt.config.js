@@ -1,4 +1,4 @@
-import { NUXT_APP_IS_READY } from './NUXT_APP_IS_READY'
+import { SERVER_IS_READY } from './SERVER_IS_READY'
 
 export default {
   modules: ['telefunc/nuxt', sendServerIsReadyMessage],
@@ -9,6 +9,6 @@ export default {
 // message to signal `libframe/test` when the build is finished.
 function sendServerIsReadyMessage() {
   this.nuxt.hook('build:done', () => {
-    process.stdout.write(`\n${NUXT_APP_IS_READY}\n`)
+    process.stdout.write(`\n${SERVER_IS_READY}\n`)
   })
 }
