@@ -1,4 +1,4 @@
-export { getPerson, getIsServer }
+export { getPerson }
 
 const persons = [
   {
@@ -17,11 +17,6 @@ const persons = [
     lastName: 'Key',
   },
 ]
-
-// Always returns true, since telefunctions always run on the server-side (telefunctionWasRunInServer)
-async function getIsServer() {
-  return typeof window === 'undefined'
-}
 
 async function getPerson(id) {
   const person = persons[id]

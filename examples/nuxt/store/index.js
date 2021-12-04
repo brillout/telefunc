@@ -1,4 +1,5 @@
-import { getPerson, getIsServer } from '../telefunc/persons.telefunc'
+import { getPerson } from '../telefunc/persons.telefunc'
+import { testTelefunc } from '../telefunc/testTelefunc.telefunc'
 
 export const state = () => ({
   person: {
@@ -20,7 +21,7 @@ export const mutations = {
 export const actions = {
   async loadData({ commit }) {
     const person = await getPerson(0)
-    const telefunctionWasRunInServer = await getIsServer()
+    const telefunctionWasRunInServer = await testTelefunc()
     commit('setPerson', person)
     commit('setTelefunctionWasRunInServer', telefunctionWasRunInServer)
   },
