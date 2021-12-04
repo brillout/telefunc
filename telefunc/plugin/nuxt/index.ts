@@ -3,7 +3,7 @@ import * as bodyParser from 'body-parser'
 import { resolve } from 'path'
 import { telefuncMiddleware } from './telefuncMiddleware'
 
-const _telefuncModule: Module = function telefuncModule() {
+const telefuncModule: Module = function () {
 
   this.extendBuild((config) => {
     const loader = resolve(__dirname, './loader.js')
@@ -17,7 +17,7 @@ const _telefuncModule: Module = function telefuncModule() {
   this.addServerMiddleware(telefuncMiddleware)
 }
 
-export default _telefuncModule
+export default telefuncModule
 
-// nuxt suggests exporting package.json for plugins 
+// Nuxt suggests exporting package.json for plugins
 module.exports.meta = require('../../../../package.json')
