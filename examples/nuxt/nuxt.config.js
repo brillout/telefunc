@@ -5,8 +5,8 @@ export default {
   telemetry: false,
 }
 
-// `libframe/test` cannot intercept Nuxt logs; we need to use a custom
-// message to signal `libframe/test` when the build is finished.
+// Nuxt uses the logging library `consola` which breaks `libframe/test`'s log listening mechanism;
+// we need to log a custom message so that `libframe/test` can know when the build is finished.
 function sendServerIsReadyMessage() {
   this.nuxt.hook('build:done', () => {
     process.stdout.write(`${SERVER_IS_READY}\n`)
