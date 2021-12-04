@@ -4,7 +4,7 @@
     <br />
     Last name: {{ person.lastName }}
     <br />
-    Telefunction ran on server: {{ telefunctionWasRunInServer ? 'true' : 'false' }}
+    Telefunction ran on the server-side: {{ telefunctionWasRunInServer ? 'true' : 'false' }}
   </div>
 </template>
 

@@ -16,8 +16,8 @@ function runTest(cmd: 'npm run dev' | 'npm run prod') {
     await autoRetry(async () => {
       text = await page.textContent('#view')
       expect(text).toContain('First name: Alan')
-      expect(text).toContain('server: true')
     })
+    expect(text).toContain('Telefunction ran on the server-side: true')
     expect(text).toContain('Last name: Turing')
   })
 }
