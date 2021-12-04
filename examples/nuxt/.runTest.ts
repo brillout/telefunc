@@ -4,8 +4,8 @@ import { SERVER_IS_READY } from './SERVER_IS_READY'
 export { runTest }
 
 function runTest(cmd: 'npm run dev' | 'npm run prod') {
-  const additionalTimeout = 30 * 1000
-  const serverIsReadyDelay = 30 * 1000
+  const additionalTimeout = 10 * 1000
+  const serverIsReadyDelay = 3 * 1000
   run(cmd, { serverIsReadyMessage: SERVER_IS_READY, serverIsReadyDelay, additionalTimeout })
 
   test('telefunction call', async () => {
