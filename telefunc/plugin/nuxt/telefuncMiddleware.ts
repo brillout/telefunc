@@ -24,10 +24,6 @@ const telefuncMiddleware = async (
   let callTelefunc = await callTelefuncPromise
 
   const httpResponse = await callTelefunc({ url, method, body })
-
-  if (httpResponse) {
-    res.writeHead(httpResponse.statusCode).end(httpResponse.body)
-    return
-  }
   assert(httpResponse)
+  res.writeHead(httpResponse.statusCode).end(httpResponse.body)
 }
