@@ -13,12 +13,11 @@
 
 export default {
   mounted: function () {
-    this.$store.dispatch('person')
-    this.$store.dispatch('telefunctionWasRunInServer')
+    this.$store.dispatch('loadData')
   },
   computed: {
     person: function () {
-      return { firstName: this.$store.state.firstName, lastName: this.$store.state.lastName }
+      return this.$store.state.person
     },
     telefunctionWasRunInServer: function () {
       return this.$store.state.telefunctionWasRunInServer
