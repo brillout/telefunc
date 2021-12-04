@@ -9,6 +9,6 @@ export default {
 // message to signal `libframe/test` when the build is finished.
 function sendServerIsReadyMessage() {
   this.nuxt.hook('build:done', () => {
-    process.stdout.write(`\n${SERVER_IS_READY}\n`)
+    process.stdout.write(`${SERVER_IS_READY}\n`)
   })
 }
