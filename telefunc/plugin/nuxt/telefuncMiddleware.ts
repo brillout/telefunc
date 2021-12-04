@@ -2,14 +2,14 @@ import { Context } from '@nuxt/types'
 import { createTelefuncCaller } from '../../server'
 import { assert } from '../../shared/utils'
 
-export { _telefunc }
+export { telefuncMiddleware }
 
 const callTelefuncPromise = createTelefuncCaller({
   isProduction: process.env.NODE_ENV === 'production',
   root: process.cwd(),
 })
 
-const _telefunc = async (
+const telefuncMiddleware = async (
   req: Context['req'] & { url: string; method: string; body: string },
   res: Context['res'],
   next: Context['next'],

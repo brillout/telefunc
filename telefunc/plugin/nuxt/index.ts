@@ -1,19 +1,20 @@
 import type { Module } from '@nuxt/types'
 import * as bodyParser from 'body-parser'
 import { resolve } from 'path'
-import { _telefunc } from './telefunc.middleware'
+import { telefuncMiddleware } from './telefuncMiddleware'
 
 const _telefuncModule: Module = function telefuncModule() {
 
   this.extendBuild((config) => {
+    const loader = resolve(__dirname, './loader.js')
     config.module!.rules.push({
       test: /\.telefunc\./,
-      use: [{ loader: resolve(__dirname, './loader.js') }],
+      use: [{ loader }],
     })
   })
 
   this.addServerMiddleware(bodyParser.text())
-  this.addServerMiddleware(_telefunc)
+  this.addServerMiddleware(telefuncMiddleware)
 }
 
 export default _telefuncModule
