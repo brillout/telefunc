@@ -5,9 +5,9 @@ import { posix } from 'path'
 import { assert, assertUsage, cast, checkType, hasProp, isCallable, isObject, isPromise, objectAssign } from './utils'
 import { BodyParsed, Telefunction, Telefunctions } from '../shared/types'
 import { loadTelefuncFiles } from '../plugin/loadTelefuncFiles'
-import { RequestProps, TelefuncFiles, TelefuncFilesUntyped, Config } from './types'
+import { RequestProps, TelefuncFiles, TelefuncFilesUntyped, UserConfig } from './types'
 import { getContextOrUndefined, provideContextOrNull } from './getContext'
-import {telefuncInternallySet} from './telefunctionsInternallySet'
+import { telefuncInternallySet } from './telefunctionsInternallySet'
 
 export { callTelefunc }
 
@@ -27,11 +27,12 @@ type Result = Promise<null | {
   contentType: 'text/plain'
 }>
 
-async function callTelefunc(requestProps: RequestProps, config: Config, args: unknown[]): Result {
+async function callTelefunc(requestProps: RequestProps, config: UserConfig, args: unknown[]): Result {
   try {
     return await callTelefunc_(requestProps, config, args)
   } catch (err: unknown) {
-    handleError(err, config)
+    // There is a bug in Telefunc's source code
+    handleInternalError(err, config)
     return {
       contentType: 'text/plain',
       body: 'Internal Server Error',
@@ -41,7 +42,7 @@ async function callTelefunc(requestProps: RequestProps, config: Config, args: un
   }
 }
 
-async function callTelefunc_(requestProps: RequestProps, config: Config, args: unknown[]): Result {
+async function callTelefunc_(requestProps: RequestProps, config: UserConfig, args: unknown[]): Result {
   validateArgs(requestProps, args)
   const telefuncContext = {}
 
@@ -312,12 +313,18 @@ function assertTelefunction(
   )
 }
 
-function handleError(err: unknown, config: Config) {
+function handleInternalError(err: unknown, userConfig: UserConfig) {
   // We ensure we print a string; Cloudflare Workers doesn't seem to properly stringify `Error` objects.
   const errStr = (hasProp(err, 'stack') && String(err.stack)) || String(err)
-  if (!config.isProduction && config.viteDevServer) {
+  if (!userConfig.isProduction && userConfig.viteDevServer) {
     // TODO: check if Vite already logged the error
   }
+
+  if (viteAlreadyLoggedError(err, userConfig.viteDevServer)) {
+    return
+  }
+  viteErrorCleanup(err, userConfig.viteDevServer)
+
   console.error(errStr)
 }
 
@@ -325,4 +332,20 @@ function getTelefuncUrlPath(telefuncContext: { _baseUrl: string; _telefuncUrl: s
   const { _baseUrl, _telefuncUrl } = telefuncContext
   const urlPathResolved = posix.resolve(_baseUrl, _telefuncUrl)
   return urlPathResolved
+}
+
+function viteAlreadyLoggedError(err: unknown, viteDevServer: ViteDevServer | undefined) {
+  if (viteDevServer) {
+    return viteDevServer.config.logger.hasErrorLogged(err as Error)
+  }
+  return false
+}
+
+function viteErrorCleanup(err: unknown, viteDevServer: ViteDevServer | undefined) {
+  if (viteDevServer) {
+    if (hasProp(err, 'stack')) {
+      // Apply source maps
+      viteDevServer.ssrFixStacktrace(err as Error)
+    }
+  }
 }

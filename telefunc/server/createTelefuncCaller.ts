@@ -1,19 +1,13 @@
 import type { ViteDevServer } from 'vite'
 import { normalize as pathNormalize } from 'path'
 import { assert, assertUsage, hasProp, isPlainObject } from './utils'
-import { RequestProps, Config, Telefunctions } from './types'
+import { RequestProps, UserConfig, Telefunctions } from './types'
 import { installAsyncMode } from './getContext'
 import { callTelefunc } from './callTelefunc'
 
-let telefuncConfig: Config | null = null
-
 export { createTelefuncCaller }
-export { getTelefuncConfig }
 
-function getTelefuncConfig(): Config | null {
-  return telefuncConfig
-}
-
+let alreadyCalled = false
 async function createTelefuncCaller({
   isProduction,
   root,
@@ -35,11 +29,12 @@ async function createTelefuncCaller({
   disableCache?: boolean
 }) {
   assertUsage(
-    telefuncConfig === null,
+    alreadyCalled === false,
     '`createTelefuncCaller()`: You are calling `createTelefuncCaller()` a second time which is forbidden; it should be called only once.',
   )
+  alreadyCalled = true
 
-  telefuncConfig = {
+  const userConfig: UserConfig = {
     isProduction,
     root,
     viteDevServer,
@@ -48,7 +43,7 @@ async function createTelefuncCaller({
     telefuncFiles,
     disableCache,
   }
-  assertArgs(telefuncConfig, Array.from(arguments))
+  assertArgs(userConfig, Array.from(arguments))
 
   await installAsyncMode()
 
@@ -65,8 +60,8 @@ async function createTelefuncCaller({
       arguments.length === 1,
       '`callTelefunc(/* ... */, context)` is deprecated. Use `provideContext(context)` instead, see https://telefunc.com/provideContext',
     )
-    assert(telefuncConfig)
-    return callTelefunc(requestProps, telefuncConfig, Array.from(arguments))
+    assert(userConfig)
+    return callTelefunc(requestProps, userConfig, Array.from(arguments))
   }
 }
 

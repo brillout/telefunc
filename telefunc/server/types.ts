@@ -8,7 +8,7 @@ export type RequestProps = {
   body: string | unknown
 }
 
-export type Config = {
+export type UserConfig = {
   viteDevServer?: ViteDevServer
   telefuncFiles?: Record<string, Telefunctions>
   root?: string
