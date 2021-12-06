@@ -15,30 +15,39 @@ function getTelefuncConfig(): Config | null {
 }
 
 async function createTelefuncCaller({
-  viteDevServer,
-  telefuncFiles,
-  root,
   isProduction,
+  root,
+  viteDevServer,
   baseUrl = '/',
   telefuncUrl = '/_telefunc',
+  telefuncFiles,
   disableCache = false,
 }: {
-  viteDevServer?: ViteDevServer
-  telefuncFiles?: Record<string, Telefunctions>
-  root?: string
   isProduction: boolean
-  /** URL at which Telefunc HTTP requests are served (default: `_telefunc`). */
-  telefuncUrl?: string
-  /** Whether Telefunc generates HTTP ETag headers. */
-  disableCache?: boolean
+  root?: string
+  viteDevServer?: ViteDevServer
   /** Base URL (default: `/`). */
   baseUrl?: string
+  /** URL at which Telefunc HTTP requests are served (default: `_telefunc`). */
+  telefuncUrl?: string
+  telefuncFiles?: Record<string, Telefunctions>
+  /** Whether Telefunc generates HTTP ETag headers. */
+  disableCache?: boolean
 }) {
   assertUsage(
     telefuncConfig === null,
     '`createTelefuncCaller()`: You are calling `createTelefuncCaller()` a second time which is forbidden; it should be called only once.',
   )
-  telefuncConfig = { viteDevServer, root, isProduction, baseUrl, disableCache, telefuncUrl, telefuncFiles }
+
+  telefuncConfig = {
+    isProduction,
+    root,
+    viteDevServer,
+    baseUrl,
+    telefuncUrl,
+    telefuncFiles,
+    disableCache,
+  }
   assertArgs(telefuncConfig, Array.from(arguments))
 
   await installAsyncMode()
@@ -61,15 +70,33 @@ async function createTelefuncCaller({
   }
 }
 
-function assertArgs(config: unknown, args: unknown[]): void {
+function assertArgs(config: Record<string, unknown>, args: unknown[]): void {
   assertUsage(
-    args.length === 1,
+    args.length === 1 && isPlainObject(args[0]),
     '`createTelefuncCaller()`: all arguments should be passed as a single argument object.',
   )
-  assertUsage(
-    isPlainObject(config),
-    '`createTelefuncCaller(argumentObject)`: all arguments should be passed as a single argument object, i.e. `typeof argumentObject === "object"`.',
-  )
+
+  {
+    const optionList = [
+      'isProduction',
+      'root',
+      'viteDevServer',
+      'baseUrl',
+      'telefuncUrl',
+      'telefuncFiles',
+      'disableCache',
+    ]
+    Object.keys(config).forEach((optionName) => {
+      assert(optionList.includes(optionName), { optionName })
+    })
+    Object.keys(args[0]).forEach((arg) => {
+      assertUsage(optionList.includes(arg), `\`createTelefuncCaller()\`: Unknown argument \`${arg}\`.`)
+    })
+    optionList.forEach((optionName) => {
+      assert(optionName in config, { optionName })
+    })
+  }
+
   assertUsage(
     hasProp(config, 'isProduction', 'boolean'),
     '`createTelefuncCaller({ isProduction })`: argument `isProduction` should be a boolean.',
@@ -82,8 +109,8 @@ function assertArgs(config: unknown, args: unknown[]): void {
     hasProp(config, 'baseUrl', 'string'),
     '`createTelefuncCaller({ baseUrl })`: argument `baseUrl` should be a string.',
   )
-  const _isProduction = config.isProduction
-  if (_isProduction) {
+
+  if (config.isProduction) {
     if ('root' in config && config.root !== undefined) {
       assertUsage(
         hasProp(config, 'root', 'string'),
