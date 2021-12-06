@@ -16,7 +16,7 @@ function getTelefuncConfig(): Config | null {
 
 async function createTelefuncCaller({
   viteDevServer,
-  telefunctions,
+  telefuncFiles,
   root,
   isProduction,
   baseUrl = '/',
@@ -24,7 +24,7 @@ async function createTelefuncCaller({
   disableCache = false,
 }: {
   viteDevServer?: ViteDevServer
-  telefunctions?: Record<string, Telefunctions>
+  telefuncFiles?: Record<string, Telefunctions>
   root?: string
   isProduction: boolean
   /** URL at which Telefunc HTTP requests are served (default: `_telefunc`). */
@@ -38,7 +38,7 @@ async function createTelefuncCaller({
     telefuncConfig === null,
     '`createTelefuncCaller()`: You are calling `createTelefuncCaller()` a second time which is forbidden; it should be called only once.',
   )
-  telefuncConfig = { viteDevServer, root, isProduction, baseUrl, disableCache, telefuncUrl, telefunctions }
+  telefuncConfig = { viteDevServer, root, isProduction, baseUrl, disableCache, telefuncUrl, telefuncFiles }
   assertArgs(telefuncConfig, Array.from(arguments))
 
   await installAsyncMode()
@@ -96,7 +96,7 @@ function assertArgs(config: unknown, args: unknown[]): void {
       '`createTelefuncCaller({ root })`: argument `root` should be a string.',
     )
 
-    if (hasProp(config, 'telefunctions')) {
+    if (hasProp(config, 'telefuncFiles')) {
       return
     }
     assertUsage(

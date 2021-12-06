@@ -56,7 +56,7 @@ async function callTelefunc_(requestProps: RequestProps, config: Config, args: u
     _isProduction: config.isProduction,
     _root: config.root,
     _viteDevServer: config.viteDevServer,
-    _telefunctionsProvidedManuallyByUser: config.telefunctions || null,
+    _telefunctionsProvidedManuallyByUser: config.telefuncFiles || null,
     _baseUrl: config.baseUrl,
     _disableCache: config.disableCache,
     _telefuncUrl: config.telefuncUrl,
