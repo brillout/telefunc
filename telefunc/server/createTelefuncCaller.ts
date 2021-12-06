@@ -20,7 +20,7 @@ async function createTelefuncCaller({
   root,
   isProduction,
   baseUrl = '/',
-  urlPath = '/_telefunc',
+  telefuncUrl = '/_telefunc',
   disableCache = false,
 }: {
   viteDevServer?: ViteDevServer
@@ -28,7 +28,7 @@ async function createTelefuncCaller({
   root?: string
   isProduction: boolean
   /** URL at which Telefunc HTTP requests are served (default: `_telefunc`). */
-  urlPath?: string
+  telefuncUrl?: string
   /** Whether Telefunc generates HTTP ETag headers. */
   disableCache?: boolean
   /** Base URL (default: `/`). */
@@ -38,7 +38,7 @@ async function createTelefuncCaller({
     telefuncConfig === null,
     '`createTelefuncCaller()`: You are calling `createTelefuncCaller()` a second time which is forbidden; it should be called only once.',
   )
-  telefuncConfig = { viteDevServer, root, isProduction, baseUrl, disableCache, urlPath, telefunctions }
+  telefuncConfig = { viteDevServer, root, isProduction, baseUrl, disableCache, telefuncUrl, telefunctions }
   assertArgs(telefuncConfig, Array.from(arguments))
 
   await installAsyncMode()

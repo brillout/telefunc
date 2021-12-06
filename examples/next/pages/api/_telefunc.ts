@@ -4,7 +4,7 @@ import type { GetServerSidePropsContext } from 'next'
 const callTelefuncPromise = createTelefuncCaller({
   isProduction: process.env.NODE_ENV === 'production',
   root: process.cwd(),
-  urlPath: '/api/_telefunc',
+  telefuncUrl: '/api/_telefunc',
 })
 
 export default async function _telefunc(

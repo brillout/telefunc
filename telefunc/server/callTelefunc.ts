@@ -59,7 +59,7 @@ async function callTelefunc_(requestProps: RequestProps, config: Config, args: u
     _telefunctionsProvidedManuallyByUser: config.telefunctions || null,
     _baseUrl: config.baseUrl,
     _disableCache: config.disableCache,
-    _urlPath: config.urlPath,
+    _telefuncUrl: config.telefuncUrl,
   })
 
   {
@@ -334,8 +334,8 @@ function handleError(err: unknown, config: Config) {
   console.error(errStr)
 }
 
-function getTelefuncUrlPath(telefuncContext: { _baseUrl: string; _urlPath: string }) {
-  const { _baseUrl, _urlPath } = telefuncContext
-  const urlPathResolved = posix.resolve(_baseUrl, _urlPath)
+function getTelefuncUrlPath(telefuncContext: { _baseUrl: string; _telefuncUrl: string }) {
+  const { _baseUrl, _telefuncUrl } = telefuncContext
+  const urlPathResolved = posix.resolve(_baseUrl, _telefuncUrl)
   return urlPathResolved
 }

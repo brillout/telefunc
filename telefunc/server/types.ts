@@ -14,7 +14,7 @@ export type Config = {
   root?: string
   isProduction: boolean
   baseUrl: string
-  urlPath: string
+  telefuncUrl: string
   disableCache: boolean
 }
 
