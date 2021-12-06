@@ -2,31 +2,39 @@ import type { ViteDevServer } from 'vite'
 import type { TelefuncFiles, TelefuncFilesUntyped } from './types'
 import { join } from 'path'
 import { statSync } from 'fs'
+import { assert } from '../shared/utils'
 import { loadTelefuncFilesWithVite } from '../plugin/vite/loadTelefuncFilesWithVite'
 import { loadTelefuncFilesWithWebpack } from '../plugin/webpack/loadTelefuncFilesWithWebpack'
-import { assert } from '../shared/utils'
+import { telefuncInternallySet } from './telefunctionsInternallySet'
+import { hasProp } from './utils'
 
 export { getTelefuncFiles }
 
 type BundlerName = 'webpack' | 'nextjs' | 'vite' | 'unknown'
 
 async function getTelefuncFiles(callContext: {
-  _root: string
+  _root?: string
   _viteDevServer?: ViteDevServer
   _telefuncFilesProvidedByUser: null | TelefuncFiles
   _isProduction: boolean
 }): Promise<TelefuncFilesUntyped | null> {
-  const bundlerName = getBundlerName(callContext)
+  if (telefuncInternallySet) {
+    return telefuncInternallySet
+  }
 
   if (callContext._telefuncFilesProvidedByUser) {
     return callContext._telefuncFilesProvidedByUser
   }
 
+  const bundlerName = getBundlerName(callContext)
+
   if (bundlerName === 'vite' || bundlerName === 'unknown') {
+    assert(hasProp(callContext, '_root', 'string'))
     return loadTelefuncFilesWithVite(callContext)
   }
 
   if (bundlerName === 'webpack') {
+    assert(hasProp(callContext, '_root', 'string'))
     return loadTelefuncFilesWithWebpack(callContext)
   }
 

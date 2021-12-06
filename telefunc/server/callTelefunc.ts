@@ -5,9 +5,8 @@ import { posix } from 'path'
 import { assert, assertUsage, cast, checkType, hasProp, isCallable, isObject, isPromise, objectAssign } from './utils'
 import { BodyParsed, Telefunction, Telefunctions } from '../shared/types'
 import { getTelefuncFiles } from './getTelefuncFiles'
-import { HttpRequest, TelefuncFiles, TelefuncFilesUntyped, UserConfig } from './types'
+import { HttpRequest, TelefuncFiles, UserConfig } from './types'
 import { getContextOrUndefined, provideContextOrNull } from './getContext'
-import { telefuncInternallySet } from './telefunctionsInternallySet'
 
 export { callTelefunc }
 
@@ -246,7 +245,7 @@ async function getTelefuncs(callContext: {
   telefuncFiles: TelefuncFiles
   telefuncs: Record<string, Telefunction>
 }> {
-  const telefuncFiles = await _getTelefuncFiles(callContext)
+  const telefuncFiles = await getTelefuncFiles(callContext)
   assert(telefuncFiles || callContext._telefuncFilesProvidedByUser, 'No telefunctions found')
   const telefuncs: Telefunctions = {}
 
@@ -265,20 +264,6 @@ async function getTelefuncs(callContext: {
 
   cast<TelefuncFiles>(telefuncFiles)
   return { telefuncFiles: telefuncFiles || callContext._telefuncFilesProvidedByUser, telefuncs }
-}
-
-async function _getTelefuncFiles(callContext: {
-  _viteDevServer?: ViteDevServer
-  _root?: string
-  _isProduction: boolean
-  _telefuncFilesProvidedByUser: null | TelefuncFiles
-}): Promise<TelefuncFilesUntyped | null> {
-  if (telefuncInternallySet) {
-    return telefuncInternallySet
-  }
-  assert(hasProp(callContext, '_root', 'string'))
-  const telefuncFiles = await getTelefuncFiles(callContext)
-  return telefuncFiles
 }
 
 function assertTelefunction(
