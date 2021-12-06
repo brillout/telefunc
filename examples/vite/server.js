@@ -25,7 +25,7 @@ async function installTelefunc(app) {
   const callTelefunc = await createTelefuncCaller({
     isProduction,
     root,
-    telefunctions: { '/hello.telefunc.js': helloTelefunctions },
+    telefuncFiles: { '/hello.telefunc.js': helloTelefunctions },
   })
   app.use(express.text())
   app.all('/_telefunc', async (req, res, next) => {
