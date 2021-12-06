@@ -13,13 +13,13 @@ type BundlerName = 'webpack' | 'nextjs' | 'vite' | 'unknown'
 async function loadTelefuncFiles(telefuncContext: {
   _root: string
   _viteDevServer?: ViteDevServer
-  _telefunctionsProvidedManuallyByUser: null | TelefuncFiles
+  _telefuncFilesProvidedByUser: null | TelefuncFiles
   _isProduction: boolean
 }): Promise<TelefuncFilesUntyped | null> {
   const bundlerName = getBundlerName(telefuncContext)
 
-  if (telefuncContext._telefunctionsProvidedManuallyByUser) {
-    return telefuncContext._telefunctionsProvidedManuallyByUser
+  if (telefuncContext._telefuncFilesProvidedByUser) {
+    return telefuncContext._telefuncFilesProvidedByUser
   }
 
   if (bundlerName === 'vite' || bundlerName === 'unknown') {

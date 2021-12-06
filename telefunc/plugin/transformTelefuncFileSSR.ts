@@ -18,10 +18,14 @@ async function transformTelefuncFileSSR(src: string, id: string, root: string) {
 function getCode(exports: readonly string[], src: string, filePath: string) {
   assertPosixPath(filePath)
 
-  let code = `import { __internal_addTelefunction } from "telefunc";\n` + src
-
+  let code = 'import { __internal_addTelefunction } from "telefunc";'
+  code += '\n'
+  code += src
+  code += '\n'
   for (const exportName of exports) {
-    code += `\n__internal_addTelefunction("${exportName}", ${exportName}, "${filePath}");`
+    code += `__internal_addTelefunction("${exportName}", ${exportName}, "${filePath}");`
+    code += '\n'
   }
+
   return code
 }

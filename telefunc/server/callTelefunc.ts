@@ -7,10 +7,9 @@ import { BodyParsed, Telefunction, Telefunctions } from '../shared/types'
 import { loadTelefuncFiles } from '../plugin/loadTelefuncFiles'
 import { RequestProps, TelefuncFiles, TelefuncFilesUntyped, Config } from './types'
 import { getContextOrUndefined, provideContextOrNull } from './getContext'
+import {telefuncInternallySet} from './telefunctionsInternallySet'
 
-export { setTelefuncFiles }
 export { callTelefunc }
-export { addTelefunction }
 
 type TelefuncContextRequestProps = {
   _url: string
@@ -56,7 +55,7 @@ async function callTelefunc_(requestProps: RequestProps, config: Config, args: u
     _isProduction: config.isProduction,
     _root: config.root,
     _viteDevServer: config.viteDevServer,
-    _telefunctionsProvidedManuallyByUser: config.telefuncFiles || null,
+    _telefuncFilesProvidedByUser: config.telefuncFiles || null,
     _baseUrl: config.baseUrl,
     _disableCache: config.disableCache,
     _telefuncUrl: config.telefuncUrl,
@@ -252,32 +251,20 @@ function validateArgs(requestProps: unknown, args: unknown[]) {
   assertUsage('body' in requestProps, '`callTelefunc({ body })`: argument `body` is missing.')
 }
 
-var telefuncFilesManuallySet: undefined | TelefuncFiles
-
-function setTelefuncFiles(telefuncFiles: TelefuncFiles) {
-  telefuncFilesManuallySet = telefuncFiles
-}
-
-function addTelefunction(telefunctionName: string, telefunction: Telefunction, filePath: string) {
-  telefuncFilesManuallySet = telefuncFilesManuallySet || {}
-
-  telefuncFilesManuallySet[filePath] = { ...telefuncFilesManuallySet[filePath], [telefunctionName]: telefunction }
-}
-
 async function getTelefuncs(telefuncContext: {
   _viteDevServer?: ViteDevServer
   _root?: string
-  _telefunctionsProvidedManuallyByUser: null | TelefuncFiles
+  _telefuncFilesProvidedByUser: null | TelefuncFiles
   _isProduction: boolean
 }): Promise<{
   telefuncFiles: TelefuncFiles
   telefuncs: Record<string, Telefunction>
 }> {
   const telefuncFiles = await getTelefuncFiles(telefuncContext)
-  assert(telefuncFiles || telefuncContext._telefunctionsProvidedManuallyByUser, 'No telefunctions found')
+  assert(telefuncFiles || telefuncContext._telefuncFilesProvidedByUser, 'No telefunctions found')
   const telefuncs: Telefunctions = {}
 
-  Object.entries(telefuncFiles || telefuncContext._telefunctionsProvidedManuallyByUser || false).forEach(
+  Object.entries(telefuncFiles || telefuncContext._telefuncFilesProvidedByUser || false).forEach(
     ([telefuncFileName, telefuncFileExports]) => {
       Object.entries(telefuncFileExports).forEach(([exportName, exportValue]) => {
         const telefunctionName = telefuncFileName + ':' + exportName
@@ -291,17 +278,17 @@ async function getTelefuncs(telefuncContext: {
   )
 
   cast<TelefuncFiles>(telefuncFiles)
-  return { telefuncFiles: telefuncFiles || telefuncContext._telefunctionsProvidedManuallyByUser, telefuncs }
+  return { telefuncFiles: telefuncFiles || telefuncContext._telefuncFilesProvidedByUser, telefuncs }
 }
 
 async function getTelefuncFiles(telefuncContext: {
   _viteDevServer?: ViteDevServer
   _root?: string
   _isProduction: boolean
-  _telefunctionsProvidedManuallyByUser: null | TelefuncFiles
+  _telefuncFilesProvidedByUser: null | TelefuncFiles
 }): Promise<TelefuncFilesUntyped | null> {
-  if (telefuncFilesManuallySet) {
-    return telefuncFilesManuallySet
+  if (telefuncInternallySet) {
+    return telefuncInternallySet
   }
   assert(hasProp(telefuncContext, '_root', 'string'))
   const telefuncFiles = await loadTelefuncFiles(telefuncContext)
