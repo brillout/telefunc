@@ -6,11 +6,11 @@ import { loadTelefuncFilesWithVite } from '../plugin/vite/loadTelefuncFilesWithV
 import { loadTelefuncFilesWithWebpack } from '../plugin/webpack/loadTelefuncFilesWithWebpack'
 import { assert } from '../shared/utils'
 
-export { loadTelefuncFiles }
+export { getTelefuncFiles }
 
 type BundlerName = 'webpack' | 'nextjs' | 'vite' | 'unknown'
 
-async function loadTelefuncFiles(callContext: {
+async function getTelefuncFiles(callContext: {
   _root: string
   _viteDevServer?: ViteDevServer
   _telefuncFilesProvidedByUser: null | TelefuncFiles
