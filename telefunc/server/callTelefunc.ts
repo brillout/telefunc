@@ -30,7 +30,8 @@ async function callTelefunc(httpRequest: HttpRequest, config: UserConfig): HttpR
   try {
     return await callTelefunc_(httpRequest, config)
   } catch (err: unknown) {
-    // There is a bug in Telefunc's source code
+    // - There is a bug in Telefunc's source code, or
+    // - a telefunction throw an error that is not `Abort()`.
     handleInternalError(err, config)
     return {
       contentType: 'text/plain',
@@ -290,7 +291,7 @@ function handleInternalError(err: unknown, userConfig: UserConfig) {
     // TODO: check if Vite already logged the error
   }
 
-  if (viteAlreadyLoggedError(err, userConfig.viteDevServer)) {
+  if (viteAlreadyLoggedError(err, userConfig)) {
     return
   }
   viteErrorCleanup(err, userConfig.viteDevServer)
@@ -304,9 +305,15 @@ function getTelefuncUrlPath(callContext: { _baseUrl: string; _telefuncUrl: strin
   return urlPathResolved
 }
 
-function viteAlreadyLoggedError(err: unknown, viteDevServer: ViteDevServer | undefined) {
-  if (viteDevServer) {
-    return viteDevServer.config.logger.hasErrorLogged(err as Error)
+function viteAlreadyLoggedError(
+  err: unknown,
+  { isProduction, viteDevServer }: { isProduction: boolean; viteDevServer?: ViteDevServer },
+) {
+  if (isProduction) {
+    return false
+  }
+  if (viteDevServer && viteDevServer.config.logger.hasErrorLogged(err as Error)) {
+    return true
   }
   return false
 }
