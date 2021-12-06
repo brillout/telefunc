@@ -1,9 +1,9 @@
 import type { ViteDevServer } from 'vite'
-import type { TelefuncFiles, TelefuncFilesUntyped } from '../server/types'
+import type { TelefuncFiles, TelefuncFilesUntyped } from './types'
 import { join } from 'path'
 import { statSync } from 'fs'
-import { loadTelefuncFilesWithVite } from './vite/loadTelefuncFilesWithVite'
-import { loadTelefuncFilesWithWebpack } from './webpack/loadTelefuncFilesWithWebpack'
+import { loadTelefuncFilesWithVite } from '../plugin/vite/loadTelefuncFilesWithVite'
+import { loadTelefuncFilesWithWebpack } from '../plugin/webpack/loadTelefuncFilesWithWebpack'
 import { assert } from '../shared/utils'
 
 export { loadTelefuncFiles }
