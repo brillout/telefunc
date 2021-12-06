@@ -1,4 +1,8 @@
-import { HeadingDefinition } from 'libframe-docs/types'
+import type { HeadingDefinition, HeadingWithoutLink } from 'libframe-docs/headings'
+
+export { headingsWithoutLink }
+
+const headingsWithoutLink: HeadingWithoutLink[] = []
 
 export const headings: HeadingDefinition[] = [
   {
