@@ -44,15 +44,15 @@ async function callTelefunc(httpRequest: HttpRequest, config: UserConfig, args: 
 
 async function callTelefunc_(httpRequest: HttpRequest, config: UserConfig, args: unknown[]): Result {
   validateArgs(httpRequest, args)
-  const telefuncContext = {}
+  const callContext = {}
 
-  objectAssign(telefuncContext, {
+  objectAssign(callContext, {
     _url: httpRequest.url,
     _method: httpRequest.method,
     _providedContext: getContextOrUndefined() || null,
   })
 
-  objectAssign(telefuncContext, {
+  objectAssign(callContext, {
     _isProduction: config.isProduction,
     _root: config.root,
     _viteDevServer: config.viteDevServer,
@@ -63,21 +63,21 @@ async function callTelefunc_(httpRequest: HttpRequest, config: UserConfig, args:
   })
 
   {
-    const urlPathResolved = getTelefuncUrlPath(telefuncContext)
-    objectAssign(telefuncContext, {
+    const urlPathResolved = getTelefuncUrlPath(callContext)
+    objectAssign(callContext, {
       _urlPathResolved: urlPathResolved,
     })
   }
 
-  if (telefuncContext._method !== 'POST' && telefuncContext._method !== 'post') {
+  if (callContext._method !== 'POST' && callContext._method !== 'post') {
     return null
   }
-  if (telefuncContext._url !== telefuncContext._urlPathResolved) {
+  if (callContext._url !== callContext._urlPathResolved) {
     return null
   }
 
   const requestBodyParsed = parseBody(httpRequest)
-  objectAssign(telefuncContext, {
+  objectAssign(callContext, {
     _url: httpRequest.url,
     _method: httpRequest.method,
     _body: requestBodyParsed.body,
@@ -85,87 +85,87 @@ async function callTelefunc_(httpRequest: HttpRequest, config: UserConfig, args:
     _telefunctionName: requestBodyParsed.bodyParsed.name,
     _telefunctionArgs: requestBodyParsed.bodyParsed.args,
   })
-  checkType<TelefuncContextHttpRequest>(telefuncContext)
+  checkType<TelefuncContextHttpRequest>(callContext)
 
-  const { telefuncFiles, telefuncs } = await getTelefuncs(telefuncContext)
+  const { telefuncFiles, telefuncs } = await getTelefuncs(callContext)
 
-  objectAssign(telefuncContext, {
+  objectAssign(callContext, {
     _telefuncFiles: telefuncFiles,
     _telefuncs: telefuncs,
   })
   checkType<{
     _telefuncFiles: TelefuncFiles
     _telefuncs: Record<string, Telefunction>
-  }>(telefuncContext)
+  }>(callContext)
 
   assertUsage(
-    telefuncContext._telefunctionName in telefuncContext._telefuncs,
+    callContext._telefunctionName in callContext._telefuncs,
     `Could not find telefunc \`${
-      telefuncContext._telefunctionName
+      callContext._telefunctionName
     }\`. Did you reload the browser (or deploy a new frontend) without reloading the server (or deploying the new backend)? Loaded telefuncs: [${Object.keys(
-      telefuncContext._telefuncs,
+      callContext._telefuncs,
     ).join(', ')}]`,
   )
 
-  const { telefuncResult, telefuncHasErrored, telefuncError } = await executeTelefunc(telefuncContext)
-  objectAssign(telefuncContext, {
+  const { telefuncResult, telefuncHasErrored, telefuncError } = await executeTelefunc(callContext)
+  objectAssign(callContext, {
     _telefuncResult: telefuncResult,
     _telefuncHasError: telefuncHasErrored,
     _telefuncError: telefuncError,
     _err: telefuncError,
   })
 
-  if (telefuncContext._telefuncError) {
-    throw telefuncContext._telefuncError
+  if (callContext._telefuncError) {
+    throw callContext._telefuncError
   }
 
   {
-    const serializationResult = serializeTelefuncResult(telefuncContext)
+    const serializationResult = serializeTelefuncResult(callContext)
     assertUsage(
       !('serializationError' in serializationResult),
       [
-        `Couldn't serialize value returned by telefunc \`${telefuncContext._telefunctionName}\`.`,
+        `Couldn't serialize value returned by telefunc \`${callContext._telefunctionName}\`.`,
         'Make sure returned values',
         'to be of the following types:',
         '`Object`, `string`, `number`, `Date`, `null`, `undefined`, `Inifinity`, `NaN`, `RegExp`.',
       ].join(' '),
     )
     const { httpResponseBody } = serializationResult
-    objectAssign(telefuncContext, { _httpResponseBody: httpResponseBody })
+    objectAssign(callContext, { _httpResponseBody: httpResponseBody })
   }
 
   {
     let httpResponseEtag: null | string = null
-    if (!telefuncContext._disableCache) {
+    if (!callContext._disableCache) {
       const { computeEtag } = await import('./cache/computeEtag')
-      const httpResponseEtag = computeEtag(telefuncContext._httpResponseBody)
+      const httpResponseEtag = computeEtag(callContext._httpResponseBody)
       assert(httpResponseEtag)
     }
-    objectAssign(telefuncContext, {
+    objectAssign(callContext, {
       _httpResponseEtag: httpResponseEtag,
     })
   }
 
   return {
-    body: telefuncContext._httpResponseBody,
+    body: callContext._httpResponseBody,
     statusCode: 200,
-    etag: telefuncContext._httpResponseEtag,
+    etag: callContext._httpResponseEtag,
     contentType: 'text/plain',
   }
 }
 
-async function executeTelefunc(telefuncContext: {
+async function executeTelefunc(callContext: {
   _telefunctionName: string
   _telefunctionArgs: unknown[]
   _telefuncs: Record<string, Telefunction>
   _providedContext: Record<string, unknown> | null
 }) {
-  const telefunctionName = telefuncContext._telefunctionName
-  const telefunctionArgs = telefuncContext._telefunctionArgs
-  const telefuncs = telefuncContext._telefuncs
+  const telefunctionName = callContext._telefunctionName
+  const telefunctionArgs = callContext._telefunctionArgs
+  const telefuncs = callContext._telefuncs
   const telefunc = telefuncs[telefunctionName]
 
-  provideContextOrNull(telefuncContext._providedContext)
+  provideContextOrNull(callContext._providedContext)
 
   let resultSync: unknown
   let telefuncError: unknown
@@ -195,10 +195,10 @@ async function executeTelefunc(telefuncContext: {
   return { telefuncResult, telefuncHasErrored, telefuncError }
 }
 
-function serializeTelefuncResult(telefuncContext: { _telefuncResult: unknown }) {
+function serializeTelefuncResult(callContext: { _telefuncResult: unknown }) {
   try {
     const httpResponseBody = stringify({
-      telefuncResult: telefuncContext._telefuncResult,
+      telefuncResult: callContext._telefuncResult,
     })
     return { httpResponseBody }
   } catch (serializationError: unknown) {
@@ -252,7 +252,7 @@ function validateArgs(httpRequest: unknown, args: unknown[]) {
   assertUsage('body' in httpRequest, '`callTelefunc({ body })`: argument `body` is missing.')
 }
 
-async function getTelefuncs(telefuncContext: {
+async function getTelefuncs(callContext: {
   _viteDevServer?: ViteDevServer
   _root?: string
   _telefuncFilesProvidedByUser: null | TelefuncFiles
@@ -261,11 +261,11 @@ async function getTelefuncs(telefuncContext: {
   telefuncFiles: TelefuncFiles
   telefuncs: Record<string, Telefunction>
 }> {
-  const telefuncFiles = await getTelefuncFiles(telefuncContext)
-  assert(telefuncFiles || telefuncContext._telefuncFilesProvidedByUser, 'No telefunctions found')
+  const telefuncFiles = await getTelefuncFiles(callContext)
+  assert(telefuncFiles || callContext._telefuncFilesProvidedByUser, 'No telefunctions found')
   const telefuncs: Telefunctions = {}
 
-  Object.entries(telefuncFiles || telefuncContext._telefuncFilesProvidedByUser || false).forEach(
+  Object.entries(telefuncFiles || callContext._telefuncFilesProvidedByUser || false).forEach(
     ([telefuncFileName, telefuncFileExports]) => {
       Object.entries(telefuncFileExports).forEach(([exportName, exportValue]) => {
         const telefunctionName = telefuncFileName + ':' + exportName
@@ -279,10 +279,10 @@ async function getTelefuncs(telefuncContext: {
   )
 
   cast<TelefuncFiles>(telefuncFiles)
-  return { telefuncFiles: telefuncFiles || telefuncContext._telefuncFilesProvidedByUser, telefuncs }
+  return { telefuncFiles: telefuncFiles || callContext._telefuncFilesProvidedByUser, telefuncs }
 }
 
-async function getTelefuncFiles(telefuncContext: {
+async function getTelefuncFiles(callContext: {
   _viteDevServer?: ViteDevServer
   _root?: string
   _isProduction: boolean
@@ -291,8 +291,8 @@ async function getTelefuncFiles(telefuncContext: {
   if (telefuncInternallySet) {
     return telefuncInternallySet
   }
-  assert(hasProp(telefuncContext, '_root', 'string'))
-  const telefuncFiles = await loadTelefuncFiles(telefuncContext)
+  assert(hasProp(callContext, '_root', 'string'))
+  const telefuncFiles = await loadTelefuncFiles(callContext)
   return telefuncFiles
 }
 
@@ -328,8 +328,8 @@ function handleInternalError(err: unknown, userConfig: UserConfig) {
   console.error(errStr)
 }
 
-function getTelefuncUrlPath(telefuncContext: { _baseUrl: string; _telefuncUrl: string }) {
-  const { _baseUrl, _telefuncUrl } = telefuncContext
+function getTelefuncUrlPath(callContext: { _baseUrl: string; _telefuncUrl: string }) {
+  const { _baseUrl, _telefuncUrl } = callContext
   const urlPathResolved = posix.resolve(_baseUrl, _telefuncUrl)
   return urlPathResolved
 }

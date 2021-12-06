@@ -10,24 +10,24 @@ export { loadTelefuncFiles }
 
 type BundlerName = 'webpack' | 'nextjs' | 'vite' | 'unknown'
 
-async function loadTelefuncFiles(telefuncContext: {
+async function loadTelefuncFiles(callContext: {
   _root: string
   _viteDevServer?: ViteDevServer
   _telefuncFilesProvidedByUser: null | TelefuncFiles
   _isProduction: boolean
 }): Promise<TelefuncFilesUntyped | null> {
-  const bundlerName = getBundlerName(telefuncContext)
+  const bundlerName = getBundlerName(callContext)
 
-  if (telefuncContext._telefuncFilesProvidedByUser) {
-    return telefuncContext._telefuncFilesProvidedByUser
+  if (callContext._telefuncFilesProvidedByUser) {
+    return callContext._telefuncFilesProvidedByUser
   }
 
   if (bundlerName === 'vite' || bundlerName === 'unknown') {
-    return loadTelefuncFilesWithVite(telefuncContext)
+    return loadTelefuncFilesWithVite(callContext)
   }
 
   if (bundlerName === 'webpack') {
-    return loadTelefuncFilesWithWebpack(telefuncContext)
+    return loadTelefuncFilesWithWebpack(callContext)
   }
 
   if (bundlerName === 'nextjs') {

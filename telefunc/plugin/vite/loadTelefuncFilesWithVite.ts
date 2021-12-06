@@ -6,7 +6,7 @@ import { importTelefuncFilesFilePath } from './importTelefuncFilesPath'
 
 export { loadTelefuncFilesWithVite }
 
-async function loadTelefuncFilesWithVite(telefuncContext: {
+async function loadTelefuncFilesWithVite(callContext: {
   _root: string
   _viteDevServer?: ViteDevServer
   _isProduction: boolean
@@ -14,7 +14,7 @@ async function loadTelefuncFilesWithVite(telefuncContext: {
   const viteEntryFile = 'importTelefuncFiles.js'
   assert(moduleExists(`./${viteEntryFile}`, __dirname))
 
-  const userDist = `${telefuncContext._root}/dist`
+  const userDist = `${callContext._root}/dist`
   const prodPath = `${userDist}/server/${viteEntryFile}`
 
   const devPath = importTelefuncFilesFilePath
@@ -26,8 +26,8 @@ async function loadTelefuncFilesWithVite(telefuncContext: {
     devPath,
     prodPath,
     errorMessage,
-    viteDevServer: telefuncContext._viteDevServer,
-    isProduction: telefuncContext._isProduction,
+    viteDevServer: callContext._viteDevServer,
+    isProduction: callContext._isProduction,
   })
 
   assert(hasProp(moduleExports, 'importTelefuncFiles', 'function'))
