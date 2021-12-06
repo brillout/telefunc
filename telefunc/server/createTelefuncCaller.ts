@@ -1,9 +1,9 @@
-import { assert, assertUsage, hasProp, isPlainObject } from './utils'
 import type { ViteDevServer } from 'vite'
-import { callTelefunc } from './callTelefunc'
-import { RequestProps, Config, Telefunctions } from './types'
 import { normalize as pathNormalize } from 'path'
+import { assert, assertUsage, hasProp, isPlainObject } from './utils'
+import { RequestProps, Config, Telefunctions } from './types'
 import { installAsyncMode } from './getContext'
+import { callTelefunc } from './callTelefunc'
 
 let telefuncConfig: Config | null = null
 
