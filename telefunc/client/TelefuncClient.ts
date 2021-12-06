@@ -9,19 +9,19 @@ export { TelefuncClient }
 assertProxySupport()
 
 /** Telefunc Client Configuration */
-type Config = {
+type UserConfig = {
   /** The address of the server, e.g. `https://api.example.org/`. */
-  serverUrl: ServerURL
+  telefuncUrl: TelefuncUrl
   /** Make API HTTP requests to `/${baseUrl}/*`. Default: `_telefunc`. */
   baseUrl: string
   /** Make API HTTP request URLs short: always use the the HTTP request body to transport telefunction arguments (instead of serializing telefunction arguments into the HTTP request URL). */
   shortUrl: boolean
 }
-type ServerURL = string | null
-type ConfigPrivate = Config & {
+type ConfigPrivate = UserConfig & {
   __INTERNAL_telefuncServer_test: any
 }
 type ConfigName = keyof ConfigPrivate
+type TelefuncUrl = string | null
 
 // Http request
 export type HttpRequestUrl = string & { _brand?: 'HttpRequestUrl' }
@@ -29,7 +29,7 @@ export type HttpRequestBody = string & { _brand?: 'HttpRequestBody' }
 
 // Telefunc server instance
 // For when using the Telefunc client server-side
-type TelefuncServer = {
+type TelefuncServerInstance = {
   __directCall: (
     telefunctionName: TelefunctionName,
     telefunctionArgs: TelefunctionArgs,
@@ -38,14 +38,14 @@ type TelefuncServer = {
 }
 
 const configDefault: ConfigPrivate = {
-  serverUrl: null,
+  telefuncUrl: null,
   baseUrl: '/_telefunc',
   shortUrl: false,
   __INTERNAL_telefuncServer_test: null,
 }
 
 class TelefuncClient {
-  config: Config = getConfigProxy(configDefault)
+  config: UserConfig = getConfigProxy(configDefault)
   telefunctions: Telefunctions = getTelefunctionsProxy(this.config as ConfigPrivate)
 }
 
@@ -56,13 +56,13 @@ function callTelefunction(
 ): TelefunctionResult {
   telefunctionArgs = telefunctionArgs || []
 
-  const telefuncServer: TelefuncServer = getTelefuncServer(config)
+  const telefuncServerInstance: TelefuncServerInstance = getTelefuncServerInstance(config)
 
   // Usage in Node.js [inter-process]
   // Inter-process: the Telefunc client and the Telefunc server are loaded in the same Node.js process.
-  if (telefuncServer) {
+  if (telefuncServerInstance) {
     assert(isNodejs())
-    return callTelefunctionDirectly(telefunctionName, telefunctionArgs, telefuncServer)
+    return callTelefunctionDirectly(telefunctionName, telefunctionArgs, telefuncServerInstance)
   }
 
   // Usage in the browser
@@ -71,36 +71,36 @@ function callTelefunction(
 
   // Server URL is required for cross-process usage
   assertUsage(
-    config.serverUrl || isBrowser(),
-    '`config.serverUrl` missing. You are using the Telefunc client in Node.js, and the Telefunc client is loaded in a different Node.js process than the Node.js process that loaded the Telefunc server; the `config.serverUrl` configuration is required.',
+    config.telefuncUrl || isBrowser(),
+    '`config.telefuncUrl` missing. You are using the Telefunc client in Node.js, and the Telefunc client is loaded in a different Node.js process than the Node.js process that loaded the Telefunc server; the `config.telefuncUrl` configuration is required.',
   )
 
   return callTelefunctionOverHttp(telefunctionName, telefunctionArgs, config)
 }
 
-function getTelefuncServer(config: ConfigPrivate) {
+function getTelefuncServerInstance(config: ConfigPrivate) {
   const telefuncServer__testing = config.__INTERNAL_telefuncServer_test
   const telefuncServer__serverSideUsage =
     typeof global !== 'undefined' && global && (global as any).__INTERNAL_telefuncServer_nodejs
-  const telefuncServer = telefuncServer__testing || telefuncServer__serverSideUsage || null
+  const telefuncServerInstance = telefuncServer__testing || telefuncServer__serverSideUsage || null
 
-  // The purpose of providing `telefuncServer` to `telefuncClient` is for server-side client usage.
-  // It doesn't make sense to provide `telefuncServer` on the browser-side.
-  assert(telefuncServer === null || isNodejs())
+  // The purpose of providing `telefuncServerInstance` to `telefuncClient` is for server-side client usage.
+  // It doesn't make sense to provide `telefuncServerInstance` on the browser-side.
+  assert(telefuncServerInstance === null || isNodejs())
 
-  // The whole purpose of providing `telefuncServer` is to be able to call `telefuncServer.__directCall`
+  // The whole purpose of providing `telefuncServerInstance` is to be able to call `telefuncServerInstance.__directCall`
   // Bypassing making an unecessary HTTP request.
-  assert(telefuncServer === null || telefuncServer.__directCall)
+  assert(telefuncServerInstance === null || telefuncServerInstance.__directCall)
 
-  return telefuncServer
+  return telefuncServerInstance
 }
 
 async function callTelefunctionDirectly(
   telefunctionName: TelefunctionName,
   telefunctionArgs: TelefunctionArgs,
-  telefuncServer: TelefuncServer,
+  telefuncServerInstance: TelefuncServerInstance,
 ): Promise<TelefunctionResult> {
-  return telefuncServer.__directCall(telefunctionName, telefunctionArgs)
+  return telefuncServerInstance.__directCall(telefunctionName, telefunctionArgs)
 }
 
 function callTelefunctionOverHttp(
@@ -140,10 +140,10 @@ function callTelefunctionOverHttp(
 function getTelefunctionUrl(config: ConfigPrivate): HttpRequestUrl {
   let url: HttpRequestUrl = ''
 
-  const { serverUrl } = config
-  assert(serverUrl || isBrowser())
-  if (serverUrl) {
-    url = serverUrl as string
+  const { telefuncUrl } = config
+  assert(telefuncUrl || isBrowser())
+  if (telefuncUrl) {
+    url = telefuncUrl as string
   }
 
   if (config.baseUrl) {
@@ -263,25 +263,25 @@ function getConfigProxy(configDefaults: ConfigPrivate): ConfigPrivate {
       ].join(' '),
     )
 
-    if (configName === 'serverUrl') {
-      const serverUrl = configValue as ServerURL
-      validateServerUrl(serverUrl)
+    if (configName === 'telefuncUrl') {
+      const telefuncUrl = configValue as TelefuncUrl
+      validateServerUrl(telefuncUrl)
     }
 
     configObject[configName] = configValue as never
     return true
   }
 }
-function validateServerUrl(serverUrl: ServerURL) {
+function validateServerUrl(telefuncUrl: TelefuncUrl) {
   assertUsage(
-    serverUrl === null ||
+    telefuncUrl === null ||
       // Should be an HTTP URL
-      (serverUrl &&
-        serverUrl.startsWith &&
-        (serverUrl.startsWith('http') ||
+      (telefuncUrl &&
+        telefuncUrl.startsWith &&
+        (telefuncUrl.startsWith('http') ||
           // Or an IP address
-          /^\d/.test(serverUrl))),
-    `You set \`config.serverUrl==${serverUrl}\` but it should be an HTTP address.`,
+          /^\d/.test(telefuncUrl))),
+    `You set \`config.telefuncUrl==${telefuncUrl}\` but it should be a URL or IP address.`,
   )
 }
 

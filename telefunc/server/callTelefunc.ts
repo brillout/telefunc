@@ -109,7 +109,7 @@ async function callTelefunc_(httpRequest: HttpRequest, config: UserConfig): Http
   const { telefuncResult, telefuncHasErrored, telefuncError } = await executeTelefunc(callContext)
   objectAssign(callContext, {
     _telefuncResult: telefuncResult,
-    _telefuncHasError: telefuncHasErrored,
+    _telefuncHasErrored: telefuncHasErrored,
     _telefuncError: telefuncError,
     _err: telefuncError,
   })
