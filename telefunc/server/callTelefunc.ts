@@ -20,16 +20,16 @@ type TelefuncContextHttpRequest = {
   _telefunctionArgs: unknown[]
 }
 
-type Result = Promise<null | {
+type HttpResponse = Promise<null | {
   body: string
   etag: string | null
   statusCode: 200 | 500
   contentType: 'text/plain'
 }>
 
-async function callTelefunc(httpRequest: HttpRequest, config: UserConfig, args: unknown[]): Result {
+async function callTelefunc(httpRequest: HttpRequest, config: UserConfig): HttpResponse {
   try {
-    return await callTelefunc_(httpRequest, config, args)
+    return await callTelefunc_(httpRequest, config)
   } catch (err: unknown) {
     // There is a bug in Telefunc's source code
     handleInternalError(err, config)
@@ -42,8 +42,7 @@ async function callTelefunc(httpRequest: HttpRequest, config: UserConfig, args: 
   }
 }
 
-async function callTelefunc_(httpRequest: HttpRequest, config: UserConfig, args: unknown[]): Result {
-  validateArgs(httpRequest, args)
+async function callTelefunc_(httpRequest: HttpRequest, config: UserConfig): HttpResponse {
   const callContext = {}
 
   objectAssign(callContext, {
@@ -236,20 +235,6 @@ function parseBody({ url, body }: { url: string; body: unknown }) {
   )
 
   return { body, bodyParsed }
-}
-
-function validateArgs(httpRequest: unknown, args: unknown[]) {
-  assertUsage(httpRequest, '`callTelefunc(httpRequest)`: argument `httpRequest` is missing.')
-  assertUsage(args.length === 1, '`callTelefunc()`: all arguments should be passed as a single argument object.')
-  assertUsage(isObject(httpRequest), '`callTelefunc(httpRequest)`: argument `httpRequest` should be an object.')
-  assertUsage(hasProp(httpRequest, 'url'), '`callTelefunc({ url })`: argument `url` is missing.')
-  assertUsage(hasProp(httpRequest, 'url', 'string'), '`callTelefunc({ url })`: argument `url` should be a string.')
-  assertUsage(hasProp(httpRequest, 'method'), '`callTelefunc({ method })`: argument `method` is missing.')
-  assertUsage(
-    hasProp(httpRequest, 'method', 'string'),
-    '`callTelefunc({ method })`: argument `method` should be a string.',
-  )
-  assertUsage('body' in httpRequest, '`callTelefunc({ body })`: argument `body` is missing.')
 }
 
 async function getTelefuncs(callContext: {
