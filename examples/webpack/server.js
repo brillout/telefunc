@@ -15,9 +15,9 @@ async function startServer() {
   app.use(express.text())
   app.all('/_telefunc', async (req, res, next) => {
     const { originalUrl: url, method, body } = req
-    const result = await callTelefunc({ url, method, body })
-    if (!result) return next()
-    res.status(result.statusCode).type(result.contentType).send(result.body)
+    const httpResponse = await callTelefunc({ url, method, body })
+    if (!httpResponse) return next()
+    res.status(httpResponse.statusCode).type(httpResponse.contentType).send(httpResponse.body)
   })
 
   const port = process.env.PORT || 3000

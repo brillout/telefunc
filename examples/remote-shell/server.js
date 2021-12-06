@@ -28,9 +28,9 @@ async function startServer() {
     provideContext({
       userAgent,
     })
-    const result = await callTelefunc({ url, method, body })
-    if (!result) return next()
-    res.status(result.statusCode).type(result.contentType).send(result.body)
+    const httpResponse = await callTelefunc({ url, method, body })
+    if (!httpResponse) return next()
+    res.status(httpResponse.statusCode).type(httpResponse.contentType).send(httpResponse.body)
   })
 
   if (viteDevServer) {

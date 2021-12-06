@@ -5,13 +5,13 @@ import { posix } from 'path'
 import { assert, assertUsage, cast, checkType, hasProp, isCallable, isObject, isPromise, objectAssign } from './utils'
 import { BodyParsed, Telefunction, Telefunctions } from '../shared/types'
 import { loadTelefuncFiles } from '../plugin/loadTelefuncFiles'
-import { RequestProps, TelefuncFiles, TelefuncFilesUntyped, UserConfig } from './types'
+import { HttpRequest, TelefuncFiles, TelefuncFilesUntyped, UserConfig } from './types'
 import { getContextOrUndefined, provideContextOrNull } from './getContext'
 import { telefuncInternallySet } from './telefunctionsInternallySet'
 
 export { callTelefunc }
 
-type TelefuncContextRequestProps = {
+type TelefuncContextHttpRequest = {
   _url: string
   _method: string
   _body: string | Record<string, unknown>
@@ -27,9 +27,9 @@ type Result = Promise<null | {
   contentType: 'text/plain'
 }>
 
-async function callTelefunc(requestProps: RequestProps, config: UserConfig, args: unknown[]): Result {
+async function callTelefunc(httpRequest: HttpRequest, config: UserConfig, args: unknown[]): Result {
   try {
-    return await callTelefunc_(requestProps, config, args)
+    return await callTelefunc_(httpRequest, config, args)
   } catch (err: unknown) {
     // There is a bug in Telefunc's source code
     handleInternalError(err, config)
@@ -42,13 +42,13 @@ async function callTelefunc(requestProps: RequestProps, config: UserConfig, args
   }
 }
 
-async function callTelefunc_(requestProps: RequestProps, config: UserConfig, args: unknown[]): Result {
-  validateArgs(requestProps, args)
+async function callTelefunc_(httpRequest: HttpRequest, config: UserConfig, args: unknown[]): Result {
+  validateArgs(httpRequest, args)
   const telefuncContext = {}
 
   objectAssign(telefuncContext, {
-    _url: requestProps.url,
-    _method: requestProps.method,
+    _url: httpRequest.url,
+    _method: httpRequest.method,
     _providedContext: getContextOrUndefined() || null,
   })
 
@@ -76,16 +76,16 @@ async function callTelefunc_(requestProps: RequestProps, config: UserConfig, arg
     return null
   }
 
-  const requestBodyParsed = parseBody(requestProps)
+  const requestBodyParsed = parseBody(httpRequest)
   objectAssign(telefuncContext, {
-    _url: requestProps.url,
-    _method: requestProps.method,
+    _url: httpRequest.url,
+    _method: httpRequest.method,
     _body: requestBodyParsed.body,
     _bodyParsed: requestBodyParsed.bodyParsed,
     _telefunctionName: requestBodyParsed.bodyParsed.name,
     _telefunctionArgs: requestBodyParsed.bodyParsed.args,
   })
-  checkType<TelefuncContextRequestProps>(telefuncContext)
+  checkType<TelefuncContextHttpRequest>(telefuncContext)
 
   const { telefuncFiles, telefuncs } = await getTelefuncs(telefuncContext)
 
@@ -238,18 +238,18 @@ function parseBody({ url, body }: { url: string; body: unknown }) {
   return { body, bodyParsed }
 }
 
-function validateArgs(requestProps: unknown, args: unknown[]) {
-  assertUsage(requestProps, '`callTelefunc(requestProps)`: argument `requestProps` is missing.')
+function validateArgs(httpRequest: unknown, args: unknown[]) {
+  assertUsage(httpRequest, '`callTelefunc(httpRequest)`: argument `httpRequest` is missing.')
   assertUsage(args.length === 1, '`callTelefunc()`: all arguments should be passed as a single argument object.')
-  assertUsage(isObject(requestProps), '`callTelefunc(requestProps)`: argument `requestProps` should be an object.')
-  assertUsage(hasProp(requestProps, 'url'), '`callTelefunc({ url })`: argument `url` is missing.')
-  assertUsage(hasProp(requestProps, 'url', 'string'), '`callTelefunc({ url })`: argument `url` should be a string.')
-  assertUsage(hasProp(requestProps, 'method'), '`callTelefunc({ method })`: argument `method` is missing.')
+  assertUsage(isObject(httpRequest), '`callTelefunc(httpRequest)`: argument `httpRequest` should be an object.')
+  assertUsage(hasProp(httpRequest, 'url'), '`callTelefunc({ url })`: argument `url` is missing.')
+  assertUsage(hasProp(httpRequest, 'url', 'string'), '`callTelefunc({ url })`: argument `url` should be a string.')
+  assertUsage(hasProp(httpRequest, 'method'), '`callTelefunc({ method })`: argument `method` is missing.')
   assertUsage(
-    hasProp(requestProps, 'method', 'string'),
+    hasProp(httpRequest, 'method', 'string'),
     '`callTelefunc({ method })`: argument `method` should be a string.',
   )
-  assertUsage('body' in requestProps, '`callTelefunc({ body })`: argument `body` is missing.')
+  assertUsage('body' in httpRequest, '`callTelefunc({ body })`: argument `body` is missing.')
 }
 
 async function getTelefuncs(telefuncContext: {

@@ -1,7 +1,7 @@
 import type { ViteDevServer } from 'vite'
 import { normalize as pathNormalize } from 'path'
 import { assert, assertUsage, hasProp, isPlainObject } from './utils'
-import { RequestProps, UserConfig, Telefunctions } from './types'
+import { HttpRequest, UserConfig, Telefunctions } from './types'
 import { installAsyncMode } from './getContext'
 import { callTelefunc } from './callTelefunc'
 
@@ -49,19 +49,19 @@ async function createTelefuncCaller({
 
   /**
    * Get the HTTP response of a telefunction call.
-   * @param requestProps.url HTTP request URL
-   * @param requestProps.method HTTP request method
-   * @param requestProps.body HTTP request body
+   * @param httpRequest.url HTTP request URL
+   * @param httpRequest.method HTTP request method
+   * @param httpRequest.body HTTP request body
    * @param context The context object
    * @returns HTTP response
    */
-  return async function (requestProps: RequestProps) {
+  return async function (httpRequest: HttpRequest) {
     assertUsage(
       arguments.length === 1,
       '`callTelefunc(/* ... */, context)` is deprecated. Use `provideContext(context)` instead, see https://telefunc.com/provideContext',
     )
     assert(userConfig)
-    return callTelefunc(requestProps, userConfig, Array.from(arguments))
+    return callTelefunc(httpRequest, userConfig, Array.from(arguments))
   }
 }
 

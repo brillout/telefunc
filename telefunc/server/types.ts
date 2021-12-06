@@ -2,7 +2,7 @@ import type { ViteDevServer } from 'vite'
 export * from '../shared/types'
 import { Telefunctions } from '../shared/types'
 
-export type RequestProps = {
+export type HttpRequest = {
   url: string
   method: string
   body: string | unknown
