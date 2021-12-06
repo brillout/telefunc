@@ -1,7 +1,8 @@
 import { stringify } from '@brillout/json-s'
 import { makeHttpRequest } from './makeHttpRequest'
-import { assert, assertUsage } from './utils'
+import { assert, assertUsage } from '../shared/utils'
 import type { TelefunctionName, TelefunctionResult, BodyParsed, TelefunctionArgs, Telefunctions } from '../shared/types'
+import { assertBaseUrl, assertUsageBaseUrl, prependBaseUrl } from '../shared/utils/baseUrlHandling'
 
 export { TelefuncClient }
 
@@ -11,17 +12,13 @@ assertProxySupport()
 /** Telefunc Client Configuration */
 type UserConfig = {
   /** The address of the server, e.g. `https://api.example.org/`. */
-  telefuncUrl: TelefuncUrl
+  telefuncUrl: string
   /** Make API HTTP requests to `/${baseUrl}/*`. Default: `_telefunc`. */
   baseUrl: string
   /** Make API HTTP request URLs short: always use the the HTTP request body to transport telefunction arguments (instead of serializing telefunction arguments into the HTTP request URL). */
   shortUrl: boolean
 }
-type ConfigPrivate = UserConfig & {
-  __INTERNAL_telefuncServer_test: any
-}
-type ConfigName = keyof ConfigPrivate
-type TelefuncUrl = string | null
+type ConfigName = keyof UserConfig
 
 // Http request
 export type HttpRequestUrl = string & { _brand?: 'HttpRequestUrl' }
@@ -37,26 +34,25 @@ type TelefuncServerInstance = {
   Promise<TelefunctionResult> | TelefunctionResult
 }
 
-const configDefault: ConfigPrivate = {
-  telefuncUrl: null,
-  baseUrl: '/_telefunc',
+const configDefault: UserConfig = {
+  telefuncUrl: '/_telefunc',
+  baseUrl: '/',
   shortUrl: false,
-  __INTERNAL_telefuncServer_test: null,
 }
 
 class TelefuncClient {
   config: UserConfig = getConfigProxy(configDefault)
-  telefunctions: Telefunctions = getTelefunctionsProxy(this.config as ConfigPrivate)
+  telefunctions: Telefunctions = getTelefunctionsProxy(this.config as UserConfig)
 }
 
 function callTelefunction(
   telefunctionName: TelefunctionName,
   telefunctionArgs: TelefunctionArgs,
-  config: ConfigPrivate,
+  config: UserConfig,
 ): TelefunctionResult {
   telefunctionArgs = telefunctionArgs || []
 
-  const telefuncServerInstance: TelefuncServerInstance = getTelefuncServerInstance(config)
+  const telefuncServerInstance: TelefuncServerInstance = getTelefuncServerInstance()
 
   // Usage in Node.js [inter-process]
   // Inter-process: the Telefunc client and the Telefunc server are loaded in the same Node.js process.
@@ -78,11 +74,10 @@ function callTelefunction(
   return callTelefunctionOverHttp(telefunctionName, telefunctionArgs, config)
 }
 
-function getTelefuncServerInstance(config: ConfigPrivate) {
-  const telefuncServer__testing = config.__INTERNAL_telefuncServer_test
+function getTelefuncServerInstance() {
   const telefuncServer__serverSideUsage =
     typeof global !== 'undefined' && global && (global as any).__INTERNAL_telefuncServer_nodejs
-  const telefuncServerInstance = telefuncServer__testing || telefuncServer__serverSideUsage || null
+  const telefuncServerInstance = telefuncServer__serverSideUsage || null
 
   // The purpose of providing `telefuncServerInstance` to `telefuncClient` is for server-side client usage.
   // It doesn't make sense to provide `telefuncServerInstance` on the browser-side.
@@ -106,7 +101,7 @@ async function callTelefunctionDirectly(
 function callTelefunctionOverHttp(
   telefunctionName: TelefunctionName,
   telefunctionArgs: TelefunctionArgs,
-  config: ConfigPrivate,
+  config: UserConfig,
 ): TelefunctionResult {
   assert(telefunctionArgs.length >= 0)
 
@@ -132,12 +127,12 @@ function callTelefunctionOverHttp(
   }
   assert(body)
 
-  let url: HttpRequestUrl = getTelefunctionUrl(config)
-
+  const url = config.telefuncUrl
+  assert(isBrowser() || !url.startsWith('/'))
   return makeHttpRequest(url, body, telefunctionName)
 }
 
-function getTelefunctionUrl(config: ConfigPrivate): HttpRequestUrl {
+function resolveTelefuncUrl(config: UserConfig): HttpRequestUrl {
   let url: HttpRequestUrl = ''
 
   const { telefuncUrl } = config
@@ -160,7 +155,7 @@ function getTelefunctionUrl(config: ConfigPrivate): HttpRequestUrl {
   return url
 }
 
-function getTelefunctionsProxy(config: ConfigPrivate): Telefunctions {
+function getTelefunctionsProxy(config: UserConfig): Telefunctions {
   const emptyObject: Telefunctions = {}
 
   const telefunctionsProxy: Telefunctions = new Proxy(emptyObject, {
@@ -246,43 +241,52 @@ function envSupportsProxy() {
   return typeof 'Proxy' !== 'undefined'
 }
 
-function getConfigProxy(configDefaults: ConfigPrivate): ConfigPrivate {
-  const configObject: ConfigPrivate = { ...configDefaults }
-  const configProxy: ConfigPrivate = new Proxy(configObject, {
+function getConfigProxy(configDefaults: UserConfig): UserConfig {
+  const configObject: UserConfig = { ...configDefaults }
+  const configProxy: UserConfig = new Proxy(configObject, {
     set: validateConfig,
   })
   return configProxy
 
-  function validateConfig(_: ConfigPrivate, configName: ConfigName, configValue: unknown) {
-    assertUsage(
-      configName in configDefaults,
-      [
-        `Unknown config \`${configName}\`.`,
-        'Make sure that the config is a `telefunc/client` config',
-        'and not a `telefunc/server` one.',
-      ].join(' '),
-    )
+  function validateConfig(_: UserConfig, configName: ConfigName, configValue: unknown) {
+    assertUsage(configName in configDefaults, `[telefunc/client] Unknown config \`${configName}\`.`)
+
+    {
+      const configDefault = configDefaults[configName]
+      const configType = typeof configDefault
+      assertUsage(
+        typeof configValue === configType,
+        `[telefunc/client] Config \`telefuncUrl\` should be a ${configType}.`,
+      )
+    }
 
     if (configName === 'telefuncUrl') {
-      const telefuncUrl = configValue as TelefuncUrl
-      validateServerUrl(telefuncUrl)
+      const telefuncUrl = configValue
+      assert(typeof telefuncUrl === 'string')
+      validateTelefuncUrl(telefuncUrl)
+    }
+
+    if (configName === 'baseUrl') {
+      const baseUrl = configValue
+      assert(typeof baseUrl === 'string')
+      assertUsageBaseUrl(baseUrl)
     }
 
     configObject[configName] = configValue as never
     return true
   }
 }
-function validateServerUrl(telefuncUrl: TelefuncUrl) {
+function validateTelefuncUrl(telefuncUrl: string) {
   assertUsage(
-    telefuncUrl === null ||
-      // Should be an HTTP URL
-      (telefuncUrl &&
-        telefuncUrl.startsWith &&
-        (telefuncUrl.startsWith('http') ||
-          // Or an IP address
-          /^\d/.test(telefuncUrl))),
-    `You set \`config.telefuncUrl==${telefuncUrl}\` but it should be a URL or IP address.`,
+    telefuncUrl.startsWith('/') ||
+        telefuncUrl.startsWith('http') ||
+          isIpAddress(telefuncUrl),
+    `You set \`config.telefuncUrl==${telefuncUrl}\` but it should be one of the following: a URL pathname (e.g. \`/_telefunc\`), a URL with origin (e.g. \`https://example.org/_telefunc\`), or a IP address (e.g. \`192.158.1.38\`).`,
   )
+}
+
+function isIpAddress(value: string) {
+  return /^\d/.test(value)
 }
 
 function isBinded(that: unknown, defaultBind: unknown): boolean {

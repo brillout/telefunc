@@ -1,8 +1,8 @@
-import { assert, assertUsage } from './utils'
+import { assert, assertUsage } from '../shared/utils'
 import { parse } from '@brillout/json-s'
 import { TelefunctionName, TelefunctionResult } from '../shared/types'
 import { HttpRequestBody, HttpRequestUrl } from './TelefuncClient'
-import { isObject } from './utils'
+import { isObject } from '../shared/utils'
 
 export { makeHttpRequest }
 export { TelefuncError }
