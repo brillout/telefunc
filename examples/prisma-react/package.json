@@ -7,6 +7,7 @@
     "build": "vite build && vite build --ssr",
     "server": "esno ./server",
     "server:prod": "cross-env NODE_ENV=production esno ./server",
+    "db:reset": "prisma migrate reset --force",
     "test:dev": "npx prisma migrate dev --name init && npx prisma db seed && npm run dev",
     "test:prod": "npx prisma migrate dev --name init && npx prisma db seed && npm run prod"
   },
