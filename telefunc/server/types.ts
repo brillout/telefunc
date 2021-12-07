@@ -13,7 +13,6 @@ export type UserConfig = {
   telefuncFiles?: Record<string, Telefunctions>
   root?: string
   isProduction: boolean
-  baseUrl: string
   telefuncUrl: string
   disableCache: boolean
 }

@@ -56,22 +56,14 @@ async function callTelefunc_(httpRequest: HttpRequest, config: UserConfig): Http
     _root: config.root,
     _viteDevServer: config.viteDevServer,
     _telefuncFilesProvidedByUser: config.telefuncFiles || null,
-    _baseUrl: config.baseUrl,
     _disableCache: config.disableCache,
     _telefuncUrl: config.telefuncUrl,
   })
 
-  {
-    const urlPathResolved = getTelefuncUrlPath(callContext)
-    objectAssign(callContext, {
-      _urlPathResolved: urlPathResolved,
-    })
-  }
-
   if (callContext._method !== 'POST' && callContext._method !== 'post') {
     return null
   }
-  if (callContext._url !== callContext._urlPathResolved) {
+  if (callContext._url !== callContext._telefuncUrl) {
     return null
   }
 
@@ -297,12 +289,6 @@ function handleInternalError(err: unknown, userConfig: UserConfig) {
   viteErrorCleanup(err, userConfig.viteDevServer)
 
   console.error(errStr)
-}
-
-function getTelefuncUrlPath(callContext: { _baseUrl: string; _telefuncUrl: string }) {
-  const { _baseUrl, _telefuncUrl } = callContext
-  const urlPathResolved = posix.resolve(_baseUrl, _telefuncUrl)
-  return urlPathResolved
 }
 
 function viteAlreadyLoggedError(

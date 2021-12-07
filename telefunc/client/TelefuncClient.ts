@@ -2,7 +2,6 @@ import { stringify } from '@brillout/json-s'
 import { makeHttpRequest } from './makeHttpRequest'
 import { assert, assertUsage } from '../shared/utils'
 import type { TelefunctionName, TelefunctionResult, BodyParsed, TelefunctionArgs, Telefunctions } from '../shared/types'
-import { assertBaseUrl, assertUsageBaseUrl, prependBaseUrl } from '../shared/utils/baseUrlHandling'
 
 export { TelefuncClient }
 
@@ -13,8 +12,6 @@ assertProxySupport()
 type UserConfig = {
   /** The address of the server, e.g. `https://api.example.org/`. */
   telefuncUrl: string
-  /** Make API HTTP requests to `/${baseUrl}/*`. Default: `_telefunc`. */
-  baseUrl: string
   /** Make API HTTP request URLs short: always use the the HTTP request body to transport telefunction arguments (instead of serializing telefunction arguments into the HTTP request URL). */
   shortUrl: boolean
 }
@@ -36,7 +33,6 @@ type TelefuncServerInstance = {
 
 const configDefault: UserConfig = {
   telefuncUrl: '/_telefunc',
-  baseUrl: '/',
   shortUrl: false,
 }
 
@@ -130,29 +126,6 @@ function callTelefunctionOverHttp(
   const url = config.telefuncUrl
   assert(isBrowser() || !url.startsWith('/'))
   return makeHttpRequest(url, body, telefunctionName)
-}
-
-function resolveTelefuncUrl(config: UserConfig): HttpRequestUrl {
-  let url: HttpRequestUrl = ''
-
-  const { telefuncUrl } = config
-  assert(telefuncUrl || isBrowser())
-  if (telefuncUrl) {
-    url = telefuncUrl as string
-  }
-
-  if (config.baseUrl) {
-    if (!url.endsWith('/') && !config.baseUrl.startsWith('/')) {
-      url += '/'
-    }
-    if (url.endsWith('/') && config.baseUrl.startsWith('/')) {
-      url = url.slice(0, -1)
-      assert('bla/'.slice(0, -1) === 'bla')
-    }
-    url += config.baseUrl
-  }
-
-  return url
 }
 
 function getTelefunctionsProxy(config: UserConfig): Telefunctions {
@@ -264,12 +237,6 @@ function getConfigProxy(configDefaults: UserConfig): UserConfig {
       const telefuncUrl = configValue
       assert(typeof telefuncUrl === 'string')
       validateTelefuncUrl(telefuncUrl)
-    }
-
-    if (configName === 'baseUrl') {
-      const baseUrl = configValue
-      assert(typeof baseUrl === 'string')
-      assertUsageBaseUrl(baseUrl)
     }
 
     configObject[configName] = configValue as never

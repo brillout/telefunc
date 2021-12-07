@@ -12,7 +12,6 @@ async function createTelefuncCaller({
   isProduction,
   root,
   viteDevServer,
-  baseUrl = '/',
   telefuncUrl = '/_telefunc',
   telefuncFiles,
   disableCache = false,
@@ -20,8 +19,6 @@ async function createTelefuncCaller({
   isProduction: boolean
   root?: string
   viteDevServer?: ViteDevServer
-  /** Base URL (default: `/`). */
-  baseUrl?: string
   /** URL at which Telefunc HTTP requests are served (default: `_telefunc`). */
   telefuncUrl?: string
   telefuncFiles?: Record<string, Telefunctions>
@@ -38,7 +35,6 @@ async function createTelefuncCaller({
     isProduction,
     root,
     viteDevServer,
-    baseUrl,
     telefuncUrl,
     telefuncFiles,
     disableCache,

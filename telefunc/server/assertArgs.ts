@@ -30,7 +30,6 @@ function assertArgs_createTelefuncCaller(config: Record<string, unknown>, args: 
       'isProduction',
       'root',
       'viteDevServer',
-      'baseUrl',
       'telefuncUrl',
       'telefuncFiles',
       'disableCache',
@@ -53,10 +52,6 @@ function assertArgs_createTelefuncCaller(config: Record<string, unknown>, args: 
   assertUsage(
     hasProp(config, 'disableCache', 'boolean'),
     '`createTelefuncCaller({ disableCache })`: argument `disableCache` should be a boolean.',
-  )
-  assertUsage(
-    hasProp(config, 'baseUrl', 'string'),
-    '`createTelefuncCaller({ baseUrl })`: argument `baseUrl` should be a string.',
   )
 
   if (config.isProduction) {
