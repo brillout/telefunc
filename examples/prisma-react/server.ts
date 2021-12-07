@@ -24,11 +24,10 @@ async function startServer() {
   const callTelefunc = await createTelefuncCaller({ viteDevServer, isProduction, root })
   app.use(express.text())
   app.all('/_telefunc', async (req, res, next) => {
-    const { originalUrl: url, method, body } = req
-
-    const result = await callTelefunc({ url, method, body })
-    if (!result) return next()
-    res.status(result.statusCode).type(result.contentType).send(result.body)
+    const httpResponse = await callTelefunc({ url: req.originalUrl, method: req.method, body: req.body })
+    if (!httpResponse) return next()
+    const { body, statusCode, contentType } = httpResponse
+    res.status(statusCode).type(contentType).send(body)
   })
 
   if (viteDevServer) {
