@@ -1,15 +1,14 @@
 import { assert, assertUsage } from '../shared/utils'
 import { parse } from '@brillout/json-s'
 import { TelefunctionName, TelefunctionResult } from '../shared/types'
-import { HttpRequestBody, HttpRequestUrl } from './TelefuncClient'
 import { isObject } from '../shared/utils'
 
 export { makeHttpRequest }
 export { TelefuncError }
 
 async function makeHttpRequest(
-  url: HttpRequestUrl,
-  body: HttpRequestBody | undefined,
+  url: string,
+  body: string,
   telefunctionName: TelefunctionName,
 ): Promise<TelefunctionResult> {
   const method = 'POST'

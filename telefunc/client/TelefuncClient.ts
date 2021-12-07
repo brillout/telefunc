@@ -10,19 +10,12 @@ assertProxySupport()
 
 /** Telefunc Client Configuration */
 type UserConfig = {
-  /** The address of the server, e.g. `https://api.example.org/`. */
+  /** The address of the server, e.g. `https://example.org/_telefunc`. */
   telefuncUrl: string
-  /** Make API HTTP request URLs short: always use the the HTTP request body to transport telefunction arguments (instead of serializing telefunction arguments into the HTTP request URL). */
-  shortUrl: boolean
 }
-type ConfigName = keyof UserConfig
-
-// Http request
-export type HttpRequestUrl = string & { _brand?: 'HttpRequestUrl' }
-export type HttpRequestBody = string & { _brand?: 'HttpRequestBody' }
 
 // Telefunc server instance
-// For when using the Telefunc client server-side
+// For when using the Telefunc client in Node.js
 type TelefuncServerInstance = {
   __directCall: (
     telefunctionName: TelefunctionName,
@@ -33,7 +26,6 @@ type TelefuncServerInstance = {
 
 const configDefault: UserConfig = {
   telefuncUrl: '/_telefunc',
-  shortUrl: false,
 }
 
 class TelefuncClient {
@@ -107,7 +99,7 @@ function callTelefunctionOverHttp(
   }
   assert(typeof telefunctionName === 'string')
   assert(Array.isArray(telefunctionArgs))
-  let body: HttpRequestBody | undefined
+  let body: string | undefined
   try {
     body = stringify(bodyParsed)
   } catch (err_) {
@@ -221,7 +213,7 @@ function getConfigProxy(configDefaults: UserConfig): UserConfig {
   })
   return configProxy
 
-  function validateConfig(_: UserConfig, configName: ConfigName, configValue: unknown) {
+  function validateConfig(_: UserConfig, configName: keyof UserConfig, configValue: unknown) {
     assertUsage(configName in configDefaults, `[telefunc/client] Unknown config \`${configName}\`.`)
 
     {
@@ -245,9 +237,7 @@ function getConfigProxy(configDefaults: UserConfig): UserConfig {
 }
 function validateTelefuncUrl(telefuncUrl: string) {
   assertUsage(
-    telefuncUrl.startsWith('/') ||
-        telefuncUrl.startsWith('http') ||
-          isIpAddress(telefuncUrl),
+    telefuncUrl.startsWith('/') || telefuncUrl.startsWith('http') || isIpAddress(telefuncUrl),
     `You set \`config.telefuncUrl==${telefuncUrl}\` but it should be one of the following: a URL pathname (e.g. \`/_telefunc\`), a URL with origin (e.g. \`https://example.org/_telefunc\`), or a IP address (e.g. \`192.158.1.38\`).`,
   )
 }
