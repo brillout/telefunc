@@ -14,6 +14,7 @@
     "sourceMap": true,
     "declaration": true,
     "declarationMap": true,
+    "downlevelIteration": true,
     "stripInternal": true
   },
   "exclude": ["./node_modules/", "./dist/", "**/*.spec.ts"],
