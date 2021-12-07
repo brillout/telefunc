@@ -23,19 +23,22 @@ async function transformTelefuncFile(src: string, id: string, root: string, pack
 }
 
 function getCode(exports: readonly string[], telefuncFilePath: string, packageJsonExportsSupported: boolean) {
-  let code = `import { __internal_fetchTelefunc } from '${
-    packageJsonExportsSupported ? 'telefunc/client' : 'telefunc/dist/esm/client'
-  }';`
-  code += '\n'
+  const lines = []
+
+  lines.push('// @ts-nocheck')
+
+  const importPath = packageJsonExportsSupported ? 'telefunc/client' : 'telefunc/dist/esm/client'
+  lines.push(`import { __internal_fetchTelefunc } from '${importPath}';`)
 
   exports.forEach((exportName) => {
     const exportValue = `(...args) => __internal_fetchTelefunc('${telefuncFilePath}', '${exportName}', args);`
     if (exportName === 'default') {
-      code += `export default ${exportValue}`
+      lines.push(`export default ${exportValue}`)
     } else {
-      code += `export const ${exportName} = ${exportValue};`
+      lines.push(`export const ${exportName} = ${exportValue};`)
     }
-    code += '\n'
   })
+
+  const code = lines.join('\n')
   return code
 }
