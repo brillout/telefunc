@@ -11,7 +11,7 @@
     "db:init": "npx prisma migrate dev --name init",
     "db:test": "npm run db:init && npm run db:reset",
     "test:dev": "npm run db:test && npx prisma db seed && npm run dev",
-    "test:prod": "npx prisma migrate dev --name init && npx prisma db seed && npm run prod"
+    "test:prod": "npm run db:test && npx prisma db seed && npm run prod"
   },
   "dependencies": {
     "@prisma/client": "^3.5.0",
