@@ -99,7 +99,7 @@ function callTelefunctionOverHttp(
   }
   assert(typeof telefunctionName === 'string')
   assert(Array.isArray(telefunctionArgs))
-  let body: string | undefined
+  let body: string
   try {
     body = stringify(bodyParsed)
   } catch (err_) {
@@ -116,7 +116,7 @@ function callTelefunctionOverHttp(
   assert(body)
 
   const url = config.telefuncUrl
-  assert(isBrowser() || !url.startsWith('/'))
+  assert(isBrowser() || !url.startsWith('/')) // TODO proper error message
   return makeHttpRequest(url, body, telefunctionName)
 }
 

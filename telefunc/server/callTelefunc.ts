@@ -1,7 +1,6 @@
 import { stringify } from '@brillout/json-s'
 import { parse } from '@brillout/json-s'
 import type { ViteDevServer } from 'vite'
-import { posix } from 'path'
 import { assert, assertUsage, cast, checkType, hasProp, isCallable, isObject, isPromise, objectAssign } from './utils'
 import { BodyParsed, Telefunction, Telefunctions } from '../shared/types'
 import { getTelefuncFiles } from './getTelefuncFiles'
