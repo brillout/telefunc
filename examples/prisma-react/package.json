@@ -26,6 +26,7 @@
     "telefunc": "0.1.0-beta.1"
   },
   "prisma": {
-    "seed": "esno prisma/seed.ts"
+    "seed": "esno prisma/seed.ts",
+    "schema": "./prisma/schema.prisma"
   }
 }
