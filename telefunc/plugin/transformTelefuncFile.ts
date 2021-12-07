@@ -9,29 +9,33 @@ async function transformTelefuncFile(src: string, id: string, root: string, pack
   assertPosixPath(id)
   assertPosixPath(root)
 
-  const filepath = '/' + posix.relative(root, id)
-  assert(!filepath.startsWith('/.'))
-  assertPosixPath(filepath)
+  const telefuncFilePath = '/' + posix.relative(root, id)
+  assert(!telefuncFilePath.startsWith('/.'))
+  assertPosixPath(telefuncFilePath)
 
   await init
 
   const exports = parse(src)[1]
   return {
-    code: getCode(exports, filepath, packageJsonExportsSupported),
+    code: getCode(exports, telefuncFilePath, packageJsonExportsSupported),
     map: null,
   }
 }
 
-function getCode(exports: readonly string[], filePath: string, packageJsonExportsSupported: boolean) {
-  let code = `import { server } from '${packageJsonExportsSupported ? 'telefunc/client': 'telefunc/dist/esm/client'}';
+function getCode(exports: readonly string[], telefuncFilePath: string, packageJsonExportsSupported: boolean) {
+  let code = `import { __internal_fetchTelefunc } from '${
+    packageJsonExportsSupported ? 'telefunc/client' : 'telefunc/dist/esm/client'
+  }';`
+  code += '\n'
 
-`
   exports.forEach((exportName) => {
+    const exportValue = `(...args) => __internal_fetchTelefunc('${telefuncFilePath}', '${exportName}', args);`
     if (exportName === 'default') {
-      code += `export default server['${filePath}:${exportName}'];\n`
+      code += `export default ${exportValue}`
     } else {
-      code += `export const ${exportName} = server['${filePath}:${exportName}'];\n`
+      code += `export const ${exportName} = ${exportValue};`
     }
+    code += '\n'
   })
   return code
 }

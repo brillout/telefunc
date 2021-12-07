@@ -1,9 +1,13 @@
 import { stringify } from '@brillout/json-s'
 import { makeHttpRequest } from './makeHttpRequest'
 import { assert, assertUsage } from '../shared/utils'
-import type { TelefunctionName, TelefunctionResult, BodyParsed, TelefunctionArgs, Telefunctions } from '../shared/types'
+import type { TelefunctionName, TelefunctionResult, BodyParsed, TelefunctionArgs } from '../shared/types'
 
-export { TelefuncClient }
+const configDefault: UserConfig = {
+  telefuncUrl: '/_telefunc',
+}
+export const config = getConfigProxy(configDefault)
+export { __internal_fetchTelefunc }
 
 // We need ES6 `Proxy`
 assertProxySupport()
@@ -24,23 +28,14 @@ type TelefuncServerInstance = {
   Promise<TelefunctionResult> | TelefunctionResult
 }
 
-const configDefault: UserConfig = {
-  telefuncUrl: '/_telefunc',
-}
-
-class TelefuncClient {
-  config: UserConfig = getConfigProxy(configDefault)
-  telefunctions: Telefunctions = getTelefunctionsProxy(this.config as UserConfig)
-}
-
-function callTelefunction(
-  telefunctionName: TelefunctionName,
-  telefunctionArgs: TelefunctionArgs,
-  config: UserConfig,
+function __internal_fetchTelefunc(
+  telefuncFilePath: string,
+  exportName: string,
+  telefunctionArgs: unknown[],
 ): TelefunctionResult {
-  telefunctionArgs = telefunctionArgs || []
-
   const telefuncServerInstance: TelefuncServerInstance = getTelefuncServerInstance()
+
+  const telefunctionName = `${telefuncFilePath}:${exportName}`
 
   // Usage in Node.js [inter-process]
   // Inter-process: the Telefunc client and the Telefunc server are loaded in the same Node.js process.
@@ -120,60 +115,6 @@ function callTelefunctionOverHttp(
   return makeHttpRequest(url, body, telefunctionName)
 }
 
-function getTelefunctionsProxy(config: UserConfig): Telefunctions {
-  const emptyObject: Telefunctions = {}
-
-  const telefunctionsProxy: Telefunctions = new Proxy(emptyObject, {
-    get,
-    set: forbidManipulation,
-  }) as Telefunctions
-
-  return telefunctionsProxy
-
-  function get({}, telefunctionName: TelefunctionName) {
-    // Return native methods
-    if (telefunctionName in emptyObject) {
-      return emptyObject[telefunctionName]
-    }
-
-    // We assume `telefunctionName` to always be a string
-    if (typeof telefunctionName !== 'string') {
-      return undefined
-    }
-
-    // TODO handle this more properly
-    // Ideally: throw a usage error
-    // But: `inspect` seems to be called automatically (by Node.js if I remember correclty)
-    // Hence I'm not sure how to handle this. Maybe by checking if the caller is Node.js or the user.
-    if (telefunctionName === 'inspect') {
-      return undefined
-    }
-
-    if (typeof telefunctionName !== 'string') {
-      return undefined
-    }
-
-    return function (this: unknown, ...telefunctionArgs: TelefunctionArgs) {
-      assertUsage(!isBinded(this, telefunctionsProxy), 'Binding the context object with `bind()` is deprecated.')
-
-      return callTelefunction(telefunctionName, telefunctionArgs, config)
-    }
-  }
-
-  function forbidManipulation() {
-    assertUsage(
-      false,
-      [
-        'You cannot add or modify telefunctions with the Telefunc Client `telefunc/client`.',
-        'Instead, define your telefunctions with the Telefunc Server `telefunc/server`.',
-      ].join(' '),
-    )
-
-    // Make TS happy
-    return false
-  }
-}
-
 function isNodejs() {
   const itIs = __nodeTest()
   assert(itIs === !__browserTest())
@@ -244,32 +185,6 @@ function validateTelefuncUrl(telefuncUrl: string) {
 
 function isIpAddress(value: string) {
   return /^\d/.test(value)
-}
-
-function isBinded(that: unknown, defaultBind: unknown): boolean {
-  // Old webpack version: `this===undefined`
-  // New webpack version: `this===global`
-  // Parcel: `this===window`
-  // Node.js: `this===global`, or `this===undefined` (https://stackoverflow.com/questions/22770299/meaning-of-this-in-node-js-modules-and-functions)
-  // Chrome (without bundler): `this===window`
-
-  assertUsage(
-    (function (this: unknown) {
-      return notBinded(this)
-    })() === true,
-    'You seem to be using `telefunc/client` with an unknown environment/bundler; the following environemnts/bundlers are supported: webpack, Parcel, and Node.js. Open a new issue at https://github.com/telefunc/telefunc/issues/new for adding support for your environemnt/bundler.',
-  )
-
-  return !notBinded(that, defaultBind)
-
-  function notBinded(that: unknown, defaultBind?: unknown) {
-    return (
-      that === undefined ||
-      (defaultBind && that === defaultBind) ||
-      (typeof window !== 'undefined' && that === window) ||
-      (typeof global !== 'undefined' && that === global)
-    )
-  }
 }
 
 declare global {
