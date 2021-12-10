@@ -55,7 +55,7 @@ async function callTelefunc_(httpRequest: HttpRequest, config: UserConfig): Http
     _root: config.root,
     _viteDevServer: config.viteDevServer,
     _telefuncFilesProvidedByUser: config.telefuncFiles || null,
-    _disableCache: config.disableCache,
+    _disableEtag: config.disableEtag,
     _telefuncUrl: config.telefuncUrl,
   })
 
@@ -126,7 +126,7 @@ async function callTelefunc_(httpRequest: HttpRequest, config: UserConfig): Http
 
   {
     let httpResponseEtag: null | string = null
-    if (!callContext._disableCache) {
+    if (!callContext._disableEtag) {
       const { computeEtag } = await import('./cache/computeEtag')
       const httpResponseEtag = computeEtag(callContext._httpResponseBody)
       assert(httpResponseEtag)

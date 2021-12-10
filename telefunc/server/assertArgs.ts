@@ -32,7 +32,7 @@ function assertArgs_createTelefuncCaller(config: Record<string, unknown>, args: 
       'viteDevServer',
       'telefuncUrl',
       'telefuncFiles',
-      'disableCache',
+      'disableEtag',
     ]
     Object.keys(config).forEach((optionName) => {
       assert(optionList.includes(optionName), { optionName })
@@ -50,8 +50,8 @@ function assertArgs_createTelefuncCaller(config: Record<string, unknown>, args: 
     '`createTelefuncCaller({ isProduction })`: argument `isProduction` should be a boolean.',
   )
   assertUsage(
-    hasProp(config, 'disableCache', 'boolean'),
-    '`createTelefuncCaller({ disableCache })`: argument `disableCache` should be a boolean.',
+    hasProp(config, 'disableEtag', 'boolean'),
+    '`createTelefuncCaller({ disableEtag })`: argument `disableEtag` should be a boolean.',
   )
 
   if (config.isProduction) {

@@ -14,7 +14,7 @@ export type UserConfig = {
   root?: string
   isProduction: boolean
   telefuncUrl: string
-  disableCache: boolean
+  disableEtag: boolean
 }
 
 export type TelefuncContextUserProvided = Record<string, unknown>

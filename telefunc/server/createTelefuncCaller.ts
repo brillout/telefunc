@@ -14,7 +14,7 @@ async function createTelefuncCaller({
   viteDevServer,
   telefuncUrl = '/_telefunc',
   telefuncFiles,
-  disableCache = false,
+  disableEtag = false,
 }: {
   isProduction: boolean
   root?: string
@@ -23,7 +23,7 @@ async function createTelefuncCaller({
   telefuncUrl?: string
   telefuncFiles?: Record<string, Telefunctions>
   /** Whether Telefunc generates HTTP ETag headers. */
-  disableCache?: boolean
+  disableEtag?: boolean
 }) {
   assertUsage(
     alreadyCalled === false,
@@ -37,7 +37,7 @@ async function createTelefuncCaller({
     viteDevServer,
     telefuncUrl,
     telefuncFiles,
-    disableCache,
+    disableEtag,
   }
   assertArgs_createTelefuncCaller(userConfig, Array.from(arguments))
 
