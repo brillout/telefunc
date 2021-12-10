@@ -12,18 +12,27 @@ startServer()
 async function startServer() {
   const app = express()
 
-  await installTelefunc(app)
-  await installVite(app)
+  const viteDevServer = await getViteDevServer()
+
+  await installTelefunc(app, viteDevServer)
+
+  if (viteDevServer) {
+    app.use(viteDevServer.middlewares)
+  } else {
+    // In production, we simply statically serve `dist/client/`
+    app.use(express.static(`${root}/dist/client`))
+  }
 
   const port = process.env.PORT || 3000
   app.listen(port)
   console.log(`Server running at http://localhost:${port}`)
 }
 
-async function installTelefunc(app) {
+async function installTelefunc(app, viteDevServer) {
   const callTelefunc = await createTelefuncCaller({
     isProduction,
     root,
+    viteDevServer,
   })
   app.use(express.text())
   app.all('/_telefunc', async (req, res, next) => {
@@ -34,15 +43,15 @@ async function installTelefunc(app) {
   })
 }
 
-async function installVite(app) {
+async function getViteDevServer() {
   if (isProduction) {
-    app.use(express.static(`${root}/dist/client`))
+    return null
   } else {
     const { createServer } = await import('vite')
-    const vite = await createServer({
+    const viteDevServer = await createServer({
       root,
       server: { middlewareMode: 'html' },
     })
-    app.use(vite.middlewares)
+    return viteDevServer
   }
 }
