@@ -2,7 +2,6 @@ import express from 'express'
 import { createTelefuncCaller } from 'telefunc'
 import { fileURLToPath } from 'url'
 import { dirname } from 'path'
-import * as helloTelefunctions from './hello.telefunc.js'
 
 const isProduction = process.env.NODE_ENV === 'production'
 const __dirname = dirname(fileURLToPath(import.meta.url))
@@ -25,7 +24,6 @@ async function installTelefunc(app) {
   const callTelefunc = await createTelefuncCaller({
     isProduction,
     root,
-    telefuncFiles: { '/hello.telefunc.js': helloTelefunctions },
   })
   app.use(express.text())
   app.all('/_telefunc', async (req, res, next) => {
