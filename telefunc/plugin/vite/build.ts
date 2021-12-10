@@ -2,6 +2,7 @@ import { Plugin } from 'vite'
 import type { InputOption } from 'rollup'
 import { assert, isObject } from '../../server/utils'
 import { importTelefuncFilesFileNameBase, importTelefuncFilesFilePath } from './importTelefuncFilesPath'
+import { isSSR_config } from './utils'
 
 export { build }
 
@@ -13,7 +14,7 @@ function build(): Plugin {
       const configMod = {
         ssr: { external: ['vite-plugin-ssr'] },
       }
-      if (!isSSR(config)) {
+      if (!isSSR_config(config)) {
         return {
           ...configMod,
           build: {
@@ -59,8 +60,4 @@ function getViteEntry() {
     [importTelefuncFilesFileNameBase]: importTelefuncFilesFilePath,
   }
   return viteEntry
-}
-
-function isSSR(config: { build?: { ssr?: boolean | string } }): boolean {
-  return !!config?.build?.ssr
 }

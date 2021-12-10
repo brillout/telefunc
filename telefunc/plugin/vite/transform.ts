@@ -1,7 +1,8 @@
 import { Plugin } from 'vite'
-import { assert, toPosixPath, isObject, assertPosixPath } from '../../server/utils'
+import { assert, toPosixPath } from '../../server/utils'
 import { isTelefuncFile } from '../isTelefuncFile'
 import { transformTelefuncFile } from '../transformTelefuncFile'
+import { isSSR_options } from './utils'
 
 export { transform }
 
@@ -20,7 +21,7 @@ function transform(): Plugin {
       }
     },
     async transform(src, id, options) {
-      if (isSSR(options)) {
+      if (isSSR_options(options)) {
         return
       }
       if (isTelefuncFile(id)) {
@@ -29,18 +30,4 @@ function transform(): Plugin {
       }
     },
   }
-}
-
-// https://github.com/vitejs/vite/discussions/5109#discussioncomment-1450726
-function isSSR(options: undefined | boolean | { ssr: boolean }): boolean {
-  if (options === undefined) {
-    return false
-  }
-  if (typeof options === 'boolean') {
-    return options
-  }
-  if (isObject(options)) {
-    return !!options.ssr
-  }
-  assert(false)
 }
