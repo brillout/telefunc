@@ -1,8 +1,9 @@
 const PROJECT_VERSION = '0.1.0-beta.1'
 
 export const projectInfo = {
-  projectName: 'Telefunc',
-  npmPackageName: 'telefunc',
+  projectName: 'Telefunc' as const,
   projectVersion: PROJECT_VERSION,
-  githubRepository: 'https://github.com/vikejs/telefunc',
+  npmPackageName: 'telefunc' as const,
+  githubRepository: 'https://github.com/vikejs/telefunc' as const,
+  discordInvite: 'https://discord.com/invite/3DYWwk4xRQ' as const,
 }
