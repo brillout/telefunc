@@ -1,3 +1,9 @@
+import { Link } from 'libframe-docs/components'
+
+> Telefunctions are essentially public and that's why they need to be protected;
+> if that's not clear to you then read <Link href="/tour" />.
+
+
 ## `Abort()`
 
 We define permissions by using `throw new Abort()`.
@@ -54,3 +60,35 @@ export async function getTodoList() {
 Note that Telefunc doesn't provide finer-grained exceptions (`NotLoggedIn`, `InvalidFormInput`, ...) because for fine-grain control we simply return JavaScript values instead of throwing exceptions.
 
 We either `throw new Abort()` or `return someValue`.
+
+
+
+
+
+
+
+
+
+
+Note how `shield()` and `Abort()` work well together.
+
+```js
+// onNewTodo.telefunc.js
+// Environment: Node.js
+
+import { shield, getContext } from 'telefunc'
+
+// We use `shield()` to ensure arugments types.
+shield(onNewTodo, [shield.type.string])
+export async function onNewTodo(text) {
+  const { user } = getContext()
+
+  // We use `Abort()` to, essentially, define permissions.
+  if( user === null ) {
+     // Only authenticated users can create a new to-do.
+     throw new Abort()
+  }
+
+  /* ... */
+}
+```

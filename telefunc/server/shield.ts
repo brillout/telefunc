@@ -208,6 +208,7 @@ const type = (() => {
     string,
     number,
     or,
+    union: or,
     tuple,
     array,
     value,

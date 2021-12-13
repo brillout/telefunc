@@ -18,7 +18,7 @@ function Features() {
           ),
           desc: (
             <>
-              <p>Telefunc simplifies the frontend-backend relationship &mdash; it's now really just a function.</p>
+              <p>Telefunc simplifies the frontend-backend relationship &mdash; with Telefunc it's really just a set of remote function.</p>
               <p>
                 Your frontend can <b>directly use any SQL/ORM query</b> to retrieve & mutate data.
               </p>
@@ -84,10 +84,11 @@ function Features() {
           desc: (
             <>
               <p>
-                Telefunc supports both Webpack and Vite. This means it works with any stack: <b>Next.js</b>, <b>Nuxt</b>
-                , <b>SvelteKit</b>, <b>Vite</b>, <b>CRA</b>, <b>Gatsby</b>, <b>etc.</b>
+                Telefunc supports both Webpack and Vite based stacks.
+                This means it works with any framework: <b>Next.js</b>, <b>Nuxt</b>
+                , <b>Vite/Vike</b>, <b>SvelteKit</b>, <b>CRA</b>, <b>Gatsby</b>, etc.
               </p>
-              <p>Want to change your stack? Bring Telefunc along.</p>
+              <p>You want to change your stack? Bring Telefunc along.</p>
             </>
           ),
         },

@@ -22,6 +22,11 @@ export const headings: HeadingDefinition[] = [
     url: '/tour',
   },
   {
+    level: 2,
+    title: 'RPC vs GraphQL/REST',
+    url: '/RPC-vs-GraphQL-REST',
+  },
+  {
     level: 1,
     title: 'Get Started',
     titleEmoji: 'seedling',
@@ -52,8 +57,8 @@ export const headings: HeadingDefinition[] = [
   },
   {
     level: 2,
-    title: 'Permission',
-    url: '/permission',
+    title: 'Permissions',
+    url: '/permissions',
   },
   {
     level: 2,
@@ -68,11 +73,6 @@ export const headings: HeadingDefinition[] = [
   {
     level: 4,
     title: 'More',
-  },
-  {
-    level: 2,
-    title: 'RPC vs REST vs GraphQL',
-    url: '/RPC-vs-REST-vs-GraphQL',
   },
   {
     level: 1,
