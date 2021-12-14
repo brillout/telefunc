@@ -75,13 +75,13 @@ export const headings: HeadingDefinition[] = [
     title: 'More',
   },
   {
-    level: 1,
-    title: 'Integration',
-    titleEmoji: 'plug',
-  },
-  {
     level: 2,
     title: 'TypeScript',
     url: '/typescript',
+  },
+  {
+    level: 1,
+    title: 'Integration',
+    titleEmoji: 'plug',
   },
 ]
