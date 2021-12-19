@@ -143,7 +143,7 @@ This means our frontend can directly tap into the power of our SQL/ORM engine. T
 >  - Or we need to be able to deploy our frontend and backend independently of each other.
 >
 > Otherwise RPC/Telefunc is simpler and more powerful.
-> More at <Link href="/RPC-vs-GraphQL-REST" />.
+> See <Link href="/RPC-vs-GraphQL-REST" />.
 
 
 ## How it works
@@ -478,7 +478,7 @@ export async function getInitialData() {
 import { shield } from 'telefunc'
 const t = shield.type
 
-// Common Telefunc practice: we create one telefunction per user event.
+// Common Telefunc practice: one telefunction per user event.
 
 // When the user modifies the text of a to-do item
 shield(onTextChange, [t.number, t.string])

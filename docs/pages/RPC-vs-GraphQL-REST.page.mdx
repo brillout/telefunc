@@ -1,9 +1,121 @@
-TODO
+import { Link } from 'libframe-docs/components'
+
+WORK-IN-PROGRESS
+
+> We explain what RPC is at <Link href="/tour"/>.
+
+## RPC: coupled frontend-backend
+
+RPC induces a tight coupling between frontend and backend.
+
+~~~js
+// TodoList.telefunc.js
+// Environment: Node.js
+
+import { getContext } from 'telefunc'
+
+// This telefunction is tightly coupled to the frontend: it returns exactly and
+// only what the <TodoList /> component needs.
+
+export async function getInitialData() {
+  const { user } = getContext()
+  if (!user) {
+    return { isNotLoggedIn: true }
+  }
+  const todoItems = await database.query(
+    'SELECT id, text FROM todos WHERE authorId = :authorId',
+    { authorId: user.id }
+  )
+  const { firstName } = user
+  return {
+    user: { firstName },
+    todoItems
+  }
+}
+~~~
+
+If we change our `<TodoList>` component to also show the to-do items's creation date,
+then we need to change the SQL query of our `getInitialData()` telefunction from `SELECT id, text` to `SELECT id, text, created_at`.
+
+Not only do we need to modify our telefunction, but we also need to re-deploy our Node.js server in which our telefunction lives.
+
+This means that to be able to develop our frontend we need to be able to re-deploy our backend.
+
+
+## GraphQL/REST: decoupled frontend-backend
+
+In contrast to telefunctions (RPC endpoints), which are tailored to the need of the frontend, a GraphQL/RESTful API is generic:
+an API that aims to be able to fulfill a maximum number of data requirements.
+
+This means GraphQL and REST enables us to deploy the backend once
+and then develop couple of frontends on top of 
+without the need of changing/re-deploying the backend.
+
+In other words: a GraphQL/RESTful API decouples the frontend from the backend.
+
+
+## Which one to choose?
+
+RPC enables our frontend to directly use ORM/SQL queries which is not only a fundamentally simpler approach, but also more powerful (we can achieve more with ORM/SQL queries than with GraphQL/RESTful API queries).
+
+GraphQL/RESTful on the other hands enables a decoupling between frontend and backend.
+
+So the question here is: when do we need a decoupled frontend-backend?
+
+**Third parties**
+
+The most common use case for REST and GraphQL create an API that is meant to be used by third-party developers.
+GraphQL/RESTful API are third
+
+**Large companies**
+
+
+** Conclusion **
+
+represets and indirection that is limiting and time consuming.
+For examle, setting up a GraphQL API is a complex and error-prone task.
+
+That said, if we need a decoupling between frontend and backend, then RPC is not an option and we have to use GraphQL/REST.
+
+So we should use RPC whenever we can.
+
+
+So really the question is not which one "better", but really more about which one we can use.
+
+If we can use RPC then we should use it as it enables a drastically higher development speed.
+This means that RPC we can develop our app at much higher speed.
+RPC enables we can usually develop our app
+
+
+## Third parties
+
+REST and GraphQL are well-suited tools to create an API that is meant to be used by third-party developers.
+
+Facebook's API, for example, is used by ~200k third parties. It is no surprise that Facebook uses (and invented) GraphQL; it enables third-party developers to extensively access Facebook's social graph allowing them to build all kinds of applications.
+
+For an API used by many third parties with many diverse uses cases, GraphQL is the right tool.
+
+In general RPC is the wrong tool for third party access, the reason is that RPC tighlty couples the frontend and backend together.
+
+## Decoupled backend-frontend deployments
+
+## Mobile Apps
+
+
+[Since 2014, Apple allows us to update the JavaScript of mobile apps published on the App Store](https://softwareengineering.stackexchange.com/questions/232484/ios-app-updates-that-dont-require-app-store-submission).
+This means that RPC is also viable option for mobile apps.
+
+## Conclusion
+
+However, if you want to create a backend API that is meant to be consumed only by your frontend, then you don't need REST nor GraphQL — RPC, such as Wildcard, is enough.
+
+For a large app, you may still want the structure that comes with a RESTful/GraphQL API. But this typically applies only for large companies that develop apps with a large number of developers. "Premature optimization is the root of all evil"; start with RPC as default and later switch to REST or GraphQL when (and only if!) the need arises.
+
+In a nuthsell:
+ - Is your API meant to be used by third parties? Use REST or GraphQL.
+ - Is your API meant to be used by yourself? Use Telefunc/RPC.
 
 In a nutshell: we should use RPC whenever we can.
 
 So the question here is whether we can use RPC or not.
 
-> **Mobile Apps**.
-> [Since 2014, Apple allows us to update the JavaScript of mobile apps published on the App Store](https://softwareengineering.stackexchange.com/questions/232484/ios-app-updates-that-dont-require-app-store-submission).
-> This means that RPC is also viable option for mobile apps.
