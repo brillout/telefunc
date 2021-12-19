@@ -41,18 +41,20 @@ async function hello({ name }) {
 </html>
 ```
 
-Telefunctions such as `hello()` are *always* called on the server-side,
-which means that telefunctions are able to run SQL/ORM queries.
+Telefunctions such as `hello()` always run on the server-side.
 
-> This practice of remotely calling functions is called *RPC* (Remote Procedure Call).
+> This practice of calling functions remotely is called *RPC* (Remote Procedure Call).
 
 
 ## ORM & SQL
 
-In essence, Telefunc enables our frontend to use any SQL/ORM queries.
+Because they are always run on the server-side,
+telefunctions are able to run SQL/ORM queries.
+
+This, in essence, enables our frontend to use SQL/ORM queries.
 
 ```js
-// todo.telefunc.js
+// TodoList.telefunc.js
 // Environment: Node.js
 
 export { getTodoItems }
@@ -68,12 +70,14 @@ async function getTodoItems() {
 ```
 
 ```jsx
+// TodoList.jsx
 // Environment: Browser
 
-import { getTodoItems } from './todo.telefunc.js'
+import { getTodoItems } from './TodoList.telefunc.js'
 
 async function TodoList() {
-  // Our frontend can use the telefunction `getTodoItems()` to fetch data.
+  // Our frontend uses the telefunction `getTodoItems()` to execute a SQL/ORM query that
+  // retrieves the data it needs.
   const todoItems = await getTodoItems()
   return (
     <ul>{ todoItems.map(item =>
@@ -83,13 +87,15 @@ async function TodoList() {
 }
 ```
 
-> The example uses JSX
+> Note how we collocate and name `TodoList.telefunc.js` after `TodoList.jsx`; it's a practice we'll talk about later.
+
+> Our examples uses JSX
 > but note that Telefunc works with any UI framework (React, Vue, Svelte, ...).
 
 Our frontend can also use telefunctions to mutate data.
 
 ```js
-// todo.telefunc.js
+// CreateTodo.telefunc.js
 // Environment: Node.js
 
 export { onNewTodo }
@@ -107,12 +113,13 @@ async function onNewTodo(text) {
 }
 ```
 
-> Our `onNewTodo` telefunction is missing a `shield(onNewTodo, [t.string])` protection, which we'll talk about in a moment.
+> This `onNewTodo` telefunction is missing a `shield(onNewTodo, [t.string])` protection, which we'll talk about in a moment.
 
 ```jsx
+// CreateTodo.jsx
 // Environment: Browser
 
-import { onNewTodo } from './todo.telefunc.js'
+import { onNewTodo } from './CreateTodo.telefunc.js'
 
 async function onClick(form) {
   const text = form.input.value
@@ -129,16 +136,19 @@ function CreateTodo() {
 }
 ```
 
-This means our frontend can fully tap into the power of our SQL/ORM engine. This is both simpler and more powerful than REST/GraphQL.
+This means our frontend can directly tap into the power of our SQL/ORM engine. This is both simpler and more powerful than REST/GraphQL.
 
-> We need GraphQL or REST only if a) we have third parties that access our database, or b) we need to decouple frontend-backend deployment.
-> Otherwise RPC is both simpler and more powerful.
+> We need a GraphQL/RESTful API if, and only if:
+>  - There are third party frontends/clients that need to be able to access our database.
+>  - Or we need to be able to deploy our frontend and backend independently of each other.
+>
+> Otherwise RPC/Telefunc is simpler and more powerful.
 > More at <Link href="/RPC-vs-GraphQL-REST" />.
 
 
 ## How it works
 
-> Understanding the basic mechanics of Telefunc is paramount in order to properly protect our telefunctions.
+> Understanding the basic mechanics of Telefunc is paramount in order to properly use Telefunc.
 
 Let's see what happens when we call a telefunction in the browser.
 
@@ -276,7 +286,7 @@ Also, since telefunctions are public and can be called by anyone, we cannot assu
 We could use `Abort()` again:
 
 ```js
-// onNewTodo.telefunc.js
+// CreateTodo.telefunc.js
 // Environment: Node.js
 
 export async function onNewTodo(text) {
@@ -297,7 +307,7 @@ export async function onNewTodo(text) {
 But for more complex arguments, `Abort()` is cumbersome:
 
 ```js
-// onNewTodo.telefunc.js
+// CreateTodo.telefunc.js
 // Environment: Node.js
 
 export async function onNewTodo(args) {
@@ -316,7 +326,7 @@ export async function onNewTodo(args) {
 We can use `shield()` instead:
 
 ```js
-// onNewTodo.telefunc.js
+// CreateTodo.telefunc.js
 // Environment: Node.js
 
 import { shield } from 'telefunc'
@@ -354,7 +364,7 @@ app.use('*', async (req, res) => {
 ```
 
 ```js
-// todo.telefunc.js
+// TodoList.telefunc.js
 // Environment: Node.js
 
 import { getContext } from 'telefunc'
