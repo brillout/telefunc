@@ -1,9 +1,10 @@
-import { page, run, urlBase, autoRetry } from '../../libframe/test/setup'
+import { page, run, urlBase, autoRetry, isWindows } from '../../libframe/test/setup'
 
 export { testRun }
 
 function testRun(cmd: 'npm run dev' | 'npm run prod') {
-  run(cmd)
+  const additionalTimeout = !isWindows() ? 0 : 10 * 1000
+  run(cmd, { additionalTimeout })
 
   test('remote shell with telefunc', async () => {
     page.goto(`${urlBase}/`)
