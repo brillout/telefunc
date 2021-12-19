@@ -155,7 +155,7 @@ Let's see what happens when we call a telefunction in the browser.
 ```js
 // Environment: Browser
 
-import { hello } from 'hello.telefunc.js'
+import { hello } from './hello.telefunc.js'
 
 const message = await hello('Eva')
 ```
@@ -219,7 +219,7 @@ curl https://our-website.com/_telefunc --data '{
  }'
 ```
 
-Thus, this telefunction is not safe:
+Thus, this telefunction is problematic:
 
 ```js
 // run.telefunc.js
@@ -232,7 +232,7 @@ async function run(sql) {
 }
 ```
 
-As anyone can this HTTP request:
+Because anyone can make this HTTP request:
 
 ```bash
 curl https://our-website.com/_telefunc --data '{
@@ -246,7 +246,7 @@ In a nuthsell: telefunctions are public and need protection.
 ## `shield()` & `Abort()`
 
 As we've seen in the previous section,
-the following telefunction is not safe.
+the following telefunction is problematic.
 
 ```js
 // run.telefunc.js
@@ -270,7 +270,7 @@ import { getContext } from 'telefunc'
 export { run }
 
 async function run(sql) {
-  // We talk about `getContext()` in a moment
+  // We'll talk about `getContext()` later
   const { user } = getContext()
 
   // Only Admins are allowed to run this telefunction
@@ -290,10 +290,10 @@ We could use `Abort()` again:
 // Environment: Node.js
 
 export async function onNewTodo(text) {
-  // Since `onNewTodo` can be called by anyone, `text` can be any value
+  // Since `onNewTodo` can be called by anyone, `text` can be any value.
 
-  // We make sure that text is a string
-  if( typeof text !== 'string') {
+  // We make sure that `text` is a string
+  if (typeof text !== 'string') {
     throw Abort()
   }
 
@@ -354,8 +354,8 @@ import { setContext } from 'telefunc'
 
 // Server middleware (Express.js/Fastify/Koa/Hapi/...)
 app.use('*', async (req, res) => {
-  // Authentication middlewares (e.g. Passport.js or Grant) usually provide information
-  // about the logged-in user on the `req` object.
+  // Authentication middlewares (e.g. Passport.js or Grant) usually make information
+  // about the logged-in user available at `req.user`.
   const user = req.user
 
   // We make `user` available to our telefunctions
@@ -377,7 +377,7 @@ async function getTodoItems() {
 
   // For example, we can use `user.id` to find all to-do items of the logged-in user
   const authorId = user.id
-  const todoItems = Todo.findMany({ select: 'text', authorId })
+  const todoItems = await Todo.findMany({ select: 'text', authorId })
   return todoItems
 }
 ```
@@ -397,13 +397,13 @@ const t = shield.type
 
 shield(getTodoItems, [t.boolean])
 export async function getTodoItems(isCompleted) {
-  const todoItems = Todo.findMany({ isCompleted })
+  const todoItems = await Todo.findMany({ isCompleted })
   return todoItems
 }
 
 shield(updateTodoItem, [t.number, t.string, t.boolean])
 export async function updateTodoItem(id, text, isCompleted) {
-  const todoItem = Todo.findOne({ id })
+  const todoItem = await Todo.findOne({ id })
   todoItem.text = text
   todoItem.isCompleted = isCompleted
   await todoItem.save()
@@ -420,8 +420,8 @@ import { getContext } from 'telefunc'
 export function getUserData() {
   const { user } = getContext()
   // All data that the frontend may need
-  const { firstName, lastName, age/*, ...*/ } = user
-  return { firstName, lastName, age/*, ...*/ }
+  const { firstName, lastName, age, country/*, ...*/ } = user
+  return { firstName, lastName, age, country/*, ...*/ }
 }
 ```
 
@@ -483,7 +483,7 @@ const t = shield.type
 // When the user modifies the text of a to-do item
 shield(onTextChange, [t.number, t.string])
 export async function onTextChange(id, text) {
-  const todoItem = Todo.findOne({ id })
+  const todoItem = await Todo.findOne({ id })
   todoItem.text = text
   await todoItem.save()
 }
@@ -491,18 +491,18 @@ export async function onTextChange(id, text) {
 // When the user clicks on the is-completed checkbox
 shield(onCompleteToggle, [t.number, t.string])
 export async function onCompleteToggle(id) {
-  const todoItem = Todo.findOne({ id })
+  const todoItem = await Todo.findOne({ id })
   todoItem.isCompleted = !todoItem.isCompleted
   await todoItem.save()
 }
 ```
 
-The telefunctions in `TodoItem.telefunc.js` are determined by `TodoItem.jsx`;
-it is the frontend development/developer that owns the telefunctions.
+The telefunctions of `TodoItem.telefunc.js` are determined by the needs of `TodoItem.jsx`;
+it is the frontend development/developer that owns telefunctions.
 
 This is the opposite of GraphQL/REST where it is the backend development/developer that owns the GraphQL/RESTful API.
 
-This inversion of control leads to a fundamentally clearer seperation of concerns.
+This inversion of control leads to a fundamentally improved separation of concerns.
 
 ## TypeScript
 
@@ -518,7 +518,7 @@ const t = shield.type
 shield(onUserSettingsChange, [
   t.union(
     { name: t.value('firstName'), newVal: t.string },
-    { name: t.value('age'), newVal: t.number },
+    { name: t.value('age'), newVal: t.number }
   )
 ])
 export async function onUserSettingChange({ name, newVal }) {
@@ -534,7 +534,7 @@ export async function onUserSettingChange({ name, newVal }) {
 }
 ```
 
-Our frontend seemlessly uses our backend telefunctions's type:
+Our frontend seamlessly uses our backend telefunctions's type:
 
 ```tsx
 // UserSettings.jsx
