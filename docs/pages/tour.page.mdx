@@ -90,7 +90,7 @@ async function TodoList() {
 > Note how we collocate and name `TodoList.telefunc.js` after `TodoList.jsx`; it's a practice we'll talk about later.
 
 > Our examples uses JSX
-> but note that Telefunc works with any UI framework (React, Vue, Svelte, ...).
+> but note that Telefunc works with any UI framework (React, Vue, Angular, Svelte, ...).
 
 Our frontend can also use telefunctions to mutate data.
 
@@ -136,13 +136,11 @@ function CreateTodo() {
 }
 ```
 
-This means our frontend can directly tap into the power of our SQL/ORM engine. This is both simpler and more powerful than REST/GraphQL.
+This means our frontend can directly tap into the power of our SQL/ORM engine.
+This is both simpler and more powerful than REST/GraphQL.
 
-> We need a GraphQL/RESTful API if, and only if:
->  - There are third party frontends/clients that need to be able to access our database.
->  - Or we need to be able to deploy our frontend and backend independently of each other.
->
-> Otherwise RPC/Telefunc is simpler and more powerful.
+> A GraphQL/RESTful API is needed if we want to enable third parties to access our database,
+> or if we are a (very) large company with highly complex databases.
 > See <Link href="/RPC-vs-GraphQL-REST" />.
 
 
@@ -534,7 +532,7 @@ export async function onUserSettingChange({ name, newVal }) {
 }
 ```
 
-Our frontend seamlessly uses our backend telefunctions's type:
+Our frontend seamlessly uses our backend telefunctions' type:
 
 ```tsx
 // UserSettings.jsx

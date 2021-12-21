@@ -85,6 +85,11 @@ export const headings: HeadingDefinition[] = [
     url: '/typescript',
   },
   {
+    level: 2,
+    title: 'Telefunc Server',
+    url: '/telefunc-server',
+  },
+  {
     level: 1,
     title: 'Integration',
     titleEmoji: 'plug',

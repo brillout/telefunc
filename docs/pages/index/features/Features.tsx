@@ -86,7 +86,7 @@ function Features() {
               <p>
                 Telefunc supports both Webpack and Vite based stacks.
                 This means it works with any framework: <b>Next.js</b>, <b>Nuxt</b>
-                , <b>Vite/Vike</b>, <b>SvelteKit</b>, <b>CRA</b>, <b>Gatsby</b>, etc.
+                , <b>Vite/Vike</b>, <b>Angular</b>, <b>SvelteKit</b>, <b>CRA</b>, <b>Gatsby</b>, etc.
               </p>
               <p>You want to change your stack? Bring Telefunc along.</p>
             </>
