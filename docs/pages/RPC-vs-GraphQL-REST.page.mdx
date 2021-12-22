@@ -1,7 +1,7 @@
 import { Link, Note } from 'libframe-docs/components'
 
-> We recommand reading the <Link href="/tour" text="Telefunc Tour" /> before reading this document.
-> The tour explains what RPC is and shows how a Telefunc app is typically structured.
+> We recommand taking the <Link href="/tour" text="Telefunc Tour" /> before reading this document.
+> It explains what RPC is, and shows how a Telefunc app is typically structured.
 
 <Note>
 <b>TL;DR</b>
@@ -13,7 +13,7 @@ A GraphQL/RESTful API is only needed if:
 Otherwise, we can use RPC for a significant increase in development speed.
 
 [Telefunc Servers](#telefunc-server) enable us to use RPC with a decoupled frontend-backend development,
-and also enable to develop multiple frontends with RPC.
+and also enable us to develop multiple frontends with RPC.
 </Note>
 
 
@@ -34,7 +34,7 @@ In contrast,
 as we discussed in <Link href="/tour#inversion-of-control" />,
 telefunctions (RPC endpoints) are tailored to UI components.
 This means that our telefunctions are only useful for our frontend and
-third parties cannot use them to build a third-party frontend.
+third parties cannot use them to build third-party frontends.
 
 <Note icon={<span style={{fontSize: "1.1em"}}>⚗️</span>}>
   <b>Research Area</b>.
@@ -46,7 +46,7 @@ third parties cannot use them to build a third-party frontend.
 
 ## Decoupled frontend-backend
 
-A common misbelief is that GraphQL/REST is required to decouple frontend development from backend development.
+A common misbelief is that GraphQL/REST is required to decouple the frontend development from the backend development.
 
 It is true that GraphQL/REST induces a decoupling:
 as we have seen in the last section,
@@ -91,13 +91,13 @@ then we need to change the SQL query of our `getInitialData()` telefunction from
 
 This means that the frontend developers need to make changes to the Node.js server and re-deploy it.
 
-We can decouple the frontend development from the backend development by using a Telefunc Server: a dedicated Node.js server with sole purpose of serving telefunctions.
+But we can decouple the frontend development from the backend development by using a Telefunc Server: a dedicated Node.js server with sole purpose of serving telefunctions.
 
 This means that the frontend and the Telefunc server are developed & deployed hand-in-hand,
 while the backend (another Node.js server, Ruby on Rails, ...) can be developed & deployed independently.
 
 > Usually, a decoupled frontend-backend development is needed only at scale.
-> Most of the time, we don't need a Telefunc Server and we can use Telefunc simply as a server middleware instead.
+> Most of the time, we don't need a Telefunc Server and we can use Telefunc simply [as a server middleware](https://telefunc.com/tour#how-it-works) instead.
 
 More at <Link href="/telefunc-server"/>.
 
@@ -123,7 +123,7 @@ A less common but nonetheless widespread use case for GraphQL is scaling large t
 The databases of large companies can become too complex for
 the frontend team.
 
-Instead of the frontend team directly accessing the databases with, for example, Telefunc & SQL queries,
+Instead of the frontend team directly accessing the databases with Telefunc & SQL/ORM queries,
 we create a GraphQL API that is simpler to use.
 We essentially use GraphQL to abstract away the complexities of our databases.
 
@@ -149,8 +149,9 @@ So we should use RPC whenever we can for a significant increase in development s
 
 Also, RPC is a natural fit for the increasingly ubiquitous practice of full-stack development with frameworks such as Next.js.
 
-On the other hand, we need GraphQL/REST
-for giving third parties access to our database
-or for scaling large teams.
+On the other hand, we need GraphQL/REST if we need to
+give third parties access to our database.
+
+Also, using a GraphQL API can be crucial strategy for scaling large teams.
 
 In general, a sensible default is to start with RPC and use GraphQL/REST only when the need arises.
