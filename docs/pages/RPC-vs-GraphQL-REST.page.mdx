@@ -1,19 +1,19 @@
 import { Link, Note } from 'libframe-docs/components'
 
-> We recommand taking the <Link href="/tour" text="Telefunc Tour" /> before reading this document.
-> It explains what RPC is, and shows how a Telefunc app is typically structured.
+> We recommend taking the <Link href="/tour" text="Telefunc Tour" /> before reading this document;
+> it explains what RPC is.
 
 <Note>
 <b>TL;DR</b>
 
 A GraphQL/RESTful API is only needed if:
  - We want to give third parties access to our database.
- - We are a (very) large company with highly complex databases.
+ - We are a very large company with highly complex databases.
 
 Otherwise, we can use RPC for a significant increase in development speed.
 
-[Telefunc Servers](#telefunc-server) enable us to use RPC with a decoupled frontend-backend development,
-and also enable us to develop multiple frontends with RPC.
+Contrary to common belief, we can use RPC while having
+a decoupled frontend-backend development.
 </Note>
 
 
@@ -28,11 +28,11 @@ as GraphQL enables any third-party developer to extensively access Facebook's da
 thus enabling all kinds of applications to be built on top of Facebook's data.
 
 GraphQL/RESTful APIs are generic:
-they are meant to serve any frontend without knowing the frontends' data query/mutation requirements.
+they are meant to serve frontends without knowing the frontends' data query/mutation requirements.
 
 In contrast,
 as we discussed in <Link href="/tour#inversion-of-control" />,
-telefunctions (RPC endpoints) are tailored to UI components.
+telefunctions (RPC endpoints) are tailored to our frontend's UI components.
 This means that our telefunctions are only useful for our frontend and
 third parties cannot use them to build third-party frontends.
 
@@ -50,7 +50,7 @@ A common misbelief is that GraphQL/REST is required to decouple the frontend dev
 
 It is true that GraphQL/REST induces a decoupling:
 as we have seen in the last section,
-a GraphQL/RESTful API is generic in the sense that any frontend can be built on top of it, which
+a GraphQL/RESTful API is generic which
 means that the frontend team can develop independently of the backend team.
 
 But we can as well achieve a decoupled frontend-backend development with RPC by using what we call a *Telefunc Server*.
@@ -58,7 +58,10 @@ But we can as well achieve a decoupled frontend-backend development with RPC by 
 
 ## Telefunc Server
 
-RPC induces a coupling. For example, let's consider this telefunction:
+We usually install Telefunc <Link text="as a Node.js server middleware" href="/tour#how-it-works" noBreadcrumb />.
+This induces a tight coupling between our frontend and our Node.js server.
+
+For example, let's consider this telefunction:
 
 ~~~js
 // TodoList.telefunc.js
@@ -91,34 +94,32 @@ then we need to change the SQL query of our `getInitialData()` telefunction from
 
 This means that the frontend developers need to make changes to the Node.js server and re-deploy it.
 
-But we can decouple the frontend development from the backend development by using a Telefunc Server: a dedicated Node.js server with sole purpose of serving telefunctions.
+If we are a small team of full-stack developers, then such frontend-backend coupling is not a problem.
+But, as we grow, we may want to have a frontend team that develops independently of a backend team.
 
-This means that the frontend and the Telefunc server are developed & deployed hand-in-hand,
+We can achieve a decoupling by using a Telefunc Server: a dedicated Node.js server with sole purpose of serving telefunctions.
+
+The frontend and the Telefunc server are developed & deployed hand-in-hand,
 while the backend (another Node.js server, Ruby on Rails, ...) can be developed & deployed independently.
-
-> Usually, a decoupled frontend-backend development is needed only at scale.
-> Most of the time, we don't need a Telefunc Server and we can use Telefunc simply [as a server middleware](https://telefunc.com/tour#how-it-works) instead.
-
-More at <Link href="/telefunc-server"/>.
 
 
 ## Multiple Frontends
 
-A common misbelief is that GraphQL/REST is required to develop several frontends.
+Another common misbelief is that GraphQL/REST is required to develop several frontends.
 
-We can develop multiple frontends as well with RPC by having one dedicate [Telefunc Server](#telefunc-server) per frontend.
+We can develop multiple frontends as well with RPC by having one [Telefunc Server](#telefunc-server) per frontend.
 
-> The rise of Edge computing,
+> The rise of edge computing,
 > such as Cloudflare Workers,
 > makes Telefunc Servers
 > highly performant,
-> cheap with generous free tiers,
+> cheap (with generous free tiers),
 > and easy to set up.
 
 
-## Large Teams
+## Complex Databases
 
-A less common but nonetheless widespread use case for GraphQL is scaling large teams.
+A less common but nonetheless widespread use case is the usage of GraphQL in very large companies.
 
 The databases of large companies can become too complex for
 the frontend team.
@@ -130,9 +131,9 @@ We essentially use GraphQL to abstract away the complexities of our databases.
 For performance-critical apps deployed at large scale,
 such as Twitter or Facebook,
 it is common to use several database technologies at once.
-Here again, we can use GraphQL to simplify the life of
-not only the frontend developers but also the backend developers.
-The backend developers then also use the GraphQL API instead of directly accessing databases.
+We can then even use GraphQL to simplify the life of
+not only the frontend developers but also the backend developers:
+the backend developers then also use the GraphQL API instead of directly accessing our databases.
 
 A GraphQL API enables an independent database development
 which can become crucial strategy at scale.
@@ -152,6 +153,6 @@ Also, RPC is a natural fit for the increasingly ubiquitous practice of full-stac
 On the other hand, we need GraphQL/REST if we need to
 give third parties access to our database.
 
-Also, using a GraphQL API can be crucial strategy for scaling large teams.
+Also, using a GraphQL API can be crucial strategy for very large companies with highly complex databases.
 
 In general, a sensible default is to start with RPC and use GraphQL/REST only when the need arises.
