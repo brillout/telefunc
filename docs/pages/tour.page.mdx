@@ -283,7 +283,7 @@ async function run(sql) {
   // We'll talk about `getContext()` later
   const { user } = getContext()
 
-  // Only Admins are allowed to run this telefunction
+  // Only admins are allowed to run this telefunction
   if (user.isAdmin !== true) {
     throw Abort()
   }
@@ -292,7 +292,9 @@ async function run(sql) {
 }
 ```
 
-Also, since telefunctions are public and can be called by anyone, we cannot assuming anything about the arguments type.
+Also,
+since telefunctions are public and can be called by anyone,
+we cannot assuming anything about the arguments type.
 We could use `Abort()` again:
 
 ```js

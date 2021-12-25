@@ -34,12 +34,28 @@ function Features() {
           desc: (
             <>
               <p>
-                Telefunc's <code>shield()</code> and <code>Abort()</code> enable{' '}
-                <b>programmatically defined permissions</b>.
+                Telefunc's <code>Abort()</code> enables you to <b>define permissions programmatically</b>.
               </p>
               <p>
                 It's both <b>simple</b> and <b>flexible</b>.
               </p>
+            </>
+          ),
+        },
+        {
+          title: (
+            <>
+              <Emoji name="plug" /> Any Stack
+            </>
+          ),
+          desc: (
+            <>
+              <p>
+                Telefunc supports both Webpack and Vite based stacks.
+                This means it works with any framework: <b>Next.js</b>, <b>Nuxt</b>
+                , <b>Vite/Vike</b>, <b>Angular</b>, <b>SvelteKit</b>, <b>CRA</b>, <b>Gatsby</b>, etc.
+              </p>
+              <p>You want to change your stack? Bring Telefunc along.</p>
             </>
           ),
         },
@@ -52,7 +68,7 @@ function Features() {
           desc: (
             <>
               <p>
-                The frontend can tap into the <b>full power of the server</b>; highly tailored & optimized SQL/ORM
+                The frontend can directly tap into the <b>full power of the server</b>; highly tailored & optimized SQL/ORM
                 queries can be used for highly-performant data retrieval & mutations.
               </p>
             </>
@@ -70,25 +86,8 @@ function Features() {
                 Seamless <b>TypeScript support out-of-the-box</b>.
               </p>
               <p>
-                Use your types across frontend and backend to enable <b>end-to-end type safety</b>.
+                Use your types across frontend-backend for <b>end-to-end type safety</b>.
               </p>
-            </>
-          ),
-        },
-        {
-          title: (
-            <>
-              <Emoji name="plug" /> Any stack
-            </>
-          ),
-          desc: (
-            <>
-              <p>
-                Telefunc supports both Webpack and Vite based stacks.
-                This means it works with any framework: <b>Next.js</b>, <b>Nuxt</b>
-                , <b>Vite/Vike</b>, <b>Angular</b>, <b>SvelteKit</b>, <b>CRA</b>, <b>Gatsby</b>, etc.
-              </p>
-              <p>You want to change your stack? Bring Telefunc along.</p>
             </>
           ),
         },

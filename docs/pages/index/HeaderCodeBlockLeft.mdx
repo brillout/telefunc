@@ -1,5 +1,5 @@
 ```js
-// todo.telefunc.js
+// CreateTodo.telefunc.js
 // Environment: Node.js server
 
 import { shield, Abort, getContext } from 'telefunc'
@@ -20,7 +20,7 @@ async function onNewTodo(text) {
   // Or with SQL:
   await execute(
     "INSERT INTO todo_items VALUES (:text, :authorId)",
-    {text, authorId: user.id}
+    { text, authorId: user.id }
   )
 }
 ```
