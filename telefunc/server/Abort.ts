@@ -7,6 +7,6 @@ function Abort(this: void, ...args: never[]) {
     this === undefined,
     'Using superflous `new` operator: use `throw Abort()` instead of `throw new Abort()`.',
   )
-  assertUsage(args.length === 0, "Abort() doesn't accept any argument.") // TODO: explain why
-  return new Error('Abort - permission denied.')
+  assertUsage(args.length === 0, "Abort() doesn't accept any argument. Consider returning a JavaScript value instead, see https://telefunc.com/permission")
+  return new Error('Abort. (`Abort()` errors are not shown in production, see https://telefunc.com/permission)')
 }

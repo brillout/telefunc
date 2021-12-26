@@ -394,6 +394,91 @@ async function getTodoItems() {
 }
 ```
 
+## Permissions & Validation
+
+In general, we use `Abort()` to ensure permissions:
+
+```js
+// TodoItem.telefunc.js
+// Environment: Node.js
+
+import { Abort, getContext, shield } from 'telefunc'
+const t = shield.type
+
+export { onTextChange }
+
+shield(onTextChange, [t.number, t.string])
+async function onTextChange(id, text) {
+  const { user } = getContext()
+
+  const todoItem = await Todo.findOne({ id })
+
+  // Only the author of a to-do item is allowed to change its text
+  if (user?.id !== todoItem.authorId) {
+    throw Abort()
+  }
+
+  todoItem.text = text
+  await todoItem.save()
+}
+```
+
+But, if we want to pass information to the frontend,
+we `return` instead of `throw Abort()`:
+
+```js
+// TodoList.telefunc.js
+// Environment: Node.js
+
+import { getContext } from 'telefunc'
+
+export async function getTodoItems() {
+  const { user } = getContext()
+  if (!user) {
+    /* This doesn't work
+    throw Abort({ isLoggedOut: true })
+    */
+    // But we can do this
+    return { isLoggedOut: true }
+  }
+}
+```
+
+This enables the frontend, for example, to redirect the user to the login page if the user is not logged in.
+
+For form validation, we usually also `return` instead of `throw Abort()`:
+
+```js
+import { shield } from 'telefunc'
+const t = shield.type
+
+shield(onFormSubmit, [t.string, t.string])
+export async function onFormSubmit(email, password) {
+  if (!isStrongPassword(password)) {
+    return { wrongPassword: "Password is too weak." }
+  }
+  /* ... */
+}
+```
+
+> We explain the benefits of Telefunc's approach at <Link href='/permissions' />
+
+The server:
+
+```
+Error: The telefunction `TodoItem.telefunc.js:onTextChange` returned `throw Abort()`. (This error is not shown in production, see https://telefunc.com/permissions )
+    at hello (TodoItem.telefunc.js:18)
+```
+
+The browser:
+
+```
+Uncaught Error: The telefunction `/hello.telefunc.js:hello` returned `throw Abort()`.
+    at makeHttpRequest (telefunc/client.js)
+    at index.html
+```
+
+
 ## Inversion of control
 
 Coming from the REST/GraphQL world, we may be tempted to implement generic telefunctions.
