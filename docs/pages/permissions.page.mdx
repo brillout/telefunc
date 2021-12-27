@@ -15,7 +15,7 @@ export async function onCommentDelete(id) {
   const { user } = getContext()
 
   // Only admins are allowed to delete comments
-  if( !user.isAdmin ) {
+  if (!user.isAdmin) {
     throw Abort()
   }
 
@@ -30,13 +30,13 @@ export async function onCommentDelete(id) {
 import { onCommentDelete } from './Comment.telefunc.js'
 
 function Comment({ id, text, context }) {
-  const deleteButton = <button onClick={() => onCommentDelete(id)}>Delete</button>
+  const deleteButton =
+    context.user.isAdmin ?
+      <button onClick={() => onCommentDelete(id)}>Delete</button> :
+      null // We only show the delete button to admins
   return <>
     <p>{ text }</p>
-    {
-      // We only show the delete button to admins
-      !context.user.isAdmin ?  deleteButton : null
-    }
+    { deleteButton }
   </>
 }
 ```
@@ -47,14 +47,14 @@ we can assume the user to be an admin.
 
 But we still need `Abort()`:
 as we have seen in the <Link text="Telefunc Tour" href="/tour" />,
-our `onCommentDelete()` telefunction can be called not only by our frontend but really by anyone.
+our telefunctions can be called not only by our frontend but really by anyone.
 A malicious user can try to call `onCommentDelete()` without admin priviledges but,
-thanks to our `throw Abort()` condition,
+thanks to our `throw Abort()`,
 the call will be aborted.
 
 In other words, we use `Abort()` to protect against unexpected calls (calls not originating from out frontend, or if our frontend has a bug).
 
-If is expected that our frontend sometimes makes calls without the right permissions, we `return` instead of `throw Abort()`.
+If is expected that our frontend can sometimes make calls without the right permissions, we `return` instead of `throw Abort()`.
 
 
 ## With `return`
