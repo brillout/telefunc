@@ -1,14 +1,30 @@
 import { Link } from 'libframe-docs/components'
 
-TODO
-
 > We recommend taking the <Link text="Telefunc Tour" href="/tour" /> before reading this document.
+
+We ensure permissions by using either `throw Abort()` or `return`.
+
+```js
+async function someTelefunction() {
+  if (someCondition) {
+    throw new Abort()
+  }
+}
+```
+
+```js
+async function someTelefunction() {
+  if (someCondition) {
+    return someValue
+  }
+}
+```
 
 ## With `Abort()`
 
-We use `throw Abort()` to ensure permissions:
+We can use `throw Abort()` to ensure permissions:
 
-~~~js
+```js
 // Comment.telefunc.js
 // Environment: Node.js
 
@@ -25,8 +41,15 @@ export async function onCommentDelete(id) {
 
   // ...
 }
-~~~
+```
 
+We use `Abort()`
+the frontend
+Let's see why with following example
+
+We use `Abort()` because we assume the frontend to never 
+
+Let's consider this frontend.
 With following frontend:
 
 ```jsx
@@ -39,15 +62,19 @@ function Comment({ id, text, context }) {
   const deleteButton = <button onClick={() => onCommentDelete(id)}>Delete</button>
   return <>
     <p>{ text }</p>
-    { !context.user.isAdmin ? deleteButton : null }
+    {
+      // We only show the delete button to admins
+      !context.user.isAdmin ?  deleteButton : null
+    }
   </>
 }
 ```
 
-This means that the delete button is only shown to admins:
-when our frontend calls `onCommentDelete()` we can assume the user to be an admin.
+Because the delete button is only shown to admins,
+when our frontend calls `onCommentDelete()`,
+we can assume the user to be an admin.
 
-If we can assume the user to be an admin, we do we need to `throw Abort()` then?
+If we can assume the user to be an admin, we may wonder why do we need to `throw Abort()` then?
 
 If our `onCommentDelete()` is only called from our frontend, then we could actually skip our `throw Abort()` condition.
 
@@ -75,7 +102,7 @@ For the same reason
 
 ## With `return`
 
-Alternatively to `throw Abort()`, we can `return` a value.
+We can also `return` instead of `throw Abort()`.
 
 ```js
 // *.telefunc.js
@@ -86,11 +113,9 @@ import { getContext } from 'telefunc'
 export async function getTodoList() {
   const { user } = getContext()
 
-  // The user is not logged in
-  if( !user ) {
-    // It is expected that the user may not be logged-in (for example when the user's session
-    // expires). We `return { isNotLoggedIn: true }` instead of `throw Abort()` so that
-    // the frontend know what's going on and can redirect the user to the login page.
+  if (!user) {
+    // It is expected that the user may not be logged-in. We `return { isNotLoggedIn: true }`
+    // instead of `throw Abort()` so that the frontend can redirect the user to the login page.
     return { isNotLoggedIn : true }
   }
 
@@ -99,8 +124,34 @@ export async function getTodoList() {
 ```
 
 In contrast to our previous telefunction `onCommentDelete()`,
-here we actually expect our frontend to sometimes call `getTodoList()` without the right permissions.
+here we expect our frontend to sometimes call `getTodoList()` without the right permissions;
+we then `return` the information that the user is not logged-in to the frontend,
+so that the frontend can react accordingly.
 
+In general, if we want to pass information to the frontend, we `return` instead of `throw Abort()`.
+
+
+## Form Validation
+
+It is expected that the user form validation and the frontend needs to report back to the user what went wrong; we `return` instead of `throw Abort()`.
+
+```js
+import { shield } from 'telefunc'
+
+shield(onFormSubmit, [{ email: t.string }])
+export async function onFormSubmit({ email }) {
+  const formValidationErrors = {}
+  if (!email) {
+    formValidationErrors.firstName = 'Please enter your email.'
+  } else if(!email.includes('@')) {
+    formValidationErrors.firstName = 'Invalid email; make sure to enter a valid email.'
+  }
+  if (Object.keys(formValidationErrors).length > 0) {
+    return formValidationErrors
+  }
+  // ...
+}
+```
 
 
 ## Which one to use?

@@ -3,9 +3,13 @@ import { Link } from 'libframe-docs/components'
 > Alreay familiar with RPC? Only read the last sections:
 > - [`shield()` & `Abort()`](#shield-abort)
 > - [Authentication](#authentication)
+> - [Permissions & validation](#permissions-validation)
 > - [Inversion of Control](#inversion-of-control)
 > - [TypeScript](#typescript)
 
+After taking the tour
+you'll have a comprehensive overview of what Telefunc is and
+be able proficiently use it.
 
 ## Hello World
 
@@ -98,8 +102,12 @@ Our frontend can also use telefunctions to mutate data.
 // CreateTodo.telefunc.js
 // Environment: Node.js
 
+import { shield } from 'telefunc'
+
 export { onNewTodo }
 
+// We'll talk about `shield()` in a moment
+shield(onNewTodo, [shield.type.string])
 async function onNewTodo(text) {
   // ORM
   const todoItem = new Todo({ text })
@@ -112,8 +120,6 @@ async function onNewTodo(text) {
   )
 }
 ```
-
-> This `onNewTodo` telefunction is missing a `shield(onNewTodo, [t.string])` protection, which we'll talk about in a moment.
 
 ```jsx
 // CreateTodo.jsx
@@ -139,14 +145,14 @@ function CreateTodo() {
 This means our frontend can directly tap into the power of our SQL/ORM engine.
 This is both simpler and more powerful than REST/GraphQL.
 
-> A GraphQL/RESTful API is needed if we want to enable third parties to access our database,
+> We still need a GraphQL/RESTful API if we want to enable third parties to access our database,
 > or if we are a (very) large company with highly complex databases.
-> See <Link href="/RPC-vs-GraphQL-REST" />.
+> We elaborate more at <Link href="/RPC-vs-GraphQL-REST" />.
 
 
 ## How it works
 
-> Understanding the basic mechanics of Telefunc is paramount in order to properly use Telefunc.
+> Understanding the basic mechanics of Telefunc is paramount in order to proficiently use Telefunc.
 
 Let's see what happens when we call a telefunction.
 
@@ -218,7 +224,7 @@ and the browser-side remotely calls `hello()` by using an HTTP request.
 
 ## Telefunctions need protection
 
-Our telefunctions can be remotely called not only by our frontend but also by anyone.
+Our telefunctions can be remotely called not only by our frontend but really by anyone.
 
 Anyone can open a terminal and make an HTTP request:
 
@@ -354,7 +360,7 @@ Not only does `shield()` call `new Abort()` on our behalf, but it also infers th
 
 ## Authentication
 
-Telefunctions often need context: is the user logged-in? What is the user's ID? Etc.
+Telefunctions often need context. Is the user logged-in? What is the user's ID? Etc.
 
 We use `setContext()` and `getContext()` to provide contextual information to our telefunctions.
 
@@ -394,7 +400,7 @@ async function getTodoItems() {
 }
 ```
 
-## Permissions & Validation
+## Permissions & validation
 
 In general, we use `Abort()` to ensure permissions:
 
@@ -423,7 +429,7 @@ async function onTextChange(id, text) {
 }
 ```
 
-But, if we want to pass information to the frontend,
+If we want to pass information to the frontend,
 we `return` instead of `throw Abort()`:
 
 ```js
@@ -454,28 +460,14 @@ const t = shield.type
 
 shield(onFormSubmit, [t.string, t.string])
 export async function onFormSubmit(email, password) {
-  if (!isStrongPassword(password)) {
-    return { wrongPassword: "Password is too weak." }
+  if (!password) {
+    return { passwordInvalid: "Please enter a password." }
+  }
+  if (password.length<8) {
+    return { passwordInvalid: "Password is too short: it should have at least 8 charachters." }
   }
   /* ... */
 }
-```
-
-> We explain the benefits of Telefunc's approach at <Link href='/permissions' />
-
-The server:
-
-```
-Error: The telefunction `TodoItem.telefunc.js:onTextChange` returned `throw Abort()`. (This error is not shown in production, see https://telefunc.com/permissions )
-    at hello (TodoItem.telefunc.js:18)
-```
-
-The browser:
-
-```
-Uncaught Error: The telefunction `/hello.telefunc.js:hello` returned `throw Abort()`.
-    at makeHttpRequest (telefunc/client.js)
-    at index.html
 ```
 
 
