@@ -1,8 +1,10 @@
 import { Link } from 'libframe-docs/components'
 
-> We recommend taking the <Link text="Telefunc Tour" href="/tour" /> before reading this document.
+> We recommend taking the <Link text="Telefunc Tour" href="/tour" /> before reading this.
 
 ## With `Abort()`
+
+In general, We use `Abort()` to ensure permissions:
 
 ```js
 // Comment.telefunc.js
@@ -23,6 +25,8 @@ export async function onCommentDelete(id) {
 }
 ```
 
+Let's consider this frontend:
+
 ```jsx
 // Comment.jsx
 // Environment: Browser
@@ -31,9 +35,10 @@ import { onCommentDelete } from './Comment.telefunc.js'
 
 function Comment({ id, text, context }) {
   const deleteButton =
+    // Note how we only show the delete button to admins
     context.user.isAdmin ?
       <button onClick={() => onCommentDelete(id)}>Delete</button> :
-      null // We only show the delete button to admins
+      null
   return <>
     <p>{ text }</p>
     { deleteButton }
@@ -41,23 +46,25 @@ function Comment({ id, text, context }) {
 }
 ```
 
-The delete button is only shown to admins;
-this means that whenever our frontend calls `onCommentDelete()`
+Because the delete button is only shown to admins,
+whenever our frontend calls `onCommentDelete()`
 we can assume the user to be an admin.
 
-But we still need `Abort()`:
+But we still use `Abort()`:
 as we have seen in the <Link text="Telefunc Tour" href="/tour" />,
 our telefunctions can be called not only by our frontend but really by anyone.
-A malicious user can try to call `onCommentDelete()` without admin priviledges but,
+A malicious user can try to call `onCommentDelete()` without admin priviledges;
+but,
 thanks to our `throw Abort()`,
 the call will be aborted.
 
-In other words, we use `Abort()` to protect against unexpected calls (calls not originating from out frontend, or if our frontend has a bug).
-
-If is expected that our frontend can sometimes make calls without the right permissions, we `return` instead of `throw Abort()`.
+In other words, we use `Abort()` to protect against unexpected calls (calls not originating from our frontend, or if our frontend has a bug).
 
 
 ## With `return`
+
+If it is expected that our frontend can sometimes make calls without the right permissions,
+we `return` instead of `throw Abort()`.
 
 ```js
 // *.telefunc.js
@@ -69,9 +76,9 @@ export async function getTodoList() {
   const { user } = getContext()
 
   if (!user) {
-    // It is expected that the user may not be logged-in. We `return { isNotLoggedIn: true }`
-    // instead of `throw Abort()` so that the frontend can redirect the user to the login page.
-    return { isNotLoggedIn : true }
+    // It is expected that the user may not be logged in. We `return { isNotLoggedIn: true }`
+    // instead of `throw Abort()`, so that the frontend can redirect the user to the login page.
+    return { isNotLoggedIn: true }
   }
 
   // ...
@@ -79,17 +86,17 @@ export async function getTodoList() {
 ```
 
 In contrast to our previous telefunction `onCommentDelete()`,
-here we expect our frontend to sometimes call `getTodoList()` without the right permissions;
-we then `return` the information that the user is not logged-in to the frontend,
-so that the frontend can react accordingly.
+here we expect our frontend to sometimes call `getTodoList()` with the wrong permission.
 
-In general, we can `return` instead of `throw Abort()` to pass information to the frontend.
-
-
-## Form Validation
-
-It is expected that the user enters invalid form inputs; the frontend then usually reports back to the user what went wrong;
+If we need to pass information to the frontend,
 we `return` instead of `throw Abort()`.
+
+
+## Form validation
+
+It is expected that the user can enter invalid inputs and,
+if that's the case,
+the frontend tells the user what input is invalid and why.
 
 ```js
 // *.telefunc.js
@@ -97,17 +104,22 @@ we `return` instead of `throw Abort()`.
 
 import { shield } from 'telefunc'
 
-shield(onFormSubmit, [{ email: t.string }])
-export async function onFormSubmit({ email }) {
+shield(onFormSubmit, [email: t.string, password: t.string])
+export async function onFormSubmit(email, password) {
   const invalidInputs = {}
+
   if (!email) {
-    invalidInputs.firstName = 'Please enter your email.'
-  } else if(!email.includes('@')) {
-    invalidInputs.firstName = 'Invalid email; make sure to enter a valid email.'
+    invalidInputs.email = 'Please enter your email.'
+  } else if (!email.includes('@')) {
+    invalidInputs.email = 'Invalid email; make sure to enter a valid email.'
   }
+
   if (Object.keys(invalidInputs).length > 0) {
     return { invalidInputs }
   }
+
   // ...
 }
 ```
+
+Instead of `throw Abort()`, we `return` the validation errors to the frontend.

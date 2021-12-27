@@ -28,7 +28,7 @@ export const headings: HeadingDefinition[] = [
   },
   {
     level: 1,
-    title: 'Get Started',
+    title: 'Get started',
     titleEmoji: 'seedling',
   },
   {
@@ -57,7 +57,7 @@ export const headings: HeadingDefinition[] = [
   },
   {
     level: 2,
-    title: 'Permissions & Validation',
+    title: 'Permissions & validation',
     url: '/permissions',
   },
   {
@@ -67,12 +67,12 @@ export const headings: HeadingDefinition[] = [
   },
   {
     level: 2,
-    title: 'Inversion of Control',
+    title: 'Inversion of control',
     url: '/inversion-of-control',
   },
   {
     level: 2,
-    title: 'File Structure',
+    title: 'File structure',
     url: '/file-structure',
   },
   {
