@@ -54,43 +54,10 @@ the call will be aborted.
 
 In other words, we use `Abort()` to protect against unexpected calls (calls not originating from out frontend, or if our frontend has a bug).
 
-In principle,
-if our frontend is bug-free and our telefunctions are only called by our frontend,
-then `throw Abort()` is not called.
+If is expected that our frontend sometimes makes calls without the right permissions, we `return` instead of `throw Abort()`.
 
-There are situations when, it is expected that the frontend makes calls without the right permissions; we then `return` instead of `throw Abort()`.
-
-
-
-
-
-
-If we can assume the user to be an admin, we may wonder why do we need to `throw Abort()` then?
-
-If our `onCommentDelete()` is only called from our frontend, then we could actually skip our `throw Abort()` condition.
-
-But,
-and that's why we need to use `throw Abort()`:
-
-it ensures that, not matter who calls `onCommentDelete()` the user is an admin.
-
-To sum up: if our `onCommentDelete()` telefunction is always called by our frontend, and our app is bug-free,
-then we our `Abort()` is never called.
-
-In a nutshell: `Abort()` protects our telefunctions from *unwanted* calls.
-
-For situations, we can simply `return` a value.
-There are situations when we actualy want
-
-As we have seen in the <Link text="Telefunc Tour" href="/tour" />,
-`shield()`
-We can assume, there is a bug-free or is called by another client than our frontend.
-We can 
-For the same reason 
 
 ## With `return`
-
-We can also `return` instead of `throw Abort()`.
 
 ```js
 // *.telefunc.js
@@ -116,100 +83,31 @@ here we expect our frontend to sometimes call `getTodoList()` without the right 
 we then `return` the information that the user is not logged-in to the frontend,
 so that the frontend can react accordingly.
 
-In general, if we want to pass information to the frontend, we `return` instead of `throw Abort()`.
+In general, we can `return` instead of `throw Abort()` to pass information to the frontend.
 
 
 ## Form Validation
 
-It is expected that the user form validation and the frontend needs to report back to the user what went wrong; we `return` instead of `throw Abort()`.
+It is expected that the user enters invalid form inputs; the frontend then usually reports back to the user what went wrong;
+we `return` instead of `throw Abort()`.
 
 ```js
+// *.telefunc.js
+// Environment: Node.js
+
 import { shield } from 'telefunc'
 
 shield(onFormSubmit, [{ email: t.string }])
 export async function onFormSubmit({ email }) {
-  const formValidationErrors = {}
+  const invalidInputs = {}
   if (!email) {
-    formValidationErrors.firstName = 'Please enter your email.'
+    invalidInputs.firstName = 'Please enter your email.'
   } else if(!email.includes('@')) {
-    formValidationErrors.firstName = 'Invalid email; make sure to enter a valid email.'
+    invalidInputs.firstName = 'Invalid email; make sure to enter a valid email.'
   }
-  if (Object.keys(formValidationErrors).length > 0) {
-    return formValidationErrors
+  if (Object.keys(invalidInputs).length > 0) {
+    return { invalidInputs }
   }
   // ...
 }
 ```
-
-
-## Which one to use?
-
-The general idea here is that `throw Abort()` represents something unexpected:
-if one of our telefunction is called by our frontend
-if our app is bug-free then
-`throw Abort()` is never called if:
- - our app is bug-free, and
- - no third party is trying to call our telefunctions. (Our [telefunctions are public]())
-
-As we have seen in the Telefunc Tour, our telefunctions are public and thus any third party cann
-
-For example, in the `deleteComment()` telefunction above,
-we can assume our frontend to never call `deleteComment()` for a user that is not an admin.
-
-That said, in doubt,
-we can use whatever works for us.
-
-There are situations where we don't want to `Abort()` upon wrong permissions. For example:
-
-~~~js
-~~~
-
-There is a bug
-
-Telefunc doesn't provide any exception other than `Abort()`, and `Abort()` doesn't accept any argument;
-if 
-Because for fine-grain control we simply return JavaScript values instead,
-which is more readable (we can see what simply by reading),
-less error-prone 
-This is 
-
-We either `throw Abort()` or `return someValue`.
-
-
-
-
-> Behind the scenes, `shield()` calls `Abort()`
-
-
-
-
-
-
-
-Note how `shield()` and `Abort()` work well together.
-
-```js
-// onNewTodo.telefunc.js
-// Environment: Node.js
-
-import { shield, getContext } from 'telefunc'
-
-// We use `shield()` to ensure arugments types.
-shield(onNewTodo, [shield.type.string])
-export async function onNewTodo(text) {
-  const { user } = getContext()
-
-  // We use `Abort()` to, essentially, define permissions.
-  if( user === null ) {
-     // Only authenticated users can create a new to-do.
-     throw Abort()
-  }
-
-  /* ... */
-}
-```
-
-
-
-> Note that we still use `shield()` which will `throw Abort()`
-
