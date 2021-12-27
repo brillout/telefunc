@@ -2,27 +2,7 @@ import { Link } from 'libframe-docs/components'
 
 > We recommend taking the <Link text="Telefunc Tour" href="/tour" /> before reading this document.
 
-We ensure permissions by using either `throw Abort()` or `return`.
-
-```js
-async function someTelefunction() {
-  if (someCondition) {
-    throw new Abort()
-  }
-}
-```
-
-```js
-async function someTelefunction() {
-  if (someCondition) {
-    return someValue
-  }
-}
-```
-
 ## With `Abort()`
-
-We can use `throw Abort()` to ensure permissions:
 
 ```js
 // Comment.telefunc.js
@@ -34,23 +14,14 @@ shield(onCommentDelete, [shield.type.number])
 export async function onCommentDelete(id) {
   const { user } = getContext()
 
-  // We ensure that the user is an admin
-  if( !user?.isAdmin ) {
+  // Only admins are allowed to delete comments
+  if( !user.isAdmin ) {
     throw Abort()
   }
 
   // ...
 }
 ```
-
-We use `Abort()`
-the frontend
-Let's see why with following example
-
-We use `Abort()` because we assume the frontend to never 
-
-Let's consider this frontend.
-With following frontend:
 
 ```jsx
 // Comment.jsx
@@ -70,19 +41,36 @@ function Comment({ id, text, context }) {
 }
 ```
 
-Because the delete button is only shown to admins,
-when our frontend calls `onCommentDelete()`,
+The delete button is only shown to admins;
+this means that whenever our frontend calls `onCommentDelete()`
 we can assume the user to be an admin.
+
+But we still need `Abort()`:
+as we have seen in the <Link text="Telefunc Tour" href="/tour" />,
+our `onCommentDelete()` telefunction can be called not only by our frontend but really by anyone.
+A malicious user can try to call `onCommentDelete()` without admin priviledges but,
+thanks to our `throw Abort()` condition,
+the call will be aborted.
+
+In other words, we use `Abort()` to protect against unexpected calls (calls not originating from out frontend, or if our frontend has a bug).
+
+In principle,
+if our frontend is bug-free and our telefunctions are only called by our frontend,
+then `throw Abort()` is not called.
+
+There are situations when, it is expected that the frontend makes calls without the right permissions; we then `return` instead of `throw Abort()`.
+
+
+
+
+
 
 If we can assume the user to be an admin, we may wonder why do we need to `throw Abort()` then?
 
 If our `onCommentDelete()` is only called from our frontend, then we could actually skip our `throw Abort()` condition.
 
 But,
-as we have seen in the <Link text="Telefunc Tour" href="/tour" />,
-our `onCommentDelete()` telefunction can be called not only by our frontend but really by anyone
 and that's why we need to use `throw Abort()`:
-it could be that a malicious user without admin priviledges tries to call `onCommentDelete()` our `throw Abort()` condition ensures that this doesn't happen.
 
 it ensures that, not matter who calls `onCommentDelete()` the user is an admin.
 
