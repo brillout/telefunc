@@ -18,7 +18,10 @@ function Features() {
           ),
           desc: (
             <>
-              <p>Telefunc simplifies the frontend-backend relationship &mdash; with Telefunc it's really just a set of remote function.</p>
+              <p>
+                Telefunc simplifies the frontend-backend relationship &mdash; with Telefunc it's just a set of remote
+                functions.
+              </p>
               <p>
                 Your frontend can <b>directly use any SQL/ORM query</b> to retrieve & mutate data.
               </p>
@@ -34,7 +37,7 @@ function Features() {
           desc: (
             <>
               <p>
-                Telefunc's <code>Abort()</code> enables you to <b>define permissions programmatically</b>.
+                Telefunc's <code>Abort()</code> enables <b>programmatically defined permissions</b>.
               </p>
               <p>
                 It's both <b>simple</b> and <b>flexible</b>.
@@ -51,9 +54,9 @@ function Features() {
           desc: (
             <>
               <p>
-                Telefunc supports both Webpack and Vite based stacks.
-                This means it works with any framework: <b>Next.js</b>, <b>Nuxt</b>
-                , <b>Vite/Vike</b>, <b>Angular</b>, <b>SvelteKit</b>, <b>CRA</b>, <b>Gatsby</b>, etc.
+                Telefunc supports both Webpack and Vite based stacks. This means it works with any framework:{' '}
+                <b>Next.js</b>, <b>Nuxt</b>, <b>Vite/Vike</b>, <b>Angular</b>, <b>SvelteKit</b>, <b>CRA</b>,{' '}
+                <b>Gatsby</b>, etc.
               </p>
               <p>You want to change your stack? Bring Telefunc along.</p>
             </>
@@ -68,8 +71,8 @@ function Features() {
           desc: (
             <>
               <p>
-                The frontend can directly tap into the <b>full power of the server</b>; highly tailored & optimized SQL/ORM
-                queries can be used for highly-performant data retrieval & mutations.
+                The frontend can directly tap into the <b>full power of the server</b>. Highly tailored & optimized
+                SQL/ORM queries can be used for highly-performant data retrieval & mutations.
               </p>
             </>
           ),

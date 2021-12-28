@@ -1,7 +1,7 @@
 import { Link } from 'libframe-docs/components'
 
 > Alreay familiar with RPC? Only read the last sections:
-> - [`shield()` & `Abort()`](#shield-abort)
+> - [`Abort()` & `shield()`](#abort-shield)
 > - [Authentication](#authentication)
 > - [Permissions & validation](#permissions-validation)
 > - [Inversion of Control](#inversion-of-control)
@@ -238,7 +238,7 @@ curl https://our-website.com/_telefunc --data '{
 Thus, this telefunction is problematic:
 
 ```js
-// run.telefunc.js
+// sql.telefunc.js
 // Environment: Node.js
 
 export { run }
@@ -248,7 +248,8 @@ async function run(sql) {
 }
 ```
 
-Because anyone can make this HTTP request:
+Our `run()` telefunction exposes our entire database to the world;
+anyone can make such HTTP request:
 
 ```bash
 curl https://our-website.com/_telefunc --data '{
@@ -257,12 +258,12 @@ curl https://our-website.com/_telefunc --data '{
   }'
 ```
 
-In a nuthsell: telefunctions are public and need protection.
+So, telefunctions are public and need protection.
 
-## `shield()` & `Abort()`
+## `Abort()` & `shield()`
 
 As we've seen in the previous section,
-the following telefunction is problematic.
+the following telefunction is not safe.
 
 ```js
 // run.telefunc.js
@@ -300,48 +301,31 @@ async function run(sql) {
 
 Also,
 since telefunctions are public and can be called by anyone,
-we cannot assuming anything about the arguments type.
-We could use `Abort()` again:
+we cannot assuming anything about the arguments.
 
 ```js
 // CreateTodo.telefunc.js
 // Environment: Node.js
 
 export async function onNewTodo(text) {
-  // Since `onNewTodo` can be called by anyone, `text` can be any value.
+  // While our frontend may always call `onNewTodo(text)` with `typeof text === 'string'`,
+  // `onNewTodo()` is public; anyone can call `onNewTodo(undefined)`.
 
-  // We make sure that `text` is a string
+  // This may throw:
+  //   Uncaught TypeError: Cannot read properties of undefined (reading 'toUpperCase')
+  text = text.toUpperCase()
+
+  // We can use `Abort()` to ensure that `text` is a string
   if (typeof text !== 'string') {
     throw Abort()
   }
 
   // We can now safely assume `text` to be a string
-  const todoItem = new Todo({ text })
-
-  /* ...*/
+  text = text.toUpperCase()
 }
 ```
 
-But for more complex arguments, `Abort()` is cumbersome:
-
-```js
-// CreateTodo.telefunc.js
-// Environment: Node.js
-
-export async function onNewTodo(args) {
-  if (
-    args?.constructor !== Object ||
-    typeof args.text !== 'string' ||
-    typeof args.isCompleted !== 'boolean'
-  ) {
-    throw Abort()
-  }
-  const { text, isCompleted } = args
-  /* ... */
-}
-```
-
-We can use `shield()` instead:
+For more convenience we can use `shield()` instead of `Abort()`:
 
 ```js
 // CreateTodo.telefunc.js
@@ -350,13 +334,13 @@ We can use `shield()` instead:
 import { shield } from 'telefunc'
 const t = shield.type
 
-shield(onNewTodo, [{text: t.string, isCompleted: t.boolean}])
-export async function onNewTodo({ text, isCompleted }) {
-  /* ... */
+shield(onNewTodo, [text: t.string])
+export async function onNewTodo(text) {
+  // ...
 }
 ```
 
-Not only does `shield()` call `new Abort()` on our behalf, but it also infers the arguments type for TypeScript and IntelliSense.
+Not only does `shield()` call `new Abort()` on our behalf, but it also infers the arguments type for IntelliSense and TypeScript.
 
 ## Authentication
 
@@ -429,7 +413,7 @@ async function onTextChange(id, text) {
 }
 ```
 
-If we want to pass information to the frontend,
+But, if we want to pass information to the frontend,
 we `return` instead of `throw Abort()`:
 
 ```js
@@ -466,7 +450,7 @@ export async function onFormSubmit(email, password) {
   if (password.length<8) {
     return { passwordInvalid: "Password is too short: it should have at least 8 charachters." }
   }
-  /* ... */
+  // ...
 }
 ```
 
@@ -587,15 +571,15 @@ export async function onCompleteToggle(id) {
 ```
 
 The telefunctions of `TodoItem.telefunc.js` are determined by the needs of `TodoItem.jsx`;
-it is the frontend development/developer that owns telefunctions.
+it is the frontend development/developers that own telefunctions.
 
-This is the opposite of GraphQL/REST where it is the backend development/developer that owns the GraphQL/RESTful API.
+This is the opposite of GraphQL/REST where it is the backend development/developers that own the GraphQL/RESTful API.
 
 This inversion of control leads to a fundamentally improved separation of concerns.
 
 ## TypeScript
 
-`shield()` infers the arguments type:
+`shield()` infers the arguments' type:
 
 ```ts
 // UserSettings.telefunc.js

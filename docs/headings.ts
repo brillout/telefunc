@@ -52,11 +52,6 @@ export const headings: HeadingDefinition[] = [
   },
   {
     level: 2,
-    title: '`Abort()` & `shield()`',
-    url: '/shield',
-  },
-  {
-    level: 2,
     title: 'Permissions & validation',
     url: '/permissions',
   },
@@ -91,7 +86,49 @@ export const headings: HeadingDefinition[] = [
   },
   {
     level: 1,
+    title: 'API',
+    titleEmoji: 'gear',
+  },
+  {
+    level: 4,
+    title: 'Protection',
+  },
+  {
+    level: 2,
+    title: '`shield()`',
+    url: '/shield',
+  },
+  {
+    level: 2,
+    title: '`Abort()`',
+    url: '/Abort',
+  },
+  {
+    level: 4,
+    title: 'Context',
+  },
+  {
+    level: 2,
+    title: '`getContext()`',
+    url: '/getContext',
+  },
+  {
+    level: 2,
+    title: '`setContext()`',
+    url: '/setContext',
+  },
+  {
+    level: 4,
     title: 'Integration',
-    titleEmoji: 'plug',
+  },
+  {
+    level: 2,
+    title: '`createTelefuncCaller()`',
+    url: '/createTelefuncCaller',
+  },
+  {
+    level: 2,
+    title: '`config',
+    url: '/config',
   },
 ]
