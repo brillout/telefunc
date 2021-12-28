@@ -62,11 +62,6 @@ export const headings: HeadingDefinition[] = [
   },
   {
     level: 2,
-    title: 'Inversion of control',
-    url: '/inversion-of-control',
-  },
-  {
-    level: 2,
     title: 'File structure',
     url: '/file-structure',
   },

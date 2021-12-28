@@ -13,4 +13,5 @@ setFrame({
   headingsWithoutLink,
   navHeader: <NavHeader />,
   navHeaderMobile: <NavHeaderMobile />,
+  titleNormalCase: true,
 })
