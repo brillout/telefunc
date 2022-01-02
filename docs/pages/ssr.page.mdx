@@ -1,0 +1,40 @@
+Telefunc has seemless support for 
+
+If we deploy to a Node.js production server,
+then SSR works out-of-the-box and there is nothing special we.
+
+> 
+
+If we deploy our telefunction
+
+
+If 
+
+## Edge Computing
+
+## Cloudflare Workers
+
+Telefunc has first-class support for SSR (Server-Side Rendering).
+
+Dependening on your deploy target,
+there are several SSR strategies:
+
+If we don't use `getContext()` then we don't need and just works as we expect.
+
+But we if we use `getContext()` then we need to use a mechanism to provide the context.
+
+Strategy | Mutation-only | No Context | Production Node.js Server | Edge Computing
+-|-|-
+No Context | X | X
+Mutation-only | X | X
+Async Hooks | X | X
+Telefunc Component | X | X
+
+- Node.js production server => Async Hooks
+- Edge Computing (Cloudflare Workers, Deno Deploy, ...) => Telefunc Component
+
+## Strategy: Async Hooks
+
+## Strategy: Mutation-only
+
+The easiest way to use SSR.

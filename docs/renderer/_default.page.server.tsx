@@ -8,6 +8,7 @@ import { NavHeader, NavHeaderMobile } from './NavHeader'
 
 setFrame({
   projectInfo,
+  algolia: null,
   logoUrl,
   headings,
   headingsWithoutLink,

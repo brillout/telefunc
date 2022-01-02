@@ -1,7 +1,145 @@
 import { Link } from 'libframe-docs/components'
 
-As we have seen in the <Link text="Telefunc Tour" href="/tour" />,
-telefunctions are public can be called by anyone.
-We use `shield()` to ensure the type of telefunction arguments.
+We use `shield()` to assert telefunction arguments.
+(As we have seen in the <Link text="Telefunc Tour" href="/tour" />,
+telefunctions are public and anyone can call them with any arguments.)
 
-TODO
+## Common `shield()` types
+
+Examples showcasing the most common types:
+
+```js
+// TodoList.telefunc.js
+// Environment: Node.js
+
+import { shield } from 'telefunc'
+const t = shield.type
+
+shield(onTextChange, [t.number, t.string])
+async function onTextChange(id, text) {
+  // typeof id === 'number'
+  // typeof text === 'string'
+}
+
+shield(onCompletedToggle, [{ id: t.number, isCompleted: t.boolean }])
+async function onCompletedToggle({ id, isCompleted }) {
+  // typeof id === 'number'
+  // typeof isCompleted === 'boolean'
+}
+
+shield(onTagListChange, [t.array(t.string)])
+async function onTagListChange(tagList) {
+  // tagList.every(tagName => typeof tagName === 'string')
+}
+
+shield(onNewMilestone, [{
+  name: t.string,
+  deadline: t.nullable(t.date),
+  ownerId: t.optional(t.number)
+}])
+async function onNewMilestone({ name, deadline, ownerId }) {
+  // typeof name === 'string'
+  // deadline === null || deadline.constructor === Date
+  // ownerId === undefined || typeof ownerId === 'number'
+}
+
+shield(onStatusChange, [t.or(
+  t.const('DONE'),
+  t.const('PROGRESS'),
+  t.const('POSTPONED')
+)])
+async function onStatusChange(status) {
+  // status === 'DONE' || status === 'PROGRESS' || status === 'POSTPONED'
+}
+```
+
+## TypeScript
+
+We can infer the corresponding TypeScript type by using `typeof`:
+
+```ts
+// Todo.ts
+
+import { shield } from 'telefunc'
+const t = shield.type
+
+// We use `TodoItemShield` for telefunctions
+export { TodoItemShield }
+// We use `TodoItem` for TypeScript
+export type { TodoItem }
+
+// We use `typeof` to avoid duplication and keep a single source of truth
+type TodoItem = typeof TodoItemShield
+
+const TodoItemShield = {
+  id: t.number,
+  text: t.string,
+  isCompleted: t.boolean
+}
+```
+```ts
+// TodoItem.telefunc.js
+
+import { TodoItemShield } from './TodoItem'
+
+// We can use `shield()` as usual
+shield(onTodoItemChange, TodoItemShield)
+async function onTodoItemChange({ id, text, isCompleted }) {
+  // typeof id === 'number'
+  // ...
+}
+```
+
+## Composition
+
+We can comopse `shield()` types.
+
+```js
+// Todo.ts
+
+import { shield } from 'telefunc'
+const t = shield.type
+
+export { TodoItemShield }
+
+const TodoItemShield = {
+  id: t.number,
+  text: t.string,
+  isCompleted: t.boolean
+}
+```
+```js
+// TodoListEditor.telefunc.js
+
+import { shield } from 'telefunc'
+const t = shield.type
+import { TodoItemShield } from './TodoItem'
+
+shield(onBulkChange, t.array(TodoItemShield))
+async function onBulkChange(todoItems) {
+ todoItems.forEach(todoItem => {
+    // typeof todoItem.id === 'number'
+    // ...
+ })
+}
+```
+
+## All `shield()` types
+
+`shield()` | TypeScript | JavaScript
+-|-|-
+`t.string` | `string` | `typeof value === 'string'`
+`t.number` | `number` | `typeof value === 'number'`
+`t.boolean` | `boolean` | <code>value === true &#x7c;&#x7c; value === false</code>
+`t.date` | `date` | `value.constructor === Date`
+`{ [key]: T }` | <code>{ [key]: T }</code> | <code>isT(value[key])</code>
+`t.array` | `any[]` | `value.constructor === Array`
+`t.arrayOf(T)` | `T[]` | `value.every(element => isT(element))`
+`t.object` | `Record<string, any>` | `value.constructor === Object`
+`t.objectOf(T)` | `Record<string, T>` | `Object.values(value).every(v => isT(v))`
+`t.or(T1, T2, ...)` | <code>T1 &#x7c; T2 &#x7c; ...</code> | <code>isT1(value) &#x7c;&#x7c; isT2(value) &#x7c;&#x7c; ...</code>
+`t.tuple(T1, T2, ...)` | `[T1, T2, ...]` | `isT1(value[0]) && isT2(value[1]) && ...`
+`t.const(val)` | `val as const` | `value === val`
+`t.optional(T)` | <code>T &#x7c; undefined</code> | <code>isT(value) &#x7c;&#x7c; value === undefined</code>
+`t.nullable(T)` | <code>T &#x7c; null</code> | <code>isT(value) &#x7c;&#x7c; value === null</code>
+`t.any` | `any` | `true`

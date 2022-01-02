@@ -2,7 +2,7 @@ import { Link } from 'libframe-docs/components'
 
 > We recommend taking the <Link text="Telefunc Tour" href="/tour" /> before reading this.
 
-## With `Abort()`
+## `Abort()`
 
 In general, we use `Abort()` to ensure permissions:
 
@@ -25,7 +25,7 @@ export async function onCommentDelete(id) {
 }
 ```
 
-We also use `Abort()` even if our frontend always calls telefunctions with the right permissions.
+We use `Abort()` even if our frontend always calls telefunctions with the right permissions:
 
 ```jsx
 // Comment.jsx
@@ -60,8 +60,29 @@ the call will be aborted.
 
 In other words, we use `Abort()` to protect against unexpected calls (calls not originating from our frontend, or if our frontend has a bug).
 
+## `shield()`
 
-## With `return`
+For more convenience we can use `shield()` instead of `throw Abort()` to ensure the arguments' type.
+
+```js
+// Comment.telefunc.js
+// Environment: Node.js
+
+import { shield } from 'telefunc'
+
+shield(onCommentDelete, [shield.type.number])
+export async function onCommentDelete(id) {
+  // `shield()` ensures that `id` is a number
+
+  // ...
+}
+```
+
+Not only does `shield()` call `throw Abort()` on our behalf, but it also infers the arguments' type for IntelliSense and TypeScript.
+
+> <Link href="/shield" /> lists all <code>shield()</code> types. (<code>shield.type.string</code>, <code>shield.type.number</code>, <code>shield.type.array()</code>, ...)
+
+## `return`
 
 If it is expected that our frontend can sometimes make calls without the right permissions,
 we `return` instead of `throw Abort()`.

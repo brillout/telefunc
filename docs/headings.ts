@@ -76,6 +76,11 @@ export const headings: HeadingDefinition[] = [
   },
   {
     level: 2,
+    title: 'SSR (Server-Side Rendering)',
+    url: '/ssr',
+  },
+  {
+    level: 2,
     title: 'Telefunc Server',
     url: '/telefunc-server',
   },

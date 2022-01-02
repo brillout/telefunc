@@ -340,7 +340,9 @@ export async function onNewTodo(text) {
 }
 ```
 
-Not only does `shield()` call `new Abort()` on our behalf, but it also infers the arguments type for IntelliSense and TypeScript.
+Not only does `shield()` call `throw Abort()` on our behalf, but it also infers the arguments' type for IntelliSense and TypeScript.
+
+> <Link href="/shield" /> lists all <code>shield()</code> types. (<code>shield.type.string</code>, <code>shield.type.number</code>, <code>shield.type.array()</code>, ...)
 
 ## Authentication
 
