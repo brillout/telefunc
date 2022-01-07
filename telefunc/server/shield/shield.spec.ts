@@ -74,6 +74,12 @@ test('shield - unit', () => {
   {
     const telefunction = withShield([{ a: { b: { c: t.const(42) } } }], (_a) => {})
     expect(shieldApply(telefunction, [{ a: { b: { d: 42 } } }])).toBe(
+      '[root] > [tuple: element 0] > [object: value of key `a`] > [object: value of key `b`] > [object: value of key `c`] is `undefined` but should be `42`.',
+    )
+  }
+  {
+    const telefunction = withShield([{ a: { b: { c: t.const(42) } } }], (_a) => {})
+    expect(shieldApply(telefunction, [{ a: { b: { c: 42, d: 42 } } }])).toBe(
       '[root] > [tuple: element 0] > [object: value of key `a`] > [object: value of key `b`] > [object: value of key `d`] is `42` but should be `undefined`.',
     )
   }
