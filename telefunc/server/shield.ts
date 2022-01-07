@@ -4,13 +4,14 @@ import { isCallable } from './utils/isCallable'
 import { assert, assertUsage } from '../shared/utils/assert'
 
 export { shield }
+export { withShield }
 export { shieldIsMissing }
 export { shieldApply }
 export { shieldToHumandReadable }
 
-type ShieldFunction = <T extends unknown[], T2 extends [...T]>(
-  telefunction: (...args: T2) => unknown,
-  telefunctionShield: T2,
+type ShieldFunction = <ArgsArray extends unknown[], ArgsTuple extends [...ArgsArray]>(
+  telefunction: (...args: ArgsTuple) => unknown,
+  telefunctionShield: ArgsTuple,
 ) => void
 type Type = typeof type
 
@@ -22,6 +23,14 @@ const shield = <ShieldFunction & { type: Type }>function (telefunction, telefunc
   ;(telefunction as any as Record<any, unknown>)[_shield as any] = telefunctionShield
 }
 type Telefunction = Function
+
+function withShield<ArgsArray extends unknown[], ArgsTuple extends [...ArgsArray]>(
+  telefunctionShield: ArgsTuple,
+  telefunction: (...args: ArgsTuple) => unknown,
+) {
+  shield(telefunction, telefunctionShield)
+  return telefunction
+}
 
 function shieldIsMissing(telefunction: Telefunction): boolean {
   const telefunctionShield = getTelefunctionShield(telefunction)
@@ -66,7 +75,7 @@ function StringBetter(thing: unknown): string {
 function verifyOuter(verifier: unknown, args: unknown): true | string {
   assert(Array.isArray(args))
   if (Array.isArray(verifier)) {
-    verifier = shield.type.tuple(verifier)
+    verifier = shield.type.tuple(...verifier)
     assert(isVerifierTuple(verifier))
   }
   if (isVerifierTuple(verifier)) {
@@ -90,12 +99,16 @@ function verifyRecursive(verifier: unknown, arg: unknown, breadcrumbs: string): 
     return verifyObject(obj, arg, breadcrumbs)
   }
 
+  if (verifier === undefined) {
+    return (shield.type.const(undefined) as any as Verifier)(arg, breadcrumbs)
+  }
+
   const errorPrefix = `[shield()] Bad shield definition: ${breadcrumbs}`
   const errorSuffix = `See https://telefunc.com/shield`
   assertUsage(
     !Array.isArray(verifier),
     errorPrefix +
-      ' is a plain JavaScript array which is forbidden: use `shield.type.tuple([])` instead of `[]`. ' +
+      ' is a plain JavaScript array which is forbidden: use `shield.type.tuple()` instead of `[]`. ' +
       errorSuffix,
   )
   assertUsage(
@@ -111,7 +124,7 @@ function verifyObject(obj: Record<string, unknown>, arg: unknown, breadcrumbs: s
     return errorMessage(breadcrumbs, getTypeName(arg), 'object')
   }
   for (const key of unique([...Object.keys(obj), ...Object.keys(arg)])) {
-    const res = verifyRecursive(obj[key], arg[key], `${breadcrumbs} > [object value of key \`${key}\`]`)
+    const res = verifyRecursive(obj[key], arg[key], `${breadcrumbs} > [object: value of key \`${key}\`]`)
     if (res !== true) {
       return res
     }
@@ -132,7 +145,7 @@ const type = (() => {
     verifier.toString = () => elements.map((el) => StringBetter(el)).join('|')
     return verifier as any
   }
-  const tuple = <T extends unknown[]>(elements: [...T]): T => {
+  const tuple = <T extends unknown[]>(...elements: T): T => {
     const verifier = (input: unknown, breadcrumbs: string) => {
       if (!Array.isArray(input)) {
         return errorMessage(breadcrumbs, getTypeName(input), 'tuple')
@@ -140,9 +153,9 @@ const type = (() => {
       const errorMessages = [...Array(Math.max(input.length, elements.length)).keys()]
         .map((i) =>
           verifyRecursive(
-            i > elements.length - 1 ? type.undefined : elements[i],
+            i > elements.length - 1 ? type.const(undefined) : elements[i],
             input[i],
-            `${breadcrumbs} > [tuple element ${i}]`,
+            `${breadcrumbs} > [tuple: element ${i}]`,
           ),
         )
         .filter((res) => res !== true)
@@ -180,8 +193,32 @@ const type = (() => {
     }
     return verifier as any
   }
+  const object = <T>(objectType: T): Record<string, T> => {
+    const verifier = (input: unknown, breadcrumbs: string) => {
+      if (typeof input !== 'object' || input === null || input.constructor !== Object) {
+        return errorMessage(breadcrumbs, getTypeName(input), 'object')
+      }
+      const errorMessages = Object.entries(input)
+        .map(([key, val]) => verifyRecursive(objectType, val, `${breadcrumbs} > [object: value of key \`${key}\`]`))
+        .filter((res) => res !== true)
+      if (errorMessages.length === 0) {
+        return true
+      }
+      return errorMessages[0]
+    }
+    markVerifier(verifier)
+    verifier.toString = () => {
+      let s = StringBetter(objectType)
+      if (s.includes(',')) {
+        s = `(${s})`
+      }
+      s = `Record<string, ${s}}`
+      return s
+    }
+    return verifier as any
+  }
 
-  const value = <T extends Readonly<number> | Readonly<string> | Readonly<boolean> | undefined | null>(val: T): T => {
+  const const_ = <T extends Readonly<number> | Readonly<string> | Readonly<boolean> | undefined | null>(val: T): T => {
     const verifier = (input: unknown, breadcrumbs: string) =>
       input === val ? true : errorMessage(breadcrumbs, String(input), String(val))
     markVerifier(verifier)
@@ -203,22 +240,43 @@ const type = (() => {
     verifier.toString = () => 'number'
     return verifier as any
   })()
+  const boolean = ((): boolean => {
+    const verifier = (input: unknown, breadcrumbs: string) =>
+      input === true || input === false ? true : errorMessage(breadcrumbs, getTypeName(input), 'boolean')
+    markVerifier(verifier)
+    verifier.toString = () => 'boolean'
+    return verifier as any
+  })()
+  const date = ((): Date => {
+    const verifier = (input: unknown, breadcrumbs: string) =>
+      typeof input === 'object' && input !== null && input.constructor === Date
+        ? true
+        : errorMessage(breadcrumbs, getTypeName(input), 'date')
+    markVerifier(verifier)
+    verifier.toString = () => 'date'
+    return verifier as any
+  })()
+
+  const any = ((): any => {
+    const verifier = () => true as const
+    markVerifier(verifier)
+    verifier.toString = () => 'date'
+    return verifier as any
+  })()
 
   return {
     string,
     number,
-    or,
-    union: or,
-    tuple,
+    boolean,
+    date,
     array,
-    value,
-    true: value(true),
-    false: value(false),
-    null: value(null),
-    undefined: value(undefined),
-    optional: <T>(param: T): T | undefined => or(param, value(undefined)),
-    nullable: <T>(param: T): T | null => or(param, value(null)),
-    object: <T extends Record<string, unknown>>(param: T): T => param,
+    object,
+    or,
+    tuple,
+    const: const_,
+    optional: <T>(param: T): T | undefined => or(param, const_(undefined)),
+    nullable: <T>(param: T): T | null => or(param, const_(null)),
+    any,
   }
 })()
 shield.type = type

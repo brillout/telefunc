@@ -2,11 +2,11 @@ import { Link } from 'libframe-docs/components'
 
 We use `shield()` to assert telefunction arguments.
 (As we have seen in the <Link text="Telefunc Tour" href="/tour" />,
-telefunctions are public and anyone can call them with any arguments.)
+telefunctions are public and need protection.)
 
-## Common `shield()` types
+## Common types
 
-Examples showcasing the most common types:
+Examples showcasing the most common `shield()` types:
 
 ```js
 // TodoList.telefunc.js
@@ -83,7 +83,7 @@ const TodoItemShield = {
 import { TodoItemShield } from './TodoItem'
 
 // We can use `shield()` as usual
-shield(onTodoItemChange, TodoItemShield)
+shield(onTodoItemChange, [TodoItemShield])
 async function onTodoItemChange({ id, text, isCompleted }) {
   // typeof id === 'number'
   // ...
@@ -115,7 +115,7 @@ import { shield } from 'telefunc'
 const t = shield.type
 import { TodoItemShield } from './TodoItem'
 
-shield(onBulkChange, t.array(TodoItemShield))
+shield(onBulkChange, [t.array(TodoItemShield)])
 async function onBulkChange(todoItems) {
  todoItems.forEach(todoItem => {
     // typeof todoItem.id === 'number'
@@ -124,19 +124,19 @@ async function onBulkChange(todoItems) {
 }
 ```
 
-## All `shield()` types
+## All types
+
+List of all `shield()` types.
 
 `shield()` | TypeScript | JavaScript
 -|-|-
 `t.string` | `string` | `typeof value === 'string'`
 `t.number` | `number` | `typeof value === 'number'`
 `t.boolean` | `boolean` | <code>value === true &#x7c;&#x7c; value === false</code>
-`t.date` | `date` | `value.constructor === Date`
-`{ [key]: T }` | <code>{ [key]: T }</code> | <code>isT(value[key])</code>
-`t.array` | `any[]` | `value.constructor === Array`
-`t.arrayOf(T)` | `T[]` | `value.every(element => isT(element))`
-`t.object` | `Record<string, any>` | `value.constructor === Object`
-`t.objectOf(T)` | `Record<string, T>` | `Object.values(value).every(v => isT(v))`
+`t.date` | `Date` | `value.constructor === Date`
+`t.array(T)` | `T[]` | `value.every(element => isT(element))`
+`t.object(T)` | `Record<string, T>` | `Object.values(value).every(v => isT(v))`
+`{k1: T1, k2: T2, ...}` | <code>{k1: T1, k2: T2, ...}</code> | <code>isT1(value.k1) && isT2(value.k2) && ...</code>
 `t.or(T1, T2, ...)` | <code>T1 &#x7c; T2 &#x7c; ...</code> | <code>isT1(value) &#x7c;&#x7c; isT2(value) &#x7c;&#x7c; ...</code>
 `t.tuple(T1, T2, ...)` | `[T1, T2, ...]` | `isT1(value[0]) && isT2(value[1]) && ...`
 `t.const(val)` | `val as const` | `value === val`

@@ -1,12 +1,12 @@
 import { checkType } from '../utils'
-import { shield, shieldApply, shieldToHumandReadable } from '../shield'
+import { shield, withShield, shieldApply, shieldToHumandReadable } from '../shield'
 
 test('shield - basic', () => {
   shield(onNewTodoItem, [shield.type.string])
   function onNewTodoItem(_text: string) {}
   expect(shieldApply(onNewTodoItem, ['a'])).toBe(true)
-  expect(shieldApply(onNewTodoItem, [1])).toBe('[root] > [tuple element 0] is `number` but should be `string`.')
-  expect(shieldApply(onNewTodoItem, [])).toBe('[root] > [tuple element 0] is `undefined` but should be `string`.')
+  expect(shieldApply(onNewTodoItem, [1])).toBe('[root] > [tupe: element 0] is `number` but should be `string`.')
+  expect(shieldApply(onNewTodoItem, [])).toBe('[root] > [tupe: element 0] is `undefined` but should be `string`.')
 })
 
 test('shield - human readable', () => {
@@ -29,7 +29,7 @@ test('shield - unit', () => {
     expect(shieldApply(telefunction, ['a', undefined])).toBe(true)
     expect(shieldApply(telefunction, ['a', undefined, undefined])).toBe(true)
     expect(shieldApply(telefunction, ['a'])).toBe(true)
-    expect(shieldApply(telefunction, ['a', false])).toBe('[root] > [tuple element 1] is of wrong type')
+    expect(shieldApply(telefunction, ['a', false])).toBe('[root] > [tupe: element 1] is of wrong type')
   }
 
   {
@@ -38,8 +38,8 @@ test('shield - unit', () => {
     expect(shieldApply(telefunction, ['a', 1])).toBe(true)
     expect(shieldApply(telefunction, ['a', null])).toBe(true)
     expect(shieldApply(telefunction, ['a', null, undefined])).toBe(true)
-    expect(shieldApply(telefunction, ['a', undefined])).toBe('[root] > [tuple element 1] is of wrong type')
-    expect(shieldApply(telefunction, ['a'])).toBe('[root] > [tuple element 1] is of wrong type')
+    expect(shieldApply(telefunction, ['a', undefined])).toBe('[root] > [tupe: element 1] is of wrong type')
+    expect(shieldApply(telefunction, ['a'])).toBe('[root] > [tupe: element 1] is of wrong type')
   }
 
   {
@@ -47,28 +47,47 @@ test('shield - unit', () => {
     shield(telefunction, [t.or(t.string, t.number)])
     expect(shieldApply(telefunction, ['a'])).toBe(true)
     expect(shieldApply(telefunction, [1])).toBe(true)
-    expect(shieldApply(telefunction, [1, 1])).toBe('[root] > [tuple element 1] is `1` but should be `undefined`.')
+    expect(shieldApply(telefunction, [1, 1])).toBe('[root] > [tupe: element 1] is `1` but should be `undefined`.')
   }
 
   {
     const telefunction = (...[]: [{ a: [string, number] }]) => {}
-    shield(telefunction, [t.object({ a: t.tuple([t.string, t.number]) })])
+    shield(telefunction, [{ a: t.tuple(t.string, t.number) }])
     expect(shieldApply(telefunction, [{ a: ['', 0] }])).toBe(true)
     expect(shieldApply(telefunction, [{}])).toBe(
-      '[root] > [tuple element 0] > [object value of key `a`] is `undefined` but should be `tuple`.',
+      '[root] > [tupe: element 0] > [object: value of key `a`] is `undefined` but should be `tuple`.',
+    )
+  }
+
+  {
+    const telefunction = withShield([t.object(t.number)], (_a) => {})
+    expect(shieldApply(telefunction, [{ k: 'some string' }])).toBe(
+      '[root] > [tupe: element 0] > [object: value of key `k`] is `string` but should be `number`.',
+    )
+  }
+  {
+    const telefunction = withShield([{ a: { b: { c: t.const(42) } } }], (_a) => {})
+    expect(shieldApply(telefunction, [{ a: { b: { c: 'some string' } } }])).toBe(
+      '[root] > [tupe: element 0] > [object: value of key `a`] > [object: value of key `b`] > [object: value of key `c`] is `some string` but should be `42`.',
+    )
+  }
+  {
+    const telefunction = withShield([{ a: { b: { c: t.const(42) } } }], (_a) => {})
+    expect(shieldApply(telefunction, [{ a: { b: { d: 42 } } }])).toBe(
+      '[root] > [tupe: element 0] > [object: value of key `a`] > [object: value of key `b`] > [object: value of key `d`] is `42` but should be `undefined`.',
     )
   }
 })
 
 const t = shield.type
-const myTelefunctionShield = t.tuple([
+const myTelefunctionShield = t.tuple(
   { a: t.number },
-  t.or(t.string, t.number, t.null, {
+  t.or(t.string, t.number, t.const(null), {
     b: t.number,
-    arr: t.tuple([t.number, t.undefined, t.or(t.value(1), t.value(true))]),
+    arr: t.tuple(t.number, t.const(undefined), t.or(t.const(1), t.const(true))),
   }),
   t.optional(t.array(t.number)),
-])
+)
 test('shield - full', () => {
   shield(myTelefunction, myTelefunctionShield)
   function myTelefunction(...[]: any) {}
@@ -77,10 +96,10 @@ test('shield - full', () => {
   expect(shieldApply(myTelefunction, [{ a: -Infinity }, { b: 42, arr: [1, undefined, true] }, [22, 33, 44]])).toBe(true)
   expect(shieldApply(myTelefunction, [{ a: 0 }, ''])).toBe(true)
   expect(shieldApply(myTelefunction, [{ a: '' }])).toBe(
-    '[root] > [tuple element 0] > [object value of key `a`] is `string` but should be `number`.',
+    '[root] > [tupe: element 0] > [object: value of key `a`] is `string` but should be `number`.',
   )
-  expect(shieldApply(myTelefunction, [{ a: 0 }])).toBe('[root] > [tuple element 1] is of wrong type')
-  expect(shieldApply(myTelefunction, [])).toBe('[root] > [tuple element 0] is `undefined` but should be `object`.')
+  expect(shieldApply(myTelefunction, [{ a: 0 }])).toBe('[root] > [tupe: element 1] is of wrong type')
+  expect(shieldApply(myTelefunction, [])).toBe('[root] > [tupe: element 0] is `undefined` but should be `object`.')
 })
 
 function testTypescriptBasics() {
