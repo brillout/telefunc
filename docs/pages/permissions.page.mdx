@@ -2,83 +2,44 @@ import { Link } from 'libframe-docs/components'
 
 TODO
 
-> We recommend taking the <Link text="Telefunc Tour" href="/tour" /> before reading this document.
+> Telefunctions are public and need protection.
+> If you don't know why that is, then check out <Link href="/tour" />.
 
-## With `Abort()`
 
-We use `throw Abort()` to ensure permissions:
+## `Abort()`
+
+We define permissions by using `throw new Abort()`.
 
 ~~~js
-// Comment.telefunc.js
+// posts.telefunc.js
 // Environment: Node.js
 
-import { getContext, Abort, shield } from 'telefunc'
+import { getContext, Abort } from 'telefunc'
 
-shield(onCommentDelete, [shield.type.number])
-export async function onCommentDelete(id) {
-  const { user } = getContext()
+export { deletePost }
 
-  // We ensure that the user is an admin
-  if( !user?.isAdmin ) {
-    throw Abort()
+async function deletePost(id) {
+  // See the guide "Authentication" for an introduction about `getContext()`
+  const context = getContext()
+
+  // Only admins should be able to delete posts
+  if( !context.user?.isAdmin ) {
+    // The user is not an admin — we abort
+    throw new Abort()
   }
 
   // ...
 }
 ~~~
 
-With following frontend:
+## Telefunctions are public
 
-```jsx
-// Comment.jsx
-// Environment: Browser
+## `Abort()` or `return`
 
-import { onCommentDelete } from './Comment.telefunc.js'
+There are situations where we don't want to `Abort()` upon wrong permissions. For example:
 
-function Comment({ id, text, context }) {
-  const deleteButton = <button onClick={() => onCommentDelete(id)}>Delete</button>
-  return <>
-    <p>{ text }</p>
-    { !context.user.isAdmin ? deleteButton : null }
-  </>
-}
-```
-
-This means that the delete button is only shown to admins:
-when our frontend calls `onCommentDelete()` we can assume the user to be an admin.
-
-If we can assume the user to be an admin, we do we need to `throw Abort()` then?
-
-If our `onCommentDelete()` is only called from our frontend, then we could actually skip our `throw Abort()` condition.
-
-But,
-as we have seen in the <Link text="Telefunc Tour" href="/tour" />,
-our `onCommentDelete()` telefunction can be called not only by our frontend but really by anyone
-and that's why we need to use `throw Abort()`:
-it could be that a malicious user without admin priviledges tries to call `onCommentDelete()` our `throw Abort()` condition ensures that this doesn't happen.
-
-it ensures that, not matter who calls `onCommentDelete()` the user is an admin.
-
-To sum up: if our `onCommentDelete()` telefunction is always called by our frontend, and our app is bug-free,
-then we our `Abort()` is never called.
-
-In a nutshell: `Abort()` protects our telefunctions from *unwanted* calls.
-
-For situations, we can simply `return` a value.
-There are situations when we actualy want
-
-As we have seen in the <Link text="Telefunc Tour" href="/tour" />,
-`shield()`
-We can assume, there is a bug-free or is called by another client than our frontend.
-We can 
-For the same reason 
-
-## With `return`
-
-Alternatively to `throw Abort()`, we can `return` a value.
-
-```js
-// *.telefunc.js
+~~~js
+// todo.telefunc.js
 // Environment: Node.js
 
 import { getContext } from 'telefunc'
@@ -89,57 +50,21 @@ export async function getTodoList() {
   // The user is not logged in
   if( !user ) {
     // It is expected that the user may not be logged-in (for example when the user's session
-    // expires). We `return { isNotLoggedIn: true }` instead of `throw Abort()` so that
+    // expires). We `return { isNotLoggedIn: true }` instead of `throw new Abort()` so that
     // the frontend know what's going on and can redirect the user to the login page.
     return { isNotLoggedIn : true }
   }
 
   // ...
 }
-```
-
-In contrast to our previous telefunction `onCommentDelete()`,
-here we actually expect our frontend to sometimes call `getTodoList()` without the right permissions.
-
-
-
-## Which one to use?
-
-The general idea here is that `throw Abort()` represents something unexpected:
-if one of our telefunction is called by our frontend
-if our app is bug-free then
-`throw Abort()` is never called if:
- - our app is bug-free, and
- - no third party is trying to call our telefunctions. (Our [telefunctions are public]())
-
-As we have seen in the Telefunc Tour, our telefunctions are public and thus any third party cann
-
-For example, in the `deleteComment()` telefunction above,
-we can assume our frontend to never call `deleteComment()` for a user that is not an admin.
-
-That said, in doubt,
-we can use whatever works for us.
-
-There are situations where we don't want to `Abort()` upon wrong permissions. For example:
-
-~~~js
 ~~~
 
-There is a bug
+Note that Telefunc doesn't provide finer-grained exceptions (`NotLoggedIn`, `InvalidFormInput`, ...) because for fine-grain control we simply return JavaScript values instead of throwing exceptions.
 
-Telefunc doesn't provide any exception other than `Abort()`, and `Abort()` doesn't accept any argument;
-if 
-Because for fine-grain control we simply return JavaScript values instead,
-which is more readable (we can see what simply by reading),
-less error-prone 
-This is 
-
-We either `throw Abort()` or `return someValue`.
+We either `throw new Abort()` or `return someValue`.
 
 
 
-
-> Behind the scenes, `shield()` calls `Abort()`
 
 
 
@@ -163,14 +88,9 @@ export async function onNewTodo(text) {
   // We use `Abort()` to, essentially, define permissions.
   if( user === null ) {
      // Only authenticated users can create a new to-do.
-     throw Abort()
+     throw new Abort()
   }
 
   /* ... */
 }
 ```
-
-
-
-> Note that we still use `shield()` which will `throw Abort()`
-
