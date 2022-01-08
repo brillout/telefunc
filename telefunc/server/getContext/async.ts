@@ -12,7 +12,13 @@ let contextStore: AsyncLocalStorage<Record<string, unknown>>
 installAsyncMode(getContext_async, getContextOrUndefined_async, provideContext_async, provideContextOrNull_async)
 
 function getContext_async<T = Record<string, unknown>>(): T {
-  assertUsage(contextStore, 'TODO')
+  assertUsage(
+    contextStore,
+    [
+      'You are calling `getContext()` but no context is available.',
+      `See ${isNodejs() ? 'https://telefunc.com/ssr' : 'https://telefunc.com/provideContext'}`,
+    ].join(' '),
+  )
   const context = contextStore.getStore()
   assertUsage(context !== undefined, 'TODO')
   assert(isObject(context))
@@ -31,4 +37,8 @@ function provideContextOrNull_async(_context: Record<string, unknown> | null): v
 }
 function getContextOrUndefined_async(): Record<string, unknown> | undefined {
   return undefined
+}
+
+function isNodejs(): boolean {
+  return typeof process !== 'undefined' && process.release.name === 'node'
 }
