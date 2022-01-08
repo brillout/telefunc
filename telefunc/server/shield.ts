@@ -9,17 +9,17 @@ export { shieldIsMissing }
 export { shieldApply }
 export { shieldToHumandReadable }
 
-type ShieldFunction = <ArgsArray extends unknown[], ArgsTuple extends [...ArgsArray]>(
-  telefunction: (...args: ArgsTuple) => unknown,
-  telefunctionShield: ArgsTuple,
-) => void
-type Type = typeof type
-
 const _shield = Symbol('_shield')
 const _isVerifier = Symbol('_isVerifier')
 const _isVerifierTuple = Symbol('_isVerifierTuple')
 
-const shield = <ShieldFunction & { type: Type }>function (telefunction, telefunctionShield) {
+const shield: {
+  <ArgsArray extends unknown[], ArgsTuple extends [...ArgsArray]>(
+    telefunction: (...args: ArgsTuple) => unknown,
+    telefunctionShield: ArgsTuple,
+  ): void
+  type: typeof type
+} = function (telefunction, telefunctionShield) {
   ;(telefunction as any as Record<any, unknown>)[_shield as any] = telefunctionShield
 }
 type Telefunction = Function
