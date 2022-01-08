@@ -29,7 +29,7 @@ async function startServer() {
 }
 
 async function installTelefunc(app, viteDevServer) {
-  const callTelefunc = await createTelefuncCaller({
+  const callTelefunc = createTelefuncCaller({
     isProduction,
     root,
     viteDevServer,

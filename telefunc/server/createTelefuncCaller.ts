@@ -1,14 +1,13 @@
 import type { ViteDevServer } from 'vite'
 import { assert, assertUsage } from './utils'
 import { HttpRequest, UserConfig, Telefunctions } from './types'
-import { installAsyncMode } from './getContext'
 import { callTelefunc } from './callTelefunc'
 import { assertArgs_createTelefuncCaller, assertArgs_callTelefunc } from './assertArgs'
 
 export { createTelefuncCaller }
 
 let alreadyCalled = false
-async function createTelefuncCaller({
+function createTelefuncCaller({
   isProduction,
   root,
   viteDevServer,
@@ -40,8 +39,6 @@ async function createTelefuncCaller({
     disableEtag,
   }
   assertArgs_createTelefuncCaller(userConfig, Array.from(arguments))
-
-  await installAsyncMode()
 
   /**
    * Get the HTTP response of a telefunction call.

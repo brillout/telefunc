@@ -4,7 +4,7 @@ import { assert } from '../../shared/utils'
 
 export { telefuncMiddleware }
 
-const callTelefuncPromise = createTelefuncCaller({
+const callTelefunc = createTelefuncCaller({
   isProduction: process.env.NODE_ENV === 'production',
   root: process.cwd(),
 })
@@ -20,8 +20,6 @@ const telefuncMiddleware = async (
     next?.()
     return
   }
-
-  let callTelefunc = await callTelefuncPromise
 
   const httpResponse = await callTelefunc({ url, method, body })
   assert(httpResponse)

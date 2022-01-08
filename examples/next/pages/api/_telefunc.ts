@@ -1,7 +1,7 @@
 import { createTelefuncCaller } from 'telefunc'
 import type { GetServerSidePropsContext } from 'next'
 
-const callTelefuncPromise = createTelefuncCaller({
+const callTelefunc = createTelefuncCaller({
   isProduction: process.env.NODE_ENV === 'production',
   root: process.cwd(),
   telefuncUrl: '/api/_telefunc',
@@ -11,8 +11,6 @@ export default async function _telefunc(
   req: GetServerSidePropsContext['req'] & { url: string; method: string; body: string },
   res: GetServerSidePropsContext['res'],
 ) {
-  let callTelefunc = await callTelefuncPromise
-
   const { url, method, body } = req
 
   const httpResponse = await callTelefunc({ url, method, body })

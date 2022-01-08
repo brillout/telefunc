@@ -11,7 +11,7 @@ async function startServer() {
 
   app.use(express.static(`${root}/dist`))
 
-  const callTelefunc = await createTelefuncCaller({ isProduction, root })
+  const callTelefunc = createTelefuncCaller({ isProduction, root })
   app.use(express.text())
   app.all('/_telefunc', async (req, res, next) => {
     const { originalUrl: url, method, body } = req

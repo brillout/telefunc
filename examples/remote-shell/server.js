@@ -1,5 +1,6 @@
 const express = require('express')
 const { createTelefuncCaller, provideContext } = require('telefunc')
+require('telefunc/async_hooks')
 
 const isProduction = process.env.NODE_ENV === 'production'
 const root = __dirname
@@ -20,7 +21,7 @@ async function startServer() {
     })
   }
 
-  const callTelefunc = await createTelefuncCaller({ viteDevServer, isProduction, root })
+  const callTelefunc = createTelefuncCaller({ viteDevServer, isProduction, root })
   app.use(express.text())
   app.all('/_telefunc', async (req, res, next) => {
     const { originalUrl: url, method, body, headers } = req

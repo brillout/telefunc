@@ -1,5 +1,6 @@
-import { assertUsage, assert, isObject } from '../utils'
 import { AsyncLocalStorage } from 'async_hooks'
+import { assertUsage, assert, isObject } from '../utils'
+import { installAsyncMode } from '../getContext'
 
 export { getContext_async }
 export { getContextOrUndefined_async }
@@ -7,6 +8,8 @@ export { provideContext_async }
 export { provideContextOrNull_async }
 
 let contextStore: AsyncLocalStorage<Record<string, unknown>>
+
+installAsyncMode(getContext_async, getContextOrUndefined_async, provideContext_async, provideContextOrNull_async)
 
 function getContext_async<T = Record<string, unknown>>(): T {
   assertUsage(contextStore, 'TODO')

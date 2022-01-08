@@ -21,6 +21,9 @@
       "node": "./dist/cjs/server/index.js",
       "browser": "./dist/cjs/server/client.js"
     },
+    "./async_hooks": {
+      "node": "./dist/cjs/server/async_hooks.js"
+    },
     "./client": {
       "browser": "./dist/esm/client/index.js",
       "node": "./dist/cjs/client/index.js"
