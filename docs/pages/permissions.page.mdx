@@ -4,7 +4,7 @@ import { Link } from 'libframe-docs/components'
 
 ## `Abort()`
 
-In general, we use `Abort()` to ensure permissions:
+We use `Abort()` to ensure permissions:
 
 ```js
 // Comment.telefunc.js
@@ -25,7 +25,7 @@ export async function onCommentDelete(id) {
 }
 ```
 
-We use `Abort()` even if our frontend always calls telefunctions with the right permissions:
+We use `Abort()` even if our frontend calls telefunctions always with the right permissions:
 
 ```jsx
 // Comment.jsx
@@ -53,38 +53,15 @@ we can assume the user to be an admin.
 But we still use `Abort()`:
 as we have seen in the <Link text="Telefunc Tour" href="/tour" />,
 our telefunctions can be called not only by our frontend but really by anyone.
-A malicious user can try to call `onCommentDelete()` without admin priviledges;
-but,
-thanks to our `throw Abort()`,
-the call will be aborted.
+A malicious user can call `onCommentDelete()` without admin priviledges;
+but thanks to our `throw Abort()` the call is aborted.
 
 In other words, we use `Abort()` to protect against unexpected calls (calls not originating from our frontend, or if our frontend has a bug).
 
-## `shield()`
-
-For more convenience we can use `shield()` instead of `throw Abort()` to ensure the arguments' type.
-
-```js
-// Comment.telefunc.js
-// Environment: Node.js
-
-import { shield } from 'telefunc'
-
-shield(onCommentDelete, [shield.type.number])
-export async function onCommentDelete(id) {
-  // `shield()` ensures that `id` is a number
-
-  // ...
-}
-```
-
-Not only does `shield()` call `throw Abort()` on our behalf, but it also infers the arguments' type for IntelliSense and TypeScript.
-
-> <Link href="/shield" /> lists all <code>shield()</code> types. (<code>shield.type.string</code>, <code>shield.type.number</code>, <code>shield.type.array()</code>, ...)
 
 ## `return`
 
-If it is expected that our frontend can sometimes make calls without the right permissions,
+If it is expected that our frontend calls telefunctions sometimes without the right permissions,
 we `return` instead of `throw Abort()`.
 
 ```js
@@ -113,11 +90,50 @@ If we need to pass information to the frontend,
 we `return` instead of `throw Abort()`.
 
 
+## `shield()`
+
+Ensuring argument types with `throw Abort()` can be cumbersome:
+
+```js
+// CreateTodo.telefunc.js
+// Environment: Node.js
+
+export async function onNewTodo(args) {
+  if (
+    args?.constructor !== Object ||
+    typeof args.text !== 'string' ||
+    typeof args.isCompleted !== 'boolean'
+  ) {
+    throw Abort()
+  }
+  const { text, isCompleted } = args
+  /* ... */
+}
+```
+
+For more convenience we can use `shield()` instead:
+
+```js
+// CreateTodo.telefunc.js
+// Environment: Node.js
+
+import { shield } from 'telefunc'
+const t = shield.type
+
+shield(onNewTodo, [{ text: t.string, isCompleted: t.boolean }])
+export async function onNewTodo({ text, isCompleted }) {
+  // ...
+}
+```
+
+Not only does `shield()` call `throw Abort()` on our behalf, but it also infers the arguments' type for IntelliSense and TypeScript.
+
+More infos at <Link href="/shield" />.
+
+
 ## Form validation
 
-It is expected that the user can enter invalid inputs and,
-if that's the case,
-the frontend tells the user what input is invalid and why.
+It is expected that the user can enter invalid inputs; we `return` instead of `throw Abort()`.
 
 ```js
 // *.telefunc.js
@@ -142,5 +158,3 @@ export async function onFormSubmit(email, password) {
   // ...
 }
 ```
-
-Instead of `throw Abort()`, we `return` the validation errors to the frontend.

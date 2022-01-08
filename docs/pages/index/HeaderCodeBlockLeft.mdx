@@ -8,8 +8,8 @@ import { shield, Abort, getContext } from 'telefunc'
 // remotely callable from the browser.
 export { onNewTodo }
 
-shield(onNewTodo, [shield.type.string])
-async function onNewTodo(text) {
+shield(onNewTodo, [{ text: shield.type.string }])
+async function onNewTodo({ text }) {
   const { user } = getContext()
   if (user === null) throw Abort()
 
