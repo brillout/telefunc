@@ -32,8 +32,8 @@ function provideContext(context: Record<string, unknown>) {
   _provideContext(context)
 }
 
-let _getContext: () => Context | undefined
-let _provideContext: (context: Context) => void
+var _getContext: () => Context | undefined
+var _provideContext: (context: Context) => void
 
 function installSyncMode() {
   _getContext = getContext_sync
