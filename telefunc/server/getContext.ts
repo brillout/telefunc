@@ -1,38 +1,55 @@
-// Infrastructure to toggle async/sync mode for context provisioning
-
-import {
-  getContext_sync,
-  getContextOrUndefined_sync,
-  provideContext_sync,
-  provideContextOrNull_sync,
-} from './getContext/sync'
+import { getContext_sync, provideContext_sync } from './getContext/sync'
+import { assert, assertUsage, isObject } from './utils'
 
 export { getContext }
-export { getContextOrUndefined }
+export { getContextOptional }
 export { provideContext }
-export { provideContextOrNull }
 
 export { installAsyncMode }
+installSyncMode()
 
-const getContext = <Context>() => _getContext<Context>()
-const getContextOrUndefined = () => _getContextOrUndefined()
-const provideContext = <Context extends Record<string, unknown> = Record<string, unknown>>(ctx: Context) =>
-  _provideContext(ctx)
-const provideContextOrNull = (ctx: Parameters<typeof _provideContextOrNull>[0]) => _provideContextOrNull(ctx)
+type Context = Record<string, unknown>
 
-let _getContext = getContext_sync
-let _getContextOrUndefined = getContextOrUndefined_sync
-let _provideContext = provideContext_sync
-let _provideContextOrNull = provideContextOrNull_sync
+function getContext() {
+  const context = _getContext()
+  assertUsage(
+    context !== undefined,
+    [
+      'You are calling `getContext()` but no context is available.',
+      `See ${isNodejs() ? 'https://telefunc.com/ssr' : 'https://telefunc.com/provideContext'}`,
+    ].join(' '),
+  )
+  assert(isObject(context))
+  return context
+}
 
-async function installAsyncMode(
-  getContext_async: typeof _getContext,
-  getContextOrUndefined_async: typeof _getContextOrUndefined,
-  provideContext_async: typeof _provideContext,
-  provideContextOrNull_async: typeof _provideContextOrNull,
-) {
+function getContextOptional() {
+  const context = _getContext()
+  return context
+}
+
+function provideContext(context: Record<string, unknown>) {
+  _provideContext(context)
+}
+
+let _getContext: () => Context | undefined
+let _provideContext: (context: Context) => void
+
+function installSyncMode() {
+  _getContext = getContext_sync
+  _provideContext = provideContext_sync
+}
+async function installAsyncMode({
+  getContext_async,
+  provideContext_async,
+}: {
+  getContext_async: typeof _getContext
+  provideContext_async: typeof _provideContext
+}) {
   _getContext = getContext_async
-  _getContextOrUndefined = getContextOrUndefined_async
   _provideContext = provideContext_async
-  _provideContextOrNull = provideContextOrNull_async
+}
+
+function isNodejs(): boolean {
+  return typeof process !== 'undefined' && process.release.name === 'node'
 }

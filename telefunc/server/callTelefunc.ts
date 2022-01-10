@@ -5,7 +5,7 @@ import { assert, assertUsage, cast, checkType, hasProp, isCallable, isObject, is
 import { BodyParsed, Telefunction, Telefunctions } from '../shared/types'
 import { getTelefuncFiles } from './getTelefuncFiles'
 import { HttpRequest, TelefuncFiles, UserConfig } from './types'
-import { getContextOrUndefined, provideContextOrNull } from './getContext'
+import { getContextOptional, provideContext } from './getContext'
 
 export { callTelefunc }
 
@@ -47,7 +47,7 @@ async function callTelefunc_(httpRequest: HttpRequest, config: UserConfig): Http
   objectAssign(callContext, {
     _url: httpRequest.url,
     _method: httpRequest.method,
-    _providedContext: getContextOrUndefined() || null,
+    _providedContext: getContextOptional() || null,
   })
 
   objectAssign(callContext, {
@@ -155,7 +155,9 @@ async function executeTelefunc(callContext: {
   const telefuncs = callContext._telefuncs
   const telefunc = telefuncs[telefunctionName]
 
-  provideContextOrNull(callContext._providedContext)
+  if (callContext._providedContext) {
+    provideContext(callContext._providedContext)
+  }
 
   let resultSync: unknown
   let telefuncError: unknown
