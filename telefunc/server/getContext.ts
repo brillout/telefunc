@@ -1,16 +1,16 @@
 import { getContext_sync, provideContext_sync } from './getContext/sync'
 import { assert, assertUsage, isObject } from './utils'
+import type { Telefunc } from './getContext/TelefuncNamespace'
 
 export { getContext }
 export { getContextOptional }
 export { provideContext }
+export { Telefunc }
 
 export { installAsyncMode }
 installSyncMode()
 
-type Context = Record<string, unknown>
-
-function getContext() {
+function getContext<Context extends object = Telefunc.Context>(): Context {
   const context = _getContext()
   assertUsage(
     context !== undefined,
@@ -20,7 +20,7 @@ function getContext() {
     ].join(' '),
   )
   assert(isObject(context))
-  return context
+  return context as Context
 }
 
 function getContextOptional() {
@@ -28,12 +28,12 @@ function getContextOptional() {
   return context
 }
 
-function provideContext(context: Record<string, unknown>) {
+function provideContext<Context extends object = Telefunc.Context>(context: Context) {
   _provideContext(context)
 }
 
-var _getContext: () => Context | undefined
-var _provideContext: (context: Context) => void
+var _getContext: () => Telefunc.Context | undefined
+var _provideContext: (context: Telefunc.Context) => void
 
 function installSyncMode() {
   _getContext = getContext_sync

@@ -6,6 +6,7 @@ import { BodyParsed, Telefunction, Telefunctions } from '../shared/types'
 import { getTelefuncFiles } from './getTelefuncFiles'
 import { HttpRequest, TelefuncFiles, UserConfig } from './types'
 import { getContextOptional, provideContext } from './getContext'
+import type { Telefunc } from './getContext'
 
 export { callTelefunc }
 
@@ -148,7 +149,7 @@ async function executeTelefunc(callContext: {
   _telefunctionName: string
   _telefunctionArgs: unknown[]
   _telefuncs: Record<string, Telefunction>
-  _providedContext: Record<string, unknown> | null
+  _providedContext: Telefunc.Context | null
 }) {
   const telefunctionName = callContext._telefunctionName
   const telefunctionArgs = callContext._telefunctionArgs

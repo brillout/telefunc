@@ -2,7 +2,6 @@ import express from 'express'
 import { createPageRenderer } from 'vite-plugin-ssr'
 import { createTelefuncCaller, provideContext } from 'telefunc'
 import 'telefunc/async_hooks'
-import { Context } from '#root/telefunc/Context'
 import cookieParser from 'cookie-parser'
 import { getLoggedUser } from '#root/auth/server/getLoggedUser'
 
@@ -32,7 +31,7 @@ async function startServer() {
     // We use `provideContext()` for *all* requests. (Not only for Telefunc's URL `/_telefunc` but also for SSR URLs such as `/about`.)
     // That way, the context is always available, including while rendering HTML on the server-side.
     // More infos at https://telefunc.com/ssr
-    provideContext<Context>({
+    provideContext({
       user,
     })
     next()
