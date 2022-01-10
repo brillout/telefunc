@@ -4576,7 +4576,7 @@ bytes@3.1.0:
   resolved "https://registry.yarnpkg.com/bytes/-/bytes-3.1.0.tgz#f6cf7933a360e0588fa9fde85651cdc7f805d1f6"
   integrity sha512-zauLjrfCG+xvoyaqLoV8bLVXXNGC4JqlxFCutSDWA6fJrTo2ZuvLYTqZ7aHBLZSMOopbzwv8f+wZcVzfVTI2Dg==
 
-cac@^6.7.11:
+cac@^6.7.11, cac@^6.7.12:
   version "6.7.12"
   resolved "https://registry.yarnpkg.com/cac/-/cac-6.7.12.tgz#6fb5ea2ff50bd01490dbda497f4ae75a99415193"
   integrity sha512-rM7E2ygtMkJqD9c7WnFU6fruFcN3xe4FM5yUmgxhZzIKJk4uHl9U/fhwdajGFQbQuv43FAUo1Fe8gX/oIKDeSA==
@@ -6787,7 +6787,7 @@ esbuild@0.13.8:
     esbuild-windows-64 "0.13.8"
     esbuild-windows-arm64 "0.13.8"
 
-esbuild@^0.13.2:
+esbuild@^0.13.12, esbuild@^0.13.2:
   version "0.13.15"
   resolved "https://registry.yarnpkg.com/esbuild/-/esbuild-0.13.15.tgz#db56a88166ee373f87dbb2d8798ff449e0450cdf"
   integrity sha512-raCxt02HBKv8RJxE8vkTSCXGIyKHdEdGfUmiYb8wnabnaEmHzyW7DCHb5tEN0xU8ryqg5xw54mcwnYkC4x3AIw==
@@ -12936,6 +12936,15 @@ postcss@^8.3.8:
     picocolors "^1.0.0"
     source-map-js "^1.0.1"
 
+postcss@^8.4.5:
+  version "8.4.5"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.4.5.tgz#bae665764dfd4c6fcc24dc0fdf7e7aa00cc77f95"
+  integrity sha512-jBDboWM8qpaqwkMwItqTQTiFikhs/67OYVvblFFTM7MrZjt6yMKd6r2kgXizEbTTljacm4NldIlZnhbjr84QYg==
+  dependencies:
+    nanoid "^3.1.30"
+    picocolors "^1.0.0"
+    source-map-js "^1.0.1"
+
 prelude-ls@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.2.1.tgz#debc6489d7a6e6b0e7611888cec880337d316396"
@@ -13894,6 +13903,13 @@ rollup@^2.57.0:
   version "2.60.1"
   resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.60.1.tgz#4b34cd247f09b421f10a3c9286eda2ecf9972079"
   integrity sha512-akwfnpjY0rXEDSn1UTVfKXJhPsEBu+imi1gqBA1ZkHGydUnkV/fWCC90P7rDaLEW8KTwBcS1G3N4893Ndz+jwg==
+  optionalDependencies:
+    fsevents "~2.3.2"
+
+rollup@^2.59.0:
+  version "2.63.0"
+  resolved "https://registry.yarnpkg.com/rollup/-/rollup-2.63.0.tgz#fe2f7fec2133f3fab9e022b9ac245628d817c6bb"
+  integrity sha512-nps0idjmD+NXl6OREfyYXMn/dar3WGcyKn+KBzPdaLecub3x/LrId0wUcthcr8oZUAcZAR8NKcfGGFlNgGL1kQ==
   optionalDependencies:
     fsevents "~2.3.2"
 
@@ -16047,7 +16063,21 @@ vite-plugin-mdx@^3.5.6:
     resolve "^1.20.0"
     unified "^9.2.1"
 
-vite-plugin-ssr@*, vite-plugin-ssr@^0.3.26:
+vite-plugin-ssr@*:
+  version "0.3.43"
+  resolved "https://registry.yarnpkg.com/vite-plugin-ssr/-/vite-plugin-ssr-0.3.43.tgz#9836de814ff489ad6ef5f50054cb6336a4f8d95c"
+  integrity sha512-KBGh9T/2Wb53SyAo7OC+siduVFyJjOouA6JNhdDpPrVyIJOAZ/Zvo504acEPniEkEpNUaJCOkjFsf7o0z1DnFw==
+  dependencies:
+    "@brillout/json-s" "^0.3.0"
+    "@brillout/libassert" "^0.5.2"
+    cac "^6.7.12"
+    es-module-lexer "^0.9.3"
+    fast-glob "^3.2.7"
+    kolorist "^1.5.0"
+    p-limit "^3.1.0"
+    vite-plugin-import-build "^0.1.2"
+
+vite-plugin-ssr@^0.3.26:
   version "0.3.31"
   resolved "https://registry.yarnpkg.com/vite-plugin-ssr/-/vite-plugin-ssr-0.3.31.tgz#02124a8b45ff30b907b90de80a79dea744902f33"
   integrity sha512-pZVJwtm4JvceFPZnI7YP4BoyWKF4tkMnz4tY8Hv73VYDQhQkRxCdxTRuHIXqnh4A6uOh8hdg4lLXXOrClEif5Q==
@@ -16082,6 +16112,18 @@ vite@^2.3.6, vite@^2.4.3, vite@^2.6.4:
     postcss "^8.3.8"
     resolve "^1.20.0"
     rollup "^2.57.0"
+  optionalDependencies:
+    fsevents "~2.3.2"
+
+vite@^2.7.2:
+  version "2.7.10"
+  resolved "https://registry.yarnpkg.com/vite/-/vite-2.7.10.tgz#d12c4c10e56a0ecf7890cb529c15996c6111218f"
+  integrity sha512-KEY96ntXUid1/xJihJbgmLZx7QSC2D4Tui0FdS0Old5OokYzFclcofhtxtjDdGOk/fFpPbHv9yw88+rB93Tb8w==
+  dependencies:
+    esbuild "^0.13.12"
+    postcss "^8.4.5"
+    resolve "^1.20.0"
+    rollup "^2.59.0"
   optionalDependencies:
     fsevents "~2.3.2"
 
