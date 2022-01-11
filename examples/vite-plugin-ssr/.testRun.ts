@@ -7,12 +7,12 @@ function testRun(cmd: 'npm run dev' | 'npm run prod') {
 
   test('To-do list and context', async () => {
     const html = await fetchHtml('/')
-    expect(html).toContain('<h1>Rom&#x27;s to-do list</h1>')
+    expect(html).toContain('<h1>Alice&#x27;s to-do list</h1>')
     expect(html).toContain('<li>Buy milk</li>')
     expect(html).toContain('<li>Buy strawberries</li>')
     await page.goto(`${urlBase}/`)
     const text = await page.textContent('body')
-    expect(text).toContain("Rom's to-do list")
+    expect(text).toContain("Alice's to-do list")
     expect(text).toContain("Buy milk")
     expect(text).toContain("Buy strawberries")
   })

@@ -1,9 +1,8 @@
 import { config } from 'telefunc/client'
-import { AppProps } from 'next/app'
 
 config.telefuncUrl = '/api/_telefunc'
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps }) {
   return <Component {...pageProps} />
 }
 
