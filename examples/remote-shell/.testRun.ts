@@ -3,7 +3,7 @@ import { page, run, urlBase, autoRetry, isWindows, isLinux, isGithubAction } fro
 export { testRun }
 
 function testRun(cmd: 'npm run dev' | 'npm run prod') {
-  const additionalTimeout = !isWindows() ? 0 : 10 * 1000
+  const additionalTimeout = !isWindows() ? 0 : 30 * 1000
   run(cmd, { additionalTimeout })
 
   test('remote shell with telefunc', async () => {
