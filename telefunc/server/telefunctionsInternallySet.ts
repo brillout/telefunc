@@ -5,7 +5,11 @@ import { assert } from './utils'
 
 export { __internal_setTelefuncFiles }
 export { __internal_addTelefunction }
-export { telefuncInternallySet }
+export { loadTelefuncFilesWithInternalMechanism }
+
+function loadTelefuncFilesWithInternalMechanism() {
+  return telefuncInternallySet
+}
 
 let telefuncInternallySet: TelefuncFiles | null = null
 function __internal_setTelefuncFiles(telefuncFiles: TelefuncFiles) {

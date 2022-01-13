@@ -5,7 +5,7 @@ import { statSync } from 'fs'
 import { assert } from '../shared/utils'
 import { loadTelefuncFilesWithVite } from '../plugin/vite/loadTelefuncFilesWithVite'
 import { loadTelefuncFilesWithWebpack } from '../plugin/webpack/loadTelefuncFilesWithWebpack'
-import { telefuncInternallySet } from './telefunctionsInternallySet'
+import { loadTelefuncFilesWithInternalMechanism } from './telefunctionsInternallySet'
 import { hasProp } from './utils'
 
 export { getTelefuncFiles }
@@ -18,8 +18,11 @@ async function getTelefuncFiles(callContext: {
   _telefuncFilesProvidedByUser: null | TelefuncFiles
   _isProduction: boolean
 }): Promise<TelefuncFilesUntyped | null> {
-  if (telefuncInternallySet) {
-    return telefuncInternallySet
+  {
+    const telefuncFiles = loadTelefuncFilesWithInternalMechanism()
+    if (telefuncFiles) {
+      return telefuncFiles
+    }
   }
 
   if (callContext._telefuncFilesProvidedByUser) {
