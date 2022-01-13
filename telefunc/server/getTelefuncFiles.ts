@@ -18,15 +18,15 @@ async function getTelefuncFiles(callContext: {
   _telefuncFilesProvidedByUser: null | TelefuncFiles
   _isProduction: boolean
 }): Promise<TelefuncFilesUntyped | null> {
+  if (callContext._telefuncFilesProvidedByUser) {
+    return callContext._telefuncFilesProvidedByUser
+  }
+
   {
     const telefuncFiles = loadTelefuncFilesWithInternalMechanism()
     if (telefuncFiles) {
       return telefuncFiles
     }
-  }
-
-  if (callContext._telefuncFilesProvidedByUser) {
-    return callContext._telefuncFilesProvidedByUser
   }
 
   const bundlerName = getBundlerName(callContext)
