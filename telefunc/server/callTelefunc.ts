@@ -3,7 +3,7 @@ import { parse } from '@brillout/json-s'
 import type { ViteDevServer } from 'vite'
 import { assert, assertUsage, cast, checkType, hasProp, isCallable, isObject, isPromise, objectAssign } from './utils'
 import { BodyParsed, Telefunction, Telefunctions } from '../shared/types'
-import { getTelefuncFiles } from './getTelefuncFiles'
+import { loadTelefuncFiles } from './loadTelefuncFiles'
 import { HttpRequest, TelefuncFiles, UserConfig } from './types'
 import { getContextOptional, provideContext } from './getContext'
 import type { Telefunc } from './getContext'
@@ -240,7 +240,7 @@ async function getTelefuncs(callContext: {
   telefuncFiles: TelefuncFiles
   telefuncs: Record<string, Telefunction>
 }> {
-  const telefuncFiles = await getTelefuncFiles(callContext)
+  const telefuncFiles = await loadTelefuncFiles(callContext)
   assert(telefuncFiles || callContext._telefuncFilesProvidedByUser, 'No telefunctions found')
   const telefuncs: Telefunctions = {}
 
