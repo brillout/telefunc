@@ -11,6 +11,6 @@ export type { Telefunc } from './getContext/TelefuncNamespace'
 export {
   __internal_setTelefuncFiles,
   __internal_addTelefunction,
-} from './telefunctionsInternallySet'
+} from './loadTelefuncFilesWithInternalMechanism'
 
 assertEnv()

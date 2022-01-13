@@ -5,7 +5,7 @@ import { statSync } from 'fs'
 import { assert } from '../shared/utils'
 import { loadTelefuncFilesWithVite } from '../plugin/vite/loadTelefuncFilesWithVite'
 import { loadTelefuncFilesWithWebpack } from '../plugin/webpack/loadTelefuncFilesWithWebpack'
-import { loadTelefuncFilesWithInternalMechanism } from './telefunctionsInternallySet'
+import { loadTelefuncFilesWithInternalMechanism } from './loadTelefuncFilesWithInternalMechanism'
 import { hasProp } from './utils'
 
 export { getTelefuncFiles }
