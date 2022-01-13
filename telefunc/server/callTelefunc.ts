@@ -82,19 +82,19 @@ async function callTelefunc_(httpRequest: HttpRequest, config: UserConfig): Http
 
   objectAssign(callContext, {
     _telefuncFiles: telefuncFiles,
-    _telefuncs: telefuncs,
+    _telefunctions: telefuncs,
   })
   checkType<{
     _telefuncFiles: TelefuncFiles
-    _telefuncs: Record<string, Telefunction>
+    _telefunctions: Record<string, Telefunction>
   }>(callContext)
 
   assertUsage(
-    callContext._telefunctionName in callContext._telefuncs,
+    callContext._telefunctionName in callContext._telefunctions,
     `Could not find telefunc \`${
       callContext._telefunctionName
     }\`. Did you reload the browser (or deploy a new frontend) without reloading the server (or deploying the new backend)? Loaded telefuncs: [${Object.keys(
-      callContext._telefuncs,
+      callContext._telefunctions,
     ).join(', ')}]`,
   )
 
@@ -148,12 +148,12 @@ async function callTelefunc_(httpRequest: HttpRequest, config: UserConfig): Http
 async function executeTelefunc(callContext: {
   _telefunctionName: string
   _telefunctionArgs: unknown[]
-  _telefuncs: Record<string, Telefunction>
+  _telefunctions: Record<string, Telefunction>
   _providedContext: Telefunc.Context | null
 }) {
   const telefunctionName = callContext._telefunctionName
   const telefunctionArgs = callContext._telefunctionArgs
-  const telefuncs = callContext._telefuncs
+  const telefuncs = callContext._telefunctions
   const telefunc = telefuncs[telefunctionName]
 
   if (callContext._providedContext) {
