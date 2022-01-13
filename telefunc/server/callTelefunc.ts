@@ -98,7 +98,7 @@ async function callTelefunc_(httpRequest: HttpRequest, config: UserConfig): Http
     ).join(', ')}]`,
   )
 
-  const { telefuncResult, telefuncHasErrored, telefuncError } = await executeTelefunc(callContext)
+  const { telefuncResult, telefuncHasErrored, telefuncError } = await executeTelefunction(callContext)
   objectAssign(callContext, {
     _telefuncResult: telefuncResult,
     _telefuncHasErrored: telefuncHasErrored,
@@ -145,7 +145,7 @@ async function callTelefunc_(httpRequest: HttpRequest, config: UserConfig): Http
   }
 }
 
-async function executeTelefunc(callContext: {
+async function executeTelefunction(callContext: {
   _telefunctionName: string
   _telefunctionArgs: unknown[]
   _telefunctions: Record<string, Telefunction>
