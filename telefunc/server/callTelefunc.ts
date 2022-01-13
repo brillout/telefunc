@@ -78,11 +78,11 @@ async function callTelefunc_(httpRequest: HttpRequest, config: UserConfig): Http
   })
   checkType<TelefuncContextHttpRequest>(callContext)
 
-  const { telefuncFiles, telefuncs } = await getTelefuncs(callContext)
+  const { telefuncFiles, telefunctions } = await getTelefunctions(callContext)
 
   objectAssign(callContext, {
     _telefuncFiles: telefuncFiles,
-    _telefunctions: telefuncs,
+    _telefunctions: telefunctions,
   })
   checkType<{
     _telefuncFiles: TelefuncFiles
@@ -91,9 +91,9 @@ async function callTelefunc_(httpRequest: HttpRequest, config: UserConfig): Http
 
   assertUsage(
     callContext._telefunctionName in callContext._telefunctions,
-    `Could not find telefunc \`${
+    `Could not find telefunction \`${
       callContext._telefunctionName
-    }\`. Did you reload the browser (or deploy a new frontend) without reloading the server (or deploying the new backend)? Loaded telefuncs: [${Object.keys(
+    }\`. Is your browser-side JavaScript out-of-sync with your server-side JavaScript? Loaded telefunctions: [${Object.keys(
       callContext._telefunctions,
     ).join(', ')}]`,
   )
@@ -115,7 +115,7 @@ async function callTelefunc_(httpRequest: HttpRequest, config: UserConfig): Http
     assertUsage(
       !('serializationError' in serializationResult),
       [
-        `Couldn't serialize value returned by telefunc \`${callContext._telefunctionName}\`.`,
+        `Couldn't serialize value returned by telefunction \`${callContext._telefunctionName}\`.`,
         'Make sure returned values',
         'to be of the following types:',
         '`Object`, `string`, `number`, `Date`, `null`, `undefined`, `Inifinity`, `NaN`, `RegExp`.',
@@ -153,8 +153,8 @@ async function executeTelefunc(callContext: {
 }) {
   const telefunctionName = callContext._telefunctionName
   const telefunctionArgs = callContext._telefunctionArgs
-  const telefuncs = callContext._telefunctions
-  const telefunc = telefuncs[telefunctionName]
+  const telefunctions = callContext._telefunctions
+  const telefunction = telefunctions[telefunctionName]
 
   if (callContext._providedContext) {
     provideContext(callContext._providedContext)
@@ -164,7 +164,7 @@ async function executeTelefunc(callContext: {
   let telefuncError: unknown
   let telefuncHasErrored = false
   try {
-    resultSync = telefunc.apply(null, telefunctionArgs)
+    resultSync = telefunction.apply(null, telefunctionArgs)
   } catch (err) {
     telefuncHasErrored = true
     telefuncError = err
@@ -231,18 +231,18 @@ function parseBody({ url, body }: { url: string; body: unknown }) {
   return { body, bodyParsed }
 }
 
-async function getTelefuncs(callContext: {
+async function getTelefunctions(callContext: {
   _viteDevServer?: ViteDevServer
   _root?: string
   _telefuncFilesProvidedByUser: null | TelefuncFiles
   _isProduction: boolean
 }): Promise<{
   telefuncFiles: TelefuncFiles
-  telefuncs: Record<string, Telefunction>
+  telefunctions: Record<string, Telefunction>
 }> {
   const telefuncFiles = await loadTelefuncFiles(callContext)
   assert(telefuncFiles || callContext._telefuncFilesProvidedByUser, 'No telefunctions found')
-  const telefuncs: Telefunctions = {}
+  const telefunctions: Telefunctions = {}
 
   Object.entries(telefuncFiles || callContext._telefuncFilesProvidedByUser || false).forEach(
     ([telefuncFileName, telefuncFileExports]) => {
@@ -252,13 +252,13 @@ async function getTelefuncs(callContext: {
           exportName,
           telefuncFileName,
         })
-        telefuncs[telefunctionName] = exportValue
+        telefunctions[telefunctionName] = exportValue
       })
     },
   )
 
   cast<TelefuncFiles>(telefuncFiles)
-  return { telefuncFiles: telefuncFiles || callContext._telefuncFilesProvidedByUser, telefuncs }
+  return { telefuncFiles: telefuncFiles || callContext._telefuncFilesProvidedByUser, telefunctions }
 }
 
 function assertTelefunction(
