@@ -12,7 +12,10 @@ function __internal_setTelefuncFiles(telefuncFiles: TelefuncFiles) {
   assert(telefuncInternallySet === null)
   telefuncInternallySet = telefuncFiles
 }
-function __internal_addTelefunction(telefunctionName: string, telefunction: Telefunction, filePath: string) {
+function __internal_addTelefunction(telefunctionName: string, telefunction: Telefunction, telefuncFilePath: string) {
   telefuncInternallySet = telefuncInternallySet || {}
-  telefuncInternallySet[filePath] = { ...telefuncInternallySet[filePath], [telefunctionName]: telefunction }
+  telefuncInternallySet[telefuncFilePath] = {
+    ...telefuncInternallySet[telefuncFilePath],
+    [telefunctionName]: telefunction,
+  }
 }
