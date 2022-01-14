@@ -34,6 +34,11 @@ function callTelefunc(httpRequest: HttpRequest) {
     _telefuncUrl: telefuncUrl,
   })
 
+  assertUsage(
+    httpRequest.url === callContext._telefuncUrl,
+    `callTelefunc({ url }): The HTTP request \`url\` should be \`${callContext._telefuncUrl}\`. Make sure that \`url\` is the HTTP request URL, or change \`config.telefuncUrl\`.`,
+  )
+
   return callTelefuncStart(callContext)
 }
 

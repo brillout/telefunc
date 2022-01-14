@@ -11,12 +11,26 @@ import { getEtag } from './getEtag'
 
 export { callTelefuncStart }
 
-type HttpResponse = Promise<null | {
+type HttpResponse = {
   body: string
-  etag: string | null
-  statusCode: 200 | 500
+  statusCode: 200 | 500 | 400
   contentType: 'text/plain'
-}>
+  etag: string | null
+}
+
+const malformedRequest = {
+  body: 'Malformed Request',
+  statusCode: 400 as const,
+  contentType: 'text/plain' as const,
+  etag: null,
+}
+
+const internnalError = {
+  body: 'Internal Server Error',
+  statusCode: 500 as const,
+  contentType: 'text/plain' as const,
+  etag: null,
+}
 
 async function callTelefuncStart(callContext: Parameters<typeof callTelefuncStart_>[0]) {
   try {
@@ -25,12 +39,7 @@ async function callTelefuncStart(callContext: Parameters<typeof callTelefuncStar
     // - There is a bug in Telefunc's source code, or
     // - a telefunction throw an error that is not `Abort()`.
     handleInternalError(err, callContext)
-    return {
-      contentType: 'text/plain',
-      body: 'Internal Server Error',
-      etag: null,
-      statusCode: 500,
-    }
+    return internnalError
   }
 }
 
@@ -43,17 +52,15 @@ async function callTelefuncStart_(callContext: {
   _root: string | null
   _telefuncUrl: string
   _disableEtag: boolean
-}): HttpResponse {
+}): Promise<HttpResponse> {
   objectAssign(callContext, {
     _providedContext: getContextOptional() || null,
   })
 
   if (callContext._httpRequest.method !== 'POST' && callContext._httpRequest.method !== 'post') {
-    return null
+    return malformedRequest
   }
-  if (callContext._httpRequest.url !== callContext._telefuncUrl) {
-    return null
-  }
+  assert(callContext._httpRequest.url !== callContext._telefuncUrl)
 
   {
     const { telefunctionName, telefunctionArgs } = parseHttpRequest(callContext)
@@ -64,15 +71,13 @@ async function callTelefuncStart_(callContext: {
   }
 
   const { telefuncFiles, telefunctions } = await getTelefunctions(callContext)
+  checkType<TelefuncFiles>(telefuncFiles)
+  checkType<Telefunctions>(telefunctions)
 
   objectAssign(callContext, {
     _telefuncFiles: telefuncFiles,
     _telefunctions: telefunctions,
   })
-  checkType<{
-    _telefuncFiles: TelefuncFiles
-    _telefunctions: Record<string, Telefunction>
-  }>(callContext)
 
   assertUsage(
     callContext._telefunctionName in callContext._telefunctions,
