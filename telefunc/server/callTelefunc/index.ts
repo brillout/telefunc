@@ -7,6 +7,7 @@ import { HttpRequest, TelefuncFiles } from '../types'
 import { getContextOptional, provideContext } from '../getContext'
 import type { Telefunc } from '../getContext'
 import { parseHttpRequest } from './parseHttpRequest'
+import { getEtag } from './getEtag'
 
 export { callTelefuncStart }
 
@@ -110,14 +111,9 @@ async function callTelefuncStart_(callContext: {
   }
 
   {
-    let httpResponseEtag: null | string = null
-    if (!callContext._disableEtag) {
-      const { computeEtag } = await import('../computeEtag')
-      const httpResponseEtag = computeEtag(callContext._httpResponseBody)
-      assert(httpResponseEtag)
-    }
+    const etag = await getEtag(callContext)
     objectAssign(callContext, {
-      _httpResponseEtag: httpResponseEtag,
+      _httpResponseEtag: etag,
     })
   }
 
