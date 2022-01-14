@@ -69,8 +69,6 @@ async function callTelefunc_(httpRequest: HttpRequest, config: UserConfig): Http
 
   const requestBodyParsed = parseBody(httpRequest)
   objectAssign(callContext, {
-    _url: httpRequest.url,
-    _method: httpRequest.method,
     _body: requestBodyParsed.body,
     _bodyParsed: requestBodyParsed.bodyParsed,
     _telefunctionName: requestBodyParsed.bodyParsed.name,
