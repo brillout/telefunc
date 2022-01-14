@@ -2,21 +2,13 @@ import { stringify } from '@brillout/json-s'
 import { parse } from '@brillout/json-s'
 import type { ViteDevServer } from 'vite'
 import { assert, assertUsage, cast, checkType, hasProp, isCallable, isObject, isPromise, objectAssign } from './utils'
-import { BodyParsed, Telefunction, Telefunctions } from '../shared/types'
+import { Telefunction, Telefunctions } from '../shared/types'
 import { loadTelefuncFiles } from './loadTelefuncFiles'
 import { HttpRequest, TelefuncFiles, UserConfig } from './types'
 import { getContextOptional, provideContext } from './getContext'
 import type { Telefunc } from './getContext'
 
 export { callTelefunc }
-
-type TelefuncContextHttpRequest = {
-  _url: string
-  _method: string
-  _body: string | Record<string, unknown>
-  _telefunctionName: string
-  _telefunctionArgs: unknown[]
-}
 
 type HttpResponse = Promise<null | {
   body: string
@@ -47,6 +39,7 @@ async function callTelefunc_(httpRequest: HttpRequest, config: UserConfig): Http
   objectAssign(callContext, {
     _url: httpRequest.url,
     _method: httpRequest.method,
+    _body: httpRequest.body,
     _providedContext: getContextOptional() || null,
   })
 
@@ -68,11 +61,9 @@ async function callTelefunc_(httpRequest: HttpRequest, config: UserConfig): Http
 
   const requestBodyParsed = parseBody(httpRequest)
   objectAssign(callContext, {
-    _body: requestBodyParsed.body,
     _telefunctionName: requestBodyParsed.bodyParsed.name,
     _telefunctionArgs: requestBodyParsed.bodyParsed.args,
   })
-  checkType<TelefuncContextHttpRequest>(callContext)
 
   const { telefuncFiles, telefunctions } = await getTelefunctions(callContext)
 
