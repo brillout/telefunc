@@ -39,6 +39,10 @@ const configSpec = {
   viteDevServer: {
     validate(val: unknown) {
       assertUsage(hasProp(val, 'ssrLoadModule'), 'The config `ssrLoadModule` should be the Vite dev server')
+      assertUsage(
+        (val as any as ViteDevServer).config.plugins.find((plugin) => plugin.name.startsWith('telefunc')),
+        'Telefunc Vite plugin not installed. Make sure to add Telefunc to your `vite.config.js`.',
+      )
     },
     getDefault() {
       return null

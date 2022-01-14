@@ -4,7 +4,7 @@ import type { Telefunctions } from '../shared/types'
 export type HttpRequest = {
   url: string
   method: string
-  body: string | unknown
+  body: string | object
 }
 
 export type TelefuncContextUserProvided = Record<string, unknown>
