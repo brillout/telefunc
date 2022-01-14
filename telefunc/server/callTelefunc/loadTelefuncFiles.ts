@@ -1,5 +1,5 @@
 import type { ViteDevServer } from 'vite'
-import type { TelefuncFiles, TelefuncFilesUntyped } from '../types'
+import type { TelefuncFiles } from '../types'
 import { join } from 'path'
 import { statSync } from 'fs'
 import { assert } from '../../shared/utils'
@@ -17,7 +17,7 @@ async function loadTelefuncFiles(callContext: {
   _viteDevServer: ViteDevServer | null
   _telefuncFilesProvidedByUser: TelefuncFiles | null
   _isProduction: boolean
-}): Promise<TelefuncFilesUntyped | null> {
+}): Promise<TelefuncFiles | null> {
   if (callContext._telefuncFilesProvidedByUser) {
     return callContext._telefuncFilesProvidedByUser
   }

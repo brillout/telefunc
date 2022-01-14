@@ -2,7 +2,7 @@ export { callTelefuncStart }
 
 import { stringify } from '@brillout/json-s'
 import type { ViteDevServer } from 'vite'
-import { assert, assertUsage, cast, checkType, hasProp, isCallable, isPromise, objectAssign } from '../utils'
+import { assert, assertUsage, checkType, hasProp, isPromise, objectAssign } from '../utils'
 import { Telefunction, Telefunctions } from '../../shared/types'
 import { loadTelefuncFiles } from './loadTelefuncFiles'
 import { HttpRequest, TelefuncFiles } from '../types'
@@ -10,6 +10,7 @@ import { getContextOptional, provideContext } from '../getContext'
 import type { Telefunc } from '../getContext'
 import { parseHttpRequest } from './parseHttpRequest'
 import { getEtag } from './getEtag'
+import { getTelefunctions } from './getTelefunctions'
 
 type HttpResponse = {
   body: string
@@ -76,9 +77,8 @@ async function callTelefuncStart_(callContext: {
 
   {
     const telefuncFiles = callContext._telefuncFilesProvidedByUser || (await loadTelefuncFiles(callContext))
-    assert(telefuncFiles, 'No telefunctions found')
-    //checkType<TelefuncFiles>(telefuncFiles)
-    cast<TelefuncFiles>(telefuncFiles)
+    assert(telefuncFiles, 'No `.telefunc.js` file found')
+    checkType<TelefuncFiles>(telefuncFiles)
     objectAssign(callContext, { _telefuncFiles: telefuncFiles })
   }
 
@@ -193,41 +193,6 @@ function serializeTelefuncResult(callContext: { _telefuncResult: unknown }) {
   } catch (serializationError: unknown) {
     return { serializationError }
   }
-}
-
-async function getTelefunctions(callContext: { _telefuncFiles: TelefuncFiles }): Promise<{
-  telefunctions: Record<string, Telefunction>
-}> {
-  const telefunctions: Telefunctions = {}
-  Object.entries(callContext._telefuncFiles).forEach(([telefuncFileName, telefuncFileExports]) => {
-    Object.entries(telefuncFileExports).forEach(([exportName, exportValue]) => {
-      const telefunctionName = telefuncFileName + ':' + exportName
-      assertTelefunction(exportValue, {
-        exportName,
-        telefuncFileName,
-      })
-      telefunctions[telefunctionName] = exportValue
-    })
-  })
-
-  return { telefunctions }
-}
-
-function assertTelefunction(
-  telefunction: unknown,
-  {
-    exportName,
-    telefuncFileName,
-  }: {
-    exportName: string
-    telefuncFileName: string
-  },
-): asserts telefunction is Telefunction {
-  const errPrefix = `The telefunction \`${exportName}\` defined in \`${telefuncFileName}\``
-  assertUsage(
-    isCallable(telefunction),
-    `${errPrefix} is not a function. A tele-*func*tion should always be a function.`,
-  )
 }
 
 function handleInternalError(
