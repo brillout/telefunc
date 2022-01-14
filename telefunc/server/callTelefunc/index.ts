@@ -57,7 +57,7 @@ async function callTelefuncStart_(callContext: {
   })
 
   if (callContext._httpRequest.method !== 'POST' && callContext._httpRequest.method !== 'post') {
-    assert(callContext._isProduction) // We don't expect any third-party requests in development; we can assume the request to always originate from the Telefunc Client.
+    assert(callContext._isProduction) // We don't expect any third-party requests in development and we can assume requests to always originate from the Telefunc Client.
     return malformedRequest
   }
   assert(callContext._httpRequest.url === callContext._telefuncUrl)
@@ -75,11 +75,17 @@ async function callTelefuncStart_(callContext: {
   }
 
   {
-    const { telefuncFiles, telefunctions } = await getTelefunctions(callContext)
-    checkType<TelefuncFiles>(telefuncFiles)
+    const telefuncFiles = callContext._telefuncFilesProvidedByUser || (await loadTelefuncFiles(callContext))
+    assert(telefuncFiles, 'No telefunctions found')
+    //checkType<TelefuncFiles>(telefuncFiles)
+    cast<TelefuncFiles>(telefuncFiles)
+    objectAssign(callContext, { _telefuncFiles: telefuncFiles })
+  }
+
+  {
+    const { telefunctions } = await getTelefunctions(callContext)
     checkType<Telefunctions>(telefunctions)
     objectAssign(callContext, {
-      _telefuncFiles: telefuncFiles,
       _telefunctions: telefunctions,
     })
   }
@@ -189,34 +195,22 @@ function serializeTelefuncResult(callContext: { _telefuncResult: unknown }) {
   }
 }
 
-async function getTelefunctions(callContext: {
-  _viteDevServer: ViteDevServer | null
-  _root: string | null
-  _telefuncFilesProvidedByUser: TelefuncFiles | null
-  _isProduction: boolean
-}): Promise<{
-  telefuncFiles: TelefuncFiles
+async function getTelefunctions(callContext: { _telefuncFiles: TelefuncFiles }): Promise<{
   telefunctions: Record<string, Telefunction>
 }> {
-  const telefuncFiles = await loadTelefuncFiles(callContext)
-  assert(telefuncFiles || callContext._telefuncFilesProvidedByUser, 'No telefunctions found')
   const telefunctions: Telefunctions = {}
-
-  Object.entries(telefuncFiles || callContext._telefuncFilesProvidedByUser || false).forEach(
-    ([telefuncFileName, telefuncFileExports]) => {
-      Object.entries(telefuncFileExports).forEach(([exportName, exportValue]) => {
-        const telefunctionName = telefuncFileName + ':' + exportName
-        assertTelefunction(exportValue, {
-          exportName,
-          telefuncFileName,
-        })
-        telefunctions[telefunctionName] = exportValue
+  Object.entries(callContext._telefuncFiles).forEach(([telefuncFileName, telefuncFileExports]) => {
+    Object.entries(telefuncFileExports).forEach(([exportName, exportValue]) => {
+      const telefunctionName = telefuncFileName + ':' + exportName
+      assertTelefunction(exportValue, {
+        exportName,
+        telefuncFileName,
       })
-    },
-  )
+      telefunctions[telefunctionName] = exportValue
+    })
+  })
 
-  cast<TelefuncFiles>(telefuncFiles)
-  return { telefuncFiles: telefuncFiles || callContext._telefuncFilesProvidedByUser, telefunctions }
+  return { telefunctions }
 }
 
 function assertTelefunction(
