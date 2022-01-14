@@ -1,3 +1,5 @@
+export { callTelefuncStart }
+
 import { stringify } from '@brillout/json-s'
 import type { ViteDevServer } from 'vite'
 import { assert, assertUsage, cast, checkType, hasProp, isCallable, isPromise, objectAssign } from '../utils'
@@ -8,8 +10,6 @@ import { getContextOptional, provideContext } from '../getContext'
 import type { Telefunc } from '../getContext'
 import { parseHttpRequest } from './parseHttpRequest'
 import { getEtag } from './getEtag'
-
-export { callTelefuncStart }
 
 type HttpResponse = {
   body: string
@@ -43,7 +43,6 @@ async function callTelefuncStart(callContext: Parameters<typeof callTelefuncStar
   }
 }
 
-//const callTelefuncStart_ = <typeof callTelefuncStart>async function (callContext) {
 async function callTelefuncStart_(callContext: {
   _httpRequest: HttpRequest
   _viteDevServer: ViteDevServer | null
@@ -58,26 +57,32 @@ async function callTelefuncStart_(callContext: {
   })
 
   if (callContext._httpRequest.method !== 'POST' && callContext._httpRequest.method !== 'post') {
+    assert(callContext._isProduction) // We don't expect any third-party requests in development; we can assume the request to always originate from the Telefunc Client.
     return malformedRequest
   }
   assert(callContext._httpRequest.url !== callContext._telefuncUrl)
 
   {
-    const { telefunctionName, telefunctionArgs } = parseHttpRequest(callContext)
+    const parsed = parseHttpRequest(callContext)
+    if (parsed.isMalformed) {
+      return malformedRequest
+    }
+    const { telefunctionName, telefunctionArgs } = parsed
     objectAssign(callContext, {
       _telefunctionName: telefunctionName,
       _telefunctionArgs: telefunctionArgs,
     })
   }
 
-  const { telefuncFiles, telefunctions } = await getTelefunctions(callContext)
-  checkType<TelefuncFiles>(telefuncFiles)
-  checkType<Telefunctions>(telefunctions)
-
-  objectAssign(callContext, {
-    _telefuncFiles: telefuncFiles,
-    _telefunctions: telefunctions,
-  })
+  {
+    const { telefuncFiles, telefunctions } = await getTelefunctions(callContext)
+    checkType<TelefuncFiles>(telefuncFiles)
+    checkType<Telefunctions>(telefunctions)
+    objectAssign(callContext, {
+      _telefuncFiles: telefuncFiles,
+      _telefunctions: telefunctions,
+    })
+  }
 
   assertUsage(
     callContext._telefunctionName in callContext._telefunctions,
