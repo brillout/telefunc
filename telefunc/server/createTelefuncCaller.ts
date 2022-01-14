@@ -1,7 +1,7 @@
 import type { ViteDevServer } from 'vite'
 import { assert, assertUsage } from './utils'
 import { HttpRequest, UserConfig, Telefunctions } from './types'
-import { callTelefunc } from './callTelefunc'
+import { callTelefuncStart } from './callTelefunc/index'
 import { assertArgs_createTelefuncCaller, assertArgs_callTelefunc } from './assertArgs'
 
 export { createTelefuncCaller }
@@ -40,6 +40,8 @@ function createTelefuncCaller({
   }
   assertArgs_createTelefuncCaller(userConfig, Array.from(arguments))
 
+  return callTelefunc
+
   /**
    * Get the HTTP response of a telefunction call.
    * @param httpRequest.url HTTP request URL
@@ -48,13 +50,13 @@ function createTelefuncCaller({
    * @param context The context object
    * @returns HTTP response
    */
-  return async function (httpRequest: HttpRequest) {
+  async function callTelefunc(httpRequest: HttpRequest) {
     assertArgs_callTelefunc(httpRequest, Array.from(arguments))
     assertUsage(
       arguments.length === 1,
       '`callTelefunc(/* ... */, context)` is deprecated. Use `provideContext(context)` instead, see https://telefunc.com/provideContext',
     )
     assert(userConfig)
-    return callTelefunc(httpRequest, userConfig)
+    return callTelefuncStart(httpRequest, userConfig)
   }
 }

@@ -1,7 +1,7 @@
 // Mechanism used by Vite/Next/Nuxt plugins for telefunc files auto-loading.
 
-import { TelefuncFiles, Telefunction } from './types'
-import { assert } from './utils'
+import { TelefuncFiles, Telefunction } from '../types'
+import { assert } from '../utils'
 
 export { __internal_setTelefuncFiles }
 export { __internal_addTelefunction }
