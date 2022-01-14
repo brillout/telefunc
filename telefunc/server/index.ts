@@ -1,7 +1,7 @@
 import { assertEnv } from './assertEnv'
 
-export { createTelefuncCaller } from './createTelefuncCaller'
-export { callTelefunc } from './callTelefunc'
+//export { createTelefuncCaller } from './createTelefuncCaller'
+export { callTelefunc, config as telefuncConfig } from './callTelefunc'
 export { getContext, provideContext } from './getContext'
 export { Abort } from './Abort'
 export { shield, withShield } from './shield'

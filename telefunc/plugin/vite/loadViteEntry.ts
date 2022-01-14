@@ -14,7 +14,7 @@ async function loadViteEntry({
   devPath: string
   prodPath: string
   isProduction: boolean
-  viteDevServer: undefined | ViteDevServer
+  viteDevServer: ViteDevServer | null
   errorMessage: string
 }): Promise<unknown> {
   let moduleExports: unknown

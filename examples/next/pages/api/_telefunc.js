@@ -1,11 +1,7 @@
 import { getUser } from '../../auth/getUser'
-import { createTelefuncCaller, provideContext } from 'telefunc'
+import { callTelefunc, telefuncConfig, provideContext } from 'telefunc'
 
-const callTelefunc = createTelefuncCaller({
-  isProduction: process.env.NODE_ENV === 'production',
-  root: process.cwd(),
-  telefuncUrl: '/api/_telefunc',
-})
+telefuncConfig.telefuncUrl = '/api/_telefunc'
 
 export default async function (req, res) {
   const user = getUser(req)

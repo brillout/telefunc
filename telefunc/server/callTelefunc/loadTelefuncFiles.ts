@@ -13,9 +13,9 @@ export { loadTelefuncFiles }
 type BundlerName = 'webpack' | 'nextjs' | 'vite' | 'unknown'
 
 async function loadTelefuncFiles(callContext: {
-  _root?: string
-  _viteDevServer?: ViteDevServer
-  _telefuncFilesProvidedByUser: null | TelefuncFiles
+  _root: string | null
+  _viteDevServer: ViteDevServer | null
+  _telefuncFilesProvidedByUser: TelefuncFiles | null
   _isProduction: boolean
 }): Promise<TelefuncFilesUntyped | null> {
   if (callContext._telefuncFilesProvidedByUser) {

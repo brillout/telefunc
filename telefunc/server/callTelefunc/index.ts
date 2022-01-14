@@ -3,7 +3,7 @@ import type { ViteDevServer } from 'vite'
 import { assert, assertUsage, cast, checkType, hasProp, isCallable, isPromise, objectAssign } from '../utils'
 import { Telefunction, Telefunctions } from '../../shared/types'
 import { loadTelefuncFiles } from './loadTelefuncFiles'
-import { HttpRequest, TelefuncFiles, UserConfig } from '../types'
+import { HttpRequest, TelefuncFiles } from '../types'
 import { getContextOptional, provideContext } from '../getContext'
 import type { Telefunc } from '../getContext'
 import { parseHttpRequest } from './parseHttpRequest'
@@ -17,13 +17,13 @@ type HttpResponse = Promise<null | {
   contentType: 'text/plain'
 }>
 
-async function callTelefuncStart(httpRequest: HttpRequest, config: UserConfig): HttpResponse {
+async function callTelefuncStart(callContext: Parameters<typeof callTelefuncStart_>[0]) {
   try {
-    return await callTelefunc_(httpRequest, config)
+    return await callTelefuncStart_(callContext)
   } catch (err: unknown) {
     // - There is a bug in Telefunc's source code, or
     // - a telefunction throw an error that is not `Abort()`.
-    handleInternalError(err, config)
+    handleInternalError(err, callContext)
     return {
       contentType: 'text/plain',
       body: 'Internal Server Error',
@@ -33,25 +33,18 @@ async function callTelefuncStart(httpRequest: HttpRequest, config: UserConfig): 
   }
 }
 
-async function callTelefunc_(httpRequest: HttpRequest, config: UserConfig): HttpResponse {
-  const callContext = {}
-
+//const callTelefuncStart_ = <typeof callTelefuncStart>async function (callContext) {
+async function callTelefuncStart_(callContext: {
+  _httpRequest: HttpRequest
+  _viteDevServer: ViteDevServer | null
+  _telefuncFilesProvidedByUser: TelefuncFiles | null
+  _isProduction: boolean
+  _root: string | null
+  _telefuncUrl: string
+  _disableEtag: boolean
+}): HttpResponse {
   objectAssign(callContext, {
-    _httpRequest: {
-      url: httpRequest.url,
-      method: httpRequest.method,
-      body: httpRequest.body,
-    },
     _providedContext: getContextOptional() || null,
-  })
-
-  objectAssign(callContext, {
-    _isProduction: config.isProduction,
-    _root: config.root,
-    _viteDevServer: config.viteDevServer,
-    _telefuncFilesProvidedByUser: config.telefuncFiles || null,
-    _disableEtag: config.disableEtag,
-    _telefuncUrl: config.telefuncUrl,
   })
 
   if (callContext._httpRequest.method !== 'POST' && callContext._httpRequest.method !== 'post') {
@@ -191,9 +184,9 @@ function serializeTelefuncResult(callContext: { _telefuncResult: unknown }) {
 }
 
 async function getTelefunctions(callContext: {
-  _viteDevServer?: ViteDevServer
-  _root?: string
-  _telefuncFilesProvidedByUser: null | TelefuncFiles
+  _viteDevServer: ViteDevServer | null
+  _root: string | null
+  _telefuncFilesProvidedByUser: TelefuncFiles | null
   _isProduction: boolean
 }): Promise<{
   telefuncFiles: TelefuncFiles
@@ -237,35 +230,38 @@ function assertTelefunction(
   )
 }
 
-function handleInternalError(err: unknown, userConfig: UserConfig) {
+function handleInternalError(
+  err: unknown,
+  callContext: { _isProduction: boolean; _viteDevServer: ViteDevServer | null },
+) {
   // We ensure we print a string; Cloudflare Workers doesn't seem to properly stringify `Error` objects.
   const errStr = (hasProp(err, 'stack') && String(err.stack)) || String(err)
-  if (!userConfig.isProduction && userConfig.viteDevServer) {
+  if (!callContext._isProduction && callContext._viteDevServer) {
     // TODO: check if Vite already logged the error
   }
 
-  if (viteAlreadyLoggedError(err, userConfig)) {
+  if (viteAlreadyLoggedError(err, callContext)) {
     return
   }
-  viteErrorCleanup(err, userConfig.viteDevServer)
+  viteErrorCleanup(err, callContext._viteDevServer)
 
   console.error(errStr)
 }
 
 function viteAlreadyLoggedError(
   err: unknown,
-  { isProduction, viteDevServer }: { isProduction: boolean; viteDevServer?: ViteDevServer },
+  callContext: { _isProduction: boolean; _viteDevServer: ViteDevServer | null },
 ) {
-  if (isProduction) {
+  if (callContext._isProduction) {
     return false
   }
-  if (viteDevServer && viteDevServer.config.logger.hasErrorLogged(err as Error)) {
+  if (callContext._viteDevServer && callContext._viteDevServer.config.logger.hasErrorLogged(err as Error)) {
     return true
   }
   return false
 }
 
-function viteErrorCleanup(err: unknown, viteDevServer: ViteDevServer | undefined) {
+function viteErrorCleanup(err: unknown, viteDevServer: ViteDevServer | null) {
   if (viteDevServer) {
     if (hasProp(err, 'stack')) {
       // Apply source maps

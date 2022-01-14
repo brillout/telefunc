@@ -1,6 +1,6 @@
 import express from 'express'
 import { createPageRenderer } from 'vite-plugin-ssr'
-import { createTelefuncCaller, provideContext } from 'telefunc'
+import { callTelefunc, telefuncConfig, provideContext } from 'telefunc'
 import 'telefunc/async_hooks'
 import cookieParser from 'cookie-parser'
 import { getLoggedUser } from '#root/auth/server/getLoggedUser'
@@ -23,6 +23,7 @@ async function startServer() {
       server: { middlewareMode: 'ssr' },
     })
     app.use(viteDevServer.middlewares)
+    telefuncConfig.viteDevServer = viteDevServer
   }
 
   app.use(cookieParser())
@@ -37,7 +38,6 @@ async function startServer() {
     next()
   })
 
-  const callTelefunc = createTelefuncCaller({ viteDevServer, isProduction, root })
   app.use(express.text()) // Parse & make HTTP request body available at `req.body`
   app.all('/_telefunc', async (req, res, next) => {
     const httpResponse = await callTelefunc({ url: req.originalUrl, method: req.method, body: req.body })

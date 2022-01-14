@@ -3,7 +3,7 @@ import { makeHttpRequest } from './makeHttpRequest'
 import { assert, assertUsage } from '../shared/utils'
 import type { TelefunctionName, TelefunctionResult, BodyParsed, TelefunctionArgs } from '../shared/types'
 
-const configDefault: UserConfig = {
+const configDefault: ClientConfig = {
   telefuncUrl: '/_telefunc',
 }
 export const config = getConfigProxy(configDefault)
@@ -13,7 +13,7 @@ export { __internal_fetchTelefunc }
 assertProxySupport()
 
 /** Telefunc Client Configuration */
-type UserConfig = {
+type ClientConfig = {
   /** The address of the server, e.g. `https://example.org/_telefunc`. */
   telefuncUrl: string
 }
@@ -84,7 +84,7 @@ async function callTelefunctionDirectly(
 function callTelefunctionOverHttp(
   telefunctionName: TelefunctionName,
   telefunctionArgs: TelefunctionArgs,
-  config: UserConfig,
+  config: ClientConfig,
 ): TelefunctionResult {
   assert(telefunctionArgs.length >= 0)
 
@@ -147,14 +147,14 @@ function envSupportsProxy() {
   return typeof 'Proxy' !== 'undefined'
 }
 
-function getConfigProxy(configDefaults: UserConfig): UserConfig {
-  const configObject: UserConfig = { ...configDefaults }
-  const configProxy: UserConfig = new Proxy(configObject, {
+function getConfigProxy(configDefaults: ClientConfig): ClientConfig {
+  const configObject: ClientConfig = { ...configDefaults }
+  const configProxy: ClientConfig = new Proxy(configObject, {
     set: validateConfig,
   })
   return configProxy
 
-  function validateConfig(_: UserConfig, configName: keyof UserConfig, configValue: unknown) {
+  function validateConfig(_: ClientConfig, configName: keyof ClientConfig, configValue: unknown) {
     assertUsage(configName in configDefaults, `[telefunc/client] Unknown config \`${configName}\`.`)
 
     {

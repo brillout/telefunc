@@ -9,7 +9,7 @@ export { loadTelefuncFilesWithVite }
 
 async function loadTelefuncFilesWithVite(callContext: {
   _root: string
-  _viteDevServer?: ViteDevServer
+  _viteDevServer: ViteDevServer | null
   _isProduction: boolean
 }): Promise<TelefuncFilesUntyped> {
   const viteEntryFile = 'importTelefuncFiles.js'

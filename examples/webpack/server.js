@@ -1,17 +1,13 @@
 const express = require('express')
-const { createTelefuncCaller } = require('telefunc')
-
-const isProduction = process.env.NODE_ENV === 'production'
-const root = __dirname
+const { callTelefunc } = require('telefunc')
 
 startServer()
 
 async function startServer() {
   const app = express()
 
-  app.use(express.static(`${root}/dist`))
+  app.use(express.static(`${__dirname}/dist`))
 
-  const callTelefunc = createTelefuncCaller({ isProduction, root })
   app.use(express.text())
   app.all('/_telefunc', async (req, res, next) => {
     const { originalUrl: url, method, body } = req
