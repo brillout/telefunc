@@ -13,7 +13,6 @@ const config: ServerConfig = getConfigObject()
  * @param httpRequest.url HTTP request URL
  * @param httpRequest.method HTTP request method
  * @param httpRequest.body HTTP request body
- * @param context The context object
  * @returns HTTP response
  */
 function callTelefunc(httpRequest: HttpRequest) {

@@ -112,7 +112,7 @@ async function callTelefuncStart_(callContext: {
   {
     let httpResponseEtag: null | string = null
     if (!callContext._disableEtag) {
-      const { computeEtag } = await import('../cache/computeEtag')
+      const { computeEtag } = await import('../computeEtag')
       const httpResponseEtag = computeEtag(callContext._httpResponseBody)
       assert(httpResponseEtag)
     }
