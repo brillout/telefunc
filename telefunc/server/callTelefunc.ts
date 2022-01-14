@@ -14,7 +14,6 @@ type TelefuncContextHttpRequest = {
   _url: string
   _method: string
   _body: string | Record<string, unknown>
-  _bodyParsed: BodyParsed
   _telefunctionName: string
   _telefunctionArgs: unknown[]
 }
@@ -70,7 +69,6 @@ async function callTelefunc_(httpRequest: HttpRequest, config: UserConfig): Http
   const requestBodyParsed = parseBody(httpRequest)
   objectAssign(callContext, {
     _body: requestBodyParsed.body,
-    _bodyParsed: requestBodyParsed.bodyParsed,
     _telefunctionName: requestBodyParsed.bodyParsed.name,
     _telefunctionArgs: requestBodyParsed.bodyParsed.args,
   })
