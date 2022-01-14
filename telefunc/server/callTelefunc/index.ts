@@ -60,7 +60,7 @@ async function callTelefuncStart_(callContext: {
     assert(callContext._isProduction) // We don't expect any third-party requests in development; we can assume the request to always originate from the Telefunc Client.
     return malformedRequest
   }
-  assert(callContext._httpRequest.url !== callContext._telefuncUrl)
+  assert(callContext._httpRequest.url === callContext._telefuncUrl)
 
   {
     const parsed = parseHttpRequest(callContext)
