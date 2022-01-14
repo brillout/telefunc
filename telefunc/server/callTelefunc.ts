@@ -1,5 +1,4 @@
 import { stringify } from '@brillout/json-s'
-import { parse } from '@brillout/json-s'
 import type { ViteDevServer } from 'vite'
 import { assert, assertUsage, cast, checkType, hasProp, isCallable, isObject, isPromise, objectAssign } from './utils'
 import { Telefunction, Telefunctions } from '../shared/types'
@@ -7,6 +6,7 @@ import { loadTelefuncFiles } from './loadTelefuncFiles'
 import { HttpRequest, TelefuncFiles, UserConfig } from './types'
 import { getContextOptional, provideContext } from './getContext'
 import type { Telefunc } from './getContext'
+import { parseHttpRequest } from './callTelefunc/parseHttpRequest'
 
 export { callTelefunc }
 
@@ -37,9 +37,11 @@ async function callTelefunc_(httpRequest: HttpRequest, config: UserConfig): Http
   const callContext = {}
 
   objectAssign(callContext, {
-    _url: httpRequest.url,
-    _method: httpRequest.method,
-    _body: httpRequest.body,
+    _httpRequest: {
+      url: httpRequest.url,
+      method: httpRequest.method,
+      body: httpRequest.body,
+    },
     _providedContext: getContextOptional() || null,
   })
 
@@ -52,18 +54,20 @@ async function callTelefunc_(httpRequest: HttpRequest, config: UserConfig): Http
     _telefuncUrl: config.telefuncUrl,
   })
 
-  if (callContext._method !== 'POST' && callContext._method !== 'post') {
+  if (callContext._httpRequest.method !== 'POST' && callContext._httpRequest.method !== 'post') {
     return null
   }
-  if (callContext._url !== callContext._telefuncUrl) {
+  if (callContext._httpRequest.url !== callContext._telefuncUrl) {
     return null
   }
 
-  const requestBodyParsed = parseBody(httpRequest)
-  objectAssign(callContext, {
-    _telefunctionName: requestBodyParsed.bodyParsed.name,
-    _telefunctionArgs: requestBodyParsed.bodyParsed.args,
-  })
+  {
+    const { telefunctionName, telefunctionArgs } = parseHttpRequest(callContext)
+    objectAssign(callContext, {
+      _telefunctionName: telefunctionName,
+      _telefunctionArgs: telefunctionArgs,
+    })
+  }
 
   const { telefuncFiles, telefunctions } = await getTelefunctions(callContext)
 
@@ -184,38 +188,6 @@ function serializeTelefuncResult(callContext: { _telefuncResult: unknown }) {
   } catch (serializationError: unknown) {
     return { serializationError }
   }
-}
-
-function parseBody({ url, body }: { url: string; body: unknown }) {
-  assertUsage(
-    body !== undefined && body !== null,
-    '`callTelefunc({ body })`: argument `body` should be a string or an object but `body === ' +
-      body +
-      '`. Note that with some server frameworks, such as Express.js and Koa, you need to use a server middleware that parses the body.',
-  )
-  assertUsage(
-    typeof body === 'string' || isObject(body),
-    "`callTelefunc({ body })`: argument `body` should be a string or an object but `typeof body === '" +
-      typeof body +
-      "'`. (Server frameworks, such as Express.js, provide the body as object if the HTTP request body is already JSON-parsed, or as string if not.)",
-  )
-  const bodyString = typeof body === 'string' ? body : JSON.stringify(body)
-
-  let bodyParsed: unknown
-  try {
-    bodyParsed = parse(bodyString)
-  } catch (err_) {}
-  assertUsage(
-    hasProp(bodyParsed, 'name', 'string') && hasProp(bodyParsed, 'args', 'array'),
-    '`callTelefunc({ body })`: The `body` you provided to `callTelefunc()` should be the body of the HTTP request `' +
-      url +
-      '`. This is not the case; make sure you are properly retrieving the HTTP request body and pass it to `callTelefunc({ body })`. ' +
-      '(Parsed `body`: `' +
-      JSON.stringify(bodyParsed) +
-      '`.)',
-  )
-
-  return { body, bodyParsed }
 }
 
 async function getTelefunctions(callContext: {
