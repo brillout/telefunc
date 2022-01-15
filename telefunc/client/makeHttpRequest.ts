@@ -1,6 +1,5 @@
 import { assert, assertUsage } from '../shared/utils'
 import { parse } from '@brillout/json-s'
-import { TelefunctionName, TelefunctionResult } from '../shared/types'
 import { isObject } from '../shared/utils'
 
 export { makeHttpRequest }
@@ -9,8 +8,8 @@ export { TelefuncError }
 async function makeHttpRequest(
   url: string,
   body: string,
-  telefunctionName: TelefunctionName,
-): Promise<TelefunctionResult> {
+  telefunctionName: string,
+): Promise<unknown> {
   const method = 'POST'
 
   let response: Response

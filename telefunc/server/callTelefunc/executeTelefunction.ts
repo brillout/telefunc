@@ -1,7 +1,7 @@
 export { executeTelefunction }
 
 import { provideContext, Telefunc } from '../getContext'
-import { Telefunction } from '../../shared/types'
+import { Telefunction } from '../types'
 import { assertUsage, isPromise } from '../utils'
 
 async function executeTelefunction(callContext: {

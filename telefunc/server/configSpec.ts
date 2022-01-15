@@ -3,13 +3,13 @@ export { validateConfigObject }
 export type { ServerConfig }
 
 import type { ViteDevServer } from 'vite'
-import type { Telefunctions } from '../shared/types'
+import type { Telefunction } from './types'
 import { isAbsolute } from 'path'
 import { assertUsage, assertWarning, hasProp, isPlainObject } from './utils'
 
 type ServerConfig = {
   viteDevServer?: ViteDevServer
-  telefuncFiles?: Record<string, Telefunctions>
+  telefuncFiles?: Record<string, Record<string, Telefunction>>
   root?: string
   isProduction?: boolean
   telefuncUrl?: string

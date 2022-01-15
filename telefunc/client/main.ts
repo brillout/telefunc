@@ -1,7 +1,6 @@
 import { stringify } from '@brillout/json-s'
 import { makeHttpRequest } from './makeHttpRequest'
 import { assert, assertUsage } from '../shared/utils'
-import type { TelefunctionName, TelefunctionResult, BodyParsed, TelefunctionArgs } from '../shared/types'
 
 const configDefault: ClientConfig = {
   telefuncUrl: '/_telefunc',
@@ -22,17 +21,17 @@ type ClientConfig = {
 // For when using the Telefunc client in Node.js
 type TelefuncServerInstance = {
   __directCall: (
-    telefunctionName: TelefunctionName,
-    telefunctionArgs: TelefunctionArgs,
+    telefunctionName: string,
+    telefunctionArgs: unknown[],
   ) => // Doesn't have to be a promise; a telefunction can return its value synchronously
-  Promise<TelefunctionResult> | TelefunctionResult
+  Promise<unknown> | unknown
 }
 
 function __internal_fetchTelefunc(
   telefuncFilePath: string,
   exportName: string,
   telefunctionArgs: unknown[],
-): TelefunctionResult {
+): Promise<unknown> {
   const telefuncServerInstance: TelefuncServerInstance = getTelefuncServerInstance()
 
   const telefunctionName = `${telefuncFilePath}:${exportName}`
@@ -74,21 +73,21 @@ function getTelefuncServerInstance() {
 }
 
 async function callTelefunctionDirectly(
-  telefunctionName: TelefunctionName,
-  telefunctionArgs: TelefunctionArgs,
+  telefunctionName: string,
+  telefunctionArgs: unknown[],
   telefuncServerInstance: TelefuncServerInstance,
-): Promise<TelefunctionResult> {
+): Promise<unknown> {
   return telefuncServerInstance.__directCall(telefunctionName, telefunctionArgs)
 }
 
 function callTelefunctionOverHttp(
-  telefunctionName: TelefunctionName,
-  telefunctionArgs: TelefunctionArgs,
+  telefunctionName: string,
+  telefunctionArgs: unknown[],
   config: ClientConfig,
-): TelefunctionResult {
+): Promise<unknown> {
   assert(telefunctionArgs.length >= 0)
 
-  const bodyParsed: BodyParsed = {
+  const bodyParsed = {
     name: telefunctionName,
     args: telefunctionArgs,
   }

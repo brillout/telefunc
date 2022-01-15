@@ -1,8 +1,7 @@
 export { getTelefunctions }
 
 import { assertUsage, isCallable } from '../utils'
-import type { Telefunction } from '../../shared/types'
-import type { TelefuncFiles } from '../types'
+import type { Telefunction, TelefuncFiles } from '../types'
 
 async function getTelefunctions(callContext: { _telefuncFiles: TelefuncFiles }): Promise<{
   telefunctions: Record<string, Telefunction>

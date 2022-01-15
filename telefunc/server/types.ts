@@ -1,12 +1,14 @@
-export * from '../shared/types'
+export type { HttpRequest }
+export type { TelefuncFiles }
+export type { Telefunction }
 
-export type HttpRequest = {
+type Telefunction = (...args: unknown[]) => Promise<unknown>
+
+type HttpRequest = {
   url: string
   method: string
   body: string | object
 }
 
-export type TelefuncContextUserProvided = Record<string, unknown>
-
 type FileExports = Record<string, unknown>
-export type TelefuncFiles = Record<string, FileExports>
+type TelefuncFiles = Record<string, FileExports>

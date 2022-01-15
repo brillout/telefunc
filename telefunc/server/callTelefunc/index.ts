@@ -1,10 +1,9 @@
 export { callTelefuncStart }
 
+import type { HttpRequest, TelefuncFiles, Telefunction } from '../types'
 import type { ViteDevServer } from 'vite'
 import { assert, assertUsage, checkType, objectAssign } from '../utils'
-import { Telefunctions } from '../../shared/types'
 import { loadTelefuncFiles } from './loadTelefuncFiles'
-import { HttpRequest, TelefuncFiles } from '../types'
 import { getContextOptional } from '../getContext'
 import { parseHttpRequest } from './parseHttpRequest'
 import { getEtag } from './getEtag'
@@ -85,7 +84,7 @@ async function callTelefuncStart_(callContext: {
 
   {
     const { telefunctions } = await getTelefunctions(callContext)
-    checkType<Telefunctions>(telefunctions)
+    checkType<Record<string, Telefunction>>(telefunctions)
     objectAssign(callContext, {
       _telefunctions: telefunctions,
     })
