@@ -1,6 +1,6 @@
 const express = require('express')
 const { createPageRenderer } = require('vite-plugin-ssr')
-const { callTelefunc, telefuncConfig, provideContext } = require('telefunc')
+const { telefunc, telefuncConfig, provideContext } = require('telefunc')
 
 const isProduction = process.env.NODE_ENV === 'production'
 const root = `${__dirname}/..`
@@ -35,7 +35,7 @@ async function startServer() {
   app.all('/_telefunc', async (req, res, next) => {
     const { user } = req
     provideContext({ user })
-    const httpResponse = await callTelefunc({ url: req.originalUrl, method: req.method, body: req.body })
+    const httpResponse = await telefunc({ url: req.originalUrl, method: req.method, body: req.body })
     if (!httpResponse) return next()
     const { body, statusCode, contentType } = httpResponse
     res.status(statusCode).type(contentType).send(body)

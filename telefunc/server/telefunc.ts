@@ -1,5 +1,5 @@
-export { callTelefunc }
-export { config }
+export { telefunc }
+export { telefuncConfig }
 
 import { assertHttpRequest } from './callTelefunc/assertHttpRequest'
 import { callTelefuncStart } from './callTelefunc/index'
@@ -7,7 +7,7 @@ import { resolveConfigDefaults, ServerConfig, validateConfigObject } from './con
 import { HttpRequest } from './types'
 import { assertUsage, objectAssign } from './utils'
 
-const config: ServerConfig = getConfigObject()
+const telefuncConfig: ServerConfig = getConfigObject()
 
 /**
  * Get the HTTP response of a telefunction call.
@@ -16,7 +16,7 @@ const config: ServerConfig = getConfigObject()
  * @param httpRequest.body HTTP request body
  * @returns HTTP response
  */
-function callTelefunc(httpRequest: HttpRequest) {
+function telefunc(httpRequest: HttpRequest) {
   assertHttpRequest(httpRequest, arguments.length)
 
   const callContext = {}
@@ -25,7 +25,7 @@ function callTelefunc(httpRequest: HttpRequest) {
     _httpRequest: httpRequest,
   })
 
-  const { viteDevServer, telefuncFiles, root, isProduction, telefuncUrl, disableEtag } = resolveConfigDefaults(config)
+  const { viteDevServer, telefuncFiles, root, isProduction, telefuncUrl, disableEtag } = resolveConfigDefaults(telefuncConfig)
   objectAssign(callContext, {
     _isProduction: isProduction,
     _root: root,

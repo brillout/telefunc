@@ -1,5 +1,5 @@
 import { getUser } from '../../auth/getUser'
-import { callTelefunc, telefuncConfig, provideContext } from 'telefunc'
+import { telefunc, telefuncConfig, provideContext } from 'telefunc'
 
 telefuncConfig.telefuncUrl = '/api/_telefunc'
 
@@ -8,6 +8,6 @@ export default async function (req, res) {
   provideContext({ user })
   const { url, method, body } = req
   const httpRequest = { url, method, body }
-  const httpResponse = await callTelefunc(httpRequest)
+  const httpResponse = await telefunc(httpRequest)
   res.status(httpResponse.statusCode).send(httpResponse.body)
 }

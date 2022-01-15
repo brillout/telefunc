@@ -1,5 +1,5 @@
 import { Context } from '@nuxt/types'
-import { callTelefunc } from '../../server'
+import { telefunc } from '../../server'
 import { assert } from '../../shared/utils'
 
 export { telefuncMiddleware }
@@ -16,7 +16,7 @@ const telefuncMiddleware = async (
     return
   }
 
-  const httpResponse = await callTelefunc({ url, method, body })
+  const httpResponse = await telefunc({ url, method, body })
   assert(httpResponse)
   res.writeHead(httpResponse.statusCode).end(httpResponse.body)
 }
