@@ -1,16 +1,16 @@
 export { callTelefuncStart }
 
-import { stringify } from '@brillout/json-s'
 import type { ViteDevServer } from 'vite'
-import { assert, assertUsage, checkType, hasProp, isPromise, objectAssign } from '../utils'
-import { Telefunction, Telefunctions } from '../../shared/types'
+import { assert, assertUsage, checkType, hasProp, objectAssign } from '../utils'
+import { Telefunctions } from '../../shared/types'
 import { loadTelefuncFiles } from './loadTelefuncFiles'
 import { HttpRequest, TelefuncFiles } from '../types'
-import { getContextOptional, provideContext } from '../getContext'
-import type { Telefunc } from '../getContext'
+import { getContextOptional } from '../getContext'
 import { parseHttpRequest } from './parseHttpRequest'
 import { getEtag } from './getEtag'
 import { getTelefunctions } from './getTelefunctions'
+import { executeTelefunction } from './executeTelefunction'
+import { serializeTelefunctionResult } from './serializeTelefunctionResult'
 
 type HttpResponse = {
   body: string
@@ -39,7 +39,7 @@ async function callTelefuncStart(callContext: Parameters<typeof callTelefuncStar
   } catch (err: unknown) {
     // - There is a bug in Telefunc's source code, or
     // - a telefunction throw an error that is not `Abort()`.
-    handleInternalError(err, callContext)
+    handleError(err, callContext)
     return internnalError
   }
 }
@@ -99,30 +99,20 @@ async function callTelefuncStart_(callContext: {
     ).join(', ')}]`,
   )
 
-  const { telefuncResult, telefuncHasErrored, telefuncError } = await executeTelefunction(callContext)
+  const { telefunctionReturn, telefunctionHasErrored, telefunctionError } = await executeTelefunction(callContext)
   objectAssign(callContext, {
-    _telefuncResult: telefuncResult,
-    _telefuncHasErrored: telefuncHasErrored,
-    _telefuncError: telefuncError,
-    _err: telefuncError,
+    _telefunctionReturn: telefunctionReturn,
+    _telefunctionHasErrored: telefunctionHasErrored,
+    _telefuncError: telefunctionError,
+    _err: telefunctionError,
   })
 
-  if (callContext._telefuncError) {
+  if (callContext._telefunctionHasErrored) {
     throw callContext._telefuncError
   }
 
   {
-    const serializationResult = serializeTelefuncResult(callContext)
-    assertUsage(
-      !('serializationError' in serializationResult),
-      [
-        `Couldn't serialize value returned by telefunction \`${callContext._telefunctionName}\`.`,
-        'Make sure returned values',
-        'to be of the following types:',
-        '`Object`, `string`, `number`, `Date`, `null`, `undefined`, `Inifinity`, `NaN`, `RegExp`.',
-      ].join(' '),
-    )
-    const { httpResponseBody } = serializationResult
+    const httpResponseBody = serializeTelefunctionResult(callContext)
     objectAssign(callContext, { _httpResponseBody: httpResponseBody })
   }
 
@@ -141,61 +131,7 @@ async function callTelefuncStart_(callContext: {
   }
 }
 
-async function executeTelefunction(callContext: {
-  _telefunctionName: string
-  _telefunctionArgs: unknown[]
-  _telefunctions: Record<string, Telefunction>
-  _providedContext: Telefunc.Context | null
-}) {
-  const telefunctionName = callContext._telefunctionName
-  const telefunctionArgs = callContext._telefunctionArgs
-  const telefunctions = callContext._telefunctions
-  const telefunction = telefunctions[telefunctionName]
-
-  if (callContext._providedContext) {
-    provideContext(callContext._providedContext)
-  }
-
-  let resultSync: unknown
-  let telefuncError: unknown
-  let telefuncHasErrored = false
-  try {
-    resultSync = telefunction.apply(null, telefunctionArgs)
-  } catch (err) {
-    telefuncHasErrored = true
-    telefuncError = err
-  }
-
-  let telefuncResult: unknown
-  if (!telefuncHasErrored) {
-    assertUsage(
-      isPromise(resultSync),
-      `Your telefunction ${telefunctionName} did not return a promise. A telefunction should always return a promise. E.g. define ${telefunctionName} as a \`async function\` (or \`async () => {}\`).`,
-    )
-    try {
-      telefuncResult = await resultSync
-    } catch (err) {
-      telefuncHasErrored = true
-      telefuncError = err
-    }
-  }
-
-  // console.log({ telefuncResult, telefuncHasErrored, telefuncError })
-  return { telefuncResult, telefuncHasErrored, telefuncError }
-}
-
-function serializeTelefuncResult(callContext: { _telefuncResult: unknown }) {
-  try {
-    const httpResponseBody = stringify({
-      telefuncResult: callContext._telefuncResult,
-    })
-    return { httpResponseBody }
-  } catch (serializationError: unknown) {
-    return { serializationError }
-  }
-}
-
-function handleInternalError(
+function handleError(
   err: unknown,
   callContext: { _isProduction: boolean; _viteDevServer: ViteDevServer | null },
 ) {
