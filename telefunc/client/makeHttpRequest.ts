@@ -44,11 +44,11 @@ async function makeHttpRequest(
     const responseBody = await response.text()
     const value = parse(responseBody)
     assertUsage(
-      isObject(value) && 'telefuncResult' in value,
+      isObject(value) && 'telefunctionReturn' in value,
       `${installErr}. (The HTTP ${method} request made to \`${url}\` returned an HTTP response body that Telefunc never generates.)`,
     )
-    const telefuncResult: unknown = value.telefuncResult
-    return telefuncResult
+    const telefunctionReturn: unknown = value.telefunctionReturn
+    return telefunctionReturn
   } else {
     const codeErrorText = `The telefunc \`${telefunctionName}\` threw an error. Check the server logs for more information.`
     throw new TelefuncError(codeErrorText, {
