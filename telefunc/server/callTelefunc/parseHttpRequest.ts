@@ -1,8 +1,8 @@
+export { parseHttpRequest }
+
 import { parse } from '@brillout/json-s'
 import { HttpRequest } from '../types'
 import { assertUsage, hasProp } from '../utils'
-
-export { parseHttpRequest }
 
 function parseHttpRequest(callContext: {
   _httpRequest: HttpRequest

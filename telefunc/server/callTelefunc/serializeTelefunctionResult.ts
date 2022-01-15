@@ -1,7 +1,7 @@
+export { serializeTelefunctionResult }
+
 import { stringify } from '@brillout/json-s'
 import { assertUsage } from '../utils'
-
-export { serializeTelefunctionResult }
 
 function serializeTelefunctionResult(callContext: { _telefunctionReturn: unknown; _telefunctionName: string }) {
   try {

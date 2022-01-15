@@ -1,7 +1,7 @@
 export { callTelefuncStart }
 
 import type { ViteDevServer } from 'vite'
-import { assert, assertUsage, checkType, hasProp, objectAssign } from '../utils'
+import { assert, assertUsage, checkType, objectAssign } from '../utils'
 import { Telefunctions } from '../../shared/types'
 import { loadTelefuncFiles } from './loadTelefuncFiles'
 import { HttpRequest, TelefuncFiles } from '../types'
@@ -11,6 +11,7 @@ import { getEtag } from './getEtag'
 import { getTelefunctions } from './getTelefunctions'
 import { executeTelefunction } from './executeTelefunction'
 import { serializeTelefunctionResult } from './serializeTelefunctionResult'
+import { handleError } from './handleError'
 
 type HttpResponse = {
   body: string
@@ -128,45 +129,5 @@ async function callTelefuncStart_(callContext: {
     statusCode: 200,
     etag: callContext._httpResponseEtag,
     contentType: 'text/plain',
-  }
-}
-
-function handleError(
-  err: unknown,
-  callContext: { _isProduction: boolean; _viteDevServer: ViteDevServer | null },
-) {
-  // We ensure we print a string; Cloudflare Workers doesn't seem to properly stringify `Error` objects.
-  const errStr = (hasProp(err, 'stack') && String(err.stack)) || String(err)
-  if (!callContext._isProduction && callContext._viteDevServer) {
-    // TODO: check if Vite already logged the error
-  }
-
-  if (viteAlreadyLoggedError(err, callContext)) {
-    return
-  }
-  viteErrorCleanup(err, callContext._viteDevServer)
-
-  console.error(errStr)
-}
-
-function viteAlreadyLoggedError(
-  err: unknown,
-  callContext: { _isProduction: boolean; _viteDevServer: ViteDevServer | null },
-) {
-  if (callContext._isProduction) {
-    return false
-  }
-  if (callContext._viteDevServer && callContext._viteDevServer.config.logger.hasErrorLogged(err as Error)) {
-    return true
-  }
-  return false
-}
-
-function viteErrorCleanup(err: unknown, viteDevServer: ViteDevServer | null) {
-  if (viteDevServer) {
-    if (hasProp(err, 'stack')) {
-      // Apply source maps
-      viteDevServer.ssrFixStacktrace(err as Error)
-    }
   }
 }

@@ -1,3 +1,5 @@
+export { loadTelefuncFiles }
+
 import type { ViteDevServer } from 'vite'
 import type { TelefuncFiles } from '../types'
 import { join } from 'path'
@@ -7,8 +9,6 @@ import { loadTelefuncFilesWithVite } from '../../plugin/vite/loadTelefuncFilesWi
 import { loadTelefuncFilesWithWebpack } from '../../plugin/webpack/loadTelefuncFilesWithWebpack'
 import { loadTelefuncFilesWithInternalMechanism } from './loadTelefuncFilesWithInternalMechanism'
 import { hasProp } from '../utils'
-
-export { loadTelefuncFiles }
 
 type BundlerName = 'webpack' | 'nextjs' | 'vite' | 'unknown'
 
