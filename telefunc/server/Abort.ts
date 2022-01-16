@@ -8,7 +8,7 @@ function isAbort(thing: unknown): thing is ReturnType<typeof Abort> {
   return typeof thing === 'object' && thing !== null && isAbortSymbol in thing
 }
 
-function Abort(this: void, value: unknown) {
+function Abort(this: void, value?: unknown) {
   assertUsage(this === undefined, 'Superflous `new` operator: use `throw Abort()` instead of `throw new Abort()`.')
   assertUsage(
     arguments.length === 1,
