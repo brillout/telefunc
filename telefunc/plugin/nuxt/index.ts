@@ -4,7 +4,6 @@ import { resolve } from 'path'
 import { telefuncMiddleware } from './telefuncMiddleware'
 
 const telefuncModule: Module = function () {
-
   this.extendBuild((config) => {
     const loader = resolve(__dirname, './loader.js')
     config.module!.rules.push({

@@ -13,8 +13,8 @@ function testRun(cmd: 'npm run dev' | 'npm run prod') {
     await page.goto(`${urlBase}/`)
     const text = await page.textContent('body')
     expect(text).toContain("Alice's to-do list")
-    expect(text).toContain("Buy milk")
-    expect(text).toContain("Buy strawberries")
+    expect(text).toContain('Buy milk')
+    expect(text).toContain('Buy strawberries')
   })
 
   test('Add to-do item', async () => {
