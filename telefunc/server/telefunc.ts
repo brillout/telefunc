@@ -5,7 +5,7 @@ import { assertHttpRequest } from './callTelefunc/assertHttpRequest'
 import { callTelefuncStart } from './callTelefunc/index'
 import { resolveConfigDefaults, ServerConfig, validateConfigObject } from './configSpec'
 import { HttpRequest } from './types'
-import { assertUsage, objectAssign } from './utils'
+import { assertUsage, getUrlPathname, objectAssign } from './utils'
 
 const telefuncConfig: ServerConfig = getConfigObject()
 
@@ -25,7 +25,8 @@ function telefunc(httpRequest: HttpRequest) {
     _httpRequest: httpRequest,
   })
 
-  const { viteDevServer, telefuncFiles, root, isProduction, telefuncUrl, disableEtag } = resolveConfigDefaults(telefuncConfig)
+  const { viteDevServer, telefuncFiles, root, isProduction, telefuncUrl, disableEtag } =
+    resolveConfigDefaults(telefuncConfig)
   objectAssign(callContext, {
     _isProduction: isProduction,
     _root: root,
@@ -36,7 +37,7 @@ function telefunc(httpRequest: HttpRequest) {
   })
 
   assertUsage(
-    httpRequest.url === callContext._telefuncUrl,
+    getUrlPathname(httpRequest.url) === callContext._telefuncUrl,
     `callTelefunc({ url }): The HTTP request \`url\` should be \`${callContext._telefuncUrl}\`. Make sure that \`url\` is the HTTP request URL, or change \`config.telefuncUrl\`.`,
   )
 
