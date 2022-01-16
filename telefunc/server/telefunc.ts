@@ -36,10 +36,7 @@ function telefunc(httpRequest: HttpRequest) {
     _telefuncUrl: telefuncUrl,
   })
 
-  assertUsage(
-    getUrlPathname(httpRequest.url) === callContext._telefuncUrl,
-    `callTelefunc({ url }): The HTTP request \`url\` should be \`${callContext._telefuncUrl}\`. Make sure that \`url\` is the HTTP request URL, or change \`config.telefuncUrl\`.`,
-  )
+  assertUrl(callContext)
 
   return callTelefuncStart(callContext)
 }
@@ -52,4 +49,12 @@ function getConfigObject() {
     validateConfigObject(config)
     return true
   }
+}
+
+function assertUrl(callContext: { _httpRequest: { url: string }; _telefuncUrl: string }) {
+  const urlPathname = getUrlPathname(callContext._httpRequest.url)
+  assertUsage(
+    urlPathname === callContext._telefuncUrl,
+    `telefunc({ url }): The HTTP request \`url\` pathname \`${urlPathname}\` should be \`${callContext._telefuncUrl}\`. Make sure that \`url\` is the HTTP request URL, or change \`config.telefuncUrl\` to \`${urlPathname}\`.`,
+  )
 }

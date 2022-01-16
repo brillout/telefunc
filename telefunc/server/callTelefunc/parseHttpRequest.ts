@@ -22,9 +22,9 @@ function parseHttpRequest(callContext: {
     } else {
       assertUsage(
         false,
-        '`callTelefunc({ body })`: The `body` you provided to `callTelefunc()` should be the body of the HTTP request `' +
+        '`telefunc({ body })`: The `body` you provided to `telefunc()` should be the body of the HTTP request `' +
           url +
-          '`. This is not the case; make sure you are properly retrieving the HTTP request body and pass it to `callTelefunc({ body })`. ' +
+          '`. This is not the case; make sure you are properly retrieving the HTTP request body and pass it to `telefunc({ body })`. ' +
           '(Parsed `body`: `' +
           JSON.stringify(bodyParsed) +
           '`.)',

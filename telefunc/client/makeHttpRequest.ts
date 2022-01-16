@@ -27,7 +27,7 @@ async function makeHttpRequest(url: string, body: string, telefunctionName: stri
 
   const statusCode = response.status
   const isOk = response.ok
-  const installErr = `Telefunc doesn't seem to be (properly) installed on your server. Make sure to reply all HTTP requests made to \`${url}\` with \`callTelefunc()\` (for both \`GET\` and \`POST\` HTTP methods)`
+  const installErr = `Telefunc doesn't seem to be (properly) installed on your server. Make sure to reply all HTTP requests made to \`${url}\` with the \`telefunc()\` server middleware. For both \`GET\` and \`POST\` HTTP methods.`
   assertUsage(
     statusCode === 500 || statusCode === 200,
     `${installErr}. (The HTTP ${method} request made to \`${url}\` returned a status code of \`${statusCode}\` which Telefunc never uses.)`,
