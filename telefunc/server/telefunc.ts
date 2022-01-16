@@ -1,8 +1,8 @@
 export { telefunc }
 export { telefuncConfig }
 
-import { assertHttpRequest } from './callTelefunc/assertHttpRequest'
-import { callTelefuncStart } from './callTelefunc/index'
+import { assertHttpRequest } from './runTelefunc/assertHttpRequest'
+import { runTelefunc } from './runTelefunc'
 import { resolveConfigDefaults, ServerConfig, validateConfigObject } from './configSpec'
 import { HttpRequest } from './types'
 import { assertUsage, getUrlPathname, objectAssign } from './utils'
@@ -38,7 +38,7 @@ function telefunc(httpRequest: HttpRequest) {
 
   assertUrl(callContext)
 
-  return callTelefuncStart(callContext)
+  return runTelefunc(callContext)
 }
 
 function getConfigObject() {

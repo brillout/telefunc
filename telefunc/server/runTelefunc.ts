@@ -1,16 +1,16 @@
-export { callTelefuncStart }
+export { runTelefunc }
 
-import type { HttpRequest, TelefuncFiles, Telefunction } from '../types'
+import type { HttpRequest, TelefuncFiles, Telefunction } from './types'
 import type { ViteDevServer } from 'vite'
-import { assert, assertUsage, checkType, objectAssign } from '../utils'
-import { loadTelefuncFiles } from './loadTelefuncFiles'
-import { getContextOptional } from '../getContext'
-import { parseHttpRequest } from './parseHttpRequest'
-import { getEtag } from './getEtag'
-import { getTelefunctions } from './getTelefunctions'
-import { executeTelefunction } from './executeTelefunction'
-import { serializeTelefunctionResult } from './serializeTelefunctionResult'
-import { handleError } from './handleError'
+import { assert, assertUsage, checkType, objectAssign } from './utils'
+import { getContextOptional } from './getContext'
+import { loadTelefuncFiles } from './runTelefunc/loadTelefuncFiles'
+import { parseHttpRequest } from './runTelefunc/parseHttpRequest'
+import { getEtag } from './runTelefunc/getEtag'
+import { getTelefunctions } from './runTelefunc/getTelefunctions'
+import { executeTelefunction } from './runTelefunc/executeTelefunction'
+import { serializeTelefunctionResult } from './runTelefunc/serializeTelefunctionResult'
+import { handleError } from './runTelefunc/handleError'
 
 type HttpResponse = {
   body: string
@@ -33,9 +33,9 @@ const internnalError = {
   etag: null,
 }
 
-async function callTelefuncStart(callContext: Parameters<typeof callTelefuncStart_>[0]) {
+async function runTelefunc(callContext: Parameters<typeof runTelefunc_>[0]) {
   try {
-    return await callTelefuncStart_(callContext)
+    return await runTelefunc_(callContext)
   } catch (err: unknown) {
     // - There is a bug in Telefunc's source code, or
     // - a telefunction throw an error that is not `Abort()`.
@@ -44,7 +44,7 @@ async function callTelefuncStart(callContext: Parameters<typeof callTelefuncStar
   }
 }
 
-async function callTelefuncStart_(callContext: {
+async function runTelefunc_(callContext: {
   _httpRequest: HttpRequest
   _viteDevServer: ViteDevServer | null
   _telefuncFilesProvidedByUser: TelefuncFiles | null
