@@ -1,21 +1,12 @@
 import { stringify } from '@brillout/json-s'
 import { makeHttpRequest } from './makeHttpRequest'
 import { assert, assertUsage } from '../shared/utils'
+import { telefuncConfig } from './telefuncConfig'
 
-const configDefault: ClientConfig = {
-  telefuncUrl: '/_telefunc',
-}
-export const telefuncConfig = getConfigProxy(configDefault)
 export { __internal_fetchTelefunc }
 
 // We need ES6 `Proxy`
 assertProxySupport()
-
-/** Telefunc Client Configuration */
-type ClientConfig = {
-  /** The address of the server, e.g. `https://example.org/_telefunc`. */
-  telefuncUrl: string
-}
 
 function __internal_fetchTelefunc(
   telefuncFilePath: string,
@@ -40,7 +31,7 @@ function __internal_fetchTelefunc(
 function callTelefunctionOverHttp(
   telefunctionName: string,
   telefunctionArgs: unknown[],
-  telefuncConfig: ClientConfig,
+  telefuncConfig: { telefuncUrl: string },
 ): Promise<unknown> {
   assert(telefunctionArgs.length >= 0)
 
@@ -96,46 +87,6 @@ function assertProxySupport() {
 }
 function envSupportsProxy() {
   return typeof 'Proxy' !== 'undefined'
-}
-
-function getConfigProxy(configDefaults: ClientConfig): ClientConfig {
-  const configObject: ClientConfig = { ...configDefaults }
-  const configProxy: ClientConfig = new Proxy(configObject, {
-    set: validateConfig,
-  })
-  return configProxy
-
-  function validateConfig(_: ClientConfig, configName: keyof ClientConfig, configValue: unknown) {
-    assertUsage(configName in configDefaults, `[telefunc/client] Unknown config \`${configName}\`.`)
-
-    {
-      const configDefault = configDefaults[configName]
-      const configType = typeof configDefault
-      assertUsage(
-        typeof configValue === configType,
-        `[telefunc/client] Config \`telefuncUrl\` should be a ${configType}.`,
-      )
-    }
-
-    if (configName === 'telefuncUrl') {
-      const telefuncUrl = configValue
-      assert(typeof telefuncUrl === 'string')
-      validateTelefuncUrl(telefuncUrl)
-    }
-
-    configObject[configName] = configValue as never
-    return true
-  }
-}
-function validateTelefuncUrl(telefuncUrl: string) {
-  assertUsage(
-    telefuncUrl.startsWith('/') || telefuncUrl.startsWith('http') || isIpAddress(telefuncUrl),
-    `You set \`config.telefuncUrl==${telefuncUrl}\` but it should be one of the following: a URL pathname (e.g. \`/_telefunc\`), a URL with origin (e.g. \`https://example.org/_telefunc\`), or a IP address (e.g. \`192.158.1.38\`).`,
-  )
-}
-
-function isIpAddress(value: string) {
-  return /^\d/.test(value)
 }
 
 declare global {
