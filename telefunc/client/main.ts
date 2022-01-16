@@ -17,31 +17,12 @@ type ClientConfig = {
   telefuncUrl: string
 }
 
-// Telefunc server instance
-// For when using the Telefunc client in Node.js
-type TelefuncServerInstance = {
-  __directCall: (
-    telefunctionName: string,
-    telefunctionArgs: unknown[],
-  ) => // Doesn't have to be a promise; a telefunction can return its value synchronously
-  Promise<unknown> | unknown
-}
-
 function __internal_fetchTelefunc(
   telefuncFilePath: string,
   exportName: string,
   telefunctionArgs: unknown[],
 ): Promise<unknown> {
-  const telefuncServerInstance: TelefuncServerInstance = getTelefuncServerInstance()
-
   const telefunctionName = `${telefuncFilePath}:${exportName}`
-
-  // Usage in Node.js [inter-process]
-  // Inter-process: the Telefunc client and the Telefunc server are loaded in the same Node.js process.
-  if (telefuncServerInstance) {
-    assert(isNodejs())
-    return callTelefunctionDirectly(telefunctionName, telefunctionArgs, telefuncServerInstance)
-  }
 
   // Usage in the browser
   // Usage in Node.js [cross-process]
@@ -54,30 +35,6 @@ function __internal_fetchTelefunc(
   )
 
   return callTelefunctionOverHttp(telefunctionName, telefunctionArgs, config)
-}
-
-function getTelefuncServerInstance() {
-  const telefuncServer__serverSideUsage =
-    typeof global !== 'undefined' && global && (global as any).__INTERNAL_telefuncServer_nodejs
-  const telefuncServerInstance = telefuncServer__serverSideUsage || null
-
-  // The purpose of providing `telefuncServerInstance` to `telefuncClient` is for server-side client usage.
-  // It doesn't make sense to provide `telefuncServerInstance` on the browser-side.
-  assert(telefuncServerInstance === null || isNodejs())
-
-  // The whole purpose of providing `telefuncServerInstance` is to be able to call `telefuncServerInstance.__directCall`
-  // Bypassing making an unecessary HTTP request.
-  assert(telefuncServerInstance === null || telefuncServerInstance.__directCall)
-
-  return telefuncServerInstance
-}
-
-async function callTelefunctionDirectly(
-  telefunctionName: string,
-  telefunctionArgs: unknown[],
-  telefuncServerInstance: TelefuncServerInstance,
-): Promise<unknown> {
-  return telefuncServerInstance.__directCall(telefunctionName, telefunctionArgs)
 }
 
 function callTelefunctionOverHttp(

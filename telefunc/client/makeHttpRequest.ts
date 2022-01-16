@@ -1,9 +1,8 @@
+export { makeHttpRequest }
+
 import { assert, assertUsage } from '../shared/utils'
 import { parse } from '@brillout/json-s'
 import { isObject } from '../shared/utils'
-
-export { makeHttpRequest }
-export { TelefuncError }
 
 async function makeHttpRequest(url: string, body: string, telefunctionName: string): Promise<unknown> {
   const method = 'POST'
