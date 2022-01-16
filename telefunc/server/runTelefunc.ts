@@ -70,8 +70,8 @@ async function runTelefunc_(runContext: {
     }
     const { telefunctionName, telefunctionArgs } = parsed
     objectAssign(runContext, {
-      telefunctionName: telefunctionName,
-      telefunctionArgs: telefunctionArgs,
+      telefunctionName,
+      telefunctionArgs,
     })
   }
 
@@ -79,16 +79,14 @@ async function runTelefunc_(runContext: {
     const telefuncFiles = runContext.telefuncFiles || (await loadTelefuncFiles(runContext))
     assert(telefuncFiles, 'No `.telefunc.js` file found')
     checkType<TelefuncFiles>(telefuncFiles)
-    objectAssign(runContext, { telefuncFiles: telefuncFiles })
+    objectAssign(runContext, { telefuncFiles })
     runContext.telefuncFiles
   }
 
   {
     const { telefunctions } = await getTelefunctions(runContext)
     checkType<Record<string, Telefunction>>(telefunctions)
-    objectAssign(runContext, {
-      telefunctions: telefunctions,
-    })
+    objectAssign(runContext, { telefunctions })
   }
 
   assertUsage(
@@ -103,26 +101,24 @@ async function runTelefunc_(runContext: {
   const { telefunctionReturn, telefunctionAborted, telefunctionHasErrored, telefunctionError } =
     await executeTelefunction(runContext)
   objectAssign(runContext, {
-    telefunctionReturn: telefunctionReturn,
-    telefunctionHasErrored: telefunctionHasErrored,
-    telefunctionAborted: telefunctionAborted,
-    telefuncError: telefunctionError,
+    telefunctionReturn,
+    telefunctionHasErrored,
+    telefunctionAborted,
+    telefunctionError,
   })
 
   if (runContext.telefunctionHasErrored) {
-    throw runContext.telefuncError
+    throw runContext.telefunctionError
   }
 
   {
     const httpResponseBody = serializeTelefunctionResult(runContext)
-    objectAssign(runContext, { httpResponseBody: httpResponseBody })
+    objectAssign(runContext, { httpResponseBody })
   }
 
   {
-    const etag = await getEtag(runContext)
-    objectAssign(runContext, {
-      httpResponseEtag: etag,
-    })
+    const httpResponseEtag = await getEtag(runContext)
+    objectAssign(runContext, { httpResponseEtag })
   }
 
   return {
