@@ -6,26 +6,18 @@ import type { Telefunction } from './types'
 import { isAbsolute } from 'path'
 import { assertUsage, assertWarning, hasProp, isPlainObject } from './utils'
 
+/** Telefunc Server Configuration */
 type ServerConfig = {
-  viteDevServer?: ViteDevServer
-  telefuncFiles?: Record<string, Record<string, Telefunction>>
+  /** The Telefunc HTTP endpoint URL, e.g. `/api/_telefunc`. Default: `/_telefunc`. */
+  telefuncUrl?: string
   root?: string
   isProduction?: boolean
-  telefuncUrl?: string
   disableEtag?: boolean
+  viteDevServer?: ViteDevServer
+  telefuncFiles?: Record<string, Record<string, Telefunction>>
 }
 
 const telefuncConfig: ServerConfig = getConfigObject()
-
-function getConfigObject() {
-  const config: Record<string, unknown> = {}
-  return new Proxy(config, { set })
-  function set(_: never, prop: string, val: unknown) {
-    config[prop] = val
-    validateConfigObject(config)
-    return true
-  }
-}
 
 const configSpec = {
   isProduction: {
@@ -86,6 +78,16 @@ const configSpec = {
       return false
     },
   },
+}
+
+function getConfigObject() {
+  const config: Record<string, unknown> = {}
+  return new Proxy(config, { set })
+  function set(_: never, prop: string, val: unknown) {
+    config[prop] = val
+    validateConfigObject(config)
+    return true
+  }
 }
 
 function resolveConfigDefaults(configProvidedByUser: ServerConfig) {

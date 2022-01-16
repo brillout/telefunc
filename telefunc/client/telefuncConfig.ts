@@ -1,55 +1,53 @@
-import { assert, assertUsage } from '../shared/utils'
-
 export { telefuncConfig }
+export { resolveConfigDefaults }
+
+import { assert, assertUsage, isPlainObject } from '../shared/utils'
 
 /** Telefunc Client Configuration */
 type ClientConfig = {
-  /** The address of the server, e.g. `https://example.org/_telefunc`. */
-  telefuncUrl: string
+  /** The Telefunc HTTP endpoint URL, e.g. `https://example.org/_telefunc`. Default: `/_telefunc`. */
+  telefuncUrl?: string
 }
 
-const configDefault: ClientConfig = {
-  telefuncUrl: '/_telefunc',
-}
+const telefuncConfig: ClientConfig = getConfigObject()
 
-const telefuncConfig = getConfigProxy(configDefault)
-
-function getConfigProxy(configDefaults: ClientConfig): ClientConfig {
-  const configObject: ClientConfig = { ...configDefaults }
-  const configProxy: ClientConfig = new Proxy(configObject, {
-    set: validateConfig,
-  })
-  return configProxy
-
-  function validateConfig(_: ClientConfig, configName: keyof ClientConfig, configValue: unknown) {
-    assertUsage(configName in configDefaults, `[telefunc/client] Unknown config \`${configName}\`.`)
-
-    {
-      const configDefault = configDefaults[configName]
-      const configType = typeof configDefault
+const configSpec = {
+  telefuncUrl: {
+    validate(val: unknown) {
+      assertUsage(typeof val === 'string', 'The config `telefuncUrl` should be a string')
+      const isIpAddress = (value: string) => /^\d/.test(value)
       assertUsage(
-        typeof configValue === configType,
-        `[telefunc/client] Config \`telefuncUrl\` should be a ${configType}.`,
+        val.startsWith('/') || val.startsWith('http') || isIpAddress(val),
+        `You set the config \`telefuncUrl\` to \`${val}\` but it should be one of the following: a URL pathname (e.g. \`/_telefunc\`), a URL with origin (e.g. \`https://example.org/_telefunc\`), or an IP address (e.g. \`192.158.1.38\`).`,
       )
-    }
+    },
+    getDefault() {
+      return '/_telefunc'
+    },
+  },
+}
 
-    if (configName === 'telefuncUrl') {
-      const telefuncUrl = configValue
-      assert(typeof telefuncUrl === 'string')
-      validateTelefuncUrl(telefuncUrl)
-    }
-
-    configObject[configName] = configValue as never
+function getConfigObject() {
+  const config: Record<string, unknown> = {}
+  return new Proxy(config, { set })
+  function set(_: never, prop: string, val: unknown) {
+    config[prop] = val
+    validateConfigObject(config)
     return true
   }
 }
-function validateTelefuncUrl(telefuncUrl: string) {
-  assertUsage(
-    telefuncUrl.startsWith('/') || telefuncUrl.startsWith('http') || isIpAddress(telefuncUrl),
-    `You set \`config.telefuncUrl==${telefuncUrl}\` but it should be one of the following: a URL pathname (e.g. \`/_telefunc\`), a URL with origin (e.g. \`https://example.org/_telefunc\`), or a IP address (e.g. \`192.158.1.38\`).`,
-  )
+
+function resolveConfigDefaults(configProvidedByUser: ClientConfig) {
+  return {
+    telefuncUrl: configProvidedByUser['telefuncUrl'] ?? configSpec['telefuncUrl'].getDefault(),
+  }
 }
 
-function isIpAddress(value: string) {
-  return /^\d/.test(value)
+function validateConfigObject(config: unknown) {
+  assertUsage(isPlainObject(config), 'The config object should be a plain JavaScript object')
+  Object.entries(config).forEach(([prop, val]) => {
+    const option = configSpec[prop as keyof typeof configSpec] ?? undefined
+    assertUsage(option, `Unknown config \`${prop}\`.`)
+    option.validate(val)
+  })
 }

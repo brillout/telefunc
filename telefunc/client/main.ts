@@ -1,7 +1,7 @@
 import { stringify } from '@brillout/json-s'
 import { makeHttpRequest } from './makeHttpRequest'
 import { assert, assertUsage } from '../shared/utils'
-import { telefuncConfig } from './telefuncConfig'
+import { resolveConfigDefaults, telefuncConfig } from './telefuncConfig'
 
 export { __internal_fetchTelefunc }
 
@@ -25,7 +25,7 @@ function __internal_fetchTelefunc(
     '`config.telefuncUrl` missing. You are using the Telefunc client in Node.js, and the Telefunc client is loaded in a different Node.js process than the Node.js process that loaded the Telefunc server; the `config.telefuncUrl` configuration is required.',
   )
 
-  return callTelefunctionOverHttp(telefunctionName, telefunctionArgs, telefuncConfig)
+  return callTelefunctionOverHttp(telefunctionName, telefunctionArgs, resolveConfigDefaults(telefuncConfig))
 }
 
 function callTelefunctionOverHttp(
