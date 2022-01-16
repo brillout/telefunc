@@ -9,7 +9,7 @@ function serializeTelefunctionResult(callContext: {
   _telefunctionAborted: boolean
 }) {
   const bodyValue: Record<string, unknown> = {
-    telefunctionReturn: callContext._telefunctionReturn,
+    ret: callContext._telefunctionReturn,
   }
   if (callContext._telefunctionAborted) {
     bodyValue.aborted = true

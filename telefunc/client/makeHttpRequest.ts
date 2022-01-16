@@ -5,11 +5,7 @@ import { isObject } from '../shared/utils'
 export { makeHttpRequest }
 export { TelefuncError }
 
-async function makeHttpRequest(
-  url: string,
-  body: string,
-  telefunctionName: string,
-): Promise<unknown> {
+async function makeHttpRequest(url: string, body: string, telefunctionName: string): Promise<unknown> {
   const method = 'POST'
 
   let response: Response
@@ -43,10 +39,10 @@ async function makeHttpRequest(
     const responseBody = await response.text()
     const value = parse(responseBody)
     assertUsage(
-      isObject(value) && 'telefunctionReturn' in value,
+      isObject(value) && 'ret' in value,
       `${installErr}. (The HTTP ${method} request made to \`${url}\` returned an HTTP response body that Telefunc never generates.)`,
     )
-    const telefunctionReturn: unknown = value.telefunctionReturn
+    const telefunctionReturn: unknown = value.ret
     return telefunctionReturn
   } else {
     const codeErrorText = `The telefunc \`${telefunctionName}\` threw an error. Check the server logs for more information.`
