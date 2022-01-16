@@ -54,7 +54,7 @@ async function runTelefunc_(runContext: {
   disableEtag: boolean
 }): Promise<HttpResponse> {
   objectAssign(runContext, {
-    _providedContext: getContextOptional() || null,
+    providedContext: getContextOptional() || null,
   })
 
   if (runContext.httpRequest.method !== 'POST' && runContext.httpRequest.method !== 'post') {
@@ -107,7 +107,6 @@ async function runTelefunc_(runContext: {
     telefunctionHasErrored: telefunctionHasErrored,
     telefunctionAborted: telefunctionAborted,
     telefuncError: telefunctionError,
-    _err: telefunctionError,
   })
 
   if (runContext.telefunctionHasErrored) {

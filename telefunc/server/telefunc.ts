@@ -21,9 +21,7 @@ function telefunc(httpRequest: HttpRequest) {
 
   const runContext = {}
 
-  objectAssign(runContext, {
-    httpRequest: httpRequest,
-  })
+  objectAssign(runContext, { httpRequest })
 
   {
     const configResolved = resolveConfigDefaults(telefuncConfig)

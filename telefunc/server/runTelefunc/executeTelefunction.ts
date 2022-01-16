@@ -9,15 +9,15 @@ async function executeTelefunction(runContext: {
   telefunctionName: string
   telefunctionArgs: unknown[]
   telefunctions: Record<string, Telefunction>
-  _providedContext: Telefunc.Context | null
+  providedContext: Telefunc.Context | null
 }) {
   const telefunctionName = runContext.telefunctionName
   const telefunctionArgs = runContext.telefunctionArgs
   const telefunctions = runContext.telefunctions
   const telefunction = telefunctions[telefunctionName]
 
-  if (runContext._providedContext) {
-    provideContext(runContext._providedContext)
+  if (runContext.providedContext) {
+    provideContext(runContext.providedContext)
   }
 
   let telefunctionError: unknown
