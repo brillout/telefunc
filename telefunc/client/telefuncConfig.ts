@@ -1,7 +1,9 @@
 export { telefuncConfig }
 export { resolveConfigDefaults }
 
-import { assert, assertUsage, isPlainObject } from '../shared/utils'
+import { assertUsage, isPlainObject } from '../shared/utils'
+
+assertProxySupport()
 
 /** Telefunc Client Configuration */
 type ClientConfig = {
@@ -50,4 +52,16 @@ function validateConfigObject(config: unknown) {
     assertUsage(option, `Unknown config \`${prop}\`.`)
     option.validate(val)
   })
+}
+
+function assertProxySupport() {
+  const envSupportsProxy = typeof 'Proxy' !== 'undefined'
+  assertUsage(
+    envSupportsProxy,
+    [
+      "Your JavaScript environment doesn't seem to support Proxy.",
+      'Note that all browsers and Node.js support Proxy, with the exception of Internet Explorer.',
+      'If you need IE support then open a GitHub issue.',
+    ].join(' '),
+  )
 }

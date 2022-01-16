@@ -5,9 +5,6 @@ import { resolveConfigDefaults, telefuncConfig } from './telefuncConfig'
 
 export { __internal_fetchTelefunc }
 
-// We need ES6 `Proxy`
-assertProxySupport()
-
 function __internal_fetchTelefunc(
   telefuncFilePath: string,
   exportName: string,
@@ -73,26 +70,4 @@ function isBrowser() {
 }
 function __browserTest() {
   return typeof window !== 'undefined'
-}
-
-function assertProxySupport() {
-  assertUsage(
-    envSupportsProxy(),
-    [
-      "Your JavaScript environment doesn't seem to support Proxy.",
-      'Note that all browsers and Node.js support Proxy, with the exception of Internet Explorer.',
-      'If you need IE support then open a GitHub issue.',
-    ].join(' '),
-  )
-}
-function envSupportsProxy() {
-  return typeof 'Proxy' !== 'undefined'
-}
-
-declare global {
-  namespace NodeJS {
-    interface Global {
-      __INTERNAL_telefuncServer_nodejs: any
-    }
-  }
 }
