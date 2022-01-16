@@ -1,17 +1,23 @@
 export { makeHttpRequest }
 
-import { assert, assertUsage } from './utils'
+import { assert, assertUsage } from '../utils'
 import { parse } from '@brillout/json-s'
-import { isObject } from './utils'
+import { isObject, isBrowser } from '../utils'
 
-async function makeHttpRequest(url: string, body: string, telefunctionName: string): Promise<unknown> {
+assertIsBrowser()
+
+async function makeHttpRequest(callContext: {
+  telefuncUrl: string
+  httpRequestBody: string
+  telefunctionName: string
+}): Promise<unknown> {
   const method = 'POST'
 
   let response: Response
   try {
-    response = await fetch(url, {
+    response = await fetch(callContext.telefuncUrl, {
       method,
-      body,
+      body: callContext.httpRequestBody,
       credentials: 'same-origin',
       headers: {
         'Content-Type': 'text/plain',
@@ -26,10 +32,10 @@ async function makeHttpRequest(url: string, body: string, telefunctionName: stri
 
   const statusCode = response.status
   const isOk = response.ok
-  const installErr = `Telefunc doesn't seem to be (properly) installed on your server. Make sure to reply all HTTP requests made to \`${url}\` with the \`telefunc()\` server middleware. For both \`GET\` and \`POST\` HTTP methods.`
+  const installErr = `Telefunc doesn't seem to be (properly) installed on your server. Make sure to reply all HTTP requests made to \`${callContext.telefuncUrl}\` with the \`telefunc()\` server middleware. For both \`GET\` and \`POST\` HTTP methods.`
   assertUsage(
     statusCode === 500 || statusCode === 200,
-    `${installErr}. (The HTTP ${method} request made to \`${url}\` returned a status code of \`${statusCode}\` which Telefunc never uses.)`,
+    `${installErr}. (The HTTP ${method} request made to \`${callContext.telefuncUrl}\` returned a status code of \`${statusCode}\` which Telefunc never uses.)`,
   )
   assert([true, false].includes(isOk))
   assert(isOk === (statusCode === 200))
@@ -39,12 +45,12 @@ async function makeHttpRequest(url: string, body: string, telefunctionName: stri
     const value = parse(responseBody)
     assertUsage(
       isObject(value) && 'ret' in value,
-      `${installErr}. (The HTTP ${method} request made to \`${url}\` returned an HTTP response body that Telefunc never generates.)`,
+      `${installErr}. (The HTTP ${method} request made to \`${callContext.telefuncUrl}\` returned an HTTP response body that Telefunc never generates.)`,
     )
     const telefunctionReturn: unknown = value.ret
     return telefunctionReturn
   } else {
-    const codeErrorText = `The telefunc \`${telefunctionName}\` threw an error. Check the server logs for more information.`
+    const codeErrorText = `The telefunc \`${callContext.telefunctionName}\` threw an error. Check the server logs for more information.`
     throw new TelefuncError(codeErrorText, {
       isConnectionError: false,
       isCodeError: true,
@@ -70,4 +76,8 @@ class TelefuncError extends Error {
     assert(this.message === message)
     assert(this.isConnectionError !== this.isCodeError)
   }
+}
+
+function assertIsBrowser() {
+  assertUsage(isBrowser(), 'The Telefunc client only works in the browser.')
 }
