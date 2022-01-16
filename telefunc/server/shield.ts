@@ -1,13 +1,10 @@
-import { isPlainObject } from './utils/isPlainObject'
-import { unique } from './utils/unique'
-import { isCallable } from './utils/isCallable'
-import { assert, assertUsage } from '../shared/utils/assert'
-
 export { shield }
 export { withShield }
 export { shieldIsMissing }
 export { shieldApply }
 export { shieldToHumandReadable }
+
+import { isPlainObject, unique, isCallable, assert, assertUsage } from './utils'
 
 const _shield = Symbol('_shield')
 const _isVerifier = Symbol('_isVerifier')
