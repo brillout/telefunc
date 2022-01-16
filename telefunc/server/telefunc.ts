@@ -1,13 +1,10 @@
 export { telefunc }
-export { telefuncConfig }
 
 import { assertHttpRequest } from './runTelefunc/assertHttpRequest'
 import { runTelefunc } from './runTelefunc'
-import { resolveConfigDefaults, ServerConfig, validateConfigObject } from './configSpec'
+import { telefuncConfig, resolveConfigDefaults } from './telefuncConfig'
 import { HttpRequest } from './types'
 import { assertUsage, getUrlPathname, objectAssign } from './utils'
-
-const telefuncConfig: ServerConfig = getConfigObject()
 
 /**
  * Get the HTTP response of a telefunction call.
@@ -31,16 +28,6 @@ function telefunc(httpRequest: HttpRequest) {
   assertUrl(runContext)
 
   return runTelefunc(runContext)
-}
-
-function getConfigObject() {
-  const config: Record<string, unknown> = {}
-  return new Proxy(config, { set })
-  function set(_: never, prop: string, val: unknown) {
-    config[prop] = val
-    validateConfigObject(config)
-    return true
-  }
 }
 
 function assertUrl(runContext: { httpRequest: { url: string }; telefuncUrl: string }) {

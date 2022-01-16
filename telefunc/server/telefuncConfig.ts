@@ -1,6 +1,5 @@
+export { telefuncConfig }
 export { resolveConfigDefaults }
-export { validateConfigObject }
-export type { ServerConfig }
 
 import type { ViteDevServer } from 'vite'
 import type { Telefunction } from './types'
@@ -14,6 +13,18 @@ type ServerConfig = {
   isProduction?: boolean
   telefuncUrl?: string
   disableEtag?: boolean
+}
+
+const telefuncConfig: ServerConfig = getConfigObject()
+
+function getConfigObject() {
+  const config: Record<string, unknown> = {}
+  return new Proxy(config, { set })
+  function set(_: never, prop: string, val: unknown) {
+    config[prop] = val
+    validateConfigObject(config)
+    return true
+  }
 }
 
 const configSpec = {
