@@ -5,7 +5,7 @@ import { assert, assertUsage } from '../shared/utils'
 const configDefault: ClientConfig = {
   telefuncUrl: '/_telefunc',
 }
-export const config = getConfigProxy(configDefault)
+export const telefuncConfig = getConfigProxy(configDefault)
 export { __internal_fetchTelefunc }
 
 // We need ES6 `Proxy`
@@ -30,17 +30,17 @@ function __internal_fetchTelefunc(
 
   // Server URL is required for cross-process usage
   assertUsage(
-    config.telefuncUrl || isBrowser(),
+    telefuncConfig.telefuncUrl || isBrowser(),
     '`config.telefuncUrl` missing. You are using the Telefunc client in Node.js, and the Telefunc client is loaded in a different Node.js process than the Node.js process that loaded the Telefunc server; the `config.telefuncUrl` configuration is required.',
   )
 
-  return callTelefunctionOverHttp(telefunctionName, telefunctionArgs, config)
+  return callTelefunctionOverHttp(telefunctionName, telefunctionArgs, telefuncConfig)
 }
 
 function callTelefunctionOverHttp(
   telefunctionName: string,
   telefunctionArgs: unknown[],
-  config: ClientConfig,
+  telefuncConfig: ClientConfig,
 ): Promise<unknown> {
   assert(telefunctionArgs.length >= 0)
 
@@ -66,16 +66,11 @@ function callTelefunctionOverHttp(
   }
   assert(body)
 
-  const url = config.telefuncUrl
+  const url = telefuncConfig.telefuncUrl
   assert(isBrowser() || !url.startsWith('/')) // TODO proper error message
   return makeHttpRequest(url, body, telefunctionName)
 }
 
-function isNodejs() {
-  const itIs = __nodeTest()
-  assert(itIs === !__browserTest())
-  return itIs
-}
 function __nodeTest() {
   const nodeVersion = typeof process !== 'undefined' && process && process.versions && process.versions.node
   return !!nodeVersion

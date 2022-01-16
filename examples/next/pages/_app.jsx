@@ -1,6 +1,6 @@
-import { config } from 'telefunc/client'
+import { telefuncConfig } from 'telefunc/client'
 
-config.telefuncUrl = '/api/_telefunc'
+telefuncConfig.telefuncUrl = '/api/_telefunc'
 
 function MyApp({ Component, pageProps }) {
   return <Component {...pageProps} />

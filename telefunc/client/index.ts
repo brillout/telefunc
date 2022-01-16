@@ -1,1 +1,1 @@
-export { config, __internal_fetchTelefunc } from './main'
+export { telefuncConfig, __internal_fetchTelefunc } from './main'
