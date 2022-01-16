@@ -15,13 +15,8 @@ type BundlerName = 'webpack' | 'nextjs' | 'vite' | 'unknown'
 async function loadTelefuncFiles(runContext: {
   root: string | null
   viteDevServer: ViteDevServer | null
-  telefuncFilesProvidedByUser: TelefuncFiles | null
   isProduction: boolean
 }): Promise<TelefuncFiles | null> {
-  if (runContext.telefuncFilesProvidedByUser) {
-    return runContext.telefuncFilesProvidedByUser
-  }
-
   {
     const telefuncFiles = loadTelefuncFilesWithInternalMechanism()
     if (telefuncFiles) {

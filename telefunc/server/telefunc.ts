@@ -25,16 +25,10 @@ function telefunc(httpRequest: HttpRequest) {
     httpRequest: httpRequest,
   })
 
-  const { viteDevServer, telefuncFiles, root, isProduction, telefuncUrl, disableEtag } =
-    resolveConfigDefaults(telefuncConfig)
-  objectAssign(runContext, {
-    isProduction: isProduction,
-    root: root,
-    viteDevServer: viteDevServer,
-    telefuncFilesProvidedByUser: telefuncFiles,
-    disableEtag: disableEtag,
-    telefuncUrl: telefuncUrl,
-  })
+  {
+    const configResolved = resolveConfigDefaults(telefuncConfig)
+    objectAssign(runContext, configResolved)
+  }
 
   assertUrl(runContext)
 

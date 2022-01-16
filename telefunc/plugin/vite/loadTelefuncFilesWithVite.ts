@@ -7,15 +7,15 @@ import type { GlobFiles } from './importTelefuncFiles'
 
 export { loadTelefuncFilesWithVite }
 
-async function loadTelefuncFilesWithVite(callContext: {
-  _root: string
-  _viteDevServer: ViteDevServer | null
-  _isProduction: boolean
+async function loadTelefuncFilesWithVite(runContext: {
+  root: string
+  viteDevServer: ViteDevServer | null
+  isProduction: boolean
 }): Promise<TelefuncFiles> {
   const viteEntryFile = 'importTelefuncFiles.js'
   assert(moduleExists(`./${viteEntryFile}`, __dirname))
 
-  const userDist = `${callContext._root}/dist`
+  const userDist = `${runContext.root}/dist`
   const prodPath = `${userDist}/server/${viteEntryFile}`
 
   const devPath = importTelefuncFilesFilePath
@@ -27,8 +27,8 @@ async function loadTelefuncFilesWithVite(callContext: {
     devPath,
     prodPath,
     errorMessage,
-    viteDevServer: callContext._viteDevServer,
-    isProduction: callContext._isProduction,
+    viteDevServer: runContext.viteDevServer,
+    isProduction: runContext.isProduction,
   })
 
   assert(isObject(moduleExports))

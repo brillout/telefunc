@@ -2,10 +2,10 @@ import { assert, assertUsage, hasProp, moduleExists, isObject, nodeRequire } fro
 
 export { loadTelefuncFilesWithWebpack }
 
-function loadTelefuncFilesWithWebpack(callContext: { _root: string }) {
+function loadTelefuncFilesWithWebpack(runContext: { root: string }) {
   const entryFile = 'importTelefuncFiles.js'
 
-  const userDist = `${callContext._root}/dist`
+  const userDist = `${runContext.root}/dist`
   const buildPath = `${userDist}/server/${entryFile}`
 
   assertUsage(

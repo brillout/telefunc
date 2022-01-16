@@ -47,7 +47,7 @@ async function runTelefunc(runContext: Parameters<typeof runTelefunc_>[0]) {
 async function runTelefunc_(runContext: {
   httpRequest: HttpRequest
   viteDevServer: ViteDevServer | null
-  telefuncFilesProvidedByUser: TelefuncFiles | null
+  telefuncFiles: TelefuncFiles | null
   isProduction: boolean
   root: string | null
   telefuncUrl: string
@@ -76,10 +76,11 @@ async function runTelefunc_(runContext: {
   }
 
   {
-    const telefuncFiles = runContext.telefuncFilesProvidedByUser || (await loadTelefuncFiles(runContext))
+    const telefuncFiles = runContext.telefuncFiles || (await loadTelefuncFiles(runContext))
     assert(telefuncFiles, 'No `.telefunc.js` file found')
     checkType<TelefuncFiles>(telefuncFiles)
     objectAssign(runContext, { telefuncFiles: telefuncFiles })
+    runContext.telefuncFiles
   }
 
   {
