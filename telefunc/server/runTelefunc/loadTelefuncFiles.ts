@@ -12,14 +12,14 @@ import { hasProp } from '../utils'
 
 type BundlerName = 'webpack' | 'nextjs' | 'vite' | 'unknown'
 
-async function loadTelefuncFiles(callContext: {
+async function loadTelefuncFiles(runContext: {
   _root: string | null
   _viteDevServer: ViteDevServer | null
   _telefuncFilesProvidedByUser: TelefuncFiles | null
   _isProduction: boolean
 }): Promise<TelefuncFiles | null> {
-  if (callContext._telefuncFilesProvidedByUser) {
-    return callContext._telefuncFilesProvidedByUser
+  if (runContext._telefuncFilesProvidedByUser) {
+    return runContext._telefuncFilesProvidedByUser
   }
 
   {
@@ -29,16 +29,16 @@ async function loadTelefuncFiles(callContext: {
     }
   }
 
-  const bundlerName = getBundlerName(callContext)
+  const bundlerName = getBundlerName(runContext)
 
   if (bundlerName === 'vite' || bundlerName === 'unknown') {
-    assert(hasProp(callContext, '_root', 'string'))
-    return loadTelefuncFilesWithVite(callContext)
+    assert(hasProp(runContext, '_root', 'string'))
+    return loadTelefuncFilesWithVite(runContext)
   }
 
   if (bundlerName === 'webpack') {
-    assert(hasProp(callContext, '_root', 'string'))
-    return loadTelefuncFilesWithWebpack(callContext)
+    assert(hasProp(runContext, '_root', 'string'))
+    return loadTelefuncFilesWithWebpack(runContext)
   }
 
   if (bundlerName === 'nextjs') {

@@ -4,11 +4,11 @@ import { parse } from '@brillout/json-s'
 import { HttpRequest } from '../types'
 import { assertUsage, hasProp } from '../utils'
 
-function parseHttpRequest(callContext: {
+function parseHttpRequest(runContext: {
   _httpRequest: HttpRequest
   _isProduction: boolean
 }): { telefunctionName: string; telefunctionArgs: unknown[]; isMalformed: false } | { isMalformed: true } {
-  const { url, body } = callContext._httpRequest
+  const { url, body } = runContext._httpRequest
   const bodyString = typeof body === 'string' ? body : JSON.stringify(body)
 
   let bodyParsed: unknown
@@ -17,7 +17,7 @@ function parseHttpRequest(callContext: {
   } catch (err_) {}
 
   if (!hasProp(bodyParsed, 'name', 'string') || !hasProp(bodyParsed, 'args', 'array')) {
-    if (callContext._isProduction) {
+    if (runContext._isProduction) {
       return { isMalformed: true }
     } else {
       assertUsage(

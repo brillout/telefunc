@@ -3,15 +3,15 @@ export { serializeTelefunctionResult }
 import { stringify } from '@brillout/json-s'
 import { assertUsage } from '../utils'
 
-function serializeTelefunctionResult(callContext: {
+function serializeTelefunctionResult(runContext: {
   _telefunctionReturn: unknown
   _telefunctionName: string
   _telefunctionAborted: boolean
 }) {
   const bodyValue: Record<string, unknown> = {
-    ret: callContext._telefunctionReturn,
+    ret: runContext._telefunctionReturn,
   }
-  if (callContext._telefunctionAborted) {
+  if (runContext._telefunctionAborted) {
     bodyValue.aborted = true
   }
   try {
@@ -21,7 +21,7 @@ function serializeTelefunctionResult(callContext: {
     assertUsage(
       false,
       [
-        `Couldn't serialize value returned by telefunction \`${callContext._telefunctionName}\`.`,
+        `Couldn't serialize value returned by telefunction \`${runContext._telefunctionName}\`.`,
         'Make sure returned values',
         'to be of the following types:',
         '`Object`, `string`, `number`, `Date`, `null`, `undefined`, `Inifinity`, `NaN`, `RegExp`.',
