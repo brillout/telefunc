@@ -1,5 +1,6 @@
 export { executeTelefunction }
 
+import { isAbort } from '../Abort'
 import { provideContext, Telefunc } from '../getContext'
 import { Telefunction } from '../types'
 import { assertUsage, isPromise } from '../utils'
@@ -19,29 +20,38 @@ async function executeTelefunction(callContext: {
     provideContext(callContext._providedContext)
   }
 
-  let resultSync: unknown
   let telefunctionError: unknown
   let telefunctionHasErrored = false
+  let telefunctionAborted = false
+  const onError = (err: unknown) => {
+    if (isAbort(err)) {
+      telefunctionAborted = true
+      telefunctionReturn = err.value
+    } else {
+      telefunctionHasErrored = true
+      telefunctionError = err
+    }
+  }
+
+  let resultSync: unknown
   try {
     resultSync = telefunction.apply(null, telefunctionArgs)
-  } catch (err) {
-    telefunctionHasErrored = true
-    telefunctionError = err
+  } catch (err: unknown) {
+    onError(err)
   }
 
   let telefunctionReturn: unknown
-  if (!telefunctionHasErrored) {
+  if (!telefunctionHasErrored && !telefunctionAborted) {
     assertUsage(
       isPromise(resultSync),
       `The telefunction ${telefunctionName} did not return a promise. Telefunctions should always return a promise. You can define ${telefunctionName} as \`async function\` (or \`async () => {}\`).`,
     )
     try {
       telefunctionReturn = await resultSync
-    } catch (err) {
-      telefunctionHasErrored = true
-      telefunctionError = err
+    } catch (err: unknown) {
+      onError(err)
     }
   }
 
-  return { telefunctionReturn, telefunctionHasErrored, telefunctionError }
+  return { telefunctionReturn, telefunctionAborted, telefunctionHasErrored, telefunctionError }
 }

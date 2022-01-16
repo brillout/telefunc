@@ -1,12 +1,24 @@
-import { assertUsage } from './utils'
-
 export { Abort }
+export { isAbort }
 
-function Abort(this: void, ...args: never[]) {
+import { assertUsage, objectAssign } from './utils'
+const isAbortSymbol = Symbol('isAbortSymbol')
+
+function isAbort(thing: unknown): thing is ReturnType<typeof Abort> {
+  return typeof thing === 'object' && thing !== null && isAbortSymbol in thing
+}
+
+function Abort(this: void, value: unknown) {
+  assertUsage(this === undefined, 'Superflous `new` operator: use `throw Abort()` instead of `throw new Abort()`.')
   assertUsage(
-    this === undefined,
-    'Using superflous `new` operator: use `throw Abort()` instead of `throw new Abort()`.',
+    arguments.length === 1,
+    'Abort() accepts only a single argument: use `throw Abort([arg1, arg2])` instead of `throw Abort(arg1, arg2).`',
   )
-  assertUsage(args.length === 0, "Abort() doesn't accept any argument. Consider returning a JavaScript value instead, see https://telefunc.com/permissions")
-  return new Error('Abort')
+  const abortError = new Error('Abort')
+  objectAssign(abortError, {
+    isAbort: true as const,
+    value,
+    [isAbortSymbol]: true as const,
+  })
+  return abortError
 }

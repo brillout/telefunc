@@ -3,11 +3,19 @@ export { serializeTelefunctionResult }
 import { stringify } from '@brillout/json-s'
 import { assertUsage } from '../utils'
 
-function serializeTelefunctionResult(callContext: { _telefunctionReturn: unknown; _telefunctionName: string }) {
+function serializeTelefunctionResult(callContext: {
+  _telefunctionReturn: unknown
+  _telefunctionName: string
+  _telefunctionAborted: boolean
+}) {
+  const bodyValue: Record<string, unknown> = {
+    telefunctionReturn: callContext._telefunctionReturn,
+  }
+  if (callContext._telefunctionAborted) {
+    bodyValue.aborted = true
+  }
   try {
-    const httpResponseBody = stringify({
-      telefunctionReturn: callContext._telefunctionReturn,
-    })
+    const httpResponseBody = stringify(bodyValue)
     return httpResponseBody
   } catch (err: unknown) {
     assertUsage(

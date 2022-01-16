@@ -14,7 +14,7 @@ import { handleError } from './handleError'
 
 type HttpResponse = {
   body: string
-  statusCode: 200 | 500 | 400
+  statusCode: 200 | 500 | 400 | 403
   contentType: 'text/plain'
   etag: string | null
 }
@@ -99,10 +99,12 @@ async function callTelefuncStart_(callContext: {
     ).join(', ')}]`,
   )
 
-  const { telefunctionReturn, telefunctionHasErrored, telefunctionError } = await executeTelefunction(callContext)
+  const { telefunctionReturn, telefunctionAborted, telefunctionHasErrored, telefunctionError } =
+    await executeTelefunction(callContext)
   objectAssign(callContext, {
     _telefunctionReturn: telefunctionReturn,
     _telefunctionHasErrored: telefunctionHasErrored,
+    _telefunctionAborted: telefunctionAborted,
     _telefuncError: telefunctionError,
     _err: telefunctionError,
   })
@@ -125,7 +127,7 @@ async function callTelefuncStart_(callContext: {
 
   return {
     body: callContext._httpResponseBody,
-    statusCode: 200,
+    statusCode: callContext._telefunctionAborted ? 403 : 200,
     etag: callContext._httpResponseEtag,
     contentType: 'text/plain',
   }
