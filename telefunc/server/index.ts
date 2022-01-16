@@ -1,5 +1,3 @@
-import { assertEnv } from './assertEnv'
-
 export { telefunc, telefuncConfig } from './telefunc'
 export { getContext, provideContext } from './getContext'
 export { Abort } from './Abort'
@@ -13,4 +11,18 @@ export {
   __internal_addTelefunction,
 } from './runTelefunc/loadTelefuncFilesWithInternalMechanism'
 
+import { assertUsage } from './utils'
+
 assertEnv()
+
+function assertEnv(isBrowser?: true) {
+  const isNodejs =
+    !isBrowser && typeof 'process' !== 'undefined' && process && process.versions && process.versions.node
+  assertUsage(
+    isNodejs,
+    [
+      'You are loading the `telefunc` module in the browser, but',
+      'the `telefunc` module can only be imported in Node.js.',
+    ].join(' '),
+  )
+}

@@ -1,2 +1,2 @@
-import { assertEnv } from './assertEnv'
-assertEnv(true)
+import { assert } from './utils'
+assert(false)
