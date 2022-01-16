@@ -22,9 +22,8 @@ function serializeTelefunctionResult(runContext: {
       false,
       [
         `Couldn't serialize value returned by telefunction \`${runContext.telefunctionName}\`.`,
-        'Make sure returned values',
-        'to be of the following types:',
-        '`Object`, `string`, `number`, `Date`, `null`, `undefined`, `Inifinity`, `NaN`, `RegExp`.',
+        'Make sure that the returned value contains only following types:',
+        '`Object`, `string`, `number`, `Date`, `null`, `undefined`, `Infinity`, `NaN`, `RegExp`.',
       ].join(' '),
     )
   }

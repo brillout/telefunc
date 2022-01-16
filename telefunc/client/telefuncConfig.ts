@@ -1,7 +1,7 @@
 export { telefuncConfig }
 export { resolveConfigDefaults }
 
-import { assertUsage, isPlainObject } from '../shared/utils'
+import { assertUsage, isPlainObject } from './utils'
 
 assertProxySupport()
 

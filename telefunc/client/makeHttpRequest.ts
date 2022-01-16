@@ -1,8 +1,8 @@
 export { makeHttpRequest }
 
-import { assert, assertUsage } from '../shared/utils'
+import { assert, assertUsage } from './utils'
 import { parse } from '@brillout/json-s'
-import { isObject } from '../shared/utils'
+import { isObject } from './utils'
 
 async function makeHttpRequest(url: string, body: string, telefunctionName: string): Promise<unknown> {
   const method = 'POST'
@@ -69,11 +69,5 @@ class TelefuncError extends Error {
 
     assert(this.message === message)
     assert(this.isConnectionError !== this.isCodeError)
-  }
-}
-
-declare global {
-  interface Window {
-    handli?: any
   }
 }

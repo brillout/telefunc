@@ -1,9 +1,9 @@
+export { __internal_fetchTelefunc }
+
 import { stringify } from '@brillout/json-s'
 import { makeHttpRequest } from './makeHttpRequest'
-import { assert, assertUsage } from '../shared/utils'
 import { resolveConfigDefaults, telefuncConfig } from './telefuncConfig'
-
-export { __internal_fetchTelefunc }
+import { assert, assertUsage, isBrowser } from './utils'
 
 function __internal_fetchTelefunc(
   telefuncFilePath: string,
@@ -46,9 +46,8 @@ function callTelefunctionOverHttp(
       false,
       [
         `Couldn't serialize arguments for telefunction \`${telefunctionName}\`.`,
-        `Make sure all arguments passed to \`${telefunctionName}()\``,
-        'are only of the following types:',
-        '`Object`, `string`, `number`, `Date`, `null`, `undefined`, `Inifinity`, `NaN`, `RegExp`.',
+        'Make sure that the arguments contain only following types:',
+        '`Object`, `string`, `number`, `Date`, `null`, `undefined`, `Infinity`, `NaN`, `RegExp`.',
       ].join(' '),
     )
   }
@@ -57,17 +56,4 @@ function callTelefunctionOverHttp(
   const url = telefuncConfig.telefuncUrl
   assert(isBrowser() || !url.startsWith('/')) // TODO proper error message
   return makeHttpRequest(url, body, telefunctionName)
-}
-
-function __nodeTest() {
-  const nodeVersion = typeof process !== 'undefined' && process && process.versions && process.versions.node
-  return !!nodeVersion
-}
-function isBrowser() {
-  const itIs = __browserTest()
-  assert(itIs === !__nodeTest())
-  return itIs
-}
-function __browserTest() {
-  return typeof window !== 'undefined'
 }
