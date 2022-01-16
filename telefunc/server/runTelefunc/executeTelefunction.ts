@@ -6,14 +6,14 @@ import { Telefunction } from '../types'
 import { assertUsage, isPromise } from '../utils'
 
 async function executeTelefunction(runContext: {
-  _telefunctionName: string
-  _telefunctionArgs: unknown[]
-  _telefunctions: Record<string, Telefunction>
+  telefunctionName: string
+  telefunctionArgs: unknown[]
+  telefunctions: Record<string, Telefunction>
   _providedContext: Telefunc.Context | null
 }) {
-  const telefunctionName = runContext._telefunctionName
-  const telefunctionArgs = runContext._telefunctionArgs
-  const telefunctions = runContext._telefunctions
+  const telefunctionName = runContext.telefunctionName
+  const telefunctionArgs = runContext.telefunctionArgs
+  const telefunctions = runContext.telefunctions
   const telefunction = telefunctions[telefunctionName]
 
   if (runContext._providedContext) {

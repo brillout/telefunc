@@ -13,13 +13,13 @@ import { hasProp } from '../utils'
 type BundlerName = 'webpack' | 'nextjs' | 'vite' | 'unknown'
 
 async function loadTelefuncFiles(runContext: {
-  _root: string | null
-  _viteDevServer: ViteDevServer | null
-  _telefuncFilesProvidedByUser: TelefuncFiles | null
-  _isProduction: boolean
+  root: string | null
+  viteDevServer: ViteDevServer | null
+  telefuncFilesProvidedByUser: TelefuncFiles | null
+  isProduction: boolean
 }): Promise<TelefuncFiles | null> {
-  if (runContext._telefuncFilesProvidedByUser) {
-    return runContext._telefuncFilesProvidedByUser
+  if (runContext.telefuncFilesProvidedByUser) {
+    return runContext.telefuncFilesProvidedByUser
   }
 
   {
@@ -32,12 +32,12 @@ async function loadTelefuncFiles(runContext: {
   const bundlerName = getBundlerName(runContext)
 
   if (bundlerName === 'vite' || bundlerName === 'unknown') {
-    assert(hasProp(runContext, '_root', 'string'))
+    assert(hasProp(runContext, 'root', 'string'))
     return loadTelefuncFilesWithVite(runContext)
   }
 
   if (bundlerName === 'webpack') {
-    assert(hasProp(runContext, '_root', 'string'))
+    assert(hasProp(runContext, 'root', 'string'))
     return loadTelefuncFilesWithWebpack(runContext)
   }
 
@@ -50,8 +50,8 @@ async function loadTelefuncFiles(runContext: {
 }
 
 // TODO: rethink this
-function getBundlerName({ _viteDevServer }: Record<string, unknown>): BundlerName {
-  if (_viteDevServer) {
+function getBundlerName({ viteDevServer }: Record<string, unknown>): BundlerName {
+  if (viteDevServer) {
     return 'vite'
   }
   if (isWebpack()) {

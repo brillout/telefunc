@@ -5,10 +5,10 @@ import { HttpRequest } from '../types'
 import { assertUsage, hasProp } from '../utils'
 
 function parseHttpRequest(runContext: {
-  _httpRequest: HttpRequest
-  _isProduction: boolean
+  httpRequest: HttpRequest
+  isProduction: boolean
 }): { telefunctionName: string; telefunctionArgs: unknown[]; isMalformed: false } | { isMalformed: true } {
-  const { url, body } = runContext._httpRequest
+  const { url, body } = runContext.httpRequest
   const bodyString = typeof body === 'string' ? body : JSON.stringify(body)
 
   let bodyParsed: unknown
@@ -17,7 +17,7 @@ function parseHttpRequest(runContext: {
   } catch (err_) {}
 
   if (!hasProp(bodyParsed, 'name', 'string') || !hasProp(bodyParsed, 'args', 'array')) {
-    if (runContext._isProduction) {
+    if (runContext.isProduction) {
       return { isMalformed: true }
     } else {
       assertUsage(

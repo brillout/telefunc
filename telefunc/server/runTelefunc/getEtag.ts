@@ -5,8 +5,8 @@ import type { createHash as createHashType } from 'crypto'
 
 type CreateHash = typeof createHashType
 
-async function getEtag(runContext: { _disableEtag: boolean; _httpResponseBody: string }): Promise<string | null> {
-  if (runContext._disableEtag) {
+async function getEtag(runContext: { disableEtag: boolean; httpResponseBody: string }): Promise<string | null> {
+  if (runContext.disableEtag) {
     return null
   }
   let createHash: CreateHash
@@ -22,7 +22,7 @@ async function getEtag(runContext: { _disableEtag: boolean; _httpResponseBody: s
     return null
   }
 
-  const etag = computeEtag(runContext._httpResponseBody, createHash)
+  const etag = computeEtag(runContext.httpResponseBody, createHash)
   return etag
 }
 

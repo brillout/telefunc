@@ -3,7 +3,7 @@ export { handleError }
 import type { ViteDevServer } from 'vite'
 import { hasProp } from '../utils'
 
-function handleError(err: unknown, runContext: { _viteDevServer: ViteDevServer | null }) {
+function handleError(err: unknown, runContext: { viteDevServer: ViteDevServer | null }) {
   // We ensure we print a string; Cloudflare Workers doesn't seem to properly stringify `Error` objects.
   const errStr = (hasProp(err, 'stack') && String(err.stack)) || String(err)
 
@@ -15,19 +15,19 @@ function handleError(err: unknown, runContext: { _viteDevServer: ViteDevServer |
   console.error(errStr)
 }
 
-function viteAlreadyLoggedError(err: unknown, runContext: { _viteDevServer: ViteDevServer | null }) {
-  if (!runContext._viteDevServer) {
+function viteAlreadyLoggedError(err: unknown, runContext: { viteDevServer: ViteDevServer | null }) {
+  if (!runContext.viteDevServer) {
     return false
   }
-  return runContext._viteDevServer.config.logger.hasErrorLogged(err as Error)
+  return runContext.viteDevServer.config.logger.hasErrorLogged(err as Error)
 }
 
-function viteErrorCleanup(err: unknown, runContext: { _viteDevServer: ViteDevServer | null }) {
-  if (!runContext._viteDevServer) {
+function viteErrorCleanup(err: unknown, runContext: { viteDevServer: ViteDevServer | null }) {
+  if (!runContext.viteDevServer) {
     return false
   }
   if (hasProp(err, 'stack')) {
     // Apply source maps
-    runContext._viteDevServer.ssrFixStacktrace(err as Error)
+    runContext.viteDevServer.ssrFixStacktrace(err as Error)
   }
 }

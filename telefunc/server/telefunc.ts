@@ -22,18 +22,18 @@ function telefunc(httpRequest: HttpRequest) {
   const runContext = {}
 
   objectAssign(runContext, {
-    _httpRequest: httpRequest,
+    httpRequest: httpRequest,
   })
 
   const { viteDevServer, telefuncFiles, root, isProduction, telefuncUrl, disableEtag } =
     resolveConfigDefaults(telefuncConfig)
   objectAssign(runContext, {
-    _isProduction: isProduction,
-    _root: root,
-    _viteDevServer: viteDevServer,
-    _telefuncFilesProvidedByUser: telefuncFiles,
-    _disableEtag: disableEtag,
-    _telefuncUrl: telefuncUrl,
+    isProduction: isProduction,
+    root: root,
+    viteDevServer: viteDevServer,
+    telefuncFilesProvidedByUser: telefuncFiles,
+    disableEtag: disableEtag,
+    telefuncUrl: telefuncUrl,
   })
 
   assertUrl(runContext)
@@ -51,10 +51,10 @@ function getConfigObject() {
   }
 }
 
-function assertUrl(runContext: { _httpRequest: { url: string }; _telefuncUrl: string }) {
-  const urlPathname = getUrlPathname(runContext._httpRequest.url)
+function assertUrl(runContext: { httpRequest: { url: string }; telefuncUrl: string }) {
+  const urlPathname = getUrlPathname(runContext.httpRequest.url)
   assertUsage(
-    urlPathname === runContext._telefuncUrl,
-    `telefunc({ url }): The HTTP request \`url\` pathname \`${urlPathname}\` should be \`${runContext._telefuncUrl}\`. Make sure that \`url\` is the HTTP request URL, or change \`config.telefuncUrl\` to \`${urlPathname}\`.`,
+    urlPathname === runContext.telefuncUrl,
+    `telefunc({ url }): The HTTP request \`url\` pathname \`${urlPathname}\` should be \`${runContext.telefuncUrl}\`. Make sure that \`url\` is the HTTP request URL, or change \`config.telefuncUrl\` to \`${urlPathname}\`.`,
   )
 }

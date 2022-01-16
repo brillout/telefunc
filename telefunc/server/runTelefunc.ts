@@ -45,23 +45,23 @@ async function runTelefunc(runContext: Parameters<typeof runTelefunc_>[0]) {
 }
 
 async function runTelefunc_(runContext: {
-  _httpRequest: HttpRequest
-  _viteDevServer: ViteDevServer | null
-  _telefuncFilesProvidedByUser: TelefuncFiles | null
-  _isProduction: boolean
-  _root: string | null
-  _telefuncUrl: string
-  _disableEtag: boolean
+  httpRequest: HttpRequest
+  viteDevServer: ViteDevServer | null
+  telefuncFilesProvidedByUser: TelefuncFiles | null
+  isProduction: boolean
+  root: string | null
+  telefuncUrl: string
+  disableEtag: boolean
 }): Promise<HttpResponse> {
   objectAssign(runContext, {
     _providedContext: getContextOptional() || null,
   })
 
-  if (runContext._httpRequest.method !== 'POST' && runContext._httpRequest.method !== 'post') {
-    assert(runContext._isProduction) // We don't expect any third-party requests in development and we can assume requests to always originate from the Telefunc Client.
+  if (runContext.httpRequest.method !== 'POST' && runContext.httpRequest.method !== 'post') {
+    assert(runContext.isProduction) // We don't expect any third-party requests in development and we can assume requests to always originate from the Telefunc Client.
     return malformedRequest
   }
-  assert(runContext._httpRequest.url === runContext._telefuncUrl)
+  assert(runContext.httpRequest.url === runContext.telefuncUrl)
 
   {
     const parsed = parseHttpRequest(runContext)
@@ -70,65 +70,65 @@ async function runTelefunc_(runContext: {
     }
     const { telefunctionName, telefunctionArgs } = parsed
     objectAssign(runContext, {
-      _telefunctionName: telefunctionName,
-      _telefunctionArgs: telefunctionArgs,
+      telefunctionName: telefunctionName,
+      telefunctionArgs: telefunctionArgs,
     })
   }
 
   {
-    const telefuncFiles = runContext._telefuncFilesProvidedByUser || (await loadTelefuncFiles(runContext))
+    const telefuncFiles = runContext.telefuncFilesProvidedByUser || (await loadTelefuncFiles(runContext))
     assert(telefuncFiles, 'No `.telefunc.js` file found')
     checkType<TelefuncFiles>(telefuncFiles)
-    objectAssign(runContext, { _telefuncFiles: telefuncFiles })
+    objectAssign(runContext, { telefuncFiles: telefuncFiles })
   }
 
   {
     const { telefunctions } = await getTelefunctions(runContext)
     checkType<Record<string, Telefunction>>(telefunctions)
     objectAssign(runContext, {
-      _telefunctions: telefunctions,
+      telefunctions: telefunctions,
     })
   }
 
   assertUsage(
-    runContext._telefunctionName in runContext._telefunctions,
+    runContext.telefunctionName in runContext.telefunctions,
     `Could not find telefunction \`${
-      runContext._telefunctionName
+      runContext.telefunctionName
     }\`. Is your browser-side JavaScript out-of-sync with your server-side JavaScript? Loaded telefunctions: [${Object.keys(
-      runContext._telefunctions,
+      runContext.telefunctions,
     ).join(', ')}]`,
   )
 
   const { telefunctionReturn, telefunctionAborted, telefunctionHasErrored, telefunctionError } =
     await executeTelefunction(runContext)
   objectAssign(runContext, {
-    _telefunctionReturn: telefunctionReturn,
-    _telefunctionHasErrored: telefunctionHasErrored,
-    _telefunctionAborted: telefunctionAborted,
-    _telefuncError: telefunctionError,
+    telefunctionReturn: telefunctionReturn,
+    telefunctionHasErrored: telefunctionHasErrored,
+    telefunctionAborted: telefunctionAborted,
+    telefuncError: telefunctionError,
     _err: telefunctionError,
   })
 
-  if (runContext._telefunctionHasErrored) {
-    throw runContext._telefuncError
+  if (runContext.telefunctionHasErrored) {
+    throw runContext.telefuncError
   }
 
   {
     const httpResponseBody = serializeTelefunctionResult(runContext)
-    objectAssign(runContext, { _httpResponseBody: httpResponseBody })
+    objectAssign(runContext, { httpResponseBody: httpResponseBody })
   }
 
   {
     const etag = await getEtag(runContext)
     objectAssign(runContext, {
-      _httpResponseEtag: etag,
+      httpResponseEtag: etag,
     })
   }
 
   return {
-    body: runContext._httpResponseBody,
-    statusCode: runContext._telefunctionAborted ? 403 : 200,
-    etag: runContext._httpResponseEtag,
+    body: runContext.httpResponseBody,
+    statusCode: runContext.telefunctionAborted ? 403 : 200,
+    etag: runContext.httpResponseEtag,
     contentType: 'text/plain',
   }
 }
