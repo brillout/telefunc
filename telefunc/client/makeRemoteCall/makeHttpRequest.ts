@@ -82,14 +82,14 @@ async function makeHttpRequest(callContext: {
       assert('abort' in responseValue)
       const value = responseValue.ret
       const telefunctionError = new Error(
-        `The telefunction \`${callContext.telefunctionName}\` threw a \`Abort(value)\`. The abort \`value\` is available at \`catch(err){ if (err.isAbort) console.log(err.value) }\`.`,
+        `The telefunction \`${callContext.telefunctionName}\` threw a \`Abort()\`, see https://telefunc.comm/Abort`,
       )
       objectAssign(telefunctionError, { ...errDefaults, isAbort: true as const, value })
       return { telefunctionError }
     }
   }
 
-  assert(![200, 404, 400, 403, 500].includes(statusCode))
+  assert(![200, 404, 403, 500].includes(statusCode))
   assertUsage(
     false,
     installErr({
@@ -127,9 +127,6 @@ function installErr({
   if (reason) {
     msg.push(...[`: the HTTP ${method} request made to \`${callContext.telefuncUrl}\` returned `, reason])
   }
-  msg.push('. ')
-  msg.push(
-    `Make sure to reply all HTTP requests made to \`${callContext.telefuncUrl}\` with the \`telefunc()\` server middleware, for both \`GET\` and \`POST\` requests. See https://telefunc.com/install`,
-  )
+  msg.push(`. See https://telefunc.com/install`)
   return msg.join('')
 }
