@@ -3,7 +3,7 @@ export { __internal_fetchTelefunc }
 import { makeHttpRequest } from './makeRemoteCall/makeHttpRequest'
 import { serializeTelefunctionArguments } from './makeRemoteCall/serializeTelefunctionArguments'
 import { resolveConfigDefaults, telefuncConfig } from './telefuncConfig'
-import { objectAssign, assertUsage, isBrowser } from './utils'
+import { objectAssign, assertUsage, isBrowser, assert } from './utils'
 
 async function __internal_fetchTelefunc(
   telefuncFilePath: string,
@@ -33,9 +33,12 @@ async function __internal_fetchTelefunc(
     objectAssign(callContext, { httpRequestBody })
   }
 
-  const { telefunctionReturn, requestError } = await makeHttpRequest(callContext)
-  if (requestError) {
+  const resp = await makeHttpRequest(callContext)
+  if ('requestError' in resp) {
+    const { requestError } = resp
+    assert(requestError)
     throw requestError
   }
+  const { telefunctionReturn } = resp
   return telefunctionReturn
 }

@@ -12,7 +12,7 @@ function serializeTelefunctionResult(runContext: {
     ret: runContext.telefunctionReturn,
   }
   if (runContext.telefunctionAborted) {
-    bodyValue.aborted = true
+    bodyValue.abort = true
   }
   try {
     const httpResponseBody = stringify(bodyValue)

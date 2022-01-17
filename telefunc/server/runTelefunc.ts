@@ -27,7 +27,7 @@ const malformedRequest = {
 }
 
 const internnalError = {
-  body: 'Internal Server Error',
+  body: 'Internal Telefunction Error',
   statusCode: 500 as const,
   contentType: 'text/plain' as const,
   etag: null,

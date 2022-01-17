@@ -24,7 +24,9 @@ async function executeTelefunction(runContext: {
   let telefunctionHasErrored = false
   let telefunctionAborted = false
   const onError = (err: unknown) => {
+      console.log('e', err)
     if (isAbort(err)) {
+      console.log(1)
       telefunctionAborted = true
       telefunctionReturn = err.value
     } else {
