@@ -5,7 +5,7 @@ import { serializeTelefunctionArguments } from './makeRemoteCall/serializeTelefu
 import { resolveConfigDefaults, telefuncConfig } from './telefuncConfig'
 import { objectAssign } from './utils'
 
-function __internal_fetchTelefunc(
+async function __internal_fetchTelefunc(
   telefuncFilePath: string,
   telefuncFileExportName: string,
   telefunctionArgs: unknown[],
@@ -28,5 +28,9 @@ function __internal_fetchTelefunc(
     objectAssign(callContext, { httpRequestBody })
   }
 
-  return makeHttpRequest(callContext)
+  const { telefunctionReturn, requestError } = await makeHttpRequest(callContext)
+  if (requestError) {
+    throw requestError
+  }
+  return telefunctionReturn
 }
