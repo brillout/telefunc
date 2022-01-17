@@ -1,9 +1,7 @@
 export { makeHttpRequest }
 
 import { parse } from '@brillout/json-s'
-import { assert, assertUsage, isObject, isBrowser } from '../utils'
-
-assertIsBrowser()
+import { assert, assertUsage, isObject } from '../utils'
 
 type RequestError = Error & { isConnectionError?: true; isTelefunctionError?: true }
 
@@ -63,8 +61,4 @@ async function makeHttpRequest(callContext: {
     telefunctionReturn,
     requestError,
   }
-}
-
-function assertIsBrowser() {
-  assertUsage(isBrowser(), 'The Telefunc client only works in the browser.')
 }
