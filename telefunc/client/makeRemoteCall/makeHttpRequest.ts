@@ -57,7 +57,7 @@ async function makeHttpRequest(callContext: {
       }),
     )
     const telefunctionError = new Error(
-      `The telefunction \`${callContext.telefunctionName}\` threw an error, check the server logs.`,
+      `The telefunction \`${callContext.telefunctionName}\` threw an error, see server logs.`,
     )
     objectAssign(telefunctionError, { ...errDefaults, isTelefunctionError: true as const })
     return { telefunctionError }
@@ -81,7 +81,9 @@ async function makeHttpRequest(callContext: {
     } else {
       assert('abort' in responseValue)
       const value = responseValue.ret
-      const telefunctionError = new Error(`The telefunction \`${callContext.telefunctionName}\` threw a \`Abort\`.`)
+      const telefunctionError = new Error(
+        `The telefunction \`${callContext.telefunctionName}\` threw a \`Abort(value)\`. The abort \`value\` is available at \`catch(err){ if (err.isAbort) console.log(err.value) }\`.`,
+      )
       objectAssign(telefunctionError, { ...errDefaults, isAbort: true as const, value })
       return { telefunctionError }
     }
@@ -102,6 +104,7 @@ const errDefaults = {
   isConnectionError: false,
   isTelefunctionError: false,
   isAbort: false,
+  // @ts-ignore
   value: undefined,
 }
 
@@ -122,11 +125,11 @@ function installErr({
   }
   msg.push('installed on your server')
   if (reason) {
-    msg.push(...[` :the HTTP ${method} request made to \`${callContext.telefuncUrl}\` returned`, reason])
+    msg.push(...[`: the HTTP ${method} request made to \`${callContext.telefuncUrl}\` returned `, reason])
   }
   msg.push('. ')
   msg.push(
-    `Make sure to reply all HTTP requests made to \`${callContext.telefuncUrl}\` with the \`telefunc()\` server middleware, for both \`GET\` and \`POST\` requests.`,
+    `Make sure to reply all HTTP requests made to \`${callContext.telefuncUrl}\` with the \`telefunc()\` server middleware, for both \`GET\` and \`POST\` requests. See https://telefunc.com/install`,
   )
   return msg.join('')
 }
