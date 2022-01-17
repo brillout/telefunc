@@ -1,3 +1,5 @@
-export { __internal_fetchTelefunc } from './makeRemoteCall'
 export { telefuncConfig } from './telefuncConfig'
-export type { TelefunctionError } from './makeRemoteCall/makeHttpRequest'
+export { onTelefuncCallError } from './makeRemoteCall/onTelefuncCallError'
+export type { TelefuncCallError } from './makeRemoteCall/makeHttpRequest'
+
+export { __internal_fetchTelefunc } from './makeRemoteCall'
