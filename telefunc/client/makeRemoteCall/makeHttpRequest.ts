@@ -15,7 +15,7 @@ async function makeHttpRequest(callContext: {
   telefuncUrl: string
   httpRequestBody: string
   telefunctionName: string
-}): Promise<{ telefunctionReturn: unknown } | { requestError: TelefunctionError }> {
+}): Promise<{ telefunctionReturn: unknown } | { telefunctionError: TelefunctionError }> {
   const method = 'POST'
 
   let response: Response
@@ -29,9 +29,9 @@ async function makeHttpRequest(callContext: {
       },
     })
   } catch (_) {
-    const requestError = new Error('No Server Connection')
-    objectAssign(requestError, { ...errDefaults, isConnectionError: true as const })
-    return { requestError }
+    const telefunctionError = new Error('No Server Connection')
+    objectAssign(telefunctionError, { ...errDefaults, isConnectionError: true as const })
+    return { telefunctionError }
   }
 
   const statusCode = response.status
@@ -56,16 +56,16 @@ async function makeHttpRequest(callContext: {
         callContext,
       }),
     )
-    const requestError = new Error(
+    const telefunctionError = new Error(
       `The telefunction \`${callContext.telefunctionName}\` threw an error, check the server logs.`,
     )
-    objectAssign(requestError, { ...errDefaults, isTelefunctionError: true as const })
-    return { requestError }
+    objectAssign(telefunctionError, { ...errDefaults, isTelefunctionError: true as const })
+    return { telefunctionError }
   }
 
   if (statusCode === 200 || statusCode === 403) {
     const responseBody = await response.text()
-    const responseValue = parse(responseBody)
+    const responseValue: Record<string, unknown> = parse(responseBody)
     assertUsage(
       isObject(responseValue) && 'ret' in responseValue,
       installErr({
@@ -81,9 +81,9 @@ async function makeHttpRequest(callContext: {
     } else {
       assert('abort' in responseValue)
       const value = responseValue.ret
-      const requestError = new Error('Abort')
-      objectAssign(requestError, { ...errDefaults, isAbort: true as const, value })
-      return { requestError }
+      const telefunctionError = new Error(`The telefunction \`${callContext.telefunctionName}\` threw a \`Abort\`.`)
+      objectAssign(telefunctionError, { ...errDefaults, isAbort: true as const, value })
+      return { telefunctionError }
     }
   }
 

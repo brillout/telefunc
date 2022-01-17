@@ -22,7 +22,7 @@ function Abort(value?: unknown) {
     'Abort() accepts only a single argument: use `throw Abort([arg1, arg2])` instead of `throw Abort(arg1, arg2).`',
   )
 
-  const abortError = new Error('Abort')
+  const abortError = new Error('Telefunction Abort')
   objectAssign(abortError, {
     isAbort: true as const,
     value,
