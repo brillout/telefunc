@@ -33,13 +33,8 @@ export const headings: HeadingDefinition[] = [
   },
   {
     level: 2,
-    title: 'Scaffold new app',
-    url: '/scaffold',
-  },
-  {
-    level: 2,
-    title: 'Add to existing app',
-    url: '/add',
+    title: 'Install',
+    url: '/install',
   },
   {
     level: 1,
