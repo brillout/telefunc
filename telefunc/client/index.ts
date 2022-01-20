@@ -1,5 +1,5 @@
 export { telefuncConfig } from './telefuncConfig'
-export { onTelefuncCallError } from './makeRemoteCall/onTelefuncCallError'
-export type { TelefuncCallError } from './makeRemoteCall/makeHttpRequest'
+export { onTelefuncCallError } from './callTelefunc/onTelefuncCallError'
+export type { TelefuncCallError } from './callTelefunc/makeHttpRequest'
 
-export { __internal_fetchTelefunc } from './makeRemoteCall'
+export { __internal_fetchTelefunc } from './callTelefunc'

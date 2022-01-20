@@ -1,7 +1,7 @@
 export { __internal_fetchTelefunc }
 
-import { makeHttpRequest } from './makeRemoteCall/makeHttpRequest'
-import { serializeTelefunctionArguments } from './makeRemoteCall/serializeTelefunctionArguments'
+import { makeHttpRequest } from './callTelefunc/makeHttpRequest'
+import { serializeTelefunctionArguments } from './callTelefunc/serializeTelefunctionArguments'
 import { resolveConfigDefaults, telefuncConfig } from './telefuncConfig'
 import { objectAssign, assertUsage, isBrowser, assert } from './utils'
 
