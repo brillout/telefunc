@@ -5,7 +5,7 @@ import type { TelefuncFiles } from '../types'
 import { join } from 'path'
 import { statSync } from 'fs'
 import { assert } from '../../shared/utils'
-import { loadTelefuncFilesWithVite } from '../../plugin/vite/loadTelefuncFilesWithVite'
+import { loadTelefuncFilesWithVite } from '../../vite/loadTelefuncFilesWithVite'
 import { loadTelefuncFilesWithInternalMechanism } from './loadTelefuncFilesWithInternalMechanism'
 import { hasProp } from '../utils'
 

@@ -1,6 +1,6 @@
 import { Context } from '@nuxt/types'
-import { telefunc } from '../../server'
-import { assert } from '../../shared/utils'
+import { telefunc } from '../server'
+import { assert } from '../shared/utils'
 
 export { telefuncMiddleware }
 

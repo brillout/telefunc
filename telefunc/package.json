@@ -29,13 +29,13 @@
       "node": "./dist/cjs/client/index.js"
     },
     "./vite": {
-      "node": "./dist/cjs/plugin/vite/index.js"
+      "node": "./dist/cjs/vite/index.js"
     },
     "./next": {
-      "node": "./dist/cjs/plugin/next/index.js"
+      "node": "./dist/cjs/next/index.js"
     },
     "./nuxt": {
-      "node": "./dist/cjs/plugin/nuxt/index.js"
+      "node": "./dist/cjs/nuxt/index.js"
     }
   },
   "dependencies": {

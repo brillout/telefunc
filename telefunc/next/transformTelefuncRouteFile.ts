@@ -1,6 +1,6 @@
 import * as glob from 'fast-glob'
 import { dirname, relative } from 'path'
-import { toPosixPath } from '../../server/utils'
+import { toPosixPath } from '../server/utils'
 
 export { transformTelefuncRouteFile }
 

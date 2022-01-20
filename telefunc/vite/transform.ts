@@ -1,6 +1,6 @@
 import { Plugin } from 'vite'
-import { assert, toPosixPath } from '../../server/utils'
-import { transformTelefuncFile } from '../transformTelefuncFile'
+import { assert, toPosixPath } from '../server/utils'
+import { transformTelefuncFile } from '../transformer/transformTelefuncFile'
 import { isSSR_options } from './utils'
 
 export { transform }

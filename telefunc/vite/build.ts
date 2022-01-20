@@ -1,6 +1,6 @@
 import { Plugin } from 'vite'
 import type { InputOption } from 'rollup'
-import { assert, isObject } from '../../server/utils'
+import { assert, isObject } from '../server/utils'
 import { importTelefuncFilesFileNameBase, importTelefuncFilesFilePath } from './importTelefuncFilesPath'
 import { isSSR_config } from './utils'
 
