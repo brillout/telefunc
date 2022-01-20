@@ -31,9 +31,6 @@
     "./vite": {
       "node": "./dist/cjs/plugin/vite/index.js"
     },
-    "./webpack": {
-      "node": "./dist/cjs/plugin/webpack/index.js"
-    },
     "./next": {
       "node": "./dist/cjs/plugin/next/index.js"
     },

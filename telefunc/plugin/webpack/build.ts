@@ -1,6 +1,6 @@
 import { createUnplugin } from 'unplugin'
 import { resolve, dirname, join } from 'path'
-import { Compiler } from 'webpack'
+import type { Compiler } from 'webpack'
 import { assert, moduleExists } from '../../server/utils'
 import { isSSR } from './isSSR'
 
