@@ -50,23 +50,15 @@ async function makeHttpRequest(callContext: {
 
   if (statusCode === 500) {
     const responseBody = await response.text()
-    const errorMessage = (() => {
-      if (responseBody === 'Internal Server Error > Telefunction Error') {
-        return `The telefunction \`${callContext.telefunctionName}\` threw an error`
-      }
-      if (responseBody === 'Internal Server Error > Telefunc Error') {
-        return 'You stumbled upon a Telefunc bug'
-      }
-      assertUsage(
-        false,
-        installErr({
-          reason: 'an HTTP response body that Telefunc never generates',
-          method,
-          callContext,
-        }),
-      )
-    })()
-    const telefuncCallError = new Error(`${errorMessage}, see server logs.`)
+    assertUsage(
+      responseBody === 'Internal Server Error (Telefunc Request)',
+      installErr({
+        reason: 'an HTTP response body that Telefunc never generates',
+        method,
+        callContext,
+      }),
+    )
+    const telefuncCallError = new Error('Server Error')
     objectAssign(telefuncCallError, { ...errDefaults, isServerError: true as const })
     callTelefuncCallErrorListeners(telefuncCallError)
     return { telefuncCallError }
@@ -91,7 +83,7 @@ async function makeHttpRequest(callContext: {
       assert('abort' in responseValue)
       const value = responseValue.ret
       const telefuncCallError = new Error(
-        `The telefunction \`${callContext.telefunctionName}\` threw a \`Abort()\`, see https://telefunc.comm/Abort`,
+        `Telefunction \`${callContext.telefunctionName}\` aborted, see https://telefunc.comm/Abort`,
       )
       objectAssign(telefuncCallError, { ...errDefaults, isAbort: true as const, value })
       callTelefuncCallErrorListeners(telefuncCallError)
