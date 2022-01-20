@@ -15,8 +15,9 @@ function getContext<Context extends object = Telefunc.Context>(): Context {
   assertUsage(
     context !== undefined,
     [
-      'You are calling `getContext()` but no context is available.',
-      `See ${isNodejs() ? 'https://telefunc.com/ssr' : 'https://telefunc.com/provideContext'}`,
+      `You are calling \`getContext()\` but no context is available${!isSSR() ? '' : ' (SSR)'}.`,
+      'Make sure to properly call `provideContext()`,',
+      `see https://telefunc.com/provideContext${isSSR() ? '#ssr' : ''}`,
     ].join(' '),
   )
   assert(isObject(context))
@@ -50,6 +51,7 @@ async function installAsyncMode({
   _provideContext = provideContext_async
 }
 
-function isNodejs(): boolean {
-  return typeof process !== 'undefined' && process.release.name === 'node'
+function isSSR(): boolean {
+  // TODO
+  return false
 }
