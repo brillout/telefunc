@@ -3,7 +3,7 @@ export type { TelefuncCallError }
 
 import { parse } from '@brillout/json-s'
 import { assert, assertUsage, isObject, objectAssign } from '../utils'
-import { callTelefuncCallErrorListeners } from './onTelefuncCallError'
+import { executeTelefuncCallErrorListeners } from './onTelefuncCallError'
 
 type TelefuncCallError = Error & {
   isConnectionError: boolean
@@ -32,7 +32,7 @@ async function makeHttpRequest(callContext: {
   } catch (_) {
     const telefuncCallError = new Error('No Server Connection')
     objectAssign(telefuncCallError, { ...errDefaults, isConnectionError: true as const })
-    callTelefuncCallErrorListeners(telefuncCallError)
+    executeTelefuncCallErrorListeners(telefuncCallError)
     return { telefuncCallError }
   }
 
@@ -60,7 +60,7 @@ async function makeHttpRequest(callContext: {
     )
     const telefuncCallError = new Error('Server Error')
     objectAssign(telefuncCallError, { ...errDefaults, isServerError: true as const })
-    callTelefuncCallErrorListeners(telefuncCallError)
+    executeTelefuncCallErrorListeners(telefuncCallError)
     return { telefuncCallError }
   }
 
@@ -86,7 +86,7 @@ async function makeHttpRequest(callContext: {
         `Telefunction \`${callContext.telefunctionName}\` aborted, see https://telefunc.comm/Abort`,
       )
       objectAssign(telefuncCallError, { ...errDefaults, isAbort: true as const, value })
-      callTelefuncCallErrorListeners(telefuncCallError)
+      executeTelefuncCallErrorListeners(telefuncCallError)
       return { telefuncCallError }
     }
   }

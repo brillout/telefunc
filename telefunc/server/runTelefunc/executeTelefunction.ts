@@ -5,7 +5,7 @@ import { provideContext, Telefunc } from '../getContext'
 import { Telefunction } from '../types'
 import { assertUsage, isPromise } from '../utils'
 
-import { callTelefunctionErrorListeners } from './onTelefunctionError'
+import { executeTelefunctionErrorListeners } from './onTelefunctionError'
 
 async function executeTelefunction(runContext: {
   telefunctionName: string
@@ -32,7 +32,7 @@ async function executeTelefunction(runContext: {
     } else {
       telefunctionHasErrored = true
       telefunctionError = err
-      callTelefunctionErrorListeners(telefunctionError)
+      executeTelefunctionErrorListeners(telefunctionError)
     }
   }
 

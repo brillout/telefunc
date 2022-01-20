@@ -1,5 +1,5 @@
 export { onTelefunctionError }
-export { callTelefunctionErrorListeners }
+export { executeTelefunctionErrorListeners }
 
 const telefuncCallErrorListeners: ((err: unknown) => void)[] = []
 
@@ -7,7 +7,7 @@ function onTelefunctionError(listener: (err: unknown) => void) {
   telefuncCallErrorListeners.push(listener)
 }
 
-function callTelefunctionErrorListeners(err: unknown) {
+function executeTelefunctionErrorListeners(err: unknown) {
   telefuncCallErrorListeners.forEach((listener) => {
     listener(err)
   })

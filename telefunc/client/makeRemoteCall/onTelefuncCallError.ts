@@ -1,5 +1,5 @@
 export { onTelefuncCallError }
-export { callTelefuncCallErrorListeners }
+export { executeTelefuncCallErrorListeners }
 
 import type { TelefuncCallError } from './makeHttpRequest'
 
@@ -9,7 +9,7 @@ function onTelefuncCallError(listener: (err: TelefuncCallError) => void) {
   telefuncCallErrorListeners.push(listener)
 }
 
-function callTelefuncCallErrorListeners(err: TelefuncCallError) {
+function executeTelefuncCallErrorListeners(err: TelefuncCallError) {
   telefuncCallErrorListeners.forEach((listener) => {
     listener(err)
   })
