@@ -1,25 +1,42 @@
-// Mechanism used by Vite/Next/Nuxt plugins for telefunc files auto-loading.
+// Mechanism used by Vite/Next/Nuxt plugins for automatically loading `.telefunc.js` files.
 
+export { loadTelefuncFilesWithInternalMechanism }
 export { __internal_setTelefuncFiles }
 export { __internal_addTelefunction }
-export { loadTelefuncFilesWithInternalMechanism }
 
 import { TelefuncFiles, Telefunction } from '../types'
 import { assert } from '../utils'
 
+const key = '__internal_telefuncFiles'
+const globalHolder: { telefuncFiles: TelefuncFiles | null } = getGlobalHolder()
+
 function loadTelefuncFilesWithInternalMechanism() {
-  return telefuncInternallySet
+  return globalHolder.telefuncFiles
 }
 
-let telefuncInternallySet: TelefuncFiles | null = null
 function __internal_setTelefuncFiles(telefuncFiles: TelefuncFiles) {
-  assert(telefuncInternallySet === null)
-  telefuncInternallySet = telefuncFiles
+  assert(globalHolder.telefuncFiles === null)
+  globalHolder.telefuncFiles = telefuncFiles
 }
+
 function __internal_addTelefunction(telefunctionName: string, telefunction: Telefunction, telefuncFilePath: string) {
-  telefuncInternallySet = telefuncInternallySet || {}
-  telefuncInternallySet[telefuncFilePath] = {
-    ...telefuncInternallySet[telefuncFilePath],
+  globalHolder.telefuncFiles = globalHolder.telefuncFiles || {}
+  globalHolder.telefuncFiles[telefuncFilePath] = {
+    ...globalHolder.telefuncFiles[telefuncFilePath],
     [telefunctionName]: telefunction,
+  }
+}
+
+function getGlobalHolder(): { telefuncFiles: TelefuncFiles | null } {
+  if (typeof global === 'undefined') {
+    return { telefuncFiles: null }
+  }
+  return (global[key] = global[key] || { telefuncFiles: null })
+}
+declare global {
+  namespace NodeJS {
+    interface Global {
+      [key]?: { telefuncFiles: TelefuncFiles | null }
+    }
   }
 }
