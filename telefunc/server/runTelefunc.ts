@@ -11,6 +11,7 @@ import { getTelefunctions } from './runTelefunc/getTelefunctions'
 import { executeTelefunction } from './runTelefunc/executeTelefunction'
 import { serializeTelefunctionResult } from './runTelefunc/serializeTelefunctionResult'
 import { handleError } from './runTelefunc/handleError'
+import { isTelefunctionError, markTelefunctionError } from './runTelefunc/isTelefunctionError'
 
 type HttpResponse = {
   body: string
@@ -26,8 +27,14 @@ const malformedRequest = {
   etag: null,
 }
 
-const internnalError = {
-  body: 'Internal Telefunction Error',
+const internalErrorTelefunction = {
+  body: 'Internal Server Error > Telefunction Error',
+  statusCode: 500 as const,
+  contentType: 'text/plain' as const,
+  etag: null,
+}
+const internalErrorTelefunc = {
+  body: 'Internal Server Error > Telefunc Error',
   statusCode: 500 as const,
   contentType: 'text/plain' as const,
   etag: null,
@@ -37,10 +44,12 @@ async function runTelefunc(runContext: Parameters<typeof runTelefunc_>[0]) {
   try {
     return await runTelefunc_(runContext)
   } catch (err: unknown) {
-    // - There is a bug in Telefunc's source code, or
-    // - a telefunction throw an error that is not `Abort()`.
     handleError(err, runContext)
-    return internnalError
+    if (isTelefunctionError(err)) {
+      return internalErrorTelefunction
+    } else {
+      return internalErrorTelefunc
+    }
   }
 }
 
@@ -108,6 +117,7 @@ async function runTelefunc_(runContext: {
   })
 
   if (runContext.telefunctionHasErrored) {
+    markTelefunctionError(runContext.telefunctionError)
     throw runContext.telefunctionError
   }
 

@@ -7,7 +7,7 @@ import { callTelefuncCallErrorListeners } from './onTelefuncCallError'
 
 type TelefuncCallError = Error & {
   isConnectionError: boolean
-  isTelefunctionError: boolean
+  isServerError: boolean
   isAbort: boolean
   value: unknown
 }
@@ -50,18 +50,24 @@ async function makeHttpRequest(callContext: {
 
   if (statusCode === 500) {
     const responseBody = await response.text()
-    assertUsage(
-      responseBody === 'Internal Telefunction Error',
-      installErr({
-        reason: 'an HTTP response body that Telefunc never generates',
-        method,
-        callContext,
-      }),
-    )
-    const telefuncCallError = new Error(
-      `The telefunction \`${callContext.telefunctionName}\` threw an error, see server logs.`,
-    )
-    objectAssign(telefuncCallError, { ...errDefaults, isTelefunctionError: true as const })
+    const errorMessage = (() => {
+      if (responseBody === 'Internal Server Error > Telefunction Error') {
+        return `The telefunction \`${callContext.telefunctionName}\` threw an error`
+      }
+      if (responseBody === 'Internal Server Error > Telefunc Error') {
+        return 'You stumbled upon a Telefunc bug'
+      }
+      assertUsage(
+        false,
+        installErr({
+          reason: 'an HTTP response body that Telefunc never generates',
+          method,
+          callContext,
+        }),
+      )
+    })()
+    const telefuncCallError = new Error(`${errorMessage}, see server logs.`)
+    objectAssign(telefuncCallError, { ...errDefaults, isServerError: true as const })
     callTelefuncCallErrorListeners(telefuncCallError)
     return { telefuncCallError }
   }
@@ -106,7 +112,7 @@ async function makeHttpRequest(callContext: {
 
 const errDefaults = {
   isConnectionError: false,
-  isTelefunctionError: false,
+  isServerError: false,
   isAbort: false,
   // @ts-ignore
   value: undefined,
