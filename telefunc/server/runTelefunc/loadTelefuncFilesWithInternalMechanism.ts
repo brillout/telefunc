@@ -5,38 +5,23 @@ export { __internal_setTelefuncFiles }
 export { __internal_addTelefunction }
 
 import { TelefuncFiles, Telefunction } from '../types'
-import { assert } from '../utils'
+import { assert, getGlobalObject } from '../utils'
 
-const key = '__internal_telefuncFiles'
-const globalHolder: { telefuncFiles: TelefuncFiles | null } = getGlobalHolder()
+const g = getGlobalObject<{ telefuncFiles: TelefuncFiles | null }>('__internal_telefuncFiles', { telefuncFiles: null })
 
 function loadTelefuncFilesWithInternalMechanism() {
-  return globalHolder.telefuncFiles
+  return g.telefuncFiles
 }
 
 function __internal_setTelefuncFiles(telefuncFiles: TelefuncFiles) {
-  assert(globalHolder.telefuncFiles === null)
-  globalHolder.telefuncFiles = telefuncFiles
+  assert(g.telefuncFiles === null)
+  g.telefuncFiles = telefuncFiles
 }
 
 function __internal_addTelefunction(telefunctionName: string, telefunction: Telefunction, telefuncFilePath: string) {
-  globalHolder.telefuncFiles = globalHolder.telefuncFiles || {}
-  globalHolder.telefuncFiles[telefuncFilePath] = {
-    ...globalHolder.telefuncFiles[telefuncFilePath],
+  g.telefuncFiles = g.telefuncFiles || {}
+  g.telefuncFiles[telefuncFilePath] = {
+    ...g.telefuncFiles[telefuncFilePath],
     [telefunctionName]: telefunction,
-  }
-}
-
-function getGlobalHolder(): { telefuncFiles: TelefuncFiles | null } {
-  if (typeof global === 'undefined') {
-    return { telefuncFiles: null }
-  }
-  return (global[key] = global[key] || { telefuncFiles: null })
-}
-declare global {
-  namespace NodeJS {
-    interface Global {
-      [key]?: { telefuncFiles: TelefuncFiles | null }
-    }
   }
 }

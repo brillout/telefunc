@@ -1,20 +1,22 @@
-import { assert, isObject } from '../utils'
+import { assert, isObject, getGlobalObject } from '../utils'
 import type { Telefunc } from './TelefuncNamespace'
 
 export { getContext_sync }
 export { provideContext_sync }
 
-let _context: undefined | Telefunc.Context = undefined
+const g = getGlobalObject<{ context: undefined | Telefunc.Context }>('__internal_telefuncContext', {
+  context: undefined,
+})
 
 function getContext_sync(): undefined | Telefunc.Context {
-  assert(_context === undefined || isObject(_context))
-  return _context
+  assert(g.context === undefined || isObject(g.context))
+  return g.context
 }
 
 function provideContext_sync(context: Telefunc.Context) {
   assert(isObject(context))
-  _context = context
+  g.context = context
   process.nextTick(() => {
-    _context = undefined
+    g.context = undefined
   })
 }
