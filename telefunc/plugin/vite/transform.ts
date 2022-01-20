@@ -1,6 +1,5 @@
 import { Plugin } from 'vite'
 import { assert, toPosixPath } from '../../server/utils'
-import { isTelefuncFile } from '../isTelefuncFile'
 import { transformTelefuncFile } from '../transformTelefuncFile'
 import { isSSR_options } from './utils'
 
@@ -24,7 +23,7 @@ function transform(): Plugin {
       if (isSSR_options(options)) {
         return
       }
-      if (isTelefuncFile(id)) {
+      if (id.includes('.telefunc.')) {
         assert(root)
         return transformTelefuncFile(src, id, root)
       }

@@ -1,6 +1,5 @@
 import type { LoaderDefinitionFunction } from 'webpack'
 import { assert, toPosixPath } from '../../server/utils'
-import { isTelefuncFile } from '../isTelefuncFile'
 import { isSSR } from './isSSR'
 import { transformTelefuncFileSSR } from '../transformTelefuncFileSSR'
 import { transformTelefuncFile } from '../transformTelefuncFile'
@@ -10,7 +9,7 @@ module.exports = async function (input) {
   const id = this.resource
   const root = this._compiler!.context
 
-  assert(isTelefuncFile(id))
+  assert(id.includes('.telefunc.'))
 
   if (isSSR(compiler)) {
     const { code } = await transformTelefuncFileSSR(input, toPosixPath(id), toPosixPath(root))
