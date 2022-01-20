@@ -19,10 +19,12 @@ async function transformTelefuncFileSSR(src: string, id: string, root: string) {
 function getCode(exportNames: readonly string[], src: string, filePath: string) {
   assertPosixPath(filePath)
 
-  let code = 'import { __internal_addTelefunction } from "telefunc";'
-  code += '\n'
-  code += src
-  code += '\n'
+  const telefuncImport = 'import { __internal_addTelefunction } from "telefunc";'
+
+  // No break line between `telefuncImport` and `src` to preserve source map
+  let code = telefuncImport + src
+
+  code += '\n\n'
   for (const exportName of exportNames) {
     code += `__internal_addTelefunction("${exportName}", ${exportName}, "${filePath}");`
     code += '\n'
