@@ -8,5 +8,5 @@ function getGlobalObject<T extends Record<string, unknown>>(key: string, default
     return defaultValue
   }
   assert(isObject(global))
-  return (global[key] = (global[key] as T) || defaultValue)
+  return ((global as Record<string, unknown>)[key] = ((global as Record<string, unknown>)[key] as T) || defaultValue)
 }
