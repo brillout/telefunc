@@ -2,9 +2,12 @@ export { telefunc }
 
 import { assertHttpRequest } from './runTelefunc/assertHttpRequest'
 import { runTelefunc } from './runTelefunc'
-import { telefuncConfig, resolveConfigDefaults } from './telefuncConfig'
+import { getConfigObject } from './telefuncConfig'
 import { HttpRequest } from './types'
-import { assertUsage, getUrlPathname, objectAssign } from './utils'
+import { assertUsage, getUrlPathname, objectAssign, objectAssignWithPropertyDescriptors } from './utils'
+
+const config = getConfigObject()
+objectAssignWithPropertyDescriptors(telefunc, config)
 
 /**
  * Get the HTTP response of a telefunction call.
@@ -17,13 +20,8 @@ function telefunc(httpRequest: HttpRequest) {
   assertHttpRequest(httpRequest, arguments.length)
 
   const runContext = {}
-
   objectAssign(runContext, { httpRequest })
-
-  {
-    const configResolved = resolveConfigDefaults(telefuncConfig)
-    objectAssign(runContext, configResolved)
-  }
+  objectAssign(runContext, config)
 
   assertUrl(runContext)
 

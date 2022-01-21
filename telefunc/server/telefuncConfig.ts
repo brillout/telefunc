@@ -1,23 +1,20 @@
-export { telefuncConfig }
-export { resolveConfigDefaults }
+export { getConfigObject }
 
 import type { ViteDevServer } from 'vite'
 import type { Telefunction } from './types'
 import { isAbsolute } from 'path'
-import { assertUsage, assertWarning, hasProp, isPlainObject } from './utils'
+import { assertUsage, assertWarning, hasProp } from './utils'
 
 /** Telefunc Server Configuration */
 type ServerConfig = {
   /** The Telefunc HTTP endpoint URL, e.g. `/api/_telefunc`. Default: `/_telefunc`. */
-  telefuncUrl?: string
-  root?: string
-  isProduction?: boolean
-  viteDevServer?: ViteDevServer
-  disableEtag?: boolean
-  telefuncFiles?: Record<string, Record<string, Telefunction>>
+  telefuncUrl: string
+  root: string | null
+  isProduction: boolean
+  viteDevServer: ViteDevServer | null
+  disableEtag: boolean
+  telefuncFiles: Record<string, Record<string, Telefunction>> | null
 }
-
-const telefuncConfig: ServerConfig = getConfigObject()
 
 const configSpec = {
   isProduction: {
@@ -80,32 +77,32 @@ const configSpec = {
   },
 }
 
-function getConfigObject() {
-  const config: Record<string, unknown> = {}
-  return new Proxy(config, { set })
+function getConfigObject(): ServerConfig {
+  const configProvidedByUser: Partial<ServerConfig> = {}
+  const config = new Proxy(
+    {
+      // prettier-ignore
+      get viteDevServer() { return configProvidedByUser['viteDevServer'] ?? configSpec['viteDevServer'].getDefault() },
+      // prettier-ignore
+      get telefuncFiles() { return configProvidedByUser['telefuncFiles'] ?? configSpec['telefuncFiles'].getDefault() },
+      // prettier-ignore
+      get root()          { return configProvidedByUser['root']          ?? configSpec['root'].getDefault()          },
+      // prettier-ignore
+      get isProduction()  { return configProvidedByUser['isProduction']  ?? configSpec['isProduction'].getDefault()  },
+      // prettier-ignore
+      get telefuncUrl()   { return configProvidedByUser['telefuncUrl']   ?? configSpec['telefuncUrl'].getDefault()   },
+      // prettier-ignore
+      get disableEtag()   { return configProvidedByUser['disableEtag']   ?? configSpec['disableEtag'].getDefault()   },
+    },
+    { set },
+  )
   function set(_: never, prop: string, val: unknown) {
-    config[prop] = val
-    validateConfigObject(config)
-    return true
-  }
-}
-
-function resolveConfigDefaults(configProvidedByUser: ServerConfig) {
-  return {
-    viteDevServer: configProvidedByUser['viteDevServer'] ?? configSpec['viteDevServer'].getDefault(),
-    telefuncFiles: configProvidedByUser['telefuncFiles'] ?? configSpec['telefuncFiles'].getDefault(),
-    root: configProvidedByUser['root'] ?? configSpec['root'].getDefault(),
-    isProduction: configProvidedByUser['isProduction'] ?? configSpec['isProduction'].getDefault(),
-    telefuncUrl: configProvidedByUser['telefuncUrl'] ?? configSpec['telefuncUrl'].getDefault(),
-    disableEtag: configProvidedByUser['disableEtag'] ?? configSpec['disableEtag'].getDefault(),
-  }
-}
-
-function validateConfigObject(config: unknown) {
-  assertUsage(isPlainObject(config), 'The config object should be a plain JavaScript object')
-  Object.entries(config).forEach(([prop, val]) => {
-    const option = configSpec[prop as keyof typeof configSpec] ?? undefined
+    const option = configSpec[prop as keyof typeof configSpec]
     assertUsage(option, `Unknown config \`${prop}\`.`)
     option.validate(val)
-  })
+    // @ts-ignore
+    configProvidedByUser[prop] = val
+    return true
+  }
+  return config
 }
