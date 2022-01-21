@@ -11,6 +11,7 @@ import { getTelefunctions } from './runTelefunc/getTelefunctions'
 import { executeTelefunction } from './runTelefunc/executeTelefunction'
 import { serializeTelefunctionResult } from './runTelefunc/serializeTelefunctionResult'
 import { handleError } from './runTelefunc/handleError'
+import { executeServerErrorListeners } from './runTelefunc/onTelefuncServerError'
 
 type HttpResponse = {
   body: string
@@ -37,6 +38,7 @@ async function runTelefunc(runContext: Parameters<typeof runTelefunc_>[0]) {
   try {
     return await runTelefunc_(runContext)
   } catch (err: unknown) {
+    executeServerErrorListeners(err)
     handleError(err, runContext)
     return serverError
   }
