@@ -37,7 +37,7 @@ function Features() {
           desc: (
             <>
               <p>
-                Telefunc's <code>Abort()</code> enables <b>programmatically defined permissions</b>.
+                Telefunc enables <b>programmatically defined permissions</b>.
               </p>
               <p>
                 It's both <b>simple</b> and <b>flexible</b>.
@@ -54,9 +54,8 @@ function Features() {
           desc: (
             <>
               <p>
-                Telefunc supports both Webpack and Vite based stacks. This means it works with any framework:{' '}
-                <b>Next.js</b>, <b>Nuxt</b>, <b>Vite/Vike</b>, <b>Angular</b>, <b>SvelteKit</b>, <b>CRA</b>,{' '}
-                <b>Gatsby</b>, etc.
+                Telefunc supports Webpack and Vite based frameworks: <b>Next.js</b>, <b>Nuxt</b>, <b>Vite</b>,{' '}
+                <b>Vike</b>, <b>SvelteKit</b>, <b>Angular</b>, <b>CRA</b>, <b>Gatsby</b>, etc.
               </p>
               <p>You want to change your stack? Bring Telefunc along.</p>
             </>
