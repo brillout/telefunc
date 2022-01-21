@@ -1,13 +1,10 @@
 import type { Module } from '@nuxt/types'
-import { resolve } from 'path'
+import { install } from '../webpack/install'
 
 const telefuncModule: Module = function () {
   this.extendBuild((config) => {
-    const loader = resolve(__dirname, './loader.js')
-    config.module!.rules.push({
-      test: /\.telefunc\./,
-      use: [{ loader }],
-    })
+    // @ts-ignore
+    install(config)
   })
 }
 
