@@ -1,7 +1,6 @@
 import { SERVER_IS_READY } from './SERVER_IS_READY'
 import * as bodyParser from 'body-parser'
 import { telefunc } from 'telefunc'
-import { Context } from '@nuxt/types'
 
 export default {
   modules: ['telefunc/nuxt', sendServerIsReadyMessage],

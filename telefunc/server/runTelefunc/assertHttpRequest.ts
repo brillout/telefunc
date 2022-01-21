@@ -17,7 +17,7 @@ function assertHttpRequest(httpRequest: unknown, numberOfArguments: number) {
     body !== undefined && body !== null,
     '`telefunc({ body })`: argument `body` should be a string or an object but `body === ' +
       body +
-      '`. Note that with some server frameworks, such as Express.js and Koa, you need to use a server middleware that parses the body.',
+      '`. Note that with some server frameworks, such as Express.js, you need to use a server middleware that parses the body.',
   )
   assertUsage(
     typeof body === 'string' || isObject(body),
