@@ -12,8 +12,8 @@ type ServerConfig = {
   telefuncUrl?: string
   root?: string
   isProduction?: boolean
-  disableEtag?: boolean
   viteDevServer?: ViteDevServer
+  disableEtag?: boolean
   telefuncFiles?: Record<string, Record<string, Telefunction>>
 }
 

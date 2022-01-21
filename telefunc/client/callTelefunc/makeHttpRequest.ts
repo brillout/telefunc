@@ -5,12 +5,25 @@ import { parse } from '@brillout/json-s'
 import { assert, assertUsage, isObject, objectAssign } from '../utils'
 import { executeCallErrorListeners } from './onTelefunctionCallError'
 
-type TelefunctionCallError = Error & {
-  isConnectionError: boolean
-  isServerError: boolean
-  isAbort: boolean
-  value: unknown
-}
+type TelefunctionCallError = Error &
+  (
+    | {
+        isConnectionError: true
+        isServerError: false
+        isAbort: false
+      }
+    | {
+        isConnectionError: false
+        isServerError: true
+        isAbort: false
+      }
+    | {
+        isConnectionError: false
+        isServerError: false
+        isAbort: true
+        abortValue: unknown
+      }
+  )
 
 async function makeHttpRequest(callContext: {
   telefuncUrl: string
@@ -81,11 +94,11 @@ async function makeHttpRequest(callContext: {
       return { telefunctionReturn }
     } else {
       assert('abort' in responseValue)
-      const value = responseValue.ret
+      const abortValue = responseValue.ret
       const telefunctionCallError = new Error(
         `Telefunction \`${callContext.telefunctionName}\` aborted, see https://telefunc.comm/Abort`,
       )
-      objectAssign(telefunctionCallError, { ...errDefaults, isAbort: true as const, value })
+      objectAssign(telefunctionCallError, { ...errDefaults, isAbort: true as const, abortValue })
       executeCallErrorListeners(telefunctionCallError)
       return { telefunctionCallError }
     }
@@ -103,11 +116,9 @@ async function makeHttpRequest(callContext: {
 }
 
 const errDefaults = {
-  isConnectionError: false,
-  isServerError: false,
-  isAbort: false,
-  // @ts-ignore
-  value: undefined,
+  isConnectionError: false as const,
+  isServerError: false as const,
+  isAbort: false as const,
 }
 
 function installErr({
