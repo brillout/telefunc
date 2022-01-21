@@ -8,5 +8,6 @@ async function hydrate() {
   const pageContext = await getPage()
   const { Page, pageProps } = pageContext
   ReactDOM.hydrate(<Page {...pageProps} />, document.getElementById('page-view'))
+  // For `../.testRun.ts`
   window.hydrationFinished = true
 }
