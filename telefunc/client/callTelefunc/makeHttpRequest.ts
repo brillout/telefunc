@@ -1,11 +1,11 @@
 export { makeHttpRequest }
-export type { TelefuncCallError }
+export type { TelefunctionCallError }
 
 import { parse } from '@brillout/json-s'
 import { assert, assertUsage, isObject, objectAssign } from '../utils'
 import { executeCallErrorListeners } from './onTelefunctionCallError'
 
-type TelefuncCallError = Error & {
+type TelefunctionCallError = Error & {
   isConnectionError: boolean
   isServerError: boolean
   isAbort: boolean
@@ -16,7 +16,7 @@ async function makeHttpRequest(callContext: {
   telefuncUrl: string
   httpRequestBody: string
   telefunctionName: string
-}): Promise<{ telefunctionReturn: unknown } | { telefuncCallError: TelefuncCallError }> {
+}): Promise<{ telefunctionReturn: unknown } | { telefunctionCallError: TelefunctionCallError }> {
   const method = 'POST'
 
   let response: Response
@@ -30,10 +30,10 @@ async function makeHttpRequest(callContext: {
       },
     })
   } catch (_) {
-    const telefuncCallError = new Error('No Server Connection')
-    objectAssign(telefuncCallError, { ...errDefaults, isConnectionError: true as const })
-    executeCallErrorListeners(telefuncCallError)
-    return { telefuncCallError }
+    const telefunctionCallError = new Error('No Server Connection')
+    objectAssign(telefunctionCallError, { ...errDefaults, isConnectionError: true as const })
+    executeCallErrorListeners(telefunctionCallError)
+    return { telefunctionCallError }
   }
 
   const statusCode = response.status
@@ -58,10 +58,10 @@ async function makeHttpRequest(callContext: {
         callContext,
       }),
     )
-    const telefuncCallError = new Error('Server Error')
-    objectAssign(telefuncCallError, { ...errDefaults, isServerError: true as const })
-    executeCallErrorListeners(telefuncCallError)
-    return { telefuncCallError }
+    const telefunctionCallError = new Error('Server Error')
+    objectAssign(telefunctionCallError, { ...errDefaults, isServerError: true as const })
+    executeCallErrorListeners(telefunctionCallError)
+    return { telefunctionCallError }
   }
 
   if (statusCode === 200 || statusCode === 403) {
@@ -82,12 +82,12 @@ async function makeHttpRequest(callContext: {
     } else {
       assert('abort' in responseValue)
       const value = responseValue.ret
-      const telefuncCallError = new Error(
+      const telefunctionCallError = new Error(
         `Telefunction \`${callContext.telefunctionName}\` aborted, see https://telefunc.comm/Abort`,
       )
-      objectAssign(telefuncCallError, { ...errDefaults, isAbort: true as const, value })
-      executeCallErrorListeners(telefuncCallError)
-      return { telefuncCallError }
+      objectAssign(telefunctionCallError, { ...errDefaults, isAbort: true as const, value })
+      executeCallErrorListeners(telefunctionCallError)
+      return { telefunctionCallError }
     }
   }
 

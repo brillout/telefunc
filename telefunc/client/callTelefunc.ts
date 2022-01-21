@@ -34,10 +34,10 @@ async function __internal_fetchTelefunc(
   }
 
   const resp = await makeHttpRequest(callContext)
-  if ('telefuncCallError' in resp) {
-    const { telefuncCallError } = resp
-    assert(telefuncCallError)
-    throw telefuncCallError
+  if ('telefunctionCallError' in resp) {
+    const { telefunctionCallError } = resp
+    assert(telefunctionCallError)
+    throw telefunctionCallError
   }
   const { telefunctionReturn } = resp
   return telefunctionReturn

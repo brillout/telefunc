@@ -1,15 +1,15 @@
 export { onTelefunctionCallError }
 export { executeCallErrorListeners }
 
-import type { TelefuncCallError } from './makeHttpRequest'
+import type { TelefunctionCallError } from './makeHttpRequest'
 
-const telefuncCallErrorListeners: ((err: TelefuncCallError) => void)[] = []
+const telefuncCallErrorListeners: ((err: TelefunctionCallError) => void)[] = []
 
-function onTelefunctionCallError(listener: (err: TelefuncCallError) => void) {
+function onTelefunctionCallError(listener: (err: TelefunctionCallError) => void) {
   telefuncCallErrorListeners.push(listener)
 }
 
-function executeCallErrorListeners(err: TelefuncCallError) {
+function executeCallErrorListeners(err: TelefunctionCallError) {
   telefuncCallErrorListeners.forEach((listener) => {
     listener(err)
   })
