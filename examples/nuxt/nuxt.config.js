@@ -6,8 +6,7 @@ export default {
   modules: ['telefunc/nuxt', sendServerIsReadyMessage],
   telemetry: false,
   serverMiddleware: [
-    // We need to parse the HTTP request body for telefunc
-    bodyParser.text(),
+    bodyParser.text(), // Telefunc needs the HTTP request body
     telefuncMiddleware,
   ],
 }
