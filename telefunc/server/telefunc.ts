@@ -2,12 +2,9 @@ export { telefunc }
 
 import { assertHttpRequest } from './runTelefunc/assertHttpRequest'
 import { runTelefunc } from './runTelefunc'
-import { getConfigObject } from './telefuncConfig'
 import { HttpRequest } from './types'
-import { assertUsage, getUrlPathname, objectAssign, objectAssignWithPropertyDescriptors } from './utils'
-
-const config = getConfigObject()
-objectAssignWithPropertyDescriptors(telefunc, config)
+import { assertUsage, getUrlPathname, objectAssign } from './utils'
+import { config } from './config'
 
 /**
  * Get the HTTP response of a telefunction call.

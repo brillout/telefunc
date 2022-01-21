@@ -1,17 +1,14 @@
-export { telefuncConfig }
-export { resolveConfigDefaults }
+export const config: ClientConfig = getConfigObject()
 
-import { assertUsage, isPlainObject } from './utils'
+import { assertUsage } from './utils'
 
 assertProxySupport()
 
 /** Telefunc Client Configuration */
 type ClientConfig = {
   /** The Telefunc HTTP endpoint URL, e.g. `https://example.org/_telefunc`. Default: `/_telefunc`. */
-  telefuncUrl?: string
+  telefuncUrl: string
 }
-
-const telefuncConfig: ClientConfig = getConfigObject()
 
 const configSpec = {
   telefuncUrl: {
@@ -29,29 +26,24 @@ const configSpec = {
   },
 }
 
-function getConfigObject() {
-  const config: Record<string, unknown> = {}
-  return new Proxy(config, { set })
+function getConfigObject(): ClientConfig {
+  const configProvidedByUser: Partial<ClientConfig> = {}
+  const config = new Proxy(
+    {
+      // prettier-ignore
+      get telefuncUrl()   { return configProvidedByUser['telefuncUrl']   ?? configSpec['telefuncUrl'].getDefault()   },
+    },
+    { set },
+  )
   function set(_: never, prop: string, val: unknown) {
-    config[prop] = val
-    validateConfigObject(config)
-    return true
-  }
-}
-
-function resolveConfigDefaults(configProvidedByUser: ClientConfig) {
-  return {
-    telefuncUrl: configProvidedByUser['telefuncUrl'] ?? configSpec['telefuncUrl'].getDefault(),
-  }
-}
-
-function validateConfigObject(config: unknown) {
-  assertUsage(isPlainObject(config), 'The config object should be a plain JavaScript object')
-  Object.entries(config).forEach(([prop, val]) => {
-    const option = configSpec[prop as keyof typeof configSpec] ?? undefined
+    const option = configSpec[prop as keyof typeof configSpec]
     assertUsage(option, `Unknown config \`${prop}\`.`)
     option.validate(val)
-  })
+    // @ts-ignore
+    configProvidedByUser[prop] = val
+    return true
+  }
+  return config
 }
 
 function assertProxySupport() {

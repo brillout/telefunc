@@ -1,4 +1,4 @@
-export { getConfigObject }
+export const config = getConfigObject()
 
 import type { ViteDevServer } from 'vite'
 import type { Telefunction } from './types'
