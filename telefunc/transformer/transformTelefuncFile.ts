@@ -5,7 +5,7 @@ import { assertPosixPath } from '../server/utils/assertPosixPath'
 
 export { transformTelefuncFile }
 
-async function transformTelefuncFile(src: string, id: string, root: string, packageJsonExportsSupported = true) {
+async function transformTelefuncFile(src: string, id: string, root: string) {
   assertPosixPath(id)
   assertPosixPath(root)
 
@@ -17,17 +17,23 @@ async function transformTelefuncFile(src: string, id: string, root: string, pack
 
   const exports = parse(src)[1]
   return {
-    code: getCode(exports, telefuncFilePath, packageJsonExportsSupported),
+    code: getCode(exports, telefuncFilePath),
     map: null,
   }
 }
 
-function getCode(exports: readonly string[], telefuncFilePath: string, packageJsonExportsSupported: boolean) {
+function getCode(exports: readonly string[], telefuncFilePath: string) {
   const lines = []
 
   lines.push('// @ts-nocheck')
 
-  const importPath = packageJsonExportsSupported ? 'telefunc/client' : 'telefunc/dist/esm/client'
+  /* Nuxt v2 doesn't seem to support `package.json#exports`
+  const importPath =  'telefunc/client'
+  /*/
+  // This also works for Vite thanks to `package.json#exports["./dist/esm/client"]`
+  const importPath = 'telefunc/dist/esm/client'
+  //*/
+
   lines.push(`import { __internal_fetchTelefunc } from '${importPath}';`)
 
   exports.forEach((exportName) => {
