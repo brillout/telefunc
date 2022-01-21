@@ -3,7 +3,6 @@ import { install } from '../webpack/install'
 
 const telefuncModule: Module = function () {
   this.extendBuild((config) => {
-    // @ts-ignore
     install(config)
   })
 }

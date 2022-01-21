@@ -1,7 +1,7 @@
 import { getUser } from '../../auth/getUser'
-import { telefunc, config, provideContext } from 'telefunc'
+import { telefunc, config as telefuncConfig, provideContext } from 'telefunc'
 
-config.telefuncUrl = '/api/_telefunc'
+telefuncConfig.telefuncUrl = '/api/_telefunc'
 
 export default async function (req, res) {
   const user = getUser(req)

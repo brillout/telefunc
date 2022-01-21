@@ -3,7 +3,7 @@ export default telefuncPlugin
 import type { NextConfig } from 'next'
 import { install } from '../webpack/install'
 
-function telefuncPlugin(nextConfig: NextConfig = {}): NextConfig {
+function telefuncPlugin(nextConfig: NextConfig = {}) {
   return Object.assign({}, nextConfig, {
     webpack: (config, options) => {
       install(config)
