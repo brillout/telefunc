@@ -11,6 +11,12 @@ function testRun(cmd: 'npm run dev' | 'npm run prod') {
     expect(html).toContain('<li>Buy milk</li>')
     expect(html).toContain('<li>Buy strawberries</li>')
     await page.goto(`${urlBase}/`)
+    await autoRetry(async () => {
+      const hydrationFinished = await page.evaluate(
+        () => (window as any as { hydrationFinished: boolean }).hydrationFinished,
+      )
+      expect(hydrationFinished).toBe(true)
+    })
     const text = await page.textContent('body')
     expect(text).toContain("Alice's to-do list")
     expect(text).toContain('Buy milk')
@@ -18,7 +24,6 @@ function testRun(cmd: 'npm run dev' | 'npm run prod') {
   })
 
   test('Add to-do item', async () => {
-    await page.goto(`${urlBase}/`)
     await page.fill('input[type="text"]', 'Buy bananas')
     await page.click('button[type="submit"]')
     await autoRetry(async () => {
@@ -29,6 +34,5 @@ function testRun(cmd: 'npm run dev' | 'npm run prod') {
   test('New to-do item is persisted & rendered to HTML', async () => {
     const html = await fetchHtml('/')
     expect(html).toContain('<li>Buy bananas</li>')
-    expect(html).toContain('bananas')
   })
 }
