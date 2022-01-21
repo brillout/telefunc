@@ -3,7 +3,7 @@ export { telefuncConfig } from './telefuncConfig'
 export { getContext, provideContext } from './getContext'
 export { Abort } from './Abort'
 export { shield, withShield } from './shield'
-export { onTelefunctionError } from './runTelefunc/onTelefunctionError'
+export { onTelefuncServerError } from './runTelefunc/onTelefuncServerError'
 
 // In order to allow users to override `Telefunc.Context`, we need to export `Telefunc` (even if the user never imports `Telefunc`)
 export type { Telefunc } from './getContext/TelefuncNamespace'
