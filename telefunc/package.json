@@ -41,7 +41,6 @@
   "dependencies": {
     "@brillout/json-s": "^0.3.0",
     "@brillout/libassert": "^0.5.2",
-    "body-parser": "^1.19.0",
     "es-module-lexer": "^0.7.1",
     "vite-plugin-import-build": "^0.1.1"
   },
