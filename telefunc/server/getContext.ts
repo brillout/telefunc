@@ -15,8 +15,8 @@ function getContext<Context extends object = Telefunc.Context>(): Context {
   assertUsage(
     context !== undefined,
     [
-      `You are calling \`getContext()\` but no context is available${!isSSR() ? '' : ' (SSR)'}.`,
-      'Make sure to properly call `provideContext()`,',
+      `\`getContext()\`: no context found${!isSSR() ? '' : ' (SSR)'},`,
+      'make sure to properly call `provideContext()`,',
       `see https://telefunc.com/provideContext${isSSR() ? '#ssr' : ''}`,
     ].join(' '),
   )

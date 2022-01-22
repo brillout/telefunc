@@ -93,7 +93,7 @@ async function runTelefunc_(runContext: {
     runContext.telefunctionName in runContext.telefunctions,
     `Could not find telefunction \`${
       runContext.telefunctionName
-    }\`. Is your browser-side JavaScript out-of-sync with your server-side JavaScript? Loaded telefunctions: [${Object.keys(
+    }\`. The client is likely out-of-sync with the server, see https://telefunc.com/out-of-sync. Loaded telefunctions: [${Object.keys(
       runContext.telefunctions,
     ).join(', ')}]`,
   )
