@@ -1,14 +1,23 @@
 import { SERVER_IS_READY } from './SERVER_IS_READY'
 import * as bodyParser from 'body-parser'
-import { telefunc } from 'telefunc'
+import { telefunc, provideContext } from 'telefunc'
+import 'telefunc/async_hooks'
 
 export default {
   modules: ['telefunc/nuxt', sendServerIsReadyMessage],
   telemetry: false,
   serverMiddleware: [
     bodyParser.text(), // Telefunc needs the HTTP request body
+    telefuncContextMiddleware,
     telefuncMiddleware,
   ],
+}
+
+// We provide the Telefunc context for not only for `/_telefunc` but all requests,
+// so that the context is available also during SSR.
+async function telefuncContextMiddleware(req, _res, next) {
+  provideContext({ req })
+  next?.()
 }
 
 async function telefuncMiddleware(req, res, next) {

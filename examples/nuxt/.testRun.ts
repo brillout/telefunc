@@ -1,20 +1,16 @@
 import { page, run, urlBase, autoRetry, fetchHtml } from '../../libframe/test/setup'
+import { SERVER_IS_READY } from './SERVER_IS_READY'
 
 export { testRun }
 
 function testRun(cmd: 'npm run dev' | 'npm run prod') {
-  run(cmd, {
-    serverIsReadyMessage: 'started server on',
-    /* Debug Next.js in GitHub Actions:
-    debug: true,
-    additionalTimeout: 240 * 1000,
-    serverIsReadyDelay: 20 * 1000,
-    //*/
-  })
+  const additionalTimeout = 10 * 1000
+  const serverIsReadyDelay = 3 * 1000
+  run(cmd, { serverIsReadyMessage: SERVER_IS_READY, serverIsReadyDelay, additionalTimeout })
 
   test('To-do list and context', async () => {
     const html = await fetchHtml('/')
-    expect(html).toContain('<h1>Elisabeth&#x27;s to-do list</h1>')
+    expect(html).toContain("<h1>Elisabeth's to-do list</h1>")
     expect(html).toContain('<li>Buy milk</li>')
     expect(html).toContain('<li>Buy strawberries</li>')
     await page.goto(`${urlBase}/`)

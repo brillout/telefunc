@@ -26,7 +26,7 @@ async function startServer() {
   app.use(function (req, _res, next) {
     req.user = {
       id: 0,
-      name: 'Alice',
+      name: 'Elisabeth',
     }
     next()
   })

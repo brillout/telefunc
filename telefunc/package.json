@@ -56,7 +56,16 @@
     "typescript": "^4.5.4",
     "vite": "^2.4.3"
   },
-  "keywords": ["rpc", "api", "node-api", "graphql", "rest", "restful", "fullstack", "typescript"],
+  "keywords": [
+    "rpc",
+    "api",
+    "node-api",
+    "graphql",
+    "rest",
+    "restful",
+    "fullstack",
+    "typescript"
+  ],
   "description": "Remote functions. Instead of API.",
   "repository": "https://github.com/telefunc/telefunc",
   "homepage": "https://telefunc.com",
