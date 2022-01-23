@@ -1,6 +1,6 @@
 {
   "name": "telefunc",
-  "version": "0.1.0-beta.1",
+  "version": "0.1.0",
   "scripts": {
     "dev": "yarn dev:cjs & yarn dev:esm",
     "dev:cjs": "yarn tsc:watch:cjs",

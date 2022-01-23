@@ -1,6 +1,6 @@
-# Telefunc (new 2021 version) `0.1.0-beta.1`
+# Telefunc (new 2021/2022 version) `0.1.0`
 
-Initial beta release.
+Initial release.
 
 # Telefunc (old 2020 version) `0.0.26`
 
