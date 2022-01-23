@@ -15,7 +15,6 @@
     "clean": "rm -rf dist/"
   },
   "main": "./dist/cjs/server/index.js",
-  "module": "./dist/esm/server/index.js",
   "exports": {
     ".": {
       "node": "./dist/cjs/server/index.js",
