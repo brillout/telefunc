@@ -1,14 +1,13 @@
-import { parse } from 'es-module-lexer'
-import { assert, assertPosixPath } from '../server/utils'
-
 export { transformTelefuncFileSSR }
+
+import { getExportNames } from './getExportNames'
+import { assertPosixPath } from '../server/utils'
 
 async function transformTelefuncFileSSR(src: string, id: string, root: string) {
   assertPosixPath(id)
   assertPosixPath(root)
 
-  const exportNames = parse(src)[1]
-  assert(Array.isArray(exportNames as any), { src, exportNamesType: typeof exportNames })
+  const exportNames = await getExportNames(src)
 
   return {
     code: getCode(exportNames, src, id.replace(root, '')),

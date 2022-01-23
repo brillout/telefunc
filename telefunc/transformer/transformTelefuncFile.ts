@@ -1,9 +1,9 @@
-import { init, parse } from 'es-module-lexer'
+export { transformTelefuncFile }
+
+import { getExportNames } from './getExportNames'
 import { posix } from 'path'
 import { assert } from '../server/utils'
 import { assertPosixPath } from '../server/utils/assertPosixPath'
-
-export { transformTelefuncFile }
 
 async function transformTelefuncFile(src: string, id: string, root: string) {
   assertPosixPath(id)
@@ -13,16 +13,15 @@ async function transformTelefuncFile(src: string, id: string, root: string) {
   assert(!telefuncFilePath.startsWith('/.'))
   assertPosixPath(telefuncFilePath)
 
-  await init
+  const exportNames = await getExportNames(src)
 
-  const exports = parse(src)[1]
   return {
-    code: getCode(exports, telefuncFilePath),
+    code: getCode(exportNames, telefuncFilePath),
     map: null,
   }
 }
 
-function getCode(exports: readonly string[], telefuncFilePath: string) {
+function getCode(exportNames: readonly string[], telefuncFilePath: string) {
   const lines = []
 
   lines.push('// @ts-nocheck')
@@ -36,7 +35,7 @@ function getCode(exports: readonly string[], telefuncFilePath: string) {
 
   lines.push(`import { __internal_fetchTelefunc } from '${importPath}';`)
 
-  exports.forEach((exportName) => {
+  exportNames.forEach((exportName) => {
     const exportValue = `(...args) => __internal_fetchTelefunc('${telefuncFilePath}', '${exportName}', args);`
     if (exportName === 'default') {
       lines.push(`export default ${exportValue}`)
