@@ -20,12 +20,12 @@ function getCode(exportNames: readonly string[], src: string, filePath: string) 
 
   const telefuncImport = 'import { __internal_addTelefunction } from "telefunc";'
 
-  // No break line between `telefuncImport` and `src` to preserve source map
+  // No break line between `telefuncImport` and `src` in order to preserve the source map's line mapping
   let code = telefuncImport + src
 
   code += '\n\n'
   for (const exportName of exportNames) {
-    code += `__internal_addTelefunction("${exportName}", ${exportName}, "${filePath}");`
+    code += `__internal_addTelefunction(${exportName}, "${exportName}", "${filePath}");`
     code += '\n'
   }
 

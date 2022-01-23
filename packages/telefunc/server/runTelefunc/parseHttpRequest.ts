@@ -2,11 +2,17 @@ export { parseHttpRequest }
 
 import { parse } from '@brillout/json-s'
 import { assertUsage, hasProp } from '../utils'
+import { getTelefunctionKey } from './getTelefunctionKey'
 
-function parseHttpRequest(runContext: {
-  httpRequest: { body: string | object }
-  isProduction: boolean
-}): { telefunctionName: string; telefunctionArgs: unknown[]; isMalformed: false } | { isMalformed: true } {
+function parseHttpRequest(runContext: { httpRequest: { body: string | object }; isProduction: boolean }):
+  | {
+      telefunctionFilePath: string
+      telefunctionExportName: string
+      telefunctionKey: string
+      telefunctionArgs: unknown[]
+      isMalformed: false
+    }
+  | { isMalformed: true } {
   const { body } = runContext.httpRequest
   const bodyString = typeof body === 'string' ? body : JSON.stringify(body)
 
@@ -15,7 +21,11 @@ function parseHttpRequest(runContext: {
     bodyParsed = parse(bodyString)
   } catch (err_) {}
 
-  if (!hasProp(bodyParsed, 'name', 'string') || !hasProp(bodyParsed, 'args', 'array')) {
+  if (
+    !hasProp(bodyParsed, 'file', 'string') ||
+    !hasProp(bodyParsed, 'name', 'string') ||
+    !hasProp(bodyParsed, 'args', 'array')
+  ) {
     if (runContext.isProduction) {
       // In production, a third party can make a malformed request.
       return { isMalformed: true }
@@ -31,11 +41,15 @@ function parseHttpRequest(runContext: {
     }
   }
 
-  const telefunctionName = bodyParsed.name
+  const telefunctionFilePath = bodyParsed.file
+  const telefunctionExportName = bodyParsed.name
   const telefunctionArgs = bodyParsed.args
+  const telefunctionKey = getTelefunctionKey({ telefunctionFilePath, telefunctionExportName })
 
   return {
-    telefunctionName,
+    telefunctionFilePath,
+    telefunctionExportName,
+    telefunctionKey,
     telefunctionArgs,
     isMalformed: false,
   }

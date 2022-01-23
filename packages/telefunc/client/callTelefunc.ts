@@ -6,8 +6,8 @@ import { config } from './config'
 import { objectAssign, assertUsage, isBrowser, assert } from './utils'
 
 async function __internal_fetchTelefunc(
-  telefuncFilePath: string,
-  telefuncFileExportName: string,
+  telefunctionFilePath: string,
+  telefunctionExportName: string,
   telefunctionArgs: unknown[],
 ): Promise<unknown> {
   assertUsage(
@@ -17,9 +17,9 @@ async function __internal_fetchTelefunc(
 
   const callContext = {}
   {
-    const telefunctionName = `${telefuncFilePath}:${telefuncFileExportName}`
     objectAssign(callContext, {
-      telefunctionName,
+      telefunctionFilePath,
+      telefunctionExportName,
       telefunctionArgs,
     })
   }

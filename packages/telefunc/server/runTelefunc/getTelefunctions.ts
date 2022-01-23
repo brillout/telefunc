@@ -2,19 +2,20 @@ export { getTelefunctions }
 
 import { assertUsage, isCallable } from '../utils'
 import type { Telefunction, TelefuncFiles } from '../types'
+import { getTelefunctionKey } from './getTelefunctionKey'
 
 async function getTelefunctions(runContext: { telefuncFiles: TelefuncFiles }): Promise<{
   telefunctions: Record<string, Telefunction>
 }> {
   const telefunctions: Record<string, Telefunction> = {}
-  Object.entries(runContext.telefuncFiles).forEach(([telefuncFileName, telefuncFileExports]) => {
-    Object.entries(telefuncFileExports).forEach(([exportName, exportValue]) => {
-      const telefunctionName = telefuncFileName + ':' + exportName
+  Object.entries(runContext.telefuncFiles).forEach(([telefunctionFilePath, telefuncFileExports]) => {
+    Object.entries(telefuncFileExports).forEach(([telefunctionExportName, exportValue]) => {
+      const telefunctionKey = getTelefunctionKey({ telefunctionFilePath, telefunctionExportName })
       assertTelefunction(exportValue, {
-        exportName,
-        telefuncFileName,
+        telefunctionExportName,
+        telefunctionFilePath,
       })
-      telefunctions[telefunctionName] = exportValue
+      telefunctions[telefunctionKey] = exportValue
     })
   })
 
@@ -24,16 +25,15 @@ async function getTelefunctions(runContext: { telefuncFiles: TelefuncFiles }): P
 function assertTelefunction(
   telefunction: unknown,
   {
-    exportName,
-    telefuncFileName,
+    telefunctionExportName,
+    telefunctionFilePath,
   }: {
-    exportName: string
-    telefuncFileName: string
+    telefunctionExportName: string
+    telefunctionFilePath: string
   },
 ): asserts telefunction is Telefunction {
-  const errPrefix = `The telefunction \`${exportName}\` defined in \`${telefuncFileName}\``
   assertUsage(
     isCallable(telefunction),
-    `${errPrefix} is not a function. A tele-*func*tion should always be a function.`,
+    `The telefunction \`${telefunctionExportName}\` (${telefunctionFilePath}) is not a function. Make sure the \`export { ${telefunctionExportName} }\` of ${telefunctionFilePath} to be a function.`,
   )
 }

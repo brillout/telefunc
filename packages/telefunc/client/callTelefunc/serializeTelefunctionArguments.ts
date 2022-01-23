@@ -4,15 +4,18 @@ import { stringify } from '@brillout/json-s'
 import { assert, assertUsage } from '../utils'
 
 function serializeTelefunctionArguments(callContext: {
-  telefunctionName: string
+  telefunctionFilePath: string
+  telefunctionExportName: string
   telefunctionArgs: unknown[]
   telefuncUrl: string
 }) {
   const bodyParsed = {
-    name: callContext.telefunctionName,
+    file: callContext.telefunctionFilePath,
+    name: callContext.telefunctionExportName,
     args: callContext.telefunctionArgs,
   }
-  assert(typeof callContext.telefunctionName === 'string')
+  assert(typeof callContext.telefunctionFilePath === 'string')
+  assert(typeof callContext.telefunctionExportName === 'string')
   assert(Array.isArray(callContext.telefunctionArgs))
   let httpRequestBody: string
   try {
@@ -21,7 +24,7 @@ function serializeTelefunctionArguments(callContext: {
     assertUsage(
       false,
       [
-        `Couldn't serialize arguments for telefunction \`${callContext.telefunctionName}\`.`,
+        `Couldn't serialize arguments for telefunction \`${callContext.telefunctionExportName}\` (${callContext.telefunctionFilePath}).`,
         'Make sure that the arguments contain only following types:',
         '`Object`, `string`, `number`, `Date`, `null`, `undefined`, `Infinity`, `NaN`, `RegExp`.',
       ].join(' '),
