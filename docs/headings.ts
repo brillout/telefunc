@@ -2,7 +2,12 @@ import type { HeadingDefinition, HeadingWithoutLink } from 'libframe-docs/headin
 
 export { headingsWithoutLink }
 
-const headingsWithoutLink: HeadingWithoutLink[] = []
+const headingsWithoutLink: HeadingWithoutLink[] = [
+  {
+    title: 'Isomorphic `import`',
+    url: '/isomorphic-import',
+  },
+]
 
 export const headings: HeadingDefinition[] = [
   {
