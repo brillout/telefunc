@@ -5,27 +5,27 @@ When writing isomorphic code, we have to be careful to execute code in the right
 ```js
 // Environment: Node.js, browser
 
-import { onRemoteCallError } from 'telefunc/client'
+import { onTelefunctionRemoteCallError } from 'telefunc/client'
 
 // This works when the environment is the browser but throws an
 // error when the environment is Node.js.
-onRemoteCallError(() => {
+onTelefunctionRemoteCallError(() => {
   /* ... */
 })
 ```
 
 ```
-Error: [telefunc][Wrong Usage] Using `onRemoteCallError()` (`import { onRemoteCallError } from 'telefunc/client'`) is forbidden on the server-side, see https://telefunc.com/isomorphic-import
+Error: [telefunc][Wrong Usage] Using `onTelefunctionRemoteCallError()` (`import { onTelefunctionRemoteCallError } from 'telefunc/client'`) is forbidden on the server-side, see https://telefunc.com/isomorphic-import
 ```
 
 To fix this, we ensure that our client-side code is not called on the server-side:
 
 ```js
-import { onRemoteCallError } from 'telefunc/client'
+import { onTelefunctionRemoteCallError } from 'telefunc/client'
 
 const isBrowser = typeof window !== 'undefined'
 if (isBrowser) {
-  onRemoteCallError(() => {
+  onTelefunctionRemoteCallError(() => {
     /* ... */
   })
 }

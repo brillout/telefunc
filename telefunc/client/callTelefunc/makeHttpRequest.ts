@@ -1,11 +1,11 @@
 export { makeHttpRequest }
-export type { RemoteCallError }
+export type { TelefunctionError }
 
 import { parse } from '@brillout/json-s'
 import { assert, assertUsage, isObject, objectAssign } from '../utils'
-import { executeCallErrorListeners } from './onRemoteCallError'
+import { executeCallErrorListeners } from './onTelefunctionRemoteCallError'
 
-type RemoteCallError = Error &
+type TelefunctionError = Error &
   (
     | {
         isConnectionError: true
@@ -30,7 +30,7 @@ async function makeHttpRequest(callContext: {
   httpRequestBody: string
   telefunctionFilePath: string
   telefunctionExportName: string
-}): Promise<{ telefunctionReturn: unknown } | { telefunctionCallError: RemoteCallError }> {
+}): Promise<{ telefunctionReturn: unknown } | { telefunctionCallError: TelefunctionError }> {
   const method = 'POST'
 
   let response: Response

@@ -1,5 +1,5 @@
 export const telefuncConfig = new Proxy({}, { set: err('telefuncConfig'), get: err('telefuncConfig') })
-export const onRemoteCallError = err('onRemoteCallError')
+export const onTelefunctionRemoteCallError = err('onTelefunctionRemoteCallError')
 
 import { assertUsage } from './utils'
 
