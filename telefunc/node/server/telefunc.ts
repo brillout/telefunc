@@ -4,7 +4,7 @@ import { assertHttpRequest } from './runTelefunc/assertHttpRequest'
 import { runTelefunc } from './runTelefunc'
 import { HttpRequest } from './types'
 import { assertUsage, getUrlPathname, objectAssign } from '../utils'
-import { config } from './config'
+import { telefuncConfig } from './telefuncConfig'
 
 /**
  * Get the HTTP response of a telefunction call.
@@ -18,7 +18,7 @@ function telefunc(httpRequest: HttpRequest) {
 
   const runContext = {}
   objectAssign(runContext, { httpRequest })
-  objectAssign(runContext, config)
+  objectAssign(runContext, telefuncConfig)
 
   assertUrl(runContext)
 
@@ -29,6 +29,6 @@ function assertUrl(runContext: { httpRequest: { url: string }; telefuncUrl: stri
   const urlPathname = getUrlPathname(runContext.httpRequest.url)
   assertUsage(
     urlPathname === runContext.telefuncUrl,
-    `telefunc({ url }): The HTTP request \`url\` pathname \`${urlPathname}\` should be \`${runContext.telefuncUrl}\`. Make sure that \`url\` is the HTTP request URL, or change \`config.telefuncUrl\` to \`${urlPathname}\`.`,
+    `telefunc({ url }): The HTTP request \`url\` pathname \`${urlPathname}\` should be \`${runContext.telefuncUrl}\`. Make sure that \`url\` is the HTTP request URL, or change \`telefuncConfig.telefuncUrl\` to \`${urlPathname}\`.`,
   )
 }

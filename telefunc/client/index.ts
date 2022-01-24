@@ -1,4 +1,4 @@
-export { config } from './config'
+export { telefuncConfig } from './telefuncConfig'
 export { onRemoteCallError } from './callTelefunc/onRemoteCallError'
 export type { RemoteCallError } from './callTelefunc/makeHttpRequest'
 

@@ -1,5 +1,5 @@
 export const telefunc = err('telefunc')
-export const config = new Proxy({}, { set: err('config'), get: err('config') })
+export const telefuncConfig = new Proxy({}, { set: err('telefuncConfig'), get: err('telefuncConfig') })
 export const getContext = err('getContext')
 export const provideContext = err('provideContext')
 export const Abort = err('Abort')
@@ -11,7 +11,7 @@ import { assertUsage } from './utils'
 
 function err(importName: string) {
   return () => {
-    const isFunction = importName !== 'config'
+    const isFunction = importName !== 'telefuncConfig'
     const name = importName + (isFunction ? '()' : '')
     assertUsage(
       false,

@@ -1,11 +1,11 @@
-export const config = new Proxy({}, { set: err('config'), get: err('config') })
+export const telefuncConfig = new Proxy({}, { set: err('telefuncConfig'), get: err('telefuncConfig') })
 export const onRemoteCallError = err('onRemoteCallError')
 
 import { assertUsage } from './utils'
 
 function err(importName: string) {
   return () => {
-    const isFunction = importName !== 'config'
+    const isFunction = importName !== 'telefuncConfig'
     const name = importName + (isFunction ? '()' : '')
     assertUsage(
       false,

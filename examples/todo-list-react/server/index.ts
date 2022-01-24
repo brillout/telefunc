@@ -1,6 +1,6 @@
 import express from 'express'
 import { createPageRenderer } from 'vite-plugin-ssr'
-import { telefunc, config as telefuncConfig, provideContext } from 'telefunc'
+import { telefunc, telefuncConfig, provideContext } from 'telefunc'
 import 'telefunc/async_hooks'
 import cookieParser from 'cookie-parser'
 import { getLoggedUser } from '#root/auth/server/getLoggedUser'

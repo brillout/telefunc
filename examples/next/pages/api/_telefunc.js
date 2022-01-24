@@ -1,5 +1,5 @@
 import { getUser } from '../../auth/getUser'
-import { telefunc, config as telefuncConfig, provideContext } from 'telefunc'
+import { telefunc, telefuncConfig, provideContext } from 'telefunc'
 
 telefuncConfig.telefuncUrl = '/api/_telefunc'
 

@@ -1,5 +1,5 @@
 import express from 'express'
-import { telefunc, config as telefuncConfig } from 'telefunc'
+import { telefunc, telefuncConfig } from 'telefunc'
 
 startServer()
 

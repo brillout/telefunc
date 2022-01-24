@@ -1,4 +1,4 @@
-import { config as telefuncConfig } from 'telefunc/client'
+import { telefuncConfig } from 'telefunc/client'
 
 const isBrowser = typeof window !== 'undefined'
 if (isBrowser) {

@@ -1,11 +1,11 @@
-export const config: ClientConfig = getConfigObject()
+export const telefuncConfig: TelefuncClientConfig = getTelefuncConfigObject()
 
 import { assertUsage } from './utils'
 
 assertProxySupport()
 
 /** Telefunc Client Configuration */
-type ClientConfig = {
+type TelefuncClientConfig = {
   /** The Telefunc HTTP endpoint URL, e.g. `https://example.org/_telefunc`. Default: `/_telefunc`. */
   telefuncUrl: string
 }
@@ -13,11 +13,11 @@ type ClientConfig = {
 const configSpec = {
   telefuncUrl: {
     validate(val: unknown) {
-      assertUsage(typeof val === 'string', 'The config `telefuncUrl` should be a string')
+      assertUsage(typeof val === 'string', '`telefuncConfig.telefuncUrl` should be a string')
       const isIpAddress = (value: string) => /^\d/.test(value)
       assertUsage(
         val.startsWith('/') || val.startsWith('http') || isIpAddress(val),
-        `You set the config \`telefuncUrl\` to \`${val}\` but it should be one of the following: a URL pathname (e.g. \`/_telefunc\`), a URL with origin (e.g. \`https://example.org/_telefunc\`), or an IP address (e.g. \`192.158.1.38\`).`,
+        `Setting \`telefuncConfig.telefuncUrl\` to \`${val}\` but it should be one of the following: a URL pathname (e.g. \`/_telefunc\`), a URL with origin (e.g. \`https://example.org/_telefunc\`), or an IP address (e.g. \`192.158.1.38\`).`,
       )
     },
     getDefault() {
@@ -26,9 +26,9 @@ const configSpec = {
   },
 }
 
-function getConfigObject(): ClientConfig {
-  const configProvidedByUser: Partial<ClientConfig> = {}
-  const config = new Proxy(
+function getTelefuncConfigObject(): TelefuncClientConfig {
+  const configProvidedByUser: Partial<TelefuncClientConfig> = {}
+  const telefuncConfig = new Proxy(
     {
       // prettier-ignore
       get telefuncUrl()   { return configProvidedByUser['telefuncUrl']   ?? configSpec['telefuncUrl'].getDefault()   },
@@ -37,13 +37,13 @@ function getConfigObject(): ClientConfig {
   )
   function set(_: never, prop: string, val: unknown) {
     const option = configSpec[prop as keyof typeof configSpec]
-    assertUsage(option, `Unknown config \`${prop}\`.`)
+    assertUsage(option, `Unknown \`telefuncConfig.${prop}\`.`)
     option.validate(val)
     // @ts-ignore
     configProvidedByUser[prop] = val
     return true
   }
-  return config
+  return telefuncConfig
 }
 
 function assertProxySupport() {

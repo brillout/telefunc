@@ -2,7 +2,7 @@ export { __internal_fetchTelefunc }
 
 import { makeHttpRequest } from './callTelefunc/makeHttpRequest'
 import { serializeTelefunctionArguments } from './callTelefunc/serializeTelefunctionArguments'
-import { config } from './config'
+import { telefuncConfig } from './telefuncConfig'
 import { objectAssign, assertUsage, isBrowser, assert } from './utils'
 
 async function __internal_fetchTelefunc(
@@ -24,7 +24,7 @@ async function __internal_fetchTelefunc(
     })
   }
 
-  objectAssign(callContext, config)
+  objectAssign(callContext, telefuncConfig)
 
   {
     const httpRequestBody = serializeTelefunctionArguments(callContext)

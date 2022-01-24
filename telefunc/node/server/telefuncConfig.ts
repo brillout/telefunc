@@ -1,4 +1,4 @@
-export const config = getConfigObject()
+export const telefuncConfig = getTelefuncConfigObject()
 
 import type { ViteDevServer } from 'vite'
 import type { Telefunction } from './types'
@@ -6,7 +6,7 @@ import { isAbsolute } from 'path'
 import { assertUsage, assertWarning, hasProp } from '../utils'
 
 /** Telefunc Server Configuration */
-type ServerConfig = {
+type TelefuncServerConfig = {
   /** The Telefunc HTTP endpoint URL, e.g. `/api/_telefunc`. Default: `/_telefunc`. */
   telefuncUrl: string
   root: string | null
@@ -19,7 +19,7 @@ type ServerConfig = {
 const configSpec = {
   isProduction: {
     validate(val: unknown) {
-      assertUsage(val === true || val === false, 'The config `isProduction` should be `true` or `false`')
+      assertUsage(val === true || val === false, '`telefuncConfig.isProduction` should be `true` or `false`')
     },
     getDefault() {
       // If server environment is not a Node.js server, then we assume a (Cloudflare) worker environment
@@ -29,7 +29,7 @@ const configSpec = {
   },
   root: {
     validate(val: unknown) {
-      assertUsage(typeof val === 'string' && isAbsolute(val), 'The config `root` should be an absolute path')
+      assertUsage(typeof val === 'string' && isAbsolute(val), '`telefuncConfig.root` should be an absolute path')
     },
     getDefault() {
       if (typeof process == 'undefined' || !hasProp(process, 'cwd')) return null
@@ -38,7 +38,7 @@ const configSpec = {
   },
   viteDevServer: {
     validate(val: unknown) {
-      assertUsage(hasProp(val, 'ssrLoadModule'), 'The config `ssrLoadModule` should be the Vite dev server')
+      assertUsage(hasProp(val, 'ssrLoadModule'), '`telefuncConfig.ssrLoadModule` should be the Vite dev server')
       assertUsage(
         (val as any as ViteDevServer).config.plugins.find((plugin) => plugin.name.startsWith('telefunc')),
         'Telefunc Vite plugin not installed. Make sure to add Telefunc to your `vite.config.js`.',
@@ -52,7 +52,7 @@ const configSpec = {
     validate(val: unknown) {
       assertUsage(
         typeof val === 'string' && val.startsWith('/'),
-        'The config `telefuncUrl` should be a string that starts with `/`',
+        '`telefuncConfig.telefuncUrl` should be a string that starts with `/`',
       )
     },
     getDefault() {
@@ -61,7 +61,7 @@ const configSpec = {
   },
   telefuncFiles: {
     validate(_val: unknown) {
-      assertWarning(false, 'The config `telefuncFiles` is experimental')
+      assertWarning(false, '`telefuncConfig.telefuncFiles` is experimental')
     },
     getDefault() {
       return null
@@ -69,7 +69,7 @@ const configSpec = {
   },
   disableEtag: {
     validate(_val: unknown) {
-      assertWarning(false, 'The config `disableEtag` is experimental')
+      assertWarning(false, '`telefuncConfig.disableEtag` is experimental')
     },
     getDefault() {
       return false
@@ -77,9 +77,9 @@ const configSpec = {
   },
 }
 
-function getConfigObject(): ServerConfig {
-  const configProvidedByUser: Partial<ServerConfig> = {}
-  const config = new Proxy(
+function getTelefuncConfigObject(): TelefuncServerConfig {
+  const configProvidedByUser: Partial<TelefuncServerConfig> = {}
+  const telefuncConfig = new Proxy(
     {
       // prettier-ignore
       get viteDevServer() { return configProvidedByUser['viteDevServer'] ?? configSpec['viteDevServer'].getDefault() },
@@ -98,11 +98,11 @@ function getConfigObject(): ServerConfig {
   )
   function set(_: never, prop: string, val: unknown) {
     const option = configSpec[prop as keyof typeof configSpec]
-    assertUsage(option, `Unknown config \`${prop}\`.`)
+    assertUsage(option, `Unknown \`telefuncConfig.${prop}\`.`)
     option.validate(val)
     // @ts-ignore
     configProvidedByUser[prop] = val
     return true
   }
-  return config
+  return telefuncConfig
 }

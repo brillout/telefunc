@@ -1,5 +1,5 @@
 export { telefunc } from './telefunc'
-export { config } from './config'
+export { telefuncConfig } from './telefuncConfig'
 export { getContext, provideContext } from './getContext'
 export { Abort } from './Abort'
 export { shield, withShield } from './shield'
