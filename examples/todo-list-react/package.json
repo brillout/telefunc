@@ -9,7 +9,7 @@
   "dependencies": {
     "@types/cookie-parser": "^1.4.2",
     "@types/express": "^4.17.13",
-    "@types/node": "^16.11.0",
+    "@types/node": "^17.0.10",
     "@types/react": "^17.0.30",
     "@types/react-dom": "^17.0.9",
     "@vitejs/plugin-react": "^1.0.4",
