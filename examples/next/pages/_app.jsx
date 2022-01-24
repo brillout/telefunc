@@ -1,6 +1,9 @@
 import { config as telefuncConfig } from 'telefunc/client'
 
-telefuncConfig.telefuncUrl = '/api/_telefunc'
+const isBrowser = typeof window !== 'undefined'
+if (isBrowser) {
+  telefuncConfig.telefuncUrl = '/api/_telefunc'
+}
 
 function MyApp({ Component, pageProps }) {
   return <Component {...pageProps} />

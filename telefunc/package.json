@@ -14,14 +14,14 @@
   "exports": {
     ".": {
       "node": "./dist/node/server/index.js",
-      "browser": "./dist/node/server/index.js"
+      "browser": "./dist/client/server.js"
     },
     "./async_hooks": {
       "node": "./dist/node/server/async_hooks.js"
     },
     "./client": {
       "browser": "./dist/client/index.js",
-      "node": "./dist/node/client/index.js"
+      "node": "./dist/node/client.js"
     },
     "./dist/client": {
       "browser": "./dist/client/index.js"
@@ -61,7 +61,7 @@
     "typescript"
   ],
   "description": "Remote functions. Instead of API.",
-  "repository": "https://github.com/telefunc/telefunc",
+  "repository": "https://github.com/vikejs/telefunc",
   "homepage": "https://telefunc.com",
   "license": "MIT"
 }
