@@ -1,6 +1,6 @@
 import { SERVER_IS_READY } from './SERVER_IS_READY'
 import * as bodyParser from 'body-parser'
-import { telefunc, provideContext } from 'telefunc'
+import { telefunc, provideTelefuncContext } from 'telefunc'
 import 'telefunc/async_hooks'
 
 export default {
@@ -16,7 +16,7 @@ export default {
 // We provide the Telefunc context for not only for `/_telefunc` but all requests,
 // so that the context is available also during SSR.
 async function telefuncContextMiddleware(req, _res, next) {
-  provideContext({ req })
+  provideTelefuncContext({ req })
   next?.()
 }
 

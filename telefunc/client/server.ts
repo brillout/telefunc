@@ -1,7 +1,7 @@
 export const telefunc = err('telefunc')
 export const telefuncConfig = new Proxy({}, { set: err('telefuncConfig'), get: err('telefuncConfig') })
 export const getContext = err('getContext')
-export const provideContext = err('provideContext')
+export const provideTelefuncContext = err('provideTelefuncContext')
 export const Abort = err('Abort')
 export const shield = err('shield')
 export const withShield = err('withShield')

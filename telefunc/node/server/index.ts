@@ -1,6 +1,6 @@
 export { telefunc } from './telefunc'
 export { telefuncConfig } from './telefuncConfig'
-export { getContext, provideContext } from './getContext'
+export { getContext, provideTelefuncContext } from './getContext'
 export { Abort } from './Abort'
 export { shield, withShield } from './shield'
 export { onTelefuncServerError } from './runTelefunc/onTelefuncServerError'
