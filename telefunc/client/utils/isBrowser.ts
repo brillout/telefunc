@@ -1,6 +1,6 @@
 export { isBrowser }
 
-import { assert } from '../../shared/utils'
+import { assert } from './assert'
 
 function isBrowser() {
   const itIs = __browserTest()

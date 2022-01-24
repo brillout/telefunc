@@ -2,43 +2,38 @@
   "name": "telefunc",
   "version": "0.1.0",
   "scripts": {
-    "dev": "yarn dev:cjs & yarn dev:esm",
-    "dev:cjs": "yarn tsc:watch:cjs",
-    "dev:esm": "yarn tsc:watch:esm",
-    "build": "yarn clean && yarn tsc:cjs && yarn tsc:esm",
-    "========= TypeScript": "",
-    "tsc:esm": "tsc",
-    "tsc:cjs": "tsc --project ./tsconfig.cjs.json",
-    "tsc:watch:esm": "tsc --incremental --watch",
-    "tsc:watch:cjs": "tsc --incremental --watch --project ./tsconfig.cjs.json",
-    "========= Clean": "",
-    "clean": "rm -rf dist/"
+    "build": "rm -rf dist/ && tsc --build",
+    "dev": "yarn dev:fast",
+    "// `dev:fast` and `dev:slow` achieve the same, but `dev:fast` is much faster": "",
+    "dev:slow": "tsc --build --watch",
+    "dev:fast": "yarn tsc:watch:node & yarn tsc:watch:client",
+    "tsc:watch:node": "tsc --incremental --watch --project ./node/tsconfig.json",
+    "tsc:watch:client": "tsc --incremental --watch --project ./client/tsconfig.json"
   },
-  "main": "./dist/cjs/server/index.js",
+  "main": "./dist/node/server/index.js",
   "exports": {
     ".": {
-      "node": "./dist/cjs/server/index.js",
-      "browser": "./dist/cjs/server/client.js"
+      "node": "./dist/node/server/index.js",
+      "browser": "./dist/node/server/index.js"
     },
     "./async_hooks": {
-      "node": "./dist/cjs/server/async_hooks.js"
+      "node": "./dist/node/server/async_hooks.js"
     },
     "./client": {
-      "browser": "./dist/esm/client/index.js",
-      "node": "./dist/cjs/client/index.js"
+      "browser": "./dist/client/index.js",
+      "node": "./dist/node/client/index.js"
     },
-    "./dist/esm/client": {
-      "browser": "./dist/esm/client/index.js",
-      "node": "./dist/cjs/client/index.js"
+    "./dist/client": {
+      "browser": "./dist/client/index.js"
     },
     "./vite": {
-      "node": "./dist/cjs/vite/index.js"
+      "node": "./dist/node/vite/index.js"
     },
     "./next": {
-      "node": "./dist/cjs/next/index.js"
+      "node": "./dist/node/next/index.js"
     },
     "./nuxt": {
-      "node": "./dist/cjs/nuxt/index.js"
+      "node": "./dist/node/nuxt/index.js"
     }
   },
   "dependencies": {

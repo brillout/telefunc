@@ -1,22 +1,7 @@
 {
-  "compilerOptions": {
-    // Output
-    "target": "ES2020",
-    "module": "ES2020",
-    "moduleResolution": "Node",
-    "outDir": "dist/esm/",
-    // User-code
-    "strict": true,
-    "lib": ["DOM", "ESNext"],
-    // Dependencies
-    "skipLibCheck": true,
-    // Source Maps
-    "sourceMap": true,
-    "declaration": true,
-    "declarationMap": true,
-    "stripInternal": true,
-    "types": ["vite/client"]
-  },
-  "exclude": ["./node_modules/", "./dist/", "**/*.spec.ts"],
-  "include": ["./**/*"]
+  "files": [],
+  "references": [
+    { "path": "./client/" },
+    { "path": "./node/" }
+  ]
 }
