@@ -5,47 +5,75 @@
   width: 465px;
   font-size: 13px;
 }
+.debug-layout {
+  outline: 1px solid blue;
+}
 .header-code-description {
   text-align: center;
+  font-size: 1.2em;
+}
+.header-code-block-right {
+  margin-left: 5px;
+}
+@media screen and (min-width: 1000px) {
+  .header-code-block-right {
+    margin-left: 10px;
+  }
+}
+@media screen and (min-width: 1280px) {
+  .header-code-block-right {
+    margin-left: 20px;
+  }
 }
 @media screen and (max-width: 1250px) and (min-width: 1140px),
-  screen and (max-width: 950px) and (min-width: 840px),
+  screen and (max-width: 945px) and (min-width: 611px),
   screen and (max-width: 470px) {
   .header-code-block {
     width: 415px;
     font-size: 12px;
   }
+  .debug-layout {
+    outline: 1px solid green;
+  }
 }
 @media screen and (max-width: 1150px) and (min-width: 1140px),
-  screen and (max-width: 850px) and (min-width: 840px),
+  screen and (max-width: 845px) and (min-width: 611px),
   screen and (max-width: 420px) {
   .header-code-block {
     width: 410px;
     font-size: 11px;
   }
+  .debug-layout {
+    outline: 1px solid yellow;
+  }
 }
-@media screen and (max-width: 419px) {
+@media screen and (max-width: 410px), screen and (max-width: 830px) and (min-width: 611px) {
   .header-code-block {
     width: 360px;
     font-size: 10px;
   }
+  .debug-layout {
+    outline: 1px solid orange;
+  }
 }
-@media screen and (max-width: 370px) {
+@media screen and (max-width: 365px), screen and (max-width: 730px) and (min-width: 611px) {
   .header-code-block {
     width: 300px;
     font-size: 9px;
   }
+  .debug-layout {
+    outline: 1px solid red;
+  }
 }
-@media screen and (max-width: 839px) {
+@media screen and (max-width: 610px) {
   #header-code-wrapper {
     flex-direction: column;
   }
-  .header-code-block {
-    margin-left: 0 !important;
+  .header-code-block-right {
+    margin-left: 0px;
   }
   .header-code-description {
-    margin-top: -10px;
+    margin-top: -5px;
     margin-bottom: 10px;
   }
 }
-

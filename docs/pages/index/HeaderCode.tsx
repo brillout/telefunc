@@ -7,14 +7,21 @@ export { HeaderCode }
 
 function HeaderCode() {
   return (
-    <div id="header-code-wrapper">
+    <div
+      id="header-code-wrapper"
+      className={[
+        /*
+        'debug-layout',
+        //*/
+      ].join(' ')}
+    >
       <div className="header-code-block">
         <HeaderCodeBlockLeft />
         <div className="header-code-description">
           <em>Server</em>
         </div>
       </div>
-      <div className="header-code-block" style={{ marginLeft: 10 }}>
+      <div className="header-code-block header-code-block-right">
         <HeaderCodeBlockRight />
         <div className="header-code-description">
           <em>Browser</em>
