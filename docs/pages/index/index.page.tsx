@@ -12,7 +12,7 @@ function Page() {
       <div style={{ height: 30 }} />
       <Features />
       <div style={{ height: 30 }} />
-      <ContactUs />
+      <ContactUs text="Have a question? Want a feature? Found a bug?" />
       <div style={{ height: 70 }} />
     </>
   )
