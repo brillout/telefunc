@@ -1,29 +1,9 @@
 export { makeHttpRequest }
-export type { TelefunctionError }
 
 import { parse } from '@brillout/json-s'
 import { assert, assertUsage, isObject, objectAssign } from '../utils'
 import { executeCallErrorListeners } from './onTelefunctionRemoteCallError'
-
-type TelefunctionError = Error &
-  (
-    | {
-        isConnectionError: true
-        isServerError: false
-        isAbort: false
-      }
-    | {
-        isConnectionError: false
-        isServerError: true
-        isAbort: false
-      }
-    | {
-        isConnectionError: false
-        isServerError: false
-        isAbort: true
-        abortValue: unknown
-      }
-  )
+import type { TelefunctionError } from '../TelefunctionError'
 
 async function makeHttpRequest(callContext: {
   telefuncUrl: string
@@ -45,7 +25,7 @@ async function makeHttpRequest(callContext: {
     })
   } catch (_) {
     const telefunctionCallError = new Error('No Server Connection')
-    objectAssign(telefunctionCallError, { ...errDefaults, isConnectionError: true as const })
+    objectAssign(telefunctionCallError, { isConnectionError: true as const })
     executeCallErrorListeners(telefunctionCallError)
     return { telefunctionCallError }
   }
@@ -73,8 +53,6 @@ async function makeHttpRequest(callContext: {
       }),
     )
     const telefunctionCallError = new Error('Server Error')
-    objectAssign(telefunctionCallError, { ...errDefaults, isServerError: true as const })
-    executeCallErrorListeners(telefunctionCallError)
     return { telefunctionCallError }
   }
 
@@ -99,7 +77,7 @@ async function makeHttpRequest(callContext: {
       const telefunctionCallError = new Error(
         `Telefunction \`${callContext.telefunctionExportName}\` (${callContext.telefunctionFilePath}) aborted, see https://telefunc.comm/Abort`,
       )
-      objectAssign(telefunctionCallError, { ...errDefaults, isAbort: true as const, abortValue })
+      objectAssign(telefunctionCallError, { isAbort: true as const, abortValue })
       executeCallErrorListeners(telefunctionCallError)
       return { telefunctionCallError }
     }
@@ -114,12 +92,6 @@ async function makeHttpRequest(callContext: {
       callContext,
     }),
   )
-}
-
-const errDefaults = {
-  isConnectionError: false as const,
-  isServerError: false as const,
-  isAbort: false as const,
 }
 
 function installErr({

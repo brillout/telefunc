@@ -1,7 +1,7 @@
 export { onTelefunctionRemoteCallError }
 export { executeCallErrorListeners }
 
-import type { TelefunctionError } from './makeHttpRequest'
+import type { TelefunctionError } from '../TelefunctionError'
 
 const remoteCallErrorListeners: ((err: TelefunctionError) => void)[] = []
 
