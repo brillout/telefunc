@@ -8,7 +8,7 @@ Version history & breaking changes: [CHANGELOG.md](CHANGELOG.md)
 
 Follow: [twitter.com/brillout](https://twitter.com/brillout)
 <br/>
-Chat: [Discord - Vike Land - #telefunc](https://discord.com/invite/3DYWwk4xRQ)
+Chat: <a href="https://discord.com/invite/3DYWwk4xRQ">Discord - Vike Land - #telefunc<img src="/docs/icons/hash.svg" height="18" alt="hash"/></a>
 
 Have a question? Want a feature? Found a bug?
 <a href="https://discord.com/invite/3DYWwk4xRQ">Join our Discord</a> or
