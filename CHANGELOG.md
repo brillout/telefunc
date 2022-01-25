@@ -1,3 +1,13 @@
+## [0.1.2](https://github.com/vikejs/telefunc/compare/v0.1.1...v0.1.2) (2022-01-25)
+
+
+### Bug Fixes
+
+* improve TelefunctionError type ([41a572a](https://github.com/vikejs/telefunc/commit/41a572af57a7ba48533aa97e0883204a63ccda16))
+* make error handling consistent between remote call and SSR call ([10edb6a](https://github.com/vikejs/telefunc/commit/10edb6ad0cff1db3ba5933307ed21ba261019317))
+
+
+
 ## [0.1.1](https://github.com/vikejs/telefunc/compare/0.1.0...0.1.1) (2022-01-24)
 
 
