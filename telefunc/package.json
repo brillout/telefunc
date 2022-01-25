@@ -50,6 +50,12 @@
     "typescript": "^4.5.4",
     "vite": "^2.4.3"
   },
+  "files": [
+    "dist",
+    "vite.ts",
+    "next.ts",
+    "nuxt.ts"
+  ],
   "keywords": [
     "rpc",
     "api",
