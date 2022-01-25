@@ -75,7 +75,7 @@ async function makeHttpRequest(callContext: {
       assert('abort' in responseValue)
       const abortValue = responseValue.ret
       const telefunctionCallError = new Error(
-        `Telefunction \`${callContext.telefunctionExportName}\` (${callContext.telefunctionFilePath}) aborted, see https://telefunc.comm/Abort`,
+        `Abort. (Telefunction \`${callContext.telefunctionExportName}\` of ${callContext.telefunctionFilePath}.)`,
       )
       objectAssign(telefunctionCallError, { isAbort: true as const, abortValue })
       executeCallErrorListeners(telefunctionCallError)

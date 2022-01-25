@@ -8,7 +8,7 @@ function isAbort(thing: unknown): thing is ReturnType<typeof Abort> {
   return typeof thing === 'object' && thing !== null && isAbortSymbol in thing
 }
 
-function Abort(value?: unknown) {
+function Abort(abortValue?: unknown) {
   {
     // @ts-ignore
     const that: unknown = this
@@ -22,10 +22,10 @@ function Abort(value?: unknown) {
     'Abort() accepts only a single argument: use `throw Abort([arg1, arg2])` instead of `throw Abort(arg1, arg2).`',
   )
 
-  const abortError = new Error('Telefunction Abort')
+  const abortError = new Error('Abort')
   objectAssign(abortError, {
     isAbort: true as const,
-    value,
+    abortValue,
     [isAbortSymbol]: true as const,
   })
 
