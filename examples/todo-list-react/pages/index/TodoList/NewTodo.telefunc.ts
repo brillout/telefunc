@@ -1,6 +1,6 @@
 import { shield } from 'telefunc'
 import { TodoModel, TodoItem, TodoItemShield } from '#app/db'
-import { getUser } from '#app/auth'
+import { getUser } from '#app/auth/getUser'
 
 export { onNewTodo }
 export { onClear }

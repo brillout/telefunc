@@ -4,6 +4,7 @@ import { getPage } from 'vite-plugin-ssr/client'
 import { PageShell } from './PageShell'
 import type { PageContext } from './types'
 import type { PageContextBuiltInClient } from 'vite-plugin-ssr/client'
+import { onTelefunctionRemoteCallError } from 'telefunc/client'
 
 hydrate()
 
@@ -19,3 +20,9 @@ async function hydrate() {
     document.getElementById('page-view'),
   )
 }
+
+onTelefunctionRemoteCallError((err) => {
+  if (err.isAbort && err.abortValue === 'LOGGED_OUT') {
+    window.location.reload()
+  }
+})

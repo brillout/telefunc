@@ -19,6 +19,7 @@ function Page(props: PageProps) {
     <>
       <h1>{props.user.name}'s to-do list</h1>
       <TodoList todoItemsInitial={props.todoItemsInitial} />
+      <br />
       <UserInfo user={props.user} />
       <ClearCookies />
     </>
