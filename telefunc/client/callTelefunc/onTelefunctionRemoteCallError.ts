@@ -3,14 +3,21 @@ export { executeCallErrorListeners }
 
 import type { TelefunctionError } from '../TelefunctionError'
 
-const remoteCallErrorListeners: ((err: TelefunctionError) => void)[] = []
+type Listener = (err: TelefunctionError) => void
 
-function onTelefunctionRemoteCallError(listener: (err: TelefunctionError) => void) {
-  remoteCallErrorListeners.push(listener)
+function onTelefunctionRemoteCallError(listener: Listener) {
+  window.__telefunc_errorListeners = window.__telefunc_errorListeners || []
+  window.__telefunc_errorListeners.push(listener)
 }
 
 function executeCallErrorListeners(err: TelefunctionError) {
-  remoteCallErrorListeners.forEach((listener) => {
+  ;(window.__telefunc_errorListeners || []).forEach((listener) => {
     listener(err)
   })
+}
+
+declare global {
+  interface Window {
+    __telefunc_errorListeners: Listener[]
+  }
 }
