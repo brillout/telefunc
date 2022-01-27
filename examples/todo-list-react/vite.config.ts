@@ -6,7 +6,7 @@ export default {
   plugins: [react(), ssr(), telefunc()],
   resolve: {
     alias: {
-      '#root': __dirname,
+      '#app': __dirname,
     },
   },
 }

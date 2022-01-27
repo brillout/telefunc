@@ -1,19 +1,19 @@
 import { shield } from 'telefunc'
-import { TodoModel, TodoItem, TodoItemShield } from '#root/db'
-import { getUserId } from '#root/telefunc/utils'
+import { TodoModel, TodoItem, TodoItemShield } from '#app/db'
+import { getUser } from '#app/auth'
 
 export { onNewTodo }
 export { onClear }
 
 shield(onNewTodo, [TodoItemShield])
 async function onNewTodo(todoItemNew: TodoItem): Promise<TodoItem[]> {
-  const userId = getUserId()
-  TodoModel.add(userId, todoItemNew)
-  const todoItems = TodoModel.getAll(userId)
+  const user = getUser()
+  TodoModel.add(user.id, todoItemNew)
+  const todoItems = TodoModel.getAll(user.id)
   return todoItems
 }
 
 async function onClear() {
-  const userId = getUserId()
-  TodoModel.deleteAll(userId)
+  const user = getUser()
+  TodoModel.deleteAll(user.id)
 }

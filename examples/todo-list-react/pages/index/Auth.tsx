@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { User } from '#root/db/User'
+import { User } from '#app/db/User'
 import { CreateAccount } from './Auth/CreateAccount'
 import { UserList } from './Auth/UserList'
 

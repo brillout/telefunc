@@ -1,12 +1,10 @@
-// Environment: Node.js
+export { retrieveUser }
 
-import { User, UserModel } from '#root/db'
-import { COOKIE_NAME } from '../COOKIE_NAME'
+import { UserModel } from '#app/db'
+import { COOKIE_NAME } from './COOKIE_NAME'
 
-export { getLoggedUser }
-
-function getLoggedUser(cookies: { [COOKIE_NAME]?: string }): null | User {
-  const userId = getUserId(cookies[COOKIE_NAME])
+function retrieveUser(req: { cookies: { [COOKIE_NAME]?: string } }) {
+  const userId = getUserId(req.cookies[COOKIE_NAME])
   if (userId === null) {
     return null
   }

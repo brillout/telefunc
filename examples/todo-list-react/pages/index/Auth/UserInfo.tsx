@@ -1,9 +1,9 @@
-import React from 'react'
-import { User } from '#root/db/User'
-import { Button } from '#root/components/forms/Button'
-import { logout } from '#root/auth/client/session'
-
 export { UserInfo }
+
+import React from 'react'
+import { User } from '#app/db/User'
+import { Button } from '#app/components/forms/Button'
+import { logout } from '#app/auth/client'
 
 function UserInfo({ user }: { user: User }) {
   return (

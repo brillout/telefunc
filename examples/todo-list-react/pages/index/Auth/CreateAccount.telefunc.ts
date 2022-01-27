@@ -1,5 +1,5 @@
 import { shield } from 'telefunc'
-import { UserModel } from '#root/db'
+import { UserModel } from '#app/db'
 
 export { createAccount }
 

@@ -1,5 +1,5 @@
 import { getContext, Abort } from 'telefunc'
-import type { User } from '#root/db'
+import type { User } from '#app/db'
 
 export { getUser }
 export { getUserId }
