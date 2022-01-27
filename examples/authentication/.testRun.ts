@@ -1,8 +1,8 @@
 import { page, run, urlBase, autoRetry } from '../../libframe/test/setup'
 
-export { runTest }
+export { testRun }
 
-function runTest(cmd: 'npm run dev' | 'npm run prod') {
+function testRun(cmd: 'npm run dev' | 'npm run prod') {
   run(cmd)
 
   test('Log-in', async () => {
