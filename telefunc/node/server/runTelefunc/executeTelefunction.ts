@@ -29,7 +29,7 @@ async function executeTelefunction(runContext: {
     )
     assertUsage(
       err !== Abort,
-      `Typo: missing parentheses \`()\` in \`throw Abort\` (it should be \`throw Abort()\`). Telefunction: ${runContext.telefunctionExportName} (${runContext.telefunctionFilePath}).`,
+      `Missing parentheses \`()\` in \`throw Abort\`: it should be \`throw Abort()\`. Telefunction: ${runContext.telefunctionExportName} (${runContext.telefunctionFilePath}).`,
     )
     if (isAbort(err)) {
       telefunctionAborted = true
