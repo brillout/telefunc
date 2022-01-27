@@ -5,8 +5,13 @@ export { runTest }
 function runTest(cmd: 'npm run dev' | 'npm run prod') {
   run(cmd)
 
-  test('Add to-do item', async () => {
+  test('Log-in', async () => {
     await page.goto(`${urlBase}/`)
+    await page.waitForSelector('button:not([disabled])')
+    await page.click('text=Login as Rom')
+  })
+
+  test('Add to-do item', async () => {
     expect(await page.textContent('body')).toContain('Cherries')
     await page.waitForSelector('fieldset:not([disabled])')
     await page.fill('input[type="text"]', 'Banana')

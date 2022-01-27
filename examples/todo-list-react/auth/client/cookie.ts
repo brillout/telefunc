@@ -16,7 +16,6 @@ function setCookie(name: string, value: string) {
 
 // Delete all cookies
 function clearCookies() {
-  console.log(11)
   var cookies = document.cookie.split(';')
 
   for (var i = 0; i < cookies.length; i++) {
