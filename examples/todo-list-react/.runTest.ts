@@ -1,4 +1,4 @@
-import { page, run, urlBase, autoRetry, fetchHtml } from '../../libframe/test/setup'
+import { page, run, urlBase, autoRetry } from '../../libframe/test/setup'
 
 export { runTest }
 
@@ -22,7 +22,7 @@ function runTest(cmd: 'npm run dev' | 'npm run prod') {
   })
 
   test('New to-do item is persisted & rendered to HTML', async () => {
-    const html = await fetchHtml('/')
+    const html = await page.evaluate(async () => await (await fetch('/')).text())
     expect(html).toContain('Banana')
   })
 
