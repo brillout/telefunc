@@ -29,6 +29,6 @@
     "#app/db": "./db/index.ts",
     "#app/auth": "./auth/index.ts"
   },
-  "name": "example-todo-list-react",
+  "name": "example_authentication",
   "version": "0.0.0"
 }
