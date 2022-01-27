@@ -3,18 +3,13 @@
     "dev": "next dev",
     "build": "next build",
     "prod": "next build && next start",
-    "start": "next start",
-    "lint": "next lint"
+    "start": "next start"
   },
   "dependencies": {
     "next": "12.0.8",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "telefunc": "0.1.2"
-  },
-  "devDependencies": {
-    "eslint": "7",
-    "eslint-config-next": "12.0.2"
   },
   "name": "example_next",
   "version": "0.0.0"
