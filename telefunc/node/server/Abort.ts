@@ -2,10 +2,10 @@ export { Abort }
 export { isAbort }
 
 import { assertUsage, objectAssign } from '../utils'
-const isAbortSymbol = Symbol('isAbortSymbol')
+const stamp = Symbol('isAbort')
 
 function isAbort(thing: unknown): thing is ReturnType<typeof Abort> {
-  return typeof thing === 'object' && thing !== null && isAbortSymbol in thing
+  return typeof thing === 'object' && thing !== null && stamp in thing
 }
 
 function Abort(abortValue?: unknown) {
@@ -14,7 +14,7 @@ function Abort(abortValue?: unknown) {
     const that: unknown = this
     assertUsage(
       !(typeof that === 'object' && that?.constructor === Abort),
-      'Superfluous `new` operator: use `throw Abort()` instead of `throw new Abort()`.',
+      'Do not use `new` operator: use `throw Abort()` instead of `throw new Abort()`.',
     )
   }
   assertUsage(
@@ -26,7 +26,7 @@ function Abort(abortValue?: unknown) {
   objectAssign(abortError, {
     isAbort: true as const,
     abortValue,
-    [isAbortSymbol]: true as const,
+    [stamp]: true as const,
   })
 
   return abortError
