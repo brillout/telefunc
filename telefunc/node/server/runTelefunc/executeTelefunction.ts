@@ -23,6 +23,10 @@ async function executeTelefunction(runContext: {
   let telefunctionHasErrored = false
   let telefunctionAborted = false
   const onError = (err: unknown) => {
+    assertUsage(
+      typeof err === 'object' && err !== null,
+      `The telefunction ${runContext.telefunctionExportName} (${runContext.telefunctionFilePath}) threw a non-object error: \`${err}\`. Make sure the telefunction does \`throw new Error(${err})\` instead.`,
+    )
     if (isAbort(err)) {
       telefunctionAborted = true
       telefunctionReturn = err.abortValue
