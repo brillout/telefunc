@@ -1,6 +1,6 @@
 export { executeTelefunction }
 
-import { isAbort } from '../Abort'
+import { isAbort, Abort } from '../Abort'
 import { provideTelefuncContext, Telefunc } from '../getContext'
 import type { Telefunction } from '../types'
 import { assertUsage, isPromise } from '../../utils'
@@ -26,6 +26,10 @@ async function executeTelefunction(runContext: {
     assertUsage(
       typeof err === 'object' && err !== null,
       `The telefunction ${runContext.telefunctionExportName} (${runContext.telefunctionFilePath}) threw a non-object error: \`${err}\`. Make sure the telefunction does \`throw new Error(${err})\` instead.`,
+    )
+    assertUsage(
+      err !== Abort,
+      `Typo: missing parentheses \`()\` in \`throw Abort\` (it should be \`throw Abort()\`). Telefunction: ${runContext.telefunctionExportName} (${runContext.telefunctionFilePath}).`,
     )
     if (isAbort(err)) {
       telefunctionAborted = true
