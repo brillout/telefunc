@@ -1,10 +1,11 @@
 export { Abort }
 export { isAbort }
 
-import { assertUsage, objectAssign } from '../utils'
+import { assert, assertUsage, objectAssign } from '../utils'
 const stamp = Symbol('isAbort')
 
 function isAbort(thing: unknown): thing is ReturnType<typeof Abort> {
+  assert(thing !== Abort) // Catched earlier in `executeTelefunction()`
   return typeof thing === 'object' && thing !== null && stamp in thing
 }
 
