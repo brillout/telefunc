@@ -38,7 +38,7 @@ function runTest(cmd: 'npm run dev' | 'npm run prod') {
 
     await page.waitForSelector('button:not([disabled]) >> text=Login as Seb')
     await page.click('button >> text=Login as Seb')
-    expect(await page.textContent('body')).toContain('User: Seb')
+    expect(await page.textContent('body')).toContain('Logged-in as Seb')
     expect((await page.$$('li')).length).toBe(1)
     expect(await page.textContent('body')).not.toContain('Cherries')
 
