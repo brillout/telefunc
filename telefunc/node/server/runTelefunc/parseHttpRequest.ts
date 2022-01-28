@@ -1,6 +1,6 @@
 export { parseHttpRequest }
 
-import { parse } from '@brillout/json-s'
+import { parse } from '@brillout/json-s/parse'
 import { assertUsage, hasProp } from '../../utils'
 import { getTelefunctionKey } from './getTelefunctionKey'
 

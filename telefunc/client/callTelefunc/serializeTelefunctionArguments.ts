@@ -1,7 +1,7 @@
 export { serializeTelefunctionArguments }
 
-import { stringify } from '@brillout/json-s'
-import { assert, assertUsage } from '../utils'
+import { stringify } from '@brillout/json-s/stringify'
+import { assert, assertUsage, lowercaseFirstLetter, hasProp } from '../utils'
 
 function serializeTelefunctionArguments(callContext: {
   telefunctionFilePath: string
@@ -19,14 +19,15 @@ function serializeTelefunctionArguments(callContext: {
   assert(Array.isArray(callContext.telefunctionArgs))
   let httpRequestBody: string
   try {
-    httpRequestBody = stringify(bodyParsed)
-  } catch (err_) {
+    httpRequestBody = stringify(bodyParsed, { forbidReactElements: true })
+  } catch (err) {
+    assert(hasProp(err, 'message', 'string'))
     assertUsage(
       false,
       [
-        `Couldn't serialize arguments for telefunction \`${callContext.telefunctionExportName}\` (${callContext.telefunctionFilePath}).`,
-        'Make sure that the arguments contain only following types:',
-        '`Object`, `string`, `number`, `Date`, `null`, `undefined`, `Infinity`, `NaN`, `RegExp`.',
+        `Cannot serialize arguments for telefunction \`${callContext.telefunctionExportName}\` (${callContext.telefunctionFilePath}).`,
+        'Make sure that the arguments pass to telefunction calls are always serializable.',
+        `Serialization error: ${lowercaseFirstLetter(err.message)}`,
       ].join(' '),
     )
   }

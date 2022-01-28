@@ -1,6 +1,6 @@
 export { makeHttpRequest }
 
-import { parse } from '@brillout/json-s'
+import { parse } from '@brillout/json-s/parse'
 import { assert, assertUsage, isObject, objectAssign } from '../utils'
 import { executeCallErrorListeners } from './onTelefunctionRemoteCallError'
 import type { TelefunctionError } from '../TelefunctionError'
@@ -58,7 +58,7 @@ async function makeHttpRequest(callContext: {
 
   if (statusCode === 200 || statusCode === 403) {
     const responseBody = await response.text()
-    const responseValue: Record<string, unknown> = parse(responseBody)
+    const responseValue = parse(responseBody)
     assertUsage(
       isObject(responseValue) && 'ret' in responseValue,
       installErr({
