@@ -1,3 +1,16 @@
+## [0.1.3](https://github.com/vikejs/telefunc/compare/v0.1.2...v0.1.3) (2022-01-28)
+
+
+### Bug Fixes
+
+* catch problematic `Abort()` typos ([d887886](https://github.com/vikejs/telefunc/commit/d88788680dfe1200137a6457f2ae17b952e89e03))
+* ensure telefunctions to not throw a primitve as error ([14698fc](https://github.com/vikejs/telefunc/commit/14698fca546e9fc0a7c856ae6fd08f190f797b31))
+* improve DX upon serialization failure ([5656511](https://github.com/vikejs/telefunc/commit/5656511acff7b8d8b948888e8269b9e771e25c0a))
+* reduce npm pcakage size ([e8643f8](https://github.com/vikejs/telefunc/commit/e8643f83f987c5bcecb838f27713e96567ce83dc))
+* register remote call error listeners on the global scope ([19e5b26](https://github.com/vikejs/telefunc/commit/19e5b26b29ac568371f4c4b662b73f904d53d86f))
+
+
+
 ## [0.1.2](https://github.com/vikejs/telefunc/compare/v0.1.1...v0.1.2) (2022-01-25)
 
 
