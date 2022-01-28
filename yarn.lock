@@ -1063,10 +1063,10 @@
   resolved "https://registry.yarnpkg.com/@brillout/json-s/-/json-s-0.3.1.tgz#e13097c56687321fd86f70a1a99ac14575e42197"
   integrity sha512-k/0UCWdywjMCIqCZUMrqibNh63dDJx1KXOyfmlMJqpRjtFkQyTnxhA5ThQS8BiC1Ww52xLjWJabgCXBy5Ha5iw==
 
-"@brillout/json-s@^0.4.2":
-  version "0.4.2"
-  resolved "https://registry.yarnpkg.com/@brillout/json-s/-/json-s-0.4.2.tgz#5fc2ba9304d8cc861e8dced4206ef40339d74563"
-  integrity sha512-x3Li3bvXqT9p1q4HB6qPmhWErj/5OZjtedKnSO0n4vYIVpY7L5nIG0xzKkznFWvyfmzOwMAI5b6xK1axUiU/eQ==
+"@brillout/json-s@^0.4.3":
+  version "0.4.3"
+  resolved "https://registry.yarnpkg.com/@brillout/json-s/-/json-s-0.4.3.tgz#6df94504f1a60de518f911848c94fb2cd234d25f"
+  integrity sha512-JIQTfsEh+c5mpk4QeliioqO+CtE5PM80GEzCfbD8ZUbPmnwqMaDXoFxrZM+Io1Fi/DyBEFDXKa2FgqJm6dSNrQ==
 
 "@brillout/libassert@^0.5.2":
   version "0.5.2"
