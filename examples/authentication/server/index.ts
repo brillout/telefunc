@@ -42,7 +42,7 @@ async function startServer() {
     const user = retrieveUser(req)
     const pageContextInit = {
       url,
-      user
+      user,
     }
     const pageContext = await renderPage(pageContextInit)
     const { httpResponse } = pageContext
