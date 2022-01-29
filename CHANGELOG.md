@@ -1,3 +1,12 @@
+## [0.1.4](https://github.com/vikejs/telefunc/compare/v0.1.3...v0.1.4) (2022-01-29)
+
+
+### Bug Fixes
+
+* include `node/vite/importTelefuncFiles.ts` in npm package (fix [#16](https://github.com/vikejs/telefunc/issues/16)) ([3eeafa3](https://github.com/vikejs/telefunc/commit/3eeafa3ce02b304702d92ae993e6b275645195ac))
+
+
+
 ## [0.1.3](https://github.com/vikejs/telefunc/compare/v0.1.2...v0.1.3) (2022-01-28)
 
 
