@@ -10,14 +10,8 @@ function transform(): Plugin {
   return {
     name: 'telefunc:transform',
     config: (config) => {
-      root = config.root
-        ? // Not sure why but Vite doens't seem to always normalize config.root
-          toPosixPath(config.root)
-        : toPosixPath(process.cwd())
-      return {
-        ssr: { external: ['telefunc'] },
-        optimizeDeps: { include: ['telefunc/client'] },
-      }
+      // Vite doens't seem to always normalize config.root
+      root = config.root ? toPosixPath(config.root) : toPosixPath(process.cwd())
     },
     async transform(src, id, options) {
       if (isSSR_options(options)) {

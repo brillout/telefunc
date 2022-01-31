@@ -14,7 +14,16 @@ function plugin(): Plugin[] {
       name: 'telefunc:config',
       config: () => ({
         ssr: { external: ['telefunc'] },
-        optimizeDeps: { include: ['telefunc/client'] },
+        optimizeDeps: {
+          include: ['telefunc/client'],
+          exclude: [
+            // We cannot add these to `optimizeDeps.include` because of `pnpm`
+            '@brillout/libassert',
+            '@brillout/json-s',
+            '@brillout/json-s/parse',
+            '@brillout/json-s/stringify',
+          ],
+        },
       }),
     },
     transform(),
