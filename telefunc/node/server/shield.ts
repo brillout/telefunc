@@ -10,34 +10,64 @@ const isVerifierKey = Symbol('isVerifierKey')
 const isVerifierTupleKey = Symbol('isVerifierTupleKey')
 
 const shield: {
-  <A extends unknown[], TelefunctionArguments extends [...A], Telefunction extends (...args: TelefunctionArguments) => unknown>(
+  <
+    A extends unknown[],
+    TelefunctionArguments extends [...A],
+    Telefunction extends (...args: TelefunctionArguments) => unknown,
+  >(
     telefunction: Telefunction,
     telefunctionShield: TelefunctionArguments,
   ): Telefunction
-  <A extends unknown[], TelefunctionArguments extends [...A], Telefunction extends (...args: TelefunctionArguments) => unknown>(
+  <
+    A extends unknown[],
+    TelefunctionArguments extends [...A],
+    Telefunction extends (...args: TelefunctionArguments) => unknown,
+  >(
     telefunctionShield: TelefunctionArguments,
     telefunction: Telefunction,
   ): Telefunction
   type: typeof type
-} = function (a1, a2) {
-  assert(isCallable(a1) && !isCallable(a2) || !isCallable(a1) && isCallable(a2))
-  if( isCallable(a1) ){
-    assert(!isCallable(a2))
-    const telefunction = a1
-    const telefunctionShield = a2
-    setShield(telefunction, telefunctionShield)
-    return telefunction
+} = function (arg1, arg2) {
+  let telefunction: Telefunction
+  let telefunctionShield: TelefunctionShield
+  if (isTelefunction(arg1)) {
+    assertTelefunctionShield(arg2, 'shield(telefunction, telefunctionShield)')
+    telefunction = arg1
+    telefunctionShield = arg2
+  } else if (isTelefunction(arg2)) {
+    assertTelefunctionShield(arg1, 'shield(telefunctionShield, telefunction)')
+    telefunction = arg2
+    telefunctionShield = arg1
   } else {
-    assert(isCallable(a2))
-    const telefunctionShield = a1
-    const telefunction = a2
-    setShield(telefunction, telefunctionShield)
-    return telefunction
+    assertUsage(false, '[shield(arg1, arg2)] Neither `arg1` nor `arg2` is a function, but one should be.')
   }
+  installShield(telefunction, telefunctionShield)
+  return telefunction
 }
+
 type Telefunction = Function
 
-function setShield(telefunction: Function, telefunctionShield: any) {
+function assertTelefunctionShield(
+  telefunctionShield: unknown,
+  shieldInvokation: 'shield(telefunction, telefunctionShield)' | 'shield(telefunctionShield, telefunction)',
+): asserts telefunctionShield is TelefunctionShield {
+  assertUsage(
+    Array.isArray(telefunctionShield) || isVerifierTuple(telefunctionShield),
+    [
+      `[${shieldInvokation}]`,
+      'Argument `telefunctionShield` should be a plain JavaScript array or `shield.type.tuple()`.',
+      `Correct usage: \`${shieldInvokation.replace('telefunctionShield', '[shield.type.string]')}\``,
+      `or \`${shieldInvokation.replace('telefunctionShield', 'shield.type.tuple(shield.type.string)]')}\`.`,
+      `Wrong usage: \`${shieldInvokation.replace('telefunctionShield', 'shield.type.string')}\`.`,
+    ].join(' '),
+  )
+}
+
+function isTelefunction(thing: unknown): thing is Telefunction {
+  return isCallable(thing) && !isVerifier(thing)
+}
+
+function installShield(telefunction: Function, telefunctionShield: any) {
   ;(telefunction as any as Record<any, unknown>)[shielKey as any] = telefunctionShield
 }
 
@@ -90,10 +120,7 @@ function verifyOuter(verifier: unknown, args: unknown): true | string {
   if (isVerifierTuple(verifier)) {
     return verifyRecursive(verifier, args, '[root]')
   }
-  assertUsage(
-    false,
-    '[shield()] Second argument should be an array: e.g. `shield(telefunction, [shield.type.string])` instead of `shield(telefunction, shield.type.string)`.',
-  )
+  assert(false)
 }
 function verifyRecursive(verifier: unknown, arg: unknown, breadcrumbs: string): true | string {
   assert(breadcrumbs.startsWith('[root]'))
