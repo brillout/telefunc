@@ -1,3 +1,17 @@
+## [0.1.5](https://github.com/vikejs/telefunc/compare/v0.1.4...v0.1.5) (2022-02-01)
+
+
+### Bug Fixes
+
+* improve DX upon wrong `shield()` usage ([9f8527b](https://github.com/vikejs/telefunc/commit/9f8527b0d090cb776cec7292c0e1c7e903eb9d2f))
+
+
+### Features
+
+* allow `shield()` arguments to be passed in reversed order: `shield([ t.type.string ], myTelefunction)` ([1f3368f](https://github.com/vikejs/telefunc/commit/1f3368fe0042ba15cdb47ba654a0ce1430b2624b))
+
+
+
 ## [0.1.4](https://github.com/vikejs/telefunc/compare/v0.1.3...v0.1.4) (2022-01-29)
 
 
