@@ -52,13 +52,21 @@ export const headings: HeadingDefinition[] = [
   },
   {
     level: 2,
-    title: 'Permissions & validation',
-    url: '/permissions',
+    title: '`Abort()` & `shield()`',
+    url: '/abort-shield',
+    sectionTitles: [
+      'Always `Abort()`'
+    ]
   },
   {
     level: 2,
     title: 'Authentication',
     url: '/auth',
+  },
+  {
+    level: 2,
+    title: 'Permissions',
+    url: '/permissions',
   },
   {
     level: 2,

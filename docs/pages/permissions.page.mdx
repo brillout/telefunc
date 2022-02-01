@@ -1,6 +1,180 @@
-import { Link } from 'libframe-docs/components'
+import { Link, ReadingRecommendation } from 'libframe-docs/components'
 
-> We recommend taking the <Link text="Telefunc Tour" href="/tour" /> before reading this.
+<ReadingRecommendation links={['/tour', '/tour#telefunctions-need-protection', '/abort-shield']} />
+
+There are three methods to implement permissions:
+ 1. `throw Abort()`
+ 1. `return someValue`
+ 1. `throw Abort(someValue)`
+
+
+## `throw Abort()`
+
+We can `throw Abort()` to ensure our telefunctions to be called with the right permissions.
+
+```js
+// Comment.telefunc.js
+// Environment: Node.js
+
+import { getContext, Abort, shield } from 'telefunc'
+
+shield(onCommentDelete, [shield.type.number])
+export async function onCommentDelete(id) {
+  const { user } = getContext()
+
+  // Only admins are allowed to delete comments
+  if (!user.isAdmin) {
+    throw Abort()
+  }
+
+  // ...
+}
+```
+
+> We always use `Abort()` here, even if we know that our frontend uses `onCommentDelete()` always with the right permissions (for example because our UI displays the `<DeleteCommentButton />` components only to admins). See:
+> - <Link href="/abort-shield#always-abort" />
+
+
+## `return someValue`
+
+Sometimes, it is expected that our frontend may call our telefunction with wrong permissions.
+
+```js
+// *.telefunc.js
+// Environment: Node.js
+
+import { getContext } from 'telefunc'
+
+export async function getTodoList() {
+  const { user } = getContext()
+
+  if (!user) {
+    // It is expected that the user may not be logged in. We `return { isNotLoggedIn: true }`
+    // instead of `throw Abort()`, so that the frontend can redirect the user to the login page.
+    return { isNotLoggedIn: true }
+  }
+
+  // ...
+}
+```
+
+## `throw Abort(someValue)`
+
+As we have seen in the previous section, when wrong permissions are expected, we use `return someValue`.
+
+But `return someValue` can become cumbersome.
+
+```js
+// auth/getUser.ts
+
+import { getContext } from 'telefunc'
+
+// It is a common technique to provide convenience `getContext()` wrappers
+export { getUser }
+
+function getUser() {
+  const { user } = getContext()
+  return user
+}
+```
+
+```js
+// components/TodoList.telefunc.js
+// Environment: Node.js
+
+export { fetchTodoList }
+
+import { getUser } from '../auth/getUser'
+
+async function fetchTodoList() {
+  const { user } = getUser()
+
+  if (!user) {
+    return { isNotLoggedIn: true }
+  }
+
+  // ...
+}
+
+async function onNewTodo() {
+  const { user } = getUser()
+
+  // We have to implement our logic over and over again
+  if (!user) {
+    return { isNotLoggedIn: true }
+  }
+
+  // ...
+}
+```
+
+We also that on the frontend we always need wrap all our telefunctions:
+
+```js
+
+
+```
+
+That's not ideal.
+
+Instead, by using `throw Abort(someValue)` with `onTelefunctionRemoteCallError()`, we can implement our logic only once.
+
+```js
+// auth/getUser.ts
+
+import { Abort, getContext } from 'telefunc'
+
+// It is a common technique to provide convenience wrappers around `getContext()`
+export { getUser }
+
+function getUser() {
+  const { user } = getContext()
+  if (!user) {
+    throw Abort({ isNotLoggedIn: true })
+  }
+  return user
+}
+```
+
+```
+// Browser
+
+import { onTelefunctionRemoteCallError } from 'telefunc/client'
+
+onTelefunctionRemoteCallError(err => {
+  if (err.isAbort && err.abortValue.isNotLoggedIn) {
+    // Redirect user to login page
+    window.location.href = '/login'
+  }
+})
+```
+
+> This is the 
+
+## `getContext()` wrappers
+
+```js
+// auth/getUser.ts
+
+import { Abort, getContext } from 'telefunc'
+
+// It is a common technique to provide convenience wrappers around `getContext()`
+export { getUser }
+
+function getUser(permissions) {
+  const { user } = getContext()
+  if (!user) {
+    throw Abort({ isNotLoggedIn: true })
+  }
+  permissions.forEach(
+  return user
+}
+```
+
+
+
+
+
 
 ## `Abort()`
 
@@ -25,7 +199,7 @@ export async function onCommentDelete(id) {
 }
 ```
 
-We use `Abort()` even if our frontend calls telefunctions always with the right permissions:
+We use `Abort()` even if we know that our frontend calls telefunction always with the right permissions.
 
 ```jsx
 // Comment.jsx
