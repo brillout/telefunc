@@ -1,6 +1,6 @@
 // Run this with `tsm` (https://www.npmjs.com/package/tsm)
 
-import { shield, withShield, shieldApply, shieldToHumandReadable } from '../shield'
+import { shield, shieldApply, shieldToHumandReadable } from '../shield'
 
 const t = shield.type
 
@@ -17,12 +17,12 @@ const t = shield.type
 }
 
 {
-  const telefunction = withShield([t.string, t.optional(t.number)], (_a, _b) => {})
+  const telefunction = shield([t.string, t.optional(t.number)], (_a, _b) => {})
   console.log(shieldApply(telefunction, ['a', 42, undefined]))
 }
 
 {
-  const telefunction = withShield([{ a: { b: { c: t.const(42) } } }], (_a) => {})
+  const telefunction = shield([{ a: { b: { c: t.const(42) } } }], (_a) => {})
   console.log(shieldApply(telefunction, [{ a: { b: { c: 42 } } }]))
 }
 

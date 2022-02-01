@@ -1,5 +1,4 @@
 export { shield }
-export { withShield }
 export { shieldIsMissing }
 export { shieldApply }
 export { shieldToHumandReadable }
@@ -40,14 +39,6 @@ type Telefunction = Function
 
 function setShield(telefunction: Function, telefunctionShield: any) {
   ;(telefunction as any as Record<any, unknown>)[shielKey as any] = telefunctionShield
-}
-
-function withShield<ArgsArray extends unknown[], ArgsTuple extends [...ArgsArray]>(
-  telefunctionShield: ArgsTuple,
-  telefunction: (...args: ArgsTuple) => unknown,
-) {
-  shield(telefunction, telefunctionShield)
-  return telefunction
 }
 
 function shieldIsMissing(telefunction: Telefunction): boolean {

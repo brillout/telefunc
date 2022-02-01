@@ -1,5 +1,5 @@
 import { checkType } from '../../utils'
-import { shield, withShield, shieldApply, shieldToHumandReadable } from '../shield'
+import { shield, shieldApply, shieldToHumandReadable } from '../shield'
 
 test('shield - basic', () => {
   shield(onNewTodoItem, [shield.type.string])
@@ -60,25 +60,25 @@ test('shield - unit', () => {
   }
 
   {
-    const telefunction = withShield([t.object(t.number)], (_a) => {})
+    const telefunction = shield([t.object(t.number)], (_a) => {})
     expect(shieldApply(telefunction, [{ k: 'some string' }])).toBe(
       '[root] > [tuple: element 0] > [object: value of key `k`] is `string` but should be `number`.',
     )
   }
   {
-    const telefunction = withShield([{ a: { b: { c: t.const(42) } } }], (_a) => {})
+    const telefunction = shield([{ a: { b: { c: t.const(42) } } }], (_a) => {})
     expect(shieldApply(telefunction, [{ a: { b: { c: 'some string' } } }])).toBe(
       '[root] > [tuple: element 0] > [object: value of key `a`] > [object: value of key `b`] > [object: value of key `c`] is `some string` but should be `42`.',
     )
   }
   {
-    const telefunction = withShield([{ a: { b: { c: t.const(42) } } }], (_a) => {})
+    const telefunction = shield([{ a: { b: { c: t.const(42) } } }], (_a) => {})
     expect(shieldApply(telefunction, [{ a: { b: { d: 42 } } }])).toBe(
       '[root] > [tuple: element 0] > [object: value of key `a`] > [object: value of key `b`] > [object: value of key `c`] is `undefined` but should be `42`.',
     )
   }
   {
-    const telefunction = withShield([{ a: { b: { c: t.const(42) } } }], (_a) => {})
+    const telefunction = shield([{ a: { b: { c: t.const(42) } } }], (_a) => {})
     expect(shieldApply(telefunction, [{ a: { b: { c: 42, d: 42 } } }])).toBe(
       '[root] > [tuple: element 0] > [object: value of key `a`] > [object: value of key `b`] > [object: value of key `d`] is `42` but should be `undefined`.',
     )
