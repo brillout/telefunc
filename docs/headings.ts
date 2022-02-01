@@ -114,8 +114,8 @@ export const headings: HeadingDefinition[] = [
   },
   {
     level: 2,
-    title: '`setContext()`',
-    url: '/setContext',
+    title: '`provideTelefuncContext()`',
+    url: '/provideTelefuncContext',
   },
   {
     level: 4,

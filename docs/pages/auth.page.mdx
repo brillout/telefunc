@@ -1,13 +1,13 @@
 TODO
 
-We use `getContext()` with `setContext()` to pass contextual information to telefunctions,
+We use `getContext()` with `provideTelefuncContext()` in order to pass contextual information to telefunctions,
 such as the authenticated user's ID.
 
 ```js
 // server.js
 // Environment: Node.js
 
-import { setContext } from 'telefunc'
+import { provideTelefuncContext } from 'telefunc'
 
 // Server middleware (Express.js/Fastify/Koa/Hapi/...)
 app.use('*', async (req, res) => {
@@ -19,7 +19,7 @@ app.use('*', async (req, res) => {
   const user = await authProviderApi.getUser(req.headers)
 
   // We make `user` available to our telefunctions
-  setContext({ user })
+  provideTelefuncContext({ user })
 })
 ```
 

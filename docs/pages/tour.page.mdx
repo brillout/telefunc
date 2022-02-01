@@ -348,13 +348,13 @@ Not only does `shield()` call `throw Abort()` on our behalf, but it also infers 
 
 Telefunctions often need context. Is the user logged-in? What is the user's ID? Etc.
 
-We use `setContext()` and `getContext()` to provide contextual information to our telefunctions.
+We use `getContext()` with `provideTelefuncContext()` in order to provide contextual information to our telefunctions.
 
 ```js
 // server.js
 // Environment: Node.js
 
-import { setContext } from 'telefunc'
+import { provideTelefuncContext } from 'telefunc'
 
 // Server middleware (Express.js/Fastify/Koa/Hapi/...)
 app.use('*', async (req, res) => {
@@ -363,7 +363,7 @@ app.use('*', async (req, res) => {
   const user = req.user
 
   // We make `user` available to our telefunctions
-  setContext({ user })
+  provideTelefuncContext({ user })
 })
 ```
 
@@ -581,32 +581,36 @@ This inversion of control leads to a fundamentally improved separation of concer
 
 ## TypeScript
 
-`shield()` infers the arguments' type:
+`shield()` infers the argument types:
 
 ```ts
 // UserSettings.telefunc.js
 // Environment: Node.js
 
+export { onUserSettingsChange }
+
 import { shield } from 'telefunc'
 const t = shield.type
 
-shield(onUserSettingsChange, [
-  t.union(
-    { name: t.value('firstName'), newVal: t.string },
-    { name: t.value('age'), newVal: t.number }
-  )
-])
-export async function onUserSettingChange({ name, newVal }) {
-  if (name === 'firstName') {
-    // `shield()` infers `onUserSettingsChange`'s arguments type:
-    // TypeScript knows that `newVal` is a string in this if-block.
-    newVal++ // ❌ TypeScript complains that `newVal` is not a number.
+const onUserSettingsChange = shield(
+  [
+    t.or(
+      { name: t.const('firstName'), newVal: t.string },
+      { name: t.const('age'), newVal: t.number }
+    )
+  ],
+  async ({ name, newVal }) => {
+    if (name === 'firstName') {
+      // The `onUserSettingsChange` argument types are inferred:
+      // TypeScript knows that `newVal` is a string in this if-block.
+      newVal++ // ❌ TypeScript complains that `newVal` is not a number.
+    }
+    if (name === 'age') {
+      // TypeScript knows that `newVal` is a number in this if-block.
+      newVal++ // ✅
+    }
   }
-  if (name === 'age') {
-    // TypeScript knows that `newVal` is a number in this if-block.
-    newVal++ // ✅
-  }
-}
+)
 ```
 
 Our frontend seamlessly uses our backend telefunctions' type:
