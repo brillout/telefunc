@@ -1,13 +1,15 @@
 export { applyShield }
 
 import { shieldApply, shieldIsMissing } from '../shield'
-import { assertWarning } from '../../utils'
+import { assertWarning, getPluginError } from '../../utils'
 import type { Telefunction } from '../types'
+import { Abort } from '../index'
 
-async function applyShield(runContext: {
+function applyShield(runContext: {
   telefunction: Telefunction
   telefunctionName: string
   telefunctionArgs: unknown[]
+  isProduction: boolean
 }) {
   const { telefunction } = runContext
   const hasShield = !shieldIsMissing(telefunction)
@@ -16,6 +18,17 @@ async function applyShield(runContext: {
     `The telefunction ${runContext.telefunctionName} accepts arguments yet is missing a \`shield()\`, see https://telefunc.com/shield`,
   )
   if (hasShield) {
-    shieldApply(telefunction, runContext.telefunctionArgs)
+    const applyResult = shieldApply(telefunction, runContext.telefunctionArgs)
+    if (applyResult !== true) {
+      if (!runContext.isProduction) {
+        const errMsg = [
+          `\`shield()\`: invalid arguments passed to telefunction ${runContext.telefunctionName}.`,
+          `Arguments: \`${JSON.stringify(runContext.telefunctionArgs)}\`.`,
+          `Error: ${applyResult}`,
+        ].join(' ')
+        console.error(getPluginError(errMsg))
+      }
+      throw Abort()
+    }
   }
 }
