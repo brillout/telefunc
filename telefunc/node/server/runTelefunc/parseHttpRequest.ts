@@ -5,8 +5,9 @@ import { getTelefunctionKey } from './getTelefunctionKey'
 import { assertUsage, hasProp, getPluginError, getUrlPathname } from '../../utils'
 import { getTelefunctionName } from './getTelefunctionName'
 
-const devErrMsgPrefix =
-  'Malformed request in development. This is unexpected since, in development, all requests are expected to originate from the Telefunc Client. If this error is happening in production, then either the environment variable `NODE_ENV="production"` or `telefunc({ isProduction: true })` is missing.'
+const devErrMsgPrefix = 'Malformed request in development.'
+const devErrMsgSuffix =
+  'This is unexpected since, in development, all requests are expected to originate from the Telefunc Client. If this error is happening in production, then either the environment variable `NODE_ENV="production"` or `telefunc({ isProduction: true })` is missing.'
 
 function parseHttpRequest(runContext: {
   httpRequest: { body: unknown; url: string; method: string }
@@ -50,7 +51,8 @@ function parseHttpRequest(runContext: {
           [
             devErrMsgPrefix,
             `Following body string could not be parsed: \`${bodyString}\`.`,
-            !hasProp(err, 'message') ? null : 'Parse error: ' + err.message,
+            !hasProp(err, 'message') ? null : `Parse error: ${err.message}.`,
+            devErrMsgSuffix,
           ]
             .filter(Boolean)
             .join(' '),
@@ -74,6 +76,7 @@ function parseHttpRequest(runContext: {
             devErrMsgPrefix,
             'The `body` argument passed to `telefunc({ body })` is not valid',
             `(\`body === '${bodyString}'\`).`,
+            devErrMsgSuffix,
           ].join(' '),
         ),
       )
@@ -131,6 +134,7 @@ function isWrongMethod(runContext: { httpRequest: { method: string }; isProducti
         [
           devErrMsgPrefix,
           `The HTTP request method should be \`POST\` (or \`post\`) but \`method === ${runContext.httpRequest.method}\`.`,
+          devErrMsgSuffix,
         ].join(' '),
       ),
     )
