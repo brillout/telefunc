@@ -11,7 +11,7 @@ import { telefuncConfig } from './telefuncConfig'
  * @param httpRequest.body HTTP request body
  * @returns HTTP response
  */
-async function telefunc(httpRequest: { url: string; body: string; method: 'POST' | 'post' }) {
+async function telefunc(httpRequest: { url: string; body: string; method: string }) {
   assertHttpRequest(httpRequest, arguments.length)
   const runContext = {}
   objectAssign(runContext, { httpRequest })
