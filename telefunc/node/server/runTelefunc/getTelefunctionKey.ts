@@ -2,10 +2,10 @@ export { getTelefunctionKey }
 
 function getTelefunctionKey({
   telefunctionFilePath,
-  telefunctionExportName,
+  telefunctionFileExport,
 }: {
   telefunctionFilePath: string
-  telefunctionExportName: string
+  telefunctionFileExport: string
 }) {
-  return telefunctionFilePath + ':' + telefunctionExportName
+  return telefunctionFilePath + ':' + telefunctionFileExport
 }

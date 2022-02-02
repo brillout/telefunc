@@ -7,7 +7,7 @@ import { objectAssign, assertUsage, isBrowser, assert } from './utils'
 
 async function __internal_fetchTelefunc(
   telefunctionFilePath: string,
-  telefunctionExportName: string,
+  telefunctionFileExport: string,
   telefunctionArgs: unknown[],
 ): Promise<unknown> {
   assertUsage(
@@ -19,7 +19,7 @@ async function __internal_fetchTelefunc(
   {
     objectAssign(callContext, {
       telefunctionFilePath,
-      telefunctionExportName,
+      telefunctionFileExport,
       telefunctionArgs,
     })
   }

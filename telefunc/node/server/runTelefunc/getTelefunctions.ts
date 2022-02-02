@@ -9,10 +9,10 @@ async function getTelefunctions(runContext: { telefuncFiles: TelefuncFiles }): P
 }> {
   const telefunctions: Record<string, Telefunction> = {}
   Object.entries(runContext.telefuncFiles).forEach(([telefunctionFilePath, telefuncFileExports]) => {
-    Object.entries(telefuncFileExports).forEach(([telefunctionExportName, exportValue]) => {
-      const telefunctionKey = getTelefunctionKey({ telefunctionFilePath, telefunctionExportName })
+    Object.entries(telefuncFileExports).forEach(([telefunctionFileExport, exportValue]) => {
+      const telefunctionKey = getTelefunctionKey({ telefunctionFilePath, telefunctionFileExport })
       assertTelefunction(exportValue, {
-        telefunctionExportName,
+        telefunctionFileExport,
         telefunctionFilePath,
       })
       telefunctions[telefunctionKey] = exportValue
@@ -25,15 +25,15 @@ async function getTelefunctions(runContext: { telefuncFiles: TelefuncFiles }): P
 function assertTelefunction(
   telefunction: unknown,
   {
-    telefunctionExportName,
+    telefunctionFileExport,
     telefunctionFilePath,
   }: {
-    telefunctionExportName: string
+    telefunctionFileExport: string
     telefunctionFilePath: string
   },
 ): asserts telefunction is Telefunction {
   assertUsage(
     isCallable(telefunction),
-    `The telefunction \`${telefunctionExportName}\` (${telefunctionFilePath}) is not a function. Make sure the \`export { ${telefunctionExportName} }\` of ${telefunctionFilePath} to be a function.`,
+    `The telefunction \`${telefunctionFileExport}\` (${telefunctionFilePath}) is not a function. Make sure the \`export { ${telefunctionFileExport} }\` of ${telefunctionFilePath} to be a function.`,
   )
 }

@@ -5,7 +5,7 @@ import { assert, assertUsage, hasProp, lowercaseFirstLetter } from '../../utils'
 
 function serializeTelefunctionResult(runContext: {
   telefunctionReturn: unknown
-  telefunctionExportName: string
+  telefunctionFileExport: string
   telefunctionFilePath: string
   telefunctionAborted: boolean
 }) {
@@ -23,7 +23,7 @@ function serializeTelefunctionResult(runContext: {
     assertUsage(
       false,
       [
-        `Cannot serialize value returned by telefunction \`${runContext.telefunctionExportName}\` (${runContext.telefunctionFilePath}).`,
+        `Cannot serialize value returned by telefunction \`${runContext.telefunctionFileExport}\` (${runContext.telefunctionFilePath}).`,
         'Make sure that telefunctions always return a serializable value.',
         `Serialization error: ${lowercaseFirstLetter(err.message)}`,
       ].join(' '),

@@ -5,17 +5,17 @@ import { assert, assertUsage, lowercaseFirstLetter, hasProp } from '../utils'
 
 function serializeTelefunctionArguments(callContext: {
   telefunctionFilePath: string
-  telefunctionExportName: string
+  telefunctionFileExport: string
   telefunctionArgs: unknown[]
   telefuncUrl: string
 }) {
   const bodyParsed = {
     file: callContext.telefunctionFilePath,
-    name: callContext.telefunctionExportName,
+    name: callContext.telefunctionFileExport,
     args: callContext.telefunctionArgs,
   }
   assert(typeof callContext.telefunctionFilePath === 'string')
-  assert(typeof callContext.telefunctionExportName === 'string')
+  assert(typeof callContext.telefunctionFileExport === 'string')
   assert(Array.isArray(callContext.telefunctionArgs))
   let httpRequestBody: string
   try {
@@ -25,7 +25,7 @@ function serializeTelefunctionArguments(callContext: {
     assertUsage(
       false,
       [
-        `Cannot serialize arguments for telefunction \`${callContext.telefunctionExportName}\` (${callContext.telefunctionFilePath}).`,
+        `Cannot serialize arguments for telefunction \`${callContext.telefunctionFileExport}\` (${callContext.telefunctionFilePath}).`,
         'Make sure that the arguments pass to telefunction calls are always serializable.',
         `Serialization error: ${lowercaseFirstLetter(err.message)}`,
       ].join(' '),

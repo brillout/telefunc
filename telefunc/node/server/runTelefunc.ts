@@ -62,10 +62,10 @@ async function runTelefunc_(runContext: {
     if (parsed.isMalformed) {
       return malformedRequest
     }
-    const { telefunctionFilePath, telefunctionExportName, telefunctionKey, telefunctionArgs } = parsed
+    const { telefunctionFilePath, telefunctionFileExport, telefunctionKey, telefunctionArgs } = parsed
     objectAssign(runContext, {
       telefunctionFilePath,
-      telefunctionExportName,
+      telefunctionFileExport,
       telefunctionKey,
       telefunctionArgs,
     })
@@ -88,7 +88,7 @@ async function runTelefunc_(runContext: {
   {
     assertUsage(
       runContext.telefunctionKey in runContext.telefunctions,
-      `Could not find telefunction \`${runContext.telefunctionExportName}\` (${
+      `Could not find telefunction \`${runContext.telefunctionFileExport}\` (${
         runContext.telefunctionFilePath
       }). The client is likely out-of-sync with the server, see https://telefunc.com/out-of-sync. Try reloading the client and/or server. Loaded telefunctions: [${Object.keys(
         runContext.telefunctions,

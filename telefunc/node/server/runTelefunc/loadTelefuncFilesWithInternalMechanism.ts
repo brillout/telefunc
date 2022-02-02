@@ -20,12 +20,12 @@ function __internal_setTelefuncFiles(telefuncFiles: TelefuncFiles) {
 
 function __internal_addTelefunction(
   telefunction: Telefunction,
-  telefunctionExportName: string,
+  telefunctionFileExport: string,
   telefuncFilePath: string,
 ) {
   g.telefuncFiles = g.telefuncFiles || {}
   g.telefuncFiles[telefuncFilePath] = {
     ...g.telefuncFiles[telefuncFilePath],
-    [telefunctionExportName]: telefunction,
+    [telefunctionFileExport]: telefunction,
   }
 }
