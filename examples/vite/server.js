@@ -21,7 +21,6 @@ function installTelefunc(app) {
   app.all('/_telefunc', async (req, res, next) => {
     const { originalUrl: url, method, body } = req
     const httpResponse = await telefunc({ url, method, body })
-    if (!httpResponse) return next()
     res.status(httpResponse.statusCode).type(httpResponse.contentType).send(httpResponse.body)
   })
 }

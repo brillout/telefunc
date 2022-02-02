@@ -36,7 +36,6 @@ async function startServer() {
     const { user } = req
     provideTelefuncContext({ user })
     const httpResponse = await telefunc({ url: req.originalUrl, method: req.method, body: req.body })
-    if (!httpResponse) return next()
     const { body, statusCode, contentType } = httpResponse
     res.status(statusCode).type(contentType).send(body)
   })
