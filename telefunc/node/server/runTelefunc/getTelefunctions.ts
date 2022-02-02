@@ -3,6 +3,7 @@ export { getTelefunctions }
 import { assertUsage, isCallable } from '../../utils'
 import type { Telefunction, TelefuncFiles } from '../types'
 import { getTelefunctionKey } from './getTelefunctionKey'
+import { getTelefunctionName } from './getTelefunctionName'
 
 async function getTelefunctions(runContext: { telefuncFiles: TelefuncFiles }): Promise<{
   telefunctions: Record<string, Telefunction>
@@ -34,6 +35,9 @@ function assertTelefunction(
 ): asserts telefunction is Telefunction {
   assertUsage(
     isCallable(telefunction),
-    `The telefunction \`${telefunctionFileExport}\` (${telefunctionFilePath}) is not a function. Make sure the \`export { ${telefunctionFileExport} }\` of ${telefunctionFilePath} to be a function.`,
+    `The telefunction ${getTelefunctionName({
+      telefunctionFileExport,
+      telefunctionFilePath,
+    })} is not a function. Make sure the \`export { ${telefunctionFileExport} }\` of ${telefunctionFilePath} to be a function.`,
   )
 }

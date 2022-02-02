@@ -8,8 +8,7 @@ import type { TelefunctionError } from '../TelefunctionError'
 async function makeHttpRequest(callContext: {
   telefuncUrl: string
   httpRequestBody: string
-  telefunctionFilePath: string
-  telefunctionFileExport: string
+  telefunctionName: string
 }): Promise<{ telefunctionReturn: unknown } | { telefunctionCallError: TelefunctionError }> {
   const method = 'POST'
 
@@ -74,9 +73,7 @@ async function makeHttpRequest(callContext: {
     } else {
       assert('abort' in responseValue)
       const abortValue = responseValue.ret
-      const telefunctionCallError = new Error(
-        `Abort. (Telefunction \`${callContext.telefunctionFileExport}\` of ${callContext.telefunctionFilePath}.)`,
-      )
+      const telefunctionCallError = new Error(`Abort. (Telefunction ${callContext.telefunctionName}.)`)
       objectAssign(telefunctionCallError, { isAbort: true as const, abortValue })
       executeCallErrorListeners(telefunctionCallError)
       return { telefunctionCallError }

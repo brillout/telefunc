@@ -2,6 +2,7 @@ export { __internal_fetchTelefunc }
 
 import { makeHttpRequest } from './callTelefunc/makeHttpRequest'
 import { serializeTelefunctionArguments } from './callTelefunc/serializeTelefunctionArguments'
+import { getTelefunctionName } from './callTelefunc/getTelefunctionName'
 import { telefuncConfig } from './telefuncConfig'
 import { objectAssign, assertUsage, isBrowser, assert } from './utils'
 
@@ -17,7 +18,9 @@ async function __internal_fetchTelefunc(
 
   const callContext = {}
   {
+    const telefunctionName = getTelefunctionName({ telefunctionFileExport, telefunctionFilePath })
     objectAssign(callContext, {
+      telefunctionName,
       telefunctionFilePath,
       telefunctionFileExport,
       telefunctionArgs,

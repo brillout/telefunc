@@ -3,6 +3,7 @@ export { parseHttpRequest }
 import { parse } from '@brillout/json-s/parse'
 import { getTelefunctionKey } from './getTelefunctionKey'
 import { assertUsage, hasProp, getPluginError, getUrlPathname } from '../../utils'
+import { getTelefunctionName } from './getTelefunctionName'
 
 const devErrMsgPrefix =
   'Malformed request in development. This is unexpected since, in development, all requests are expected to originate from the Telefunc Client. If this error is happening in production, then either the environment variable `NODE_ENV="production"` or `telefunc({ isProduction: true })` is missing.'
@@ -15,6 +16,7 @@ function parseHttpRequest(runContext: {
   | {
       telefunctionFilePath: string
       telefunctionFileExport: string
+      telefunctionName: string
       telefunctionKey: string
       telefunctionArgs: unknown[]
       isMalformed: false
@@ -83,10 +85,12 @@ function parseHttpRequest(runContext: {
   const telefunctionFileExport = bodyParsed.name
   const telefunctionArgs = bodyParsed.args
   const telefunctionKey = getTelefunctionKey({ telefunctionFilePath, telefunctionFileExport })
+  const telefunctionName = getTelefunctionName({ telefunctionFilePath, telefunctionFileExport })
 
   return {
     telefunctionFilePath,
     telefunctionFileExport,
+    telefunctionName,
     telefunctionKey,
     telefunctionArgs,
     isMalformed: false,

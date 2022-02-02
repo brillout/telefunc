@@ -8,6 +8,7 @@ function serializeTelefunctionArguments(callContext: {
   telefunctionFileExport: string
   telefunctionArgs: unknown[]
   telefuncUrl: string
+  telefunctionName: string
 }) {
   const bodyParsed = {
     file: callContext.telefunctionFilePath,
@@ -25,7 +26,7 @@ function serializeTelefunctionArguments(callContext: {
     assertUsage(
       false,
       [
-        `Cannot serialize arguments for telefunction \`${callContext.telefunctionFileExport}\` (${callContext.telefunctionFilePath}).`,
+        `Cannot serialize arguments for telefunction ${callContext.telefunctionName}.`,
         'Make sure that the arguments pass to telefunction calls are always serializable.',
         `Serialization error: ${lowercaseFirstLetter(err.message)}`,
       ].join(' '),
