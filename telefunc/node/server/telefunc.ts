@@ -3,7 +3,7 @@ export { telefunc }
 import { assertHttpRequest } from './runTelefunc/assertHttpRequest'
 import { runTelefunc } from './runTelefunc'
 import { HttpRequest } from './types'
-import { assertUsage, getUrlPathname, objectAssign } from '../utils'
+import { assert, assertUsage, getUrlPathname, objectAssign } from '../utils'
 import { telefuncConfig } from './telefuncConfig'
 
 /**
@@ -13,7 +13,7 @@ import { telefuncConfig } from './telefuncConfig'
  * @param httpRequest.body HTTP request body
  * @returns HTTP response
  */
-function telefunc(httpRequest: HttpRequest) {
+async function telefunc(httpRequest: HttpRequest) {
   assertHttpRequest(httpRequest, arguments.length)
 
   const runContext = {}
@@ -22,7 +22,9 @@ function telefunc(httpRequest: HttpRequest) {
 
   assertUrl(runContext)
 
-  return runTelefunc(runContext)
+  const httpResponse = await runTelefunc(runContext)
+  assert(httpResponse)
+  return httpResponse
 }
 
 function assertUrl(runContext: { httpRequest: { url: string }; telefuncUrl: string }) {
