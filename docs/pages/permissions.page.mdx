@@ -1,10 +1,19 @@
-import { Link } from 'libframe-docs/components'
+import { Link, ReadingRecommendation } from 'libframe-docs/components'
 
-> We recommend taking the <Link text="Telefunc Tour" href="/tour" /> before reading this.
+<ReadingRecommendation links={['/tour', '/tour#telefunctions-need-protection', '/abort-shield', '/auth']} />
 
-## `Abort()`
+With Telefunc, we define permissions programmatically by using a cancel mechanism:
+ - `throw Abort()`
+ - `return someValue`
+ - `throw Abort(someValue)`
 
-We use `Abort()` to ensure permissions:
+We can implement `getContext()` wrappers to implement:
+ - Advanced permissions.
+ - Increased safety.
+
+## `throw Abort()`
+
+We can `throw Abort()` to ensure our telefunctions to be called with the right permissions.
 
 ```js
 // Comment.telefunc.js
@@ -25,52 +34,23 @@ export async function onCommentDelete(id) {
 }
 ```
 
-We use `Abort()` even if our frontend calls telefunctions always with the right permissions:
-
-```jsx
-// Comment.jsx
-// Environment: Browser
-
-import { onCommentDelete } from './Comment.telefunc.js'
-
-function Comment({ id, text, context }) {
-  const deleteButton =
-    // Note how we only show the delete button to admins
-    context.user.isAdmin ?
-      <button onClick={() => onCommentDelete(id)}>Delete</button> :
-      null
-  return <>
-    <p>{ text }</p>
-    { deleteButton }
-  </>
-}
-```
-
-Because the delete button is only shown to admins,
-whenever our frontend calls `onCommentDelete()`
-we can assume the user to be an admin.
-
-But we still use `Abort()`:
-as we have seen in the <Link text="Telefunc Tour" href="/tour" />,
-our telefunctions can be called not only by our frontend but really by anyone.
-A malicious user can call `onCommentDelete()` without admin priviledges;
-but thanks to our `throw Abort()` the call is aborted.
-
-In other words, we use `Abort()` to protect against unexpected calls (calls not originating from our frontend, or if our frontend has a bug).
+> We should `Abort()` even if we know our frontend to always call `onCommentDelete()` with the right permissions (for example because our UI displays the `<DeleteCommentButton />` components only to admins). See:
+> - <Link href="/abort-shield#always-abort" />
 
 
-## `return`
+## `return someValue`
 
-If it is expected that our frontend calls telefunctions sometimes without the right permissions,
-we `return` instead of `throw Abort()`.
+Sometimes, it is expected that our frontend can call our telefunction with wrong permissions.
 
 ```js
-// *.telefunc.js
+// TodoList.telefunc.js
 // Environment: Node.js
+
+export { getTodoList }
 
 import { getContext } from 'telefunc'
 
-export async function getTodoList() {
+async function getTodoList() {
   const { user } = getContext()
 
   if (!user) {
@@ -87,74 +67,183 @@ In contrast to our previous telefunction `onCommentDelete()`,
 here we expect our frontend to sometimes call `getTodoList()` with the wrong permission.
 
 If we need to pass information to the frontend,
-we `return` instead of `throw Abort()`.
+we can `return someValue` instead of `throw Abort()`.
 
+But we can also `throw Abort(someValue)`.
 
-## `shield()`
+## `throw Abort(someValue)`
 
-Ensuring argument types with `throw Abort()` can be cumbersome:
+As we have seen in the previous section, when wrong permissions are expected, we use `return someValue`.
+
+But `return someValue` can become cumbersome.
 
 ```js
-// CreateTodo.telefunc.js
-// Environment: Node.js
+// auth/getUser.ts
 
-export async function onNewTodo(args) {
-  if (
-    args?.constructor !== Object ||
-    typeof args.text !== 'string' ||
-    typeof args.isCompleted !== 'boolean'
-  ) {
-    throw Abort()
-  }
-  const { text, isCompleted } = args
-  /* ... */
+import { getContext } from 'telefunc'
+
+// It is a common technique to provide convenience `getContext()` wrappers
+export { getUser }
+
+function getUser() {
+  const { user } = getContext()
+  return user
 }
 ```
 
-For more convenience we can use `shield()` instead:
-
 ```js
-// CreateTodo.telefunc.js
+// components/TodoList.telefunc.js
 // Environment: Node.js
 
-import { shield } from 'telefunc'
-const t = shield.type
+export { fetchTodoList }
 
-shield(onNewTodo, [{ text: t.string, isCompleted: t.boolean }])
-export async function onNewTodo({ text, isCompleted }) {
+import { getUser } from '../auth/getUser'
+
+async function fetchTodoList() {
+  const { user } = getUser()
+
+  if (!user) {
+    return { isNotLoggedIn: true }
+  }
+
   // ...
 }
-```
 
-Not only does `shield()` call `throw Abort()` on our behalf, but it also infers the arguments' type for IntelliSense and TypeScript.
+async function onNewTodo() {
+  const { user } = getUser()
 
-More infos at <Link href="/shield" />.
-
-
-## Form validation
-
-It is expected that the user can enter invalid inputs; we `return` instead of `throw Abort()`.
-
-```js
-// *.telefunc.js
-// Environment: Node.js
-
-import { shield } from 'telefunc'
-
-shield(onFormSubmit, [email: t.string, password: t.string])
-export async function onFormSubmit(email, password) {
-  const invalidInputs = {}
-
-  if (!email) {
-    invalidInputs.email = 'Please enter your email.'
-  } else if (!email.includes('@')) {
-    invalidInputs.email = 'Invalid email; make sure to enter a valid email.'
-  }
-
-  if (Object.keys(invalidInputs).length > 0) {
-    return { invalidInputs }
+  // We have to implement our logic over and over again
+  if (!user) {
+    return { isNotLoggedIn: true }
   }
 
   // ...
 }
 ```
+
+We also that on the frontend we always need wrap all our telefunctions:
+
+```js
+
+
+```
+
+That's not ideal.
+
+Instead, by using `throw Abort(someValue)` with `onTelefunctionRemoteCallError()`, we can implement our logic only once.
+
+```js
+// auth/getUser.ts
+
+import { Abort, getContext } from 'telefunc'
+
+// It is a common technique to provide convenience wrappers around `getContext()`
+export { getUser }
+
+function getUser() {
+  const { user } = getContext()
+  if (!user) {
+    throw Abort({ isNotLoggedIn: true })
+  }
+  return user
+}
+```
+
+```
+// Browser
+
+import { onTelefunctionRemoteCallError } from 'telefunc/client'
+
+onTelefunctionRemoteCallError(err => {
+  if (err.isAbort && err.abortValue.isNotLoggedIn) {
+    // Redirect user to login page
+    window.location.href = '/login'
+  }
+})
+```
+
+> This is the 
+
+## `getContext()` wrappers
+
+```js
+// auth/getUser.ts
+
+// Note how `auth/getUser.ts` is not a `.teleunc.js` file.
+
+import { Abort, getContext } from 'telefunc'
+
+// It is a common technique to provide convenience wrappers around `getContext()`
+export { getUser }
+
+function getUser({ permissions, databaseObject }) {
+
+  // `databaseObject` could for example
+
+  const { user } = getContext()
+  if (!user) {
+    throw Abort({ isNotLoggedIn: true })
+  }
+  permissions.forEach(
+  return user
+}
+```
+
+We can also provide wrappers around `getContext()` and ORM/SQL queries to achieve:
+ - 
+
+```js
+// database/mutate.js
+
+// Note how `auth/getUser.ts` is not a `.teleunc.js` file.
+
+export { mutate }
+
+import { Abort, getContext } from 'telefunc'
+
+async function findObject(objectProps, permissions) {
+  // For increased safety, we ensure that a `permissions` array is always provided
+  // when accessing the database.
+  if (!permissions) {
+    throw new Error('Wrong `findObject()` usage: missing permissions array')
+  }
+
+  // For increased safety, we make sure there are no typos
+  permissions.forEach(permission => {
+    if (!['public', 'author', 'admin'].includes(permission)) {
+      throw new Error('Wrong `findObject()` usage: unkown permission ' + permission)
+    }
+  })
+
+  const { user } = getContext()
+
+  const object = await database.findOject(objectProps)
+
+  if (permissions.includes('admin')) {
+    if (!user?.isAdmin) {
+      throw Abort()
+    }
+    // Admins are allowed to access `object`
+    return object
+  }
+
+  if (permissions.includes('author')) {
+    if (object.authorId !== user?.id) {
+      throw Abort()
+    }
+    // The author of `object` is allowed to access it
+    return object
+  }
+
+  if( permissions.includes('public') ) {
+    // Everyone is allowed to access `object`
+    return object
+  }
+
+  throw new Error('Wrong `findObject()` usage: make sure to define at least one permission')
+}
+```
+
+> The **difference between `throw Abort()` and `throw new Error()`** is explained at 
+
+

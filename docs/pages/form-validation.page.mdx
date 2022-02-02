@@ -1,0 +1,25 @@
+It is expected that the user can enter invalid inputs; we `return` instead of `throw Abort()`.
+
+```js
+// *.telefunc.js
+// Environment: Node.js
+
+import { shield } from 'telefunc'
+
+shield(onFormSubmit, [email: t.string, password: t.string])
+export async function onFormSubmit(email, password) {
+  const invalidInputs = {}
+
+  if (!email) {
+    invalidInputs.email = 'Please enter your email.'
+  } else if (!email.includes('@')) {
+    invalidInputs.email = 'Invalid email; make sure to enter a valid email.'
+  }
+
+  if (Object.keys(invalidInputs).length > 0) {
+    return { invalidInputs }
+  }
+
+  // ...
+}
+```
