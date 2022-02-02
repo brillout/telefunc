@@ -12,6 +12,7 @@ import { executeTelefunction } from './runTelefunc/executeTelefunction'
 import { serializeTelefunctionResult } from './runTelefunc/serializeTelefunctionResult'
 import { handleError } from './runTelefunc/handleError'
 import { executeServerErrorListeners } from './runTelefunc/onTelefuncServerError'
+import { applyShield } from './runTelefunc/applyShield'
 
 type HttpResponse = {
   body: string
@@ -103,6 +104,8 @@ async function runTelefunc_(runContext: {
     const telefunction = runContext.telefunctions[runContext.telefunctionKey]
     objectAssign(runContext, { telefunction })
   }
+
+  applyShield(runContext)
 
   const { telefunctionReturn, telefunctionAborted, telefunctionHasErrored, telefunctionError } =
     await executeTelefunction(runContext)
