@@ -93,7 +93,7 @@ function parseHttpRequest(runContext: {
 
 function assertBody(body: unknown, runContext: { telefuncUrl: string }) {
   const errorNote = [
-    `Make sure that \`body\` is the HTTP body of the request HTTP POST \`Content-Type: text/plain\` \`${runContext.telefuncUrl}\`.`,
+    `Make sure that \`body\` is the HTTP body string of the request HTTP POST \`Content-Type: text/plain\` \`${runContext.telefuncUrl}\`.`,
     'Note that with some server frameworks, such as Express.js, a server middleware is needed to process the HTTP body of `Content-Type: text/plain` requests.',
   ].join(' ')
   assertUsage(
