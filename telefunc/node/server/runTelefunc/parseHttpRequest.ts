@@ -5,10 +5,6 @@ import { getTelefunctionKey } from './getTelefunctionKey'
 import { assertUsage, hasProp, getPluginError, getUrlPathname, assert } from '../../utils'
 import { getTelefunctionName } from './getTelefunctionName'
 
-const devErrMsgPrefix = 'Malformed request in development.'
-const devErrMsgSuffix =
-  'This is unexpected since, in development, all requests are expected to originate from the Telefunc Client. If this error is happening in production, then either the environment variable `NODE_ENV="production"` or `telefunc({ isProduction: true })` is missing.'
-
 function parseHttpRequest(runContext: {
   httpRequest: { body: unknown; url: string; method: string }
   isProduction: boolean
@@ -45,22 +41,19 @@ function parseHttpRequest(runContext: {
   try {
     bodyParsed = parse(bodyString)
   } catch (err: unknown) {
-    if (!runContext.isProduction) {
-      console.error(
-        getPluginError(
-          [
-            devErrMsgPrefix,
-            `Following body string could not be parsed: \`${bodyString}\`.`,
-            !hasProp(err, 'message') ? null : `Parse error: ${err.message}.`,
-            devErrMsgSuffix,
-          ]
-            .filter(Boolean)
-            .join(' '),
-        ),
-      )
-    } else {
-      // In production any kind of malformed request can happen
-    }
+    logParseError(
+      [
+        errMsgPrefix,
+        'The argument `body` passed to `telefunc({ body })`',
+        'could not be parsed',
+        `(\`body === '${bodyString}'\`).`,
+        !hasProp(err, 'message') ? null : `Parse error: ${err.message}.`,
+        errMsgSuffix,
+      ]
+        .filter(Boolean)
+        .join(' '),
+      runContext,
+    )
     return { isMalformed: true }
   }
 
@@ -69,18 +62,16 @@ function parseHttpRequest(runContext: {
     !hasProp(bodyParsed, 'name', 'string') ||
     !hasProp(bodyParsed, 'args', 'array')
   ) {
-    if (!runContext.isProduction) {
-      console.error(
-        getPluginError(
-          [
-            devErrMsgPrefix,
-            'The `body` argument passed to `telefunc({ body })` is not valid',
-            `(\`body === '${bodyString}'\`).`,
-            devErrMsgSuffix,
-          ].join(' '),
-        ),
-      )
-    }
+    logParseError(
+      [
+        errMsgPrefix,
+        'The argument `body` passed to `telefunc({ body })`',
+        'can be parsed but its content is invalid',
+        `(\`body === '${bodyString}'\`).`,
+        errMsgSuffix,
+      ].join(' '),
+      runContext,
+    )
     return { isMalformed: true }
   }
 
@@ -129,19 +120,16 @@ function isWrongMethod(runContext: { httpRequest: { method: string }; isProducti
     return false
   }
   assert(typeof runContext.httpRequest.method === 'string')
-  if (!runContext.isProduction) {
-    console.error(
-      getPluginError(
-        [
-          devErrMsgPrefix,
-          `The HTTP request method should be \`POST\` (or \`post\`) but \`method === '${runContext.httpRequest.method}'\`.`,
-          devErrMsgSuffix,
-        ].join(' '),
-      ),
-    )
-  } else {
-    // In production any kind of malformed request are expected, e.g. GET requests to `_telefunc`.
-  }
+  logParseError(
+    [
+      errMsgPrefix,
+      'The argument `method` passed to `telefunc({ method })`',
+      'should be `POST` (or `post`) but`',
+      `\`method === '${runContext.httpRequest.method}'\`.`,
+      errMsgSuffix,
+    ].join(' '),
+    runContext,
+  )
   return true
 }
 
@@ -151,4 +139,17 @@ function assertUrl(runContext: { httpRequest: { url: string }; telefuncUrl: stri
     urlPathname === runContext.telefuncUrl,
     `telefunc({ url }): The HTTP request \`url\` pathname \`${urlPathname}\` should be \`${runContext.telefuncUrl}\`. Make sure that \`url\` is the HTTP request URL, or change \`telefuncConfig.telefuncUrl\` to \`${urlPathname}\`.`,
   )
+}
+
+const errMsgPrefix = 'Malformed request in development.'
+const errMsgSuffix =
+  'This is unexpected since, in development, all requests are expected to originate from the Telefunc Client. If this error is happening in production, then either the environment variable `NODE_ENV="production"` or `telefunc({ isProduction: true })` is missing.'
+function logParseError(errMsg: string, runContext: { isProduction: boolean }) {
+  assert(errMsg.startsWith(errMsgPrefix))
+  assert(errMsg.endsWith(errMsgSuffix))
+  if (!runContext.isProduction) {
+    console.error(getPluginError(errMsg))
+  } else {
+    // In production any kind of malformed request are expected, when a third party doesn't use the Telefunc Client but uses an HTTP client and makes malformed requests to `_telefunc`, e.g. a HTTP GET request to `_telefunc`.
+  }
 }
