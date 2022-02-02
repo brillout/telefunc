@@ -124,7 +124,7 @@ function isWrongMethod(runContext: { httpRequest: { method: string }; isProducti
     [
       errMsgPrefix,
       'The argument `method` passed to `telefunc({ method })`',
-      'should be `POST` (or `post`) but`',
+      'should be `POST` (or `post`) but',
       `\`method === '${runContext.httpRequest.method}'\`.`,
       errMsgSuffix,
     ].join(' '),
@@ -143,7 +143,7 @@ function assertUrl(runContext: { httpRequest: { url: string }; telefuncUrl: stri
 
 const errMsgPrefix = 'Malformed request in development.'
 const errMsgSuffix =
-  'This is unexpected since, in development, all requests are expected to originate from the Telefunc Client. If this error is happening in production, then either the environment variable `NODE_ENV="production"` or `telefunc({ isProduction: true })` is missing.'
+  'This is unexpected since, in development, all requests are expected to originate from the Telefunc Client and should be valid. If this error is happening in production, then either the environment variable `NODE_ENV="production"` or `telefunc({ isProduction: true })` is missing.'
 function logParseError(errMsg: string, runContext: { isProduction: boolean }) {
   assert(errMsg.startsWith(errMsgPrefix))
   assert(errMsg.endsWith(errMsgSuffix))
