@@ -1,6 +1,6 @@
 export { runTelefunc }
 
-import type { HttpRequest, TelefuncFiles, Telefunction } from './types'
+import type { TelefuncFiles, Telefunction } from './types'
 import type { ViteDevServer } from 'vite'
 import { assert, assertUsage, checkType, objectAssign } from '../utils'
 import { getContextOptional } from './getContext'
@@ -46,7 +46,7 @@ async function runTelefunc(runContext: Parameters<typeof runTelefunc_>[0]) {
 }
 
 async function runTelefunc_(runContext: {
-  httpRequest: HttpRequest
+  httpRequest: { url: string; method: string; body: unknown }
   viteDevServer: ViteDevServer | null
   telefuncFiles: TelefuncFiles | null
   isProduction: boolean
@@ -57,13 +57,6 @@ async function runTelefunc_(runContext: {
   objectAssign(runContext, {
     providedContext: getContextOptional() || null,
   })
-
-  if (runContext.httpRequest.method !== 'POST' && runContext.httpRequest.method !== 'post') {
-    assert(runContext.isProduction) // We don't expect any third-party requests in development and we can assume requests to always originate from the Telefunc Client.
-    return malformedRequest
-  }
-  assert(runContext.httpRequest.url === runContext.telefuncUrl)
-
   {
     const parsed = parseHttpRequest(runContext)
     if (parsed.isMalformed) {

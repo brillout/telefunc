@@ -1,9 +1,7 @@
 export { telefunc }
 
-import { assertHttpRequest } from './runTelefunc/assertHttpRequest'
 import { runTelefunc } from './runTelefunc'
-import { HttpRequest } from './types'
-import { assert, assertUsage, getUrlPathname, objectAssign } from '../utils'
+import { assert, assertUsage, hasProp, isObject, objectAssign } from '../utils'
 import { telefuncConfig } from './telefuncConfig'
 
 /**
@@ -13,24 +11,25 @@ import { telefuncConfig } from './telefuncConfig'
  * @param httpRequest.body HTTP request body
  * @returns HTTP response
  */
-async function telefunc(httpRequest: HttpRequest) {
+async function telefunc(httpRequest: { url: string; body: string; method: 'POST' | 'post' }) {
   assertHttpRequest(httpRequest, arguments.length)
-
   const runContext = {}
   objectAssign(runContext, { httpRequest })
   objectAssign(runContext, telefuncConfig)
-
-  assertUrl(runContext)
-
   const httpResponse = await runTelefunc(runContext)
   assert(httpResponse)
   return httpResponse
 }
 
-function assertUrl(runContext: { httpRequest: { url: string }; telefuncUrl: string }) {
-  const urlPathname = getUrlPathname(runContext.httpRequest.url)
-  assertUsage(
-    urlPathname === runContext.telefuncUrl,
-    `telefunc({ url }): The HTTP request \`url\` pathname \`${urlPathname}\` should be \`${runContext.telefuncUrl}\`. Make sure that \`url\` is the HTTP request URL, or change \`telefuncConfig.telefuncUrl\` to \`${urlPathname}\`.`,
-  )
+function assertHttpRequest(httpRequest: unknown, numberOfArguments: number) {
+  assertUsage(httpRequest, '`telefunc(httpRequest)`: argument `httpRequest` is missing.')
+  assertUsage(numberOfArguments === 1, '`telefunc()`: all arguments should be passed as a single argument object.')
+  assertUsage(isObject(httpRequest), '`telefunc(httpRequest)`: argument `httpRequest` should be an object.')
+  assertUsage(httpRequest, '`telefunc(httpRequest)`: argument `httpRequest` is missing.')
+  assertUsage(hasProp(httpRequest, 'url'), '`telefunc({ url })`: argument `url` is missing.')
+  assertUsage(hasProp(httpRequest, 'url', 'string'), '`telefunc({ url })`: argument `url` should be a string.')
+  assertUsage(hasProp(httpRequest, 'method'), '`telefunc({ method })`: argument `method` is missing.')
+  assertUsage(hasProp(httpRequest, 'method', 'string'), '`telefunc({ method })`: argument `method` should be a string.')
+  assertUsage(hasProp(httpRequest, 'body'), '`telefunc({ body })`: argument `body` is missing.')
+  // We further assert the `httpRequest` in `./runTelefunc/parseHttpRequest.ts`
 }

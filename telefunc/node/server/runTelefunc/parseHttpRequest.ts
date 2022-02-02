@@ -1,10 +1,17 @@
 export { parseHttpRequest }
 
 import { parse } from '@brillout/json-s/parse'
-import { assertUsage, hasProp, getPluginError } from '../../utils'
 import { getTelefunctionKey } from './getTelefunctionKey'
+import { assertUsage, hasProp, getPluginError, getUrlPathname } from '../../utils'
 
-function parseHttpRequest(runContext: { httpRequest: { body: unknown }; isProduction: boolean; telefuncUrl: string }):
+const devErrMsgPrefix =
+  'Malformed request in development. This is unexpected since, in development, all requests are expected to originate from the Telefunc Client. If this error is happening in production, then either the environment variable `NODE_ENV="production"` or `telefunc({ isProduction: true })` is missing.'
+
+function parseHttpRequest(runContext: {
+  httpRequest: { body: unknown; url: string; method: string }
+  isProduction: boolean
+  telefuncUrl: string
+}):
   | {
       telefunctionFilePath: string
       telefunctionExportName: string
@@ -13,19 +20,23 @@ function parseHttpRequest(runContext: { httpRequest: { body: unknown }; isProduc
       isMalformed: false
     }
   | { isMalformed: true } {
+  assertUrl(runContext)
+
+  if (isWrongMethod(runContext)) {
+    return { isMalformed: true }
+  }
+
   const { body } = runContext.httpRequest
   if (typeof body !== 'string') {
     if (!runContext.isProduction) {
+      assertBody(body, runContext)
+    } else {
       // In production `body` can be any value really.
       // Therefore we `assertBody(body)` only development.
-      assertBody(body, runContext)
     }
     return { isMalformed: true }
   }
   const bodyString: string = body
-
-  const devErrMsgPrefix =
-    'Malformed request in development. This is unexpected since, in development, all requests are expected to originate from the Telefunc Client. If this error is happening in production, then this means that you forgot to set the environment variable `NODE_ENV="production"` or `telefunc({ isProduction: true })`.'
 
   let bodyParsed: unknown
   try {
@@ -43,6 +54,8 @@ function parseHttpRequest(runContext: { httpRequest: { body: unknown }; isProduc
             .join(' '),
         ),
       )
+    } else {
+      // In production any kind of malformed request can happen
     }
     return { isMalformed: true }
   }
@@ -101,5 +114,32 @@ function assertBody(body: unknown, runContext: { telefuncUrl: string }) {
     // Express.js sets `req.body === '{}'` upon wrong Content-Type
     body !== '{}',
     ["`telefunc({ body })`: argument `body` is an empty JSON object (`body === '{}'`).", errorNote].join(' '),
+  )
+}
+
+function isWrongMethod(runContext: { httpRequest: { method: string }; isProduction: boolean }) {
+  if (['POST', 'post'].includes(runContext.httpRequest.method)) {
+    return false
+  }
+  if (!runContext.isProduction) {
+    console.error(
+      getPluginError(
+        [
+          devErrMsgPrefix,
+          `The HTTP request method should be \`POST\` (or \`post\`) but \`method === ${runContext.httpRequest.method}\`.`,
+        ].join(' '),
+      ),
+    )
+  } else {
+    // In production any kind of malformed request are expected, e.g. GET requests to `_telefunc`.
+  }
+  return true
+}
+
+function assertUrl(runContext: { httpRequest: { url: string }; telefuncUrl: string }) {
+  const urlPathname = getUrlPathname(runContext.httpRequest.url)
+  assertUsage(
+    urlPathname === runContext.telefuncUrl,
+    `telefunc({ url }): The HTTP request \`url\` pathname \`${urlPathname}\` should be \`${runContext.telefuncUrl}\`. Make sure that \`url\` is the HTTP request URL, or change \`telefuncConfig.telefuncUrl\` to \`${urlPathname}\`.`,
   )
 }
