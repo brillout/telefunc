@@ -2,7 +2,7 @@ export { parseHttpRequest }
 
 import { parse } from '@brillout/json-s/parse'
 import { getTelefunctionKey } from './getTelefunctionKey'
-import { assertUsage, hasProp, getPluginError, getUrlPathname } from '../../utils'
+import { assertUsage, hasProp, getPluginError, getUrlPathname, assert } from '../../utils'
 import { getTelefunctionName } from './getTelefunctionName'
 
 const devErrMsgPrefix = 'Malformed request in development.'
@@ -128,12 +128,13 @@ function isWrongMethod(runContext: { httpRequest: { method: string }; isProducti
   if (['POST', 'post'].includes(runContext.httpRequest.method)) {
     return false
   }
+  assert(typeof runContext.httpRequest.method === 'string')
   if (!runContext.isProduction) {
     console.error(
       getPluginError(
         [
           devErrMsgPrefix,
-          `The HTTP request method should be \`POST\` (or \`post\`) but \`method === ${runContext.httpRequest.method}\`.`,
+          `The HTTP request method should be \`POST\` (or \`post\`) but \`method === '${runContext.httpRequest.method}'\`.`,
           devErrMsgSuffix,
         ].join(' '),
       ),
