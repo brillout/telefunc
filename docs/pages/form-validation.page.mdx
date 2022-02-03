@@ -1,3 +1,5 @@
+TODO
+
 It is expected that the user can enter invalid inputs; we `return` instead of `throw Abort()`.
 
 ```js
@@ -23,3 +25,22 @@ export async function onFormSubmit(email, password) {
   // ...
 }
 ```
+
+For form validation, we usually also `return` instead of `throw Abort()`:
+
+```js
+import { shield } from 'telefunc'
+const t = shield.type
+
+shield(onFormSubmit, [t.string, t.string])
+export async function onFormSubmit(email, password) {
+  if (!password) {
+    return { passwordInvalid: "Please enter a password." }
+  }
+  if (password.length<8) {
+    return { passwordInvalid: "Password is too short: it should have at least 8 charachters." }
+  }
+  // ...
+}
+```
+

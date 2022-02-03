@@ -1,23 +1,21 @@
 import { Link, ReadingRecommendation } from 'libframe-docs/components'
 
-<ReadingRecommendation links={['/tour', '/abort-shield']} />
+<ReadingRecommendation links={['/tour', '/abort-shield', '/auth']} />
 
 > **TL;DR**
 >
-> With Telefunc, we define permissions programmatically by using a cancel mechanism:
+> With Telefunc, we define permissions programmatically by using cancel mechanisms:
 >  - `throw Abort()`
 >  - `return someValue`
 >  - `throw Abort(someValue)`
 >
 > We can implement `getContext()` wrappers for:
->  - Advanced permissions.
+>  - Advanced permission rules.
 >  - Increased safety.
 
 ## `throw Abort()`
 
-If a permission is not respected then we cancel the telefuction call, for example with `throw Abort()`.
-
-We can `throw Abort()` to ensure our telefunctions to be called with the right permissions.
+We can use `throw Abort()` to ensure permissions.
 
 ```js
 // Comment.telefunc.js
@@ -38,14 +36,15 @@ export async function onCommentDelete(id) {
 }
 ```
 
-> We should `Abort()` even if we know our frontend to always call `onCommentDelete()` with the right permissions (for example because our UI displays the `<DeleteCommentButton />` components only to admins). See:
+> We use `throw Abort()` even if we know our frontend to always call `onCommentDelete()` with the right permissions. See:
 > - <Link href="/abort-shield#random-telefunction-calls" />
 
-But we can also cancel a telefunction with `return someValue`.
+We can also cancel a telefunction call with `return someValue`.
+
 
 ## `return someValue`
 
-If, upon wrong permissions, we want to pass information to the frontend we can `return someValue`:
+If, upon wrong permissions, we want to pass information to the frontend we can use `return someValue`.
 
 ```js
 // components/TodoList.telefunc.js
@@ -70,36 +69,35 @@ async function getTodoList() {
 
 ```js
 // components/TodoList.js
-// Browser
+// Environment: Browser
 
 import { getTodoList } from './TodoList.telefunc.js'
 
+async function someFrontendFunction() {
   // ...
-
   const result = await getTodoList()
-
   if (result.isNotLoggedIn) {
-    // Redirect to login page
+    // Redirect user to login page
     window.location.href = '/login'
   }
-
   // ...
+}
 ```
 
 ## `throw Abort(someValue)`
 
-Alternatively to `return someValue`, we can `throw Abort(someValue)` which can be more convenient, for example when defining global behavior.
+Alternatively to `return someValue`, we can use `throw Abort(someValue)` which can be more convenient, for example when defining global behavior.
 
 ```js
 // auth/getUser.ts
 // Environment: Node.js
 
-// Note that `auth/getUser.ts` is not a `.telefunc.js` file.
-// Such `getContext()` convenience wrapper is a common Telefunc technique.
+// Note that `auth/getUser.ts` is not a `.telefunc.js` file and `getUser()` not a telefunction
 export { getUser }
 
-import { Abort, getContext } from 'telefunc'
+import { getContext, Abort } from 'telefunc'
 
+// Such `getContext()` wrapper is a common Telefunc technique
 function getUser() {
   const { user } = getContext()
   if (!user) {
@@ -109,17 +107,20 @@ function getUser() {
 }
 ```
 ```js
-// Browser
+// Environment: Browser
 
 import { onTelefunctionRemoteCallError } from 'telefunc/client'
 
 onTelefunctionRemoteCallError(err => {
   if (err.isAbort && err.abortValue.isNotLoggedIn) {
-    // Redirect to login page
+    // Redirect user to login page
     window.location.href = '/login'
   }
 })
 ```
+
+We have globally defined what should happen when a user is not logged-in;
+we don't have to re-implement the same logic over and over again.
 
 ```js
 // components/TodoList.telefunc.js
@@ -131,31 +132,27 @@ import { getUser } from '../auth/getUser'
 
 async function getTodoList() {
   const { user } = getUser()
-
-  // We don't have to handle the not-logged-in case here anymore
-
-  // We can safely assume `user` to be defined
+  // We don't have to handle the not-logged-in case here anymore.
+  // We can safely assume the user to be logged-in here.
   const todoList = await Todo.findMany({ authorId: user.id })
   return todoList
 }
 ```
-
 ```js
 // components/TodoList.js
-// Browser
+// Environment: Browser
 
 import { getTodoList } from './TodoList.telefunc.js'
 
+async function someFrontendFunction() {
   // ...
-
   const todoList = await getTodoList()
-
-  // Here we can as well safely assume `todoList` to be defined
+  // We can safely assume `todoList` to be defined
   todoList.forEach(todoItem => {
     document.querySelector('#view').innerHTML += '<p>To-Do: ' + todoItem.text + '</p>'
   })
-
   // ...
+}
 ```
 
 
@@ -189,41 +186,32 @@ import { Abort, getContext } from 'telefunc'
 
 function getUser({ permission }) {
   const { user } = getContext()
-
-  if (!user) {
-    // We provide .. TODO
-    throw Abort({ isNotLoggedIn: true })
-  }
+  if (!user) throw Abort()
 
   if (permission === 'admin') {
-    if (!user?.isAdmin) {
-      throw Abort()
-    }
+    if (!user.isAdmin) throw Abort()
     return user
   }
 
   if (permission === 'public') {
     return user
   }
-
   // ...
 }
 ```
 
-We can also provide ORM/SQL query wrappers.
+We can even go deeper and wrap ORM/SQL queries.
 
 ```js
 // components/TodoList.telefunc.js
 // Environment: Node.js
 
-export { onTextChange }
-
 import { findTodoItem } from '../database/todo/findTodoItem'
 import { shield } from 'telefunc'
-const t = shield.type
 
-shield(onTextChange, [{ text: t.string }])
-async function onTextChange({ id, text }) {
+shield(onTextChange, [{ text: shield.type.string }])
+export async function onTextChange({ id, text }) {
+  // Only the author of a to-do item is allowed to change its text
   const todoItem = await findTodoItem({ id }, { permission: 'author' })
   todoItem.text = text
   await todoItem.save()
@@ -237,15 +225,14 @@ export { findTodoItem }
 import { Abort, getContext } from 'telefunc'
 
 async function findTodoItem(props, { permission }) {
-  // For increased safety, we ensure that a `permission` is always provided
-  // when accessing the database.
-  if (!permissions) {
-    throw new Error('Wrong `findTodoItem()` usage: missing permission')
+  // For increased safety, we ensure that a `permission` is always provided.
+  if (!permission) {
+    throw new Error('Wrong findTodoItem() usage: missing permission')
   }
 
-  // For increased safety, we make sure there are no typos
+  // For increased safety, we make sure there are no typos.
   if (!['public', 'author', 'admin'].includes(permission)) {
-    throw new Error('Wrong `findTodoItem()` usage: unknown permission ' + permission)
+    throw new Error('Wrong findTodoItem() usage: unknown permission ' + permission)
   }
 
   const { user } = getContext()
@@ -253,18 +240,14 @@ async function findTodoItem(props, { permission }) {
   const todoItem = await Todo.findOne({ where: props })
 
   if (permission === 'admin') {
-    if (!user?.isAdmin) {
-      throw Abort()
-    }
-    // Admins are allowed to access any to-do item
+    // Only admins are allowed to access `todoItem`
+    if (!user.isAdmin) throw Abort()
     return todoItem
   }
 
   if (permission === 'author') {
-    if (todoItem.authorId !== user?.id) {
-      throw Abort()
-    }
-    // The author of `todoItem` is allowed to access it
+    // Only the author of `todoItem` is allowed to access it
+    if (todoItem.authorId !== user?.id) throw Abort()
     return todoItem
   }
 
@@ -275,5 +258,4 @@ async function findTodoItem(props, { permission }) {
 }
 ```
 
-> In case you are wondering: we use `new Error()` in `throw new Error('Wrong `findTodoItem()` usage')` because `findTodoItems()` is an internal function and not a public telefunction, see
-> <Link href='/abort-or-error' />
+> In case you are wondering: we don't use `throw Abort()` but `throw new Error()` in ``throw new Error('Wrong findTodoItem() usage')`` because `findTodoItems()` is an internal function and not a public telefunction, see <Link href='/abort-or-error' />.

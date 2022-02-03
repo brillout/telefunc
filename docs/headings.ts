@@ -68,6 +68,11 @@ export const headings: HeadingDefinition[] = [
   },
   {
     level: 2,
+    title: 'Form Validation',
+    url: '/form-validation',
+  },
+  {
+    level: 2,
     title: 'File structure',
     url: '/file-structure',
   },

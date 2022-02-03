@@ -19,7 +19,7 @@ function Features() {
           desc: (
             <>
               <p>
-                With Telefunc, you have a simple frontend-backend relationship &mdash; it's really just a set of remote
+                With Telefunc, you get a <b>simple frontend-backend relationship</b>: it's just a set of remote
                 functions.
               </p>
               <p>
@@ -38,9 +38,10 @@ function Features() {
             <>
               <p>
                 Telefunc enables <b>programmatically defined permissions</b>.
+                It's both <b>simple</b> and <b>flexible</b>.
               </p>
               <p>
-                It's both <b>simple</b> and <b>flexible</b>.
+                Telefunc introduces new techniques that enable advanced permissions and <b>hardened safety</b>.
               </p>
             </>
           ),
@@ -70,8 +71,8 @@ function Features() {
           desc: (
             <>
               <p>
-                The frontend can directly tap into the <b>full power of the server</b>. Highly tailored & optimized
-                SQL/ORM queries can be used for highly-performant data retrieval & mutations.
+                The frontend can directly tap into the <b>full power of the server</b>. You can use tailored and optimized
+                SQL/ORM queries for highly performant data retrieval and mutations.
               </p>
             </>
           ),
