@@ -2,9 +2,7 @@ import { Link, ReadingRecommendation } from 'libframe-docs/components'
 
 <ReadingRecommendation links={['/tour']} />
 
-As <Link text="we have seen in the tour" href="/tour#telefunctions-need-protection" />, telefunctions are public and need protection.
-
-We protect telefunctions by using `throw Abort()`, `shield()` and `return someValue`.
+As <Link text="we have seen in the Telefunc tour" href="/tour#telefunctions-need-protection" />, telefunctions are public and need protection. We use `throw Abort()` and `shield()` to protect our telefunctions.
 
 ## `throw Abort()`
 
@@ -35,70 +33,12 @@ async function getTodoList() {
 
 > In principle, we could also `throw new Error()` instead of `throw Abort()`, as both achieve the job of canceling the telefunction call, but `Abort()` comes with many conveniences and we recommend using `throw Abort()`.
 
-## Random telefunction calls
-
-Even if our frontend calls our telefunctions always in a certain way,
-we cannot assume anything:
-our <Link text="telefunctions are public" href="/tour#telefunctions-need-protection" />
-and any of our telefunction can be called by anyone at any time with any arguments.
-
-One way to think about it is that any random telefunction call can happen at any time.
-
-This means we should always protect our telefunctions, regardless of our frontend.
-
-For example:
-
-```js
-// Comment.telefunc.js
-// Environment: Node.js
-
-import { getContext, Abort, shield } from 'telefunc'
-
-shield(onCommentDelete, [shield.type.number])
-export async function onCommentDelete(id) {
-  const { user } = getContext()
-
-  // Only admins are allowed to delete comments
-  if (!user.isAdmin) {
-    throw Abort()
-  }
-
-  // ...
-}
-```
-
-```jsx
-// Comment.jsx
-// Environment: Browser
-
-import { onCommentDelete } from './Comment.telefunc.js'
-
-function Comment({ id, text, context }) {
-  const deleteButton =
-    // Note how we only show the delete button to admins
-    context.user.isAdmin ?
-      <button onClick={() => onCommentDelete(id)}>Delete</button> :
-      null
-  return <>
-    <p>{ text }</p>
-    { deleteButton }
-  </>
-}
-```
-
-Because our frontend shows the delete button only to admins,
-whenever our frontend calls `onCommentDelete()`,
-we can assume the user to be an admin.
-
-But we still use `Abort()`:
-`onCommentDelete()` can be randomly called by anyone with any arguments.
-
-In this example, we essentialy use `Abort()` to protect against calls not originating from our frontend.
+If, upon canceling a telefunction call, we want to pass information to the frontend then we `return someValue` or `throw Abort(someValue)` which we talk more about at <Link href="/permissions" />.
 
 
 ## `shield()`
 
-We can also use `Abort()` to ensure the type of Telefunction arguments.
+We can also use `Abort()` to ensure the type of telefunction arguments.
 
 ```js
 // CreateTodo.telefunc.js
@@ -139,116 +79,56 @@ See also:
  - <Link href="/shield" />
 
 
-## `return someValue`
+## Random telefunction calls
 
-If, upon canceling a telefunction call, we want to pass information to the frontend we can `return someValue`.
+<Link text="Telefunctions are public" href="/tour#telefunctions-need-protection" />:
+any of our telefunction can be called by anyone at any time with any arguments.
+
+One way to think about it is that any random telefunction call can happen at any time.
+
+This means we should always protect our telefunctions,
+even if know our frontend to call a telefunction only in a certain way. For example:
+
+```jsx
+// Comment.jsx
+// Environment: Browser
+
+import { onCommentDelete } from './Comment.telefunc.js'
+
+function Comment({ id, text, context }) {
+  const deleteButton =
+    // Note how we only show the delete button to admins
+    context.user.isAdmin ?
+      <button onClick={() => onCommentDelete(id)}>Delete</button> :
+      null
+  return <>
+    <p>{ text }</p>
+    { deleteButton }
+  </>
+}
+```
 
 ```js
-// components/TodoList.telefunc.js
+// Comment.telefunc.js
 // Environment: Node.js
 
-import { getContext } from 'telefunc'
+import { getContext, Abort, shield } from 'telefunc'
 
-export async function getTodoList() {
+shield(onCommentDelete, [shield.type.number])
+export async function onCommentDelete(id) {
   const { user } = getContext()
 
-  if (!user) {
-    // It is expected that the user may not be logged in. We `return { isNotLoggedIn: true }`
-    // instead of `throw Abort()`, so that the frontend can redirect the user to the login page.
-    return { isNotLoggedIn: true }
+  // Only admins are allowed to delete comments
+  if (!user.isAdmin) {
+    throw Abort()
   }
 
   // ...
 }
 ```
 
-```js
-// components/TodoList.js
-// Browser
+Because our frontend shows the delete button only to admins,
+whenever our frontend calls `onCommentDelete()`,
+we can assume the user to be an admin.
 
-import { getTodoList } from './TodoList.telefunc.js'
-
-  // ...
-
-  const result = await getTodoList()
-
-  if (result.isNotLoggedIn) {
-    // Redirect to login page
-    window.location.href = '/login'
-  }
-
-  // ...
-```
-
-## `throw Abort(someValue)`
-
-Alternatively to `return someValue`, we can `throw Abort(someValue)` which can be more convenient, for example when defining global behavior.
-
-```js
-// auth/getUser.ts
-// Environment: Node.js
-
-// Note that `auth/getUser.ts` is not a `.telefunc.js` file.
-// Such `getContext()` convenience wrapper is a common Telefunc technique.
-export { getUser }
-
-import { Abort, getContext } from 'telefunc'
-
-function getUser() {
-  const { user } = getContext()
-  if (!user) {
-    throw Abort({ isNotLoggedIn: true })
-  }
-  return user
-}
-```
-```js
-// Browser
-
-import { onTelefunctionRemoteCallError } from 'telefunc/client'
-
-onTelefunctionRemoteCallError(err => {
-  if (err.isAbort && err.abortValue.isNotLoggedIn) {
-    // Redirect to login page
-    window.location.href = '/login'
-  }
-})
-```
-
-```js
-// components/TodoList.telefunc.js
-// Environment: Node.js
-
-export { getTodoList }
-
-import { getUser } from '../auth/getUser'
-
-async function getTodoList() {
-  const { user } = getUser()
-
-  // We don't have to handle the not-logged-in case here anymore
-
-  // We can safely assume `user` to be defined
-  const todoList = await Todo.findMany({ authorId: user.id })
-  return todoList
-}
-```
-
-```js
-// components/TodoList.js
-// Browser
-
-import { getTodoList } from './TodoList.telefunc.js'
-
-  // ...
-
-  const todoList = await getTodoList()
-
-  // Here we can as well safely assume `todoList` to be defined
-  todoList.forEach(todoItem => {
-    document.querySelector('#view').innerHTML += '<p>To-Do: ' + todoItem.text + '</p>'
-  })
-
-  // ...
-```
-
+But we still use `throw Abort()` to protect our telefunction against calls not originating from our frontend.

@@ -54,11 +54,6 @@ export const headings: HeadingDefinition[] = [
     level: 2,
     title: '`Abort()` & `shield()`',
     url: '/abort-shield',
-    /*
-    sectionTitles: [
-      'Always `Abort()`'
-    ]
-    */
   },
   {
     level: 2,
@@ -69,6 +64,7 @@ export const headings: HeadingDefinition[] = [
     level: 2,
     title: 'Permissions',
     url: '/permissions',
+    sectionTitles: ['`getContext()` wrappers'],
   },
   {
     level: 2,
@@ -83,14 +79,22 @@ export const headings: HeadingDefinition[] = [
     level: 2,
     title: 'TypeScript',
     url: '/typescript',
-    sectionTitles: [
-      '`shield()`'
-    ]
+    sectionTitles: ['`shield()`'],
   },
   {
     level: 2,
     title: 'SSR (Server-Side Rendering)',
     url: '/ssr',
+  },
+  {
+    level: 2,
+    title: 'Waterfalls',
+    url: '/waterfalls',
+  },
+  {
+    level: 2,
+    title: '`Abort()` or `new Error()`',
+    url: '/abort-or-error',
   },
   {
     level: 2,

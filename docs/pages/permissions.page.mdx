@@ -1,17 +1,21 @@
 import { Link, ReadingRecommendation } from 'libframe-docs/components'
 
-<ReadingRecommendation links={['/tour', '/tour#telefunctions-need-protection', '/abort-shield', '/auth']} />
+<ReadingRecommendation links={['/tour', '/abort-shield']} />
 
-With Telefunc, we define permissions programmatically by using a cancel mechanism:
- - `throw Abort()`
- - `return someValue`
- - `throw Abort(someValue)`
-
-We can implement `getContext()` wrappers to implement:
- - Advanced permissions.
- - Increased safety.
+> **TL;DR**
+>
+> With Telefunc, we define permissions programmatically by using a cancel mechanism:
+>  - `throw Abort()`
+>  - `return someValue`
+>  - `throw Abort(someValue)`
+>
+> We can implement `getContext()` wrappers for:
+>  - Advanced permissions.
+>  - Increased safety.
 
 ## `throw Abort()`
+
+If a permission is not respected then we cancel the telefuction call, for example with `throw Abort()`.
 
 We can `throw Abort()` to ensure our telefunctions to be called with the right permissions.
 
@@ -35,15 +39,16 @@ export async function onCommentDelete(id) {
 ```
 
 > We should `Abort()` even if we know our frontend to always call `onCommentDelete()` with the right permissions (for example because our UI displays the `<DeleteCommentButton />` components only to admins). See:
-> - <Link href="/abort-shield#always-abort" />
+> - <Link href="/abort-shield#random-telefunction-calls" />
 
+But we can also cancel a telefunction with `return someValue`.
 
 ## `return someValue`
 
-Sometimes, it is expected that our frontend can call our telefunction with wrong permissions.
+If, upon wrong permissions, we want to pass information to the frontend we can `return someValue`:
 
 ```js
-// TodoList.telefunc.js
+// components/TodoList.telefunc.js
 // Environment: Node.js
 
 export { getTodoList }
@@ -63,82 +68,37 @@ async function getTodoList() {
 }
 ```
 
-In contrast to our previous telefunction `onCommentDelete()`,
-here we expect our frontend to sometimes call `getTodoList()` with the wrong permission.
+```js
+// components/TodoList.js
+// Browser
 
-If we need to pass information to the frontend,
-we can `return someValue` instead of `throw Abort()`.
+import { getTodoList } from './TodoList.telefunc.js'
 
-But we can also `throw Abort(someValue)`.
+  // ...
+
+  const result = await getTodoList()
+
+  if (result.isNotLoggedIn) {
+    // Redirect to login page
+    window.location.href = '/login'
+  }
+
+  // ...
+```
 
 ## `throw Abort(someValue)`
 
-As we have seen in the previous section, when wrong permissions are expected, we use `return someValue`.
-
-But `return someValue` can become cumbersome.
+Alternatively to `return someValue`, we can `throw Abort(someValue)` which can be more convenient, for example when defining global behavior.
 
 ```js
 // auth/getUser.ts
-
-import { getContext } from 'telefunc'
-
-// It is a common technique to provide convenience `getContext()` wrappers
-export { getUser }
-
-function getUser() {
-  const { user } = getContext()
-  return user
-}
-```
-
-```js
-// components/TodoList.telefunc.js
 // Environment: Node.js
 
-export { fetchTodoList }
-
-import { getUser } from '../auth/getUser'
-
-async function fetchTodoList() {
-  const { user } = getUser()
-
-  if (!user) {
-    return { isNotLoggedIn: true }
-  }
-
-  // ...
-}
-
-async function onNewTodo() {
-  const { user } = getUser()
-
-  // We have to implement our logic over and over again
-  if (!user) {
-    return { isNotLoggedIn: true }
-  }
-
-  // ...
-}
-```
-
-We also that on the frontend we always need wrap all our telefunctions:
-
-```js
-
-
-```
-
-That's not ideal.
-
-Instead, by using `throw Abort(someValue)` with `onTelefunctionRemoteCallError()`, we can implement our logic only once.
-
-```js
-// auth/getUser.ts
+// Note that `auth/getUser.ts` is not a `.telefunc.js` file.
+// Such `getContext()` convenience wrapper is a common Telefunc technique.
+export { getUser }
 
 import { Abort, getContext } from 'telefunc'
-
-// It is a common technique to provide convenience wrappers around `getContext()`
-export { getUser }
 
 function getUser() {
   const { user } = getContext()
@@ -148,7 +108,6 @@ function getUser() {
   return user
 }
 ```
-
 ```js
 // Browser
 
@@ -162,88 +121,159 @@ onTelefunctionRemoteCallError(err => {
 })
 ```
 
-> This is the 
+```js
+// components/TodoList.telefunc.js
+// Environment: Node.js
+
+export { getTodoList }
+
+import { getUser } from '../auth/getUser'
+
+async function getTodoList() {
+  const { user } = getUser()
+
+  // We don't have to handle the not-logged-in case here anymore
+
+  // We can safely assume `user` to be defined
+  const todoList = await Todo.findMany({ authorId: user.id })
+  return todoList
+}
+```
+
+```js
+// components/TodoList.js
+// Browser
+
+import { getTodoList } from './TodoList.telefunc.js'
+
+  // ...
+
+  const todoList = await getTodoList()
+
+  // Here we can as well safely assume `todoList` to be defined
+  todoList.forEach(todoItem => {
+    document.querySelector('#view').innerHTML += '<p>To-Do: ' + todoItem.text + '</p>'
+  })
+
+  // ...
+```
+
 
 ## `getContext()` wrappers
 
+Implementing `getContext()` wrappers is a convenient way
+to solidify permissions.
+
 ```js
-// auth/getUser.ts
+// components/Comment.telefunc.js
+// Environment: Node.js
 
-// Note how `auth/getUser.ts` is not a `.teleunc.js` file.
+import { getContext, Abort, shield } from 'telefunc'
 
-import { Abort, getContext } from 'telefunc'
-
-// It is a common technique to provide convenience wrappers around `getContext()`
-export { getUser }
-
-function getUser({ permissions, databaseObject }) {
-
-  // `databaseObject` could for example
-
-  const { user } = getContext()
-  if (!user) {
-    throw Abort({ isNotLoggedIn: true })
-  }
-  permissions.forEach(
-  return user
+shield(onCommentDelete, [shield.type.number])
+export async function onCommentDelete(id) {
+  const { user } = getUser({ permission: 'admin' })
+  const comment = await Comment.findOne({ id })
+  await comment.delete()
 }
 ```
 
-We can also provide wrappers around `getContext()` and ORM/SQL queries to achieve:
- - 
-
 ```js
-// database/mutate.js
+// auth/getUser.ts
+// Environment: Node.js
 
-// Note how `auth/getUser.ts` is not a `.teleunc.js` file.
-
-export { mutate }
+// Note that `auth/getUser.ts` is not a `.telefunc.js` file.
+export { getUser }
 
 import { Abort, getContext } from 'telefunc'
 
-async function findObject(objectProps, permissions) {
-  // For increased safety, we ensure that a `permissions` array is always provided
-  // when accessing the database.
-  if (!permissions) {
-    throw new Error('Wrong `findObject()` usage: missing permissions array')
-  }
-
-  // For increased safety, we make sure there are no typos
-  permissions.forEach(permission => {
-    if (!['public', 'author', 'admin'].includes(permission)) {
-      throw new Error('Wrong `findObject()` usage: unkown permission ' + permission)
-    }
-  })
-
+function getUser({ permission }) {
   const { user } = getContext()
 
-  const object = await database.findOject(objectProps)
+  if (!user) {
+    // We provide .. TODO
+    throw Abort({ isNotLoggedIn: true })
+  }
 
-  if (permissions.includes('admin')) {
+  if (permission === 'admin') {
     if (!user?.isAdmin) {
       throw Abort()
     }
-    // Admins are allowed to access `object`
-    return object
+    return user
   }
 
-  if (permissions.includes('author')) {
-    if (object.authorId !== user?.id) {
-      throw Abort()
-    }
-    // The author of `object` is allowed to access it
-    return object
+  if (permission === 'public') {
+    return user
   }
 
-  if( permissions.includes('public') ) {
-    // Everyone is allowed to access `object`
-    return object
-  }
-
-  throw new Error('Wrong `findObject()` usage: make sure to define at least one permission')
+  // ...
 }
 ```
 
-> The **difference between `throw Abort()` and `throw new Error()`** is explained at 
+We can also provide ORM/SQL query wrappers.
 
+```js
+// components/TodoList.telefunc.js
+// Environment: Node.js
 
+export { onTextChange }
+
+import { findTodoItem } from '../database/todo/findTodoItem'
+import { shield } from 'telefunc'
+const t = shield.type
+
+shield(onTextChange, [{ text: t.string }])
+async function onTextChange({ id, text }) {
+  const todoItem = await findTodoItem({ id }, { permission: 'author' })
+  todoItem.text = text
+  await todoItem.save()
+}
+```
+```js
+// database/todo/findTodoItem.js
+
+export { findTodoItem }
+
+import { Abort, getContext } from 'telefunc'
+
+async function findTodoItem(props, { permission }) {
+  // For increased safety, we ensure that a `permission` is always provided
+  // when accessing the database.
+  if (!permissions) {
+    throw new Error('Wrong `findTodoItem()` usage: missing permission')
+  }
+
+  // For increased safety, we make sure there are no typos
+  if (!['public', 'author', 'admin'].includes(permission)) {
+    throw new Error('Wrong `findTodoItem()` usage: unknown permission ' + permission)
+  }
+
+  const { user } = getContext()
+
+  const todoItem = await Todo.findOne({ where: props })
+
+  if (permission === 'admin') {
+    if (!user?.isAdmin) {
+      throw Abort()
+    }
+    // Admins are allowed to access any to-do item
+    return todoItem
+  }
+
+  if (permission === 'author') {
+    if (todoItem.authorId !== user?.id) {
+      throw Abort()
+    }
+    // The author of `todoItem` is allowed to access it
+    return todoItem
+  }
+
+  if (permission === 'public') {
+    // Everyone is allowed to access `todoItem`
+    return todoItem
+  }
+}
+```
+
+> In case you are wondering: we use `new Error()` in `throw new Error('Wrong `findTodoItem()` usage')` because `findTodoItems()` is an internal function and not a public telefunction, see
+> <Link href='/abort-or-error' />

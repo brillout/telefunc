@@ -1,0 +1,71 @@
+import { Link } from 'libframe-docs/components'
+
+When should we use `throw Abort()` and `throw new Error()`?
+
+In a nutshell:
+ - We use **`throw Abort()`** for errors originating from a wrong usage of a **public** telefunction.
+ - We use **`throw new Error()`** for errors originating from a wrong usage of an **internal** function.
+
+For example:
+
+```js
+// auth/getUser.ts
+// Environment: Node.js
+
+// Note that `auth/getUser.ts` is not a `.telefunc.js` file (`getUser()` is
+// not a telefunction but what we call a `getContext()` wrapper).
+export { getUser }
+
+import { Abort, getContext } from 'telefunc'
+
+function getUser({ permission }) {
+  // We avoid typos (a typo like `admni` could have dramatic effects)
+  if (!['public', 'admin'].includes(permission)) {
+    throw new Error('Wrong `getUser()` usage: unknown permission ' + permission)
+  }
+  if (!permission) {
+    throw new Error('Wrong `getUser()` usage: missing permission')
+  }
+
+  const { user } = getContext()
+
+  if (!user) {
+    throw Abort()
+  }
+
+  if (permission === 'admin') {
+    if (!user?.isAdmin) {
+      throw Abort()
+    }
+    return user
+  }
+
+  if (permission === 'public') {
+    return user
+  }
+}
+```
+
+> Such `getContext()` wrapper is a common Telefunc technique explained at <Link href="/permissions#getcontext-wrappers" doNotInferSectionTitle={true} />.
+
+```js
+// components/Comment.telefunc.js
+// Environment: Node.js
+
+import { getUser } from '../auth/getUser'
+import { shield } from 'telefunc'
+
+shield(onCommentDelete, [shield.type.number])
+export async function onCommentDelete(id) {
+  // Only admins are allowed to delete a comment
+  const user = getUser({ permission: 'admin' })
+  const comment = await Comment.findOne({ id })
+  await comment.delete()
+}
+```
+
+It is expected that `throw Abort()` can occur, since `onCommentDelete()` is a public function anyone can call it while not being an admin.
+
+Whereas if we make a typo and call `getUser({ permission: 'admiin' })` then it's a internal bug in our backend.
+
+If our backend code has zero bug, then no `throw new Error()` would ever occur, while `throw Abort()` can still occur. Our telefunctions are public and anyone can call them with wrong arguments (or context) potentially triggering a `throw Abort()`.
