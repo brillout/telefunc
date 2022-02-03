@@ -1,6 +1,6 @@
 {
   "name": "telefunc",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "scripts": {
     "build": "rm -rf dist/ && tsc --build",
     "dev": "yarn dev:fast",

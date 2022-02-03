@@ -9,7 +9,7 @@
   "dependencies": {
     "cross-env": "^7.0.3",
     "express": "^4.17.1",
-    "telefunc": "0.1.5",
+    "telefunc": "0.1.6",
     "vite": "^2.7.12"
   },
   "type": "module",

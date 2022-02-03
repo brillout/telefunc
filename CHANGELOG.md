@@ -1,3 +1,20 @@
+## [0.1.6](https://github.com/vikejs/telefunc/compare/v0.1.5...v0.1.6) (2022-02-03)
+
+
+### Bug Fixes
+
+* improve DX around malformed Telefunc request in dev ([c4b2dd7](https://github.com/vikejs/telefunc/commit/c4b2dd7899ff2cce26a823c6f119c9454bb0f7e8))
+* improve DX upon wrong HTTP request body ([f8751f0](https://github.com/vikejs/telefunc/commit/f8751f0500d1d9842942a2d10a140fc3e59a2bb1))
+* improve telefunction's human readable name ([c8dd213](https://github.com/vikejs/telefunc/commit/c8dd21334a963c5a77ae13199fb3f9da92708641))
+* warn user when telefunction has no `shield()` ([dc08539](https://github.com/vikejs/telefunc/commit/dc08539e5a468f24747f8467063bfe09117d2188))
+
+
+### Reverts
+
+* Revert "wip" ([3341474](https://github.com/vikejs/telefunc/commit/3341474eb329b8c122fcd56ef23cebe752fa5736))
+
+
+
 ## [0.1.5](https://github.com/vikejs/telefunc/compare/v0.1.4...v0.1.5) (2022-02-01)
 
 
