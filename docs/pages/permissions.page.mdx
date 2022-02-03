@@ -165,7 +165,8 @@ to solidify permissions.
 // components/Comment.telefunc.js
 // Environment: Node.js
 
-import { getContext, Abort, shield } from 'telefunc'
+import { getUser } from '../auth/getUser'
+import { shield } from 'telefunc'
 
 shield(onCommentDelete, [shield.type.number])
 export async function onCommentDelete(id) {
@@ -179,20 +180,20 @@ export async function onCommentDelete(id) {
 // auth/getUser.ts
 // Environment: Node.js
 
-// Note that `auth/getUser.ts` is not a `.telefunc.js` file.
+// Note that `auth/getUser.ts` is not a `.telefunc.js` file and `getUser()` not a telefunction
 export { getUser }
 
 import { Abort, getContext } from 'telefunc'
 
 function getUser({ permission }) {
   const { user } = getContext()
-  if (!user) throw Abort()
-
+  if (!user) {
+    throw Abort()
+  }
   if (permission === 'admin') {
     if (!user.isAdmin) throw Abort()
     return user
   }
-
   if (permission === 'public') {
     return user
   }
@@ -222,14 +223,13 @@ export async function onTextChange({ id, text }) {
 
 export { findTodoItem }
 
-import { Abort, getContext } from 'telefunc'
+import { getContext, Abort } from 'telefunc'
 
 async function findTodoItem(props, { permission }) {
   // For increased safety, we ensure that a `permission` is always provided.
   if (!permission) {
     throw new Error('Wrong findTodoItem() usage: missing permission')
   }
-
   // For increased safety, we make sure there are no typos.
   if (!['public', 'author', 'admin'].includes(permission)) {
     throw new Error('Wrong findTodoItem() usage: unknown permission ' + permission)
