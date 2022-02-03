@@ -19,7 +19,7 @@ function Features() {
           desc: (
             <>
               <p>
-                With Telefunc, you have a simple frontend-backend relationship &mdash; it's really just a set of remote
+                Telefunc simplifies the frontend-backend relationship &mdash; with Telefunc it's just a set of remote
                 functions.
               </p>
               <p>
@@ -54,8 +54,8 @@ function Features() {
           desc: (
             <>
               <p>
-                Telefunc supports both Webpack and Vite based frameworks: <b>Next.js</b>, <b>Nuxt</b>, <b>Vite</b>,{' '}
-                <b>Vike</b>, <b>SvelteKit</b>, etc.
+                Telefunc supports Webpack and Vite based frameworks: <b>Next.js</b>, <b>Nuxt</b>, <b>Vite</b>,{' '}
+                <b>Vike</b>, <b>SvelteKit</b>, <b>Angular</b>, <b>CRA</b>, <b>Gatsby</b>, etc.
               </p>
               <p>You want to change your stack? Bring Telefunc along.</p>
             </>

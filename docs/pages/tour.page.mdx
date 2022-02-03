@@ -2,7 +2,8 @@ import { Link } from 'libframe-docs/components'
 
 > Alreay familiar with RPC? Only read the last sections:
 > - [`Abort()` & `shield()`](#abort-shield)
-> - [Authentication & Permissions](#authentication-permissions)
+> - [Authentication](#authentication)
+> - [Permissions & validation](#permissions-validation)
 > - [Inversion of Control](#inversion-of-control)
 > - [TypeScript](#typescript)
 
@@ -234,7 +235,7 @@ curl https://our-website.com/_telefunc --data '{
  }'
 ```
 
-Thus, such telefunction is problematic:
+Thus, this telefunction is problematic:
 
 ```js
 // sql.telefunc.js
@@ -247,8 +248,8 @@ async function run(sql) {
 }
 ```
 
-This `run()` telefunction essentially exposes our entire database to the world as
-anyone can make an HTTP request like the following.
+Our `run()` telefunction exposes our entire database to the world;
+anyone can make such HTTP request:
 
 ```bash
 curl https://our-website.com/_telefunc --data '{
@@ -257,7 +258,7 @@ curl https://our-website.com/_telefunc --data '{
   }'
 ```
 
-We should always keep mind that our telefunctions are public and need protection.
+So, telefunctions are public and need protection.
 
 ## `Abort()` & `shield()`
 
@@ -275,13 +276,13 @@ async function run(sql) {
 }
 ```
 
-But we can `throw Abort()` to protect it:
+But we can use `Abort()` to protect it:
 
 ```js
 // run.telefunc.js
 // Environment: Node.js
 
-import { Abort, getContext } from 'telefunc'
+import { getContext } from 'telefunc'
 
 export { run }
 
@@ -343,9 +344,11 @@ Not only does `shield()` call `throw Abort()` on our behalf, but it also infers 
 
 > <Link href="/shield" /> lists all <code>shield()</code> types. (<code>shield.type.string</code>, <code>shield.type.number</code>, <code>shield.type.array()</code>, ...)
 
-## Authentication & permissions
+## Authentication
 
-We can authenticate users by using `getContext()` with `provideTelefuncContext()`.
+Telefunctions often need context. Is the user logged-in? What is the user's ID? Etc.
+
+We use `getContext()` with `provideTelefuncContext()` in order to provide contextual information to our telefunctions.
 
 ```js
 // server.js
@@ -376,19 +379,12 @@ async function getTodoItems() {
   // We can access `user` here
   const { user } = getContext()
 
-  if (!user) {
-    // We can use `Abort()` to ensure that the user is logged-in
-    throw Abort()
-  }
-
   // For example, we can use `user.id` to find all to-do items of the logged-in user
   const authorId = user.id
   const todoItems = await Todo.findMany({ select: 'text', authorId })
   return todoItems
 }
 ```
-
-
 
 ## Permissions & validation
 
@@ -410,7 +406,7 @@ async function onTextChange(id, text) {
   const todoItem = await Todo.findOne({ id })
 
   // Only the author of a to-do item is allowed to change its text
-  if (user.id !== todoItem.authorId) {
+  if (user?.id !== todoItem.authorId) {
     throw Abort()
   }
 
@@ -431,6 +427,10 @@ import { getContext } from 'telefunc'
 export async function getTodoItems() {
   const { user } = getContext()
   if (!user) {
+    /* This doesn't work
+    throw Abort({ isLoggedOut: true })
+    */
+    // But we can do this
     return { isLoggedOut: true }
   }
 }
@@ -613,7 +613,7 @@ const onUserSettingsChange = shield(
 )
 ```
 
-Our frontend can seamlessly uses our backend telefunctions' type:
+Our frontend seamlessly uses our backend telefunctions' type:
 
 ```tsx
 // UserSettings.jsx
