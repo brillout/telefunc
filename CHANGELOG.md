@@ -9,11 +9,6 @@
 * warn user when telefunction has no `shield()` ([dc08539](https://github.com/vikejs/telefunc/commit/dc08539e5a468f24747f8467063bfe09117d2188))
 
 
-### Reverts
-
-* Revert "wip" ([3341474](https://github.com/vikejs/telefunc/commit/3341474eb329b8c122fcd56ef23cebe752fa5736))
-
-
 
 ## [0.1.5](https://github.com/vikejs/telefunc/compare/v0.1.4...v0.1.5) (2022-02-01)
 
