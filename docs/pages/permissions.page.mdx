@@ -149,14 +149,14 @@ function getUser() {
 }
 ```
 
-```
+```js
 // Browser
 
 import { onTelefunctionRemoteCallError } from 'telefunc/client'
 
 onTelefunctionRemoteCallError(err => {
   if (err.isAbort && err.abortValue.isNotLoggedIn) {
-    // Redirect user to login page
+    // Redirect to login page
     window.location.href = '/login'
   }
 })
