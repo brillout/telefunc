@@ -32,7 +32,7 @@ async function startServer() {
   })
 
   app.use(express.text()) // Parse & make HTTP request body available at `req.body`
-  app.all('/_telefunc', async (req, res, next) => {
+  app.all('/_telefunc', async (req, res) => {
     const { user } = req
     provideTelefuncContext({ user })
     const httpResponse = await telefunc({ url: req.originalUrl, method: req.method, body: req.body })

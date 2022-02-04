@@ -18,7 +18,7 @@ function start(app) {
 
 function installTelefunc(app) {
   app.use(express.text())
-  app.all('/_telefunc', async (req, res, next) => {
+  app.all('/_telefunc', async (req, res) => {
     const { originalUrl: url, method, body } = req
     const httpResponse = await telefunc({ url, method, body })
     res.status(httpResponse.statusCode).type(httpResponse.contentType).send(httpResponse.body)
