@@ -1,4 +1,5 @@
 import { Link } from 'libframe-docs/components'
+import AuthIntegration from '../components/AuthIntegration.mdx'
 
 > Alreay familiar with RPC? Only read the last sections:
 > - [`Abort()` & `shield()`](#abort-shield)
@@ -346,22 +347,7 @@ Not only does `shield()` call `throw Abort()` on our behalf, but it also infers 
 
 We can authenticate users by using `getContext()` with `provideTelefuncContext()`.
 
-```js
-// server.js
-// Environment: Node.js
-
-import { provideTelefuncContext } from 'telefunc'
-
-// Server middleware (Express.js/Fastify/Koa/Hapi/...)
-app.use('*', async (req, res) => {
-  // Authentication middlewares (e.g. Passport.js or Grant) usually make information
-  // about the logged-in user available at `req.user`.
-  const user = req.user
-
-  // We make `user` available to our telefunctions
-  provideTelefuncContext({ user })
-})
-```
+<AuthIntegration />
 
 ```js
 // TodoList.telefunc.js
