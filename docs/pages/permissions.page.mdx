@@ -11,7 +11,7 @@ import { Link, ReadingRecommendation } from 'libframe-docs/components'
 >
 > We can implement `getContext()` wrappers for:
 >  - Advanced permission rules.
->  - Increased safety.
+>  - Hardened safety.
 
 ## `throw Abort()`
 
@@ -258,4 +258,4 @@ async function findTodoItem(props, { permission }) {
 }
 ```
 
-> In case you are wondering: we don't use `throw Abort()` but `throw new Error()` in ``throw new Error('Wrong findTodoItem() usage')`` because `findTodoItems()` is an internal function and not a public telefunction, see <Link href='/abort-or-error' />.
+> We don't use `throw Abort()` but `throw new Error()` in ``throw new Error('Wrong findTodoItem() usage')`` because it is <Link text="not a public but an internal error" href='/abort-or-error' />.

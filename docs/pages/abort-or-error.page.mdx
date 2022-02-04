@@ -1,10 +1,30 @@
 import { Link } from 'libframe-docs/components'
 
-When should we use `throw Abort()` and `throw new Error()`?
+We may wonder, why not using `throw new Error()` instead of `throw new Abort()`?
 
-In a nutshell:
- - We use **`throw Abort()`** for errors originating from a wrong usage of a **public** telefunction.
- - We use **`throw new Error()`** for errors originating from a wrong usage of an **internal** function.
+```js
+// TodoList.telefunc.js
+// Environment: Node.js
+
+import { getContext } from 'telefunc'
+
+export async function getTodoList() {
+  const { user } = getContext()
+
+  if (!user) {
+    // Instead of `throw Abort()`
+    throw new Error()
+  }
+
+  // ...
+}
+```
+
+In principle, it also works as `throw new Error()` also achieves the job of canceling the telefunction. But `Abort()` comes with many conveniences and we therefore recommend using `throw Abort()`.
+
+In general:
+ - We use **`throw Abort()`** for errors originating from a **wrong public usage** of a telefunction.
+ - We use **`throw new Error()`** for errors originating from a **wrong internal usage** of a function.
 
 For example:
 
@@ -20,11 +40,11 @@ import { Abort, getContext } from 'telefunc'
 
 function getUser({ permission }) {
   if (!permission) {
-    throw new Error('Wrong `getUser()` usage: missing permission')
+    throw new Error('Wrong getUser() usage: missing permission')
   }
   // We avoid typos (a typo like `admni` could have dramatic consequences)
   if (!['public', 'admin'].includes(permission)) {
-    throw new Error('Wrong `getUser()` usage: unknown permission ' + permission)
+    throw new Error('Wrong getUser() usage: unknown permission ' + permission)
   }
 
   const { user } = getContext()
@@ -66,4 +86,4 @@ export async function onCommentDelete(id) {
 
 It is expected that `throw Abort()` can occur, since `onCommentDelete()` is a public function anyone can call while not being an admin.
 
-Whereas if we make a typo and call `getUser({ permission: 'admni' })` then it's an internal bug in our backend.
+Whereas `throw new Error('Wrong getUser() usage')` is expected to *not* occur: if we make a typo and call `getUser({ permission: 'admni' })` then it's an internal bug in our backend that we should fix.

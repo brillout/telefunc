@@ -4,6 +4,10 @@ export { headingsWithoutLink }
 
 const headingsWithoutLink: HeadingWithoutLink[] = [
   {
+    title: '`Abort()` or `new Error()`',
+    url: '/abort-or-error',
+  },
+  {
     title: 'Isomorphic `import`',
     url: '/isomorphic-import',
   },
@@ -68,7 +72,7 @@ export const headings: HeadingDefinition[] = [
   },
   {
     level: 2,
-    title: 'Form Validation',
+    title: 'Form validation',
     url: '/form-validation',
   },
   {
@@ -95,11 +99,6 @@ export const headings: HeadingDefinition[] = [
     level: 2,
     title: 'Waterfalls',
     url: '/waterfalls',
-  },
-  {
-    level: 2,
-    title: '`Abort()` or `new Error()`',
-    url: '/abort-or-error',
   },
   {
     level: 2,

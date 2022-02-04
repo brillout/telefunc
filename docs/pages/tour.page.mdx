@@ -92,8 +92,7 @@ async function TodoList() {
 
 > Note how we collocate and name `TodoList.telefunc.js` after `TodoList.jsx`; it's a practice we'll talk about later.
 
-> Our examples uses JSX
-> but note that Telefunc works with any UI framework (React, Vue, Angular, Svelte, ...).
+> Our examples use JSX but note that Telefunc works with any UI framework (React, Vue, Angular, Svelte, ...).
 
 Our frontend can also use telefunctions to mutate data.
 
@@ -540,10 +539,10 @@ This inversion of control leads to a fundamentally improved separation of concer
 
 ## TypeScript
 
-`shield()` infers the argument types:
+Instead of defining types twice, we can let `shield()` infer the arguments' type:
 
 ```ts
-// UserSettings.telefunc.js
+// UserSettings.telefunc.ts
 // Environment: Node.js
 
 export { onUserSettingsChange }
@@ -554,32 +553,35 @@ const t = shield.type
 const onUserSettingsChange = shield(
   [
     t.or(
-      { name: t.const('firstName'), newVal: t.string },
-      { name: t.const('age'), newVal: t.number }
+      { settingName: t.const('firstName'), newValue: t.string },
+      { settingName: t.const('age'), newValue: t.number }
     )
   ],
-  async ({ name, newVal }) => {
-    if (name === 'firstName') {
-      // The `onUserSettingsChange` argument types are inferred:
-      // TypeScript knows that `newVal` is a string in this if-block.
-      newVal++ // ❌ TypeScript complains that `newVal` is not a number.
+  // TypeScript infers `settingName` and `newValue` to
+  //   { settingName: 'firstName' as const, newValue: string } |
+  //   { settingName: 'age' as const, newValue: number }
+  async ({ settingName, newValue }) => {
+    if (settingName === 'firstName') {
+      // TypeScript knows that `newValue` is a string in this if-block
+      newValue = newValue + 'Some Last Name' // ✅
+      newValue = newValue + 1 // ❌ TypeScript complains that `newValue` is not a number
     }
-    if (name === 'age') {
-      // TypeScript knows that `newVal` is a number in this if-block.
-      newVal++ // ✅
+    if (settingName === 'age') {
+      // TypeScript knows that `newValue` is a number in this if-block
+      newValue = newValue + 1 // ✅
     }
   }
 )
 ```
 
-Our frontend can seamlessly uses our backend telefunctions' type:
+With Telefunc, the frontend seamlessly uses backend types:
 
 ```tsx
-// UserSettings.jsx
+// UserSettings.tsx
 // Environment: Browser
 
 // TypeScript believes that `UserSettings.telefunc.js` is imported. This means that TypeScript
-// works out-of-the-box; type-safety & IntelliSense just works (including auto-import!).
+// works out-of-the-box: type safety, IntelliSense and autocomplete just works.
 import { onUserSettingChange } from './UserSettings.telefunc.js'
 
 function UserSettings() {
@@ -589,7 +591,7 @@ function UserSettings() {
         input="text"
         onChange={ev =>
           // TypeScript complains if `ev.target.value` is not a string
-          onUserSettingChange('firstName', ev.target.value)
+          onUserSettingChange({ settingName: 'firstName', newValue: ev.target.value })
         }
       >
         {initialState.firstName}
@@ -598,7 +600,7 @@ function UserSettings() {
         input="number"
         onChange={ev =>
           // TypeScript complains if `ev.target.value` is not a number
-          onUserSettingChange('age', ev.target.value)
+          onUserSettingChange({ settingName: 'age', newValue: ev.target.value })
         }
       >
         {initialState.age}

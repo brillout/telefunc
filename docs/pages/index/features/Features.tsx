@@ -37,8 +37,8 @@ function Features() {
           desc: (
             <>
               <p>
-                Telefunc enables <b>programmatically defined permissions</b>.
-                It's both <b>simple</b> and <b>flexible</b>.
+                Telefunc enables <b>programmatically defined permissions</b>. It's both <b>simple</b> and{' '}
+                <b>flexible</b>.
               </p>
               <p>
                 Telefunc introduces new techniques that enable advanced permissions and <b>hardened safety</b>.
@@ -55,8 +55,9 @@ function Features() {
           desc: (
             <>
               <p>
-                Telefunc supports both Webpack and Vite based frameworks: <b>Next.js</b>, <b>Nuxt</b>, <b>Vite</b>,{' '}
-                <b>Vike</b>, <b>SvelteKit</b>, etc.
+                Telefunc supports{' '}
+                <b>Next.js</b>, <b>Nuxt</b>, <b>SvelteKit</b>, <b>Vite</b>, <b>Vike</b> and any framework{' '}
+                based on Webpack or Vite.
               </p>
               <p>You want to change your stack? Bring Telefunc along.</p>
             </>
@@ -71,8 +72,8 @@ function Features() {
           desc: (
             <>
               <p>
-                The frontend can directly tap into the <b>full power of the server</b>. You can use tailored and optimized
-                SQL/ORM queries for highly performant data retrieval and mutations.
+                The frontend can directly tap into the <b>full power of the server</b>. You can use tailored and
+                optimized SQL/ORM queries for highly performant data retrieval and mutations.
               </p>
             </>
           ),
