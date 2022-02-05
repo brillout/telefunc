@@ -1,8 +1,8 @@
 export { runTelefunc }
 
-import type { TelefuncFiles, Telefunction } from './types'
+import type { TelefuncFiles } from './types'
 import type { ViteDevServer } from 'vite'
-import { assert, assertUsage, checkType, objectAssign } from '../utils'
+import { assert, objectAssign } from '../utils'
 import { getContextOptional } from './getContext'
 import { loadTelefuncFiles } from './runTelefunc/loadTelefuncFiles'
 import { parseHttpRequest } from './runTelefunc/parseHttpRequest'
@@ -13,6 +13,7 @@ import { serializeTelefunctionResult } from './runTelefunc/serializeTelefunction
 import { handleError } from './runTelefunc/handleError'
 import { executeServerErrorListeners } from './runTelefunc/onTelefuncServerError'
 import { applyShield } from './runTelefunc/applyShield'
+import { findTelefunction } from './runTelefunc/findTelefunction'
 
 type HttpResponse = {
   body: string
@@ -62,40 +63,33 @@ async function runTelefunc_(runContext: {
     if (parsed.isMalformed) {
       return malformedRequest
     }
-    const { telefunctionName, telefunctionKey, telefunctionArgs } = parsed
+    const { telefunctionName, telefunctionKey, telefunctionArgs, telefunctionFilePath, telefunctionFileExport } = parsed
     objectAssign(runContext, {
       telefunctionName,
       telefunctionKey,
       telefunctionArgs,
+      telefunctionFilePath,
+      telefunctionFileExport,
     })
   }
 
   {
     const telefuncFiles = runContext.telefuncFiles || (await loadTelefuncFiles(runContext))
     assert(telefuncFiles, 'No `.telefunc.js` file found')
-    checkType<TelefuncFiles>(telefuncFiles)
     objectAssign(runContext, { telefuncFiles })
     runContext.telefuncFiles
   }
 
   {
     const { telefunctions } = await getTelefunctions(runContext)
-    checkType<Record<string, Telefunction>>(telefunctions)
     objectAssign(runContext, { telefunctions })
   }
 
   {
-    assertUsage(
-      runContext.telefunctionKey in runContext.telefunctions,
-      [
-        `Could not find telefunction ${
-          runContext.telefunctionName
-        }. The client is likely out-of-sync with the server, see https://telefunc.com/out-of-sync. Try reloading the client and/or server. Loaded telefunctions: [${Object.keys(
-          runContext.telefunctions,
-        ).join(', ')}]`,
-      ].join(' '),
-    )
-    const telefunction = runContext.telefunctions[runContext.telefunctionKey]
+    const telefunction = findTelefunction(runContext)
+    if (!telefunction) {
+      return malformedRequest
+    }
     objectAssign(runContext, { telefunction })
   }
 
