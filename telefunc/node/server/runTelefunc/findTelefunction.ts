@@ -37,10 +37,10 @@ function findTelefunction(runContext: {
     const { telefuncFiles, telefunctionFilePath, telefunctionFileExport } = runContext
     const telefuncFile = telefuncFiles[telefunctionFilePath]
     if (!telefuncFile) {
-      errMsg += ` The file \`${runContext.telefunctionFilePath}\` doens't seem to exist.`
+      errMsg += ` The file \`${runContext.telefunctionFilePath}\` doesn't seem to exist.`
     } else {
       assert(!telefuncFile[telefunctionFileExport])
-      errMsg += ` The file \`${runContext.telefunctionFilePath}\` doens't seem to have an export \`${telefunctionFileExport}\`.`
+      errMsg += ` The file \`${runContext.telefunctionFilePath}\` doesn't seem to have an export \`${telefunctionFileExport}\`.`
     }
     errMsg += [runContext.telefunctionKey, ...telefunctionsFound]
       .sort()

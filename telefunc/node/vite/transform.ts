@@ -10,7 +10,7 @@ function transform(): Plugin {
   return {
     name: 'telefunc:transform',
     config: (config) => {
-      // Vite doens't seem to always normalize config.root
+      // Vite doesn't seem to always normalize config.root
       root = config.root ? toPosixPath(config.root) : toPosixPath(process.cwd())
     },
     async transform(src, id, options) {
