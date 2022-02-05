@@ -29,6 +29,7 @@ export const headings: HeadingDefinition[] = [
     level: 2,
     title: 'Tour',
     url: '/tour',
+    sectionTitles: ['TypeScript'],
   },
   {
     level: 2,
@@ -88,12 +89,14 @@ export const headings: HeadingDefinition[] = [
     level: 2,
     title: 'TypeScript',
     url: '/typescript',
-    sectionTitles: ['`shield()`'],
+    /*
+    sectionTitles: ['`shield()`', '`getContext()`'],
+    */
   },
   {
     level: 2,
-    title: 'SSR (Server-Side Rendering)',
-    url: '/ssr',
+    title: 'Telefunc Server',
+    url: '/telefunc-server',
   },
   {
     level: 2,
@@ -102,8 +105,8 @@ export const headings: HeadingDefinition[] = [
   },
   {
     level: 2,
-    title: 'Telefunc Server',
-    url: '/telefunc-server',
+    title: 'SSR (Server-Side Rendering)',
+    url: '/ssr',
   },
   {
     level: 1,

@@ -1,9 +1,102 @@
-TODO
+import { Link } from 'libframe-docs/components'
 
-`shield()` infers types so you define your times only once for both runtime and compile-time.
+As we have seen in <Link href="/tour#typescript" doNotInferSectionTitle={true} /> TypeScript works outside-the-box.
 
 From TypeScript's perspective, the frontend directly imports server functions (TypeScript doens't know
 that the
 `.telefunc.js` files are transformed). In other words: TypeScript just works.
 
-## `shield()`
+
+## `shield()` arguments inferring
+
+We can use `shield()` to infer the types of telefunction arguments.
+
+```ts
+// CreateTodo.telefunc.js
+// Environment: Node.js
+
+export { onNewTodo }
+
+import { shield } from 'telefunc'
+
+const onNewTodo = shield(
+  [shield.type.string],
+  async function (text) {
+    // ✅ TypeScript knows that `text` is a `string`
+  }
+)
+```
+
+Note that the following won't work:
+
+```ts
+// CreateTodo.telefunc.js
+// Environment: Node.js
+
+export { onNewTodo }
+
+import { shield } from 'telefunc'
+
+shield(onNewTodo, [shield.type.string])
+async function onNewTodo(text) {
+  // ❌ TypeScript doesn't know that `text` is a `string`
+}
+```
+
+See also:
+ - <Link href="/shield#typescript" />
+
+For a reference of all types `shield.type.*` with their TypeScript counterparts, see 
+
+
+## `getContext()`
+
+We can globally define the context type by setting `Telefunc.Context`:
+
+```ts
+// TelefuncContext.d.ts
+
+import 'telefunc'
+import type { User } from './User.ts'
+
+declare module 'telefunc' {
+  namespace Telefunc {
+    interface Context {
+      user: null | User
+    }
+  }
+}
+```
+```ts
+// User.ts
+
+export type User = { id: number }
+```
+
+```ts
+// *.telefunc.ts
+
+import { getContext } from 'telefunc'
+
+export async function someTelefunction() {
+  const { user } = getContext()
+  // TypeScript knows that `user.id` is a `number`
+}
+```
+
+Alternatively, we can directly define the context type:
+
+```ts
+// *.telefunc.ts
+
+import { getContext } from 'telefunc'
+
+export async function someTelefunction() {
+  const { userId } = getContext<{ userId: number }>()
+  // TypeScript knows that `userId` is a `number`
+}
+```
+
+
+## `shield()` infer TypeScript type
+
