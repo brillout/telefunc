@@ -1,3 +1,12 @@
+## [0.1.7](https://github.com/vikejs/telefunc/compare/v0.1.6...v0.1.7) (2022-02-05)
+
+
+### Bug Fixes
+
+* improve DX around not found telefunction ([c40a378](https://github.com/vikejs/telefunc/commit/c40a378513f048090f55e24e5d3a04c16e49f76f))
+
+
+
 ## [0.1.6](https://github.com/vikejs/telefunc/compare/v0.1.5...v0.1.6) (2022-02-03)
 
 
