@@ -1073,10 +1073,10 @@
   resolved "https://registry.yarnpkg.com/@brillout/json-s/-/json-s-0.4.3.tgz#6df94504f1a60de518f911848c94fb2cd234d25f"
   integrity sha512-JIQTfsEh+c5mpk4QeliioqO+CtE5PM80GEzCfbD8ZUbPmnwqMaDXoFxrZM+Io1Fi/DyBEFDXKa2FgqJm6dSNrQ==
 
-"@brillout/libassert@^0.5.2", "@brillout/libassert@^0.5.3":
-  version "0.5.3"
-  resolved "https://registry.yarnpkg.com/@brillout/libassert/-/libassert-0.5.3.tgz#4e81c9f3acefc697485a3782b839065f5be09502"
-  integrity sha512-x8ZhdiZNVl4pDl1G+1xOYfqofHJrUUdH+G0kKtVRI94oMZNywQDO7jw/X3tw8hK6RDYnW6EK0gnjiW3lx4InXA==
+"@brillout/libassert@^0.5.2", "@brillout/libassert@^0.5.4":
+  version "0.5.4"
+  resolved "https://registry.yarnpkg.com/@brillout/libassert/-/libassert-0.5.4.tgz#3bccfe15e8b0d16db4a63b6a5d312a1dfae27e7c"
+  integrity sha512-ayIUIOFM98wqgMnCquDlzENRBLmJ82hsKnosaaG2U4+ijUVwi1E2LzD0TwhAC8G7vBqp0BbT172mfTXBVMIw5A==
 
 "@brillout/part-regex@^0.1.2":
   version "0.1.2"
@@ -1336,9 +1336,9 @@
   integrity sha512-cz8HFjOFfUBtvN+NXYSFMHYRdxZMaEl0XypVrhzxBgadKIXhIkRd8aMeHhmF56Sl7SuS8OnUpQ73/k9LE4VnLg==
 
 "@jridgewell/sourcemap-codec@^1.4.9":
-  version "1.4.9"
-  resolved "https://registry.yarnpkg.com/@jridgewell/sourcemap-codec/-/sourcemap-codec-1.4.9.tgz#6963babca1e1b8a8dc1c379bd4bd2bf9c21c356a"
-  integrity sha512-iKsUDLGOrC5pSdVTyb8zJI/f55wItTzGtfGWiWPWTc8h2P4oucax7XOGSRq9V2aA1nwE8qMaGvwdXk3PZRtgjg==
+  version "1.4.10"
+  resolved "https://registry.yarnpkg.com/@jridgewell/sourcemap-codec/-/sourcemap-codec-1.4.10.tgz#baf57b4e2a690d4f38560171f91783656b7f8186"
+  integrity sha512-Ht8wIW5v165atIX1p+JvKR5ONzUyF4Ac8DZIQ5kZs9zrb6M8SJNXpx1zn04rn65VjBMygRoMXcyYwNK0fT7bEg==
 
 "@jridgewell/trace-mapping@^0.2.7":
   version "0.2.7"
