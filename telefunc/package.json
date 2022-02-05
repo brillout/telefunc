@@ -38,7 +38,7 @@
   },
   "dependencies": {
     "@brillout/json-s": "^0.4.3",
-    "@brillout/libassert": "^0.5.2",
+    "@brillout/libassert": "^0.5.3",
     "es-module-lexer": "^0.7.1",
     "vite-plugin-import-build": "^0.1.1"
   },
