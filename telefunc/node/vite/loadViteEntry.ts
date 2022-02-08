@@ -25,7 +25,8 @@ async function loadViteEntry({
   } else {
     assert(viteDevServer)
     devPath = nodeRequire.resolve(devPath)
-    assert(moduleExists(devPath))
+    // Vite occasionally chokes upon `moduleExists()` in dev
+    // assert(moduleExists(devPath))
     try {
       moduleExports = await viteDevServer.ssrLoadModule(devPath)
     } catch (err: unknown) {

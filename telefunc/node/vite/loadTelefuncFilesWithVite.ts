@@ -1,4 +1,4 @@
-import { assert, hasProp, isObject, moduleExists } from '../utils'
+import { assert, hasProp, isObject } from '../utils'
 import type { ViteDevServer } from 'vite'
 import { loadViteEntry } from './loadViteEntry'
 import { TelefuncFiles } from '../server/types'
@@ -13,7 +13,8 @@ async function loadTelefuncFilesWithVite(runContext: {
   isProduction: boolean
 }): Promise<TelefuncFiles> {
   const viteEntryFile = 'importTelefuncFiles.js'
-  assert(moduleExists(`./${viteEntryFile}`, __dirname))
+  // Vite occasionally chokes upon `moduleExists()` in dev
+  // assert(moduleExists(`./${viteEntryFile}`, __dirname))
 
   const userDist = `${runContext.root}/dist`
   const prodPath = `${userDist}/server/${viteEntryFile}`
