@@ -1,0 +1,7 @@
+packages:
+  - 'telefunc/'
+  - 'docs/'
+  - 'examples/*'
+  - 'libframe/test/'
+  - 'libframe/docs/'
+  - 'libframe/scripts/'

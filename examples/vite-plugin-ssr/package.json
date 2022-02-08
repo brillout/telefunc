@@ -15,7 +15,5 @@
     "telefunc": "0.1.8",
     "vite": "2.6.7",
     "vite-plugin-ssr": "^0.3.26"
-  },
-  "name": "example_vite-plugin-ssr",
-  "version": "0.0.0"
+  }
 }
