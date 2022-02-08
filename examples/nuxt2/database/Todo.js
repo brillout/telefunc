@@ -16,7 +16,7 @@ function findMany({ authorId }) {
   return database.todoItems.filter((todoItem) => todoItem.authorId === authorId)
 }
 
-function createNew({ text, authorId }) {
+async function createNew({ text, authorId }) {
   database.todoItems.push({ text, authorId })
-  database._save()
+  await database._save()
 }

@@ -15,7 +15,7 @@ async function getTodoListData() {
 async function onNewTodo({ text }) {
   const user = getUser()
   const authorId = user.id
-  Todo.createNew({ text, authorId })
+  await Todo.createNew({ text, authorId })
   const todoItems = Todo.findMany({ authorId })
   return { todoItems }
 }
