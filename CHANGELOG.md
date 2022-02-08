@@ -1,3 +1,12 @@
+## [0.1.8](https://github.com/vikejs/telefunc/compare/v0.1.7...v0.1.8) (2022-02-08)
+
+
+### Bug Fixes
+
+* circumvent `moduleExists()` Vite bug ([32da7fd](https://github.com/vikejs/telefunc/commit/32da7fdcb02fc957d67c66a84b9bb850bd4eb861))
+
+
+
 ## [0.1.7](https://github.com/vikejs/telefunc/compare/v0.1.6...v0.1.7) (2022-02-05)
 
 
