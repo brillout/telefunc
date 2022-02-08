@@ -1,28 +1,19 @@
-import { Link } from 'libframe-docs/components'
+import { Link, Emoji } from 'libframe-docs/components'
 
-As we have seen in <Link href="/tour#typescript" doNotInferSectionTitle={true} /> TypeScript works outside-the-box.
-
-From TypeScript's perspective, the frontend directly imports server functions (TypeScript doens't know
-that the
-`.telefunc.js` files are transformed). In other words: TypeScript just works.
+As we have seen in <Link href="/tour#typescript" doNotInferSectionTitle={true} />, Telefunc supports TypeScript outside-the-box and enables seamless end-to-end type safety.
 
 
-## `shield()` arguments inferring
+## `shield()`
 
-We can use `shield()` to infer the types of telefunction arguments.
+TypeScript can automatically infer the type of telefunction arguments:
 
 ```ts
-// CreateTodo.telefunc.js
-// Environment: Node.js
-
-export { onNewTodo }
-
 import { shield } from 'telefunc'
 
-const onNewTodo = shield(
+export const onNewTodo = shield(
   [shield.type.string],
   async function (text) {
-    // ✅ TypeScript knows that `text` is a `string`
+    // ✅ TypeScript knows that `text` is of type `string`
   }
 )
 ```
@@ -30,28 +21,22 @@ const onNewTodo = shield(
 Note that the following won't work:
 
 ```ts
-// CreateTodo.telefunc.js
-// Environment: Node.js
-
-export { onNewTodo }
-
 import { shield } from 'telefunc'
 
-shield(onNewTodo, [shield.type.string])
+export shield(onNewTodo, [shield.type.string])
+// TypeScript cannot infer the type of named functions by design.
 async function onNewTodo(text) {
-  // ❌ TypeScript doesn't know that `text` is a `string`
+  // ❌ TypeScript doesn't know that `text` is of type `string`
 }
 ```
 
-See also:
- - <Link href="/shield#typescript" />
-
-For a reference of all types `shield.type.*` with their TypeScript counterparts, see 
+> For a reference table of all types `shield.type.*` with their TypeScript counterparts,
+> see <Link href="/shield#all-types" />.
 
 
 ## `getContext()`
 
-We can globally define the context type by setting `Telefunc.Context`:
+We can define the context type globally by setting `Telefunc.Context`:
 
 ```ts
 // TelefuncContext.d.ts
@@ -80,11 +65,11 @@ import { getContext } from 'telefunc'
 
 export async function someTelefunction() {
   const { user } = getContext()
-  // TypeScript knows that `user.id` is a `number`
+  // TypeScript knows that `user.id` is of type `number`
 }
 ```
 
-Alternatively, we can directly define the context type:
+Alternatively, we can define the context type directly:
 
 ```ts
 // *.telefunc.ts
@@ -93,10 +78,6 @@ import { getContext } from 'telefunc'
 
 export async function someTelefunction() {
   const { userId } = getContext<{ userId: number }>()
-  // TypeScript knows that `userId` is a `number`
+  // TypeScript knows that `userId` is of type `number`
 }
 ```
-
-
-## `shield()` infer TypeScript type
-

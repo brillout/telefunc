@@ -10,7 +10,7 @@ import { onNewTodo } from './CreateTodo.telefunc.js'
 async function onClick(form) {
   const text = form.input.value
   // Behind the scenes, Telefunc makes an HTTP request
-  await onNewTodo(text)
+  await onNewTodo({ text })
 }
 
 function CreateTodo() {

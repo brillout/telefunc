@@ -89,9 +89,7 @@ export const headings: HeadingDefinition[] = [
     level: 2,
     title: 'TypeScript',
     url: '/typescript',
-    /*
     sectionTitles: ['`shield()`', '`getContext()`'],
-    */
   },
   {
     level: 2,
