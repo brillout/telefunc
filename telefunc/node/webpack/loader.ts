@@ -1,9 +1,17 @@
-import type { LoaderDefinitionFunction } from 'webpack'
 import { assert, toPosixPath } from '../utils'
 import { transformTelefuncFile } from '../transformer/transformTelefuncFile'
 import { transformTelefuncFileSSR } from '../transformer/transformTelefuncFileSSR'
 
-module.exports = <LoaderDefinitionFunction>async function (input) {
+// Subset of `import type { LoaderDefinitionFunction } from 'webpack'`
+type Loader = {
+  _compiler?: {
+    name: string
+    context: string
+  }
+  resource: string
+}
+
+module.exports = async function (this: Loader, input: string): Promise<string> {
   const compiler = this._compiler!
   const id = this.resource
   const root = this._compiler!.context
