@@ -13,8 +13,9 @@ async function loadTelefuncFilesWithVite(runContext: {
   isProduction: boolean
 }): Promise<TelefuncFiles> {
   const viteEntryFile = 'importTelefuncFiles.js'
-  // Vite occasionally chokes upon `moduleExists()` in dev
-  // assert(moduleExists(`./${viteEntryFile}`, __dirname))
+  /* Vite occasionally chokes upon `require()` and `require.resolve()` calls in dev; we cannot use `moduleExists()`.
+  assert(moduleExists(`./${viteEntryFile}`, __dirname))
+  */
 
   const userDist = `${runContext.root}/dist`
   const prodPath = `${userDist}/server/${viteEntryFile}`

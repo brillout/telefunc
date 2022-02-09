@@ -24,7 +24,7 @@ async function loadViteEntry({
     moduleExports = nodeRequire(prodPathResolved)
   } else {
     assert(viteDevServer)
-    /* Vite occasionally chokes upon `require()` or `require.resolve()` in dev; we cannot use `moduleExists()` nor `nodeRequire()`.
+    /* Vite occasionally chokes upon `require()` and `require.resolve()` calls in dev; we cannot use `moduleExists()` nor `nodeRequire()`.
     devPath = nodeRequire.resolve(devPath)
     assert(moduleExists(devPath))
     */
