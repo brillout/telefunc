@@ -1,3 +1,12 @@
+## [0.1.9](https://github.com/vikejs/telefunc/compare/v0.1.8...v0.1.9) (2022-02-09)
+
+
+### Bug Fixes
+
+* do not use `require.resolve()` in dev ([614a1e8](https://github.com/vikejs/telefunc/commit/614a1e8ec71d21a22874a3baabf9b422810d3322))
+
+
+
 ## [0.1.8](https://github.com/vikejs/telefunc/compare/v0.1.7...v0.1.8) (2022-02-08)
 
 
