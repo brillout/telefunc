@@ -4,14 +4,10 @@ import { Link, ReadingRecommendation } from 'libframe-docs/components'
 
 > **TL;DR**
 >
-> With Telefunc, we define permissions programmatically by using cancel mechanisms:
->  - `throw Abort()`
->  - `return someValue`
->  - `throw Abort(someValue)`
+> With Telefunc, we define permissions programmatically by using cancel mechanisms such as `throw Abort()`.
 >
-> We can implement `getContext()` wrappers for:
->  - Advanced permission rules.
->  - Hardened safety.
+> We can use implement `getContext()` wrappers and permission functions for advanced permission rules and increased safety.
+
 
 ## `throw Abort()`
 
@@ -83,6 +79,7 @@ async function someFunction() {
   // ...
 }
 ```
+
 
 ## `throw Abort(someValue)`
 
@@ -259,3 +256,57 @@ async function findTodoItem(props, { permission }) {
 ```
 
 > We don't use `throw Abort()` but `throw new Error()` in ``throw new Error('Wrong findTodoItem() usage')`` because it is <Link text="not a public but an internal error" href='/abort-or-error' />.
+
+
+## Permission functions
+
+We can implement a permission function that is guaranteed to be applied to all our telefunctions:
+
+```js
+// Environment: Node.js server
+
+import { telefuncConfig } from 'telefunc'
+// Enforce all telefunctions to have a permission function
+telefuncConfig.permissionFunction = true
+```
+```js
+// components/Comment.telefunc.js
+// Environment: Node.js server
+
+import { permission } from '../auth/permission'
+import { shield } from 'telefunc'
+
+// Only admins are allowed to delete comments
+shield(onCommentDelete, [shield.type.number], permission('admin'))
+export async function onCommentDelete(id) {
+  const comment = await Comment.findOne({ id })
+  await comment.delete()
+}
+```
+```js
+// auth/permission.js
+// Environment: Node.js server
+
+export { permission }
+
+import { getContext } from 'telefunc'
+
+function permission(permissionName) {
+  return () => {
+    if (permissionName === 'public') {
+      return true
+    }
+
+    if (permissionName === 'admin') {
+      const { user } = getContext()
+      return user?.isAdmin
+    }
+
+    // ...
+  }
+}
+```
+
+This means that our telefunctions are guaranteed to be secure (as long as our `permission()` function is correct).
+
+> This feature is not implemented yet. Reach out on Discord or GitHub if you want this.

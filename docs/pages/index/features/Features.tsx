@@ -41,7 +41,7 @@ function Features() {
                 <b>flexible</b>.
               </p>
               <p>
-                Telefunc introduces new techniques that enable advanced permissions and <b>hardened safety</b>.
+                Telefunc introduces new techniques that enable advanced permissions and <b>increased safety</b>.
               </p>
             </>
           ),
