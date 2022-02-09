@@ -1,8 +1,6 @@
 import React from 'react'
 import { Emoji } from 'libframe-docs/utils/Emoji'
 import { FeatureList } from 'libframe-docs/landing-page/features/FeatureList'
-import Simple from './Simple.mdx'
-import Permissions from './Permissions.mdx'
 
 export { Features }
 
@@ -72,7 +70,7 @@ function Features() {
           desc: (
             <>
               <p>
-                The frontend can directly tap into the <b>full power of the server</b>. You can use tailored and
+                The frontend can directly tap into the <b>full power of the server</b>. You can use highly tailored &
                 optimized SQL/ORM queries for highly performant data retrieval and mutations.
               </p>
             </>
@@ -90,7 +88,7 @@ function Features() {
                 Seamless <b>TypeScript support out-of-the-box</b>.
               </p>
               <p>
-                Use your types across frontend-backend for <b>end-to-end type safety</b>.
+                Use your types across the frontend and backend for <b>end-to-end type safety</b>.
               </p>
             </>
           ),

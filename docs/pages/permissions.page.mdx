@@ -155,8 +155,7 @@ async function someFunction() {
 
 ## `getContext()` wrappers
 
-Implementing `getContext()` wrappers is a convenient way
-to solidify permissions.
+Implementing `getContext()` wrappers is a convenient way to implement advanced permission logic and increase safety.
 
 ```js
 // components/Comment.telefunc.js
@@ -167,7 +166,7 @@ import { shield } from 'telefunc'
 
 shield(onCommentDelete, [shield.type.number])
 export async function onCommentDelete(id) {
-  const { user } = getUser({ permission: 'admin' })
+  getUser({ permission: 'admin' })
   const comment = await Comment.findOne({ id })
   await comment.delete()
 }
@@ -258,16 +257,16 @@ async function findTodoItem(props, { permission }) {
 > We don't use `throw Abort()` but `throw new Error()` in ``throw new Error('Wrong findTodoItem() usage')`` because it is <Link text="not a public but an internal error" href='/abort-or-error' />.
 
 
-## Permission functions
+## Permission function
 
-We can implement a permission function that is guaranteed to be applied to all our telefunctions:
+A permission function enables us to guarantee the safety of telefunctions.
 
 ```js
 // Environment: Node.js server
 
 import { telefuncConfig } from 'telefunc'
 // Enforce all telefunctions to have a permission function
-telefuncConfig.permissionFunction = true
+telefuncConfig.permissionFunctionRequired = true
 ```
 ```js
 // components/Comment.telefunc.js
@@ -294,10 +293,12 @@ import { getContext } from 'telefunc'
 function permission(permissionName) {
   return () => {
     if (permissionName === 'public') {
+      // Everyone is allowed to call the telefunction
       return true
     }
 
     if (permissionName === 'admin') {
+      // Only admins are allowed to call the telefunction
       const { user } = getContext()
       return user?.isAdmin
     }
@@ -307,6 +308,6 @@ function permission(permissionName) {
 }
 ```
 
-This means that our telefunctions are guaranteed to be secure (as long as our `permission()` function is correct).
+This means that, as long as our `permission()` function is correct, we have the guarantee our telefunctions to be secure.
 
 > This feature is not implemented yet. Reach out on Discord or GitHub if you want this.
