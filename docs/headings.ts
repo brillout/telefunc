@@ -121,6 +121,7 @@ export const headings: HeadingDefinition[] = [
     level: 2,
     title: 'Server-Side Rendering (SSR)',
     url: '/ssr',
+    sectionTitles: ['SSR frameworks']
   },
   {
     level: 1,

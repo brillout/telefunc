@@ -1,18 +1,26 @@
 export { MostlyMutations }
 
+import { Link } from 'libframe-docs/components'
 import React from 'react'
 
 function MostlyMutations({ toolName }: { toolName: JSX.Element | string }) {
   return (
     <>
-      <p>{toolName} already offers mechanisms to fetch data from the server.</p>
       <p>
-        We don't need Telefunc to fetch the initial data of the page, and we recommend to use Telefunc mostly to perform
-        SQL/ORM queries that mutate data.
+        We don't need to use Telefunc to fetch the initial data of pages; instead, we can use {toolName}'s built-in data
+        fetching mechanism.
       </p>
       <p>
-        That said, we can use Telefunc to dynamically load data after the page is already rendered & hydrated, such as
-        to feed an infinite scroll implementation.
+        We still use Telefunc for data mutations and data fetches occurring after the initial page is already rendered
+        and hydrated. For example, for modifying a to-do item, or for feeding data to an infinite scroll component.
+      </p>
+      <p>
+        Also see:
+        <ul>
+          <li>
+            <Link href="/ssr#ssr-frameworks" doNotInferSectionTitle={true} />
+          </li>
+        </ul>
       </p>
     </>
   )
