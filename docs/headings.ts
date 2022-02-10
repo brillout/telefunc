@@ -119,7 +119,7 @@ export const headings: HeadingDefinition[] = [
   },
   {
     level: 2,
-    title: 'SSR (Server-Side Rendering)',
+    title: 'Server-Side Rendering (SSR)',
     url: '/ssr',
   },
   {

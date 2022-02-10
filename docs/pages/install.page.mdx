@@ -1,13 +1,15 @@
-Without transformer, Telefunc can be used in any JavaScript environment.
+import { Link } from 'libframe-docs/components'
 
-For improved convenience we recommend using a plugin if possible.
+Telefunc can be used in any JavaScript environment without using a transformer but, for improved convenience, we recommend using a transformer plugin if possible.
 
-## Without Transformer
+> Telefunc plugins transform `*.telefunc.js` browser-side imports into a thin HTTP client, see <Link href="/tour" />.
+
+## Without transformer
 
 Without TypeScript:
 
 ```js
-// TodoList.jsx
+// TodoList.js
 // Environment: Browser
 
 import { defineTelefunction } from 'telefunc/client'
@@ -23,7 +25,7 @@ async function onClick(form) {
 With TypeScript:
 
 ```ts
-// TodoList.tsx
+// TodoList.ts
 // Environment: Browser
 
 import { defineTelefunction } from 'telefunc/client'
@@ -37,10 +39,40 @@ async function onClick(form) {
 }
 ```
 
-> This feature is not implemented yet, reach out on Discord or GitHub if you want this.
+> This feature is not implemented yet, reach out on Discord or GitHub if you need this.
 
-## Vite Plugin
+## Vite plugin
 
-## Webpack Plugin
+If we use Vite, we can transform `*.telefunc.js` files by using the Telefunc's Vite plugin:
 
-## Babel Plugin
+```js
+// vite.config.js
+
+import { telefunc } from 'telefunc/vite'
+
+export default {
+  plugins: [telefunc()]
+}
+```
+
+## Webpack plugin
+
+If we use webpack, we can transform `*.telefunc.js` files by using the Telefunc's webpack plugin:
+
+```js
+// webpack.config.js
+
+module.exports = {
+  module: {
+    rules: [
+     { test: /\.telefunc\./, use: 'telefunc/webpack/loader' }
+    ]
+  }
+}
+```
+
+## Babel plugin
+
+Telefunc's Babel plugin is work-in-progress.
+
+> Reach out on Discord or GitHub if you want to use the Babel plugin.
