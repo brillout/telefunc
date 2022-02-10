@@ -29,6 +29,9 @@
     "./vite": {
       "node": "./dist/node/vite/index.js"
     },
+    "./webpack/loader": {
+      "node": "./dist/node/webpack/loader.js"
+    },
     "./next": {
       "node": "./dist/node/next/index.js"
     },
