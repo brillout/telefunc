@@ -43,7 +43,23 @@ export const headings: HeadingDefinition[] = [
   },
   {
     level: 2,
-    title: 'Install',
+    title: 'Vite',
+    url: '/vite',
+  },
+  {
+    level: 2,
+    title: 'Next.js',
+    url: '/next',
+  },
+  {
+    level: 2,
+    title: 'Nuxt',
+    url: '/nuxt',
+  },
+  {
+    level: 2,
+    title: 'Other installations',
+    titleInNav: 'Other',
     url: '/install',
   },
   {

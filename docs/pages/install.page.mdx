@@ -1,3 +1,46 @@
-TODO
+Without transformer, Telefunc can be used in any JavaScript environment.
 
-Make sure to reply all HTTP requests made to `telefuncUrl}` with the `telefunc()` server middleware, for both `GET` and `POST` requests.
+For improved convenience we recommend using a plugin if possible.
+
+## Without Transformer
+
+Without TypeScript:
+
+```js
+// TodoList.jsx
+// Environment: Browser
+
+import { defineTelefunction } from 'telefunc/client'
+const onNewTodo = defineTelefunction('TodoList.telefunc.js', 'onNewTodo')
+
+async function onClick(form) {
+  const text = form.input.value
+  // Exactly as usual
+  await onNewTodo({ text })
+}
+```
+
+With TypeScript:
+
+```ts
+// TodoList.tsx
+// Environment: Browser
+
+import { defineTelefunction } from 'telefunc/client'
+import type { onNewTodo as onNewTodoType } from './TodoList.telefunc.ts'
+const onNewTodo = defineTelefunction<typeof onNewTodoType>('TodoList.telefunc.ts', 'onNewTodo')
+
+async function onClick(form) {
+  const text = form.input.value
+  // Exactly as usual, including TypeScript support
+  await onNewTodo({ text })
+}
+```
+
+> This feature is not implemented yet, reach out on Discord or GitHub if you want this.
+
+## Vite Plugin
+
+## Webpack Plugin
+
+## Babel Plugin
