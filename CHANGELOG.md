@@ -1,3 +1,12 @@
+## [0.1.10](https://github.com/vikejs/telefunc/compare/v0.1.9...v0.1.10) (2022-02-10)
+
+
+### Features
+
+* allow users to directly use the webpack loader without framework ([aeeeed6](https://github.com/vikejs/telefunc/commit/aeeeed6fe82f8adb6b7061b3d27c3c7b4772ccc0))
+
+
+
 ## [0.1.9](https://github.com/vikejs/telefunc/compare/v0.1.8...v0.1.9) (2022-02-09)
 
 
