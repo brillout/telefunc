@@ -13,20 +13,23 @@ We can pass invalid information to the frontend by using `return someValue` inst
 import { shield } from 'telefunc'
 const t = shield.type
 
-shield(onFormSubmit, [email: t.string, password: t.string])
+shield(onFormSubmit, [t.string, t.string])
 export async function onFormSubmit(email, password) {
   // Form validation
   const invalidInputs = {}
+
   if (!email) {
     invalidInputs.email = 'Please enter your email.'
   } else if (!email.includes('@')) {
     invalidInputs.email = 'Invalid email; make sure to enter a valid email.'
   }
+
   if (!password) {
     invalidInputs.password = 'Please enter a password.'
-  } else if (password.length<8) {
+  } else if (password.length < 8) {
     invalidInputs.password = 'Password is too short: it should have at least 8 charachters.'
   }
+
   if (Object.keys(invalidInputs).length > 0) {
     // Instead of `throw Abort()`
     return { invalidInputs }
@@ -40,4 +43,4 @@ export async function onFormSubmit(email, password) {
 }
 ```
 
-We could also use `throw Abort({ invalidInputs })` but `return { invalidInputs }` is usually more convenient.
+> We could also use `throw Abort({ invalidInputs })` but `return { invalidInputs }` is usually more convenient for form validation.
