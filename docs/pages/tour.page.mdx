@@ -508,7 +508,7 @@ export async function onTextChange(id, text) {
 }
 
 // When the user clicks on the is-completed checkbox
-shield(onCompleteToggle, [t.number, t.string])
+shield(onCompleteToggle, [t.number])
 export async function onCompleteToggle(id) {
   const todoItem = await Todo.findOne({ id })
   todoItem.isCompleted = !todoItem.isCompleted

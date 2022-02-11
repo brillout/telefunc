@@ -8,6 +8,10 @@ const headingsWithoutLink: HeadingWithoutLink[] = [
     url: '/abort-or-error',
   },
   {
+    title: 'The SSR context problem',
+    url: '/ssr-context',
+  },
+  {
     title: 'Isomorphic `import`',
     url: '/isomorphic-import',
   },
