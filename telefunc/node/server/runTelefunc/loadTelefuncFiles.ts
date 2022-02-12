@@ -4,7 +4,7 @@ import type { ViteDevServer } from 'vite'
 import type { TelefuncFiles } from '../types'
 import { join } from 'path'
 import { statSync } from 'fs'
-import { assert, hasProp } from '../../utils'
+import { assert, assertUsage, hasProp } from '../../utils'
 import { loadTelefuncFilesWithVite } from '../../vite/loadTelefuncFilesWithVite'
 import { loadTelefuncFilesWithInternalMechanism } from './loadTelefuncFilesWithInternalMechanism'
 
@@ -25,6 +25,10 @@ async function loadTelefuncFiles(runContext: {
   const bundlerName = getBundlerName(runContext)
 
   if (bundlerName === 'vite' || bundlerName === 'unknown') {
+    assertUsage(
+      runContext.isProduction === true || runContext.viteDevServer,
+      'Either set `telefuncConfig.production = true` or set `telefuncConfig.viteDevServer`. (You seem to be using Vite.)',
+    )
     assert(hasProp(runContext, 'root', 'string'))
     return loadTelefuncFilesWithVite(runContext)
   }
