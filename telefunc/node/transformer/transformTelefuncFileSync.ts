@@ -1,12 +1,11 @@
-export { transformTelefuncFile }
+export { transformTelefuncFileSync }
 
 import { posix } from 'path'
 import { assert } from '../utils'
 import { assertPosixPath } from '../utils/assertPosixPath'
 import { getCode } from './getCode'
-import { getExportNames } from './getExportNames'
 
-async function transformTelefuncFile(src: string, id: string, root: string) {
+function transformTelefuncFileSync(id: string, root: string, exportNames: string[]) {
   assertPosixPath(id)
   assertPosixPath(root)
 
@@ -14,12 +13,9 @@ async function transformTelefuncFile(src: string, id: string, root: string) {
   assert(!telefuncFilePath.startsWith('/.'))
   assertPosixPath(telefuncFilePath)
 
-  const exportNames = await getExportNames(src)
-
   return {
     code: getCode(exportNames, telefuncFilePath),
     map: null,
   }
 }
-
 
