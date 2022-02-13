@@ -80,8 +80,6 @@ export default function BabelPluginTelefunc(babel: { types: typeof BabelTypes })
 
           const exportList = getExportsFromBabelAST(path, babel.types)
 
-          console.log('exportList', exportList)
-
           const root: string = context.file.opts.root!
           const transformed = transformTelefuncFileSync(filename, root, exportList).code
 
