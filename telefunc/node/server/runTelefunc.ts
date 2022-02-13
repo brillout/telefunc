@@ -53,6 +53,11 @@ async function runTelefunc_(httpRequest: { url: string; method: string; body: un
   runContext.viteDevServer = null
   objectAssign(runContext, globalContext)
 
+  {
+    const logInvalidRequests = !runContext.isProduction || runContext.debug
+    objectAssign(runContext, {logInvalidRequests })
+  }
+
   objectAssign(runContext, {
     providedContext: getContextOptional() || null,
   })

@@ -7,6 +7,7 @@ import { getTelefunctionName } from './getTelefunctionName'
 
 function parseHttpRequest(runContext: {
   httpRequest: { body: unknown; url: string; method: string }
+  logInvalidRequests: boolean
   isProduction: boolean
   telefuncUrl: string
 }):
@@ -27,7 +28,7 @@ function parseHttpRequest(runContext: {
 
   const { body } = runContext.httpRequest
   if (typeof body !== 'string') {
-    if (!runContext.isProduction) {
+    if (runContext.logInvalidRequests) {
       assertBody(body, runContext)
     } else {
       // In production `body` can be any value really.
@@ -43,12 +44,10 @@ function parseHttpRequest(runContext: {
   } catch (err: unknown) {
     logParseError(
       [
-        errMsgPrefix,
         'The argument `body` passed to `telefunc({ body })`',
         'could not be parsed',
         `(\`body === '${bodyString}'\`).`,
         !hasProp(err, 'message') ? null : `Parse error: ${err.message}.`,
-        errMsgSuffix,
       ]
         .filter(Boolean)
         .join(' '),
@@ -64,11 +63,9 @@ function parseHttpRequest(runContext: {
   ) {
     logParseError(
       [
-        errMsgPrefix,
         'The argument `body` passed to `telefunc({ body })`',
         'can be parsed but its content is invalid',
         `(\`body === '${bodyString}'\`).`,
-        errMsgSuffix,
       ].join(' '),
       runContext,
     )
@@ -115,18 +112,20 @@ function assertBody(body: unknown, runContext: { telefuncUrl: string }) {
   )
 }
 
-function isWrongMethod(runContext: { httpRequest: { method: string }; isProduction: boolean }) {
+function isWrongMethod(runContext: {
+  httpRequest: { method: string }
+  logInvalidRequests: boolean
+  isProduction: boolean
+}) {
   if (['POST', 'post'].includes(runContext.httpRequest.method)) {
     return false
   }
   assert(typeof runContext.httpRequest.method === 'string')
   logParseError(
     [
-      errMsgPrefix,
       'The argument `method` passed to `telefunc({ method })`',
       'should be `POST` (or `post`) but',
       `\`method === '${runContext.httpRequest.method}'\`.`,
-      errMsgSuffix,
     ].join(' '),
     runContext,
   )
@@ -141,15 +140,16 @@ function assertUrl(runContext: { httpRequest: { url: string }; telefuncUrl: stri
   )
 }
 
-const errMsgPrefix = 'Malformed request in development.'
-const errMsgSuffix =
-  'This is unexpected since, in development, all requests are expected to originate from the Telefunc Client and should therefore be valid. If this error is happening in production, then either the environment variable `NODE_ENV="production"` or `telefunc({ isProduction: true })` is missing.'
-function logParseError(errMsg: string, runContext: { isProduction: boolean }) {
+function logParseError(errMsg: string, runContext: { isProduction: boolean; logInvalidRequests: boolean }) {
+  const errMsgPrefix = 'Malformed request in development.'
+  const errMsgSuffix =
+    'This is unexpected since, in development, all requests are expected to originate from the Telefunc Client and should therefore be valid. If this error is happening in production, then either the environment variable `NODE_ENV="production"` or `telefunc({ isProduction: true })` is missing.'
   assert(errMsg.startsWith(errMsgPrefix))
   assert(errMsg.endsWith(errMsgSuffix))
   if (!runContext.isProduction) {
+    errMsg = `${errMsgPrefix} ${errMsg} ${errMsgSuffix}`
+  }
+  if (runContext.logInvalidRequests) {
     console.error(getPluginError(errMsg))
-  } else {
-    // In production any kind of malformed request are expected, when a third party doesn't use the Telefunc Client but uses an HTTP client and makes malformed requests to `_telefunc`, e.g. a HTTP GET request to `_telefunc`.
   }
 }

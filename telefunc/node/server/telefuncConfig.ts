@@ -15,6 +15,7 @@ type TelefuncServerConfig = {
   viteDevServer: ViteDevServer | null
   disableEtag: boolean
   telefuncFiles: Record<string, Record<string, Telefunction>> | null
+  debug: boolean
 }
 
 const configSpec = {
@@ -81,6 +82,15 @@ const configSpec = {
       return false
     },
   },
+  debug: {
+    validate(val: unknown) {
+      assertUsage(typeof val === 'boolean', '`telefuncConfig.debug` should be a boolean')
+    },
+    getDefault() {
+      if (typeof process == 'undefined' || !hasProp(process, 'env')) return false
+      return !!process.env.DEBUG
+    },
+  },
 }
 
 function getTelefuncConfigObject(): TelefuncServerConfig {
@@ -99,6 +109,8 @@ function getTelefuncConfigObject(): TelefuncServerConfig {
       get telefuncUrl()   { return configProvidedByUser['telefuncUrl']   ?? configSpec['telefuncUrl'].getDefault()   },
       // prettier-ignore
       get disableEtag()   { return configProvidedByUser['disableEtag']   ?? configSpec['disableEtag'].getDefault()   },
+      // prettier-ignore
+      get debug()         { return configProvidedByUser['debug']         ?? configSpec['debug'].getDefault()         },
     },
     { set },
   )

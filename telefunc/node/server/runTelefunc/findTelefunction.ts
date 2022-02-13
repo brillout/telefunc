@@ -10,7 +10,7 @@ function findTelefunction(runContext: {
   telefuncFiles: Record<string, Record<string, unknown>>
   telefunctionFileExport: string
   telefunctions: Record<string, Telefunction>
-  isProduction: boolean
+  logInvalidRequests: boolean
 }) {
   const telefunctionsFound = Object.keys(runContext.telefunctions)
   assertUsage(
@@ -23,7 +23,7 @@ function findTelefunction(runContext: {
 
   const telefunction = runContext.telefunctions[runContext.telefunctionKey]
   if (!telefunction) {
-    if (!runContext.isProduction) {
+    if (runContext.logInvalidRequests) {
       const errMsg = getNotFoundErrMsg()
       console.error(getPluginError(errMsg))
     }

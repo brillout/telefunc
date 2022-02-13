@@ -9,7 +9,7 @@ function applyShield(runContext: {
   telefunction: Telefunction
   telefunctionName: string
   telefunctionArgs: unknown[]
-  isProduction: boolean
+  logInvalidRequests: boolean
 }) {
   const { telefunction } = runContext
   const hasShield = !shieldIsMissing(telefunction)
@@ -20,7 +20,7 @@ function applyShield(runContext: {
   if (hasShield) {
     const applyResult = shieldApply(telefunction, runContext.telefunctionArgs)
     if (applyResult !== true) {
-      if (!runContext.isProduction) {
+      if (runContext.logInvalidRequests) {
         const errMsg = [
           `\`shield()\`: invalid arguments passed to telefunction ${runContext.telefunctionName}.`,
           `Arguments: \`${JSON.stringify(runContext.telefunctionArgs)}\`.`,
