@@ -1,5 +1,5 @@
 import express from 'express'
-import { telefunc, telefuncConfig } from 'telefunc'
+import { telefunc } from 'telefunc'
 
 startServer()
 
@@ -35,7 +35,6 @@ async function installFrontend(app) {
       server: { middlewareMode: 'html' },
     })
     app.use(viteDevServer.middlewares)
-    telefuncConfig.viteDevServer = viteDevServer
   }
 }
 

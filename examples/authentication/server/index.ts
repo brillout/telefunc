@@ -1,6 +1,6 @@
 import express from 'express'
 import { createPageRenderer } from 'vite-plugin-ssr'
-import { telefunc, telefuncConfig, provideTelefuncContext } from 'telefunc'
+import { telefunc, provideTelefuncContext } from 'telefunc'
 import cookieParser from 'cookie-parser'
 import { retrieveUser } from '#app/auth'
 
@@ -22,7 +22,6 @@ async function startServer() {
       server: { middlewareMode: 'ssr' },
     })
     app.use(viteDevServer.middlewares)
-    telefuncConfig.viteDevServer = viteDevServer
   }
 
   app.use(cookieParser())

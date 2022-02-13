@@ -4,12 +4,14 @@ import { projectInfo } from './projectInfo'
 export { assert }
 export { assertUsage }
 export { assertWarning }
+export { assertInfo }
 export { getPluginError }
 
 const errorPrefix = `[${projectInfo.npmPackageName}@${projectInfo.projectVersion}]`
 const internalErrorPrefix = `${errorPrefix}[Internal Failure]`
 const usageErrorPrefix = `${errorPrefix}[Wrong Usage]`
 const warningPrefix = `${errorPrefix}[Warning]`
+const infoPrefix = `${errorPrefix}[Info]`
 
 const numberOfStackTraceLinesToRemove = 2
 
@@ -53,4 +55,11 @@ function assertWarning(condition: unknown, errorMessage: string): void {
     return
   }
   console.warn(`${warningPrefix} ${errorMessage}`)
+}
+
+function assertInfo(condition: unknown, errorMessage: string): void {
+  if (condition) {
+    return
+  }
+  console.warn(`${infoPrefix} ${errorMessage}`)
 }

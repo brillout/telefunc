@@ -1,8 +1,7 @@
 export { telefunc }
 
 import { runTelefunc } from './runTelefunc'
-import { assert, assertUsage, hasProp, isObject, objectAssign } from '../utils'
-import { telefuncConfig } from './telefuncConfig'
+import { assertUsage, hasProp, isObject } from '../utils'
 
 /**
  * Get the HTTP response of a telefunction call.
@@ -13,11 +12,7 @@ import { telefuncConfig } from './telefuncConfig'
  */
 async function telefunc(httpRequest: { url: string; body: string; method: string }) {
   assertHttpRequest(httpRequest, arguments.length)
-  const runContext = {}
-  objectAssign(runContext, { httpRequest })
-  objectAssign(runContext, telefuncConfig)
-  const httpResponse = await runTelefunc(runContext)
-  assert(httpResponse)
+  const httpResponse = await runTelefunc(httpRequest)
   return httpResponse
 }
 

@@ -1,7 +1,5 @@
 export { runTelefunc }
 
-import type { TelefuncFiles } from './types'
-import type { ViteDevServer } from 'vite'
 import { assert, objectAssign } from '../utils'
 import { getContextOptional } from './getContext'
 import { loadTelefuncFiles } from './runTelefunc/loadTelefuncFiles'
@@ -14,6 +12,8 @@ import { handleError } from './runTelefunc/handleError'
 import { executeServerErrorListeners } from './runTelefunc/onTelefuncServerError'
 import { applyShield } from './runTelefunc/applyShield'
 import { findTelefunction } from './runTelefunc/findTelefunction'
+import { globalContext } from './globalContext'
+import { telefuncConfig } from './telefuncConfig'
 
 type HttpResponse = {
   body: string
@@ -41,20 +41,18 @@ async function runTelefunc(runContext: Parameters<typeof runTelefunc_>[0]) {
     return await runTelefunc_(runContext)
   } catch (err: unknown) {
     executeServerErrorListeners(err)
-    handleError(err, runContext)
+    handleError(err, globalContext.viteDevServer || null)
     return serverError
   }
 }
 
-async function runTelefunc_(runContext: {
-  httpRequest: { url: string; method: string; body: unknown }
-  viteDevServer: ViteDevServer | null
-  telefuncFiles: TelefuncFiles | null
-  isProduction: boolean
-  root: string | null
-  telefuncUrl: string
-  disableEtag: boolean
-}): Promise<HttpResponse> {
+async function runTelefunc_(httpRequest: { url: string; method: string; body: unknown }): Promise<HttpResponse> {
+  const runContext = {}
+  objectAssign(runContext, { httpRequest })
+  objectAssign(runContext, telefuncConfig)
+  runContext.viteDevServer = null
+  objectAssign(runContext, globalContext)
+
   objectAssign(runContext, {
     providedContext: getContextOptional() || null,
   })

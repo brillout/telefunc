@@ -1,6 +1,6 @@
 const express = require('express')
 const { createPageRenderer } = require('vite-plugin-ssr')
-const { telefunc, telefuncConfig, provideTelefuncContext } = require('telefunc')
+const { telefunc, provideTelefuncContext } = require('telefunc')
 
 const isProduction = process.env.NODE_ENV === 'production'
 const root = `${__dirname}/..`
@@ -20,7 +20,6 @@ async function startServer() {
       server: { middlewareMode: 'ssr' },
     })
     app.use(viteDevServer.middlewares)
-    telefuncConfig.viteDevServer = viteDevServer
   }
 
   app.use(function (req, _res, next) {

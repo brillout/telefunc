@@ -3,7 +3,8 @@ export const telefuncConfig = getTelefuncConfigObject()
 import type { ViteDevServer } from 'vite'
 import type { Telefunction } from './types'
 import { isAbsolute } from 'path'
-import { assertUsage, assertWarning, hasProp } from '../utils'
+import { assert, assertInfo, assertUsage, assertWarning, hasProp } from '../utils'
+import { globalContext } from './globalContext'
 
 /** Telefunc Server Configuration */
 type TelefuncServerConfig = {
@@ -38,11 +39,16 @@ const configSpec = {
   },
   viteDevServer: {
     validate(val: unknown) {
+      assertInfo(
+        false,
+        '`telefuncConfig.viteDevServer` is not needed anymore. Remove your `telefuncConfig.viteDevServer` configuration to get rid of this message. (Telefunc now automatically retrieves the Vite dev server.)',
+      )
       assertUsage(hasProp(val, 'ssrLoadModule'), '`telefuncConfig.ssrLoadModule` should be the Vite dev server')
       assertUsage(
         (val as any as ViteDevServer).config.plugins.find((plugin) => plugin.name.startsWith('telefunc')),
         'Telefunc Vite plugin not installed. Make sure to add Telefunc to your `vite.config.js`.',
       )
+      assert(val === globalContext.viteDevServer, '`viteDevServer` mismatch.')
     },
     getDefault() {
       return null
