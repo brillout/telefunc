@@ -1,3 +1,14 @@
+## [0.1.11](https://github.com/vikejs/telefunc/compare/v0.1.10...v0.1.11) (2022-02-13)
+
+
+### Bug Fixes
+
+* automatically retrieve `viteDevServer` ([d8af512](https://github.com/vikejs/telefunc/commit/d8af5122bce12bc7a8f5417b4d3a7d5f578328a2))
+* improve error message upon wrong configuration ([ff19628](https://github.com/vikejs/telefunc/commit/ff196287342b4ea3addbc0e0a559eef680f73796))
+* improve overall bundler handling logic ([c12ed9b](https://github.com/vikejs/telefunc/commit/c12ed9b53404244cc10fc20af17176cc30224757))
+
+
+
 ## [0.1.10](https://github.com/vikejs/telefunc/compare/v0.1.9...v0.1.10) (2022-02-10)
 
 
