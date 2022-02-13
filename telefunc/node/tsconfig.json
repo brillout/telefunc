@@ -1,13 +1,11 @@
 {
+  "extends": "../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "../dist/node/",
     "target": "ES2017",
     "module": "CommonJS",
-    "strict": true,
     "lib": ["DOM", "ESNext"],
-    "types": ["vite/client"],
-    "skipLibCheck": true,
-    "declaration": true
+    "types": ["vite/client"]
   },
   "exclude": ["./node_modules/", "./dist/", "**/*.spec.ts"],
   "include": ["./**/*"]

@@ -1,37 +1,23 @@
-import { assert, hasProp, isObject } from '../utils'
-import type { ViteDevServer } from 'vite'
-import { loadViteEntry } from './loadViteEntry'
-import { TelefuncFiles } from '../server/types'
-import { importTelefuncFilesFilePath } from './importTelefuncFilesPath'
-import type { GlobFiles } from './importTelefuncFiles'
-
 export { loadTelefuncFilesWithVite }
 
+import { assert, assertWarning, hasProp, isObject } from '../utils'
+import { TelefuncFiles } from '../server/types'
+import { importTelefuncFilesFilePath, importTelefuncFilesFileNameBase } from './importTelefuncFilesPath'
+import { moduleExists, nodeRequire } from '../utils'
+import { resolve } from 'path'
+import type { ViteDevServer } from 'vite'
+import type { GlobFiles } from './importTelefuncFiles'
+
 async function loadTelefuncFilesWithVite(runContext: {
-  root: string
+  root: string | null
   viteDevServer: ViteDevServer | null
   isProduction: boolean
-}): Promise<TelefuncFiles> {
-  const viteEntryFile = 'importTelefuncFiles.js'
-  /* Vite occasionally chokes upon `require()` and `require.resolve()` calls in dev; we cannot use `moduleExists()`.
-  assert(moduleExists(`./${viteEntryFile}`, __dirname))
-  */
+}): Promise<null | TelefuncFiles> {
+  const { notFound, moduleExports } = await loadGlobImporter(runContext)
 
-  const userDist = `${runContext.root}/dist`
-  const prodPath = `${userDist}/server/${viteEntryFile}`
-
-  const devPath = importTelefuncFilesFilePath
-
-  const errorMessage =
-    'Make sure to run `vite build && vite build --ssr` before running your Node.js server with `createTelefuncCaller({ isProduction: true })`'
-
-  const moduleExports = await loadViteEntry({
-    devPath,
-    prodPath,
-    errorMessage,
-    viteDevServer: runContext.viteDevServer,
-    isProduction: runContext.isProduction,
-  })
+  if (notFound) {
+    return null
+  }
 
   assert(isObject(moduleExports))
   assert(hasProp(moduleExports, 'importTelefuncFiles', 'function'))
@@ -39,6 +25,40 @@ async function loadTelefuncFilesWithVite(runContext: {
   const telefuncFiles = await loadGlobFiles(globFiles)
   assert(isObjectOfObjects(telefuncFiles))
   return telefuncFiles
+}
+
+async function loadGlobImporter(runContext: {
+  root: string | null
+  viteDevServer: ViteDevServer | null
+  isProduction: boolean
+}) {
+  if (runContext.viteDevServer) {
+    const devPath = importTelefuncFilesFilePath
+    let moduleExports: unknown
+    try {
+      moduleExports = await runContext.viteDevServer.ssrLoadModule(devPath)
+    } catch (err: unknown) {
+      runContext.viteDevServer.ssrFixStacktrace(err as Error)
+      throw err
+    }
+    return { moduleExports }
+  }
+
+  if (runContext.root) {
+    const userDist = `${runContext.root}/dist`
+    const prodPath = `${userDist}/server/${importTelefuncFilesFileNameBase}.js`
+    const prodPathResolved = resolve(prodPath)
+    if (moduleExists(prodPathResolved)) {
+      const moduleExports: unknown = nodeRequire(prodPathResolved)
+      assertWarning(
+        runContext.isProduction === true,
+        "This seems to be a production environment yet `telefuncConfig.isProduction !== true`. You should set `NODE_ENV.env='production' or `telefuncConfig.isProduction = true`.",
+      )
+      return { moduleExports }
+    }
+  }
+
+  return { notFound: true }
 }
 
 async function loadGlobFiles(globFiles: GlobFiles): Promise<Record<string, Record<string, unknown>>> {
