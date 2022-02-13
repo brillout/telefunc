@@ -26,5 +26,8 @@ function assertHttpRequest(httpRequest: unknown, numberOfArguments: number) {
   assertUsage(hasProp(httpRequest, 'method'), '`telefunc({ method })`: argument `method` is missing.')
   assertUsage(hasProp(httpRequest, 'method', 'string'), '`telefunc({ method })`: argument `method` should be a string.')
   assertUsage(hasProp(httpRequest, 'body'), '`telefunc({ body })`: argument `body` is missing.')
+  Object.keys(httpRequest).forEach((key) => {
+    assertUsage(['url', 'method', 'body'].includes(key), '`telefunc({ ' + key + ' })`: Unknown argument `' + key + '`.')
+  })
   // We further assert the `httpRequest` in `./runTelefunc/parseHttpRequest.ts`
 }
