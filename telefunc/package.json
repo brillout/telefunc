@@ -38,6 +38,9 @@
     },
     "./nuxt": {
       "node": "./dist/node/nuxt/index.js"
+    },
+    "./babel-plugin": {
+      "node": "./dist/node/babel/babel-plugin-telefunc.js"
     }
   },
   "dependencies": {
