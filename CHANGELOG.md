@@ -1,3 +1,18 @@
+## [0.1.12](https://github.com/vikejs/telefunc/compare/v0.1.11...v0.1.12) (2022-02-13)
+
+
+### Bug Fixes
+
+* add @brillout/json-s to pre-bundling ([edb37a4](https://github.com/vikejs/telefunc/commit/edb37a4dbd65fd3152ea8053e3dcf8a2a9b47932))
+* remove unecessary `optimizeDeps.exclude` entries ([c324a18](https://github.com/vikejs/telefunc/commit/c324a18510fa76abcf5542723a49c5dc2e7fd0d8))
+
+
+### Features
+
+* add debug flag ([c4ed79d](https://github.com/vikejs/telefunc/commit/c4ed79da40afec708ea86a422bf39b56d85a0338))
+
+
+
 ## [0.1.11](https://github.com/vikejs/telefunc/compare/v0.1.10...v0.1.11) (2022-02-13)
 
 
