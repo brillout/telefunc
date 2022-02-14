@@ -2,7 +2,7 @@ export { loadTelefuncFiles }
 
 import type { ViteDevServer } from 'vite'
 import type { TelefuncFiles } from '../types'
-import { assertUsage } from '../../utils'
+import { assert, assertUsage } from '../../utils'
 import { loadTelefuncFilesWithVite } from '../../vite/loadTelefuncFilesWithVite'
 import { loadTelefuncFilesWithInternalMechanism } from './loadTelefuncFilesWithInternalMechanism'
 
@@ -18,6 +18,7 @@ async function loadTelefuncFiles(runContext: {
   {
     const telefuncFiles = loadTelefuncFilesWithInternalMechanism()
     if (telefuncFiles) {
+      assert(Object.keys(telefuncFiles).length > 0, 'Internal Mechanism: No `.telefunc.js` file found.')
       return telefuncFiles
     }
   }
@@ -28,6 +29,7 @@ async function loadTelefuncFiles(runContext: {
   {
     const telefuncFiles = loadTelefuncFilesWithVite(runContext)
     if (telefuncFiles) {
+      assert(Object.keys(telefuncFiles).length > 0, 'Vite: No `.telefunc.js` file found.')
       return telefuncFiles
     }
   }
