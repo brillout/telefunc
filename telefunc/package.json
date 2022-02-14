@@ -43,7 +43,7 @@
     "@brillout/json-s": "^0.4.3",
     "@brillout/libassert": "^0.5.4",
     "es-module-lexer": "^0.7.1",
-    "vite-plugin-import-build": "^0.1.1"
+    "vite-plugin-import-build": "^0.1.3"
   },
   "devDependencies": {
     "@nuxt/types": "^2.15.8",
