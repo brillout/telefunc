@@ -2,9 +2,9 @@ export { distLinkOff }
 export { distLinkOn }
 
 import { writeFileSync } from 'fs'
-import { relative } from 'path'
+import { posix } from 'path'
 import type { Plugin } from 'vite'
-import { assert } from '../utils'
+import { assert, toPosixPath } from '../utils'
 import { isSSR_config } from './utils'
 const telefuncFilesGlobFromDistPath = `${__dirname}/telefuncFilesGlobFromDist.js`
 
@@ -20,7 +20,7 @@ function distLinkOn(): Plugin {
     apply: 'build',
     configResolved(config) {
       ssr = isSSR_config(config)
-      root = config.root ? config.root : process.cwd()
+      root = config.root ? toPosixPath(config.root) : toPosixPath(process.cwd())
     },
     generateBundle() {
       assert(typeof ssr === 'boolean')
@@ -29,7 +29,8 @@ function distLinkOn(): Plugin {
       }
       assert(root)
       // To `require()` an absolute path doesn't seem to work on Vercel
-      const rootRelative = relative(__dirname, root)
+      const rootRelative = posix.relative(toPosixPath(__dirname), root)
+      console.error('rr', rootRelative)
       writeFileSync(
         telefuncFilesGlobFromDistPath,
         [

@@ -3,6 +3,7 @@ import { assert } from './assert'
 import { assertPosixPath } from './assertPosixPath'
 
 export { toPosixPath }
+export { toSystemPath }
 
 function toPosixPath(path: string) {
   if (process.platform !== 'win32') {
@@ -15,4 +16,10 @@ function toPosixPath(path: string) {
     assertPosixPath(pathPosix)
     return pathPosix
   }
+}
+
+function toSystemPath(path: string) {
+  path = path.split(posix.sep).join(sep)
+  path = path.split(win32.sep).join(sep)
+  return path
 }
