@@ -15,7 +15,7 @@ function applyShield(runContext: {
   const hasShield = !shieldIsMissing(telefunction)
   assertWarning(
     hasShield || telefunction.length === 0,
-    `The telefunction ${runContext.telefunctionName} accepts arguments yet is missing a \`shield()\`, see https://telefunc.com/shield`,
+    `The telefunction ${runContext.telefunctionName} accepts arguments yet is missing \`shield()\`, see https://telefunc.com/shield`,
   )
   if (hasShield) {
     const applyResult = shieldApply(telefunction, runContext.telefunctionArgs)
