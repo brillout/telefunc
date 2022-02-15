@@ -1,11 +1,10 @@
 // Mechanism used by Vite/Next/Nuxt plugins for automatically loading `.telefunc.js` files.
 
 export { loadTelefuncFilesWithInternalMechanism }
-export { __internal_setTelefuncFiles }
 export { __internal_addTelefunction }
 
 import { TelefuncFiles, Telefunction } from '../types'
-import { assert, getGlobalObject } from '../../utils'
+import { getGlobalObject } from '../../utils'
 
 // We define `global.__internal_telefuncFiles` to ensure we use the same global object.
 // Needed for Next.js. I'm guessing that Next.js is including the `node_modules/` files in a seperate bundle than user files.
@@ -13,11 +12,6 @@ const g = getGlobalObject<{ telefuncFiles: TelefuncFiles | null }>('__internal_t
 
 function loadTelefuncFilesWithInternalMechanism() {
   return g.telefuncFiles
-}
-
-function __internal_setTelefuncFiles(telefuncFiles: TelefuncFiles) {
-  assert(g.telefuncFiles === null)
-  g.telefuncFiles = telefuncFiles
 }
 
 function __internal_addTelefunction(

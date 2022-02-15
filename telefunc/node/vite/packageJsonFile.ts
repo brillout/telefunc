@@ -17,14 +17,17 @@ function packageJsonFile(): Plugin {
     configResolved(config) {
       ssr = isSSR_config(config)
     },
-    generateBundle() {
+    generateBundle(_options, bundle) {
       assert(typeof ssr === 'boolean')
       if (!ssr) return
-      this.emitFile({
-        fileName: `package.json`,
-        type: 'asset',
-        source: getPackageJsonContent(),
-      })
+      const fileName = 'package.json'
+      //if (!bundle[fileName]) {
+        this.emitFile({
+          fileName,
+          type: 'asset',
+          source: getPackageJsonContent(),
+        })
+      //}
     },
   } as Plugin
 }

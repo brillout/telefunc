@@ -1,30 +1,31 @@
 export { loadTelefuncFilesWithVite }
 
 import { assert, assertWarning, hasProp, isObject } from '../utils'
-import { TelefuncFiles } from '../server/types'
-import { importTelefuncFilesFilePath, importTelefuncFilesFileNameBase } from './importTelefuncFilesPath'
+import { telefuncFilesGlobFilePath, telefuncFilesGlobFileNameBase } from './telefuncFilesGlobPath'
 import { moduleExists, nodeRequire } from '../utils'
 import { resolve } from 'path'
 import type { ViteDevServer } from 'vite'
-import type { GlobFiles } from './importTelefuncFiles'
+import { GlobFiles, loadGlobFiles } from './loadGlobFiles'
 
 async function loadTelefuncFilesWithVite(runContext: {
   root: string | null
   viteDevServer: ViteDevServer | null
   isProduction: boolean
-}): Promise<null | TelefuncFiles> {
-  const { notFound, moduleExports } = await loadGlobImporter(runContext)
+}) {
+  const { notFound, moduleExports, provider } = await loadGlobImporter(runContext)
 
   if (notFound) {
-    return null
+    return { telefuncFiles: null }
   }
 
-  assert(isObject(moduleExports))
-  assert(hasProp(moduleExports, 'importTelefuncFiles', 'function'))
-  const globFiles = moduleExports.importTelefuncFiles() as GlobFiles
-  const telefuncFiles = await loadGlobFiles(globFiles)
+  console.log('moduleExports', moduleExports)
+  console.log('provider', provider)
+  assert(isObject(moduleExports), { moduleExports, provider })
+  assert(hasProp(moduleExports, 'telefuncFilesGlob'), { moduleExports, provider })
+  const telefuncFilesGlob = moduleExports.telefuncFilesGlob as GlobFiles
+  const telefuncFiles = await loadGlobFiles(telefuncFilesGlob)
   assert(isObjectOfObjects(telefuncFiles))
-  return telefuncFiles
+  return { telefuncFiles, viteProvider: provider }
 }
 
 async function loadGlobImporter(runContext: {
@@ -33,7 +34,7 @@ async function loadGlobImporter(runContext: {
   isProduction: boolean
 }) {
   if (runContext.viteDevServer) {
-    const devPath = importTelefuncFilesFilePath
+    const devPath = telefuncFilesGlobFilePath
     let moduleExports: unknown
     try {
       moduleExports = await runContext.viteDevServer.ssrLoadModule(devPath)
@@ -41,31 +42,47 @@ async function loadGlobImporter(runContext: {
       runContext.viteDevServer.ssrFixStacktrace(err as Error)
       throw err
     }
-    return { moduleExports }
+    return { moduleExports, provider: 'DEV_SERVER' as const }
+  }
+
+  {
+    let moduleExports: unknown | null = null
+    try {
+      moduleExports = await import('./telefuncFilesGlob')
+    } catch (_) {}
+    if (moduleExports !== null) {
+      assert(!hasProp(moduleExports, 'importGlobUnset'))
+      return { moduleExports, provider: 'DIRECT' as const }
+    }
+  }
+
+  {
+    const moduleExports = await import('./telefuncFilesGlobFromDist')
+    assert(!hasProp(moduleExports, 'distLinkUnset'))
+    if (!hasProp(moduleExports, 'distLinkOff', 'true')) {
+      assertProd(runContext)
+      return { moduleExports, provider: 'DIST_LINK' as const }
+    }
   }
 
   if (runContext.root) {
     const userDist = `${runContext.root}/dist`
-    const prodPath = `${userDist}/server/${importTelefuncFilesFileNameBase}.js`
+    const prodPath = `${userDist}/server/${telefuncFilesGlobFileNameBase}.js`
     const prodPathResolved = resolve(prodPath)
     if (moduleExists(prodPathResolved)) {
       const moduleExports: unknown = nodeRequire(prodPathResolved)
-      assertWarning(
-        runContext.isProduction === true,
-        "This seems to be a production environment yet `telefuncConfig.isProduction !== true`. You should set `NODE_ENV.env='production' or `telefuncConfig.isProduction = true`.",
-      )
-      return { moduleExports }
+      assertProd(runContext)
+      return { moduleExports, provider: 'NODE_JS' as const }
     }
   }
 
   return { notFound: true }
 }
 
-async function loadGlobFiles(globFiles: GlobFiles): Promise<Record<string, Record<string, unknown>>> {
-  return Object.fromEntries(
-    await Promise.all(
-      Object.entries(globFiles).map(async ([filePath, loadModuleExports]) => [filePath, await loadModuleExports()]),
-    ),
+function assertProd(runContext: { isProduction: boolean }) {
+  assertWarning(
+    runContext.isProduction === true,
+    "This seems to be a production environment yet `telefuncConfig.isProduction !== true`. You should set `NODE_ENV.env='production' or `telefuncConfig.isProduction = true`.",
   )
 }
 

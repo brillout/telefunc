@@ -3,6 +3,8 @@ export { hasProp }
 import { isCallable } from './isCallable'
 
 // prettier-ignore
+function hasProp<ObjectType, PropName extends PropertyKey>(obj: ObjectType, prop: PropName, type: 'true'):  obj is ObjectType & Record<PropName, true>;
+// prettier-ignore
 function hasProp<ObjectType, PropName extends PropertyKey>(obj: ObjectType, prop: PropName, type: 'boolean'):  obj is ObjectType & Record<PropName, boolean>;
 // prettier-ignore
 function hasProp<ObjectType, PropName extends PropertyKey>(obj: ObjectType, prop: PropName, type: 'number'):  obj is ObjectType & Record<PropName, number>;
@@ -46,6 +48,9 @@ function hasProp<ObjectType, PropName extends PropertyKey>(obj: ObjectType, prop
   }
   if( type === 'null') {
     return propValue===null
+  }
+  if( type === 'true') {
+    return propValue===true
   }
   return typeof propValue === type;
 }

@@ -1,7 +1,7 @@
 import { Plugin } from 'vite'
 import type { InputOption } from 'rollup'
 import { assert, isObject } from '../utils'
-import { importTelefuncFilesFileNameBase, importTelefuncFilesFilePath } from './importTelefuncFilesPath'
+import { telefuncFilesGlobFileNameBase, telefuncFilesGlobFilePath } from './telefuncFilesGlobPath'
 import { isSSR_config } from './utils'
 
 export { build }
@@ -52,7 +52,7 @@ function normalizeRollupInput(input?: InputOption): Record<string, string> {
 
 function getViteEntry() {
   const viteEntry = {
-    [importTelefuncFilesFileNameBase]: importTelefuncFilesFilePath,
+    [telefuncFilesGlobFileNameBase]: telefuncFilesGlobFilePath,
   }
   return viteEntry
 }

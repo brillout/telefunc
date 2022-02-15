@@ -1,6 +1,7 @@
 import { assert, toPosixPath } from '../utils'
 import { transformTelefuncFile } from '../transformer/transformTelefuncFile'
 import { transformTelefuncFileSSR } from '../transformer/transformTelefuncFileSSR'
+import '../vite/clear' // When running Telefunc's test suite, a previous Vite test may have generated files that need to be removed.
 
 // Subset of `import type { LoaderDefinitionFunction } from 'webpack'`
 type Loader = {

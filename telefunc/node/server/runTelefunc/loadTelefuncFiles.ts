@@ -24,12 +24,11 @@ async function loadTelefuncFiles(runContext: {
   }
 
   // Handles:
-  //  - Vite in development
-  //  - Vite in production without `importBuild.js`
+  //  - Vite
   {
-    const telefuncFiles = await loadTelefuncFilesWithVite(runContext)
+    const { telefuncFiles, viteProvider } = await loadTelefuncFilesWithVite(runContext)
     if (telefuncFiles) {
-      assertUsage(Object.keys(telefuncFiles).length > 0, getErrMsg('vite'))
+      assertUsage(Object.keys(telefuncFiles).length > 0, getErrMsg(`Vite [\`${viteProvider}\`]`))
       return telefuncFiles
     }
   }
@@ -37,6 +36,6 @@ async function loadTelefuncFiles(runContext: {
   assertUsage(false, "You don't seem to be using Telefunc with a supported stack. Reach out on GitHub or Discord.")
 }
 
-function getErrMsg(stackName: 'webpack' | 'vite') {
-  return 'No `.telefunc.{js|ts|...}` file found. Did you create one? (Stack: `' + stackName + '`.)'
+function getErrMsg(crawler: string) {
+  return 'No `.telefunc.{js|ts|...}` file found. Did you create one? (Crawler: ' + crawler + '.)'
 }

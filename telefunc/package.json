@@ -1,6 +1,6 @@
 {
   "name": "telefunc",
-  "version": "0.1.12",
+  "version": "0.1.13-beta.4",
   "scripts": {
     "build": "rm -rf dist/ && tsc --build",
     "dev": "pnpm run dev:fast",
@@ -56,7 +56,6 @@
   },
   "files": [
     "dist/",
-    "node/vite/importTelefuncFiles.ts",
     "vite.ts",
     "next.ts",
     "nuxt.ts"
