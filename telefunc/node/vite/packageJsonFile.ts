@@ -1,6 +1,6 @@
 /*
  * We create a file `dist/server/package.json` to support ESM users.
- * Explaination: https://github.com/brillout/vite-plugin-ssr/blob/7b499a94780fa33f7931d2bcd0aeb2eb2aac0274/vite-plugin-ssr/node/plugin/packageJsonFile.ts#L2-L7
+ * Explanation: https://github.com/brillout/vite-plugin-ssr/blob/7b499a94780fa33f7931d2bcd0aeb2eb2aac0274/vite-plugin-ssr/node/plugin/packageJsonFile.ts#L2-L7
  */
 
 import type { Plugin } from 'vite'

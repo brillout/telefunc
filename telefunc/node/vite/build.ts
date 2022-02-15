@@ -11,12 +11,8 @@ function build(): Plugin {
     name: 'telefunc:build',
     apply: 'build',
     config: (config) => {
-      const configMod = {
-        ssr: { external: ['vite-plugin-ssr'] },
-      }
       if (!isSSR_config(config)) {
         return {
-          ...configMod,
           build: {
             outDir: 'dist/client',
           },
@@ -28,7 +24,6 @@ function build(): Plugin {
           ...normalizeRollupInput(config.build?.rollupOptions?.input),
         }
         return {
-          ...configMod,
           build: {
             rollupOptions: { input },
             outDir: 'dist/server',
