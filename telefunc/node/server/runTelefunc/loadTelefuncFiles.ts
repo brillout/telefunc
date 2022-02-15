@@ -27,7 +27,7 @@ async function loadTelefuncFiles(runContext: {
   //  - Vite in development
   //  - Vite in production without `importBuild.js`
   {
-    const telefuncFiles = loadTelefuncFilesWithVite(runContext)
+    const telefuncFiles = await loadTelefuncFilesWithVite(runContext)
     if (telefuncFiles) {
       assert(Object.keys(telefuncFiles).length > 0, 'Vite: No `.telefunc.js` file found.')
       return telefuncFiles
