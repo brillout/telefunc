@@ -12,13 +12,12 @@ export { __internal_addTelefunction } from './runTelefunc/loadTelefuncFilesWithI
 
 import { assertUsage } from '../utils'
 
-assertEnv()
+assertServerSide()
 
-function assertEnv(isBrowser?: true) {
-  const isNodejs =
-    !isBrowser && typeof 'process' !== 'undefined' && process && process.versions && process.versions.node
+function assertServerSide() {
+  const isBrowser = typeof window !== 'undefined' && 'innerHTML' in (window?.document?.body || {})
   assertUsage(
-    isNodejs,
+    !isBrowser,
     [
       'You are loading the `telefunc` module in the browser, but',
       'the `telefunc` module can only be imported in Node.js.',
