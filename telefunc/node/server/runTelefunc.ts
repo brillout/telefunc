@@ -55,7 +55,7 @@ async function runTelefunc_(httpRequest: { url: string; method: string; body: un
 
   {
     const logInvalidRequests = !runContext.isProduction || runContext.debug
-    objectAssign(runContext, {logInvalidRequests })
+    objectAssign(runContext, { logInvalidRequests })
   }
 
   objectAssign(runContext, {
@@ -116,15 +116,16 @@ async function runTelefunc_(httpRequest: { url: string; method: string; body: un
     objectAssign(runContext, { httpResponseBody })
   }
 
-  {
-    const httpResponseEtag = await getEtag(runContext)
-    objectAssign(runContext, { httpResponseEtag })
-  }
+  // {
+  //   const httpResponseEtag = await getEtag(runContext)
+  //   objectAssign(runContext, { httpResponseEtag })
+  // }
 
   return {
     body: runContext.httpResponseBody,
     statusCode: runContext.telefunctionAborted ? 403 : 200,
-    etag: runContext.httpResponseEtag,
+    // etag: runContext.httpResponseEtag,
+    etag: null,
     contentType: 'text/plain',
   }
 }
