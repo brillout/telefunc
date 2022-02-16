@@ -144,8 +144,6 @@ function logParseError(errMsg: string, runContext: { isProduction: boolean; logI
   const errMsgPrefix = 'Malformed request in development.'
   const errMsgSuffix =
     'This is unexpected since, in development, all requests are expected to originate from the Telefunc Client and should therefore be valid. If this error is happening in production, then either the environment variable `NODE_ENV="production"` or `telefunc({ isProduction: true })` is missing.'
-  assert(errMsg.startsWith(errMsgPrefix))
-  assert(errMsg.endsWith(errMsgSuffix))
   if (!runContext.isProduction) {
     errMsg = `${errMsgPrefix} ${errMsg} ${errMsgSuffix}`
   }
