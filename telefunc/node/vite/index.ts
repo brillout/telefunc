@@ -5,7 +5,6 @@ import { transform } from './transform'
 import { build } from './build'
 // import { importBuild } from 'vite-plugin-import-build'
 // import { getImportBuildCode } from './getImportBuildCode'
-import { packageJsonFile } from './packageJsonFile'
 import { retrieveDevServer } from './retrieveDevServer'
 import type { Plugin } from 'vite'
 import { distLinkOn, distLinkOff } from './distLink'
@@ -28,7 +27,6 @@ function plugin(): Plugin[] {
     transform(),
     build(),
     //importBuild(getImportBuildCode()),
-    packageJsonFile(),
     distLinkOn(),
   ]
 }
