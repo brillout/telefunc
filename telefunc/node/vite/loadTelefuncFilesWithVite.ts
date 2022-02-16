@@ -45,6 +45,7 @@ async function loadGlobImporter(runContext: {
     return { moduleExports, provider: 'DEV_SERVER' as const }
   }
 
+  /*
   {
     let moduleExports: unknown | null = null
     try {
@@ -55,6 +56,7 @@ async function loadGlobImporter(runContext: {
       return { moduleExports, provider: 'DIRECT' as const }
     }
   }
+  */
 
   {
     const moduleExports = await import('./telefuncFilesGlobFromDist')

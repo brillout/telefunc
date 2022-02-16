@@ -1,0 +1,10 @@
+<html>
+  <body>
+    <div id="view">Loading...</div>
+    <script type="module">
+      import { hello } from './hello.telefunc.js'
+      const { message } = await hello({ name: 'Eva' })
+      document.querySelector('#view').textContent = message
+    </script>
+  </body>
+</html>
