@@ -30,7 +30,6 @@ function distLinkOn(): Plugin {
       assert(root)
       // To `require()` an absolute path doesn't seem to work on Vercel
       const rootRelative = posix.relative(toPosixPath(__dirname), root)
-      console.error('rr', rootRelative)
       writeFileSync(
         telefuncFilesGlobFromDistPath,
         [
