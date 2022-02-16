@@ -78,7 +78,7 @@ importers:
 
   examples/nuxt2:
     specifiers:
-      '@brillout/proto-db': ^0.1.0
+      '@brillout/proto-db': ^0.1.1
       body-parser: ^1.19.0
       core-js: ^3.15.1
       nuxt: ^2.15.7
@@ -86,7 +86,7 @@ importers:
       vue: ^2.6.14
       webpack: ^4.46.0
     dependencies:
-      '@brillout/proto-db': 0.1.0
+      '@brillout/proto-db': 0.1.1
       body-parser: 1.19.1
       core-js: 3.21.0
       nuxt: 2.15.8
@@ -1612,11 +1612,10 @@ packages:
     resolution: {integrity: sha512-3b/5PLhJ4xMF/cyY1aJXIMQT0TONFFgUX3tH2wfdrHe78OYe8igl0iaHkJ3kzgN0V+x562Of2AoMwThtLaAj5Q==}
     dev: false
 
-  /@brillout/proto-db/0.1.0:
-    resolution: {integrity: sha512-rcu5xtikAOEd89AjhJK9dxL2vU/9VvMxKYWp0q1bScovlRCiwV07mWjaXEiZlxDFvUjYanYjw8Q80JTfN9cyJw==}
+  /@brillout/proto-db/0.1.1:
+    resolution: {integrity: sha512-vRIB+f19NH3gEyiIBM/GxZvK6AgS2I+DNvCt9abYKJmMmTHIxXaou5grtj6u3i7FsZnD1wSmWWiuaV/3VpLJTQ==}
     dependencies:
       '@brillout/assert': 0.1.7
-      fs-extra: 8.1.0
     dev: false
 
   /@brillout/submodule-init/0.1.2:
