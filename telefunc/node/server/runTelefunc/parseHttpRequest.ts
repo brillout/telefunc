@@ -2,7 +2,7 @@ export { parseHttpRequest }
 
 import { parse } from '@brillout/json-s/parse'
 import { getTelefunctionKey } from './getTelefunctionKey'
-import { assertUsage, hasProp, getPluginError, getUrlPathname, assert } from '../../utils'
+import { assertUsage, hasProp, getProjectError, getUrlPathname, assert } from '../../utils'
 import { getTelefunctionName } from './getTelefunctionName'
 
 function parseHttpRequest(runContext: {
@@ -148,6 +148,6 @@ function logParseError(errMsg: string, runContext: { isProduction: boolean; logI
     errMsg = `${errMsgPrefix} ${errMsg} ${errMsgSuffix}`
   }
   if (runContext.logInvalidRequests) {
-    console.error(getPluginError(errMsg))
+    console.error(getProjectError(errMsg))
   }
 }

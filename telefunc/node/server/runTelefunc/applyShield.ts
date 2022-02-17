@@ -1,7 +1,7 @@
 export { applyShield }
 
 import { shieldApply, shieldIsMissing } from '../shield'
-import { assertWarning, getPluginError } from '../../utils'
+import { assertWarning, getProjectError } from '../../utils'
 import type { Telefunction } from '../types'
 import { Abort } from '../index'
 
@@ -26,7 +26,7 @@ function applyShield(runContext: {
           `Arguments: \`${JSON.stringify(runContext.telefunctionArgs)}\`.`,
           `Error: ${applyResult}`,
         ].join(' ')
-        console.error(getPluginError(errMsg))
+        console.error(getProjectError(errMsg))
       }
       throw Abort()
     }

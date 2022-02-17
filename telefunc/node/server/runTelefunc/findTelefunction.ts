@@ -1,6 +1,6 @@
 export { findTelefunction }
 
-import { assert, assertUsage, getPluginError } from '../../utils'
+import { assert, assertUsage, getProjectError } from '../../utils'
 import type { Telefunction } from '../types'
 
 function findTelefunction(runContext: {
@@ -25,7 +25,7 @@ function findTelefunction(runContext: {
   if (!telefunction) {
     if (runContext.logInvalidRequests) {
       const errMsg = getNotFoundErrMsg()
-      console.error(getPluginError(errMsg))
+      console.error(getProjectError(errMsg))
     }
     return null
   }
