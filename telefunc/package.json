@@ -8,7 +8,8 @@
     "dev:slow": "tsc --build --watch",
     "dev:fast": "pnpm run tsc:watch:node & pnpm run tsc:watch:client",
     "tsc:watch:node": "tsc --incremental --watch --project ./node/tsconfig.json",
-    "tsc:watch:client": "tsc --incremental --watch --project ./client/tsconfig.json"
+    "tsc:watch:client": "tsc --incremental --watch --project ./client/tsconfig.json",
+    "tsc:tests": "tsc --project ./tsconfig.tests.json"
   },
   "main": "./dist/node/server/index.js",
   "exports": {
