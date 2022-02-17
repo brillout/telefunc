@@ -2,7 +2,6 @@ packages:
   - 'telefunc/'
   - 'docs/'
   - 'examples/*'
-  - '!examples/vercel/'
   - 'libframe/test/'
   - 'libframe/docs/'
   - 'libframe/scripts/'
