@@ -18,8 +18,7 @@ async function loadTelefuncFilesWithVite(runContext: {
     return { telefuncFiles: null }
   }
 
-  console.log('moduleExports', moduleExports)
-  console.log('provider', provider)
+  // console.log('provider', provider)
   assert(isObject(moduleExports), { moduleExports, provider })
   assert(hasProp(moduleExports, 'telefuncFilesGlob'), { moduleExports, provider })
   const telefuncFilesGlob = moduleExports.telefuncFilesGlob as GlobFiles
