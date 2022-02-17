@@ -2,7 +2,7 @@
   "name": "telefunc",
   "version": "0.1.12",
   "scripts": {
-    "build": "rm -rf dist/ && tsc --build",
+    "build": "rm -rf dist/ && tsc --build && pnpm run tsc:tests",
     "dev": "pnpm run dev:fast",
     "// `dev:fast` and `dev:slow` achieve the same, but `dev:fast` is much faster": "",
     "dev:slow": "tsc --build --watch",
@@ -43,6 +43,7 @@
   "dependencies": {
     "@brillout/json-s": "^0.4.3",
     "@brillout/libassert": "^0.5.4",
+    "@types/jest": "^27.4.0",
     "es-module-lexer": "^0.7.1",
     "vite-plugin-import-build": "^0.1.3"
   },
