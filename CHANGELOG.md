@@ -1,3 +1,12 @@
+## [0.1.14](https://github.com/vikejs/telefunc/compare/v0.1.13...v0.1.14) (2022-02-17)
+
+
+### Bug Fixes
+
+* remove debug log ([40b486b](https://github.com/vikejs/telefunc/commit/40b486be4fc5c5d8f1fe3d37c17c63e2e763574e))
+
+
+
 ## [0.1.13](https://github.com/vikejs/telefunc/compare/v0.1.12...v0.1.13) (2022-02-17)
 
 
