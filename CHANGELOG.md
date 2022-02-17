@@ -1,3 +1,25 @@
+## [0.1.13](https://github.com/vikejs/telefunc/compare/v0.1.12...v0.1.13) (2022-02-17)
+
+
+### Bug Fixes
+
+* avoid duplicated code in importBuild.js ([eae771e](https://github.com/vikejs/telefunc/commit/eae771ec0b553bd691b49cb3759279f1b19476c6))
+* improve deploy DX ([ddba37e](https://github.com/vikejs/telefunc/commit/ddba37e975e5b8ec7df8b981df512eeed2052878))
+* improve error message ([adedcdf](https://github.com/vikejs/telefunc/commit/adedcdf816d7a7ed4eb6bb0debe0cbacdc4ffd7e))
+* improve no telefunc file found error ([51fff0a](https://github.com/vikejs/telefunc/commit/51fff0adfb46938f82cd6e0443506dc1284f5f42))
+* improve server-side test [cloudfalre workers] ([e847c10](https://github.com/vikejs/telefunc/commit/e847c100c6388b1e186f729a114b8cb6ff912380))
+* relative window path ([102b2a9](https://github.com/vikejs/telefunc/commit/102b2a9b1c42610b1a0f424682c6e81b707d6c3a))
+* remove etag generation [cloudflare workers] ([850acb7](https://github.com/vikejs/telefunc/commit/850acb7272e1c85f4f3da884a0938f33a6f3a5f5))
+* remove eval usage for cloudfalre workers ([ca2401c](https://github.com/vikejs/telefunc/commit/ca2401ca915a90bd2d08dcb02d386365e285cc7d))
+* warn user upon wrong telefunc() usage ([e0a5987](https://github.com/vikejs/telefunc/commit/e0a5987fd6b29a24822f9f0e5148a41aae2d2878))
+
+
+### Reverts
+
+* remove unused generated dist/server/package.json ([b72e908](https://github.com/vikejs/telefunc/commit/b72e9081280d7f1c72401e9074d2132756014dce))
+
+
+
 ## [0.1.12](https://github.com/vikejs/telefunc/compare/v0.1.11...v0.1.12) (2022-02-13)
 
 
