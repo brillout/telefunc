@@ -67,7 +67,7 @@ List of `shield()` types:
 `t.date` | `Date` | `value.constructor === Date`
 `t.array(T)` | `T[]` | `value.every(element => isT(element))`
 `t.object(T)` | `Record<string, T>` | `Object.values(value).every(v => isT(v))`
-`{ k1: T1, k2: T2, ... }` | <code>{ k1: T1, k2: T2, ... }</code> | <code>isT1(value.k1) && isT2(value.k2) && ...</code>
+`{ k1: T1, k2: T2, ... }` | <code>{'{ k1: T1, k2: T2, ... }'}</code> | <code>isT1(value.k1) && isT2(value.k2) && ...</code>
 `t.or(T1, T2, ...)` | <code>T1 &#x7c; T2 &#x7c; ...</code> | <code>isT1(value) &#x7c;&#x7c; isT2(value) &#x7c;&#x7c; ...</code>
 `t.tuple(T1, T2, ...)` | `[T1, T2, ...]` | `isT1(value[0]) && isT2(value[1]) && ...`
 `t.const(val)` | `val as const` | `value === val`
