@@ -6,7 +6,8 @@ import { posix } from 'path'
 import type { Plugin } from 'vite'
 import { assert, toPosixPath } from '../utils'
 import { isSSR_config } from './utils'
-const telefuncFilesGlobFromDistPath = `${__dirname}/telefuncFilesGlobFromDist.js`
+const dir = __dirname + (() => '')() // trick to avoid `@vercel/ncc` to glob import
+const telefuncFilesGlobFromDistPath = `${dir}/telefuncFilesGlobFromDist.js`
 
 function distLinkOff() {
   writeFileSync(telefuncFilesGlobFromDistPath, ['exports.distLinkOff = true', ''].join('\n'))
@@ -29,7 +30,7 @@ function distLinkOn(): Plugin {
       }
       assert(root)
       // To `require()` an absolute path doesn't seem to work on Vercel
-      const rootRelative = posix.relative(toPosixPath(__dirname), root)
+      const rootRelative = posix.relative(toPosixPath(dir), root)
       writeFileSync(
         telefuncFilesGlobFromDistPath,
         [

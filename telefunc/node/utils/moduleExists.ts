@@ -3,10 +3,10 @@ import { assert, nodeRequire } from '../utils'
 
 export { moduleExists }
 
-function moduleExists(modulePath: string, __dirname?: string): boolean {
+function moduleExists(modulePath: string, dir?: string): boolean {
   if (!isAbsolute(modulePath)) {
-    assert(__dirname)
-    modulePath = resolve(__dirname, modulePath)
+    assert(dir)
+    modulePath = resolve(dir, modulePath)
   }
   assert(isAbsolute(modulePath))
 
