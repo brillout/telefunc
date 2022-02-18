@@ -1,3 +1,12 @@
+## [0.1.15](https://github.com/vikejs/telefunc/compare/v0.1.14...v0.1.15) (2022-02-18)
+
+
+### Bug Fixes
+
+* fix @vercel/ncc bundling ([2d5532c](https://github.com/vikejs/telefunc/commit/2d5532cdcd78cf568a411d8497805b171c24b30f))
+
+
+
 ## [0.1.14](https://github.com/vikejs/telefunc/compare/v0.1.13...v0.1.14) (2022-02-17)
 
 
