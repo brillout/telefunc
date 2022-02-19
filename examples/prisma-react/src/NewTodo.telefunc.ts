@@ -1,55 +1,16 @@
-import { PrismaClient } from '@prisma/client'
+import { shield } from 'telefunc'
+import prisma from './client'
 
-const prisma = new PrismaClient()
+const t = shield.type
 
-export { addTodo, getTodos, toggleTodo, deleteTodo }
+export { onNewTodo }
 
-async function getTodos() {
-  const todos = await prisma.todo.findMany()
-  return todos
-}
-
-async function addTodo({ title, content }: { title: string; content: string }) {
+async function onNewTodo({ title, content }: { title: string; content: string }) {
   await prisma.todo.create({
     data: {
       title,
       content,
       completed: false,
-    },
-  })
-}
-
-async function toggleTodo(id: number) {
-  const todo = await prisma.todo.findUnique({
-    where: {
-      id,
-    },
-  })
-  if (!todo) {
-    throw new Error('Todo not found')
-  }
-  await prisma.todo.update({
-    where: {
-      id,
-    },
-    data: {
-      completed: !todo.completed,
-    },
-  })
-}
-
-async function deleteTodo(id: number) {
-  const todo = await prisma.todo.findUnique({
-    where: {
-      id,
-    },
-  })
-  if (!todo) {
-    throw new Error('Todo not found')
-  }
-  await prisma.todo.delete({
-    where: {
-      id,
     },
   })
 }
