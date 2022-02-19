@@ -57,7 +57,8 @@
     "vite": "^2.4.3"
   },
   "files": [
-    "dist/",
+    "dist/node/",
+    "dist/client/",
     "vite.ts",
     "next.ts",
     "nuxt.ts"
