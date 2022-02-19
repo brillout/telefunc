@@ -1,7 +1,7 @@
 import { Todo } from '@prisma/client'
 import { useEffect, useState } from 'react'
 import NewTodo from './NewTodo'
-import { deleteTodo, getTodos, toggleTodo } from './todo.telefunc'
+import { onDeleteTodo, onGetTodos, onToggleTodo } from './TodoList.telefunc'
 
 export { TodoList }
 
@@ -13,7 +13,7 @@ function TodoItem({ refetch, ...todo }: Todo & { refetch: () => void }) {
         <button
           id={'toggle-' + todo.title}
           onClick={async () => {
-            await toggleTodo(todo.id)
+            await onToggleTodo(todo.id)
             refetch()
           }}
         >
@@ -24,7 +24,7 @@ function TodoItem({ refetch, ...todo }: Todo & { refetch: () => void }) {
       <button
         id={'remove-' + todo.title}
         onClick={async () => {
-          await deleteTodo(todo.id)
+          await onDeleteTodo(todo.id)
           refetch()
         }}
       >
@@ -38,7 +38,7 @@ function TodoList() {
   const [todoItems, setTodoItems] = useState<Todo[]>([])
 
   const fetch = async () => {
-    setTodoItems(await getTodos())
+    setTodoItems(await onGetTodos())
   }
 
   useEffect(() => {
