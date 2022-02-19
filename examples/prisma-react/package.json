@@ -8,7 +8,7 @@
     "server": "esno ./server",
     "server:prod": "cross-env NODE_ENV=production esno ./server",
     "db:reset": "prisma migrate reset --force",
-    "db:init": "npx prisma migrate dev --name init",
+    "db:init": "npx prisma generate && npx prisma migrate dev --name init",
     "db:test": "npm run db:init && npm run db:reset",
     "test:dev": "npm run db:test && npx prisma db seed && npm run dev",
     "test:prod": "npm run db:test && npx prisma db seed && npm run prod"
