@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { addTodo } from './todo.telefunc'
+import { addTodo } from './NewTodo.telefunc'
 
 export default function NewTodo({ refetch }: { refetch: () => void }) {
   const [title, setTitle] = useState('')
