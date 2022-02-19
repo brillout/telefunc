@@ -1,3 +1,4 @@
+// @ts-ignore
 import { Todo } from '@prisma/client'
 import { useEffect, useState } from 'react'
 import NewTodo from './NewTodo'
