@@ -9,10 +9,8 @@
   "dependencies": {
     "cross-env": "^7.0.3",
     "express": "^4.17.1",
-    "telefunc": "0.1.0-beta.1",
-    "vite": "^2.6.4"
+    "telefunc": "0.1.15",
+    "vite": "^2.7.12"
   },
-  "type": "module",
-  "name": "example-vite",
-  "version": "0.0.0"
+  "type": "module"
 }

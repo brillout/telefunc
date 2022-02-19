@@ -1,0 +1,78 @@
+## Compose
+
+We can compose `shield()` types.
+
+```js
+// Todo.ts
+
+import { shield } from 'telefunc'
+const t = shield.type
+
+export { TodoItemShield }
+
+const TodoItemShield = {
+  id: t.number,
+  text: t.string,
+  isCompleted: t.boolean
+}
+```
+```js
+// TodoListEditor.telefunc.js
+
+import { shield } from 'telefunc'
+const t = shield.type
+import { TodoItemShield } from './TodoItem'
+
+shield(onBulkChange, [t.array(TodoItemShield)])
+async function onBulkChange(todoItems) {
+ todoItems.forEach(todoItem => {
+    // typeof todoItem.id === 'number'
+    // ...
+ })
+}
+```
+
+
+## `shield()` manual inferring
+
+We can also infer the corresponding TypeScript type by using `typeof`:
+
+```ts
+// Todo.ts
+
+import { shield } from 'telefunc'
+const t = shield.type
+
+// We use `TodoItemShield` for telefunctions
+export { TodoItemShield }
+// We use `TodoItem` for TypeScript
+export type { TodoItem }
+
+// We use `typeof` to avoid duplication and keep a single source of truth
+type TodoItem = typeof TodoItemShield
+
+const TodoItemShield = {
+  id: t.number,
+  text: t.string,
+  isCompleted: t.boolean
+}
+```
+```ts
+// TodoItem.telefunc.js
+
+import { TodoItemShield } from './TodoItem'
+
+// We can use `shield()` as usual
+shield(onTodoItemChange, [TodoItemShield])
+async function onTodoItemChange({ id, text, isCompleted }) {
+  // typeof id === 'number'
+  // ...
+}
+```
+
+> We can compose `shield()` types, see <Link href="/shield#compose" />.
+
+> <Emoji name="warning" /> We may be tempted to use `shield()` to systematically avoid type duplications.
+> The best way to think about telefunctions is a contract.
+> remove duplicated types  Note that most of the time we don't need advanced,
+

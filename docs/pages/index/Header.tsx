@@ -1,8 +1,7 @@
 import React from 'react'
 import './Header.css'
 import iconTelefunc from '../../icons/telefunc.svg'
-import HeaderCodeBlockLeft from './HeaderCodeBlockLeft.mdx'
-import HeaderCodeBlockRight from './HeaderCodeBlockRight.mdx'
+import { HeaderCode } from './HeaderCode'
 
 export { Header }
 
@@ -13,20 +12,7 @@ function Header() {
         <LeftSide />
         <RightSide />
       </div>
-      <div style={{ display: 'flex' }}>
-        <div style={{ width: 465 }}>
-          <HeaderCodeBlockLeft />
-          <div style={{ textAlign: 'center' }}>
-            <em>Node.js</em>
-          </div>
-        </div>
-        <div style={{ width: 465, marginLeft: 10 }}>
-          <HeaderCodeBlockRight />
-          <div style={{ textAlign: 'center' }}>
-            <em>Browser</em>
-          </div>
-        </div>
-      </div>
+      <HeaderCode />
       {/*
       <div style={{ display: 'inline-block' }}>
         <em>Define functions on the server, call them remotely from the browser.</em>

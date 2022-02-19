@@ -1,8 +1,6 @@
 import React from 'react'
 import { Emoji } from 'libframe-docs/utils/Emoji'
 import { FeatureList } from 'libframe-docs/landing-page/features/FeatureList'
-import Simple from './Simple.mdx'
-import Permissions from './Permissions.mdx'
 
 export { Features }
 
@@ -18,7 +16,10 @@ function Features() {
           ),
           desc: (
             <>
-              <p>Telefunc simplifies the frontend-backend relationship &mdash; it's now really just a function.</p>
+              <p>
+                With Telefunc, you get a <b>simple frontend-backend relationship</b>: it's just a set of remote
+                functions.
+              </p>
               <p>
                 Your frontend can <b>directly use any SQL/ORM query</b> to retrieve & mutate data.
               </p>
@@ -34,12 +35,29 @@ function Features() {
           desc: (
             <>
               <p>
-                Telefunc's <code>shield()</code> and <code>Abort()</code> enable{' '}
-                <b>programmatically defined permissions</b>.
+                Telefunc enables <b>programmatically defined permissions</b>. It's both <b>simple</b> and{' '}
+                <b>flexible</b>.
               </p>
               <p>
-                It's both <b>simple</b> and <b>flexible</b>.
+                Telefunc introduces new techniques that enable advanced permissions and <b>increased safety</b>.
               </p>
+            </>
+          ),
+        },
+        {
+          title: (
+            <>
+              <Emoji name="plug" /> Any Stack
+            </>
+          ),
+          desc: (
+            <>
+              <p>
+                Telefunc supports{' '}
+                <b>Next.js</b>, <b>Nuxt</b>, <b>SvelteKit</b>, <b>Vite</b>, <b>Vike</b> and any framework{' '}
+                based on Webpack or Vite.
+              </p>
+              <p>You want to change your stack? Bring Telefunc along.</p>
             </>
           ),
         },
@@ -52,8 +70,8 @@ function Features() {
           desc: (
             <>
               <p>
-                The frontend can tap into the <b>full power of the server</b>; highly tailored & optimized SQL/ORM
-                queries can be used for highly-performant data retrieval & mutations.
+                The frontend can directly tap into the <b>full power of the server</b>. You can use highly tailored &
+                optimized SQL/ORM queries for highly performant data retrieval and mutations.
               </p>
             </>
           ),
@@ -70,24 +88,8 @@ function Features() {
                 Seamless <b>TypeScript support out-of-the-box</b>.
               </p>
               <p>
-                Use your types across frontend and backend to enable <b>end-to-end type safety</b>.
+                Use your types across the frontend and backend for <b>end-to-end type safety</b>.
               </p>
-            </>
-          ),
-        },
-        {
-          title: (
-            <>
-              <Emoji name="plug" /> Any stack
-            </>
-          ),
-          desc: (
-            <>
-              <p>
-                Telefunc supports both Webpack and Vite. This means it works with any stack: <b>Next.js</b>, <b>Nuxt</b>
-                , <b>SvelteKit</b>, <b>Vite</b>, <b>CRA</b>, <b>Gatsby</b>, <b>etc.</b>
-              </p>
-              <p>Want to change your stack? Bring Telefunc along.</p>
             </>
           ),
         },

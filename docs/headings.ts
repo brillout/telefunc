@@ -2,7 +2,20 @@ import type { HeadingDefinition, HeadingWithoutLink } from 'libframe-docs/headin
 
 export { headingsWithoutLink }
 
-const headingsWithoutLink: HeadingWithoutLink[] = []
+const headingsWithoutLink: HeadingWithoutLink[] = [
+  {
+    title: '`Abort()` or `new Error()`',
+    url: '/abort-or-error',
+  },
+  {
+    title: 'The SSR context problem',
+    url: '/ssr-context',
+  },
+  {
+    title: 'Isomorphic `import`',
+    url: '/isomorphic-import',
+  },
+]
 
 export const headings: HeadingDefinition[] = [
   {
@@ -20,21 +33,38 @@ export const headings: HeadingDefinition[] = [
     level: 2,
     title: 'Tour',
     url: '/tour',
+    sectionTitles: ['TypeScript'],
+  },
+  {
+    level: 2,
+    title: 'RPC vs GraphQL/REST',
+    url: '/RPC-vs-GraphQL-REST',
   },
   {
     level: 1,
-    title: 'Get Started',
+    title: 'Get started',
     titleEmoji: 'seedling',
   },
   {
     level: 2,
-    title: 'Scaffold new app',
-    url: '/scaffold',
+    title: 'Vite',
+    url: '/vite',
   },
   {
     level: 2,
-    title: 'Add to existing app',
-    url: '/add',
+    title: 'Next.js',
+    url: '/next',
+  },
+  {
+    level: 2,
+    title: 'Nuxt',
+    url: '/nuxt',
+  },
+  {
+    level: 2,
+    title: 'Other installations',
+    titleInNav: 'Other',
+    url: '/install',
   },
   {
     level: 1,
@@ -48,12 +78,7 @@ export const headings: HeadingDefinition[] = [
   {
     level: 2,
     title: '`Abort()` & `shield()`',
-    url: '/shield',
-  },
-  {
-    level: 2,
-    title: 'Permission',
-    url: '/permission',
+    url: '/abort-shield',
   },
   {
     level: 2,
@@ -62,8 +87,19 @@ export const headings: HeadingDefinition[] = [
   },
   {
     level: 2,
-    title: 'File Structure',
+    title: 'Permissions',
+    url: '/permissions',
+    sectionTitles: ['`getContext()` wrappers'],
+  },
+  {
+    level: 2,
+    title: 'File structure',
     url: '/file-structure',
+  },
+  {
+    level: 2,
+    title: 'Form validation',
+    url: '/form-validation',
   },
   {
     level: 4,
@@ -71,17 +107,71 @@ export const headings: HeadingDefinition[] = [
   },
   {
     level: 2,
-    title: 'RPC vs REST vs GraphQL',
-    url: '/RPC-vs-REST-vs-GraphQL',
-  },
-  {
-    level: 1,
-    title: 'Integration',
-    titleEmoji: 'plug',
+    title: 'TypeScript',
+    url: '/typescript',
+    sectionTitles: ['`shield()`', '`getContext()`'],
   },
   {
     level: 2,
-    title: 'TypeScript',
-    url: '/typescript',
+    title: 'Telefunc Server',
+    url: '/telefunc-server',
+  },
+  {
+    level: 2,
+    title: 'Waterfalls',
+    url: '/waterfalls',
+  },
+  {
+    level: 2,
+    title: 'Server-Side Rendering (SSR)',
+    url: '/ssr',
+    sectionTitles: ['SSR frameworks']
+  },
+  {
+    level: 1,
+    title: 'API',
+    titleEmoji: 'gear',
+  },
+  {
+    level: 4,
+    title: 'Protection',
+  },
+  {
+    level: 2,
+    title: '`shield()`',
+    url: '/shield',
+  },
+  {
+    level: 2,
+    title: '`Abort()`',
+    url: '/Abort',
+  },
+  {
+    level: 4,
+    title: 'Context',
+  },
+  {
+    level: 2,
+    title: '`getContext()`',
+    url: '/getContext',
+  },
+  {
+    level: 2,
+    title: '`provideTelefuncContext()`',
+    url: '/provideTelefuncContext',
+  },
+  {
+    level: 4,
+    title: 'Integration',
+  },
+  {
+    level: 2,
+    title: '`createTelefuncCaller()`',
+    url: '/createTelefuncCaller',
+  },
+  {
+    level: 2,
+    title: '`config',
+    url: '/config',
   },
 ]

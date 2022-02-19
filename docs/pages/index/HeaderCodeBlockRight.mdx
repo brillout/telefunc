@@ -2,15 +2,15 @@
 // CreateTodo.jsx
 // Environment: Browser
 
-// This doesn't actually import `todo.telefunc.js`:
-// Telefunc transforms `todo.telefunc.js` into a
+// The `CreateTodo.telefunc.js` file is not loaded:
+// Telefunc transforms `*.telefunc.js` imports into a
 // thin HTTP client.
-import { onNewTodo } from './todo.telefunc.js'
+import { onNewTodo } from './CreateTodo.telefunc.js'
 
 async function onClick(form) {
   const text = form.input.value
-  // Behind the scenes, Telefunc makes an HTTP request.
-  await onNewTodo(text)
+  // Behind the scenes, Telefunc makes an HTTP request
+  await onNewTodo({ text })
 }
 
 function CreateTodo() {

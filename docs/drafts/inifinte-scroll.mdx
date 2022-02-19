@@ -1,0 +1,26 @@
+```js
+// Inifinite Scroll implementation
+
+// .js
+import { onScrollEnd } from PostList.telefunc.js
+
+onScrollEnd(lastPost) {
+  lastPost.
+  await fetchPosts
+}
+```
+
+```js
+// PostList.telefunc.js
+// Environment: Node.js server
+
+export { onScrollEnd }
+
+improt { shield } from 'telefunc'
+
+shield(onScrollEnd, [shield.type.date])
+async function onScrollEnd(lastPostCreatedAt) {
+  let posts = await Post.findMany()
+  return posts
+}
+```

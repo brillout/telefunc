@@ -1,135 +1,81 @@
+import { Link } from 'libframe-docs/components'
 
-## Telefunctions are public
+We use `shield()` to assert telefunction arguments;
+as we have seen in the <Link text="Telefunc Tour" href="/tour" />,
+telefunctions are public and need protection.
 
-Telefunctions are public: anyone in the world can call our telefunctions.
 
-For example,
-the following telefunction exposes our entire database to the world:
+## Common types
 
-~~~js
-// query.telefunc.js
-// Environment: Node.js
-
-export { executeQuery }
-
-async function executeQuery(query) {
-  const result = await database.runSQL(query)
-  return result
-}
-~~~
-
-Because anyone can call `executeQuery()` and therefore access our whole database:
-
-~~~js
-// Environment: Anyone's browser
-
-// Anyone in the world can go to our website,
-// open the browser's web dev console, and call our telefunctions.
-
-const users = await executeQuery('SELECT login, password FROM users;')
-users.forEach(({login, password}) => {
-  // W00t I have all passwords ｡^‿^｡
-  console.log(login, password)
-})
-~~~
-
-~~~js
-// query.telefunc.js
-// Environment: Node.js
-
-export async function executeQuery(query) {
-  const result = await database.runSQL(query)
-  return result
-}
-~~~
-
-## `throw new Abort()`
-
-We can use `throw new Abort()` to make our telefunctions safe:
-
-~~~js
-// query.telefunc.js
-// Environment: Node.js
-
-import { getContext, Abort } from 'telefunc'
-
-export { executeQuery }
-
-async function executeQuery(query) {
-  const context = getContext()
-
-  // We use `Abort()` to implement a permission:
-  // Only admins should be able to run arbitrary SQL queries.
-  if( !context.user?.isAdmin ) {
-    throw new Abort()
-  }
-
-  const result = await database.runSQL(query)
-  return result
-}
-~~~
-
-## `shield()`
-
-Because our telefunctions can be called by anyone, the arguments can have any value:
+Examples showcasing the most common `shield()` types:
 
 ```js
-// hello.telefunc.js
+// TodoList.telefunc.js
+// Environment: Node.js
 
-export { hello }
+import { shield } from 'telefunc'
+const t = shield.type
 
-// Our frontend may always call `hello({ name })`,
-// but anyone in the world can call `hello(undefined)`.
-funtion hello(arg) {
-  // This may throw: `Uncaught TypeError: Cannot read property 'name' of undefined`
-  return 'Welcome '+arg.name
+shield(onTextChange, [t.number, t.string])
+async function onTextChange(id, text) {
+  // typeof id === 'number'
+  // typeof text === 'string'
+}
+
+shield(onCompletedToggle, [{ id: t.number, isCompleted: t.boolean }])
+async function onCompletedToggle({ id, isCompleted }) {
+  // typeof id === 'number'
+  // typeof isCompleted === 'boolean'
+}
+
+shield(onTagListChange, [t.array(t.string)])
+async function onTagListChange(tagList) {
+  // tagList.every(tagName => typeof tagName === 'string')
+}
+
+shield(onNewMilestone, [{
+  name: t.string,
+  deadline: t.nullable(t.date),
+  ownerId: t.optional(t.number)
+}])
+async function onNewMilestone({ name, deadline, ownerId }) {
+  // typeof name === 'string'
+  // deadline === null || deadline.constructor === Date
+  // ownerId === undefined || typeof ownerId === 'number'
+}
+
+shield(onStatusChange, [t.or(
+  t.const('DONE'),
+  t.const('PROGRESS'),
+  t.const('POSTPONED')
+)])
+async function onStatusChange(status) {
+  // status === 'DONE' || status === 'PROGRESS' || status === 'POSTPONED'
 }
 ```
 
-We can use `shield()` to ensure the structure of our arguments.
 
-~~~js
-// hello.telefunc.js
+## All types
 
-import { shield } from 'telefunc'
+List of `shield()` types:
 
-export { hello }
+`const t = shield.type` | TypeScript | JavaScript
+-|-|-
+`t.string` | `string` | `typeof value === 'string'`
+`t.number` | `number` | `typeof value === 'number'`
+`t.boolean` | `boolean` | <code>value === true &#x7c;&#x7c; value === false</code>
+`t.date` | `Date` | `value.constructor === Date`
+`t.array(T)` | `T[]` | `value.every(element => isT(element))`
+`t.object(T)` | `Record<string, T>` | `Object.values(value).every(v => isT(v))`
+`{ k1: T1, k2: T2, ... }` | <code>{'{ k1: T1, k2: T2, ... }'}</code> | <code>isT1(value.k1) && isT2(value.k2) && ...</code>
+`t.or(T1, T2, ...)` | <code>T1 &#x7c; T2 &#x7c; ...</code> | <code>isT1(value) &#x7c;&#x7c; isT2(value) &#x7c;&#x7c; ...</code>
+`t.tuple(T1, T2, ...)` | `[T1, T2, ...]` | `isT1(value[0]) && isT2(value[1]) && ...`
+`t.const(val)` | `val as const` | `value === val`
+`t.optional(T)` | <code>T &#x7c; undefined</code> | <code>isT(value) &#x7c;&#x7c; value === undefined</code>
+`t.nullable(T)` | <code>T &#x7c; null</code> | <code>isT(value) &#x7c;&#x7c; value === null</code>
+`t.any` | `any` | `true`
 
-shield(hello, [{ name: shield.type.string }])
-function hello(arg) {
-  // `shield()` guarantees `arg` to always be an object of type `{ name: string }`
-  return 'Welcome '+arg.name
-}
-~~~
 
 ## TypeScript
 
-When using TypeScript, `shield()` infers the argument types.
-
-```js
-import { shield } from 'telefunc'
-
-export { onNewTodo }
-
-// A telefunction for when the user creates a new to-do.
-const t = shield.type
-shield(onNewTodo, [ t.string, t.array(t.string) ])
-function onNewTodo(text, tags) {
-  
-}
-```
-
-, so that supports TypeScript, which means
-
-```ts
-todo
-```
-
-Especially when using TypeScript
-
-Because, we cannot assume the type of the arguments
-We cannot assume
-
-```ts
-todo
-```
+See <Link href="/typescript#shield" doNotInferSectionTitle={true} />.

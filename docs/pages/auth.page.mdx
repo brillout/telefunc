@@ -1,0 +1,53 @@
+import { Link, ReadingRecommendation } from 'libframe-docs/components'
+import { AuthIntegration } from '../components'
+
+<ReadingRecommendation links={['/tour']} />
+
+Telefunctions can use `getContext()` to access information about the logged-in user:
+
+```js
+// TodoList.telefunc.js
+// Environment: Node.js
+
+import { getContext } from 'telefunc'
+
+export { getTodoItems }
+
+async function getTodoItems() {
+  const { user } = getContext()
+  // We use `user.id` to find all to-do items of the logged-in user
+  const authorId = user.id
+  const todoItems = await Todo.findMany({ select: 'text', authorId })
+  return todoItems
+}
+```
+
+## Installation
+
+We determine the context object by using `provideTelefuncContext()`.
+
+<AuthIntegration />
+
+## `getContext()` wrappers
+
+For convenience, we can implement `getContext()` wrappers.
+
+```js
+// auth/getUser.ts
+// Environment: Node.js
+
+// Note that `auth/getUser.ts` is not a `.telefunc.js` file and `getUser()` not a telefunction
+export { getUser }
+
+import { Abort, getContext } from 'telefunc'
+
+function getUser() {
+  const { user } = getContext()
+  if (!user) {
+    throw Abort()
+  }
+  return user
+}
+```
+
+Such wrappers allow us to achieve advanced permissions and hardened safety, see <Link href="/permissions#getcontext-wrappers" doNotInferSectionTitle={true} />.

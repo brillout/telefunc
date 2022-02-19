@@ -2,17 +2,14 @@
 
 Intro & docs: [telefunc.com](https://telefunc.com)
 <br/>
-Examples (official): [examples/](examples)
+Examples: [examples/](examples)
 <br/>
-Examples (community): [examples/README.md](examples#community-examples)
-
 Version history & breaking changes: [CHANGELOG.md](CHANGELOG.md)
 
-Follow: [twitter.com/brillout](https://twitter.com/brillout)
+Follow: [Twitter > @brillout](https://twitter.com/brillout)
 <br/>
-Chat: [Discord - Vike Land - #telefunc](https://discord.com/invite/3DYWwk4xRQ)
+Chat: <a href="https://discord.com/invite/3DYWwk4xRQ">Discord > Vike<img src="/docs/icons/hash.svg" height="17" width="23" valign="text-bottom" alt="hash"/>telefunc</a>
 
-Have a question? Want a feature? A tool integration is not working? Chat on
-<a href="https://discord.com/invite/3DYWwk4xRQ">Discord</a> or open a
-<a href="https://github.com/vikejs/telefunc/issues/new">GitHub ticket</a>.
-
+Have a question? Want a feature? Found a bug?
+<a href="https://discord.com/invite/3DYWwk4xRQ">Join our Discord</a> or
+<a href="https://github.com/vikejs/telefunc/issues/new">open a GitHub ticket</a>.

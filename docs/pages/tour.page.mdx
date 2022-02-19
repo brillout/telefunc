@@ -1,8 +1,19 @@
-Reading recommendation:
- - Seniors already familiar with RPC: only sections [Inversion of Control](#inversion-of-control) and [TypeScript](#typescript).
- - Anyone else: all sections.
+import { Link } from 'libframe-docs/components'
+import { AuthIntegration } from '../components'
 
-## Hello World
+> Alreay familiar with RPC? Only read the last sections:
+> - [`Abort()` & `shield()`](#abort-shield)
+> - [Authentication & Permissions](#authentication-permissions)
+> - [Inversion of Control](#inversion-of-control)
+> - [TypeScript](#typescript)
+
+After taking the tour
+you'll have a comprehensive overview of what Telefunc is and
+be able proficiently use it.
+
+## Hello world
+
+Telefunc enables functions defined on the server-side to be called remotely from the browser-side.
 
 ```js
 // hello.telefunc.js
@@ -23,112 +34,559 @@ async function hello({ name }) {
 <html>
   <body>
     <script type="module">
-      // This doesn't actually import `hello.telefunc.js`: Telefunc transforms
+      // This import doesn't actually load the `hello.telefunc.js` file: Telefunc transforms
       // `hello.telefunc.js` into a thin HTTP client.
       import { hello } from './hello.telefunc.js'
-      // Behind the scenes, Telefunc makes an HTTP request.
+      // This thin HTTP client makes an HTTP request when we call `hello()`
       const { message } = await hello({ name: 'Eva' })
-      console.log(message) // Prints Eva
+      console.log(message) // Prints 'Welcome Eva'
     </script>
   </body>
 </html>
 ```
 
-The file `hello.telefunc.js` and the function `hello()` are never loaded in the browser.
-In other words:
+Telefunctions such as `hello()` always run on the server-side.
+
+> The practice of remotely calling functions is called *RPC* (Remote Procedure Call).
+
+
+## ORM & SQL
+
+Because they are always run on the server-side,
+telefunctions are able to run SQL/ORM queries.
+
+This, in essence, enables our frontend to use SQL/ORM queries.
 
 ```js
-  // hello.telefunc.js
+// TodoList.telefunc.js
+// Environment: Node.js server
 
-  export { hello }
+export { getTodoItems }
 
-  async function hello({ name }) {
-    console.log(isServer()) // Always prints true
-    const message = 'Welcome ' + name
-    return { message }
-  }
+async function getTodoItems() {
+  // ORM
+  const todoItems = await Todo.findMany({ select: 'text' })
+  // SQL
+  const todoItems = await execute("SELECT text FROM todo_items;")
 
-  function isServer() {
-    // Test whether this code is executed in the browser or in Node.js
-    return typeof window === "undefined"
-  }
+  return todoItems
+}
 ```
 
-Let's see how it works.
-Telefunc transforms all `import '*.telefunc.js'` into a thin HTTP client, let's see how it works.
+```jsx
+// TodoList.jsx
+// Environment: Browser
+
+import { getTodoItems } from './TodoList.telefunc.js'
+
+async function TodoList() {
+  // Our frontend uses the telefunction `getTodoItems()` to execute a SQL/ORM query that
+  // retrieves the data it needs.
+  const todoItems = await getTodoItems()
+  return (
+    <ul>{ todoItems.map(item =>
+      <li>{ item.text }</li>
+    )}</ul>
+  )
+}
+```
+
+> Note how we collocate and name `TodoList.telefunc.js` after `TodoList.jsx`; it's a practice we'll talk about later.
+
+> Our examples use JSX but note that Telefunc works with any UI framework (React, Vue, Angular, Svelte, ...).
+
+Our frontend can also use telefunctions to mutate data.
+
+```js
+// CreateTodo.telefunc.js
+// Environment: Node.js server
+
+import { shield } from 'telefunc'
+
+export { onNewTodo }
+
+// We'll talk about `shield()` in a moment
+shield(onNewTodo, [shield.type.string])
+async function onNewTodo(text) {
+  // ORM
+  const todoItem = new Todo({ text })
+  await todoItem.save()
+
+  // SQL
+  await execute(
+    "INSERT INTO todo_items VALUES (:text)",
+    { text }
+  )
+}
+```
+
+```jsx
+// CreateTodo.jsx
+// Environment: Browser
+
+import { onNewTodo } from './CreateTodo.telefunc.js'
+
+async function onClick(form) {
+  const text = form.input.value
+  await onNewTodo(text)
+}
+
+function CreateTodo() {
+  return (
+    <form>
+      <input input="text"></input>
+      <button onClick={onClick}>Add To-Do</button>
+    </form>
+  )
+}
+```
+
+This means our frontend can directly tap into the power of our SQL/ORM engine.
+This is both simpler and more powerful than REST/GraphQL.
+
+> We need a GraphQL/RESTful API only if third parties need to be able to access our database,
+> or if we are a very large company with highly complex databases.
+> We explain why at <Link href="/RPC-vs-GraphQL-REST" />.
+
 
 ## How it works
 
-> **It's important to understand the Telefunc mechanism**:
-> it makes us more productive as we will have a natural understanding of how to properly protect our Telefunctions with `shield()` and `Abort()`.
+> Understanding the basic mechanics of Telefunc is paramount in order to proficiently use Telefunc.
 
-Let's see what happens when we do the following somewhere in our browser-side JavaScript.
+Let's see what happens when we call a telefunction.
+
+```js
+// hello.telefunc.js
+// Environment: Node.js server
+
+export { hello }
+
+async function hello({ name }) {
+  const message = 'Welcome ' + name
+  return { message }
+}
+```
 
 ```js
 // Environment: Browser
 
-import { hello } from 'hello.telefunc.js'
+import { hello } from './hello.telefunc.js'
 
 const message = await hello('Eva')
 ```
 
-The first thing is that the Telefunc transform will transform `hello.telefunc.js` in the following.
+The `hello.telefunc.js` file is never loaded in the browser:
+Telefunc transforms `hello.telefunc.js` into the following:
 
 ```js
-// hello.telefunc.js (after applying Telefunc transformer)
+// hello.telefunc.js (after Telefunc transformation)
 // Environement: Browser
-
 import { __internal_makeHttpRequest } 'telefunc/client'
-
 export const hello = (...args) => __internal_makeHttpRequest('/hello.telefunc.js:hello', args)
 ```
 
-This means that original `hello.telefunc.js` file is never loaded in the browser.
+So, when we call `hello('Eva')` in the browser-side, the following happens:
+ 1. On the browser-side, the `__internal_makeHttpRequest()` function makes an HTTP request to our server.
+    ```
+    POST /_telefunc HTTP/1.1
+    {
+      "path": "/hello.telefunc.js:hello",
+      "args": [{"name": "Eva"}]
+    }
+    ```
+ 2. On the server-side, our Telefunc middleware:
+    ```js
+    // server.js
+    import { createTelefunc } from 'telefunc'
 
-This also means that our call `const message = await hello('Eva')` will call the `__internal_makeHttpRequest()` function instead of calling our original `hello()` implementation.
+    // Server middleware (Express.js/Fastify/Koa/Hapi/...)
+    const { telefunc } = createTelefunc()
+    app.use('/_telefunc', async (req, res) => {
+      const httpResponse = await telefunc(req)
+      res.send(httpResponse.body)
+    })
+    ```
+    Replies following HTTP response:
+    ```
+    HTTP/1.1 200 OK
+    {
+      "return": {
+        "message": "Welcome Eva"
+      }
+    }
+    ```
 
-The `__internal_makeHttpRequest()` function makes following HTTP request.
+In other words,
+the `hello()` function is always executed on the server-side,
+and the browser-side remotely calls `hello()` by using an HTTP request.
 
+
+## Telefunctions need protection
+
+Our telefunctions can be remotely called not only by our frontend but really by anyone.
+
+Anyone can open a terminal and make an HTTP request:
+
+```bash
+curl https://our-website.com/_telefunc --data '{
+   "path": "/hello.telefunc.js:hello",
+   "args": [{"name": "Elisabeth"}]
+ }'
 ```
-(Environment: Internet Network)
 
-POST /_telefunc HTTP/1.1
-{"telefunctionPath":"/hello.telefunc.js:hello","telefunctionArguments":[{"name":"Eva"}]}
-```
-
-Our Node.js server will reply the following HTTP response.
-
-```
-(Environment: Internet Network)
-
-HTTP/1.1 200 OK
-{"telefunctionResult":{"message":"Welcome Eva"}}
-```
-
-The `__internal_makeHttpRequest()` function then deserializes the HTTP body `{"telefunctionResult":"Welcome Eva"}` and returns the JavaScript string `'Welcome Eva'`.
-
-## Telefunctions need to be protected
-
-Anyone in the world can open his terminal an make an HTTP request
+Thus, such telefunction is problematic:
 
 ```js
-curl -d '{"name":"/hello.telefunc.js:hello","args":[""]}' http://100.115.92.199:3001/_telefunc
+// sql.telefunc.js
+// Environment: Node.js server
+
+export { run }
+
+async function run(sql) {
+  return await database.execute(sql)
+}
 ```
 
-We cannot assume
-request sim
+This `run()` telefunction essentially exposes our entire database to the world as
+anyone can make an HTTP request like the following.
 
-Our Node.js server cannot g
-Because 
+```bash
+curl https://our-website.com/_telefunc --data '{
+    "path": "/run.telefunc.js:run",
+    "args": ["SELECT login, password FROM users;"]
+  }'
+```
 
-## ORM/SQL instead of REST/GraphQL
+We should always keep mind that our telefunctions are public and need protection.
+
+## `Abort()` & `shield()`
+
+As we've seen in the previous section,
+the following telefunction is not safe.
+
+```js
+// run.telefunc.js
+// Environment: Node.js server
+
+export { run }
+
+async function run(sql) {
+  return await database.execute(sql)
+}
+```
+
+But we can `throw Abort()` to protect it:
+
+```js
+// run.telefunc.js
+// Environment: Node.js server
+
+import { Abort, getContext } from 'telefunc'
+
+export { run }
+
+async function run(sql) {
+  // We'll talk about `getContext()` later
+  const { user } = getContext()
+
+  // Only admins are allowed to run this telefunction
+  if (user.isAdmin !== true) {
+    throw Abort()
+  }
+
+  return await database.execute(sql)
+}
+```
+
+Also,
+since telefunctions are public and can be called by anyone,
+we cannot assuming anything about the arguments.
+
+```js
+// CreateTodo.telefunc.js
+// Environment: Node.js server
+
+export async function onNewTodo(text) {
+  // While our frontend may always call `onNewTodo(text)` with `typeof text === 'string'`,
+  // `onNewTodo()` is public; anyone can call `onNewTodo(undefined)`.
+
+  // This may throw:
+  //   Uncaught TypeError: Cannot read properties of undefined (reading 'toUpperCase')
+  text = text.toUpperCase()
+
+  // We can use `Abort()` to ensure that `text` is a string
+  if (typeof text !== 'string') {
+    throw Abort()
+  }
+
+  // We can now safely assume `text` to be a string
+  text = text.toUpperCase()
+}
+```
+
+For more convenience we can use `shield()` instead of `Abort()`:
+
+```js
+// CreateTodo.telefunc.js
+// Environment: Node.js server
+
+import { shield } from 'telefunc'
+const t = shield.type
+
+shield(onNewTodo, [text: t.string])
+export async function onNewTodo(text) {
+  // ...
+}
+```
+
+Not only does `shield()` call `throw Abort()` on our behalf, but it also infers the arguments' type for IntelliSense and TypeScript.
+
+> <Link href="/shield" /> lists all <code>shield()</code> types. (<code>shield.type.string</code>, <code>shield.type.number</code>, <code>shield.type.array()</code>, ...)
+
+## Authentication & permissions
+
+We can authenticate users by using `getContext()` with `provideTelefuncContext()`.
+
+<AuthIntegration />
+
+```js
+// TodoList.telefunc.js
+// Environment: Node.js server
+
+import { getContext } from 'telefunc'
+
+export { getTodoItems }
+
+async function getTodoItems() {
+  // We can access `user` here
+  const { user } = getContext()
+
+  if (!user) {
+    // We can use `throw Abort()` to ensure that the user is logged-in
+    throw Abort()
+  }
+
+  // We can use `user.id` to find all to-do items of the logged-in user
+  const authorId = user.id
+  const todoItems = await Todo.findMany({ select: 'text', authorId })
+  return todoItems
+}
+```
+
+In general, with Telefunc, we implement permissions programmatically by using a cancel mechanism such as `throw new Abort()`.
+
+```js
+// TodoItem.telefunc.js
+// Environment: Node.js server
+
+import { Abort, getContext, shield } from 'telefunc'
+const t = shield.type
+
+export { onTextChange }
+
+shield(onTextChange, [t.number, t.string])
+async function onTextChange(id, text) {
+  const { user } = getContext()
+
+  const todoItem = await Todo.findOne({ id })
+
+  // Only the author of a to-do item is allowed to change its text
+  if (user.id !== todoItem.authorId) {
+    throw Abort()
+  }
+
+  todoItem.text = text
+  await todoItem.save()
+}
+```
+
 
 ## Inversion of control
 
-In a classical REST/GraphQL, it is the backend who determines & controls the structure of the API.
+Coming from the REST/GraphQL world, we may be tempted to implement generic telefunctions.
 
-With the Telefunc it's the other way around: it is the frontend who determines & controls telefunctions.
+```js
+// todo.telefunc.js
+// Environment: Node.js server
+
+import { shield } from 'telefunc'
+const t = shield.type
+
+// Generic telefunctions about the data model `Todo`.
+
+shield(getTodoItems, [t.boolean])
+export async function getTodoItems(isCompleted) {
+  const todoItems = await Todo.findMany({ isCompleted })
+  return todoItems
+}
+
+shield(updateTodoItem, [t.number, t.string, t.boolean])
+export async function updateTodoItem(id, text, isCompleted) {
+  const todoItem = await Todo.findOne({ id })
+  todoItem.text = text
+  todoItem.isCompleted = isCompleted
+  await todoItem.save()
+}
+```
+
+```js
+// user.telefunc.js
+
+import { getContext } from 'telefunc'
+
+// Generic telefunctions about the data model `User`.
+
+export function getUserData() {
+  const { user } = getContext()
+  // All data that the frontend may need
+  const { firstName, lastName, age, country/*, ...*/ } = user
+  return { firstName, lastName, age, country/*, ...*/ }
+}
+```
+
+But this is not Telefunc idiomatic;
+we usually define telefunctions tailored to frontend components.
+
+```js
+// TodoList.telefunc.js
+
+// This file provides the telefunctions that `TodoList.jsx` needs.
+
+import { getContext } from 'telefunc'
+
+export { getInitialData }
+
+// This returns *exactly* what `<TodoList>` needs.
+async function getInitialData() {
+  const { user } = getContext()
+
+  // `<TodoList>` only shows non-completed to-dos.
+  const todoItems = await Todo.findMany({ isCompleted: false })
+
+  // `<TodoList>` only shows `user.firstName`
+  const { firstName } = user
+
+  return {
+    user: { firstName },
+    todoItems
+  }
+}
+```
+
+```js
+// UserProfile.telefunc.js
+
+// Telefunctions for `UserProfile.jsx`.
+
+import { getContext } from 'telefunc'
+
+export { getInitialData }
+
+export async function getInitialData() {
+  const ctx = getContext()
+  // `<UserProfile>` shows all user data.
+  const user = { ...ctx.user }
+  delete user.password
+  return { user }
+}
+```
+
+```js
+// TodoItem.telefunc.js
+
+import { shield } from 'telefunc'
+const t = shield.type
+
+// Common Telefunc practice: one telefunction per user event.
+
+// When the user modifies the text of a to-do item
+shield(onTextChange, [t.number, t.string])
+export async function onTextChange(id, text) {
+  const todoItem = await Todo.findOne({ id })
+  todoItem.text = text
+  await todoItem.save()
+}
+
+// When the user clicks on the is-completed checkbox
+shield(onCompleteToggle, [t.number])
+export async function onCompleteToggle(id) {
+  const todoItem = await Todo.findOne({ id })
+  todoItem.isCompleted = !todoItem.isCompleted
+  await todoItem.save()
+}
+```
+
+The telefunctions of `TodoItem.telefunc.js` are determined by the needs of `TodoItem.jsx`;
+it is the frontend development/developers that own telefunctions.
+
+This is the opposite of GraphQL/REST where it is the backend development/developers that own the GraphQL/RESTful API.
+
+This inversion of control leads to a fundamentally improved separation of concerns.
+
 
 ## TypeScript
 
-We highly recommend to use Telefunc with TypeScript.
+`shield()` can infer the type of telefunction arguments:
+
+```ts
+// CreateTodo.telefunc.ts
+// Environment: Node.js server
+
+import { shield } from 'telefunc'
+const t = shield.type
+
+export const onNewTodo = shield(
+  [{ text: t.string, tags: t.array(t.string) }],
+  async ({ text, tags }) => {
+    // TypeScript infers `text` to `string` and `tags` to `string[]`
+  }
+)
+```
+
+With Telefunc, we seamlessly use types across frontend-backend:
+
+```ts
+// CreateTodo.telefunc.ts
+// Environment: Node.js server
+
+import { shield } from 'telefunc'
+
+export const onNewTodo = shield(
+  [shield.type.string],
+  async text => {
+    const todoItem = new Todo()
+    todoItem.text = text
+    await todoItem.save()
+    // `todoItem.updatedAt` is set by the database/ORM and is of type `Date`
+    const { updatedAt } = todoItem
+    return {
+      text,
+      updatedAt
+    }
+  }
+)
+```
+
+```tsx
+// CreateTodo.tsx
+// Environment: Browser
+
+// From TypeScript's perspective, we import `CreateTodo.telefunc.js` (TypeScript
+// doesn't know that `.telefunc.js` files are transformed).
+// In other words: TypeScript just works. (Even automatic imports work!)
+import { onNewTodo } from './CreateTodo.telefunc.js'
+
+async function someCallback(text: string) {
+  // ✅ `text` is of type `string`
+  const todoItem = await onNewTodo(text)
+  // ✅ `todoItem.updatedAt` is of type `Date`; TypeScript allows us to
+  // use `Date.prototype.toDateString()`
+  const lastUpdate = 'To-do last update: ' + todoItem.updatedAt.toDateString()
+
+  // ...
+}
+```
+
+The type of `todoItem.updatedAt` comes from the database/ORM and we seamlessly use it on the frontend.
+
+By using Telefunc with a TypeScript ORM, such as [Prisma](https://www.prisma.io/), we get end-to-end type safety all the way from database to frontend.

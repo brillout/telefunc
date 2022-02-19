@@ -1,0 +1,24 @@
+{
+  "scripts": {
+    "// Development server": "",
+    "dev": "node ./devServer",
+    "// Preview worker locally": "",
+    "preview:": "npm run preview:miniflare",
+    "preview:miniflare": "npm run build:vite && miniflare --port 3000 worker/worker/script.js",
+    "preview:wrangler": "npm run build:vite && wrangler dev --port 3000",
+    "// Deploy worker to Cloudflare": "",
+    "deploy": "npm run build:vite && wrangler publish",
+    "// Build": "",
+    "build": "npm run build:vite && npm run build:worker",
+    "build:vite": "vite build && vite build --ssr",
+    "build:worker": "wrangler build"
+  },
+  "dependencies": {
+    "@cloudflare/kv-asset-handler": "~0.2.0",
+    "@cloudflare/wrangler": "^1.19.8",
+    "express": "^4.17.2",
+    "miniflare": "^2.3.0",
+    "telefunc": "0.1.15",
+    "vite": "^2.8.1"
+  }
+}

@@ -1,0 +1,78 @@
+import { Link } from 'libframe-docs/components'
+
+Telefunc can be used in any JavaScript environment without using a transformer but, for improved convenience, we recommend using a transformer plugin if possible.
+
+> Telefunc plugins transform `*.telefunc.js` browser-side imports into a thin HTTP client, see <Link href="/tour" />.
+
+## Without transformer
+
+Without TypeScript:
+
+```js
+// TodoList.js
+// Environment: Browser
+
+import { defineTelefunction } from 'telefunc/client'
+const onNewTodo = defineTelefunction('TodoList.telefunc.js', 'onNewTodo')
+
+async function onClick(form) {
+  const text = form.input.value
+  // Exactly as usual
+  await onNewTodo({ text })
+}
+```
+
+With TypeScript:
+
+```ts
+// TodoList.ts
+// Environment: Browser
+
+import { defineTelefunction } from 'telefunc/client'
+import type { onNewTodo as onNewTodoType } from './TodoList.telefunc.ts'
+const onNewTodo = defineTelefunction<typeof onNewTodoType>('TodoList.telefunc.ts', 'onNewTodo')
+
+async function onClick(form) {
+  const text = form.input.value
+  // Exactly as usual, including TypeScript support
+  await onNewTodo({ text })
+}
+```
+
+> This feature is not implemented yet, reach out on Discord or GitHub if you need this.
+
+## Vite plugin
+
+If we use Vite, we can transform `*.telefunc.js` files by using the Telefunc's Vite plugin:
+
+```js
+// vite.config.js
+
+import { telefunc } from 'telefunc/vite'
+
+export default {
+  plugins: [telefunc()]
+}
+```
+
+## Webpack plugin
+
+If we use webpack, we can transform `*.telefunc.js` files by using the Telefunc's webpack plugin:
+
+```js
+// webpack.config.js
+
+module.exports = {
+  module: {
+    rules: [
+     { test: /\.telefunc\./, use: 'telefunc/webpack/loader' }
+    ]
+  }
+}
+```
+
+## Babel plugin
+
+Telefunc's Babel plugin is work-in-progress.
+
+> Reach out on Discord or GitHub if you want to use the Babel plugin.

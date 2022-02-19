@@ -1,0 +1,12 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "../dist/node/",
+    "target": "ES2017",
+    "module": "CommonJS",
+    "lib": ["DOM", "ESNext"],
+    "types": ["vite/client"]
+  },
+  "exclude": ["./node_modules/", "./dist/", "**/*.spec.ts"],
+  "include": ["./**/*"]
+}

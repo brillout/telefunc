@@ -1,69 +1,8 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<svg
-   xmlns:dc="http://purl.org/dc/elements/1.1/"
-   xmlns:cc="http://creativecommons.org/ns#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xmlns:svg="http://www.w3.org/2000/svg"
-   xmlns="http://www.w3.org/2000/svg"
-   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
-   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="44.829689"
-   height="46.020657"
-   version="1.1"
-   viewBox="0 0 44.829689 46.020657"
-   id="svg853"
-   sodipodi:docname="telefunc3.svg"
-   inkscape:version="0.92.4 (5da689c313, 2019-01-14)">
-  <defs
-     id="defs857" />
-  <sodipodi:namedview
-     pagecolor="#ffffff"
-     bordercolor="#666666"
-     borderopacity="1"
-     objecttolerance="10"
-     gridtolerance="10"
-     guidetolerance="10"
-     inkscape:pageopacity="0"
-     inkscape:pageshadow="2"
-     inkscape:window-width="1366"
-     inkscape:window-height="736"
-     id="namedview855"
-     showgrid="false"
-     inkscape:zoom="4"
-     inkscape:cx="23.606414"
-     inkscape:cy="8.5818487"
-     inkscape:window-x="0"
-     inkscape:window-y="16"
-     inkscape:window-maximized="1"
-     inkscape:current-layer="svg853"
-     fit-margin-top="0"
-     fit-margin-left="0"
-     fit-margin-right="0"
-     fit-margin-bottom="0"
-     units="px"
-     scale-x="1" />
-  <metadata
-     id="metadata815">
-    <rdf:RDF>
-      <cc:Work
-         rdf:about="">
-        <dc:format>image/svg+xml</dc:format>
-        <dc:type
-           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
-      </cc:Work>
-    </rdf:RDF>
-  </metadata>
-  <ellipse
-     style="opacity:1;fill:#f7e018;fill-opacity:1;stroke:#31343d;stroke-width:2.12100005;stroke-linecap:butt;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;paint-order:normal"
-     id="path816"
-     cx="22.414845"
-     cy="23.010328"
-     rx="21.354345"
-     ry="21.949829" />
-  <path
-     d="M 14.654152,33.515771 21.662169,23.01049 14.654152,12.504887 h 5.256011 l 14.01539,21.010777 h -5.255476 l -4.379743,-6.565708 -4.380597,6.565708 z"
-     id="path930"
-     inkscape:connector-curvature="0"
-     style="fill:#31343d;fill-opacity:1;stroke:#31343d;stroke-width:0.2832194" />
+<svg width="47.02" height="47.02" version="1.1" viewBox="0 0 47.02 47.02" xmlns="http://www.w3.org/2000/svg">
+ <circle cx="23.51" cy="23.51" r="21.95" fill="#f7e018" stroke="#31343d" stroke-linejoin="round" stroke-width="3.12" style="paint-order:normal"/>
+ <g transform="matrix(.95503 0 0 .95503 .34405 1.0117)" fill="#31343d" shape-rendering="auto">
+  <path d="m21.804 13.913 6.4333 9.6458-6.4333 9.6441h5.8824l3.493-5.2352 3.4913 5.2352h5.8824l-12.867-19.29z" color="#000000" color-rendering="auto" dominant-baseline="auto" image-rendering="auto" solid-color="#000000" style="font-feature-settings:normal;font-variant-alternates:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;font-variant-position:normal;isolation:auto;mix-blend-mode:normal;shape-padding:0;text-decoration-color:#000000;text-decoration-line:none;text-decoration-style:solid;text-indent:0;text-orientation:mixed;text-transform:none;white-space:normal"/>
+  <path d="m14.882 13.913 6.4333 9.6458-6.4333 9.6441h5.8824c2.0855-3.2911 4.0452-6.2959 6.2221-9.9618l-6.2221-9.3281z" color="#000000" color-rendering="auto" dominant-baseline="auto" fill-opacity=".57315" image-rendering="auto" solid-color="#000000" style="font-feature-settings:normal;font-variant-alternates:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;font-variant-position:normal;isolation:auto;mix-blend-mode:normal;shape-padding:0;text-decoration-color:#000000;text-decoration-line:none;text-decoration-style:solid;text-indent:0;text-orientation:mixed;text-transform:none;white-space:normal"/>
+  <path d="m7.9604 13.913 6.4333 9.6458-6.4333 9.6441h5.8824c2.0855-3.2911 4.0452-6.2959 6.2221-9.9618l-6.2221-9.3281z" color="#000000" color-rendering="auto" dominant-baseline="auto" fill-opacity=".27655" image-rendering="auto" solid-color="#000000" style="font-feature-settings:normal;font-variant-alternates:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;font-variant-position:normal;isolation:auto;mix-blend-mode:normal;shape-padding:0;text-decoration-color:#000000;text-decoration-line:none;text-decoration-style:solid;text-indent:0;text-orientation:mixed;text-transform:none;white-space:normal"/>
+ </g>
 </svg>

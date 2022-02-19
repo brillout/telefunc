@@ -1,0 +1,34 @@
+export { Abort }
+export { isAbort }
+
+import { assert, assertUsage, objectAssign } from '../utils'
+const stamp = Symbol('isAbort')
+
+function isAbort(thing: unknown): thing is ReturnType<typeof Abort> {
+  assert(thing !== Abort) // Catched earlier in `executeTelefunction()`
+  return typeof thing === 'object' && thing !== null && stamp in thing
+}
+
+function Abort(abortValue?: unknown) {
+  {
+    // @ts-ignore
+    const that: unknown = this
+    assertUsage(
+      !(typeof that === 'object' && that?.constructor === Abort),
+      'Do not use `new` operator: use `throw Abort()` instead of `throw new Abort()`.',
+    )
+  }
+  assertUsage(
+    arguments.length <= 1,
+    'Abort() accepts only a single argument: use `throw Abort([arg1, arg2])` instead of `throw Abort(arg1, arg2).`',
+  )
+
+  const abortError = new Error('Abort')
+  objectAssign(abortError, {
+    isAbort: true as const,
+    abortValue,
+    [stamp]: true as const,
+  })
+
+  return abortError
+}

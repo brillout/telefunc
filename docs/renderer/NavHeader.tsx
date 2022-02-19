@@ -19,7 +19,7 @@ function NavHeader() {
   return (
     <>
       <img src={logoUrl} height={LOGO_SIZE} width={LOGO_SIZE} />
-      <HeaderTitle fontSize={'2.55em'} marginLeft={10} />
+      <HeaderTitle fontSize={'2.55em'} marginLeft={7} />
     </>
   )
 }

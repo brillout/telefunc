@@ -1,5 +1,83 @@
-`shield()` infers types so you define your times only once for both runtime and compile-time.
+import { Link, Emoji } from 'libframe-docs/components'
 
-From TypeScript's perspective, the frontend directly imports server functions (TypeScript doens't know
-that the
-`.telefunc.js` files are transformed). In other words: TypeScript just works.
+As we have seen in <Link href="/tour#typescript" doNotInferSectionTitle={true} />, Telefunc supports TypeScript out-of-the-box and enables seamless end-to-end type safety.
+
+
+## `shield()`
+
+TypeScript can automatically infer the type of telefunction arguments:
+
+```ts
+import { shield } from 'telefunc'
+
+export const onNewTodo = shield(
+  [shield.type.string],
+  async function (text) {
+    // ✅ TypeScript knows that `text` is of type `string`
+  }
+)
+```
+
+Note that the following won't work:
+
+```ts
+import { shield } from 'telefunc'
+
+export shield(onNewTodo, [shield.type.string])
+// TypeScript cannot infer the type of named functions by design.
+async function onNewTodo(text) {
+  // ❌ TypeScript doesn't know that `text` is of type `string`
+}
+```
+
+> For a reference table of all types `shield.type.*` with their TypeScript counterparts,
+> see <Link href="/shield#all-types" />.
+
+
+## `getContext()`
+
+We can define the context type globally by setting `Telefunc.Context`:
+
+```ts
+// TelefuncContext.d.ts
+
+import 'telefunc'
+import type { User } from './User.ts'
+
+declare module 'telefunc' {
+  namespace Telefunc {
+    interface Context {
+      user: null | User
+    }
+  }
+}
+```
+```ts
+// User.ts
+
+export type User = { id: number }
+```
+
+```ts
+// *.telefunc.ts
+
+import { getContext } from 'telefunc'
+
+export async function someTelefunction() {
+  const { user } = getContext()
+  // TypeScript knows that `user.id` is of type `number`
+}
+```
+
+Alternatively, we can define the context type directly:
+
+```ts
+// *.telefunc.ts
+
+import { getContext } from 'telefunc'
+
+export async function someTelefunction() {
+  const { userId } = getContext<{ userId: number }>()
+  // TypeScript knows that `userId` is of type `number`
+}
+```
