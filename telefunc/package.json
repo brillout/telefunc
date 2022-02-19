@@ -59,9 +59,9 @@
   "files": [
     "dist/node/",
     "dist/client/",
-    "vite.ts",
-    "next.ts",
-    "nuxt.ts"
+    "vite.d.ts",
+    "next.d.ts",
+    "nuxt.d.ts"
   ],
   "keywords": [
     "rpc",
