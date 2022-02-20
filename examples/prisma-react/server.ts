@@ -27,7 +27,7 @@ function installTelefunc(app: Express) {
 
 async function installFrontend(app: Express) {
   if (process.env.NODE_ENV === 'production') {
-    const root = await getRoot()
+    const root = __dirname 
     app.use(express.static(`${root}/dist/client`))
   } else {
     const vite = await import('vite')
@@ -36,13 +36,4 @@ async function installFrontend(app: Express) {
     })
     app.use(viteDevServer.middlewares)
   }
-}
-
-// https://stackoverflow.com/questions/46745014/alternative-for-dirname-in-node-js-when-using-es6-modules
-async function getRoot() {
-  const { dirname } = await import('path')
-  const { fileURLToPath } = await import('url')
-  const __dirname = dirname(fileURLToPath(import.meta.url))
-  const root = __dirname
-  return root
 }
