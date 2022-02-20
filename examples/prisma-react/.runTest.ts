@@ -11,6 +11,7 @@ function runTest(cmd: 'npm run test:dev' | 'npm run test:prod') {
     await page.fill('input[placeholder="Title"]', 'title')
     await page.fill('input[placeholder="Content"]', 'content')
     await page.click('button[type="submit"]')
+
     await autoRetry(async () => {
       expect(await page.textContent('body')).toContain('title')
       expect(await page.textContent('body')).toContain('content')
@@ -18,9 +19,13 @@ function runTest(cmd: 'npm run test:dev' | 'npm run test:prod') {
   })
 
   test('New to-do item is persisted & rendered to HTML', async () => {
-    const html = await fetchHtml('/')
-    expect(html).toContain('title')
-    expect(html).toContain('content')
+    await page.goto(`${urlBase}/`)
+    await autoRetry(async () => {
+      const html = await page.content()
+
+      expect(html).toContain('title')
+      expect(html).toContain('content')
+    })
   })
 
   test('toggle item', async () => {
