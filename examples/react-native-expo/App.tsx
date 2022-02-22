@@ -1,20 +1,38 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useEffect, useState } from 'react'
+import { View, Text } from 'react-native'
+import { readData } from './readData.telefunc'
+import { telefuncConfig } from 'telefunc/dist/client'
+
+/**
+ * Change this to `http://localhost:3000/_telefunc` if you're running the app
+ * from a simulator, otherwise enter your computer's IP address.
+ */
+telefuncConfig.telefuncUrl = 'http://192.168.0.126:3000/_telefunc'
 
 export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+  const [isLoading, setIsLoading] = useState(true)
+  const [data, setData] = useState<undefined | any>(undefined)
+  const [error, setError] = useState<undefined | string>(undefined)
+  useEffect(function effect() {
+    async function runEffect() {
+      setIsLoading(true)
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+      try {
+        const data = await readData()
+        setData(data)
+      } catch (error) {
+        setError(String(error))
+      }
+
+      setIsLoading(false)
+    }
+
+    runEffect()
+  }, [])
+
+  return (
+    <View style={{ flex: 1, justifyContent: 'center' }}>
+      <Text style={{ fontFamily: 'monospace' }}>{JSON.stringify({ isLoading, error, data }, null, 2)}</Text>
+    </View>
+  )
+}
