@@ -12,7 +12,6 @@ function TodoItem({ refetch, ...todo }: Todo & { refetch: () => void }) {
       <h2>
         {todo.title}{' '}
         <button
-          id={'toggle-' + todo.title}
           onClick={async () => {
             await onToggleTodo(todo.id)
             refetch()
@@ -23,7 +22,6 @@ function TodoItem({ refetch, ...todo }: Todo & { refetch: () => void }) {
       </h2>
       <p>{todo.content}</p>
       <button
-        id={'remove-' + todo.title}
         onClick={async () => {
           await onDeleteTodo(todo.id)
           refetch()
