@@ -7,7 +7,6 @@ import React from 'react'
 import { NavHeader, NavHeaderMobile } from './NavHeader'
 
 setFrame({
-  // @ts-ignore
   projectInfo,
   algolia: null,
   faviconUrl,
