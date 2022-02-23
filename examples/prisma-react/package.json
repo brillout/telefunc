@@ -26,7 +26,7 @@
     "prisma": "^3.5.0",
     "typescript": "^4.3.2",
     "vite": "^2.6.4",
-    "telefunc": "latest"
+    "telefunc": "0.1.15"
   },
   "prisma": {
     "seed": "esno prisma/seed.ts",
