@@ -12,6 +12,7 @@ function TodoItem({ refetch, ...todo }: Todo & { refetch: () => void }) {
       <h2>
         {todo.title}{' '}
         <button
+          id={'toggle-' + todo.title}
           onClick={async () => {
             await onToggleTodo(todo.id)
             refetch()
