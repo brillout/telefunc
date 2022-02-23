@@ -1,4 +1,4 @@
-import { page, run, urlBase, autoRetry, fetchHtml } from '../../libframe/test/setup'
+import { page, run, urlBase, autoRetry } from '../../libframe/test/setup'
 
 export { runTest }
 
