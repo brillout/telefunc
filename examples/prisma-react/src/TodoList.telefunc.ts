@@ -3,15 +3,12 @@ import prisma from './client'
 
 const t = shield.type
 
-export { onGetTodos, onToggleTodo, onDeleteTodo }
-
-async function onGetTodos() {
+export async function onGetTodos() {
   const todos = await prisma.todo.findMany()
   return todos
 }
 
-shield(onToggleTodo, [t.number])
-async function onToggleTodo(id: number) {
+export const onToggleTodo = shield([t.number], async function onToggleTodo(id) {
   const todo = await prisma.todo.findUnique({
     where: {
       id,
@@ -28,10 +25,9 @@ async function onToggleTodo(id: number) {
       completed: !todo.completed,
     },
   })
-}
+})
 
-shield(onDeleteTodo, [t.number])
-async function onDeleteTodo(id: number) {
+export const onDeleteTodo = shield([t.number], async function onDeleteTodo(id) {
   const todo = await prisma.todo.findUnique({
     where: {
       id,
@@ -45,4 +41,4 @@ async function onDeleteTodo(id: number) {
       id,
     },
   })
-}
+})
