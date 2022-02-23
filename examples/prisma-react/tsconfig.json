@@ -1,5 +1,9 @@
 {
   "compilerOptions": {
-    "strict": true
-  }
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "jsx": "react-jsx"
+  },
+  "include": ["./src"]
 }
