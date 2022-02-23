@@ -34,7 +34,7 @@ export const onDeleteTodo = shield([t.number], async function onDeleteTodo(id) {
     },
   })
   if (!todo) {
-    throw new Error('Todo not found')
+    throw Abort('Todo not found')
   }
   await prisma.todo.delete({
     where: {
