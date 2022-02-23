@@ -1,4 +1,4 @@
-import { page, run, urlBase, autoRetry } from '../../libframe/test/setup'
+import { page, run, urlBase, autoRetry, fetchHtml } from '../../libframe/test/setup'
 
 export { runTest }
 
@@ -8,13 +8,13 @@ function runTest(cmd: 'npm run test:dev' | 'npm run test:prod') {
   test('Add to-do item', async () => {
     await page.goto(`${urlBase}/`)
     expect(await page.textContent('body')).toContain('todo list')
-    await page.fill('input[placeholder="Title"]', 'Star the telefunc repo')
-    await page.fill('input[placeholder="Content"]', 'the telefunc repo needs more stars')
+    await page.fill('input[placeholder="Title"]', 'Cherries')
+    await page.fill('input[placeholder="Content"]', 'Buy cherries')
     await page.click('button[type="submit"]')
 
     await autoRetry(async () => {
-      expect(await page.textContent('body')).toContain('Star the telefunc repo')
-      expect(await page.textContent('body')).toContain('the telefunc repo needs more stars')
+      expect(await page.textContent('body')).toContain('Cherries')
+      expect(await page.textContent('body')).toContain('Buy cherries')
     })
   })
 
@@ -23,13 +23,13 @@ function runTest(cmd: 'npm run test:dev' | 'npm run test:prod') {
     await autoRetry(async () => {
       const html = await page.content()
 
-      expect(html).toContain('Star the telefunc repo')
-      expect(html).toContain('the telefunc repo needs more stars')
+      expect(html).toContain('Cherries')
+      expect(html).toContain('Buy cherries')
     })
   })
 
   test('toggle item', async () => {
-    await page.click('button[id="toggle-title"]')
+    await page.click('button[id="toggle-Cherries"]')
     await autoRetry(async () => {
       expect(await page.textContent('body')).toContain('done')
     })
