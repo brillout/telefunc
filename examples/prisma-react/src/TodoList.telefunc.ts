@@ -1,4 +1,4 @@
-import { shield } from 'telefunc'
+import { Abort, shield } from 'telefunc'
 import prisma from './client'
 
 const t = shield.type
@@ -15,7 +15,7 @@ export const onToggleTodo = shield([t.number], async function onToggleTodo(id) {
     },
   })
   if (!todo) {
-    throw new Error('Todo not found')
+    throw Abort('Todo not found')
   }
   await prisma.todo.update({
     where: {
