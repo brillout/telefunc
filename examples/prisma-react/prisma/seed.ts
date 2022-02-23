@@ -13,7 +13,7 @@ async function main() {
     const todo = await prisma.todo.create({
       data: t,
     })
-    console.log(`Created user with id: ${todo.id}`)
+    console.log(`Created todo with id: ${todo.id}`)
   }
   console.log(`Seeding finished.`)
 }
