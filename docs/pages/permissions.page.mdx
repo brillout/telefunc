@@ -1,17 +1,17 @@
-import { Link, ReadingRecommendation } from 'libframe-docs/components'
+import { Link, ReadingRecommendation, Emoji, Note } from 'libframe-docs/components'
 
-<ReadingRecommendation links={['/tour', '/abort-shield', '/auth']} />
+<ReadingRecommendation links={['/tour', '/abort-shield']} />
 
 > **TL;DR**
 >
 > With Telefunc, we define permissions programmatically by using cancel mechanisms such as `throw Abort()`.
 >
-> We can use implement `getContext()` wrappers and permission functions for advanced permission rules and increased safety.
+> We can implement `getContext()` wrappers and use permission functions in order to increase safety and implement advanced permission rules.
 
 
 ## `throw Abort()`
 
-We can use `throw Abort()` to ensure permissions.
+`throw Abort()` is the standard way to ensure permissions.
 
 ```js
 // Comment.telefunc.js
@@ -32,15 +32,12 @@ export async function onCommentDelete(id) {
 }
 ```
 
-> We use `throw Abort()` even if we know our frontend to always call `onCommentDelete()` with the right permissions. See:
-> - <Link href="/abort-shield#random-telefunction-calls" />
-
-We can also cancel a telefunction call with `return someValue`.
+<Note icon={<Emoji name="warning" />}>We have to use `throw Abort()` even if we know that our frontend calls `onCommentDelete()` only for logged-in users that are admins, see <Link href="/abort-shield#random-telefunction-calls" />.</Note>
 
 
 ## `return someValue`
 
-If, upon wrong permissions, we want to pass information to the frontend we can use `return someValue`.
+If we need to pass information to the frontend, then we use `return someValue` instead of `throw Abort()`:
 
 ```js
 // components/TodoList.telefunc.js
@@ -54,8 +51,8 @@ async function getTodoList() {
   const { user } = getContext()
 
   if (!user) {
-    // It is expected that the user may not be logged in. We `return { isNotLoggedIn: true }`
-    // instead of `throw Abort()`, so that the frontend can redirect the user to the login page.
+    // It is expected that the user may not be logged in. We use `return someValue` instead
+    // of `throw Abort()` so that the frontend can redirect the user to the login page.
     return { isNotLoggedIn: true }
   }
 
@@ -69,21 +66,17 @@ async function getTodoList() {
 
 import { getTodoList } from './TodoList.telefunc.js'
 
-async function someFunction() {
-  // ...
-  const result = await getTodoList()
-  if (result.isNotLoggedIn) {
-    // Redirect user to login page
-    window.location.href = '/login'
-  }
-  // ...
+const result = await getTodoList()
+if (result.isNotLoggedIn) {
+  // Redirect user to login page
+  window.location.href = '/login'
 }
 ```
 
 
 ## `throw Abort(someValue)`
 
-Alternatively to `return someValue`, we can use `throw Abort(someValue)` which can be more convenient, for example when defining global behavior.
+Alternatively to `return someValue`, we can use `throw Abort(someValue)` which is sometimes more convenient.
 
 ```js
 // auth/getUser.ts
@@ -116,8 +109,8 @@ onTelefunctionRemoteCallError(err => {
 })
 ```
 
-We have globally defined what should happen when a user is not logged-in;
-we don't have to re-implement the same logic over and over again.
+Here we globally define what should happen when a user is not logged-in,
+so that we don't have to re-implement the same logic over and over again:
 
 ```js
 // components/TodoList.telefunc.js
@@ -128,9 +121,8 @@ export { getTodoList }
 import { getUser } from '../auth/getUser'
 
 async function getTodoList() {
+  // Here, we don't have to handle the case when the user is logged out.
   const { user } = getUser()
-  // We don't have to handle the not-logged-in case here anymore.
-  // We can safely assume the user to be logged-in here.
   const todoList = await Todo.findMany({ authorId: user.id })
   return todoList
 }
@@ -141,16 +133,14 @@ async function getTodoList() {
 
 import { getTodoList } from './TodoList.telefunc.js'
 
-async function someFunction() {
+const todoList = await getTodoList()
+// Here again, we don't have to handle the case when the user is logged out.
+todoList.forEach(todoItem => {
   // ...
-  const todoList = await getTodoList()
-  // We can safely assume `todoList` to be defined
-  todoList.forEach(todoItem => {
-    document.querySelector('#view').innerHTML += '<p>To-Do: ' + todoItem.text + '</p>'
-  })
-  // ...
-}
+})
 ```
+
+> We recommend to use `throw Abort(someValue)` only when defining such global logic. Otherwise `return someValue` is more explicit and makes code more readable and predictable.
 
 
 ## `getContext()` wrappers
@@ -254,7 +244,7 @@ async function findTodoItem(props, { permission }) {
 }
 ```
 
-> We don't use `throw Abort()` but `throw new Error()` in ``throw new Error('Wrong findTodoItem() usage')`` because it is <Link text="not a public but an internal error" href='/abort-or-error' />.
+> We don't use `Abort()` for `throw new Error('Wrong findTodoItem() usage')` because it's about wrong *internal* usage and not wrong *public* usage. (More infos at <Link href='/abort-vs-error' />.)
 
 
 ## Permission function

@@ -4,8 +4,8 @@ export { headingsWithoutLink }
 
 const headingsWithoutLink: HeadingWithoutLink[] = [
   {
-    title: '`Abort()` or `new Error()`',
-    url: '/abort-or-error',
+    title: '`Abort()` vs `new Error()`',
+    url: '/abort-vs-error',
   },
   {
     title: 'The SSR context problem',
@@ -110,6 +110,11 @@ export const headings: HeadingDefinition[] = [
     title: 'TypeScript',
     url: '/typescript',
     sectionTitles: ['`shield()`', '`getContext()`'],
+  },
+  {
+    level: 2,
+    title: 'Error Tracking',
+    url: '/error-tracking',
   },
   {
     level: 2,

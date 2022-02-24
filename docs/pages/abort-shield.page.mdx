@@ -112,7 +112,7 @@ function Comment({ id, text, context }) {
 
 Because our frontend shows the delete button only to admins, we can assume the user to be an admin whenever our frontend calls `onCommentDelete()`.
 
-But we still use `throw Abort()` to protect our telefunction against calls not originating from our frontend:
+But we still use `throw Abort()` to protect our telefunction against calls not originating from our frontend.
 
 ```js
 // Comment.telefunc.js
