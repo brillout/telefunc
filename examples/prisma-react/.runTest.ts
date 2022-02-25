@@ -29,7 +29,8 @@ function runTest(cmd: 'npm run test:dev' | 'npm run test:prod') {
   })
 
   test('toggle item', async () => {
-    await page.click('button[id="toggle-Cherries"]')
+    const id = await page.textContent('span')
+    await page.click(`button[id="toggle-${id}"]`)
     await autoRetry(async () => {
       expect(await page.textContent('body')).toContain('done')
     })
