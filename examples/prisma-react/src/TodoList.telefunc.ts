@@ -15,7 +15,7 @@ export const onToggleTodo = shield([t.number], async function onToggleTodo(id) {
     },
   })
   if (!todo) {
-    throw Abort('Todo not found')
+    throw Abort()
   }
   await prisma.todo.update({
     where: {
@@ -34,7 +34,7 @@ export const onDeleteTodo = shield([t.number], async function onDeleteTodo(id) {
     },
   })
   if (!todo) {
-    throw Abort('Todo not found')
+    throw Abort()
   }
   await prisma.todo.delete({
     where: {
