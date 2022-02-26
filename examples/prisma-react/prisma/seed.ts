@@ -3,8 +3,8 @@ import { PrismaClient, Prisma } from '@prisma/client'
 const prisma = new PrismaClient()
 
 const todoData: Prisma.TodoCreateInput[] = [
-  { title: 'Debug', content: 'debugging my next project', completed: false },
-  { title: 'Release', content: 'releasing my next project', completed: false },
+  { title: 'Milk', content: 'Buy milk', completed: false },
+  { title: 'Bananas', content: 'Buy bananas', completed: false },
 ]
 
 async function main() {

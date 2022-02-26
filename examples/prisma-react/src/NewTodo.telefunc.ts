@@ -5,7 +5,7 @@ const t = shield.type
 
 export const onNewTodo = shield(
   [{ title: t.string, content: t.string }],
-  async function onNewTodo({ title, content }) {
+  async ({ title, content }) => {
     await prisma.todo.create({
       data: {
         title,

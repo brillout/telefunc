@@ -3,7 +3,7 @@ import { TodoList } from "./TodoList"
 function App() {
   return (
     <>
-      <h1>Prisma-React todo list</h1>
+      <h1>To-do List</h1>
       <TodoList />
     </>
   )

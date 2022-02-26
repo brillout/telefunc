@@ -1,8 +1,6 @@
 import telefunc from 'telefunc/vite'
-import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// https://vitejs.dev/config/
-export default defineConfig({
-  plugins: [react(),  telefunc()]
-})
+export default {
+  plugins: [react(), telefunc()],
+}
