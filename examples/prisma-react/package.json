@@ -1,0 +1,31 @@
+{
+  "scripts": {
+    "dev": "npm run server",
+    "prod": "npm run build && npm run server:prod",
+    "build": "vite build && vite build --ssr",
+    "server": "esno ./server",
+    "server:prod": "cross-env NODE_ENV=production esno ./server",
+    "db:reset": "prisma migrate reset --force",
+    "db:init": "npx prisma generate && npx prisma migrate dev --name init",
+    "db:test": "npm run db:init && npm run db:reset",
+    "test:dev": "npm run db:test && npx prisma db seed && npm run dev",
+    "test:prod": "npm run db:test && npx prisma db seed && npm run prod"
+  },
+  "dependencies": {
+    "@prisma/client": "^3.5.0",
+    "@types/react": "^17.0.0",
+    "@types/react-dom": "^17.0.0",
+    "@vitejs/plugin-react": "^1.0.0",
+    "esno": "^0.12.0",
+    "prisma": "^3.5.0",
+    "react": "^17.0.0",
+    "react-dom": "^17.0.0",
+    "telefunc": "0.1.15",
+    "typescript": "^4.3.2",
+    "vite": "^2.6.4"
+  },
+  "prisma": {
+    "seed": "esno prisma/seed.ts",
+    "schema": "./prisma/schema.prisma"
+  }
+}
