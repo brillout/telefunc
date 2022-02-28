@@ -11,10 +11,7 @@ async function __internal_fetchTelefunc(
   telefunctionFileExport: string,
   telefunctionArgs: unknown[],
 ): Promise<unknown> {
-  assertUsage(
-    isBrowser(),
-    'The Telefunc Client is meant to be run only in the browser.',
-  )
+  assertUsage(isBrowser(), 'The Telefunc Client is meant to be run only in the browser.')
 
   const callContext = {}
   {

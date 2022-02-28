@@ -22,11 +22,11 @@ function packageJsonFile(): Plugin {
       if (!ssr) return
       const fileName = 'package.json'
       //if (!bundle[fileName]) {
-        this.emitFile({
-          fileName,
-          type: 'asset',
-          source: getPackageJsonContent(),
-        })
+      this.emitFile({
+        fileName,
+        type: 'asset',
+        source: getPackageJsonContent(),
+      })
       //}
     },
   } as Plugin
