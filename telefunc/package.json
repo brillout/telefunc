@@ -1,6 +1,6 @@
 {
   "name": "telefunc",
-  "version": "0.1.15",
+  "version": "0.1.16",
   "scripts": {
     "build": "rm -rf dist/ && tsc --build && pnpm run tsc:tests",
     "dev": "pnpm run dev:fast",

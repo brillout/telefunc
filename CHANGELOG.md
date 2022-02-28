@@ -1,3 +1,17 @@
+## [0.1.16](https://github.com/vikejs/telefunc/compare/v0.1.15...v0.1.16) (2022-02-28)
+
+
+### Bug Fixes
+
+* remove tests from npm package ([c10c501](https://github.com/vikejs/telefunc/commit/c10c50119cd81b1401dc937e235e73aa410ae749))
+
+
+### Features
+
+* `telefuncConfig.httpHeaders` ([28993e1](https://github.com/vikejs/telefunc/commit/28993e1be034f783caec5236847c6bf0d40a9e50))
+
+
+
 ## [0.1.15](https://github.com/vikejs/telefunc/compare/v0.1.14...v0.1.15) (2022-02-18)
 
 
