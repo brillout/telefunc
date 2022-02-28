@@ -8,6 +8,7 @@ assertProxySupport()
 type TelefuncClientConfig = {
   /** The Telefunc HTTP endpoint URL, e.g. `https://example.org/_telefunc`. Default: `/_telefunc`. */
   telefuncUrl: string
+  httpHeaders: Record<string, string>
 }
 
 const configSpec = {
@@ -24,6 +25,17 @@ const configSpec = {
       return '/_telefunc'
     },
   },
+  httpHeaders: {
+    validate(val: unknown) {
+      assertUsage(
+        typeof val === 'object' && val !== null && Object.values(val).every((v) => typeof v === 'string'),
+        '`telefuncConfig.httpHeaders` should be an object of strings',
+      )
+    },
+    getDefault() {
+      return {}
+    },
+  },
 }
 
 function getTelefuncConfigObject(): TelefuncClientConfig {
@@ -32,6 +44,8 @@ function getTelefuncConfigObject(): TelefuncClientConfig {
     {
       // prettier-ignore
       get telefuncUrl()   { return configProvidedByUser['telefuncUrl']   ?? configSpec['telefuncUrl'].getDefault()   },
+      // prettier-ignore
+      get httpHeaders()   { return configProvidedByUser['httpHeaders']   ?? configSpec['httpHeaders'].getDefault()   },
     },
     { set },
   )

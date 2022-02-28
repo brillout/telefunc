@@ -9,6 +9,7 @@ async function makeHttpRequest(callContext: {
   telefuncUrl: string
   httpRequestBody: string
   telefunctionName: string
+  httpHeaders: Record<string, string>
 }): Promise<{ telefunctionReturn: unknown } | { telefunctionCallError: TelefunctionError }> {
   const method = 'POST'
 
@@ -19,6 +20,7 @@ async function makeHttpRequest(callContext: {
       body: callContext.httpRequestBody,
       credentials: 'same-origin',
       headers: {
+        ...callContext.httpHeaders,
         'Content-Type': 'text/plain',
       },
     })
