@@ -185,7 +185,7 @@ importers:
       serve: ^11.3.2
       shiki: ^0.10.1
       typescript: ^4.5.4
-      vite: ^2.7.2
+      vite: ^2.8.4
       vite-plugin-mdx: ^3.5.6
       vite-plugin-ssr: '*'
     dependencies:
@@ -204,9 +204,9 @@ importers:
       serve: 11.3.2
       shiki: 0.10.1
       typescript: 4.5.5
-      vite: 2.7.13
-      vite-plugin-mdx: 3.5.10_@mdx-js+mdx@2.0.0+vite@2.7.13
-      vite-plugin-ssr: 0.3.51_vite@2.7.13
+      vite: 2.8.4
+      vite-plugin-mdx: 3.5.10_@mdx-js+mdx@2.0.0+vite@2.8.4
+      vite-plugin-ssr: 0.3.51_vite@2.8.4
 
   libframe/scripts:
     specifiers:
@@ -14954,7 +14954,7 @@ packages:
     resolution: {integrity: sha512-N4oRY6Mv5l1qVODcAw1W6Xw1hiW9y8uVs6vqBy0dCTayCu5/7IRmUmjpc+wrBdSS2b/cZYkLX/xHgFyjXlaXtg==}
     dev: false
 
-  /vite-plugin-mdx/3.5.10_@mdx-js+mdx@2.0.0+vite@2.7.13:
+  /vite-plugin-mdx/3.5.10_@mdx-js+mdx@2.0.0+vite@2.8.4:
     resolution: {integrity: sha512-tfGNRwkO23pln9EYqhbsOLEx9Qot5+enl+727gop7+HGEoC87+88hLRWGL+FU/It1Y0a5P3OAyDbTKKHX6tEJw==}
     peerDependencies:
       '@mdx-js/mdx': '*'
@@ -14965,7 +14965,7 @@ packages:
       esbuild: 0.13.8
       resolve: 1.22.0
       unified: 9.2.2
-      vite: 2.7.13
+      vite: 2.8.4
     dev: false
 
   /vite-plugin-ssr/0.3.51_vite@2.6.7:
@@ -14986,7 +14986,7 @@ packages:
       vite-plugin-import-build: 0.1.2
     dev: false
 
-  /vite-plugin-ssr/0.3.51_vite@2.7.13:
+  /vite-plugin-ssr/0.3.51_vite@2.8.4:
     resolution: {integrity: sha512-Despw2bsIAOAsVP+kH/THGO3tXXQVGZGJIzq+E39OEU2Yd0VMsCc019jLwNW1bK/0GyrVEMnm3HhLQFjTuPrFQ==}
     engines: {node: '>=12.19.0'}
     hasBin: true
@@ -15000,7 +15000,7 @@ packages:
       fast-glob: 3.2.11
       kolorist: 1.5.1
       p-limit: 3.1.0
-      vite: 2.7.13
+      vite: 2.8.4
       vite-plugin-import-build: 0.1.2
     dev: false
 
@@ -15053,6 +15053,30 @@ packages:
 
   /vite/2.8.3:
     resolution: {integrity: sha512-967klrEiG7HEsN7fQYYVETs5495Iu6GpI7YyxoO5yVTJCRxjV8HhWgNWKgrbazjoOB9DQuztL53/nUoNqHNsWg==}
+    engines: {node: '>=12.2.0'}
+    hasBin: true
+    peerDependencies:
+      less: '*'
+      sass: '*'
+      stylus: '*'
+    peerDependenciesMeta:
+      less:
+        optional: true
+      sass:
+        optional: true
+      stylus:
+        optional: true
+    dependencies:
+      esbuild: 0.14.21
+      postcss: 8.4.6
+      resolve: 1.22.0
+      rollup: 2.67.1
+    optionalDependencies:
+      fsevents: 2.3.2
+    dev: false
+
+  /vite/2.8.4:
+    resolution: {integrity: sha512-GwtOkkaT2LDI82uWZKcrpRQxP5tymLnC7hVHHqNkhFNknYr0hJUlDLfhVRgngJvAy3RwypkDCWtTKn1BjO96Dw==}
     engines: {node: '>=12.2.0'}
     hasBin: true
     peerDependencies:
