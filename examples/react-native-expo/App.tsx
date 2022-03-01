@@ -5,9 +5,9 @@ import { telefuncConfig } from 'telefunc/dist/client'
 
 /**
  * Change this to `http://localhost:3000/_telefunc` if you're running the app
- * from a simulator, otherwise enter your computer's IP address.
+ * from a simulator or expo web, otherwise enter your computer's IP address.
  */
-telefuncConfig.telefuncUrl = 'http://192.168.0.126:3000/_telefunc'
+telefuncConfig.telefuncUrl = 'http://localhost:3000/_telefunc'
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true)
