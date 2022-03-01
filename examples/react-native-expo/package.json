@@ -11,7 +11,8 @@
     "/***": "",
     "/*  We have to pack the telefunc library first, and then install from the tarball. */": "",
     "/*  If we use `npm install ../../telefunc`, npm creates symlinks which do not work with Metro */": "",
-    "prepare": "npm uninstall telefunc && npm pack ../../telefunc && npm install telefunc-*.tgz",
+    "install": "npm uninstall telefunc && npm pack ../../telefunc && npm install telefunc-*.tgz",
+    "clean": "npm uninstall telefunc",
     "/*** ": "",
     "/*  Starts the telefunc server */": "",
     "start-telefunc-server": "node server/server.js"
@@ -24,10 +25,11 @@
     "react-dom": "17.0.1",
     "react-native": "0.64.3",
     "react-native-web": "0.17.1",
-    "telefunc": "file:telefunc-0.1.15.tgz"
+    "telefunc": "file:telefunc-0.1.16.tgz"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
+    "@expo/webpack-config": "^0.16.18",
     "@types/react": "~17.0.21",
     "@types/react-native": "~0.64.12",
     "typescript": "~4.3.5"
