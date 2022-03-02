@@ -5,12 +5,21 @@ import type { TelefuncFiles } from '../types'
 import { assertUsage } from '../../utils'
 import { loadTelefuncFilesWithVite } from '../../vite/loadTelefuncFilesWithVite'
 import { loadTelefuncFilesWithInternalMechanism } from './loadTelefuncFilesWithInternalMechanism'
+import { loadTelefuncFilesFromConfig } from './loadTelefuncFilesFromConfig'
 
 async function loadTelefuncFiles(runContext: {
   root: string | null
   viteDevServer: ViteDevServer | null
   isProduction: boolean
+  telefuncFiles: string[] | null
 }): Promise<TelefuncFiles | null> {
+  // Handles:
+  // - When the user provides the telefunc file paths with `telefuncConfig.telefuncFiles`
+  if( runContext.telefuncFiles) {
+    const telefuncFilesLoaded = loadTelefuncFilesFromConfig(runContext.telefuncFiles, runContext.root)
+    return telefuncFilesLoaded
+  }
+
   // Handles:
   // - Next.js
   // - Nuxt

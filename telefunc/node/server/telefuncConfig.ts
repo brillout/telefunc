@@ -1,7 +1,6 @@
 export const telefuncConfig = getTelefuncConfigObject()
 
 import type { ViteDevServer } from 'vite'
-import type { Telefunction } from './types'
 import { isAbsolute } from 'path'
 import { assert, assertInfo, assertUsage, assertWarning, hasProp } from '../utils'
 import { globalContext } from './globalContext'
@@ -14,7 +13,7 @@ type TelefuncServerConfig = {
   isProduction: boolean
   viteDevServer: ViteDevServer | null
   disableEtag: boolean
-  telefuncFiles: Record<string, Record<string, Telefunction>> | null
+  telefuncFiles: string[] | null
   debug: boolean
 }
 
@@ -67,8 +66,12 @@ const configSpec = {
     },
   },
   telefuncFiles: {
-    validate(_val: unknown) {
+    validate(val: unknown) {
       assertWarning(false, '`telefuncConfig.telefuncFiles` is experimental')
+      assertUsage(
+        Array.isArray(val) && val.every((v) => typeof v === 'string' && isAbsolute(v)),
+        '`telefuncConfig.telefuncFiles` should be a list of absolute paths',
+      )
     },
     getDefault() {
       return null
