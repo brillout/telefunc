@@ -7,15 +7,9 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
-    "eject": "expo eject",
-    "/***": "",
-    "/*  We have to pack the telefunc library first, and then install from the tarball. */": "",
-    "/*  If we use `npm install ../../telefunc`, npm creates symlinks which do not work with Metro */": "",
-    "install": "npm uninstall telefunc && npm pack ../../telefunc && npm install telefunc-*.tgz",
-    "clean": "npm uninstall telefunc",
-    "/*** ": "",
-    "/*  Starts the telefunc server */": "",
-    "start-telefunc-server": "node server/server.js"
+    "start-telefunc-server": "node server/server.js",
+    "// Symlinks do not work with Metro": "",
+    "setup": "(cd ../../ && pnpm run build) && npm pack ../../telefunc && mv telefunc-*.tgz telefunc.tgz && npm install telefunc@telefunc.tgz"
   },
   "dependencies": {
     "expo": "~44.0.0",
@@ -25,7 +19,7 @@
     "react-dom": "17.0.1",
     "react-native": "0.64.3",
     "react-native-web": "0.17.1",
-    "telefunc": "file:telefunc-0.1.16.tgz"
+    "telefunc": "file:telefunc.tgz"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

@@ -1,7 +1,7 @@
 # We have to pack the telefunc library and install it from a tarball, otherwise
 # when installing via `npm install ../../telefunc`, npm creates a symlink and 
 # Metro cant resolve it properly. We don't want to upload tarballs to git.
-telefunc-*.tgz
+telefunc.tgz
 
 node_modules/
 .expo/
