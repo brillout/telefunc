@@ -15,16 +15,16 @@ async function loadTelefuncFilesWithVite(runContext: {
   const { notFound, moduleExports, provider } = await loadGlobImporter(runContext)
 
   if (notFound) {
-    return { telefuncFiles: null }
+    return { telefuncFilesLoaded: null }
   }
 
   // console.log('provider', provider)
   assert(isObject(moduleExports), { moduleExports, provider })
   assert(hasProp(moduleExports, 'telefuncFilesGlob'), { moduleExports, provider })
   const telefuncFilesGlob = moduleExports.telefuncFilesGlob as GlobFiles
-  const telefuncFiles = await loadGlobFiles(telefuncFilesGlob)
-  assert(isObjectOfObjects(telefuncFiles))
-  return { telefuncFiles, viteProvider: provider }
+  const telefuncFilesLoaded = await loadGlobFiles(telefuncFilesGlob)
+  assert(isObjectOfObjects(telefuncFilesLoaded))
+  return { telefuncFilesLoaded, viteProvider: provider }
 }
 
 async function loadGlobImporter(runContext: {
