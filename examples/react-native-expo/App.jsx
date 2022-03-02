@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { View, Text } from 'react-native'
-import { readData } from './readData.telefunc'
+import { readData } from './readData.telefunc.mjs'
 import { telefuncConfig } from 'telefunc/dist/client'
 
 /**
@@ -11,8 +11,8 @@ telefuncConfig.telefuncUrl = 'http://localhost:3000/_telefunc'
 
 export default function App() {
   const [isLoading, setIsLoading] = useState(true)
-  const [data, setData] = useState<undefined | any>(undefined)
-  const [error, setError] = useState<undefined | string>(undefined)
+  const [data, setData] = useState(undefined)
+  const [error, setError] = useState(undefined)
   useEffect(function effect() {
     async function runEffect() {
       setIsLoading(true)
