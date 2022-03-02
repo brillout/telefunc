@@ -2,7 +2,7 @@ packages:
   - 'telefunc/'
   - 'docs/'
   - 'examples/*'
-  - '!examples/react-native-expo/'
+  - '!examples/react-native/'
   - 'libframe/test/'
   - 'libframe/docs/'
   - 'libframe/scripts/'
