@@ -77,10 +77,10 @@ async function runTelefunc_(httpRequest: { url: string; method: string; body: un
   }
 
   {
-    const telefuncFiles = runContext.telefuncFiles || (await loadTelefuncFiles(runContext))
-    assert(telefuncFiles, 'No `.telefunc.js` file found')
-    objectAssign(runContext, { telefuncFiles })
-    runContext.telefuncFiles
+    const telefuncFilesLoaded = await loadTelefuncFiles(runContext)
+    assert(telefuncFilesLoaded, 'No `.telefunc.js` file found')
+    objectAssign(runContext, { telefuncFilesLoaded })
+    runContext.telefuncFilesLoaded
   }
 
   {

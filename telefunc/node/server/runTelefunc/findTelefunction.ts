@@ -7,7 +7,7 @@ function findTelefunction(runContext: {
   telefunctionKey: string
   telefunctionName: string
   telefunctionFilePath: string
-  telefuncFiles: Record<string, Record<string, unknown>>
+  telefuncFilesLoaded: Record<string, Record<string, unknown>>
   telefunctionFileExport: string
   telefunctions: Record<string, Telefunction>
   logInvalidRequests: boolean
@@ -34,8 +34,8 @@ function findTelefunction(runContext: {
 
   function getNotFoundErrMsg() {
     let errMsg = `Telefunction ${runContext.telefunctionName} not found.`
-    const { telefuncFiles, telefunctionFilePath, telefunctionFileExport } = runContext
-    const telefuncFile = telefuncFiles[telefunctionFilePath]
+    const { telefuncFilesLoaded, telefunctionFilePath, telefunctionFileExport } = runContext
+    const telefuncFile = telefuncFilesLoaded[telefunctionFilePath]
     if (!telefuncFile) {
       errMsg += ` The file \`${runContext.telefunctionFilePath}\` doesn't seem to exist.`
     } else {

@@ -16,20 +16,20 @@ async function loadTelefuncFiles(runContext: {
   // - Nuxt
   // - Vite with `importBuild.js`
   {
-    const telefuncFiles = loadTelefuncFilesWithInternalMechanism()
-    if (telefuncFiles) {
-      assertUsage(Object.keys(telefuncFiles).length > 0, getErrMsg('webpack'))
-      return telefuncFiles
+    const telefuncFilesLoaded = loadTelefuncFilesWithInternalMechanism()
+    if (telefuncFilesLoaded) {
+      assertUsage(Object.keys(telefuncFilesLoaded).length > 0, getErrMsg('webpack'))
+      return telefuncFilesLoaded
     }
   }
 
   // Handles:
   // - Vite
   {
-    const { telefuncFiles, viteProvider } = await loadTelefuncFilesWithVite(runContext)
-    if (telefuncFiles) {
-      assertUsage(Object.keys(telefuncFiles).length > 0, getErrMsg(`Vite [\`${viteProvider}\`]`))
-      return telefuncFiles
+    const { telefuncFilesLoaded, viteProvider } = await loadTelefuncFilesWithVite(runContext)
+    if (telefuncFilesLoaded) {
+      assertUsage(Object.keys(telefuncFilesLoaded).length > 0, getErrMsg(`Vite [\`${viteProvider}\`]`))
+      return telefuncFilesLoaded
     }
   }
 
