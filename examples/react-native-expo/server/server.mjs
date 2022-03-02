@@ -1,10 +1,16 @@
 import express from 'express'
-import { telefunc } from 'telefunc'
+import cors from 'cors'
+import { telefunc, telefuncConfig } from 'telefunc'
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 
 startServer()
 
+telefuncConfig.telefuncFiles = [require.resolve('../readData.telefunc.mjs')]
+
 async function startServer() {
   const app = express()
+  enableCors(app)
   installTelefunc(app)
   start(app)
 }
@@ -22,4 +28,8 @@ function installTelefunc(app) {
     const httpResponse = await telefunc({ url, method, body })
     res.status(httpResponse.statusCode).type(httpResponse.contentType).send(httpResponse.body)
   })
+}
+
+function enableCors(app) {
+  app.use(cors()) // Enable cross-origin requests
 }
