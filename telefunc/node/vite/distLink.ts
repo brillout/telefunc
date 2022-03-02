@@ -10,7 +10,7 @@ const dir = __dirname + (() => '')() // trick to avoid `@vercel/ncc` to glob imp
 const telefuncFilesGlobFromDistPath = `${dir}/telefuncFilesGlobFromDist.js`
 
 function distLinkOff() {
-  writeFileSync(telefuncFilesGlobFromDistPath, ['exports.distLinkOff = true', ''].join('\n'))
+  writeFileSync(telefuncFilesGlobFromDistPath, ['exports.distLinkActivated = false;', ''].join('\n'))
 }
 
 function distLinkOn(): Plugin {
@@ -34,6 +34,7 @@ function distLinkOn(): Plugin {
       writeFileSync(
         telefuncFilesGlobFromDistPath,
         [
+          'exports.distLinkActivated = true;',
           `const { telefuncFilesGlob } = require('${rootRelative}/dist/server/telefuncFilesGlob.js');`,
           `exports.telefuncFilesGlob = telefuncFilesGlob;`,
           '',

@@ -58,11 +58,13 @@ async function loadGlobImporter(runContext: {
   */
 
   {
-    const moduleExports = await import('./telefuncFilesGlobFromDist')
-    assert(!hasProp(moduleExports, 'distLinkUnset'))
-    if (!hasProp(moduleExports, 'distLinkOff', 'true')) {
-      assertProd(runContext)
-      return { moduleExports, provider: 'DIST_LINK' as const }
+    const moduleExports: unknown = await import('./telefuncFilesGlobFromDist')
+    if (!hasProp(moduleExports, 'distLinkUnset', 'true')) {
+      assert(hasProp(moduleExports, 'distLinkActivated', 'boolean'))
+      if (moduleExports.distLinkActivated === true) {
+        assertProd(runContext)
+        return { moduleExports, provider: 'DIST_LINK' as const }
+      }
     }
   }
 

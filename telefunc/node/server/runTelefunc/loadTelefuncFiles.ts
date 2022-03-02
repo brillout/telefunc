@@ -24,7 +24,7 @@ async function loadTelefuncFiles(runContext: {
   }
 
   // Handles:
-  //  - Vite
+  // - Vite
   {
     const { telefuncFiles, viteProvider } = await loadTelefuncFilesWithVite(runContext)
     if (telefuncFiles) {
