@@ -44,6 +44,8 @@ function getCode(exportNames: readonly string[], telefuncFilePath: string) {
     }
   })
 
+  lines.push(`export default { ${exportNames.join(', ')} };`);
+  
   const code = lines.join('\n')
   return code
 }
