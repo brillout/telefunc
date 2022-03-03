@@ -15,7 +15,7 @@ function getExportsFromBabelAST(programNodePath: NodePath<BabelTypes.Program>, t
       exported.push('default')
     }
 
-    if (types.isExportNamedDeclaration(subNode) && subNode.exportKind === 'value') {
+    if (types.isExportNamedDeclaration(subNode)) {
       if (subNode.specifiers.length > 0) {
         // Handles cases:
         // export { functionName };
