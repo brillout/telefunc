@@ -1,0 +1,19 @@
+{
+  "scripts": {
+    "start": "npm run build && npm run server",
+    "build": "npm run build:clean && npm run build:bundle && npm run build:html",
+    "build:clean": "rm -rf dist/",
+    "build:bundle": "rollup --config rollup.config.js",
+    "build:html": "cp index.html dist/",
+    "server": "node server.mjs"
+  },
+  "dependencies": {
+    "@babel/core": "^7.17.5",
+    "@babel/preset-env": "^7.16.11",
+    "@rollup/plugin-babel": "^5.3.1",
+    "@rollup/plugin-node-resolve": "^13.1.3",
+    "express": "^4.17.1",
+    "rollup": "^2.67.1",
+    "telefunc": "0.1.16"
+  }
+}

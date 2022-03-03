@@ -2,7 +2,7 @@ import { page, run, urlBase, autoRetry, fetchHtml } from '../../libframe/test/se
 
 export { testRun }
 
-function testRun(cmd: 'npm run dev' | 'npm run prod') {
+function testRun(cmd: 'npm run dev' | 'npm run prod' | 'npm run start') {
   run(cmd)
 
   test('Telefunc works', async () => {
