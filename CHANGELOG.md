@@ -1,3 +1,22 @@
+## [0.1.17](https://github.com/vikejs/telefunc/compare/v0.1.16...v0.1.17) (2022-03-03)
+
+
+### Bug Fixes
+
+* allow `.telefunc.js` ESM files to be loaded directly ([0f14491](https://github.com/vikejs/telefunc/commit/0f144917c28dd253ab3fe8955af22005d11631c6))
+* fix erroneous Vite stack assumption ([91ba118](https://github.com/vikejs/telefunc/commit/91ba1184ebd5a48e9824d2698c38f6c804f19c4f))
+* improve error message ([13011de](https://github.com/vikejs/telefunc/commit/13011def3712a4e5a95b68ef79e186fb1accff93))
+* support client resolving for legacy toolchains ([4f3d414](https://github.com/vikejs/telefunc/commit/4f3d41400510b16ecd4ec1ce02145946d1965fcc))
+* support Expo/Metro resolver ([6ede743](https://github.com/vikejs/telefunc/commit/6ede7432b9b45037b11f1725a0d02e9115ef0866))
+
+
+### Features
+
+* allow user to manually provide the telefunc files with `telefuncConfig.telefuncFiles` ([b47f0d9](https://github.com/vikejs/telefunc/commit/b47f0d91293fe3946f808885ebfb0aaa652f7822))
+* telefunc babel plugin ([c8e46df](https://github.com/vikejs/telefunc/commit/c8e46dfa14d7e5ef7fbeffd694b58cca8d72d4a5))
+
+
+
 ## [0.1.16](https://github.com/vikejs/telefunc/compare/v0.1.15...v0.1.16) (2022-02-28)
 
 
