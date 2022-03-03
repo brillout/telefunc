@@ -6,7 +6,7 @@ const require = createRequire(import.meta.url);
 
 startServer()
 
-telefuncConfig.telefuncFiles = [require.resolve('../readData.telefunc.mjs')]
+telefuncConfig.telefuncFiles = [require.resolve('./hello.telefunc.mjs')]
 
 async function startServer() {
   const app = express()
