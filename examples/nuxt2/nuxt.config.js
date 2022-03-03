@@ -9,8 +9,8 @@ export default {
   serverMiddleware: [
     bodyParser.text(), // Telefunc needs the HTTP request body
     telefuncContextMiddleware,
-    telefuncMiddleware,
-  ],
+    telefuncMiddleware
+  ]
 }
 
 // We provide the Telefunc context for not only for `/_telefunc` but all requests,

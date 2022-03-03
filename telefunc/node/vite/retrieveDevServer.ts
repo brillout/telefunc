@@ -8,6 +8,6 @@ function retrieveDevServer(): Plugin {
     name: 'telefunc:retrieveDevServer',
     configureServer(viteDevServer) {
       globalContext.viteDevServer = viteDevServer
-    },
+    }
   } as Plugin
 }

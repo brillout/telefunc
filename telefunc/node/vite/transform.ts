@@ -21,6 +21,6 @@ function transform(): Plugin {
         assert(root)
         return transformTelefuncFile(src, id, root)
       }
-    },
+    }
   }
 }

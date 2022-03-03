@@ -24,11 +24,11 @@ async function executeTelefunction(runContext: {
   const onError = (err: unknown) => {
     assertUsage(
       typeof err === 'object' && err !== null,
-      `The telefunction ${runContext.telefunctionName} threw a non-object error: \`${err}\`. Make sure the telefunction does \`throw new Error(${err})\` instead.`,
+      `The telefunction ${runContext.telefunctionName} threw a non-object error: \`${err}\`. Make sure the telefunction does \`throw new Error(${err})\` instead.`
     )
     assertUsage(
       err !== Abort,
-      `Missing parentheses \`()\` in \`throw Abort\`: it should be \`throw Abort()\`. Telefunction: ${runContext.telefunctionName}.`,
+      `Missing parentheses \`()\` in \`throw Abort\`: it should be \`throw Abort()\`. Telefunction: ${runContext.telefunctionName}.`
     )
     if (isAbort(err)) {
       telefunctionAborted = true
@@ -50,7 +50,7 @@ async function executeTelefunction(runContext: {
   if (!telefunctionHasErrored && !telefunctionAborted) {
     assertUsage(
       isPromise(resultSync),
-      `The telefunction ${runContext.telefunctionName} did not return a promise. A telefunction should always return a promise (e.g. define it as a \`async function\`).`,
+      `The telefunction ${runContext.telefunctionName} did not return a promise. A telefunction should always return a promise (e.g. define it as a \`async function\`).`
     )
     try {
       telefunctionReturn = await resultSync

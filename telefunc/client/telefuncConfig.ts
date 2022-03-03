@@ -18,24 +18,24 @@ const configSpec = {
       const isIpAddress = (value: string) => /^\d/.test(value)
       assertUsage(
         val.startsWith('/') || val.startsWith('http') || isIpAddress(val),
-        `Setting \`telefuncConfig.telefuncUrl\` to \`${val}\` but it should be one of the following: a URL pathname (e.g. \`/_telefunc\`), a URL with origin (e.g. \`https://example.org/_telefunc\`), or an IP address (e.g. \`192.158.1.38\`).`,
+        `Setting \`telefuncConfig.telefuncUrl\` to \`${val}\` but it should be one of the following: a URL pathname (e.g. \`/_telefunc\`), a URL with origin (e.g. \`https://example.org/_telefunc\`), or an IP address (e.g. \`192.158.1.38\`).`
       )
     },
     getDefault() {
       return '/_telefunc'
-    },
+    }
   },
   httpHeaders: {
     validate(val: unknown) {
       assertUsage(
         typeof val === 'object' && val !== null && Object.values(val).every((v) => typeof v === 'string'),
-        '`telefuncConfig.httpHeaders` should be an object of strings',
+        '`telefuncConfig.httpHeaders` should be an object of strings'
       )
     },
     getDefault() {
       return {}
-    },
-  },
+    }
+  }
 }
 
 function getTelefuncConfigObject(): TelefuncClientConfig {
@@ -45,9 +45,9 @@ function getTelefuncConfigObject(): TelefuncClientConfig {
       // prettier-ignore
       get telefuncUrl()   { return configProvidedByUser['telefuncUrl']   ?? configSpec['telefuncUrl'].getDefault()   },
       // prettier-ignore
-      get httpHeaders()   { return configProvidedByUser['httpHeaders']   ?? configSpec['httpHeaders'].getDefault()   },
+      get httpHeaders()   { return configProvidedByUser['httpHeaders']   ?? configSpec['httpHeaders'].getDefault()   }
     },
-    { set },
+    { set }
   )
   function set(_: never, prop: string, val: unknown) {
     const option = configSpec[prop as keyof typeof configSpec]
@@ -67,7 +67,7 @@ function assertProxySupport() {
     [
       "Your JavaScript environment doesn't seem to support Proxy.",
       'Note that all browsers and Node.js support Proxy, with the exception of Internet Explorer.',
-      'If you need IE support then open a GitHub issue.',
-    ].join(' '),
+      'If you need IE support then open a GitHub issue.'
+    ].join(' ')
   )
 }

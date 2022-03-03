@@ -20,15 +20,15 @@ function plugin(): Plugin[] {
       config: () => ({
         ssr: { external: ['telefunc'] },
         optimizeDeps: {
-          include: ['telefunc/client', '@brillout/json-s/parse', '@brillout/json-s/stringify'],
-        },
-      }),
+          include: ['telefunc/client', '@brillout/json-s/parse', '@brillout/json-s/stringify']
+        }
+      })
     },
     retrieveDevServer(),
     transform(),
     build(),
     //importBuild(getImportBuildCode()),
     packageJsonFile(),
-    distLinkOn(),
+    distLinkOn()
   ]
 }

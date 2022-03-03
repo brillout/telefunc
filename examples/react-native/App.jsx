@@ -9,7 +9,7 @@ export default function App() {
   const [state, set] = useState({ isLoading: true })
 
   useEffect(() => {
-    (async () => {
+    ;(async () => {
       try {
         const data = await hello({ name: 'Eva' })
         set({ data })

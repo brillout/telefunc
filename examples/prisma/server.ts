@@ -27,12 +27,12 @@ function installTelefunc(app: Express) {
 
 async function installFrontend(app: Express) {
   if (process.env.NODE_ENV === 'production') {
-    const root = __dirname 
+    const root = __dirname
     app.use(express.static(`${root}/dist/client`))
   } else {
     const vite = await import('vite')
     const viteDevServer = await vite.createServer({
-      server: { middlewareMode: 'html' },
+      server: { middlewareMode: 'html' }
     })
     app.use(viteDevServer.middlewares)
   }

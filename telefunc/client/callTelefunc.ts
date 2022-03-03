@@ -9,7 +9,7 @@ import { objectAssign, assertUsage, isBrowser, assert } from './utils'
 async function __internal_fetchTelefunc(
   telefunctionFilePath: string,
   telefunctionFileExport: string,
-  telefunctionArgs: unknown[],
+  telefunctionArgs: unknown[]
 ): Promise<unknown> {
   assertUsage(isBrowser(), 'The Telefunc Client is meant to be run only in the browser.')
 
@@ -20,7 +20,7 @@ async function __internal_fetchTelefunc(
       telefunctionName,
       telefunctionFilePath,
       telefunctionFileExport,
-      telefunctionArgs,
+      telefunctionArgs
     })
   }
 

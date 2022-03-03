@@ -15,7 +15,7 @@ function applyShield(runContext: {
   const hasShield = !shieldIsMissing(telefunction)
   assertWarning(
     hasShield || telefunction.length === 0,
-    `The telefunction ${runContext.telefunctionName} accepts arguments yet is missing \`shield()\`, see https://telefunc.com/shield`,
+    `The telefunction ${runContext.telefunctionName} accepts arguments yet is missing \`shield()\`, see https://telefunc.com/shield`
   )
   if (hasShield) {
     const applyResult = shieldApply(telefunction, runContext.telefunctionArgs)
@@ -24,7 +24,7 @@ function applyShield(runContext: {
         const errMsg = [
           `\`shield()\`: invalid arguments passed to telefunction ${runContext.telefunctionName}.`,
           `Arguments: \`${JSON.stringify(runContext.telefunctionArgs)}\`.`,
-          `Error: ${applyResult}`,
+          `Error: ${applyResult}`
         ].join(' ')
         console.error(getProjectError(errMsg))
       }

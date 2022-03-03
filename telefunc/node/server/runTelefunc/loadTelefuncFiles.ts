@@ -15,7 +15,7 @@ async function loadTelefuncFiles(runContext: {
 }): Promise<TelefuncFiles | null> {
   // Handles:
   // - When the user provides the telefunc file paths with `telefuncConfig.telefuncFiles`
-  if( runContext.telefuncFiles) {
+  if (runContext.telefuncFiles) {
     const telefuncFilesLoaded = loadTelefuncFilesFromConfig(runContext.telefuncFiles, runContext.root)
     return telefuncFilesLoaded
   }

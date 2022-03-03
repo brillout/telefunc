@@ -26,14 +26,14 @@ const malformedRequest = {
   body: 'Malformed Request',
   statusCode: 400 as const,
   contentType: 'text/plain' as const,
-  etag: null,
+  etag: null
 }
 
 const serverError = {
   body: 'Internal Server Error (Telefunc Request)',
   statusCode: 500 as const,
   contentType: 'text/plain' as const,
-  etag: null,
+  etag: null
 }
 
 async function runTelefunc(runContext: Parameters<typeof runTelefunc_>[0]) {
@@ -59,7 +59,7 @@ async function runTelefunc_(httpRequest: { url: string; method: string; body: un
   }
 
   objectAssign(runContext, {
-    providedContext: getContextOptional() || null,
+    providedContext: getContextOptional() || null
   })
   {
     const parsed = parseHttpRequest(runContext)
@@ -72,7 +72,7 @@ async function runTelefunc_(httpRequest: { url: string; method: string; body: un
       telefunctionKey,
       telefunctionArgs,
       telefunctionFilePath,
-      telefunctionFileExport,
+      telefunctionFileExport
     })
   }
 
@@ -104,7 +104,7 @@ async function runTelefunc_(httpRequest: { url: string; method: string; body: un
     telefunctionReturn,
     telefunctionHasErrored,
     telefunctionAborted,
-    telefunctionError,
+    telefunctionError
   })
 
   if (runContext.telefunctionHasErrored) {
@@ -126,6 +126,6 @@ async function runTelefunc_(httpRequest: { url: string; method: string; body: un
     statusCode: runContext.telefunctionAborted ? 403 : 200,
     // etag: runContext.httpResponseEtag,
     etag: null,
-    contentType: 'text/plain',
+    contentType: 'text/plain'
   }
 }

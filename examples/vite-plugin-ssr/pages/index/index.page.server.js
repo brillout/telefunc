@@ -10,8 +10,8 @@ async function onBeforeRender(pageContext) {
     pageContext: {
       pageProps: {
         user,
-        todoItemsInitial: todoItems,
-      },
-    },
+        todoItemsInitial: todoItems
+      }
+    }
   }
 }

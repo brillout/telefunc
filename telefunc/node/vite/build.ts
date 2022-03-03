@@ -14,23 +14,23 @@ function build(): Plugin {
       if (!isSSR_config(config)) {
         return {
           build: {
-            outDir: 'dist/client',
-          },
+            outDir: 'dist/client'
+          }
         }
       } else {
         const viteEntry = getViteEntry()
         const input = {
           ...viteEntry,
-          ...normalizeRollupInput(config.build?.rollupOptions?.input),
+          ...normalizeRollupInput(config.build?.rollupOptions?.input)
         }
         return {
           build: {
             rollupOptions: { input },
-            outDir: 'dist/server',
-          },
+            outDir: 'dist/server'
+          }
         }
       }
-    },
+    }
   }
 }
 
@@ -52,7 +52,7 @@ function normalizeRollupInput(input?: InputOption): Record<string, string> {
 
 function getViteEntry() {
   const viteEntry = {
-    [telefuncFilesGlobFileNameBase]: telefuncFilesGlobFilePath,
+    [telefuncFilesGlobFileNameBase]: telefuncFilesGlobFilePath
   }
   return viteEntry
 }

@@ -17,8 +17,8 @@ function getContext<Context extends object = Telefunc.Context>(): Context {
     [
       `\`getContext()\`: no context found${!isSSR() ? '' : ' (SSR)'}.`,
       'Make sure to properly call `provideTelefuncContext()`,',
-      `see https://telefunc.com/provideTelefuncContext${isSSR() ? '#ssr' : ''}`,
-    ].join(' '),
+      `see https://telefunc.com/provideTelefuncContext${isSSR() ? '#ssr' : ''}`
+    ].join(' ')
   )
   assert(isObject(context))
   return context as Context
@@ -42,7 +42,7 @@ function installSyncMode() {
 }
 async function installAsyncMode({
   getContext_async,
-  provideTelefuncContext_async,
+  provideTelefuncContext_async
 }: {
   getContext_async: typeof _getContext
   provideTelefuncContext_async: typeof _provideTelefuncContext

@@ -6,18 +6,18 @@ export { data }
 const dataInit: Data = {
   todoLists: {
     0: [{ text: 'Cherries' }, { text: 'Milk' }],
-    1: [{ text: 'Bananas' }, { text: 'Milkshake' }],
+    1: [{ text: 'Bananas' }, { text: 'Milkshake' }]
   },
   users: {
     0: {
       id: 0,
-      name: 'Rom',
+      name: 'Rom'
     },
     1: {
       id: 1,
-      name: 'Mohammad',
-    },
-  },
+      name: 'Mohammad'
+    }
+  }
 }
 
 global._data = global._data || dataInit

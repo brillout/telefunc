@@ -16,7 +16,7 @@ async function onBeforeRender({ user }: { user: User }) {
         }
         const todoItemsInitial = TodoModel.getAll(user.id)
         return { todoItemsInitial, user }
-      })(),
-    },
+      })()
+    }
   }
 }

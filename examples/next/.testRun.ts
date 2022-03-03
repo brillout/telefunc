@@ -4,7 +4,7 @@ export { testRun }
 
 function testRun(cmd: 'npm run dev' | 'npm run prod') {
   run(cmd, {
-    serverIsReadyMessage: 'started server on',
+    serverIsReadyMessage: 'started server on'
     /* Debug Next.js in GitHub Actions:
     debug: true,
     additionalTimeout: 240 * 1000,

@@ -1,6 +1,6 @@
 export const Todo = {
   findMany,
-  createNew,
+  createNew
 }
 
 import ProtoDB from '@brillout/proto-db'
@@ -8,8 +8,8 @@ import ProtoDB from '@brillout/proto-db'
 const database = ProtoDB.load(process.cwd() + '/database/data.json', {
   todoItems: [
     { text: 'Buy milk', authorId: 0 },
-    { text: 'Buy strawberries', authorId: 0 },
-  ],
+    { text: 'Buy strawberries', authorId: 0 }
+  ]
 })
 
 function findMany({ authorId }) {

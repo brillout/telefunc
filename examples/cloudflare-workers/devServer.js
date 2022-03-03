@@ -28,7 +28,7 @@ function installTelefunc(app) {
 async function installFrontend(app) {
   const vite = await import('vite')
   const viteDevServer = await vite.createServer({
-    server: { middlewareMode: 'html' },
+    server: { middlewareMode: 'html' }
   })
   app.use(viteDevServer.middlewares)
 }

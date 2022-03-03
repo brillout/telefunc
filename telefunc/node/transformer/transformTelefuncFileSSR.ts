@@ -11,7 +11,7 @@ async function transformTelefuncFileSSR(src: string, id: string, root: string) {
 
   return {
     code: getCode(exportNames, src, id.replace(root, '')),
-    map: null,
+    map: null
   }
 }
 

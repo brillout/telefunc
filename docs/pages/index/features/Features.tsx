@@ -24,7 +24,7 @@ function Features() {
                 Your frontend can <b>directly use any SQL/ORM query</b> to retrieve & mutate data.
               </p>
             </>
-          ),
+          )
         },
         {
           title: (
@@ -42,7 +42,7 @@ function Features() {
                 Telefunc introduces new techniques that enable advanced permissions and <b>increased safety</b>.
               </p>
             </>
-          ),
+          )
         },
         {
           title: (
@@ -53,13 +53,12 @@ function Features() {
           desc: (
             <>
               <p>
-                Telefunc supports{' '}
-                <b>Next.js</b>, <b>Nuxt</b>, <b>SvelteKit</b>, <b>Vite</b>, <b>Vike</b> and any framework{' '}
-                based on Webpack or Vite.
+                Telefunc supports <b>Next.js</b>, <b>Nuxt</b>, <b>SvelteKit</b>, <b>Vite</b>, <b>Vike</b> and any
+                framework based on Webpack or Vite.
               </p>
               <p>You want to change your stack? Bring Telefunc along.</p>
             </>
-          ),
+          )
         },
         {
           title: (
@@ -74,7 +73,7 @@ function Features() {
                 optimized SQL/ORM queries for highly performant data retrieval and mutations.
               </p>
             </>
-          ),
+          )
         },
         {
           title: (
@@ -91,7 +90,7 @@ function Features() {
                 Use your types across the frontend and backend for <b>end-to-end type safety</b>.
               </p>
             </>
-          ),
+          )
         },
         {
           title: (
@@ -106,8 +105,8 @@ function Features() {
                 assailed against a heavy suite of <b>automated tests</b>.
               </p>
             </>
-          ),
-        },
+          )
+        }
       ]}
     />
   )

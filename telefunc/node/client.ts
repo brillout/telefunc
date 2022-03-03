@@ -9,7 +9,7 @@ function err(importName: string) {
     const name = importName + (isFunction ? '()' : '')
     assertUsage(
       false,
-      `Using \`${name}\` (\`import { ${importName} } from 'telefunc/client'\`) is forbidden on the server-side, see https://telefunc.com/isomorphic-import`,
+      `Using \`${name}\` (\`import { ${importName} } from 'telefunc/client'\`) is forbidden on the server-side, see https://telefunc.com/isomorphic-import`
     )
   }
 }

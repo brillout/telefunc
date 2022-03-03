@@ -35,7 +35,7 @@ function retrieveUserFromReq(req) {
   }
   const user = {
     id: 0,
-    name: 'Elisabeth',
+    name: 'Elisabeth'
   }
   return user
 }

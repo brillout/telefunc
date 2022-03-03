@@ -20,7 +20,7 @@ export async function getServerSideProps(context) {
   return {
     props: {
       user,
-      todoItemsInitial: todoItems,
-    },
+      todoItemsInitial: todoItems
+    }
   }
 }

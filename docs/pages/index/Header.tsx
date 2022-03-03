@@ -28,7 +28,7 @@ function CenterHorizontal({ children }: { children: React.ReactNode }) {
       style={{
         display: 'flex',
         alignItems: 'center',
-        flexDirection: 'column',
+        flexDirection: 'column'
       }}
     >
       {children}
@@ -43,7 +43,7 @@ function LeftSide() {
         id="header-logo"
         style={{
           display: 'flex',
-          alignItems: 'center',
+          alignItems: 'center'
         }}
       >
         <img src={iconTelefunc} />

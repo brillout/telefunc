@@ -15,5 +15,5 @@ setFrame({
   navHeader: <NavHeader />,
   navHeaderMobile: <NavHeaderMobile />,
   titleNormalCase: true,
-  tagline: 'Remote Functions. Instead of API.',
+  tagline: 'Remote Functions. Instead of API.'
 })

@@ -17,7 +17,7 @@ async function startServer() {
     const vite = require('vite')
     viteDevServer = await vite.createServer({
       root,
-      server: { middlewareMode: 'ssr' },
+      server: { middlewareMode: 'ssr' }
     })
     app.use(viteDevServer.middlewares)
   }
@@ -25,7 +25,7 @@ async function startServer() {
   app.use(function (req, _res, next) {
     req.user = {
       id: 0,
-      name: 'Elisabeth',
+      name: 'Elisabeth'
     }
     next()
   })
@@ -44,7 +44,7 @@ async function startServer() {
     const { user, originalUrl: url } = req
     const pageContextInit = {
       user,
-      url,
+      url
     }
     const pageContext = await renderPage(pageContextInit)
     const { httpResponse } = pageContext

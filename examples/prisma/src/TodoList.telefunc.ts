@@ -12,7 +12,7 @@ export const onToggleTodo = shield([t.number], async (id) => {
   const todo = await getTodoItem(id)
   await prisma.todo.update({
     where: { id },
-    data: { completed: !todo.completed },
+    data: { completed: !todo.completed }
   })
 })
 

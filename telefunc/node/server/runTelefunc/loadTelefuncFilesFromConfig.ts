@@ -13,11 +13,11 @@ async function loadTelefuncFilesFromConfig(telefuncFiles: string[], root: string
       assertPosixPath(path)
       assertUsage(
         !path.startsWith('../'),
-        `The telefunc file \`${telefuncFilePath}\` is not inlcuded in your project root \`${root}\`.`,
+        `The telefunc file \`${telefuncFilePath}\` is not inlcuded in your project root \`${root}\`.`
       )
       assert(!path.startsWith('/') && !path.startsWith('.'))
       telefuncFilesLoaded['/' + path] = await dynamicImport(telefuncFilePath)
-    }),
+    })
   )
   return telefuncFilesLoaded
 }

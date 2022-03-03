@@ -5,126 +5,126 @@ export { headingsWithoutLink }
 const headingsWithoutLink: HeadingWithoutLink[] = [
   {
     title: '`Abort()` vs `new Error()`',
-    url: '/abort-vs-error',
+    url: '/abort-vs-error'
   },
   {
     title: 'The SSR context problem',
-    url: '/ssr-context',
+    url: '/ssr-context'
   },
   {
     title: 'Isomorphic `import`',
-    url: '/isomorphic-import',
-  },
+    url: '/isomorphic-import'
+  }
 ]
 
 export const headings: HeadingDefinition[] = [
   {
     level: 1,
     title: 'Overview',
-    titleEmoji: 'compass',
+    titleEmoji: 'compass'
   },
   {
     level: 2,
     title: 'Introduction',
     titleDocument: 'Telefunc',
-    url: '/',
+    url: '/'
   },
   {
     level: 2,
     title: 'Tour',
     url: '/tour',
-    sectionTitles: ['TypeScript'],
+    sectionTitles: ['TypeScript']
   },
   {
     level: 2,
     title: 'RPC vs GraphQL/REST',
-    url: '/RPC-vs-GraphQL-REST',
+    url: '/RPC-vs-GraphQL-REST'
   },
   {
     level: 1,
     title: 'Get started',
-    titleEmoji: 'seedling',
+    titleEmoji: 'seedling'
   },
   {
     level: 2,
     title: 'Vite',
-    url: '/vite',
+    url: '/vite'
   },
   {
     level: 2,
     title: 'Next.js',
-    url: '/next',
+    url: '/next'
   },
   {
     level: 2,
     title: 'Nuxt',
-    url: '/nuxt',
+    url: '/nuxt'
   },
   {
     level: 2,
     title: 'Other installations',
     titleInNav: 'Other',
-    url: '/install',
+    url: '/install'
   },
   {
     level: 1,
     title: 'Guides',
-    titleEmoji: 'books',
+    titleEmoji: 'books'
   },
   {
     level: 4,
-    title: 'Basics',
+    title: 'Basics'
   },
   {
     level: 2,
     title: '`Abort()` & `shield()`',
-    url: '/abort-shield',
+    url: '/abort-shield'
   },
   {
     level: 2,
     title: 'Authentication',
-    url: '/auth',
+    url: '/auth'
   },
   {
     level: 2,
     title: 'Permissions',
     url: '/permissions',
-    sectionTitles: ['`getContext()` wrappers'],
+    sectionTitles: ['`getContext()` wrappers']
   },
   {
     level: 2,
     title: 'File structure',
-    url: '/file-structure',
+    url: '/file-structure'
   },
   {
     level: 2,
     title: 'Form validation',
-    url: '/form-validation',
+    url: '/form-validation'
   },
   {
     level: 4,
-    title: 'More',
+    title: 'More'
   },
   {
     level: 2,
     title: 'TypeScript',
     url: '/typescript',
-    sectionTitles: ['`shield()`', '`getContext()`'],
+    sectionTitles: ['`shield()`', '`getContext()`']
   },
   {
     level: 2,
     title: 'Error Tracking',
-    url: '/error-tracking',
+    url: '/error-tracking'
   },
   {
     level: 2,
     title: 'Telefunc Server',
-    url: '/telefunc-server',
+    url: '/telefunc-server'
   },
   {
     level: 2,
     title: 'Waterfalls',
-    url: '/waterfalls',
+    url: '/waterfalls'
   },
   {
     level: 2,
@@ -135,48 +135,48 @@ export const headings: HeadingDefinition[] = [
   {
     level: 1,
     title: 'API',
-    titleEmoji: 'gear',
+    titleEmoji: 'gear'
   },
   {
     level: 4,
-    title: 'Protection',
+    title: 'Protection'
   },
   {
     level: 2,
     title: '`shield()`',
-    url: '/shield',
+    url: '/shield'
   },
   {
     level: 2,
     title: '`Abort()`',
-    url: '/Abort',
+    url: '/Abort'
   },
   {
     level: 4,
-    title: 'Context',
+    title: 'Context'
   },
   {
     level: 2,
     title: '`getContext()`',
-    url: '/getContext',
+    url: '/getContext'
   },
   {
     level: 2,
     title: '`provideTelefuncContext()`',
-    url: '/provideTelefuncContext',
+    url: '/provideTelefuncContext'
   },
   {
     level: 4,
-    title: 'Integration',
+    title: 'Integration'
   },
   {
     level: 2,
     title: '`createTelefuncCaller()`',
-    url: '/createTelefuncCaller',
+    url: '/createTelefuncCaller'
   },
   {
     level: 2,
     title: '`config',
-    url: '/config',
-  },
+    url: '/config'
+  }
 ]

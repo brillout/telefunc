@@ -15,7 +15,7 @@ test('shield - human readable', () => {
   expect(shieldToHumandReadable([t.string, t.optional(t.number)])).toBe('[string,number|undefined]')
   expect(shieldToHumandReadable([{ a: t.string, b: t.nullable(t.number) }])).toBe('[{a:string,b:number|null}]')
   expect(shieldToHumandReadable(myTelefunctionShield)).toBe(
-    '[{a:number},string|number|null|{b:number,arr:[number,undefined,1|true]},number[]|undefined]',
+    '[{a:number},string|number|null|{b:number,arr:[number,undefined,1|true]},number[]|undefined]'
   )
 })
 
@@ -55,32 +55,32 @@ test('shield - unit', () => {
     shield(telefunction, [{ a: t.tuple(t.string, t.number) }])
     expect(shieldApply(telefunction, [{ a: ['', 0] }])).toBe(true)
     expect(shieldApply(telefunction, [{}])).toBe(
-      '[root] > [tuple: element 0] > [object: value of key `a`] is `undefined` but should be `tuple`.',
+      '[root] > [tuple: element 0] > [object: value of key `a`] is `undefined` but should be `tuple`.'
     )
   }
 
   {
     const telefunction = shield([t.object(t.number)], (_a) => {})
     expect(shieldApply(telefunction, [{ k: 'some string' }])).toBe(
-      '[root] > [tuple: element 0] > [object: value of key `k`] is `string` but should be `number`.',
+      '[root] > [tuple: element 0] > [object: value of key `k`] is `string` but should be `number`.'
     )
   }
   {
     const telefunction = shield([{ a: { b: { c: t.const(42) } } }], (_a) => {})
     expect(shieldApply(telefunction, [{ a: { b: { c: 'some string' } } }])).toBe(
-      '[root] > [tuple: element 0] > [object: value of key `a`] > [object: value of key `b`] > [object: value of key `c`] is `some string` but should be `42`.',
+      '[root] > [tuple: element 0] > [object: value of key `a`] > [object: value of key `b`] > [object: value of key `c`] is `some string` but should be `42`.'
     )
   }
   {
     const telefunction = shield([{ a: { b: { c: t.const(42) } } }], (_a) => {})
     expect(shieldApply(telefunction, [{ a: { b: { d: 42 } } }])).toBe(
-      '[root] > [tuple: element 0] > [object: value of key `a`] > [object: value of key `b`] > [object: value of key `c`] is `undefined` but should be `42`.',
+      '[root] > [tuple: element 0] > [object: value of key `a`] > [object: value of key `b`] > [object: value of key `c`] is `undefined` but should be `42`.'
     )
   }
   {
     const telefunction = shield([{ a: { b: { c: t.const(42) } } }], (_a) => {})
     expect(shieldApply(telefunction, [{ a: { b: { c: 42, d: 42 } } }])).toBe(
-      '[root] > [tuple: element 0] > [object: value of key `a`] > [object: value of key `b`] > [object: value of key `d`] is `42` but should be `undefined`.',
+      '[root] > [tuple: element 0] > [object: value of key `a`] > [object: value of key `b`] > [object: value of key `d`] is `42` but should be `undefined`.'
     )
   }
 })
@@ -90,9 +90,9 @@ const myTelefunctionShield = t.tuple(
   { a: t.number },
   t.or(t.string, t.number, t.const(null), {
     b: t.number,
-    arr: t.tuple(t.number, t.const(undefined), t.or(t.const(1), t.const(true))),
+    arr: t.tuple(t.number, t.const(undefined), t.or(t.const(1), t.const(true)))
   }),
-  t.optional(t.array(t.number)),
+  t.optional(t.array(t.number))
 )
 test('shield - full', () => {
   shield(myTelefunction, myTelefunctionShield)
@@ -102,7 +102,7 @@ test('shield - full', () => {
   expect(shieldApply(myTelefunction, [{ a: -Infinity }, { b: 42, arr: [1, undefined, true] }, [22, 33, 44]])).toBe(true)
   expect(shieldApply(myTelefunction, [{ a: 0 }, ''])).toBe(true)
   expect(shieldApply(myTelefunction, [{ a: '' }])).toBe(
-    '[root] > [tuple: element 0] > [object: value of key `a`] is `string` but should be `number`.',
+    '[root] > [tuple: element 0] > [object: value of key `a`] is `string` but should be `number`.'
   )
   expect(shieldApply(myTelefunction, [{ a: 0 }])).toBe('[root] > [tuple: element 1] is of wrong type')
   expect(shieldApply(myTelefunction, [])).toBe('[root] > [tuple: element 0] is `undefined` but should be `object`.')
@@ -119,7 +119,7 @@ function testTypescriptFull() {
   function myTelefunction(
     _a: { a: number },
     _b: string | number | null | { b: number; arr: [number, undefined, 1 | true] },
-    _c: number[] | undefined,
+    _c: number[] | undefined
   ) {}
 
   shield(myTelefunctionInferred, myTelefunctionShield)

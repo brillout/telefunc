@@ -17,7 +17,7 @@ async function hydrate() {
     <PageShell pageContext={pageContext}>
       <Page {...pageProps} />
     </PageShell>,
-    document.getElementById('page-view'),
+    document.getElementById('page-view')
   )
 }
 

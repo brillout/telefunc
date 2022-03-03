@@ -14,7 +14,7 @@ function err(importName: string) {
     const name = importName + (isFunction ? '()' : '')
     assertUsage(
       false,
-      `Using \`${name}\` (\`import { ${importName} } from 'telefunc'\`) is forbidden on the client-side, see https://telefunc.com/isomorphic-import`,
+      `Using \`${name}\` (\`import { ${importName} } from 'telefunc'\`) is forbidden on the client-side, see https://telefunc.com/isomorphic-import`
     )
   }
 }

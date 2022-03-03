@@ -47,11 +47,11 @@ function parseHttpRequest(runContext: {
         'The argument `body` passed to `telefunc({ body })`',
         'could not be parsed',
         `(\`body === '${bodyString}'\`).`,
-        !hasProp(err, 'message') ? null : `Parse error: ${err.message}.`,
+        !hasProp(err, 'message') ? null : `Parse error: ${err.message}.`
       ]
         .filter(Boolean)
         .join(' '),
-      runContext,
+      runContext
     )
     return { isMalformed: true }
   }
@@ -65,9 +65,9 @@ function parseHttpRequest(runContext: {
       [
         'The argument `body` passed to `telefunc({ body })`',
         'can be parsed but its content is invalid',
-        `(\`body === '${bodyString}'\`).`,
+        `(\`body === '${bodyString}'\`).`
       ].join(' '),
-      runContext,
+      runContext
     )
     return { isMalformed: true }
   }
@@ -84,31 +84,31 @@ function parseHttpRequest(runContext: {
     telefunctionName,
     telefunctionKey,
     telefunctionArgs,
-    isMalformed: false,
+    isMalformed: false
   }
 }
 
 function assertBody(body: unknown, runContext: { telefuncUrl: string }) {
   const errorNote = [
     `Make sure that \`body\` is the HTTP body string of the request HTTP POST \`Content-Type: text/plain\` \`${runContext.telefuncUrl}\`.`,
-    'Note that with some server frameworks, such as Express.js, a server middleware is needed to process the HTTP body of `Content-Type: text/plain` requests.',
+    'Note that with some server frameworks, such as Express.js, a server middleware is needed to process the HTTP body of `Content-Type: text/plain` requests.'
   ].join(' ')
   assertUsage(
     body !== undefined && body !== null,
-    ['`telefunc({ body })`: argument `body` should be a string but', `\`body === ${body}\`.`, errorNote].join(' '),
+    ['`telefunc({ body })`: argument `body` should be a string but', `\`body === ${body}\`.`, errorNote].join(' ')
   )
   assertUsage(
     typeof body === 'string',
     [
       '`telefunc({ body })`: argument `body` should be a string but',
       `\`typeof body === '${typeof body}'\`.`,
-      errorNote,
-    ].join(' '),
+      errorNote
+    ].join(' ')
   )
   assertUsage(
     // Express.js sets `req.body === '{}'` upon wrong Content-Type
     body !== '{}',
-    ["`telefunc({ body })`: argument `body` is an empty JSON object (`body === '{}'`).", errorNote].join(' '),
+    ["`telefunc({ body })`: argument `body` is an empty JSON object (`body === '{}'`).", errorNote].join(' ')
   )
 }
 
@@ -125,9 +125,9 @@ function isWrongMethod(runContext: {
     [
       'The argument `method` passed to `telefunc({ method })`',
       'should be `POST` (or `post`) but',
-      `\`method === '${runContext.httpRequest.method}'\`.`,
+      `\`method === '${runContext.httpRequest.method}'\`.`
     ].join(' '),
-    runContext,
+    runContext
   )
   return true
 }
@@ -136,7 +136,7 @@ function assertUrl(runContext: { httpRequest: { url: string }; telefuncUrl: stri
   const urlPathname = getUrlPathname(runContext.httpRequest.url)
   assertUsage(
     urlPathname === runContext.telefuncUrl,
-    `telefunc({ url }): The HTTP request \`url\` pathname \`${urlPathname}\` should be \`${runContext.telefuncUrl}\`. Make sure that \`url\` is the HTTP request URL, or change \`telefuncConfig.telefuncUrl\` to \`${urlPathname}\`.`,
+    `telefunc({ url }): The HTTP request \`url\` pathname \`${urlPathname}\` should be \`${runContext.telefuncUrl}\`. Make sure that \`url\` is the HTTP request URL, or change \`telefuncConfig.telefuncUrl\` to \`${urlPathname}\`.`
   )
 }
 

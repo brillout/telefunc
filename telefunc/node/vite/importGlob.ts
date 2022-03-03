@@ -14,7 +14,7 @@ function importGlobOff() {
     [
       'exports.importGlobOff = true',
       ''
-    ].join('\n'),
+    ].join('\n')
   )
 }
 
@@ -25,6 +25,6 @@ function importGlobOn() {
     [
       `export const telefuncFilesGlob = ${importGlob};`,
       ''
-    ].join('\n'),
+    ].join('\n')
   )
 }

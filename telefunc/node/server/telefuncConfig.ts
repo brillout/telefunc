@@ -26,7 +26,7 @@ const configSpec = {
       // If server environment is not a Node.js server, then we assume a (Cloudflare) worker environment
       if (typeof process == 'undefined' || !hasProp(process, 'env')) return true
       return process.env.NODE_ENV === 'production'
-    },
+    }
   },
   root: {
     validate(val: unknown) {
@@ -35,47 +35,47 @@ const configSpec = {
     getDefault() {
       if (typeof process == 'undefined' || !hasProp(process, 'cwd')) return null
       return process.cwd()
-    },
+    }
   },
   viteDevServer: {
     validate(val: unknown) {
       assertInfo(
         false,
-        '`telefuncConfig.viteDevServer` is not needed anymore. Remove your `telefuncConfig.viteDevServer` configuration to get rid of this message. (Telefunc now automatically retrieves the Vite dev server.)',
+        '`telefuncConfig.viteDevServer` is not needed anymore. Remove your `telefuncConfig.viteDevServer` configuration to get rid of this message. (Telefunc now automatically retrieves the Vite dev server.)'
       )
       assertUsage(hasProp(val, 'ssrLoadModule'), '`telefuncConfig.ssrLoadModule` should be the Vite dev server')
       assertUsage(
         (val as any as ViteDevServer).config.plugins.find((plugin) => plugin.name.startsWith('telefunc')),
-        'Telefunc Vite plugin not installed. Make sure to add Telefunc to your `vite.config.js`.',
+        'Telefunc Vite plugin not installed. Make sure to add Telefunc to your `vite.config.js`.'
       )
       assert(val === globalContext.viteDevServer, '`viteDevServer` mismatch.')
     },
     getDefault() {
       return null
-    },
+    }
   },
   telefuncUrl: {
     validate(val: unknown) {
       assertUsage(
         typeof val === 'string' && val.startsWith('/'),
-        '`telefuncConfig.telefuncUrl` should be a string that starts with `/`',
+        '`telefuncConfig.telefuncUrl` should be a string that starts with `/`'
       )
     },
     getDefault() {
       return '/_telefunc'
-    },
+    }
   },
   telefuncFiles: {
     validate(val: unknown) {
       assertWarning(false, '`telefuncConfig.telefuncFiles` is experimental')
       assertUsage(
         Array.isArray(val) && val.every((v) => typeof v === 'string' && isAbsolute(v)),
-        '`telefuncConfig.telefuncFiles` should be a list of absolute paths',
+        '`telefuncConfig.telefuncFiles` should be a list of absolute paths'
       )
     },
     getDefault() {
       return null
-    },
+    }
   },
   disableEtag: {
     validate(_val: unknown) {
@@ -83,7 +83,7 @@ const configSpec = {
     },
     getDefault() {
       return false
-    },
+    }
   },
   debug: {
     validate(val: unknown) {
@@ -92,8 +92,8 @@ const configSpec = {
     getDefault() {
       if (typeof process == 'undefined' || !hasProp(process, 'env')) return false
       return !!process.env.DEBUG
-    },
-  },
+    }
+  }
 }
 
 function getTelefuncConfigObject(): TelefuncServerConfig {
@@ -113,9 +113,9 @@ function getTelefuncConfigObject(): TelefuncServerConfig {
       // prettier-ignore
       get disableEtag()   { return configProvidedByUser['disableEtag']   ?? configSpec['disableEtag'].getDefault()   },
       // prettier-ignore
-      get debug()         { return configProvidedByUser['debug']         ?? configSpec['debug'].getDefault()         },
+      get debug()         { return configProvidedByUser['debug']         ?? configSpec['debug'].getDefault()         }
     },
-    { set },
+    { set }
   )
   function set(_: never, prop: string, val: unknown) {
     const option = configSpec[prop as keyof typeof configSpec]

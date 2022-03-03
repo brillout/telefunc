@@ -5,5 +5,5 @@ export const projectInfo = {
   projectVersion: PROJECT_VERSION,
   npmPackageName: 'telefunc' as const,
   githubRepository: 'https://github.com/vikejs/telefunc' as const,
-  discordInvite: 'https://discord.com/invite/3DYWwk4xRQ' as const,
+  discordInvite: 'https://discord.com/invite/3DYWwk4xRQ' as const
 }

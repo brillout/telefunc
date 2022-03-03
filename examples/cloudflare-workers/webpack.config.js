@@ -3,7 +3,7 @@ module.exports = {
   target: 'webworker',
   resolve: {
     mainFields: ['main', 'module'],
-    alias: {},
+    alias: {}
   },
-  node: { fs: 'empty' },
+  node: { fs: 'empty' }
 }

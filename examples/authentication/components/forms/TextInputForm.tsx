@@ -7,7 +7,7 @@ function TextInputForm({
   onSubmit,
   submitButtonText,
   focusInput,
-  children,
+  children
 }: {
   onSubmit: (text: string) => Promise<void>
   submitButtonText: string
@@ -57,7 +57,7 @@ function Form({
   children,
   onSubmit,
   onAfterSubmit,
-  onAfterHydration,
+  onAfterHydration
 }: {
   children: React.ReactNode
   onSubmit: () => Promise<void>

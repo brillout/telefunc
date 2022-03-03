@@ -6,8 +6,8 @@ const config = {
   output: { dir: 'dist' },
   plugins: [
     babel({ babelHelpers: 'bundled', skipPreflightCheck: true }),
-    nodeResolve({ exportConditions: ['browser'] }),
-  ],
+    nodeResolve({ exportConditions: ['browser'] })
+  ]
 }
 
 export default config

@@ -9,7 +9,7 @@ function serializeTelefunctionResult(runContext: {
   telefunctionAborted: boolean
 }) {
   const bodyValue: Record<string, unknown> = {
-    ret: runContext.telefunctionReturn,
+    ret: runContext.telefunctionReturn
   }
   if (runContext.telefunctionAborted) {
     bodyValue.abort = true
@@ -24,8 +24,8 @@ function serializeTelefunctionResult(runContext: {
       [
         `Cannot serialize value returned by telefunction ${runContext.telefunctionName}.`,
         'Make sure that telefunctions always return a serializable value.',
-        `Serialization error: ${lowercaseFirstLetter(err.message)}`,
-      ].join(' '),
+        `Serialization error: ${lowercaseFirstLetter(err.message)}`
+      ].join(' ')
     )
   }
 }

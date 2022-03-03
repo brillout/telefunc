@@ -11,8 +11,8 @@ async function loadGlobFiles(telefuncFilesGlob: GlobFiles): Promise<Record<strin
     await Promise.all(
       Object.entries(telefuncFilesGlob).map(async ([filePath, loadModuleExports]) => [
         filePath,
-        await loadModuleExports(),
-      ]),
-    ),
+        await loadModuleExports()
+      ])
+    )
   )
 }

@@ -19,7 +19,7 @@ export default {
   data: () => ({
     todoItems: [],
     text: '',
-    userName: '',
+    userName: ''
   }),
   methods: {
     async onSubmit(ev) {
@@ -27,12 +27,12 @@ export default {
       this.text = ''
       const { todoItems } = await onNewTodo({ text })
       this.todoItems = todoItems
-    },
+    }
   },
   async fetch() {
     const { todoItems, userName } = await getTodoListData()
     this.todoItems.push(...todoItems)
     this.userName = userName
-  },
+  }
 }
 </script>

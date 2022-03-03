@@ -15,19 +15,19 @@ function Abort(abortValue?: unknown) {
     const that: unknown = this
     assertUsage(
       !(typeof that === 'object' && that?.constructor === Abort),
-      'Do not use `new` operator: use `throw Abort()` instead of `throw new Abort()`.',
+      'Do not use `new` operator: use `throw Abort()` instead of `throw new Abort()`.'
     )
   }
   assertUsage(
     arguments.length <= 1,
-    'Abort() accepts only a single argument: use `throw Abort([arg1, arg2])` instead of `throw Abort(arg1, arg2).`',
+    'Abort() accepts only a single argument: use `throw Abort([arg1, arg2])` instead of `throw Abort(arg1, arg2).`'
   )
 
   const abortError = new Error('Abort')
   objectAssign(abortError, {
     isAbort: true as const,
     abortValue,
-    [stamp]: true as const,
+    [stamp]: true as const
   })
 
   return abortError

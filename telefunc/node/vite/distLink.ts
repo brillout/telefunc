@@ -37,9 +37,9 @@ function distLinkOn(): Plugin {
           'exports.distLinkActivated = true;',
           `const { telefuncFilesGlob } = require('${rootRelative}/dist/server/telefuncFilesGlob.js');`,
           `exports.telefuncFilesGlob = telefuncFilesGlob;`,
-          '',
-        ].join('\n'),
+          ''
+        ].join('\n')
       )
-    },
+    }
   } as Plugin
 }

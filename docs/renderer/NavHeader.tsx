@@ -30,7 +30,7 @@ function HeaderTitle({ fontSize, marginLeft }: { fontSize: string; marginLeft: n
       style={{
         fontSize,
         marginLeft,
-        fontWeight: 600,
+        fontWeight: 600
       }}
     >
       Telefunc

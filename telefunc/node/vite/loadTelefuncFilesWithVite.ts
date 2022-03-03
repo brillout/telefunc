@@ -85,7 +85,7 @@ async function loadGlobImporter(runContext: {
 function assertProd(runContext: { isProduction: boolean }) {
   assertWarning(
     runContext.isProduction === true,
-    "This seems to be a production environment yet `telefuncConfig.isProduction !== true`. You should set `NODE_ENV.env='production' or `telefuncConfig.isProduction = true`.",
+    "This seems to be a production environment yet `telefuncConfig.isProduction !== true`. You should set `NODE_ENV.env='production' or `telefuncConfig.isProduction = true`."
   )
 }
 

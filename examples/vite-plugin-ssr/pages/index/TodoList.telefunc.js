@@ -4,7 +4,7 @@ export { loadData }
 export { onNewTodo }
 
 const database = {
-  todoItems: [],
+  todoItems: []
 }
 
 async function loadData() {
@@ -12,7 +12,7 @@ async function loadData() {
   const { todoItems } = database
   return {
     user,
-    todoItems,
+    todoItems
   }
 }
 

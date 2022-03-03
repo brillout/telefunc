@@ -2,14 +2,14 @@ export { Todo }
 
 const Todo = {
   findMany,
-  createNew,
+  createNew
 }
 
 const database = (global.database = global.database || {
   todoItems: [
     { text: 'Buy milk', authorId: 0 },
-    { text: 'Buy strawberries', authorId: 0 },
-  ],
+    { text: 'Buy strawberries', authorId: 0 }
+  ]
 })
 
 function findMany({ authorId }) {

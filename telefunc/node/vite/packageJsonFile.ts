@@ -25,10 +25,10 @@ function packageJsonFile(): Plugin {
       this.emitFile({
         fileName,
         type: 'asset',
-        source: getPackageJsonContent(),
+        source: getPackageJsonContent()
       })
       //}
-    },
+    }
   } as Plugin
 }
 

@@ -21,8 +21,8 @@ async function makeHttpRequest(callContext: {
       credentials: 'same-origin',
       headers: {
         ...callContext.httpHeaders,
-        'Content-Type': 'text/plain',
-      },
+        'Content-Type': 'text/plain'
+      }
     })
   } catch (_) {
     const telefunctionCallError = new Error('No Server Connection')
@@ -39,8 +39,8 @@ async function makeHttpRequest(callContext: {
       reason: 'a 404 HTTP response',
       method,
       isNotInstalled: true,
-      callContext,
-    }),
+      callContext
+    })
   )
 
   if (statusCode === 500) {
@@ -50,8 +50,8 @@ async function makeHttpRequest(callContext: {
       installErr({
         reason: 'an HTTP response body that Telefunc never generates',
         method,
-        callContext,
-      }),
+        callContext
+      })
     )
     const telefunctionCallError = new Error('Server Error')
     return { telefunctionCallError }
@@ -65,8 +65,8 @@ async function makeHttpRequest(callContext: {
       installErr({
         reason: 'an HTTP response body that Telefunc never generates',
         method,
-        callContext,
-      }),
+        callContext
+      })
     )
     if (statusCode === 200) {
       assert(!('abort' in responseValue))
@@ -88,8 +88,8 @@ async function makeHttpRequest(callContext: {
     installErr({
       reason: `a status code \`${statusCode}\` which Telefunc does not return`,
       method,
-      callContext,
-    }),
+      callContext
+    })
   )
 }
 
@@ -97,7 +97,7 @@ function installErr({
   reason,
   callContext,
   method,
-  isNotInstalled,
+  isNotInstalled
 }: {
   reason?: string
   isNotInstalled?: true

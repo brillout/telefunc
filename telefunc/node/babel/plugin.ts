@@ -85,12 +85,12 @@ export default function BabelPluginTelefunc(babel: { types: typeof BabelTypes })
           const transformed = transformTelefuncFileSync(toPosixPath(filename), toPosixPath(root), exportList).code
 
           const parsed = parse(transformed, {
-            sourceType: 'module',
+            sourceType: 'module'
           })
 
           path.replaceWith(parsed.program)
-        },
-      },
-    },
+        }
+      }
+    }
   }
 }

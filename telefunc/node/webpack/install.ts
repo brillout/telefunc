@@ -7,6 +7,6 @@ const loader = resolve(dir, './loader.js')
 function install<T extends any[]>(config: { module?: { rules?: T } }) {
   config.module!.rules!.push({
     test: /\.telefunc\./,
-    use: [{ loader }],
+    use: [{ loader }]
   })
 }

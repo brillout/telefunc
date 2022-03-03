@@ -8,7 +8,7 @@ export { TodoList }
 
 function TodoItem({ refetch, ...todo }: Todo & { refetch: () => void }) {
   const textStyle = {
-    textDecoration: todo.completed ? 'line-through' : undefined,
+    textDecoration: todo.completed ? 'line-through' : undefined
   }
   return (
     <li key={todo.id}>

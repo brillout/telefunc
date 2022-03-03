@@ -13,7 +13,7 @@ function serializeTelefunctionArguments(callContext: {
   const bodyParsed = {
     file: callContext.telefunctionFilePath,
     name: callContext.telefunctionFileExport,
-    args: callContext.telefunctionArgs,
+    args: callContext.telefunctionArgs
   }
   assert(typeof callContext.telefunctionFilePath === 'string')
   assert(typeof callContext.telefunctionFileExport === 'string')
@@ -28,8 +28,8 @@ function serializeTelefunctionArguments(callContext: {
       [
         `Cannot serialize arguments for telefunction ${callContext.telefunctionName}.`,
         'Make sure that the arguments pass to telefunction calls are always serializable.',
-        `Serialization error: ${lowercaseFirstLetter(err.message)}`,
-      ].join(' '),
+        `Serialization error: ${lowercaseFirstLetter(err.message)}`
+      ].join(' ')
     )
   }
   assert(httpRequestBody)

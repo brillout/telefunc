@@ -17,8 +17,8 @@ function findTelefunction(runContext: {
     telefunctionsFound.length > 0,
     [
       `Telefunction ${runContext.telefunctionName} not found.`,
-      "Your app doesn't seem to have any `.telefunc.{js|ts|...}` file.",
-    ].join(' '),
+      "Your app doesn't seem to have any `.telefunc.{js|ts|...}` file."
+    ].join(' ')
   )
 
   const telefunction = runContext.telefunctions[runContext.telefunctionKey]
@@ -46,7 +46,7 @@ function findTelefunction(runContext: {
       .sort()
       .map(
         (telefunctionKey) =>
-          `\n${telefunctionKey} ${telefunctionsFound.includes(telefunctionKey) ? '[✅ Found]' : '[❌ Not Found]'}`,
+          `\n${telefunctionKey} ${telefunctionsFound.includes(telefunctionKey) ? '[✅ Found]' : '[❌ Not Found]'}`
       )
       .join('')
     return errMsg

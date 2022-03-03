@@ -32,7 +32,7 @@ async function installFrontend(app) {
   } else {
     const vite = await import('vite')
     const viteDevServer = await vite.createServer({
-      server: { middlewareMode: 'html' },
+      server: { middlewareMode: 'html' }
     })
     app.use(viteDevServer.middlewares)
   }

@@ -14,7 +14,7 @@ async function getTelefunctions(runContext: { telefuncFilesLoaded: TelefuncFiles
       const telefunctionKey = getTelefunctionKey({ telefunctionFilePath, telefunctionFileExport })
       assertTelefunction(exportValue, {
         telefunctionFileExport,
-        telefunctionFilePath,
+        telefunctionFilePath
       })
       telefunctions[telefunctionKey] = exportValue
     })
@@ -27,17 +27,17 @@ function assertTelefunction(
   telefunction: unknown,
   {
     telefunctionFileExport,
-    telefunctionFilePath,
+    telefunctionFilePath
   }: {
     telefunctionFileExport: string
     telefunctionFilePath: string
-  },
+  }
 ): asserts telefunction is Telefunction {
   assertUsage(
     isCallable(telefunction),
     `The telefunction ${getTelefunctionName({
       telefunctionFileExport,
-      telefunctionFilePath,
-    })} is not a function. Make sure the \`export { ${telefunctionFileExport} }\` of ${telefunctionFilePath} to be a function.`,
+      telefunctionFilePath
+    })} is not a function. Make sure the \`export { ${telefunctionFileExport} }\` of ${telefunctionFilePath} to be a function.`
   )
 }

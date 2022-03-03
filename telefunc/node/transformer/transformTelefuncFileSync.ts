@@ -13,7 +13,7 @@ function transformTelefuncFileSync(id: string, root: string, exportNames: readon
 
   return {
     code: getCode(exportNames, telefuncFilePath),
-    map: null,
+    map: null
   }
 }
 

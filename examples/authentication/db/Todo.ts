@@ -8,7 +8,7 @@ export type { TodoItem }
 
 const t = shield.type
 const TodoItemShield = {
-  text: t.string,
+  text: t.string
 }
 type TodoItem = typeof TodoItemShield
 

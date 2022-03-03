@@ -13,7 +13,7 @@ function testRun(cmd: 'npm run dev' | 'npm run prod') {
     await page.goto(`${urlBase}/`)
     await autoRetry(async () => {
       const hydrationFinished = await page.evaluate(
-        () => (window as any as { hydrationFinished: boolean }).hydrationFinished,
+        () => (window as any as { hydrationFinished: boolean }).hydrationFinished
       )
       expect(hydrationFinished).toBe(true)
     })
