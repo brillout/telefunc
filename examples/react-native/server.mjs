@@ -1,12 +1,14 @@
 import express from 'express'
 import cors from 'cors'
 import { telefunc, telefuncConfig } from 'telefunc'
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
+import { createRequire } from 'module'
 
 startServer()
 
-telefuncConfig.telefuncFiles = [require.resolve('./hello.telefunc.mjs')]
+{
+  const require = createRequire(import.meta.url)
+  telefuncConfig.telefuncFiles = [require.resolve('./hello.telefunc.mjs')]
+}
 
 async function startServer() {
   const app = express()
