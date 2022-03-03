@@ -62,6 +62,7 @@
   "files": [
     "dist/node/",
     "dist/client/",
+    "babel.js",
     "vite.d.ts",
     "next.d.ts",
     "nuxt.d.ts"
