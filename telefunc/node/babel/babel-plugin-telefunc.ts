@@ -2,6 +2,7 @@ import { parse } from '@babel/parser'
 import { PluginObj, NodePath } from '@babel/core'
 import * as BabelTypes from '@babel/types'
 import { transformTelefuncFileSync } from '../transformer/transformTelefuncFileSync'
+import { toPosixPath } from '../utils'
 
 function getExportsFromBabelAST(programNodePath: NodePath<BabelTypes.Program>, types: typeof BabelTypes) {
   const body = programNodePath.node.body
@@ -81,7 +82,7 @@ export default function BabelPluginTelefunc(babel: { types: typeof BabelTypes })
           const exportList = getExportsFromBabelAST(path, babel.types)
 
           const root: string = context.file.opts.root!
-          const transformed = transformTelefuncFileSync(filename, root, exportList).code
+          const transformed = transformTelefuncFileSync(toPosixPath(filename), toPosixPath(root), exportList).code
 
           const parsed = parse(transformed, {
             sourceType: 'module',
