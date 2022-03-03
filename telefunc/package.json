@@ -44,7 +44,7 @@
     }
   },
   "dependencies": {
-    "@brillout/json-s": "^0.4.3",
+    "@brillout/json-s": "^0.4.4",
     "@brillout/libassert": "^0.5.4",
     "@types/jest": "^27.4.0",
     "es-module-lexer": "^0.7.1",
