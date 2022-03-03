@@ -54,11 +54,10 @@ function assertTelefunctionShield(
   assertUsage(
     Array.isArray(telefunctionShield) || isVerifierTuple(telefunctionShield),
     [
-      `[${shieldInvokation}]`,
-      'Argument `telefunctionShield` should be a plain JavaScript array or `shield.type.tuple()`.',
-      `Correct usage: \`${shieldInvokation.replace('telefunctionShield', '[shield.type.string]')}\``,
-      `or \`${shieldInvokation.replace('telefunctionShield', 'shield.type.tuple(shield.type.string)]')}\`.`,
-      `Wrong usage: \`${shieldInvokation.replace('telefunctionShield', 'shield.type.string')}\`.`,
+      `[${shieldInvokation.replace('telefunctionShield', 'args')}]`,
+      '`args` should be an array.',
+      `Example of correct usage: \`${shieldInvokation.replace('telefunctionShield', '[shield.type.string]')}\`.`,
+      `Example of wrong usage: \`${shieldInvokation.replace('telefunctionShield', 'shield.type.string')}\`.`,
     ].join(' '),
   )
 }
