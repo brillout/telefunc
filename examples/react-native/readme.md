@@ -1,4 +1,4 @@
-Example of using Telefunc with [Expo](https://expo.dev/).
+Example of using Telefunc with [React Native](https://reactnative.dev/) and [Expo](https://expo.dev/).
 
 To run it:
 ```bash
@@ -8,9 +8,9 @@ npm install
 npm run start
 ```
 
-To build and use telefunc from source code:
+To build and use Telefunc from source code:
 ```bash
 npm run build:telefunc
 ```
 
-> :information_source: Symlinks do not work with Metro; that's why we cannot use `npm link` and use `package.json#scripts.build:telefunc` instead.
+> :information_source: Symlinks do not work with Metro; that's why we cannot use `npm link` and we use `package.json#scripts.build:telefunc` instead.
