@@ -37,7 +37,7 @@
       "node": "./dist/node/nuxt/index.js"
     },
     "./babel": {
-      "node": "./dist/node/babel/babel-plugin-telefunc.js"
+      "node": "./dist/node/babel/plugin.js"
     }
   },
   "dependencies": {
