@@ -24,9 +24,6 @@
       "browser": "./dist/client/index.js",
       "node": "./dist/node/client.js"
     },
-    "./dist/client": {
-      "browser": "./dist/client/index.js"
-    },
     "./vite": {
       "node": "./dist/node/vite/index.js"
     },
