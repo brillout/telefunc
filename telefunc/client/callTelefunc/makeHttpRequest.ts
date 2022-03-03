@@ -110,7 +110,7 @@ function installErr({
   }
   msg.push('installed on your server')
   if (reason) {
-    msg.push(...[`: the HTTP ${method} request made to \`${callContext.telefuncUrl}\` returned `, reason])
+    msg.push(...[`: the HTTP ${method} \`${callContext.telefuncUrl}\` request returned `, reason])
   }
   msg.push(`. See https://telefunc.com/install`)
   return msg.join('')
