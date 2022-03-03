@@ -1,9 +1,8 @@
-const path = require('path');
-
+// Expo doesn't seem to support `babel.config.json` nor `babelrc.json`
 module.exports = function (api) {
   api.cache(true);
   return {
-    plugins: [path.resolve(__dirname, 'node_modules/telefunc/dist/node/babel/babel-plugin-telefunc')],
+    plugins: ['telefunc/babel'],
     presets: ['babel-preset-expo'],
   };
 };
