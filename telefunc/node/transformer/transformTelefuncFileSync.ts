@@ -1,11 +1,9 @@
 export { transformTelefuncFileSync }
 
 import { posix } from 'path'
-import { assert } from '../utils'
-import { assertPosixPath } from '../utils/assertPosixPath'
-import { getCode } from './getCode'
+import { assert, assertPosixPath } from '../utils'
 
-function transformTelefuncFileSync(id: string, root: string, exportNames: string[]) {
+function transformTelefuncFileSync(id: string, root: string, exportNames: readonly string[] | string[]) {
   assertPosixPath(id)
   assertPosixPath(root)
 
@@ -19,3 +17,22 @@ function transformTelefuncFileSync(id: string, root: string, exportNames: string
   }
 }
 
+export function getCode(exportNames: readonly string[], telefuncFilePath: string) {
+  const lines = []
+
+  lines.push('// @ts-nocheck')
+
+  lines.push(`import { __internal_fetchTelefunc } from 'telefunc/client';`)
+
+  exportNames.forEach((exportName) => {
+    const exportValue = `(...args) => __internal_fetchTelefunc('${telefuncFilePath}', '${exportName}', args);`
+    if (exportName === 'default') {
+      lines.push(`export default ${exportValue}`)
+    } else {
+      lines.push(`export const ${exportName} = ${exportValue};`)
+    }
+  })
+
+  const code = lines.join('\n')
+  return code
+}
