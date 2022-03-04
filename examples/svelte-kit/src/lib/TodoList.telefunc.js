@@ -9,8 +9,8 @@ const database = {
 }
 
 async function loadData() {
-  const { user } = getContext();
-  const { todoItems } = database;
+  const { user } = getContext()
+  const { todoItems } = database
   return {
     user,
     todoItems,

@@ -1,11 +1,11 @@
 <script context="module">
-	export const prerender = true;
+	export const prerender = true
 </script>
 
 <script>
-	import TodoList from '$lib/TodoList.svelte';
-	import {session} from '$app/stores';
-	export let todoItemsInitial;
+	import TodoList from '$lib/TodoList.svelte'
+	import {session} from '$app/stores'
+	export let todoItemsInitial
 	let userName = $session.user.name
 </script>
 

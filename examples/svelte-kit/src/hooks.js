@@ -1,4 +1,4 @@
-import cookie from 'cookie';
+import cookie from 'cookie'
 import { telefunc, provideTelefuncContext } from 'telefunc'
 
 export const handle = async ({ event, resolve }) => {
