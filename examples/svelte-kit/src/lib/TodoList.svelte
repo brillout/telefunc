@@ -6,12 +6,10 @@
   let text = ''
 
   async function handleSubmit() {
-    console.log(onNewTodo.toString())
     let {todoItems: newTodoItems} = await onNewTodo({text})
-    text = '';
+    text = ''
     todoItems = newTodoItems
   }
-
 </script>
 
 <ul>
