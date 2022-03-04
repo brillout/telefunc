@@ -1,4 +1,4 @@
-import adapter from '@sveltejs/adapter-auto';
+import adapter from '@sveltejs/adapter-auto'
 import {telefunc} from 'telefunc/vite'
 
 const config = {
@@ -6,6 +6,6 @@ const config = {
 	kit: {
 		vite: () => ({plugins: [telefunc()]})
 	}
-};
+}
 
-export default config;
+export default config
