@@ -1,3 +1,12 @@
+## [0.1.18](https://github.com/vikejs/telefunc/compare/v0.1.17...v0.1.18) (2022-03-05)
+
+
+### Bug Fixes
+
+* isFileAlreadyTransformed check and move it to separate fn ([e26b015](https://github.com/vikejs/telefunc/commit/e26b0151c6a04280d7c9fc3c70a873a289fe2a09))
+
+
+
 ## [0.1.17](https://github.com/vikejs/telefunc/compare/v0.1.16...v0.1.17) (2022-03-03)
 
 
