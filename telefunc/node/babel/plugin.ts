@@ -62,35 +62,37 @@ function getExportsFromBabelAST(programNodePath: NodePath<BabelTypes.Program>, t
 export default function BabelPluginTelefunc(babel: { types: typeof BabelTypes }): PluginObj {
   return {
     visitor: {
-      Program: {
-        enter(path, context) {
-          const filename: string = context.filename!
+      Program(path, context) {
+        const filename: string = context.filename!
 
-          if (!filename.includes('.telefunc.')) return
+        if (!filename.includes('.telefunc.')) return
+        if (isFileAlreadyTransformed(path, babel.types)) return
 
-          if (
-            path.node.body.some((t) => {
-              return (
-                babel.types.isImportDeclaration(t) &&
-                (t as any).specifiers[0].imported.name === '__internal_fetchTelefunc'
-              )
-            })
-          ) {
-            return
-          }
+        const exportList = getExportsFromBabelAST(path, babel.types)
 
-          const exportList = getExportsFromBabelAST(path, babel.types)
+        const root: string = context.file.opts.root!
+        const transformed = transformTelefuncFileSync(toPosixPath(filename), toPosixPath(root), exportList).code
 
-          const root: string = context.file.opts.root!
-          const transformed = transformTelefuncFileSync(toPosixPath(filename), toPosixPath(root), exportList).code
+        const parsed = parse(transformed, {
+          sourceType: 'module'
+        })
 
-          const parsed = parse(transformed, {
-            sourceType: 'module'
-          })
-
-          path.replaceWith(parsed.program)
-        }
+        path.replaceWith(parsed.program)
       }
     }
   }
+}
+
+function isFileAlreadyTransformed(path: NodePath<BabelTypes.Program>, types: typeof BabelTypes): boolean {
+  return path.node.body.some((t) => {
+    if (!types.isImportDeclaration(t)) return false
+    if (t.specifiers.length === 0) return false
+
+    const specifier = t.specifiers[0]
+    if (!types.isImportSpecifier(specifier)) return false
+    if (!types.isImportSpecifier(specifier)) return false
+    if (!types.isIdentifier(specifier.imported)) return false
+
+    return specifier.imported.name === '__internal_fetchTelefunc'
+  })
 }
