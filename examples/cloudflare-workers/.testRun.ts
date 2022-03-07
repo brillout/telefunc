@@ -1,3 +1,4 @@
+import '@types/jest';
 import { page, run, fetchHtml, isGithubAction, urlBase, isWindows, autoRetry } from '../../libframe/test/setup'
 import assert from 'assert'
 

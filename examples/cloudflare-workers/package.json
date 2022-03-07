@@ -20,5 +20,8 @@
     "miniflare": "^2.3.0",
     "telefunc": "0.1.18",
     "vite": "^2.8.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^27.4.0"
   }
 }

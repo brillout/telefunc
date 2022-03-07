@@ -1,3 +1,4 @@
+import '@types/jest';
 import { page, run, urlBase, autoRetry, fetchHtml } from '../../libframe/test/setup'
 
 export { testRun }
