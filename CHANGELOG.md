@@ -1,3 +1,12 @@
+## [0.1.19](https://github.com/vikejs/telefunc/compare/v0.1.18...v0.1.19) (2022-03-07)
+
+
+### Bug Fixes
+
+* fix TS resolve helpers ([09b2700](https://github.com/vikejs/telefunc/commit/09b2700a1caec00b0e3c5e3c7cc4c5e19d11653e))
+
+
+
 ## [0.1.18](https://github.com/vikejs/telefunc/compare/v0.1.17...v0.1.18) (2022-03-05)
 
 
