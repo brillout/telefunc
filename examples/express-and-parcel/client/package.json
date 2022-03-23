@@ -1,0 +1,10 @@
+{
+  "source": "index.html",
+  "scripts": {
+    "start": "parcel **.html",
+    "build": "parcel build"
+  },
+  "devDependencies": {
+    "parcel": "^2.3.2"
+  }
+}
