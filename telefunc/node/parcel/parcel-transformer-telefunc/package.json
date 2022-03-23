@@ -1,0 +1,9 @@
+{
+  "name": "parcel-transformer-telefunc",
+  "version": "1.0.0",
+  "description": "Parcel transformer plugin for telefunc. Transforms imported *.telefunc.js / *.telefunc.ts modules into client (browser) code",
+  "main": "transformer.ts",
+  "dependencies": {
+    "@parcel/plugin": "^2.4.0"
+  }
+}

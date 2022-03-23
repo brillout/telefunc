@@ -5,6 +5,7 @@
     "build": "parcel build"
   },
   "devDependencies": {
-    "parcel": "^2.3.2"
+    "parcel": "^2.3.2",
+    "parcel-transformer-telefunc": "file:../../../telefunc/node/parcel/parcel-transformer-telefunc"
   }
 }
