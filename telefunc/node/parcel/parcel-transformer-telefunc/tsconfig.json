@@ -1,0 +1,13 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": ".",
+    "target": "ES2017",
+    "module": "CommonJS",
+    "lib": ["DOM", "ESNext"],
+    "types": [],
+    "sourceMap": true
+  },
+  "exclude": ["./node_modules/", "./dist/", "**/*.spec.ts"],
+  "include": ["./**/*"]
+}

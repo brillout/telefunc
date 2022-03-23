@@ -1,4 +1,5 @@
 import {Transformer} from '@parcel/plugin';
+import {transformTelefuncFile} from "telefunc/node/transformer/transformTelefuncFile"
 
 export default new Transformer({
     async transform({asset}) {
@@ -8,14 +9,13 @@ export default new Transformer({
 
         // Run it through some compiler, and set the results
         // on the asset.
-        throw "TODO";
-        /*
-        let {code, map} = null; // TODO
+        const { code } = await transformTelefuncFile(asset.filePath)
+
         asset.setCode(code);
-        asset.setMap(map);
+        asset.setMap(null);
 
         // Return the asset
         return [asset];
-        */
+
     }
 });
