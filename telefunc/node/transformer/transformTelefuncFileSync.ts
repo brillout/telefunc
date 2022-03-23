@@ -3,6 +3,12 @@ export { transformTelefuncFileSync }
 import { posix } from 'path'
 import { assert, assertPosixPath } from '../utils'
 
+/**
+ *
+ * @param id TODO
+ * @param root TODO
+ * @param exportNames
+ */
 function transformTelefuncFileSync(id: string, root: string, exportNames: readonly string[] | string[]) {
   assertPosixPath(id)
   assertPosixPath(root)
