@@ -2,10 +2,10 @@
   "source": "index.html",
   "scripts": {
     "start": "parcel **.html",
-    "build": "parcel build"
+    "build": "parcel build --no-cache"
   },
   "devDependencies": {
     "parcel": "^2.3.2",
-    "parcel-transformer-telefunc": "file:../../../telefunc/node/parcel/parcel-transformer-telefunc"
+    "parcel-transformer-telefunc": "file:../../../parcel-transformer-telefunc"
   }
 }

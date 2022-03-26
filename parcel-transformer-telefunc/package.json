@@ -4,10 +4,16 @@
   "description": "Parcel transformer plugin for telefunc. Transforms imported *.telefunc.js / *.telefunc.ts modules into client (browser) code",
 
   "main": "transformer.js",
-
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch"
+  },
 
   "dependencies": {
     "@parcel/plugin": "^2.4.0",
-    "telefunc": "file:../../.."
+    "telefunc": "file:../telefunc"
+  },
+  "devDependencies": {
+    "typescript": "^4.5.4"
   }
 }
