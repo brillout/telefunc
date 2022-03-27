@@ -11,7 +11,8 @@
 
   "dependencies": {
     "@parcel/plugin": "^2.4.0",
-    "telefunc": "file:../telefunc"
+    "telefunc": "file:../telefunc",
+    "find-pkg": "^2.0.0"
   },
   "devDependencies": {
     "typescript": "^4.5.4"
