@@ -6,7 +6,7 @@ This package's source is located inside https://github.com/vikejs/telefunc
      ...
      "telefunc": "telefunc": "file:../telefunc",
   }
-- Run [package.json#scripts#dev](package.json) to watch for file changes and recompile automatically in the backround.
+- Run [package.json#scripts.dev](package.json) to watch for file changes and recompile automatically in the backround.
 
 ### Use this [Client/server example](../examples/express-and-parcel)
  - Add devDependencies to it's [package.json](../examples/express-and-parcel/package.json):
@@ -22,4 +22,4 @@ This package's source is located inside https://github.com/vikejs/telefunc
       "parcel-transformer-telefunc": "file:../../../parcel-transformer-telefunc"
    }
  
-- Run (debug) [package.json#scripts#build](../examples/express-and-parcel/package.json) and it should execute into this transformer's code
+- Run (debug) [package.json#scripts.build](../examples/express-and-parcel/package.json) and it should execute into this transformer's code
