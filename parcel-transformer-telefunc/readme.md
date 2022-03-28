@@ -1,4 +1,4 @@
-Transforms the functions from included server-side modules (*.telefunc.ts) into http calls for use with [Telefunc](https://telefunc.com/).
+Transforms the functions from included server-side telefunc modules (*.telefunc.ts) into browser code that makes http calls to the server.
 
 ##### Installation
 .parcelrc 

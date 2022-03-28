@@ -1,7 +1,7 @@
 {
   "name": "parcel-transformer-telefunc",
   "version": "1.0.0",
-  "description": "Parcel transformer plugin for telefunc. Transforms imported *.telefunc.js / *.telefunc.ts modules into client (browser) code",
+  "description": "Parcel transformer plugin for telefunc. Transforms the functions from included server-side telefunc modules (*.telefunc.ts) into browser code that makes http calls to the server.",
 
   "main": "transformer.js",
   "scripts": {
