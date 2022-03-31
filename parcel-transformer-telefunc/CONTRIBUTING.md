@@ -1,8 +1,8 @@
 This package's source is located inside https://github.com/vikejs/telefunc
 
-- Add devDependencies [package.json](package.json):
+- Add dependencies to [package.json](package.json):
   ```json
-  "devDependencies": {
+  "dependencies": {
      ...
      "telefunc": "telefunc": "file:../telefunc",
   }
