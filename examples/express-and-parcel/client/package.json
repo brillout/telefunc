@@ -6,6 +6,5 @@
   },
   "devDependencies": {
     "parcel": "^2.3.2",
-    "parcel-transformer-telefunc": "file:../../../parcel-transformer-telefunc"
   }
 }
