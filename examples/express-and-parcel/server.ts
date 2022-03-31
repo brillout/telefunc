@@ -4,7 +4,7 @@ import {provideTelefuncContext} from "telefunc";
 
 const port = 5000;
 
-telefuncConfig.telefuncFiles = [require.resolve("./hello.telefunc")];
+telefuncConfig.telefuncFiles = [require.resolve("./hello.telefunc.mjs")];
 
 (async () => {
     const app = express();

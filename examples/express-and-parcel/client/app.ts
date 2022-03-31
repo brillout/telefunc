@@ -1,4 +1,4 @@
-import { hello } from '../hello.telefunc'
+import { hello } from '../hello.telefunc.mjs'
 (async () => {
     document.getElementById("app").textContent = "loading";
 
