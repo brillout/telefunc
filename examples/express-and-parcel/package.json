@@ -2,8 +2,8 @@
   "main": "server.ts",
   "scripts": {
     "start": "cd client && npm run build && cd .. && ts-node server.ts",
-    "dev:server": "nodemon",
-    "dev:client": "cd client && npm run start"
+    "dev:backend": "nodemon",
+    "dev:frontend": "cd client && npm run dev"
   },
   "dependencies": {
     "express": "^4.17.3",
