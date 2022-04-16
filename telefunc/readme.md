@@ -1,1 +1,1 @@
-# [telefunc.org](https://telefunc.org)
+# [telefunc.com](https://telefunc.com)
