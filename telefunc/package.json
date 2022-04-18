@@ -43,7 +43,8 @@
   "dependencies": {
     "@brillout/json-s": "^0.4.4",
     "@brillout/libassert": "^0.5.4",
-    "es-module-lexer": "^0.7.1"
+    "es-module-lexer": "^0.7.1",
+    "ts-morph": "^14.0.0"
   },
   "devDependencies": {
     "@nuxt/types": "^2.15.8",
