@@ -1,14 +1,12 @@
 type Expect<T extends true> = T
 
-type Equal<X, Y> = (<T>() => T extends X ? 1 : 2) extends <T>() => T extends Y ? 1 : 2 ? true : false
-
-type EqualToAnyOf<T, L extends any[]> = L extends [infer Head, ...infer Tail]
-  ? Equal<T, Head> extends true
-    ? true
-    : EqualToAnyOf<T, Tail>
-  : false
-
 type Equals<X, Y> = (<T>() => T extends X ? 1 : 2) extends <T>() => T extends Y ? 1 : 2 ? true : false
+
+type EqualsAnyOf<T, L extends any[]> = L extends [infer Head, ...infer Tail]
+  ? Equals<T, Head> extends true
+    ? true
+    : EqualsAnyOf<T, Tail>
+  : false
 
 type UnionToIntersection<T> = (T extends T ? (params: T) => any : never) extends (params: infer P) => any ? P : never
 
@@ -44,7 +42,7 @@ type Literal<T, Acc extends any[]> = T extends string
   : false
 
 type ArrayLike<T extends any[], Acc extends any[] = []> = T extends [...infer U]
-  ? Equal<U['length'], number> extends true
+  ? Equals<U['length'], number> extends true
     ? T extends (infer V)[]
       ? Shield<V, ['array', ...Acc]>
       : never
@@ -71,7 +69,7 @@ type KeyValueShieldRes<T extends Record<string, any>, Acc extends any[]> = Shiel
   : never
 
 type KeyValueOrObjectShield<T extends Record<string, any>, Acc extends any[]> = T extends Record<infer K, infer V>
-  ? Equal<K, string> extends true
+  ? Equals<K, string> extends true
     ? Shield<V, ['object', ...Acc]>
     : KeyValueShieldRes<T, Acc>
   : KeyValueShieldRes<T, Acc>
@@ -92,11 +90,12 @@ type Shield<T, Acc extends any[] = []> = SimpleType<T> extends ShieldRes<any>
   ? Literal<T, Acc>
   : never
 
-type ShieldUnion<
-  T,
-  Acc extends any[],
-  Res = UnionToTuple<T extends any ? Shield<T> : never>,
-> = Res extends ShieldRes<any, any>[] ? ShieldRes<JoinShieldResList<Res>, ['union', ...Acc]> : never
+type ShieldUnion<T, Acc extends any[], Res = UnionToTuple<T extends any ? Shield<T> : never>> = Res extends ShieldRes<
+  any,
+  any
+>[]
+  ? ShieldRes<JoinShieldResList<Res>, ['union', ...Acc]>
+  : never
 
 type IsUnion<T> = [T] extends [UnionToIntersection<T>] ? false : true
 
@@ -134,9 +133,7 @@ type JoinShieldResList<T extends ShieldRes<any, any>[], Acc extends string = ''>
     : Acc
   : Acc
 
-type ShieldList<T extends any[], Acc extends ShieldRes<any, any>[] = []> = T extends [infer Head, ...infer Tail]
-  ? [Shield<Head>, ...ShieldList<Tail>]
-  : Acc
+type ShieldList<T extends any[]> = Head<T> extends never ? [] : [Shield<Head<T>>, ...ShieldList<Tail<T>>]
 
 type JoinStrings<T extends any[], Acc extends string = ''> = T extends [infer Head, ...infer Tail]
   ? Head extends string
@@ -146,49 +143,59 @@ type JoinStrings<T extends any[], Acc extends string = ''> = T extends [infer He
 
 type ShieldStr<T, Res = Shield<T>> = Res extends ShieldRes<any, any> ? WrapShieldRes<Res> : never
 
-type ShieldStrMap<T extends any[]> = T extends [infer Head, ...infer Tail]
-  ? [ShieldStr<Head>, ...ShieldStrMap<Tail>]
-  : []
+export type Tail<L extends any[]> = L extends readonly [] ? [] : L extends readonly [any?, ...infer LTail] ? LTail : []
+
+export type Head<L extends any[]> = L['length'] extends 0 ? never : L[0]
+
+type ShieldStrMap<T extends any[]> = Head<T> extends never ? [] : [ShieldStr<Head<T>>, ...ShieldStrMap<Tail<T>>]
 
 export type ShieldArrStr<T extends any[]> = `[${JoinStrings<ShieldStrMap<T>>}]`
 
 type _cases = [
-  Expect<Equal<ShieldStr<string>, 't.string'>>,
-  Expect<Equal<ShieldStr<number>, 't.number'>>,
-  Expect<Equal<ShieldStr<boolean>, 't.boolean'>>,
-  Expect<Equal<ShieldStr<Date>, 't.date'>>,
-  Expect<Equal<ShieldStr<any>, 't.any'>>,
-  Expect<Equal<ShieldStr<string | null>, 't.nullable(t.string)'>>,
-  Expect<Equal<ShieldStr<string | undefined>, 't.optional(t.string)'>>,
-  Expect<Equal<ShieldStr<number | null | undefined>, 't.optional(t.nullable(t.number))'>>,
-  Expect<Equal<ShieldStr<1 | null>, 't.nullable(t.const(1))'>>,
-  Expect<Equal<ShieldStr<1 | undefined>, 't.optional(t.const(1))'>>,
-  Expect<Equal<ShieldStr<[number, boolean]>, 't.tuple(t.number, t.boolean)'>>,
+  Expect<Equals<ShieldStr<string>, 't.string'>>,
+  Expect<Equals<ShieldStr<number>, 't.number'>>,
+  Expect<Equals<ShieldStr<boolean>, 't.boolean'>>,
+  Expect<Equals<ShieldStr<Date>, 't.date'>>,
+  Expect<Equals<ShieldStr<any>, 't.any'>>,
+  Expect<Equals<ShieldStr<string | null>, 't.nullable(t.string)'>>,
+  Expect<Equals<ShieldStr<string | undefined>, 't.optional(t.string)'>>,
+  Expect<Equals<ShieldStr<number | null | undefined>, 't.optional(t.nullable(t.number))'>>,
+  Expect<Equals<ShieldStr<1 | null>, 't.nullable(t.const(1))'>>,
+  Expect<Equals<ShieldStr<1 | undefined>, 't.optional(t.const(1))'>>,
+  Expect<Equals<ShieldStr<[number, boolean]>, 't.tuple(t.number, t.boolean)'>>,
   Expect<
-    EqualToAnyOf<
+    EqualsAnyOf<
+      ShieldStr<[number?, boolean?]>,
+      ['t.tuple(t.optional(t.number), t.optional(t.boolean))', 't.tuple(t.optional(t.boolean), t.optional(t.number))']
+    >
+  >,
+  Expect<
+    EqualsAnyOf<
       ShieldStr<'one' | 'two'>,
       ["t.union(t.const('two'), t.const('one'))", "t.union(t.const('one'), t.const('two'))"]
     >
   >,
   Expect<
-    EqualToAnyOf<
-    ShieldStr<1 | 2 | undefined>,
-      ["t.optional(t.union(t.const(2), t.const(1)))", "t.optional(t.union(t.const(1), t.const(2)))"]
+    EqualsAnyOf<
+      ShieldStr<1 | 2 | undefined>,
+      ['t.optional(t.union(t.const(2), t.const(1)))', 't.optional(t.union(t.const(1), t.const(2)))']
     >
   >,
-  Expect<EqualToAnyOf<ShieldStr<number | string>, ['t.union(t.number, t.string)', 't.union(t.string, t.number)']>>,
-  Expect<Equal<ShieldStr<number[]>, 't.array(t.number)'>>,
-  Expect<Equal<ShieldStr<[number, string][]>, 't.array(t.tuple(t.number, t.string))'>>,
-  Expect<Equal<ShieldStr<{ age: number; hasBike: boolean }>, '{ hasBike: t.boolean, age: t.number }'>>,
-  Expect<Equal<ShieldStr<{ age: number; hasBike?: boolean }>, '{ hasBike: t.optional(t.boolean), age: t.number }'>>,
-  Expect<Equal<ShieldStr<'test'>, "t.const('test')">>,
-  Expect<Equal<ShieldStr<true>, 't.const(true)'>>,
-  Expect<Equal<ShieldStr<false>, 't.const(false)'>>,
-  Expect<Equal<ShieldStr<123>, 't.const(123)'>>,
-  Expect<Equal<ShieldStr<{ isGood: boolean } | string>, 't.union({ isGood: t.boolean }, t.string)'>>,
-  Expect<Equal<ShieldStr<{ age: number }[]>, 't.array({ age: t.number })'>>,
-  Expect<Equal<ShieldStr<Record<string, number>>, 't.object(t.number)'>>,
-  Expect<Equal<ShieldStr<Record<string, { age?: number }>>, 't.object({ age: t.optional(t.number) })'>>,
-  Expect<Equal<ShieldStr<Record<string, number>[]>, 't.array(t.object(t.number))'>>,
-  Expect<Equal<ShieldArrStr<[string, number]>, '[t.string, t.number]'>>
+  Expect<EqualsAnyOf<ShieldStr<number | string>, ['t.union(t.number, t.string)', 't.union(t.string, t.number)']>>,
+  Expect<Equals<ShieldStr<number[]>, 't.array(t.number)'>>,
+  Expect<Equals<ShieldStr<[number, string][]>, 't.array(t.tuple(t.number, t.string))'>>,
+  Expect<Equals<ShieldStr<{ age: number; hasBike: boolean }>, '{ hasBike: t.boolean, age: t.number }'>>,
+  Expect<Equals<ShieldStr<{ age: number; hasBike?: boolean }>, '{ hasBike: t.optional(t.boolean), age: t.number }'>>,
+  Expect<Equals<ShieldStr<'test'>, "t.const('test')">>,
+  Expect<Equals<ShieldStr<true>, 't.const(true)'>>,
+  Expect<Equals<ShieldStr<false>, 't.const(false)'>>,
+  Expect<Equals<ShieldStr<123>, 't.const(123)'>>,
+  Expect<Equals<ShieldStr<{ isGood: boolean } | string>, 't.union({ isGood: t.boolean }, t.string)'>>,
+  Expect<Equals<ShieldStr<{ age: number }[]>, 't.array({ age: t.number })'>>,
+  Expect<Equals<ShieldStr<Record<string, number>>, 't.object(t.number)'>>,
+  Expect<Equals<ShieldStr<Record<string, { age?: number }>>, 't.object({ age: t.optional(t.number) })'>>,
+  Expect<Equals<ShieldStr<Record<string, number>[]>, 't.array(t.object(t.number))'>>,
+  Expect<Equals<ShieldArrStr<[string, number]>, '[t.string, t.number]'>>,
+  Expect<Equals<ShieldArrStr<[number?]>, '[t.optional(t.number)]'>>,
+  Expect<Equals<ShieldArrStr<[string, number?, string?]>, '[t.string, t.optional(t.number), t.optional(t.string)]'>>
 ]
