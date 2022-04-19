@@ -3,12 +3,11 @@
     "dev": "npm run server",
     "prod": "npm run build && npm run server:prod",
     "build": "vite build && vite build --ssr",
-    "server": "esno ./server",
+    "server": "node ./server.js",
     "server:prod": "cross-env NODE_ENV=production node server.js"
   },
   "dependencies": {
     "cross-env": "^7.0.3",
-    "esno": "^0.14.1",
     "express": "^4.17.1",
     "telefunc": "0.1.19",
     "vite": "^2.7.12"

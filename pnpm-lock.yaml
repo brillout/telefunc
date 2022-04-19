@@ -157,13 +157,11 @@ importers:
   examples/vite:
     specifiers:
       cross-env: ^7.0.3
-      esno: ^0.14.1
       express: ^4.17.1
       telefunc: 0.1.19
       vite: ^2.7.12
     dependencies:
       cross-env: 7.0.3
-      esno: 0.14.1
       express: 4.17.2
       telefunc: link:../../telefunc
       vite: 2.7.13
@@ -187,20 +185,6 @@ importers:
       telefunc: link:../../telefunc
       vite: 2.6.7
       vite-plugin-ssr: 0.3.51_vite@2.6.7
-
-  examples/vite-ts:
-    specifiers:
-      cross-env: ^7.0.3
-      esno: ^0.14.1
-      express: ^4.17.1
-      telefunc: 0.1.19
-      vite: ^2.7.12
-    dependencies:
-      cross-env: 7.0.3
-      esno: 0.14.1
-      express: 4.17.2
-      telefunc: link:../../telefunc
-      vite: 2.8.4
 
   libframe/docs:
     specifiers:
@@ -7472,14 +7456,6 @@ packages:
       esbuild: 0.13.15
     dev: false
 
-  /esbuild-register/3.3.2_esbuild@0.14.21:
-    resolution: {integrity: sha512-jceAtTO6zxPmCfSD5cBb3rgIK1vmuqCKYwgylHiS1BF4pq0jJiJb4K2QMuqF4BEw7XDBRatYzip0upyTzfkgsQ==}
-    peerDependencies:
-      esbuild: '>=0.12 <1'
-    dependencies:
-      esbuild: 0.14.21
-    dev: false
-
   /esbuild-sunos-64/0.13.15:
     resolution: {integrity: sha512-lbivT9Bx3t1iWWrSnGyBP9ODriEvWDRiweAs69vI+miJoeKwHWOComSRukttbuzjZ8r1q0mQJ8Z7yUsDJ3hKdw==}
     cpu: [x64]
@@ -7707,17 +7683,6 @@ packages:
       esbuild: 0.13.15
       esbuild-node-loader: 0.6.5
       esbuild-register: 3.3.2_esbuild@0.13.15
-      import-meta-resolve: 1.1.1
-    dev: false
-
-  /esno/0.14.1:
-    resolution: {integrity: sha512-yDFYw6dGUjCT1qKsdG7WOc/RzIh/qwxUEVZ+ohCltaxBxEFMNqeqbQL9xjRl6Yvdwrfc5OCjUA9JbFmuu/8BKg==}
-    hasBin: true
-    dependencies:
-      cross-spawn: 7.0.3
-      esbuild: 0.14.21
-      esbuild-node-loader: 0.6.5
-      esbuild-register: 3.3.2_esbuild@0.14.21
       import-meta-resolve: 1.1.1
     dev: false
 
