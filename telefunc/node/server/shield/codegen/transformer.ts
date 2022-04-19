@@ -24,7 +24,7 @@ function parseEmitMessages(messages: string[]) {
 
 const generateShield = (
   telefuncSrc: string,
-  typesSrc: string  // contents of ./types.ts
+  typesSrc: string
 ): string => {
   const project = new Project({
     compilerOptions: {
@@ -53,13 +53,14 @@ const generateShield = (
     namedImports: teleFunNames
   })
 
+  const tAlias = '__shieldGenerator_t'  // alias for shield.t
   // assign the template literal type to a string
   // then diagnostics are used to get the value of the template literal type
   for (const teleFunName of teleFunNames) {
     shieldStrSourceFile.addVariableStatement({
       declarations: [{
         name: `${teleFunName}Shield`,
-        type: `ShieldArrStr<Parameters<typeof ${teleFunName}>>`,
+        type: `ShieldArrStr<Parameters<typeof ${teleFunName}>, '${tAlias}'>`,
         initializer: `'${teleFunName}'`
       }]
     })
@@ -69,18 +70,22 @@ const generateShield = (
   const messages = diagnostics.map(d => d.getMessageText().toString())
   const teleFunToShieldString = parseEmitMessages(messages)
 
+  const shieldAlias = '__shieldGenerator_shield'  // alias for shield
   // TODO: do users ever want to add shield() calls themselves?
   // in that case we should detect if it has already been imported
   // and skip auto-generating a shield() call
   telefuncSourceFile.addImportDeclaration({
     moduleSpecifier: 'telefunc',
-    namedImports: ['shield']
+    namedImports: [{
+      name: 'shield',
+      alias: shieldAlias
+    }]
   })
   telefuncSourceFile.addVariableStatement({
     declarationKind: VariableDeclarationKind.Const,
     declarations: [{
-      name: 't',
-      initializer: 'shield.type',
+      name: '__shieldGenerator_t',
+      initializer: `${shieldAlias}.type`,
     }]
   })
 
@@ -90,7 +95,7 @@ const generateShield = (
       console.warn(`Failed to generate shield() call for telefunction '${teleFunName}'`)
       continue
     }
-    telefuncSourceFile.addStatements(`shield(${teleFunName}, ${shieldStr})`)
+    telefuncSourceFile.addStatements(`${shieldAlias}(${teleFunName}, ${shieldStr}, { __generated: true })`)
   }
 
   return telefuncSourceFile.getText()

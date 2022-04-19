@@ -9,6 +9,8 @@ const shielKey = Symbol('shielKey')
 const isVerifierKey = Symbol('isVerifierKey')
 const isVerifierTupleKey = Symbol('isVerifierTupleKey')
 
+type ShieldOptions = { __generated ?: boolean }
+
 const shield: {
   <
     A extends unknown[],
@@ -16,7 +18,8 @@ const shield: {
     Telefunction extends (...args: TelefunctionArguments) => unknown
   >(
     telefunction: Telefunction,
-    telefunctionShield: TelefunctionArguments
+    telefunctionShield: TelefunctionArguments,
+    options?: ShieldOptions
   ): Telefunction
   <
     A extends unknown[],
@@ -24,10 +27,11 @@ const shield: {
     Telefunction extends (...args: TelefunctionArguments) => unknown
   >(
     telefunctionShield: TelefunctionArguments,
-    telefunction: Telefunction
+    telefunction: Telefunction,
+    options?: ShieldOptions
   ): Telefunction
   type: typeof type
-} = function (arg1, arg2) {
+} = function (arg1, arg2, options) {
   let telefunction: Telefunction
   let telefunctionShield: TelefunctionShield
   if (isTelefunction(arg1)) {
@@ -41,7 +45,7 @@ const shield: {
   } else {
     assertUsage(false, '[shield(arg1, arg2)] Neither `arg1` nor `arg2` is a function, but one should be.')
   }
-  installShield(telefunction, telefunctionShield)
+  installShield(telefunction, telefunctionShield, !!options?.__generated)
   return telefunction
 }
 
@@ -66,7 +70,12 @@ function isTelefunction(thing: unknown): thing is Telefunction {
   return isCallable(thing) && !isVerifier(thing)
 }
 
-function installShield(telefunction: Function, telefunctionShield: any) {
+function installShield(telefunction: Function, telefunctionShield: any, generated: boolean) {
+  const installedShield = (telefunction as any as Record<any, unknown>)[shielKey as any]
+  if (installedShield && generated) {
+    // another shield is already installed, so not installing generated shield
+    return;
+  }
   ;(telefunction as any as Record<any, unknown>)[shielKey as any] = telefunctionShield
 }
 
