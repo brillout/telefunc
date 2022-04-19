@@ -1,14 +1,14 @@
 import { readFileSync } from 'fs'
-import { shieldTelefunctions } from './transformer'
+import { generateShield } from './transformer'
 
 // FIXME?
 const typesSrc = readFileSync(`${__dirname}/../../../../node/server/shield/codegen/types.d.ts`).toString()
 
-test('shieldTelefunctions, one telefunction', async () => {
+test('generateShield, one telefunction', async () => {
   const src = `export function doSomething(arg: string) {
 
 }`
-  const shieldedSrc = shieldTelefunctions(src, typesSrc)
+  const shieldedSrc = generateShield(src, typesSrc)
   expect(shieldedSrc).toEqual(`import { shield } from "telefunc";
 
 ${src}
@@ -18,7 +18,7 @@ shield(doSomething, [t.string])
 `)
 })
 
-test('shieldTelefunctions, two telefunctions', async () => {
+test('generateShield, two telefunctions', async () => {
   const src = `export function doSomething(arg: string) {
 
 }
@@ -26,7 +26,7 @@ test('shieldTelefunctions, two telefunctions', async () => {
 export function doSomethingElse(arg: string | number, arg2: { val?: number }) {
 
 }`
-  const shieldedSrc = shieldTelefunctions(src, typesSrc)
+  const shieldedSrc = generateShield(src, typesSrc)
   expect(shieldedSrc).toEqual(`import { shield } from "telefunc";
 
 ${src}

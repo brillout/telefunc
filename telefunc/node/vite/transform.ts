@@ -3,7 +3,7 @@ import { assert, toPosixPath } from '../utils'
 import { transformTelefuncFile } from '../transformer/transformTelefuncFile'
 import { isSSR_options } from './utils'
 import { readFileSync } from 'fs'
-import { shieldTelefunctions } from '../server/shield/codegen/transformer'
+import { generateShield } from '../server/shield/codegen/transformer'
 
 export { transform }
 
@@ -23,7 +23,7 @@ function transform(): Plugin {
     async transform(src, id, options) {
       if (isSSR_options(options)) {
         if (id.endsWith(".telefunc.ts")) {
-          return shieldTelefunctions(src, typesSrc)
+          return generateShield(src, typesSrc)
         }
         return
       }

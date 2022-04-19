@@ -1,11 +1,11 @@
-export { shieldTelefunctions }
+export { generateShield }
 
 import { Project, VariableDeclarationKind } from 'ts-morph'
 
 function parseEmitMessages(messages: string[]) {
   const matcher = /Type '"([A-Za-z0-9_]+)"' is not assignable to type '"([^"]+)"'./
   const teleFuncToShieldStr: Record<string, string> = {}
-  
+
   for (let message of messages) {
     const found = message.match(matcher)
     if (!found) {
@@ -22,10 +22,10 @@ function parseEmitMessages(messages: string[]) {
   return teleFuncToShieldStr
 }
 
-const shieldTelefunctions = (
-    telefuncSrc: string,
-    typesSrc: string  // contents of ./types.ts
-  ): string => {
+const generateShield = (
+  telefuncSrc: string,
+  typesSrc: string  // contents of ./types.ts
+): string => {
   const project = new Project({
     compilerOptions: {
       strict: true
