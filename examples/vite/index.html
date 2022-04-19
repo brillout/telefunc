@@ -1,10 +1,8 @@
 <html>
-  <body>
-    <div id="view">Loading...</div>
-    <script type="module">
-      import { hello } from './hello.telefunc'
-      const { message } = await hello({ name: 'Eva' })
-      document.querySelector('#view').textContent = message
-    </script>
-  </body>
+
+<body>
+  <div id="view">Loading...</div>
+  <script type="module" src="/client/main.ts"></script>
+</body>
+
 </html>
