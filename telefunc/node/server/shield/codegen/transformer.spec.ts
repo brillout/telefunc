@@ -9,12 +9,12 @@ test('generateShield, one telefunction', async () => {
 
 }`
   const shieldedSrc = generateShield(src, typesSrc)
-  expect(shieldedSrc).toEqual(`import { shield } from "telefunc";
+  expect(shieldedSrc).toEqual(`import { shield as __shieldGenerator_shield } from "telefunc";
 
 ${src}
 
-const t = shield.type;
-shield(doSomething, [t.string])
+const __shieldGenerator_t = __shieldGenerator_shield.type;
+__shieldGenerator_shield(doSomething, [__shieldGenerator_t.string], { __generated: true })
 `)
 })
 
@@ -27,12 +27,12 @@ export function doSomethingElse(arg: string | number, arg2: { val?: number }) {
 
 }`
   const shieldedSrc = generateShield(src, typesSrc)
-  expect(shieldedSrc).toEqual(`import { shield } from "telefunc";
+  expect(shieldedSrc).toEqual(`import { shield as __shieldGenerator_shield } from "telefunc";
 
 ${src}
 
-const t = shield.type;
-shield(doSomething, [t.string])
-shield(doSomethingElse, [t.union(t.number, t.string), { val: t.optional(t.number) }])
+const __shieldGenerator_t = __shieldGenerator_shield.type;
+__shieldGenerator_shield(doSomething, [__shieldGenerator_t.string], { __generated: true })
+__shieldGenerator_shield(doSomethingElse, [__shieldGenerator_t.union(__shieldGenerator_t.number, __shieldGenerator_t.string), { val: __shieldGenerator_t.optional(__shieldGenerator_t.number) }], { __generated: true })
 `)
 })
