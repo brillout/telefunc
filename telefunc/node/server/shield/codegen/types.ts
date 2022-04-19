@@ -4,8 +4,8 @@ type Equals<X, Y> = (<T>() => T extends X ? 1 : 2) extends <T>() => T extends Y 
 
 type EqualsAnyOf<T, L extends any[]> = L extends [infer Head, ...infer Tail]
   ? Equals<T, Head> extends true
-    ? true
-    : EqualsAnyOf<T, Tail>
+  ? true
+  : EqualsAnyOf<T, Tail>
   : false
 
 type UnionToIntersection<T> = (T extends T ? (params: T) => any : never) extends (params: infer P) => any ? P : never
@@ -43,10 +43,12 @@ type Literal<T, Acc extends any[]> = T extends string
 
 type ArrayLike<T extends any[], Acc extends any[] = []> = T extends [...infer U]
   ? Equals<U['length'], number> extends true
-    ? T extends (infer V)[]
-      ? Shield<V, ['array', ...Acc]>
-      : never
-    : ShieldRes<JoinShieldResList<ShieldList<U>>, ['tuple', ...Acc]>
+  ? T extends (infer V)[]
+  ? Shield<V, ['array', ...Acc]>
+  : never
+  : ShieldList<U> extends ShieldRes<any, any>[]
+  ? ShieldRes<JoinShieldResList<ShieldList<U>>, ['tuple', ...Acc]>
+  : never
   : never
 
 type JoinRecord<T extends Record<string, ShieldRes<any, any>>, Acc extends any[]> = ShieldRes<
@@ -70,8 +72,8 @@ type KeyValueShieldRes<T extends Record<string, any>, Acc extends any[]> = Shiel
 
 type KeyValueOrObjectShield<T extends Record<string, any>, Acc extends any[]> = T extends Record<infer K, infer V>
   ? Equals<K, string> extends true
-    ? Shield<V, ['object', ...Acc]>
-    : KeyValueShieldRes<T, Acc>
+  ? Shield<V, ['object', ...Acc]>
+  : KeyValueShieldRes<T, Acc>
   : KeyValueShieldRes<T, Acc>
 
 type Shield<T, Acc extends any[] = []> = SimpleType<T> extends ShieldRes<any>
@@ -117,28 +119,28 @@ type Wrap<T extends string, Keyword> = Keyword extends 'nullable'
 
 type WrapShieldRes<T extends ShieldRes<any, any>> = T extends ShieldRes<infer S, infer Acc>
   ? Acc extends [infer Head, ...infer Tail]
-    ? Tail extends any[]
-      ? WrapShieldRes<ShieldRes<Wrap<S, Head>, Tail>>
-      : never
-    : S
+  ? Tail extends any[]
+  ? WrapShieldRes<ShieldRes<Wrap<S, Head>, Tail>>
+  : never
+  : S
   : never
 
 type Sep<T> = T extends '' ? '' : ', '
 
 type JoinShieldResList<T extends ShieldRes<any, any>[], Acc extends string = ''> = T extends [infer Head, ...infer Tail]
   ? Head extends ShieldRes<any, any>
-    ? Tail extends ShieldRes<any, any>[]
-      ? JoinShieldResList<Tail, `${Acc}${Sep<Acc>}${WrapShieldRes<Head>}`>
-      : Acc
-    : Acc
+  ? Tail extends ShieldRes<any, any>[]
+  ? JoinShieldResList<Tail, `${Acc}${Sep<Acc>}${WrapShieldRes<Head>}`>
+  : Acc
+  : Acc
   : Acc
 
 type ShieldList<T extends any[]> = Head<T> extends never ? [] : [Shield<Head<T>>, ...ShieldList<Tail<T>>]
 
 type JoinStrings<T extends any[], Acc extends string = ''> = T extends [infer Head, ...infer Tail]
   ? Head extends string
-    ? JoinStrings<Tail, `${Acc}${Sep<Acc>}${Head}`>
-    : Acc
+  ? JoinStrings<Tail, `${Acc}${Sep<Acc>}${Head}`>
+  : Acc
   : Acc
 
 type ShieldStr<T, Res = Shield<T>> = Res extends ShieldRes<any, any> ? WrapShieldRes<Res> : never
