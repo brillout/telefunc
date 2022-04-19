@@ -22,8 +22,9 @@ function transform(): Plugin {
     },
     async transform(src, id, options) {
       if (isSSR_options(options)) {
-        if (id.endsWith(".ts"))
+        if (id.endsWith("telefunc.ts")) {
           return shieldTelefunctions(src, typesSrc)
+        }
         return
       }
       if (id.includes('.telefunc.')) {
