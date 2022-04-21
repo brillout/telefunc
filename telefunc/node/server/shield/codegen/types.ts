@@ -108,7 +108,7 @@ type Wrap<T extends string, Keyword> = Keyword extends 'nullable'
   : Keyword extends '{}'
   ? `{ ${T} }`
   : Keyword extends 'union'
-  ? `t.union(${T})`
+  ? `t.or(${T})`
   : Keyword extends 'object'
   ? `t.object(${T})`
   : T
@@ -170,16 +170,16 @@ type _cases = [
   Expect<
     EqualsAnyOf<
       ShieldStr<'one' | 'two'>,
-      ["t.union(t.const('two'), t.const('one'))", "t.union(t.const('one'), t.const('two'))"]
+      ["t.or(t.const('two'), t.const('one'))", "t.or(t.const('one'), t.const('two'))"]
     >
   >,
   Expect<
     EqualsAnyOf<
       ShieldStr<1 | 2 | undefined>,
-      ['t.optional(t.union(t.const(2), t.const(1)))', 't.optional(t.union(t.const(1), t.const(2)))']
+      ['t.optional(t.or(t.const(2), t.const(1)))', 't.optional(t.or(t.const(1), t.const(2)))']
     >
   >,
-  Expect<EqualsAnyOf<ShieldStr<number | string>, ['t.union(t.number, t.string)', 't.union(t.string, t.number)']>>,
+  Expect<EqualsAnyOf<ShieldStr<number | string>, ['t.or(t.number, t.string)', 't.or(t.string, t.number)']>>,
   Expect<Equals<ShieldStr<number[]>, 't.array(t.number)'>>,
   Expect<Equals<ShieldStr<[number, string][]>, 't.array(t.tuple(t.number, t.string))'>>,
   Expect<Equals<ShieldStr<{ age: number; hasBike: boolean }>, '{ hasBike: t.boolean, age: t.number }'>>,
@@ -188,7 +188,7 @@ type _cases = [
   Expect<Equals<ShieldStr<true>, 't.const(true)'>>,
   Expect<Equals<ShieldStr<false>, 't.const(false)'>>,
   Expect<Equals<ShieldStr<123>, 't.const(123)'>>,
-  Expect<Equals<ShieldStr<{ isGood: boolean } | string>, 't.union({ isGood: t.boolean }, t.string)'>>,
+  Expect<Equals<ShieldStr<{ isGood: boolean } | string>, 't.or({ isGood: t.boolean }, t.string)'>>,
   Expect<Equals<ShieldStr<{ age: number }[]>, 't.array({ age: t.number })'>>,
   Expect<Equals<ShieldStr<Record<string, number>>, 't.object(t.number)'>>,
   Expect<Equals<ShieldStr<Record<string, { age?: number }>>, 't.object({ age: t.optional(t.number) })'>>,
