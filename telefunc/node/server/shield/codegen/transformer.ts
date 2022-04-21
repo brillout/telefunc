@@ -60,7 +60,7 @@ const generateShield = (
     shieldStrSourceFile.addVariableStatement({
       declarations: [{
         name: `${teleFunName}Shield`,
-        type: `ShieldArrStr<Parameters<typeof ${teleFunName}>, '${tAlias}'>`,
+        type: `ShieldArrStr<Parameters<typeof ${teleFunName}>>`,
         initializer: `'${teleFunName}'`
       }]
     })
@@ -84,7 +84,7 @@ const generateShield = (
   telefuncSourceFile.addVariableStatement({
     declarationKind: VariableDeclarationKind.Const,
     declarations: [{
-      name: '__shieldGenerator_t',
+      name: tAlias,
       initializer: `${shieldAlias}.type`,
     }]
   })
@@ -95,7 +95,8 @@ const generateShield = (
       console.warn(`Failed to generate shield() call for telefunction '${teleFunName}'`)
       continue
     }
-    telefuncSourceFile.addStatements(`${shieldAlias}(${teleFunName}, ${shieldStr}, { __generated: true })`)
+    const shieldStrWithAlias = shieldStr.replace(/t./g, `${tAlias}.`)
+    telefuncSourceFile.addStatements(`${shieldAlias}(${teleFunName}, ${shieldStrWithAlias}, { __generated: true })`)
   }
 
   return telefuncSourceFile.getText()

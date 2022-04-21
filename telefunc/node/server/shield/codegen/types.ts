@@ -92,12 +92,8 @@ type Shield<T, Acc extends any[] = []> = SimpleType<T> extends ShieldRes<any>
   ? Literal<T, Acc>
   : never
 
-type ShieldUnion<T, Acc extends any[], Res = UnionToTuple<T extends any ? Shield<T> : never>> = Res extends ShieldRes<
-  any,
-  any
->[]
-  ? ShieldRes<JoinShieldResList<Res>, ['union', ...Acc]>
-  : never
+type ShieldUnion<T, Acc extends any[]> = ShieldList<UnionToTuple<T>> extends ShieldRes<any, any>[]
+  ? ShieldRes<JoinShieldResList<ShieldList<UnionToTuple<T>>>, ["union", ...Acc]> : never
 
 type IsUnion<T> = [T] extends [UnionToIntersection<T>] ? false : true
 
@@ -149,13 +145,9 @@ export type Tail<L extends any[]> = L extends readonly [] ? [] : L extends reado
 
 export type Head<L extends any[]> = L['length'] extends 0 ? never : L[0]
 
-type ReplaceAll<S extends string, From extends string, To extends string> = From extends '' ? S : (
-  S extends `${infer Before}${From}${infer After}` ? `${Before}${To}${ReplaceAll<After, From, To>}` : S
-)
-
 type ShieldStrMap<T extends any[]> = Head<T> extends never ? [] : [ShieldStr<Head<T>>, ...ShieldStrMap<Tail<T>>]
 
-export type ShieldArrStr<T extends any[], ShieldIdentifier extends string = "t"> = ReplaceAll<`[${JoinStrings<ShieldStrMap<T>>}]`, "t.", `${ShieldIdentifier}.`>
+export type ShieldArrStr<T extends any[]> = `[${JoinStrings<ShieldStrMap<T>>}]`
 
 type _cases = [
   Expect<Equals<ShieldStr<string>, 't.string'>>,
@@ -203,6 +195,5 @@ type _cases = [
   Expect<Equals<ShieldStr<Record<string, number>[]>, 't.array(t.object(t.number))'>>,
   Expect<Equals<ShieldArrStr<[string, number]>, '[t.string, t.number]'>>,
   Expect<Equals<ShieldArrStr<[number?]>, '[t.optional(t.number)]'>>,
-  Expect<Equals<ShieldArrStr<[string, number?, string?]>, '[t.string, t.optional(t.number), t.optional(t.string)]'>>,
-  Expect<Equals<ShieldArrStr<[string], "__shieldGenerator_t">, '[__shieldGenerator_t.string]'>>,
+  Expect<Equals<ShieldArrStr<[string, number?, string?]>, '[t.string, t.optional(t.number), t.optional(t.string)]'>>
 ]
