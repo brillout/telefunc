@@ -1,6 +1,9 @@
 export { generateShield }
 
+import { readFileSync } from 'fs'
 import { Project, VariableDeclarationKind } from 'ts-morph'
+
+const typesSrc = readFileSync(`${__dirname}/types.d.ts`).toString()
 
 function parseEmitMessages(messages: string[]) {
   const matcher = /Type '"([A-Za-z0-9_]+)"' is not assignable to type '"([^"]+)"'./
@@ -23,8 +26,7 @@ function parseEmitMessages(messages: string[]) {
 }
 
 const generateShield = (
-  telefuncSrc: string,
-  typesSrc: string
+  telefuncSrc: string
 ): string => {
   const project = new Project({
     compilerOptions: {
@@ -95,7 +97,7 @@ const generateShield = (
       console.warn(`Failed to generate shield() call for telefunction '${teleFunName}'`)
       continue
     }
-    const shieldStrWithAlias = shieldStr.replace(/t./g, `${tAlias}.`)
+    const shieldStrWithAlias = shieldStr.replace(/t\./g, `${tAlias}.`)
     telefuncSourceFile.addStatements(`${shieldAlias}(${teleFunName}, ${shieldStrWithAlias}, { __generated: true })`)
   }
 

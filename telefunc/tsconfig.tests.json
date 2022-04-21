@@ -1,6 +1,7 @@
 {
   "extends": "./tsconfig.base.json",
   "include": ["./**/*.spec.ts"],
+  "files": ["node/server/shield/codegen/types.ts"],
   "compilerOptions": {
     "outDir": "dist/tests/",
     "target": "ES2017",

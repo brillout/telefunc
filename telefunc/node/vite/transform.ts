@@ -2,13 +2,9 @@ import { Plugin } from 'vite'
 import { assert, toPosixPath } from '../utils'
 import { transformTelefuncFile } from '../transformer/transformTelefuncFile'
 import { isSSR_options } from './utils'
-import { readFileSync } from 'fs'
 import { generateShield } from '../server/shield/codegen/transformer'
 
 export { transform }
-
-// FIXME?
-const typesSrc = readFileSync(`${__dirname}/../server/shield/codegen/types.d.ts`).toString()
 
 function transform(): Plugin {
   let root: undefined | string
@@ -23,7 +19,7 @@ function transform(): Plugin {
     async transform(src, id, options) {
       if (isSSR_options(options)) {
         if (id.endsWith(".telefunc.ts")) {
-          return generateShield(src, typesSrc)
+          return generateShield(src)
         }
         return
       }
