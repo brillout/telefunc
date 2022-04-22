@@ -526,44 +526,22 @@ This inversion of control leads to a fundamentally improved separation of concer
 
 ## TypeScript
 
-`shield()` can infer the type of telefunction arguments:
+Telefunc automatically generates the `shield()` of telefunctions. There is nothing to do, it just works.
+
+This means that, not only do we seamlessly use types across frontend-backend, but we also get runtime type-safety for free.
 
 ```ts
 // CreateTodo.telefunc.ts
 // Environment: Node.js server
 
-import { shield } from 'telefunc'
-const t = shield.type
-
-export const onNewTodo = shield(
-  [{ text: t.string, tags: t.array(t.string) }],
-  async ({ text, tags }) => {
-    // TypeScript infers `text` to `string` and `tags` to `string[]`
-  }
-)
-```
-
-With Telefunc, we seamlessly use types across frontend-backend:
-
-```ts
-// CreateTodo.telefunc.ts
-// Environment: Node.js server
-
-import { shield } from 'telefunc'
-
-export const onNewTodo = shield(
-  [shield.type.string],
-  async text => {
-    const todoItem = new Todo()
-    todoItem.text = text
-    await todoItem.save()
-    // `todoItem.updatedAt` is set by the database/ORM and is of type `Date`
-    const { updatedAt } = todoItem
-    return {
-      text,
-      updatedAt
-    }
-  }
+// Telefunc aborts if a third-party calls `onNewTodo(42)`.
+export async function onNewTodo(text: string) {
+  // Note that `todoItem` is typed by the ORM
+  const todoItem = new Todo()
+  todoItem.text = text
+  await todoItem.save()
+  const { id, updatedAt } = todoItem
+  return { id, updatedAt }
 )
 ```
 
@@ -571,22 +549,19 @@ export const onNewTodo = shield(
 // CreateTodo.tsx
 // Environment: Browser
 
-// From TypeScript's perspective, we import `CreateTodo.telefunc.js` (TypeScript
-// doesn't know that `.telefunc.js` files are transformed).
-// In other words: TypeScript just works. (Even automatic imports work!)
+// From TypeScript's perspective, `CreateTodo.telefunc.js` is imported. (TypeScript
+// doesn't know that `.telefunc.js` files are transformed.)
+// I.e. TypeScript just works, including auto-import.
 import { onNewTodo } from './CreateTodo.telefunc.js'
 
 async function someCallback(text: string) {
-  // ✅ `text` is of type `string`
   const todoItem = await onNewTodo(text)
-  // ✅ `todoItem.updatedAt` is of type `Date`; TypeScript allows us to
-  // use `Date.prototype.toDateString()`
+  // We can seamlessly use the types defined by the ORM on the frontend
   const lastUpdate = 'To-do last update: ' + todoItem.updatedAt.toDateString()
-
   // ...
 }
 ```
 
-The type of `todoItem.updatedAt` comes from the database/ORM and we seamlessly use it on the frontend.
-
-By using Telefunc with a TypeScript ORM, such as [Prisma](https://www.prisma.io/), we get end-to-end type safety all the way from database to frontend.
+When using Telefunc with a TypeScript ORM (e.g. [Prisma](https://www.prisma.io/))
+or SQL builder (e.g. [Kysely](https://github.com/koskimas/kysely) or [others](https://github.com/stars/brillout/lists/sql)),
+we get end-to-end type safety all the way from database to frontend.

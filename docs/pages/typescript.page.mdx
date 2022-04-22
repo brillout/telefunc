@@ -5,7 +5,23 @@ As we have seen in <Link href="/tour#typescript" doNotInferSectionTitle={true} /
 
 ## `shield()`
 
-TypeScript can automatically infer the type of telefunction arguments:
+Telefunc automatically generates the `shield()` of telefunctions,
+if we use a stack that transpile server-side code (e.g. Next.js, Nuxt, Vite).
+There is nothing to do, it just works.
+
+```ts
+// hello.telefunc.ts
+
+// No need to define `shield()` when using TypeScript: Telefunc automatically generates `shield()`.
+// I.e. Telefunc aborts if a third-party calls `hello({ name: 42 })`.
+export async function hello({ name }: { name: string }) {
+   return `Welcome to Telefunc, ${name}.`
+}
+```
+
+For stacks that don't transpile server-side code (e.g. React Native, CRA, Parcel), we need to define `shield()` ourselves.
+
+TypeScript automatically infers the type of telefunction arguments using `shield()`:
 
 ```ts
 import { shield } from 'telefunc'

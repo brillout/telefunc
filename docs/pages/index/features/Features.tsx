@@ -53,8 +53,8 @@ function Features() {
           desc: (
             <>
               <p>
-                Telefunc supports <b>Next.js</b>, <b>CRA</b>, <b>Nuxt</b>, <b>SvelteKit</b>, <b>Vite</b>, <b>vite-plugin-ssr</b>, <b>React Native</b> and any
-                framework based on Webpack, Babel, Parcel or Vite.
+                Telefunc supports <b>Next.js</b>, <b>CRA</b>, <b>Nuxt</b>, <b>SvelteKit</b>, <b>Vite</b>,{' '}
+                <b>vite-plugin-ssr</b>, <b>React Native</b> and any framework based on Webpack, Babel, Parcel or Vite.
               </p>
               <p>You want to change your stack? Bring Telefunc along.</p>
             </>
@@ -84,10 +84,11 @@ function Features() {
           desc: (
             <>
               <p>
-                Seamless <b>TypeScript support out-of-the-box</b>.
+                <b>Seamless TypeScript support</b> out-of-the-box.
               </p>
               <p>
-                Use your types across the frontend and backend for <b>end-to-end type safety</b>.
+                Use your types across the frontend and backend for <b>end-to-end type safety</b>, including{' '}
+                <b>runtime validation</b>.
               </p>
             </>
           )
