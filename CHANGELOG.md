@@ -1,6 +1,12 @@
 ## [0.1.20](https://github.com/vikejs/telefunc/compare/v0.1.19...v0.1.20) (2022-04-22)
 
 
+### Features
+
+* Use TypeScript to automatically generate `shield()` ([telefunc.com > TypeScript > `shield()`](https://telefunc.com/typescript#shield), [#23](https://github.com/vikejs/telefunc/issues/23), [#25](https://github.com/vikejs/telefunc/pull/25))
+
+
+
 
 ## [0.1.19](https://github.com/vikejs/telefunc/compare/v0.1.18...v0.1.19) (2022-03-07)
 
