@@ -33,8 +33,12 @@ type SimpleType<T, Acc extends any[] = []> = Equals<T, string> extends true
   ? ShieldRes<'t.any', Acc>
   : false
 
+type ReplaceAll<S extends string, From extends string, To extends string> = From extends '' ? S : (
+  S extends `${infer Before}${From}${infer After}` ? `${Before}${To}${ReplaceAll<After, From, To>}` : S
+)
+
 type Literal<T, Acc extends any[]> = T extends string
-  ? ShieldRes<`t.const('${T}')`, Acc>
+  ? ShieldRes<`t.const('${ReplaceAll<T, "'", "\\'">}')`, Acc>
   : T extends boolean
   ? ShieldRes<`t.const(${T})`, Acc>
   : T extends number
@@ -185,6 +189,7 @@ type _cases = [
   Expect<Equals<ShieldStr<{ age: number; hasBike: boolean }>, '{ hasBike: t.boolean, age: t.number }'>>,
   Expect<Equals<ShieldStr<{ age: number; hasBike?: boolean }>, '{ hasBike: t.optional(t.boolean), age: t.number }'>>,
   Expect<Equals<ShieldStr<'test'>, "t.const('test')">>,
+  Expect<Equals<ShieldStr<"'test'">, "t.const('\\'test\\'')">>,
   Expect<Equals<ShieldStr<true>, 't.const(true)'>>,
   Expect<Equals<ShieldStr<false>, 't.const(false)'>>,
   Expect<Equals<ShieldStr<123>, 't.const(123)'>>,
