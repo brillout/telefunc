@@ -1,4 +1,4 @@
-const PROJECT_VERSION = '0.1.19'
+const PROJECT_VERSION = '0.1.20'
 
 export const projectInfo = {
   projectName: 'Telefunc' as const,
