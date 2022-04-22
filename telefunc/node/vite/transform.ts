@@ -7,25 +7,24 @@ import { generateShield } from '../server/shield/codegen/transformer'
 export { transform }
 
 function transform(): Plugin {
-  let root: undefined | string
-
+  let root: string
   return {
     name: 'telefunc:transform',
     enforce: 'pre',
-    config: (config) => {
-      // Vite doesn't seem to always normalize config.root
-      root = config.root ? toPosixPath(config.root) : toPosixPath(process.cwd())
+    configResolved: (config) => {
+      root = toPosixPath(config.root)
+      assert(root)
     },
-    async transform(src, id, options) {
-      if (isSSR_options(options)) {
-        if (id.endsWith(".telefunc.ts")) {
-          return generateShield(src)
-        }
+    async transform(code, id, options) {
+      if (!id.includes('.telefunc.')) {
         return
       }
-      if (id.includes('.telefunc.')) {
-        assert(root)
-        return transformTelefuncFile(src, id, root)
+      if (!isSSR_options(options)) {
+        return transformTelefuncFile(code, id, root)
+      } else {
+        if (id.endsWith('.ts')) {
+          return generateShield(code)
+        }
       }
     }
   }
