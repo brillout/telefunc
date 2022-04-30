@@ -1,3 +1,12 @@
+## [0.1.21](https://github.com/vikejs/telefunc/compare/v0.1.20...v0.1.21) (2022-04-30)
+
+
+### Bug Fixes
+
+* improve shield error message ([4188010](https://github.com/vikejs/telefunc/commit/41880108d3a9744c83083933e57ebc59306602e8))
+
+
+
 ## [0.1.20](https://github.com/vikejs/telefunc/compare/v0.1.19...v0.1.20) (2022-04-22)
 
 
