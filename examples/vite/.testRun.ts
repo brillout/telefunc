@@ -34,8 +34,8 @@ function testRun(
       }
       {
         const resp = await makeTelefuncHttpRequest(1337)
-        expect(resp.status).toBe(500)
-        expect(await resp.text()).toBe('Internal Server Error (Telefunc Request)')
+        expect(resp.status).toBe(403)
+        expect(await resp.text()).toBe('{"ret":"!undefined","abort":true}')
       }
     })
   }
