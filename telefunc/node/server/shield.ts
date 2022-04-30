@@ -205,7 +205,7 @@ const type = (() => {
       if (errorMessages.length === 0) {
         return true
       }
-      return errorMessages[0]
+      return errorMessages[0]!
     }
     markVerifier(verifier)
     markVerifierTuple(verifier)
@@ -223,7 +223,7 @@ const type = (() => {
       if (errorMessages.length === 0) {
         return true
       }
-      return errorMessages[0]
+      return errorMessages[0]!
     }
     markVerifier(verifier)
     verifier.toString = () => {
@@ -247,7 +247,7 @@ const type = (() => {
       if (errorMessages.length === 0) {
         return true
       }
-      return errorMessages[0]
+      return errorMessages[0]!
     }
     markVerifier(verifier)
     verifier.toString = () => {

@@ -45,7 +45,7 @@ function getExportsFromBabelAST(programNodePath: NodePath<BabelTypes.Program>, t
         // export const fnName = function() {}
         // export var fnName = function() {}
         // export let fnName = function() {}
-        const declarator = subNode.declaration.declarations[0]
+        const declarator = subNode.declaration.declarations[0]!
         if (
           'name' in declarator.id &&
           (types.isFunctionExpression(declarator.init) || types.isArrowFunctionExpression(declarator.init))

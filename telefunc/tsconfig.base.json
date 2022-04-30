@@ -2,6 +2,9 @@
   "compilerOptions": {
     "skipLibCheck": true,
     "declaration": true,
-    "strict": true
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noUncheckedIndexedAccess": true
   }
 }

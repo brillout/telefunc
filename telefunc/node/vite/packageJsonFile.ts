@@ -17,7 +17,7 @@ function packageJsonFile(): Plugin {
     configResolved(config) {
       ssr = isSSR_config(config)
     },
-    generateBundle(_options, bundle) {
+    generateBundle(_options) {
       assert(typeof ssr === 'boolean')
       if (!ssr) return
       const fileName = 'package.json'
