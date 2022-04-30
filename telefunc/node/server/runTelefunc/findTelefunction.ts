@@ -46,7 +46,7 @@ function findTelefunction(runContext: {
       .sort()
       .map(
         (telefunctionKey) =>
-          `\n${telefunctionKey} ${telefunctionsFound.includes(telefunctionKey) ? '[✅ Found]' : '[❌ Not Found]'}`
+          `\n${telefunctionKey} ${telefunctionsFound.includes(telefunctionKey) ? '[✅ Exists]' : "[❌ Doesn't exist]"}`
       )
       .join('')
     return errMsg

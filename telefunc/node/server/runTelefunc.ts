@@ -16,25 +16,24 @@ import { globalContext } from './globalContext'
 import { telefuncConfig } from './telefuncConfig'
 
 type HttpResponse = {
-  body: string
   statusCode: 200 | 500 | 400 | 403
+  body: string
   contentType: 'text/plain'
   etag: string | null
 }
-
 const malformedRequest = {
-  body: 'Malformed Request',
   statusCode: 400 as const,
+  body: 'Malformed Request',
   contentType: 'text/plain' as const,
   etag: null
 }
-
 const serverError = {
-  body: 'Internal Server Error (Telefunc Request)',
   statusCode: 500 as const,
+  body: 'Internal Server Error (Telefunc Request)',
   contentType: 'text/plain' as const,
   etag: null
 }
+const abortedRequestStatusCode = 403
 
 async function runTelefunc(runContext: Parameters<typeof runTelefunc_>[0]) {
   try {
@@ -96,16 +95,35 @@ async function runTelefunc_(httpRequest: { url: string; method: string; body: un
     objectAssign(runContext, { telefunction })
   }
 
-  applyShield(runContext)
+  {
+    const { isValidRequest } = applyShield(runContext)
+    objectAssign(runContext, { isValidRequest })
+    if (!isValidRequest) {
+      objectAssign(runContext, {
+        telefunctionAborted: true,
+        telefunctionReturn: undefined
+      })
+      const httpResponseBody = serializeTelefunctionResult(runContext)
+      return {
+        statusCode: abortedRequestStatusCode,
+        body: httpResponseBody,
+        contentType: 'text/plain' as const,
+        etag: null
+      }
+    }
+  }
 
-  const { telefunctionReturn, telefunctionAborted, telefunctionHasErrored, telefunctionError } =
-    await executeTelefunction(runContext)
-  objectAssign(runContext, {
-    telefunctionReturn,
-    telefunctionHasErrored,
-    telefunctionAborted,
-    telefunctionError
-  })
+  {
+    assert(runContext.isValidRequest)
+    const { telefunctionReturn, telefunctionAborted, telefunctionHasErrored, telefunctionError } =
+      await executeTelefunction(runContext)
+    objectAssign(runContext, {
+      telefunctionReturn,
+      telefunctionHasErrored,
+      telefunctionAborted,
+      telefunctionError
+    })
+  }
 
   if (runContext.telefunctionHasErrored) {
     throw runContext.telefunctionError
@@ -122,10 +140,10 @@ async function runTelefunc_(httpRequest: { url: string; method: string; body: un
   // }
 
   return {
+    statusCode: runContext.telefunctionAborted ? abortedRequestStatusCode : 200,
     body: runContext.httpResponseBody,
-    statusCode: runContext.telefunctionAborted ? 403 : 200,
+    contentType: 'text/plain',
     // etag: runContext.httpResponseEtag,
-    etag: null,
-    contentType: 'text/plain'
+    etag: null
   }
 }

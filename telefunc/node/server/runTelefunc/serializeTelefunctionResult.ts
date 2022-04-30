@@ -7,7 +7,7 @@ function serializeTelefunctionResult(runContext: {
   telefunctionReturn: unknown
   telefunctionName: string
   telefunctionAborted: boolean
-}) {
+}): string {
   const bodyValue: Record<string, unknown> = {
     ret: runContext.telefunctionReturn
   }
@@ -15,7 +15,7 @@ function serializeTelefunctionResult(runContext: {
     bodyValue.abort = true
   }
   try {
-    const httpResponseBody = stringify(bodyValue, { forbidReactElements: true })
+    const httpResponseBody: string = stringify(bodyValue, { forbidReactElements: true })
     return httpResponseBody
   } catch (err: unknown) {
     assert(hasProp(err, 'message', 'string'))

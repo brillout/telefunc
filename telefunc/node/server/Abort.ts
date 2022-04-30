@@ -15,7 +15,7 @@ function Abort(abortValue?: unknown) {
     const that: unknown = this
     assertUsage(
       !(typeof that === 'object' && that?.constructor === Abort),
-      'Do not use `new` operator: use `throw Abort()` instead of `throw new Abort()`.'
+      'Do not use the `new` operator: use `throw Abort()` instead of `throw new Abort()`.'
     )
   }
   assertUsage(
