@@ -72,7 +72,7 @@ const generateShield = (
     const shieldStr = typeAlias.getType().getLiteralValue()
 
     if (!shieldStr || typeof shieldStr !== 'string') {
-      assertWarning(false, `Failed to generate shield() for telefunction ${telefunctionName}()`)
+      assertWarning(false, `Failed to generate shield() for telefunction ${telefunctionName}()`, { onlyOnce: false })
       continue
     }
     const shieldStrWithAlias = replaceShieldTypeAlias(shieldStr)
