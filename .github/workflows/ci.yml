@@ -15,7 +15,7 @@ jobs:
           - os: macos-latest
             node_version: 14
           - os: windows-latest
-            node_version: 18
+            node_version: 14
       fail-fast: false
     name: 'Test on node-${{ matrix.node_version }}, ${{ matrix.os }}'
     steps:
