@@ -1,3 +1,12 @@
+## [0.1.22](https://github.com/vikejs/telefunc/compare/v0.1.21...v0.1.22) (2022-05-10)
+
+
+### Features
+
+* `onBug()` ([2b1be00](https://github.com/vikejs/telefunc/commit/2b1be008969e63d7a2e8988058085a42d9bb04d4))
+
+
+
 ## [0.1.21](https://github.com/vikejs/telefunc/compare/v0.1.20...v0.1.21) (2022-04-30)
 
 
