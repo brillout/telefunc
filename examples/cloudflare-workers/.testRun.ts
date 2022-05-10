@@ -8,7 +8,7 @@ function testRun(cmd: 'npm run dev' | 'npm run preview:miniflare' | 'npm run pre
   const isWrangler = cmd === 'npm run preview:wrangler'
   const isWorker = isMiniflare || isWrangler
 
-  if ((isWindows() || isNode12()) && isWorker) {
+  if ((isWindows() || !isNode16()) && isWorker) {
     test('SKIPED: miniflare and wrangler', () => {})
     return
   }
@@ -55,6 +55,6 @@ function testRun(cmd: 'npm run dev' | 'npm run preview:miniflare' | 'npm run pre
   })
 }
 
-function isNode12() {
-  return process.version.startsWith('v12.')
+function isNode16() {
+  return !process.version.startsWith('v16.')
 }
