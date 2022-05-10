@@ -9,7 +9,7 @@ import { getTelefunctions } from './runTelefunc/getTelefunctions'
 import { executeTelefunction } from './runTelefunc/executeTelefunction'
 import { serializeTelefunctionResult } from './runTelefunc/serializeTelefunctionResult'
 import { handleError } from './runTelefunc/handleError'
-import { executeServerErrorListeners } from './runTelefunc/onTelefuncServerError'
+import { callBugListeners } from './runTelefunc/onBug'
 import { applyShield } from './runTelefunc/applyShield'
 import { findTelefunction } from './runTelefunc/findTelefunction'
 import { globalContext } from './globalContext'
@@ -39,7 +39,7 @@ async function runTelefunc(runContext: Parameters<typeof runTelefunc_>[0]) {
   try {
     return await runTelefunc_(runContext)
   } catch (err: unknown) {
-    executeServerErrorListeners(err)
+    callBugListeners(err)
     handleError(err, globalContext.viteDevServer || null)
     return serverError
   }

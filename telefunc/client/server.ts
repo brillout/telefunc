@@ -4,7 +4,7 @@ export const getContext = err('getContext')
 export const provideTelefuncContext = err('provideTelefuncContext')
 export const Abort = err('Abort')
 export const shield = err('shield')
-export const onTelefuncServerError = err('onTelefuncServerError')
+export const onBug = err('onBug')
 
 import { assertUsage } from './utils'
 
