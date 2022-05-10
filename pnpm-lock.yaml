@@ -1,4 +1,4 @@
-lockfileVersion: 5.3
+lockfileVersion: 5.4
 
 importers:
 
@@ -59,7 +59,7 @@ importers:
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       telefunc: link:../../telefunc
-      ts-node: 10.5.0_99ae9436e134a034c8d45fdd98ebbf22
+      ts-node: 10.5.0_tgxjinxbgsqdjsgul7ozr257ei
       typescript: 4.5.5
       vite: 2.6.7
       vite-plugin-ssr: 0.3.51_vite@2.6.7
@@ -76,7 +76,7 @@ importers:
     dependencies:
       '@babel/core': 7.17.5
       '@babel/preset-env': 7.16.11_@babel+core@7.17.5
-      '@rollup/plugin-babel': 5.3.1_@babel+core@7.17.5+rollup@2.67.1
+      '@rollup/plugin-babel': 5.3.1_gbilzq44qcg6wnkf3zfgw5i6cq
       '@rollup/plugin-node-resolve': 13.1.3_rollup@2.67.1
       express: 4.17.2
       rollup: 2.67.1
@@ -105,7 +105,7 @@ importers:
       react-dom: 17.0.2
       telefunc: 0.1.21
     dependencies:
-      next: 12.0.8_react-dom@17.0.2+react@17.0.2
+      next: 12.0.8_sfoxds7t5ydpegc3knd667wn6m
       react: 17.0.2
       react-dom: 17.0.2_react@17.0.2
       telefunc: link:../../telefunc
@@ -225,7 +225,7 @@ importers:
       twemoji: 13.1.0
       typescript: 4.5.5
       vite: 2.8.4
-      vite-plugin-mdx: 3.5.10_@mdx-js+mdx@2.0.0+vite@2.8.4
+      vite-plugin-mdx: 3.5.10_p5zckwea5dbiw3d6gnyruevblq
       vite-plugin-ssr: 0.3.51_vite@2.8.4
 
   libframe/scripts:
@@ -272,7 +272,7 @@ importers:
       kolorist: 1.5.1
       node-fetch: 2.6.7
       playwright-chromium: 1.18.1
-      ts-jest: 27.1.3_1e2406a8ca2ae3dc934d01f9ee2aebbb
+      ts-jest: 27.1.3_dysankgkflr5ze2nah464kxlxm
       ts-node: 9.1.1_typescript@4.5.5
       typescript: 4.5.5
 
@@ -3620,7 +3620,7 @@ packages:
       '@nuxt/babel-preset-app': 2.15.8
       '@nuxt/friendly-errors-webpack-plugin': 2.5.2_webpack@4.46.0
       '@nuxt/utils': 2.15.8
-      babel-loader: 8.2.3_60b7ed408fec1293d95f86d9ceaa88ca
+      babel-loader: 8.2.3_mc362qep5qjjhwk7q3m45kuizi
       cache-loader: 4.1.0_webpack@4.46.0
       caniuse-lite: 1.0.30001309
       consola: 2.15.3
@@ -3651,8 +3651,8 @@ packages:
       thread-loader: 3.0.4_webpack@4.46.0
       time-fix-plugin: 2.0.7_webpack@4.46.0
       ufo: 0.7.10
-      url-loader: 4.1.1_file-loader@6.2.0+webpack@4.46.0
-      vue-loader: 15.9.8_559ffc97fd41de05d12663d7fb949156
+      url-loader: 4.1.1_lit45vopotvaqup7lrvlnvtxwy
+      vue-loader: 15.9.8_kwp7zf75ihpalujgmpl7xferky
       vue-style-loader: 4.1.3
       vue-template-compiler: 2.6.14
       webpack: 4.46.0
@@ -3706,7 +3706,7 @@ packages:
     requiresBuild: true
     dev: false
 
-  /@rollup/plugin-babel/5.3.1_@babel+core@7.17.5+rollup@2.67.1:
+  /@rollup/plugin-babel/5.3.1_gbilzq44qcg6wnkf3zfgw5i6cq:
     resolution: {integrity: sha512-WFfdLWU/xVWKeRQnKmIAQULUI7Il0gZnBIH/ZFO069wYIfPu+8zrfp/KMW0atmELoRDq8FbiP3VCss9MhCut7Q==}
     engines: {node: '>= 10.0.0'}
     peerDependencies:
@@ -4943,7 +4943,7 @@ packages:
       - supports-color
     dev: false
 
-  /babel-loader/8.2.3_60b7ed408fec1293d95f86d9ceaa88ca:
+  /babel-loader/8.2.3_mc362qep5qjjhwk7q3m45kuizi:
     resolution: {integrity: sha512-n4Zeta8NC3QAsuyiizu0GkmRcQ6clkV9WFUnUf1iXP//IeSKbWjofW3UHyZVwlOB4y039YQKefawyTn64Zwbuw==}
     engines: {node: '>= 8.9'}
     peerDependencies:
@@ -11674,7 +11674,7 @@ packages:
       - babel-plugin-macros
     dev: true
 
-  /next/12.0.8_react-dom@17.0.2+react@17.0.2:
+  /next/12.0.8_sfoxds7t5ydpegc3knd667wn6m:
     resolution: {integrity: sha512-g5c1Kuh1F8tSXJn2rVvzYBzqe9EXaR6+rY3/KrQ7y0D9FueRLfHI35wM0DRadDcPSc3+vncspfhYH3jnYE/KjA==}
     engines: {node: '>=12.22.0'}
     hasBin: true
@@ -15375,7 +15375,7 @@ packages:
     resolution: {integrity: sha512-FnHq5sTMxC0sk957wHDzRnemFnNBvt/gSY99HzK8F7UP5WAbvP70yX5bd7CjEQkN+TjdxwI7g7lJ6podqrG2/w==}
     dev: false
 
-  /ts-jest/27.1.3_1e2406a8ca2ae3dc934d01f9ee2aebbb:
+  /ts-jest/27.1.3_dysankgkflr5ze2nah464kxlxm:
     resolution: {integrity: sha512-6Nlura7s6uM9BVUAoqLH7JHyMXjz8gluryjpPXxr3IxZdAXnU6FhjvVLHFtfd1vsE1p8zD1OJfskkc0jhTSnkA==}
     engines: {node: ^10.13.0 || ^12.13.0 || ^14.15.0 || >=15.0.0}
     hasBin: true
@@ -15416,7 +15416,7 @@ packages:
       code-block-writer: 11.0.0
     dev: false
 
-  /ts-node/10.5.0_99ae9436e134a034c8d45fdd98ebbf22:
+  /ts-node/10.5.0_tgxjinxbgsqdjsgul7ozr257ei:
     resolution: {integrity: sha512-6kEJKwVxAJ35W4akuiysfKwKmjkbYxwQMTBaAxo9KKAx/Yd26mPUyhGz3ji+EsJoAgrLqVsYHNuuYwQe22lbtw==}
     hasBin: true
     peerDependencies:
@@ -15835,7 +15835,7 @@ packages:
     deprecated: Please see https://github.com/lydell/urix#deprecated
     dev: false
 
-  /url-loader/4.1.1_file-loader@6.2.0+webpack@4.46.0:
+  /url-loader/4.1.1_lit45vopotvaqup7lrvlnvtxwy:
     resolution: {integrity: sha512-3BTV812+AVHHOJQO8O5MkWgZ5aosP7GnROJwvzLS9hWDj00lZ6Z0wNak423Lp9PBZN05N+Jk/N5Si8jRAlGyWA==}
     engines: {node: '>= 10.13.0'}
     peerDependencies:
@@ -16031,7 +16031,7 @@ packages:
     resolution: {integrity: sha512-Jh4wanyvJ5QLDrVtw6VsTqT+1yISp1Fa+5v7VSwf5xyRiYZ0VeffMrSQFrQlt50D7g3CpO/aX9/X/SVWCVCa0w==}
     dev: false
 
-  /vite-plugin-mdx/3.5.10_@mdx-js+mdx@2.0.0+vite@2.8.4:
+  /vite-plugin-mdx/3.5.10_p5zckwea5dbiw3d6gnyruevblq:
     resolution: {integrity: sha512-tfGNRwkO23pln9EYqhbsOLEx9Qot5+enl+727gop7+HGEoC87+88hLRWGL+FU/It1Y0a5P3OAyDbTKKHX6tEJw==}
     peerDependencies:
       '@mdx-js/mdx': '*'
@@ -16196,7 +16196,7 @@ packages:
     resolution: {integrity: sha512-BXq3jwIagosjgNVae6tkHzzIk6a8MHFtzAdwhnV5VlvPTFxDCvIttgSiHWjdGoTJvXtmRu5HacExfdarRcFhog==}
     dev: false
 
-  /vue-loader/15.9.8_559ffc97fd41de05d12663d7fb949156:
+  /vue-loader/15.9.8_kwp7zf75ihpalujgmpl7xferky:
     resolution: {integrity: sha512-GwSkxPrihfLR69/dSV3+5CdMQ0D+jXg8Ma1S4nQXKJAznYFX14vHdc/NetQc34Dw+rBbIJyP7JOuVb9Fhprvog==}
     peerDependencies:
       cache-loader: '*'
