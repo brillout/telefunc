@@ -118,6 +118,11 @@ export const headings: HeadingDefinition[] = [
   },
   {
     level: 2,
+    title: 'File Upload',
+    url: '/file-upload'
+  },
+  {
+    level: 2,
     title: 'Telefunc Server',
     url: '/telefunc-server'
   },
