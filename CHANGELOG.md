@@ -1,3 +1,15 @@
+## [0.1.23](https://github.com/vikejs/telefunc/compare/v0.1.22...v0.1.23) (2022-07-31)
+
+
+### Bug Fixes
+
+* `dist/server/package.json` generation (fix [#33](https://github.com/vikejs/telefunc/issues/33)) ([ccfc607](https://github.com/vikejs/telefunc/commit/ccfc607642d94523d7310b912fdbfbefdc5034d9))
+* add worker exports ([#32](https://github.com/vikejs/telefunc/issues/32)) ([d6c70e8](https://github.com/vikejs/telefunc/commit/d6c70e894cf74505b641c16e6557f7fd0ee7f3e9))
+* tolerate missing __dirname (fix [#32](https://github.com/vikejs/telefunc/issues/32)) ([73f3862](https://github.com/vikejs/telefunc/commit/73f3862d026301932f7555640f7068037306940f))
+* treat `Object.ceate(null)` as plain JavaScript object ([4c3c163](https://github.com/vikejs/telefunc/commit/4c3c1636c07f57f542916f596ea9ce6c5a4d0848))
+
+
+
 ## [0.1.22](https://github.com/vikejs/telefunc/compare/v0.1.21...v0.1.22) (2022-05-10)
 
 
