@@ -1,7 +1,8 @@
 import { Plugin } from 'vite'
 import type { InputOption } from 'rollup'
 import { assert, isObject } from '../utils'
-import { telefuncFilesGlobFileNameBase, telefuncFilesGlobFilePath } from './telefuncFilesGlobPath'
+import { telefuncFilesGlobFileNameBase } from './telefuncFilesGlobFileNameBase'
+import { telefuncFilesGlobFilePath } from './telefuncFilesGlobPath'
 import { isSSR_config } from './utils'
 
 export { build }

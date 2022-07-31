@@ -1,7 +1,8 @@
 export { loadTelefuncFilesWithVite }
 
 import { assert, assertWarning, hasProp, isObject } from '../utils'
-import { telefuncFilesGlobFilePath, telefuncFilesGlobFileNameBase } from './telefuncFilesGlobPath'
+import { telefuncFilesGlobFileNameBase } from './telefuncFilesGlobFileNameBase'
+import { telefuncFilesGlobFilePath } from './telefuncFilesGlobPath'
 import { moduleExists, nodeRequire } from '../utils'
 import { resolve } from 'path'
 import type { ViteDevServer } from 'vite'
