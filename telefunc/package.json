@@ -14,6 +14,7 @@
   "main": "./dist/node/server/index.js",
   "exports": {
     ".": {
+      "worker": "./dist/node/server/index.js",
       "node": "./dist/node/server/index.js",
       "browser": "./dist/client/server.js"
     },
@@ -22,7 +23,8 @@
     },
     "./client": {
       "browser": "./dist/client/index.js",
-      "node": "./dist/node/client.js"
+      "node": "./dist/node/client.js",
+      "worker": "./dist/node/client.js"
     },
     "./vite": {
       "node": "./dist/node/vite/index.js"
