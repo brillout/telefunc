@@ -45,13 +45,15 @@ type Literal<T, Acc extends any[]> = T extends string
   ? ShieldRes<`t.const(${T})`, Acc>
   : false
 
+type Joined<T extends any[], Acc extends any[], List = ShieldList<T>, J = JoinShieldResList<List>> = J extends string ? ShieldRes<J, Acc> : never
+
 type ArrayLike<T extends any[], Acc extends any[] = []> = T extends [...infer U]
   ? Equals<U['length'], number> extends true
   ? T extends (infer V)[]
   ? Shield<V, ['array', ...Acc]>
   : never
   : ShieldList<U> extends ShieldRes<any, any>[]
-  ? ShieldRes<JoinShieldResList<ShieldList<U>>, ['tuple', ...Acc]>
+  ? Joined<U, ["tuple", ...Acc]>
   : never
   : never
 
@@ -97,7 +99,7 @@ type Shield<T, Acc extends any[] = []> = SimpleType<T> extends ShieldRes<any>
   : never
 
 type ShieldUnion<T, Acc extends any[]> = ShieldList<UnionToTuple<T>> extends ShieldRes<any, any>[]
-  ? ShieldRes<JoinShieldResList<ShieldList<UnionToTuple<T>>>, ["union", ...Acc]> : never
+  ? Joined<UnionToTuple<T>, ["union", ...Acc]> : never
 
 type IsUnion<T> = [T] extends [UnionToIntersection<T>] ? false : true
 
@@ -127,7 +129,7 @@ type WrapShieldRes<T extends ShieldRes<any, any>> = T extends ShieldRes<infer S,
 
 type Sep<T> = T extends '' ? '' : ', '
 
-type JoinShieldResList<T extends ShieldRes<any, any>[], Acc extends string = ''> = T extends [infer Head, ...infer Tail]
+type JoinShieldResList<T, Acc extends string = ''> = T extends [infer Head, ...infer Tail]
   ? Head extends ShieldRes<any, any>
   ? Tail extends ShieldRes<any, any>[]
   ? JoinShieldResList<Tail, `${Acc}${Sep<Acc>}${WrapShieldRes<Head>}`>
@@ -151,7 +153,7 @@ export type Head<L extends any[]> = L['length'] extends 0 ? never : L[0]
 
 type ShieldStrMap<T extends any[]> = Head<T> extends never ? [] : [ShieldStr<Head<T>>, ...ShieldStrMap<Tail<T>>]
 
-export type ShieldArrStr<T extends any[]> = `[${JoinStrings<ShieldStrMap<T>>}]`
+export type ShieldArrStr<T extends any[], M = ShieldStrMap<T>> = M extends any [] ? `[${JoinStrings<M>}]` : never
 
 // @ts-expect-error (unused variable)
 type _cases = [
