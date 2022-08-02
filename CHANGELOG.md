@@ -1,3 +1,12 @@
+## [0.1.24](https://github.com/vikejs/telefunc/compare/v0.1.23...v0.1.24) (2022-08-02)
+
+
+### Bug Fixes
+
+* [`shield()` auto generator] support latest TypeScript version ([a9fba17](https://github.com/vikejs/telefunc/commit/a9fba1782419104914d1beeb272a8d101a38246c))
+
+
+
 ## [0.1.23](https://github.com/vikejs/telefunc/compare/v0.1.22...v0.1.23) (2022-07-31)
 
 
