@@ -1,4 +1,4 @@
-To track errors, we use `onBug()`:
+To track bugs, we use `onBug()`:
 
 ```js
 import { onBug } from 'telefunc'
@@ -11,7 +11,7 @@ onBug(err => {
 Allowing us, for example, to install the tracker code of a tracking service ([Sentry](https://sentry.io/), [Bugsnag](https://www.bugsnag.com/), [Rollbar](https://rollbar.com/), ...).
 
 `onBug()` is called:
- - When Telefunc throws an error (Telefunc has a bug).
- - When one of your telefunction throws an error (your telefunction has a bug).
+ - When one of your telefunction throws an error that is not `Abort()`. (In other words, your telefunction has a bug.)
+ - When Telefunc throws an error. (In other words, Telefunc has a bug).
 
-> Note that `throw Abort()` won't trigger `onBug()`: it is expected that a third-party may make a wrongful call that leads to a `throw Abort()`. In other words: `throw Abort()` is expected and isn't a bug.
+> `throw Abort()` does *not* trigger `onBug()`. It's expected that `throw Abort()` may be called (when some third-party erroneously calls a telefunction). In other words, `throw Abort()` isn't a bug.

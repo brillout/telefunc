@@ -1,0 +1,85 @@
+import { Link } from 'libframe-docs/components'
+
+Common erroneous situations and we handle them:
+ - A telefunction is called with wrong permissions, see <Link href="/permissions" />.
+ - The user entered invalid `<form>` values, see <Link href="/form-validation" />.
+ - Our code has a bug, see [Bugs](#bugs).
+ - The user's browser coulnd't connect to our server, see [Network Errors](#network-errors).
+
+To track errors: <Link href="/error-tracking" />.
+
+> Telefunc automatically sets the right HTTP status code: we don't have to care about this.
+
+
+## Bugs
+
+If a telefunction has a bug:
+
+```js
+// hello.telefunc.js
+// Environment: Node.js
+
+export { hello }
+
+function hello(name) {
+  // This telefunction has a bug: it should be `name` instead of `namee`
+  return 'Hello ' + namee;
+}
+```
+
+Then the telefunction call throws an error:
+
+```html
+<!-- index.html -->
+<!-- Environment: Browser -->
+
+<html>
+  <body>
+    <script type="module">
+      import { hello } from './hello.telefunc.js'
+
+      try {
+        await hello('Eva')
+        console.log("I'm never printed")
+      } catch(err) {
+        console.log(err.message) // Prints 'Server Error'
+      }
+    </script>
+  </body>
+</html>
+```
+
+This means we can treat bugs occuring in our telefunctions just like any other bug.
+
+> Just like with other bugs, we usually use our UI Framwork (React, Vue, ...) to handle bugs occuring during a telefunction call.
+
+
+## Network Errors
+
+A telefunction call throws an error if it cannot connect to the server:
+
+```html
+<!-- index.html -->
+<!-- Environment: Browser -->
+
+<html>
+  <body>
+    <script type="module">
+      import { hello } from './hello.telefunc.js'
+
+      try {
+        await hello('Eva')
+      } catch(err) {
+        if (err.isConnectionError) {
+          // There is a network problem:
+          //  - the user isn't connected to the internet, or
+          //  - our server is down.
+          console.log(err.message) // Prints 'No Server Connection'
+        }
+      }
+    </script>
+  </body>
+</html>
+```
+
+We usually use our UI Framework (React, Vue, ...) to gracefully handle network problems.

@@ -93,6 +93,11 @@ export const headings: HeadingDefinition[] = [
   },
   {
     level: 2,
+    title: 'Error Handling',
+    url: '/error-handling',
+  },
+  {
+    level: 2,
     title: 'File structure',
     url: '/file-structure'
   },
