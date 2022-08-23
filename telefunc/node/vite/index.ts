@@ -6,11 +6,10 @@ import { build } from './build'
 import { packageJsonFile } from './packageJsonFile'
 import { retrieveDevServer } from './retrieveDevServer'
 import type { Plugin } from 'vite'
-import { distLinkOn, distLinkOff } from './distLink'
+import { importBuild } from './plugins/importBuild'
 import { importGlobOn } from './importGlob'
 
 function plugin(): Plugin[] {
-  distLinkOff()
   importGlobOn()
   return [
     {
@@ -26,6 +25,6 @@ function plugin(): Plugin[] {
     transform(),
     build(),
     packageJsonFile(),
-    distLinkOn()
+    ...importBuild()
   ]
 }

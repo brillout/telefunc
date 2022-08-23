@@ -2,7 +2,7 @@
   "scripts": {
     "dev": "npm run server",
     "prod": "npm run build && npm run server:prod",
-    "build": "vite build && vite build --ssr",
+    "build": "vite build",
     "server": "node ./server",
     "server:prod": "cross-env NODE_ENV=production node ./server"
   },
@@ -13,7 +13,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "telefunc": "0.1.24",
-    "vite": "2.6.7",
-    "vite-plugin-ssr": "^0.3.26"
+    "vite": "^3.0.9",
+    "vite-plugin-ssr": "^0.4.26"
   }
 }

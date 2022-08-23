@@ -26,6 +26,11 @@
       "node": "./dist/node/client.js",
       "worker": "./dist/node/client.js"
     },
+    "./react": {
+      "worker": "./dist/node/react/index.js",
+      "node": "./dist/node/react/index.js",
+      "browser": "./dist/client/reac/index.js"
+    },
     "./vite": {
       "node": "./dist/node/vite/index.js"
     },
@@ -46,6 +51,7 @@
     "@brillout/json-s": "^0.4.6",
     "@brillout/libassert": "^0.5.8",
     "es-module-lexer": "^0.7.1",
+    "vite-plugin-import-build": "^0.2.3",
     "ts-morph": "^14.0.0"
   },
   "devDependencies": {

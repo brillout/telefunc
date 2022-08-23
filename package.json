@@ -40,5 +40,8 @@
   },
   "dependencies": {
     "@brillout/submodule-init": "0.1.2"
+  },
+  "devDependencies": {
+    "@brillout/dev-my-dep": "^0.0.9"
   }
 }
