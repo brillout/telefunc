@@ -34,6 +34,7 @@
     "========= Clean": "",
     "// Remove all generated files": "",
     "clean": "git clean -Xdf",
+    "reset": "pnpm run clean && pnpm install && pnpm run build",
     "========= Only allow pnpm; forbid yarn & npm": "",
     "preinstall": "npx only-allow pnpm"
   },
