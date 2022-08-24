@@ -1,5 +1,6 @@
 import express from 'express'
 import { telefunc } from 'telefunc'
+const port = process.env.PORT || 3000
 
 startServer()
 
@@ -11,7 +12,6 @@ async function startServer() {
 }
 
 function start(app) {
-  const port = process.env.PORT || 3000
   app.listen(port)
   console.log(`Server running at http://localhost:${port}`)
 }
@@ -31,7 +31,7 @@ async function installFrontend(app) {
     app.use(express.static(`${root}/dist/client`))
   } else {
     const vite = await import('vite')
-    const viteDevServer = await vite.createServer()
+    const viteDevServer = await vite.createServer({ server: { port, host: 'http://100.115.92.199/'} })
     app.use(viteDevServer.middlewares)
   }
 }
