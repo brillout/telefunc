@@ -10,7 +10,7 @@
     "cross-env": "^7.0.3",
     "express": "^4.17.1",
     "telefunc": "0.1.24",
-    "vite": "^2.7.12"
+    "vite": "^3.0.9"
   },
   "type": "module"
 }

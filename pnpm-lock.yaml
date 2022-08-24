@@ -162,12 +162,12 @@ importers:
       cross-env: ^7.0.3
       express: ^4.17.1
       telefunc: 0.1.24
-      vite: ^2.7.12
+      vite: ^3.0.9
     dependencies:
       cross-env: 7.0.3
       express: 4.17.2
       telefunc: link:../../telefunc
-      vite: 2.7.13
+      vite: 3.0.9
 
   examples/vite-plugin-ssr:
     specifiers:
