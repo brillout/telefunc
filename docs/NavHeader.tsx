@@ -1,5 +1,5 @@
 import React from 'react'
-import logoUrl from '../icons/telefunc.svg'
+import logoUrl from './icons/telefunc.svg'
 
 export { NavHeader }
 export { NavHeaderMobile }

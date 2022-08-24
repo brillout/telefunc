@@ -1,6 +1,6 @@
 import React from 'react'
-import { Emoji } from 'libframe-docs/utils/Emoji'
-import { FeatureList } from 'libframe-docs/landing-page/features/FeatureList'
+import { Emoji } from 'vikepress'
+import { FeatureList } from 'vikepress'
 
 export { Features }
 
