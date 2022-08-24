@@ -31,9 +31,9 @@ function getImporterCode(config: ResolvedConfig, telefuncFilesEntry: string) {
   const importPathAbsolute = toPosixPath(
     require.resolve(`../../../../../dist/node/vite/plugins/importBuild/loadBuild.js`)
   )
-  const { outDirServer } = getOutDirs(config.build.outDir)
-  const outDirServerAbsolute = path.posix.join(config.root, outDirServer)
-  const importPath = path.posix.relative(outDirServerAbsolute, importPathAbsolute)
+  const { outDirServer } = getOutDirs(config)
+  const importPath = path.posix.relative(outDirServer, importPathAbsolute)
+  // console.log(`\n  importPath: ${importPath}\n  outDirServer: ${outDirServer}\n  importPathAbsolute: ${importPathAbsolute}\n  config.build.outDir: ${config.build.outDir}`)
   const importerCode = [
     `const { setBuildLoader } = require('${importPath}');`,
     'setBuildLoader({',

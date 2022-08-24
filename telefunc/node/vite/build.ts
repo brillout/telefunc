@@ -3,7 +3,7 @@ import type { InputOption } from 'rollup'
 import { assert, isObject } from '../utils'
 import { telefuncFilesGlobFileNameBase } from './telefuncFilesGlobFileNameBase'
 import { telefuncFilesGlobFilePath } from './telefuncFilesGlobPath'
-import { isSSR_config } from './utils'
+import { isSSR_config, determineOutDir } from './utils'
 
 export { build }
 
@@ -12,10 +12,11 @@ function build(): Plugin {
     name: 'telefunc:build',
     apply: 'build',
     config: (config) => {
+      const outDir = determineOutDir(config)
       if (!isSSR_config(config)) {
         return {
           build: {
-            outDir: 'dist/client'
+            outDir
           }
         }
       } else {
@@ -27,7 +28,7 @@ function build(): Plugin {
         return {
           build: {
             rollupOptions: { input },
-            outDir: 'dist/server'
+            outDir
           }
         }
       }

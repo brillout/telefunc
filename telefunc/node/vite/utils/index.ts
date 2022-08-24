@@ -1,6 +1,5 @@
 export * from '../../utils/isSSR'
 export * from '../../utils/assert'
-export * from '../../utils/assertPosixPath'
 export * from '../../utils/projectInfo'
 export * from '../../utils/filesystemPathHandling'
 export * from '../../utils/getOutDirs'
