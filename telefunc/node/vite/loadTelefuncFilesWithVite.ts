@@ -1,6 +1,6 @@
 export { loadTelefuncFilesWithVite }
 
-import { loadImportBuildFile } from 'vite-plugin-import-build/loadImportBuildFile'
+import { loadBuild } from '@brillout/vite-plugin-import-build/loadBuild'
 import { assert, assertWarning, hasProp, isObject } from '../utils'
 import { telefuncFilesGlobFilePath } from './telefuncFilesGlobPath'
 import type { ViteDevServer } from 'vite'
@@ -45,7 +45,7 @@ async function loadGlobImporter(runContext: {
   }
 
   {
-    const { success, entryFile } = await loadImportBuildFile()
+    const { success, entryFile } = await loadBuild()
     if (success) {
       const moduleExports = await loadTelefuncFilesWithImportBuild()
       assert(moduleExports, { entryFile })

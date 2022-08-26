@@ -1,6 +1,6 @@
 export { importBuild }
 
-import { importBuildPlugin } from 'vite-plugin-import-build/plugin'
+import { importBuild as importBuild_ } from '@brillout/vite-plugin-import-build/plugin'
 import type { Plugin, ResolvedConfig } from 'vite'
 import { projectInfo, toPosixPath, getOutDirs } from '../../utils'
 import path from 'path'
@@ -16,7 +16,7 @@ function importBuild(): Plugin[] {
         config = config_
       }
     },
-    importBuildPlugin({
+    importBuild_({
       getImporterCode: ({ findBuildEntry }) => {
         const telefuncFilesEntry = findBuildEntry(telefuncFilesGlobFileNameBase)
         return getImporterCode(config, telefuncFilesEntry)
