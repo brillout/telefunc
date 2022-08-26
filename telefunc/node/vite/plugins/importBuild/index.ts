@@ -27,9 +27,9 @@ function importBuild(): Plugin[] {
 }
 
 function getImporterCode(config: ResolvedConfig, telefuncFilesEntry: string) {
-  // Current file: node_modules/telefunc/dist/node/vite/plugins/importBuild/index.js
+  // Current file: node_modules/telefunc/dist/cjs/node/vite/plugins/importBuild/index.js
   const importPathAbsolute = toPosixPath(
-    require.resolve(`../../../../../dist/node/vite/plugins/importBuild/loadBuild.js`)
+    require.resolve(`../../../../../../dist/cjs/node/vite/plugins/importBuild/loadBuild.js`)
   )
   const { outDirServer } = getOutDirs(config)
   const importPath = path.posix.relative(outDirServer, importPathAbsolute)

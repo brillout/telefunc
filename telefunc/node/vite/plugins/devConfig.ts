@@ -43,9 +43,9 @@ function devConfig(): Plugin[] {
 async function determineFsAllowList(config: ResolvedConfig) {
   const fsAllow = config.server.fs.allow
 
-  // Current directory: node_modules/telefunc/dist/node/vite/plugins/devConfig.js
-  const telefuncRoot = path.join(__dirname, '../../../../')
+  // Current directory: node_modules/telefunc/dist/cjs/node/vite/plugins/devConfig.js
+  const telefuncRoot = path.join(__dirname, '../../../../../')
   // Assert that `telefuncRoot` is indeed pointing to `node_modules/vite-plugin-ssr/`
-  require.resolve(`${telefuncRoot}/dist/node/vite/plugins/devConfig.js`)
+  require.resolve(`${telefuncRoot}/dist/cjs/node/vite/plugins/devConfig.js`)
   fsAllow.push(telefuncRoot)
 }

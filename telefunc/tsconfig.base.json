@@ -6,6 +6,9 @@
     "noUnusedLocals": true,
     "noUnusedParameters": true,
     "esModuleInterop": true,
-    "noUncheckedIndexedAccess": true
-  }
+    "noUncheckedIndexedAccess": true,
+    "rootDir": "./",
+    "lib": ["DOM", "ESNext"]
+  },
+  "exclude": ["./node_modules/", "./dist/", "**/*.spec.ts"]
 }

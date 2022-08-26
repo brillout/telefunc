@@ -11,40 +11,40 @@
     "tsc:watch:client": "tsc --incremental --watch --project ./client/tsconfig.json",
     "tsc:tests": "tsc --project ./tsconfig.tests.json"
   },
-  "main": "./dist/node/server/index.js",
+  "main": "./dist/cjs/node/server/index.js",
   "exports": {
     ".": {
-      "worker": "./dist/node/server/index.js",
-      "node": "./dist/node/server/index.js",
-      "browser": "./dist/client/server.js"
+      "worker": "./dist/cjs/node/server/index.js",
+      "node": "./dist/cjs/node/server/index.js",
+      "browser": "./dist/esm/client/server.js"
     },
     "./async_hooks": {
-      "node": "./dist/node/server/async_hooks.js"
+      "node": "./dist/cjs/node/server/async_hooks.js"
     },
     "./client": {
-      "browser": "./dist/client/index.js",
-      "node": "./dist/node/client.js",
-      "worker": "./dist/node/client.js"
+      "browser": "./dist/esm/client/index.js",
+      "node": "./dist/cjs/node/client.js",
+      "worker": "./dist/cjs/node/client.js"
     },
     "./react": {
-      "worker": "./dist/node/react/index.js",
-      "node": "./dist/node/react/index.js",
-      "browser": "./dist/client/reac/index.js"
+      "worker": "./dist/cjs/node/react/index.js",
+      "node": "./dist/cjs/node/react/index.js",
+      "browser": "./dist/esm/client/reac/index.js"
     },
     "./vite": {
-      "node": "./dist/node/vite/index.js"
+      "node": "./dist/cjs/node/vite/index.js"
     },
     "./webpack/loader": {
-      "node": "./dist/node/webpack/loader.js"
+      "node": "./dist/cjs/node/webpack/loader.js"
     },
     "./next": {
-      "node": "./dist/node/next/index.js"
+      "node": "./dist/cjs/node/next/index.js"
     },
     "./nuxt": {
-      "node": "./dist/node/nuxt/index.js"
+      "node": "./dist/cjs/node/nuxt/index.js"
     },
     "./babel": {
-      "node": "./dist/node/babel/plugin.js"
+      "node": "./dist/cjs/node/babel/plugin.js"
     }
   },
   "dependencies": {
@@ -65,8 +65,8 @@
     "vite": "^3.0.9"
   },
   "files": [
-    "dist/node/",
-    "dist/client/",
+    "dist/cjs/",
+    "dist/esm/",
     "*.d.ts",
     "*.js"
   ],
