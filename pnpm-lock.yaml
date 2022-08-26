@@ -177,7 +177,7 @@ importers:
       react-dom: ^17.0.2
       telefunc: 0.1.24
       vite: ^3.0.9
-      vite-plugin-ssr: ^0.4.26
+      vite-plugin-ssr: ^0.4.27
     dependencies:
       '@vitejs/plugin-react': 1.1.4
       cross-env: 7.0.3
@@ -186,7 +186,7 @@ importers:
       react-dom: 17.0.2_react@17.0.2
       telefunc: link:../../telefunc
       vite: 3.0.9
-      vite-plugin-ssr: 0.4.26_vite@3.0.9
+      vite-plugin-ssr: 0.4.27_vite@3.0.9
 
   libframe/scripts:
     specifiers:
@@ -16496,27 +16496,24 @@ packages:
       vite-plugin-import-build: 0.2.3
     dev: false
 
-  /vite-plugin-ssr/0.4.26_vite@3.0.9:
-    resolution: {integrity: sha512-VCGy7XBko2hVe7HwMaifIPI2TcFP4TqcItLapgtY/SSfqekwruLyAm1h1tKATf75pyZlquCJcOij9f6EpIuzhQ==}
+  /vite-plugin-ssr/0.4.27_vite@3.0.9:
+    resolution: {integrity: sha512-RmkOimfI1X85wZTKfhljLA5BNMr/vLrSo4GWmCObFRe0eArqjrq1P9GteNBwFGkLsmjM+emMQ9LYGiFVUpowrw==}
     engines: {node: '>=12.19.0'}
     hasBin: true
     peerDependencies:
       vite: '>=2.9.10'
     dependencies:
-      '@brillout/debug': 0.1.1
       '@brillout/json-s': 0.4.6
-      '@brillout/libassert': 0.5.8
+      '@brillout/vite-plugin-import-build': 0.1.0
       cac: 6.7.12
       es-module-lexer: 0.10.5
       fast-glob: 3.2.11
       kolorist: 1.5.1
-      p-limit: 3.1.0
       picocolors: 1.0.0
       resolve: 1.22.1
       symlink-dir: 5.0.1
       vite: 3.0.9
       vite-plugin-glob: 0.2.8
-      vite-plugin-import-build: 0.2.3
     dev: false
 
   /vite/2.6.7:
