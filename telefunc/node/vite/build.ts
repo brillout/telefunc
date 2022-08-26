@@ -3,7 +3,7 @@ import type { InputOption } from 'rollup'
 import { assert, isObject } from '../utils'
 import { telefuncFilesGlobFileNameBase } from './telefuncFilesGlobFileNameBase'
 import { telefuncFilesGlobFilePath } from './telefuncFilesGlobPath'
-import { isSSR_config, determineOutDir } from './utils'
+import { viteIsSSR, determineOutDir } from './utils'
 
 export { build }
 
@@ -13,7 +13,7 @@ function build(): Plugin {
     apply: 'build',
     config: (config) => {
       const outDir = determineOutDir(config)
-      if (!isSSR_config(config)) {
+      if (!viteIsSSR(config)) {
         return {
           build: {
             outDir
