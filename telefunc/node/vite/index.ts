@@ -9,7 +9,6 @@ import { retrieveDevServer } from './retrieveDevServer'
 import type { Plugin } from 'vite'
 import { importBuild } from './plugins/importBuild'
 import { importGlobOn } from './importGlob'
-import { commonConfig } from './plugins/commonConfig'
 import { previewConfig } from './plugins/previewConfig'
 
 function plugin(): Plugin[] {
@@ -29,7 +28,6 @@ function plugin(): Plugin[] {
     build(),
     packageJsonFile(),
     ...importBuild(),
-    commonConfig(),
     ...devConfig(),
     previewConfig()
   ]
