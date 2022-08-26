@@ -163,10 +163,10 @@ importers:
   examples/vite:
     specifiers:
       telefunc: 0.1.24
-      vite: ^3.0.9
+      vite: npm:@brillout/vite@3.1.0-apptype-fix
     dependencies:
       telefunc: link:../../telefunc
-      vite: 3.0.9
+      vite: /@brillout/vite/3.1.0-apptype-fix
 
   examples/vite-plugin-ssr:
     specifiers:
@@ -2528,6 +2528,33 @@ packages:
 
   /@brillout/vite-plugin-import-build/0.1.0:
     resolution: {integrity: sha512-zn90Jwy9TKrBSB45ikPMmxvnGRRfrreeGKtb0DWbKrxlFf+0dOPSmPxxgO7EKBahQJAC8XxeUSMKcPwPmR1b4Q==}
+    dev: false
+
+  /@brillout/vite/3.1.0-apptype-fix:
+    resolution: {integrity: sha512-+STvKnN99E8liTJu9FfpTPIeVFaUWPZQ9JMbq+J19/J90coageXos9M5fhPTyDckSAqwDy1XSsT5AH2vM6YboA==}
+    engines: {node: ^14.18.0 || >=16.0.0}
+    hasBin: true
+    peerDependencies:
+      less: '*'
+      sass: '*'
+      stylus: '*'
+      terser: ^5.4.0
+    peerDependenciesMeta:
+      less:
+        optional: true
+      sass:
+        optional: true
+      stylus:
+        optional: true
+      terser:
+        optional: true
+    dependencies:
+      esbuild: 0.14.54
+      postcss: 8.4.16
+      resolve: 1.22.1
+      rollup: 2.78.1
+    optionalDependencies:
+      fsevents: 2.3.2
     dev: false
 
   /@cloudflare/kv-asset-handler/0.2.0:
@@ -14580,6 +14607,14 @@ packages:
     hasBin: true
     optionalDependencies:
       fsevents: 2.3.2
+
+  /rollup/2.78.1:
+    resolution: {integrity: sha512-VeeCgtGi4P+o9hIg+xz4qQpRl6R401LWEXBmxYKOV4zlF82lyhgh2hTZnheFUbANE8l2A41F458iwj2vEYaXJg==}
+    engines: {node: '>=10.0.0'}
+    hasBin: true
+    optionalDependencies:
+      fsevents: 2.3.2
+    dev: false
 
   /run-async/2.4.1:
     resolution: {integrity: sha512-tvVnVv01b8c1RrA6Ep7JkStj85Guv/YrMcwqYQnwjsAS2cTmmPGBBjAjpCW7RrSodNSoE2/qg9O4bceNvUuDgQ==}
