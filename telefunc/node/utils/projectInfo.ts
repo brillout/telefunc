@@ -1,1 +1,0 @@
-../../client/utils/projectInfo.ts

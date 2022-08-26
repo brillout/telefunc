@@ -1,6 +1,7 @@
 export { getGlobalObject }
 
-import { assert, isObject } from '.'
+import { assert } from './assert'
+import { isObject } from './isObject'
 
 function getGlobalObject<T extends Record<string, unknown>>(key: string, defaultValue: T): T {
   assert(key.startsWith('__internal_telefunc'))

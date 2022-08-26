@@ -1,7 +1,8 @@
-import { isAbsolute, resolve } from 'path'
-import { assert, nodeRequire } from '../utils'
-
 export { moduleExists }
+
+import { isAbsolute, resolve } from 'path'
+import { assert } from './assert'
+import { nodeRequire } from './nodeRequire'
 
 function moduleExists(modulePath: string, dir?: string): boolean {
   if (!isAbsolute(modulePath)) {
