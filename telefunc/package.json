@@ -80,7 +80,7 @@
     "typescript"
   ],
   "description": "Remote functions. Instead of API.",
-  "repository": "https://github.com/vikejs/telefunc",
+  "repository": "https://github.com/brillout/telefunc",
   "homepage": "https://telefunc.com",
   "license": "MIT"
 }

@@ -24,13 +24,13 @@
 Install all dependencies of the entire monorepo:
 
 ```shell
-git clone git@github.com:vikejs/telefunc
+git clone git@github.com:brillout/telefunc
 cd telefunc/
 pnpm run setup
 pnpm install
 ```
 
-> We need `pnpm run setup` for setting up the [`libframe/`](https://github.com/vikejs/libframe) submodule.
+> We need `pnpm run setup` for setting up the [`libframe/`](https://github.com/brillout/libframe) submodule.
 
 Build the Telefunc source code:
 

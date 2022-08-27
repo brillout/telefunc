@@ -12,4 +12,4 @@ Chat: <a href="https://discord.com/invite/dSDMGGJZQy">Discord > Cubes<img src="/
 
 Have a question? Want a feature? Found a bug?
 <a href="https://discord.com/invite/dSDMGGJZQy">Join our Discord</a> or
-<a href="https://github.com/vikejs/telefunc/issues/new">open a GitHub ticket</a>.
+<a href="https://github.com/brillout/telefunc/issues/new">open a GitHub ticket</a>.
