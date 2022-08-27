@@ -11,9 +11,10 @@ import { importBuild } from './plugins/importBuild'
 import { importGlobOn } from './importGlob'
 import { previewConfig } from './plugins/previewConfig'
 
-function plugin(): Plugin[] {
+// Return as `any` to avoid Plugin type mismatches when there are multiple Vite versions installed
+function plugin(): any {
   importGlobOn()
-  return [
+  const plugins: Plugin[] = [
     {
       name: 'telefunc:config',
       config: () => ({
@@ -31,4 +32,5 @@ function plugin(): Plugin[] {
     ...devConfig(),
     previewConfig()
   ]
+  return plugins
 }
