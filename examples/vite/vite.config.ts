@@ -1,7 +1,12 @@
 import { telefunc } from 'telefunc/vite'
 import type { UserConfig } from 'vite'
 
+const port = 3000
+
 export default {
   plugins: [telefunc()],
-  build: { target: 'esnext' }
+  build: { target: 'esnext' },
+  appType: 'mpa',
+  server: { port, host: true },
+  preview: { port }
 } as UserConfig
