@@ -2,10 +2,10 @@ export { importGlobOff }
 export { importGlobOn }
 
 import { writeFileSync } from 'fs'
+import { scriptFileExtensions } from './utils'
 const dir = __dirname + (() => '')() // trick to avoid `@vercel/ncc` to glob import
 const telefuncFilesGlobPath = `${dir}/telefuncFilesGlob.js`
-// Pattern `*([a-zA-Z0-9])` is an Extglob: https://github.com/micromatch/micromatch#extglobs
-const importGlob = 'import.meta.glob("/**/*.telefunc.*([a-zA-Z0-9])")'
+const importGlob = `import.meta.glob("/**/*.telefunc.${scriptFileExtensions}")`
 
 function importGlobOff() {
   writeFileSync(
