@@ -5,7 +5,7 @@ import type { ViteDevServer } from 'vite'
 
 type ConnectServer = ViteDevServer['middlewares']
 function addTelefuncMiddleware(middlewares: ConnectServer) {
-  middlewares.use(async (req, res, next) => {
+  middlewares.use((req, res, next) => {
     if (res.headersSent) return next()
 
     const url = req.originalUrl || req.url
@@ -14,6 +14,7 @@ function addTelefuncMiddleware(middlewares: ConnectServer) {
     if (url !== '/_telefunc') return next()
 
     // https://stackoverflow.com/questions/12497358/handling-text-plain-in-express-via-connect/12497793#12497793
+    // Alternative: https://www.npmjs.com/package/raw-body
     let body = ''
     let bodyPromiseResolve: () => void
     let bodyPromise = new Promise((r) => (bodyPromiseResolve = () => r(undefined)))
