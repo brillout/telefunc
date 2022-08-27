@@ -1,4 +1,4 @@
-import type { HeadingDefinition, HeadingWithoutLink } from 'libframe-docs/headings'
+import type { HeadingDefinition, HeadingWithoutLink } from 'vikepress'
 
 export { headingsWithoutLink }
 
@@ -93,6 +93,11 @@ export const headings: HeadingDefinition[] = [
   },
   {
     level: 2,
+    title: 'Error Handling',
+    url: '/error-handling',
+  },
+  {
+    level: 2,
     title: 'File structure',
     url: '/file-structure'
   },
@@ -115,6 +120,11 @@ export const headings: HeadingDefinition[] = [
     level: 2,
     title: 'Error Tracking',
     url: '/error-tracking'
+  },
+  {
+    level: 2,
+    title: 'File Upload',
+    url: '/file-upload'
   },
   {
     level: 2,

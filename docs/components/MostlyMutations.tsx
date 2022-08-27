@@ -1,6 +1,6 @@
 export { MostlyMutations }
 
-import { Link } from 'libframe-docs/components'
+import { Link } from 'vikepress'
 import React from 'react'
 
 function MostlyMutations({ toolName }: { toolName: JSX.Element | string }) {
@@ -15,7 +15,7 @@ function MostlyMutations({ toolName }: { toolName: JSX.Element | string }) {
         and hydrated. For example, for modifying a to-do item, or for feeding data to an infinite scroll component.
       </p>
       <p>
-        Also see:
+        See also:
         <ul>
           <li>
             <Link href="/ssr#ssr-frameworks" doNotInferSectionTitle={true} />

@@ -1,0 +1,96 @@
+import { Link } from 'vikepress'
+
+You may wonder, why not using `throw new Error()` instead of `throw Abort()`?
+
+```js
+// TodoList.telefunc.js
+// Environment: Node.js
+
+import { getContext } from 'telefunc'
+
+export async function getTodoList() {
+  const { user } = getContext()
+  if (!user) {
+    // Instead of `throw Abort()`
+    throw new Error()
+  }
+
+  // ...
+}
+```
+
+In principle we could as well use `throw new Error()` because, like `throw Abort()`, it cancels and therefore secures telefunction calls. But it leads to subtle erroneous Telefunc behavior.
+
+Essentially, by using `throw Abort()`, we are telling Telefunc that this is an error that is expected to happen when a third-party makes an invalid/unprivileged call. Whereas `throw new Error()` is unexpected: it should never happen and, if it does happen, then it's a bug in our backend code.
+
+For example, a `throw Abort()` will not trigger our `onTelefuncServerError()` callbacks. See <Link href="/error-tracking" />.
+
+
+## Rule
+
+The rule for a correct usage is:
+ - We use **`throw Abort()`** for errors originating from a **wrong public usage** of a telefunction.
+ - We use **`throw new Error()`** for errors originating from a **wrong internal usage** of a function.
+
+
+## Example
+
+```js
+// auth/getUser.ts
+// Environment: Node.js
+
+// Note that `auth/getUser.ts` is not a `.telefunc.js` file (`getUser()` is
+// not a telefunction but a so-called `getContext()` wrapper).
+export { getUser }
+
+import { Abort, getContext } from 'telefunc'
+
+function getUser({ permission }) {
+  if (!permission) {
+    throw new Error('Wrong getUser() usage: missing permission')
+  }
+  // We avoid typos (a typo like `admni` could have dramatic consequences)
+  if (!['public', 'admin'].includes(permission)) {
+    throw new Error('Wrong getUser() usage: unknown permission ' + permission)
+  }
+
+  const { user } = getContext()
+
+  if (!user) {
+    throw Abort()
+  }
+
+  if (permission === 'admin') {
+    if (!user.isAdmin) {
+      throw Abort()
+    }
+    return user
+  }
+
+  if (permission === 'public') {
+    return user
+  }
+}
+```
+
+> Such `getContext()` wrapper is a common Telefunc technique explained at <Link href="/permissions#getcontext-wrappers" doNotInferSectionTitle={true} />.
+
+```js
+// components/Comment.telefunc.js
+// Environment: Node.js
+
+import { getUser } from '../auth/getUser'
+import { shield } from 'telefunc'
+
+shield(onCommentDelete, [shield.type.number])
+export async function onCommentDelete(id) {
+  // Only admins are allowed to delete a comment
+  const user = getUser({ permission: 'admin' })
+  const comment = await Comment.findOne({ id })
+  await comment.delete()
+}
+```
+
+It is expected that `throw Abort()` can occur, since `onCommentDelete()` is a public function anyone can call while not being an admin.
+
+Whereas `throw new Error('Wrong getUser() usage')` is expected to *not* occur: if we make a typo and call `getUser({ permission: 'admni' })` then it's an internal bug in our backend that we should fix.

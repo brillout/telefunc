@@ -3,10 +3,14 @@ import { page, run, urlBase, autoRetry, fetchHtml, fetch } from '../../libframe/
 export { testRun }
 
 function testRun(
-  cmd: 'npm run dev' | 'npm run prod' | 'npm run start',
+  cmd: 'npm run dev' | 'npm run preview' | 'npm run start',
   { skipShieldGenerationTest }: { skipShieldGenerationTest?: true } = {}
 ) {
-  run(cmd)
+  {
+    const isViteCli = cmd !== 'npm run start'
+    const serverIsReadyMessage = isViteCli ? 'Local:' : undefined
+    run(cmd, { serverIsReadyMessage })
+  }
 
   test('example', async () => {
     {

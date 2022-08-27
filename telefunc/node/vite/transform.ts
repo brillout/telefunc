@@ -1,8 +1,7 @@
 import { Plugin } from 'vite'
-import { assert, toPosixPath } from '../utils'
 import { transformTelefuncFile } from '../transformer/transformTelefuncFile'
-import { isSSR_options } from './utils'
 import { generateShield } from '../server/shield/codegen/transformer'
+import { assert, toPosixPath, viteIsSSR_options } from './utils'
 
 export { transform }
 
@@ -19,7 +18,7 @@ function transform(): Plugin {
       if (!id.includes('.telefunc.')) {
         return
       }
-      if (!isSSR_options(options)) {
+      if (!viteIsSSR_options(options)) {
         return transformTelefuncFile(code, id, root)
       } else {
         if (id.endsWith('.ts')) {

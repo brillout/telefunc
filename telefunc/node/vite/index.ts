@@ -2,15 +2,16 @@ export { plugin as telefunc }
 export default plugin
 
 import { transform } from './transform'
+import { devConfig } from './plugins/devConfig'
 import { build } from './build'
-import { packageJsonFile } from './packageJsonFile'
+import { packageJsonFile } from './plugins/packageJsonFile'
 import { retrieveDevServer } from './retrieveDevServer'
 import type { Plugin } from 'vite'
-import { distLinkOn, distLinkOff } from './distLink'
+import { importBuild } from './plugins/importBuild'
 import { importGlobOn } from './importGlob'
+import { previewConfig } from './plugins/previewConfig'
 
 function plugin(): Plugin[] {
-  distLinkOff()
   importGlobOn()
   return [
     {
@@ -26,6 +27,8 @@ function plugin(): Plugin[] {
     transform(),
     build(),
     packageJsonFile(),
-    distLinkOn()
+    ...importBuild(),
+    ...devConfig(),
+    previewConfig()
   ]
 }

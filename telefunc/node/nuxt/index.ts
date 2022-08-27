@@ -10,4 +10,4 @@ const telefuncModule: Module = function () {
 export default telefuncModule
 
 // It's Nuxt's official recommendation to export the entire package.json
-module.exports.meta = require('../../../package.json')
+module.exports.meta = require('../../../../package.json')

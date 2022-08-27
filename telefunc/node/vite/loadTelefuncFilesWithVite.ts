@@ -1,11 +1,11 @@
 export { loadTelefuncFilesWithVite }
 
+import { loadBuild } from '@brillout/vite-plugin-import-build/loadBuild'
 import { assert, assertWarning, hasProp, isObject } from '../utils'
-import { telefuncFilesGlobFilePath, telefuncFilesGlobFileNameBase } from './telefuncFilesGlobPath'
-import { moduleExists, nodeRequire } from '../utils'
-import { resolve } from 'path'
+import { telefuncFilesGlobFilePath } from './telefuncFilesGlobPath'
 import type { ViteDevServer } from 'vite'
 import { GlobFiles, loadGlobFiles } from './loadGlobFiles'
+import { loadTelefuncFilesWithImportBuild } from './plugins/importBuild/loadBuild'
 
 async function loadTelefuncFilesWithVite(runContext: {
   root: string | null
@@ -41,41 +41,16 @@ async function loadGlobImporter(runContext: {
       runContext.viteDevServer.ssrFixStacktrace(err as Error)
       throw err
     }
-    return { moduleExports, provider: 'DEV_SERVER' as const }
+    return { moduleExports, provider: 'viteDevServer' as const }
   }
-
-  /*
-  {
-    let moduleExports: unknown | null = null
-    try {
-      moduleExports = await import('./telefuncFilesGlob')
-    } catch (_) {}
-    if (moduleExports !== null) {
-      assert(!hasProp(moduleExports, 'importGlobUnset'))
-      return { moduleExports, provider: 'DIRECT' as const }
-    }
-  }
-  */
 
   {
-    const moduleExports: unknown = await import('./telefuncFilesGlobFromDist')
-    if (!hasProp(moduleExports, 'distLinkUnset', 'true')) {
-      assert(hasProp(moduleExports, 'distLinkActivated', 'boolean'))
-      if (moduleExports.distLinkActivated === true) {
-        assertProd(runContext)
-        return { moduleExports, provider: 'DIST_LINK' as const }
-      }
-    }
-  }
-
-  if (runContext.root) {
-    const userDist = `${runContext.root}/dist`
-    const prodPath = `${userDist}/server/${telefuncFilesGlobFileNameBase}.js`
-    const prodPathResolved = resolve(prodPath)
-    if (moduleExists(prodPathResolved)) {
-      const moduleExports: unknown = nodeRequire(prodPathResolved)
+    const { success, entryFile } = await loadBuild()
+    if (success) {
+      const moduleExports = await loadTelefuncFilesWithImportBuild()
+      assert(moduleExports, { entryFile })
       assertProd(runContext)
-      return { moduleExports, provider: 'NODE_JS' as const }
+      return { moduleExports, provider: 'importBuild.cjs' as const }
     }
   }
 

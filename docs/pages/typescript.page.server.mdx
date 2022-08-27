@@ -1,0 +1,99 @@
+import { Link, Emoji } from 'vikepress'
+
+As we have seen in <Link href="/tour#typescript" doNotInferSectionTitle={true} />, Telefunc supports TypeScript out-of-the-box and enables seamless end-to-end type safety.
+
+
+## `shield()`
+
+Telefunc automatically generates the `shield()` of telefunctions,
+if we use a stack that transpile server-side code (e.g. Next.js, Nuxt, Vite).
+There is nothing to do, it just works.
+
+```ts
+// hello.telefunc.ts
+
+// No need to define `shield()` when using TypeScript: Telefunc automatically generates `shield()`.
+// I.e. Telefunc aborts if a third-party calls `hello({ name: 42 })`.
+export async function hello({ name }: { name: string }) {
+   return `Welcome to Telefunc, ${name}.`
+}
+```
+
+For stacks that don't transpile server-side code (e.g. React Native, CRA, Parcel), we need to define `shield()` ourselves.
+
+TypeScript automatically infers the type of telefunction arguments using `shield()`:
+
+```ts
+import { shield } from 'telefunc'
+
+export const onNewTodo = shield(
+  [shield.type.string],
+  async function (text) {
+    // ✅ TypeScript knows that `text` is of type `string`
+  }
+)
+```
+
+Note that the following won't work:
+
+```ts
+import { shield } from 'telefunc'
+
+export shield(onNewTodo, [shield.type.string])
+// TypeScript cannot infer the type of named functions by design.
+async function onNewTodo(text) {
+  // ❌ TypeScript doesn't know that `text` is of type `string`
+}
+```
+
+> For a reference table of all types `shield.type.*` with their TypeScript counterparts,
+> see <Link href="/shield#all-types" />.
+
+
+## `getContext()`
+
+We can define the context type globally by setting `Telefunc.Context`:
+
+```ts
+// TelefuncContext.d.ts
+
+import 'telefunc'
+import type { User } from './User.ts'
+
+declare module 'telefunc' {
+  namespace Telefunc {
+    interface Context {
+      user: null | User
+    }
+  }
+}
+```
+```ts
+// User.ts
+
+export type User = { id: number }
+```
+
+```ts
+// *.telefunc.ts
+
+import { getContext } from 'telefunc'
+
+export async function someTelefunction() {
+  const { user } = getContext()
+  // TypeScript knows that `user.id` is of type `number`
+}
+```
+
+Alternatively, we can define the context type directly:
+
+```ts
+// *.telefunc.ts
+
+import { getContext } from 'telefunc'
+
+export async function someTelefunction() {
+  const { userId } = getContext<{ userId: number }>()
+  // TypeScript knows that `userId` is of type `number`
+}
+```

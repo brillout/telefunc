@@ -1,0 +1,128 @@
+import { Link } from 'vikepress'
+
+How we use Telefunc with SSR depends on the SSR tool we use.
+
+## SSR frameworks
+
+When using an SSR framework such as [Next](https://nextjs.org/) or [`vite-plugin-ssr`](https://vite-plugin-ssr.com/),
+we can use the framework's data fetching hooks instead of using Telefunc:
+
+```js
+// vite-plugin-ssr
+// pages/*.page.server.js
+
+export async function onBeforeRender() {
+  // The `onBeforeRender()` hook is always called on the server-side.
+  // Like Telefunc, we can use SQL/ORM queries here.
+}
+```
+
+```js
+// Next.js
+// pages/*.js
+
+export async function getServerSideProps() {
+  // The `getServerSideProps()` hook is always called on the server-side.
+  // Like Telefunc, we can use any SQL/ORM query here.
+}
+```
+
+This means we don't use Telefunc for fetching the page's initial data.
+
+We still use Telefunc for data mutations and data fetches that occur at a later point after the page is already rendered.
+For example, for modifying a to-do item, or for feeding data to an infinite scroll component.
+
+Examples:
+ - <Link href="/examples/vite-plugin-ssr" />
+ - <Link href="/examples/next" />
+
+> When using this approach, we avoid calling telefunctions on the server-side, which solves the so-called SSR context problem.
+> If you are curious, we explain the problem at <Link href='/ssr-context' />.
+
+> **Nuxt** doesn't offer any server-side hook: all Nuxt's data fetching hooks are isomorphic (they are called on the browser-side upon page navigation).
+> We cannot use SQL/ORM queries in these isomorphic hooks and we cannot follow this approach.
+> Instead, we use Telefunc by using one of the techniques described below.
+
+
+## Async hooks
+
+By using [async hooks](https://nodejs.org/api/async_hooks.html) we get seamless support for calling telefunctions on the server-side.
+
+> If our telefunctions don't use `getContext()` then we don't need async hooks.
+
+The only changes we need to do are:
+ - We enable async hooks with `import 'telefunc/async_hooks'`.
+ - We use a separate server middleware for providing the context:
+   ```js
+   import { provideTelefuncContext, telefunc } from 'telefunc'
+   import 'telefunc/async_hooks' // Enables async hooks
+
+   // Note how we have two seperate middlewares
+
+   // This middleware is for all URLs
+   function telefuncContextMiddleware(req, res, next) {
+     provideTelefuncContext({ user: req.user })
+     return next()
+   }
+
+   // This middleware is only for the URL `_telefunc`
+   async function telefuncMiddleware(req, res, next) {
+     if (req.url !== '/_telefunc') return next()
+     // The usual Telefunc integration
+     const httpResponse = await telefunc({ url: req.url, method: req.method, body: req.body })
+     res.status(httpResponse.statusCode).type(httpResponse.contentType).send(httpResponse.body)
+   }
+   ```
+
+Example:
+ - <Link href="/examples/nuxt" />
+
+> We cannot use async hooks if we use Cloudflare Workers, as **Cloudflare Workers doesn't support async hooks**. Note that all other server-side JavaScript deploy environments we are aware of use Node.js and therefore support async hooks (including Vercel).
+
+> If you are curious as to why we need async hooks, check out <Link href='/ssr-context' />.
+
+
+## Manually providing context
+
+If using async hooks is not an option (because we deploy to Cloudlare Workers), then we have to manually provide the context before each server-side telefunction call.
+
+> If you are curious why that is, check out <Link href='/ssr-context' />.
+
+```js
+// Environment: Node.js
+
+import { provideTelefuncContext } from 'telefunc'
+
+// Telefunc Server Middleware
+app.all('/_telefunc', async (req, res) => {
+  // This provides the context only for telefunction remote browser-side calls.
+  provideTelefuncContext({ user: req.user })
+  // The usual Telefunc integration
+  const httpResponse = await telefunc({ url: req.url, method: req.method, body: req.body })
+  res.status(httpResponse.statusCode).type(httpResponse.contentType).send(httpResponse.body)
+})
+```
+
+```js
+// Environment: Node.js & browser
+
+import { someTelefunction } from './some.telefunc.js'
+import { provideTelefuncContext } from 'telefunc'
+
+function someIsomorphicFunction({ user }) {
+  if (!isBrowser()) {
+    // We provide the context when `someTelefunction()` is called on the server-side
+    provideTelefuncContext({ user })
+  }
+  someTelefunction()
+}
+
+function isBrowser() {
+  return typeof window !== 'undefined'
+}
+```
+
+> We don't need to do this if `someTelefunction()` doesn't use `getContext()`.
+
+> It's on Telefunc's roadmap to implement a React/Vue component **`<ProvideTelefuncContext context={context} />` that automatically provides the context**. Reach out on Discord and Vite if you want this.
+
