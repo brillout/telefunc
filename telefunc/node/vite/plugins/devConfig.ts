@@ -17,7 +17,6 @@ function devConfig(): Plugin[] {
             'telefunc/client',
             'telefunc/react',
             // We cannot add these to `optimizeDeps.include` because of `pnpm`
-            '@brillout/libassert',
             '@brillout/json-s',
             '@brillout/json-s/parse',
             '@brillout/json-s/stringify'
