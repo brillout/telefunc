@@ -1,11 +1,11 @@
 export { render }
 
-import ReactDOM from 'react-dom'
+import ReactDOM from 'react-dom/client'
 import React from 'react'
 
 function render(pageContext) {
   const { Page, pageProps } = pageContext
-  ReactDOM.hydrate(<Page {...pageProps} />, document.getElementById('page-view'))
+  ReactDOM.hydrateRoot(document.getElementById('page-view'), <Page {...pageProps} />)
   // For `../.testRun.ts`
   window.hydrationFinished = true
 }

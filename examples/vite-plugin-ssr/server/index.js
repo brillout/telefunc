@@ -42,13 +42,15 @@ async function startServer() {
   app.get('*', async (req, res, next) => {
     const pageContextInit = {
       user: req.user,
-      urlOriginal: req.originalUrl
+      urlOriginal: req.originalUrl,
+      userAgent: req.headers['user-agent']
     }
     const pageContext = await renderPage(pageContextInit)
     const { httpResponse } = pageContext
     if (!httpResponse) return next()
-    const { body, statusCode, contentType } = httpResponse
-    res.status(statusCode).type(contentType).send(body)
+    const { statusCode, contentType } = httpResponse
+    res.status(statusCode).type(contentType)
+    httpResponse.pipe(res)
   })
 
   const port = process.env.PORT || 3000
