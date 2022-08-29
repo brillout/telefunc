@@ -10,18 +10,7 @@ function devConfig(): Plugin[] {
       name: 'vite-plugin-ssr:devConfig',
       apply: apply('dev'),
       config: () => ({
-        ssr: { external: ['telefunc'] },
-        optimizeDeps: {
-          exclude: [
-            // We exclude the client code to support `import.meta.glob()`
-            'telefunc/client',
-            'telefunc/react',
-            // We cannot add these to `optimizeDeps.include` because of `pnpm`
-            '@brillout/json-s',
-            '@brillout/json-s/parse',
-            '@brillout/json-s/stringify'
-          ]
-        }
+        ssr: { external: ['telefunc'] }
       }),
       async configResolved(config) {
         await determineFsAllowList(config)
