@@ -42,7 +42,7 @@
     "preinstall": "npx only-allow pnpm"
   },
   "devDependencies": {
-    "@brillout/dev-my-dep": "^0.0.9",
+    "@brillout/dev-my-dep": "^0.0.10",
     "@brillout/submodule-init": "0.1.2",
     "vitest": "^0.22.1"
   }
