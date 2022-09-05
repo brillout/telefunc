@@ -33,7 +33,7 @@
     "// Upgrade all dependencies of all `package.json` that have tests": "",
     "bump": "cd libframe/scripts/ && pnpm run bump",
     "========= Release": "",
-    "release": "cd libframe/scripts/ && pnpm run release",
+    "release": "cd telefunc/ && pnpm run release",
     "========= Clean": "",
     "// Remove all generated files": "",
     "clean": "git clean -Xdf",
