@@ -1,3 +1,19 @@
+## [0.1.25](https://github.com/brillout/telefunc/compare/v0.1.24...v0.1.25) (2022-09-05)
+
+
+### Bug Fixes
+
+* improve config.build.outDir handling ([c639a34](https://github.com/brillout/telefunc/commit/c639a349fce8ae0757bf3d23680261bbb8a99830))
+* support ReScript ([3d5b646](https://github.com/brillout/telefunc/commit/3d5b64605285b76ac30f5f38304bd22e8181ded9))
+* support Vite 3 and latest vite-plugin-ssr version ([0a75971](https://github.com/brillout/telefunc/commit/0a75971f9e16ca35a8b526e4ce84b5eef3ca7080))
+
+
+### Features
+
+* support Vite CLI ([68c7cb6](https://github.com/brillout/telefunc/commit/68c7cb6c14328fcd5e6306b43ffc1b18dedfb501))
+
+
+
 ## [0.1.24](https://github.com/brillout/telefunc/compare/v0.1.23...v0.1.24) (2022-08-02)
 
 
