@@ -1,19 +1,18 @@
+// TODO
 import { getContext } from 'telefunc'
 
-export { loadData }
 export { onNewTodo }
+export { loadTodoItems }
 
 const database = {
   todoItems: []
 }
 
-async function loadData() {
-  const { user } = getContext()
+async function loadTodoItems() {
   const { todoItems } = database
-  return {
-    user,
-    todoItems
-  }
+  // Simulate slow network
+  await sleep(3 * 1000)
+  return todoItems
 }
 
 async function onNewTodo({ text }) {
@@ -25,3 +24,7 @@ async function onNewTodo({ text }) {
 // Initial data
 database.todoItems.push({ text: 'Buy milk' })
 database.todoItems.push({ text: 'Buy strawberries' })
+
+function sleep(milliseconds) {
+  return new Promise((r) => setTimeout(r, milliseconds))
+}

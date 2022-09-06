@@ -1,11 +1,16 @@
 import React, { useState } from 'react'
-import { onNewTodo } from './TodoList.telefunc.js'
+import { onNewTodo, loadTodoItems } from './TodoList.telefunc.js'
+import { useAsync } from 'react-streaming'
 
 export { TodoList }
 
-function TodoList({ todoItemsInitial }) {
+function TodoList() {
+  const todoItemsInitial = useAsync('loadTodoItems', async () => {
+    const todoItems = await loadTodoItems()
+    return todoItems
+  })
   const [todoItems, setTodoItems] = useState(todoItemsInitial)
-  const [text, setText] = useState('')
+  const [draft, setDraft] = useState('')
   return (
     <>
       <ul>
@@ -16,12 +21,12 @@ function TodoList({ todoItemsInitial }) {
           <form
             onSubmit={async (ev) => {
               ev.preventDefault()
-              const { todoItems } = await onNewTodo({ text })
-              setText('')
+              const { todoItems } = await onNewTodo({ text: draft })
+              setDraft('')
               setTodoItems(todoItems)
             }}
           >
-            <input type="text" onChange={(ev) => setText(ev.target.value)} value={text} />{' '}
+            <input type="text" onChange={(ev) => setDraft(ev.target.value)} value={draft} />{' '}
             <button type="submit">Add to-do</button>
           </form>
         </li>

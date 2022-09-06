@@ -5,25 +5,22 @@ export { testRun }
 function testRun(cmd: 'npm run dev' | 'npm run prod') {
   run(cmd)
 
-  test('To-do list and context', async () => {
+  test('HTML', async () => {
     const html = await fetchHtml('/')
-    expect(html).toContain('<h1>Elisabeth&#x27;s to-do list</h1>')
+    expect(html).toContain('<h1>To-do List</h1>')
     expect(html).toContain('<li>Buy milk</li>')
     expect(html).toContain('<li>Buy strawberries</li>')
-    await page.goto(`${urlBase}/`)
-    await autoRetry(async () => {
-      const hydrationFinished = await page.evaluate(
-        () => (window as any as { hydrationFinished: boolean }).hydrationFinished
-      )
-      expect(hydrationFinished).toBe(true)
-    })
-    const text = await page.textContent('body')
-    expect(text).toContain("Elisabeth's to-do list")
-    expect(text).toContain('Buy milk')
-    expect(text).toContain('Buy strawberries')
   })
 
   test('Add to-do item', async () => {
+    await page.goto(`${urlBase}/`)
+    {
+      const text = await page.textContent('body')
+      expect(text).toContain('To-do List')
+      expect(text).toContain('Buy milk')
+      expect(text).toContain('Buy strawberries')
+    }
+
     await page.fill('input[type="text"]', 'Buy bananas')
     await page.click('button[type="submit"]')
     await autoRetry(async () => {

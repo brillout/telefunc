@@ -10,16 +10,17 @@ startServer()
 async function startServer() {
   const app = express()
 
-  let viteDevServer
   if (isProduction) {
     app.use(express.static(`${root}/dist/client`))
   } else {
     const vite = require('vite')
-    viteDevServer = await vite.createServer({
-      root,
-      server: { middlewareMode: true }
-    })
-    app.use(viteDevServer.middlewares)
+    const viteDevMiddleware = (
+      await vite.createServer({
+        root,
+        server: { middlewareMode: true }
+      })
+    ).middlewares
+    app.use(viteDevMiddleware)
   }
 
   app.use(function (req, _res, next) {
@@ -42,8 +43,7 @@ async function startServer() {
   app.get('*', async (req, res, next) => {
     const pageContextInit = {
       user: req.user,
-      urlOriginal: req.originalUrl,
-      userAgent: req.headers['user-agent']
+      urlOriginal: req.originalUrl
     }
     const pageContext = await renderPage(pageContextInit)
     const { httpResponse } = pageContext
