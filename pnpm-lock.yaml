@@ -177,7 +177,7 @@ importers:
       express: ^4.17.1
       react: ^18.2.0
       react-dom: ^18.2.0
-      react-streaming: ^0.3.0
+      react-streaming: ^0.3.1
       telefunc: 0.1.25
       typescript: ^4.7.4
       vite: ^3.0.9
@@ -190,7 +190,7 @@ importers:
       express: 4.17.2
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
-      react-streaming: 0.3.0_biqbaboplfbrettd7655fr4n2y
+      react-streaming: 0.3.1_biqbaboplfbrettd7655fr4n2y
       telefunc: link:../../telefunc
       typescript: 4.7.4
       vite: 3.0.9
@@ -14433,8 +14433,8 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: false
 
-  /react-streaming/0.3.0_biqbaboplfbrettd7655fr4n2y:
-    resolution: {integrity: sha512-ZLzyOCP2ACq+bPbbTLJcWwn4DnRY7o31UsAByRNUa/QaEp6wvl+GClIF2EFQFGvgrQPnIE+2YENdmdi09C+aQA==}
+  /react-streaming/0.3.1_biqbaboplfbrettd7655fr4n2y:
+    resolution: {integrity: sha512-a6G9Fj7V7kumW9qlWcWbS+ViGS/WHxjiYTjOHsxjkHLNaQVU7D6CeNxpPtkih7ARY2OurUWJe0EGiftTONlErQ==}
     peerDependencies:
       react: '>=18'
       react-dom: '>=18'
