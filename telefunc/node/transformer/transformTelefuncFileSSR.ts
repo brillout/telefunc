@@ -1,7 +1,7 @@
 export { transformTelefuncFileSSR }
 
 import { getExportNames } from './getExportNames'
-import { assertPosixPath } from '../utils'
+import { assertPosixPath, getTelefunctionKey } from './utils'
 
 async function transformTelefuncFileSSR(src: string, id: string, root: string) {
   assertPosixPath(id)
@@ -18,16 +18,25 @@ async function transformTelefuncFileSSR(src: string, id: string, root: string) {
 function getCode(exportNames: readonly string[], src: string, filePath: string) {
   assertPosixPath(filePath)
 
-  const telefuncImport = 'import { __internal_addTelefunction } from "telefunc";'
+  let code = src;
 
-  // No break line between `telefuncImport` and `src` in order to preserve the source map's line mapping
-  let code = telefuncImport + src
+  {
+    const telefuncImport = 'import { __internal_addTelefunction } from "telefunc";'
+    // No break line between `telefuncImport` and `src` in order to preserve the source map's line mapping
+    code = telefuncImport + src
+  }
+
+  const extraLines: string[] = []
 
   code += '\n\n'
   for (const exportName of exportNames) {
-    code += `__internal_addTelefunction(${exportName}, "${exportName}", "${filePath}");`
-    code += '\n'
+    extraLines.push(`__internal_addTelefunction(${exportName}, "${exportName}", "${filePath}");`)
+    const telefunctionKey = getTelefunctionKey(filePath, exportName)
+    extraLines.push(`${exportName}['_key'] = ${JSON.stringify(telefunctionKey)};`)
   }
+
+  code += '\n' + extraLines.join('\n')
 
   return code
 }
+

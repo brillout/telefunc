@@ -1,8 +1,7 @@
 export { getTelefunctions }
 
-import { assertUsage, isCallable } from '../../utils'
+import { assertUsage, isCallable, getTelefunctionKey } from '../../utils'
 import type { Telefunction, TelefuncFiles } from '../types'
-import { getTelefunctionKey } from './getTelefunctionKey'
 import { getTelefunctionName } from './getTelefunctionName'
 
 async function getTelefunctions(runContext: { telefuncFilesLoaded: TelefuncFiles }): Promise<{
@@ -11,12 +10,14 @@ async function getTelefunctions(runContext: { telefuncFilesLoaded: TelefuncFiles
   const telefunctions: Record<string, Telefunction> = {}
   Object.entries(runContext.telefuncFilesLoaded).forEach(([telefunctionFilePath, telefuncFileExports]) => {
     Object.entries(telefuncFileExports).forEach(([telefunctionFileExport, exportValue]) => {
-      const telefunctionKey = getTelefunctionKey({ telefunctionFilePath, telefunctionFileExport })
+      const telefunctionKey = getTelefunctionKey(telefunctionFilePath, telefunctionFileExport)
       assertTelefunction(exportValue, {
         telefunctionFileExport,
         telefunctionFilePath
       })
       telefunctions[telefunctionKey] = exportValue
+      // @ts-ignore
+      // telefunctions[telefunctionKey]._key = telefunctionKey
     })
   })
 

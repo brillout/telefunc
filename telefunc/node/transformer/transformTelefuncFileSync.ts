@@ -18,18 +18,27 @@ function transformTelefuncFileSync(id: string, root: string, exportNames: readon
 }
 
 export function getCode(exportNames: readonly string[], telefuncFilePath: string) {
-  const lines = []
+  const lines: string[] = []
 
   lines.push('// @ts-nocheck')
 
   lines.push(`import { __internal_fetchTelefunc } from 'telefunc/client';`)
 
   exportNames.forEach((exportName) => {
-    const exportValue = `(...args) => __internal_fetchTelefunc('${telefuncFilePath}', '${exportName}', args);`
+    const varName = exportName === 'default' ? 'defaultExport' : exportName
+
+    lines.push(`const ${varName} =  (...args) => __internal_fetchTelefunc('${telefuncFilePath}', '${exportName}', args);`)
+
+    {
+      assert(!telefuncFilePath.includes(':'))
+      const key = `${telefuncFilePath}:${exportName}`
+      lines.push(`${varName}._key = ${JSON.stringify(key)};`)
+    }
+
     if (exportName === 'default') {
-      lines.push(`export default ${exportValue}`)
+      lines.push(`export default ${varName};`)
     } else {
-      lines.push(`export const ${exportName} = ${exportValue};`)
+      lines.push(`export { ${varName} };`)
     }
   })
 

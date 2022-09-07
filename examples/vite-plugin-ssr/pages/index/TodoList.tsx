@@ -1,14 +1,11 @@
-import React, { useState } from 'react'
-import { onNewTodo, loadTodoItems } from './TodoList.telefunc.js'
-import { useAsync } from 'react-streaming'
-
 export { TodoList }
 
+import React, { useState } from 'react'
+import { onNewTodo, loadTodoItems } from './TodoList.telefunc.js'
+import { useData } from 'telefunc/react'
+
 function TodoList() {
-  const todoItemsInitial = useAsync('loadTodoItems', async () => {
-    const todoItems = await loadTodoItems()
-    return todoItems
-  })
+  const todoItemsInitial = useData(loadTodoItems)
   const [todoItems, setTodoItems] = useState(todoItemsInitial)
   const [draft, setDraft] = useState('')
   return (

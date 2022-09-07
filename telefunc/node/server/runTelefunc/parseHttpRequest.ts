@@ -1,8 +1,7 @@
 export { parseHttpRequest }
 
 import { parse } from '@brillout/json-s/parse'
-import { getTelefunctionKey } from './getTelefunctionKey'
-import { assertUsage, hasProp, getProjectError, getUrlPathname, assert } from '../../utils'
+import { assertUsage, hasProp, getProjectError, getUrlPathname, assert, getTelefunctionKey } from '../../utils'
 import { getTelefunctionName } from './getTelefunctionName'
 
 function parseHttpRequest(runContext: {
@@ -75,7 +74,7 @@ function parseHttpRequest(runContext: {
   const telefunctionFilePath = bodyParsed.file
   const telefunctionFileExport = bodyParsed.name
   const telefunctionArgs = bodyParsed.args
-  const telefunctionKey = getTelefunctionKey({ telefunctionFilePath, telefunctionFileExport })
+  const telefunctionKey = getTelefunctionKey(telefunctionFilePath, telefunctionFileExport)
   const telefunctionName = getTelefunctionName({ telefunctionFilePath, telefunctionFileExport })
 
   return {
