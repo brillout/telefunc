@@ -29,7 +29,7 @@
     "./react": {
       "worker": "./dist/cjs/node/react/index.js",
       "node": "./dist/cjs/node/react/index.js",
-      "browser": "./dist/esm/client/reac/index.js"
+      "browser": "./dist/esm/client/react/index.js"
     },
     "./vite": {
       "node": "./dist/cjs/node/vite/index.js"
