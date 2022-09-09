@@ -66,8 +66,10 @@ export default function BabelPluginTelefunc(babel: { types: typeof BabelTypes })
         const filename: string = context.filename!
 
         if (!filename.includes('.telefunc.')) return
+        // @ts-ignore
         if (isFileAlreadyTransformed(path, babel.types)) return
 
+        // @ts-ignore
         const exportList = getExportsFromBabelAST(path, babel.types)
 
         const root: string = context.file.opts.root!
@@ -77,6 +79,7 @@ export default function BabelPluginTelefunc(babel: { types: typeof BabelTypes })
           sourceType: 'module'
         })
 
+        // @ts-ignore
         path.replaceWith(parsed.program)
       }
     }
