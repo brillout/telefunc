@@ -16,24 +16,34 @@ import { globalContext } from './globalContext'
 import { telefuncConfig } from './telefuncConfig'
 
 type HttpResponse = {
-  statusCode: 200 | 500 | 400 | 403
+  statusCode: 200 | 403 | 500 | 400
   body: string
   contentType: 'text/plain'
   etag: string | null
 }
-const malformedRequest = {
-  statusCode: 400 as const,
-  body: 'Malformed Request',
-  contentType: 'text/plain' as const,
-  etag: null
-}
+
+// Status code for `throw Abort()`
+const abortedRequestStatusCode = 403
+
+// HTTP Response for:
+// - User's telefunction threw an error (that isn't `Abort()`).
+// - Telefunc throw an error (i.e. Telefunc has a bug).
 const serverError = {
   statusCode: 500 as const,
-  body: 'Internal Server Error (Telefunc Request)',
+  body: 'Internal Server Error (Telefunc)',
   contentType: 'text/plain' as const,
   etag: null
 }
-const abortedRequestStatusCode = 403
+
+// HTTP Response for:
+// - The telefunction couldn't be found.
+// - Some non-telefunc client makes a malformed HTTP request.
+const invalidRequest = {
+  statusCode: 400 as const,
+  body: 'Invalid Request (Telefunc)',
+  contentType: 'text/plain' as const,
+  etag: null
+}
 
 async function runTelefunc(runContext: Parameters<typeof runTelefunc_>[0]) {
   try {
@@ -63,7 +73,7 @@ async function runTelefunc_(httpRequest: { url: string; method: string; body: un
   {
     const parsed = parseHttpRequest(runContext)
     if (parsed.isMalformed) {
-      return malformedRequest
+      return invalidRequest
     }
     const { telefunctionName, telefunctionKey, telefunctionArgs, telefunctionFilePath, telefunctionFileExport } = parsed
     objectAssign(runContext, {
@@ -90,7 +100,7 @@ async function runTelefunc_(httpRequest: { url: string; method: string; body: un
   {
     const telefunction = findTelefunction(runContext)
     if (!telefunction) {
-      return malformedRequest
+      return invalidRequest
     }
     objectAssign(runContext, { telefunction })
   }

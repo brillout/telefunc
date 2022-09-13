@@ -9,6 +9,7 @@ const method = 'POST'
 const STATUS_CODE_SUCCESS = 200
 const STATUS_CODE_ABORT = 403
 const STATUS_CODE_BUG = 500
+const STATUS_CODE_INVALID = 400
 
 async function makeHttpRequest(callContext: {
   telefuncUrl: string
@@ -50,7 +51,7 @@ async function makeHttpRequest(callContext: {
   } else if (statusCode === STATUS_CODE_BUG) {
     const responseBody = await response.text()
     assertUsage(
-      responseBody === 'Internal Server Error (Telefunc Request)',
+      responseBody === 'Internal Server Error (Telefunc)',
       installErr({
         reason: 'an HTTP response body that Telefunc never generates',
         method,
@@ -58,6 +59,19 @@ async function makeHttpRequest(callContext: {
       })
     )
     const telefunctionCallError = new Error('Server Error')
+    return { telefunctionCallError }
+  } else if (statusCode === STATUS_CODE_INVALID) {
+    const responseBody = await response.text()
+    assertUsage(
+      responseBody === 'Invalid Request (Telefunc)',
+      installErr({
+        reason: 'an HTTP response body that Telefunc never generates',
+        method,
+        callContext
+      })
+    )
+    // In theory this error should never happen.
+    const telefunctionCallError = new Error('Invalid Telefunc Request')
     return { telefunctionCallError }
   } else {
     assertUsage(
@@ -72,7 +86,7 @@ async function makeHttpRequest(callContext: {
     assertUsage(
       false,
       installErr({
-        reason: `a status code \`${statusCode}\` which Telefunc does not return`,
+        reason: `a status code \`${statusCode}\` which Telefunc never uses`,
         method,
         callContext
       })
@@ -115,6 +129,6 @@ function installErr({
   if (reason) {
     msg.push(...[`: the HTTP ${method} \`${callContext.telefuncUrl}\` request returned `, reason])
   }
-  msg.push(`. See https://telefunc.com/install`)
+  msg.push(`, see https://telefunc.com/install`)
   return msg.join('')
 }
