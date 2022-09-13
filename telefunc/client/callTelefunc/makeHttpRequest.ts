@@ -5,14 +5,15 @@ import { assert, assertUsage, isObject, objectAssign } from '../utils'
 import { executeCallErrorListeners } from './onTelefunctionRemoteCallError'
 import type { TelefunctionError } from '../TelefunctionError'
 
+const method = 'POST'
+const STATUS_CODE_ABORT = 403
+
 async function makeHttpRequest(callContext: {
   telefuncUrl: string
   httpRequestBody: string
   telefunctionName: string
   httpHeaders: Record<string, string>
 }): Promise<{ telefunctionReturn: unknown } | { telefunctionCallError: TelefunctionError }> {
-  const method = 'POST'
-
   let response: Response
   try {
     response = await fetch(callContext.telefuncUrl, {
@@ -57,32 +58,21 @@ async function makeHttpRequest(callContext: {
     return { telefunctionCallError }
   }
 
-  if (statusCode === 200 || statusCode === 403) {
-    const responseBody = await response.text()
-    const responseValue = parse(responseBody)
-    assertUsage(
-      isObject(responseValue) && 'ret' in responseValue,
-      installErr({
-        reason: 'an HTTP response body that Telefunc never generates',
-        method,
-        callContext
-      })
-    )
-    if (statusCode === 200) {
-      assert(!('abort' in responseValue))
-      const telefunctionReturn = responseValue.ret
-      return { telefunctionReturn }
-    } else {
-      assert('abort' in responseValue)
-      const abortValue = responseValue.ret
-      const telefunctionCallError = new Error(`Abort. (Telefunction ${callContext.telefunctionName}.)`)
-      objectAssign(telefunctionCallError, { isAbort: true as const, abortValue })
-      executeCallErrorListeners(telefunctionCallError)
-      return { telefunctionCallError }
-    }
+  if (statusCode === 200) {
+    const { ret } = await parseResponseBody(response, callContext)
+    const telefunctionReturn = ret
+    return { telefunctionReturn }
+  }
+  if (statusCode === STATUS_CODE_ABORT) {
+    const { ret } = await parseResponseBody(response, callContext)
+    const abortValue = ret
+    const telefunctionCallError = new Error(`Abort. (Telefunction ${callContext.telefunctionName}.)`)
+    objectAssign(telefunctionCallError, { isAbort: true as const, abortValue })
+    executeCallErrorListeners(telefunctionCallError)
+    return { telefunctionCallError }
   }
 
-  assert(![200, 404, 403, 500].includes(statusCode))
+  assert(![200, 404, STATUS_CODE_ABORT, 500].includes(statusCode))
   assertUsage(
     false,
     installErr({
@@ -91,6 +81,30 @@ async function makeHttpRequest(callContext: {
       callContext
     })
   )
+}
+
+async function parseResponseBody(response: Response, callContext: { telefuncUrl: string }): Promise<{ ret: unknown }> {
+  const statusCode = response.status
+  assert(statusCode === 200 || statusCode === STATUS_CODE_ABORT)
+  const responseBody = await response.text()
+  const responseBodyParsed = parse(responseBody)
+  assertUsage(
+    isObject(responseBodyParsed) && 'ret' in responseBodyParsed,
+    installErr({
+      reason: 'an HTTP response body that Telefunc never generates',
+      method,
+      callContext
+    })
+  )
+  if (statusCode === 200) {
+    assert(!('abort' in responseBodyParsed))
+  } else if (statusCode === 403) {
+    assert('abort' in responseBodyParsed)
+  } else {
+    assert(false)
+  }
+  const { ret } = responseBodyParsed
+  return { ret }
 }
 
 function installErr({
