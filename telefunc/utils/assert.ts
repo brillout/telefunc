@@ -3,6 +3,7 @@ export { assertUsage }
 export { assertWarning }
 export { assertInfo }
 export { getProjectError }
+export { errorPrefix as projectErrorPrefix }
 
 import { createErrorWithCleanStackTrace } from './createErrorWithCleanStackTrace'
 import { projectInfo } from './projectInfo'

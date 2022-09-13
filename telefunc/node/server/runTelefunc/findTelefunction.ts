@@ -1,6 +1,6 @@
 export { findTelefunction }
 
-import { assert, assertUsage, getProjectError } from '../../utils'
+import { assert, assertUsage, projectErrorPrefix } from '../../utils'
 import type { Telefunction } from '../types'
 
 function findTelefunction(runContext: {
@@ -25,7 +25,7 @@ function findTelefunction(runContext: {
   if (!telefunction) {
     if (runContext.logInvalidRequests) {
       const errMsg = getNotFoundErrMsg()
-      console.error(getProjectError(errMsg))
+      console.error(`${projectErrorPrefix} ${errMsg}`)
     }
     return null
   }
@@ -33,22 +33,36 @@ function findTelefunction(runContext: {
   return telefunction
 
   function getNotFoundErrMsg() {
-    let errMsg = `Telefunction ${runContext.telefunctionName} not found.`
+    let errMsg = `Telefunction ${runContext.telefunctionName} not found:`
     const { telefuncFilesLoaded, telefunctionFilePath, telefunctionFileExport } = runContext
     const telefuncFile = telefuncFilesLoaded[telefunctionFilePath]
     if (!telefuncFile) {
-      errMsg += ` The file \`${runContext.telefunctionFilePath}\` doesn't seem to exist.`
+      errMsg += ` the file \`${runContext.telefunctionFilePath}\` doesn't seem to exist. Found \`.telefunc.js\` files:`
+      const telefuncFilePaths = Object.keys(telefuncFilesLoaded)
+      assert(!telefuncFilePaths.includes(telefunctionFilePath))
+      errMsg += [runContext.telefunctionFilePath, ...telefuncFilePaths]
+        .sort()
+        .map(
+          (telefuncFilePath) =>
+            `\n  ${telefuncFilePath} ${
+              telefuncFilePaths.includes(telefuncFilePath) ? '[✅ Exists]' : "[❌ Doesn't exist]"
+            }`
+        )
+        .join('')
     } else {
       assert(!telefuncFile[telefunctionFileExport])
-      errMsg += ` The file \`${runContext.telefunctionFilePath}\` doesn't seem to have an export \`${telefunctionFileExport}\`.`
+      errMsg += ` the file \`${runContext.telefunctionFilePath}\` doesn't seem to have an export \`${telefunctionFileExport}\`. Found telefunctions:`
+      assert(!telefunctionFilePath.includes(runContext.telefunctionKey))
+      errMsg += [runContext.telefunctionKey, ...telefunctionsFound]
+        .sort()
+        .map(
+          (telefunctionKey) =>
+            `\n  ${telefunctionKey} ${
+              telefunctionsFound.includes(telefunctionKey) ? '[✅ Exists]' : "[❌ Doesn't exist]"
+            }`
+        )
+        .join('')
     }
-    errMsg += [runContext.telefunctionKey, ...telefunctionsFound]
-      .sort()
-      .map(
-        (telefunctionKey) =>
-          `\n${telefunctionKey} ${telefunctionsFound.includes(telefunctionKey) ? '[✅ Exists]' : "[❌ Doesn't exist]"}`
-      )
-      .join('')
     return errMsg
   }
 }
