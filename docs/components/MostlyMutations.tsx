@@ -1,6 +1,6 @@
 export { MostlyMutations }
 
-import { Link } from 'vikepress'
+import { Link } from '@brillout/docpress'
 import React from 'react'
 
 function MostlyMutations({ toolName }: { toolName: JSX.Element | string }) {

@@ -3,6 +3,3 @@ packages:
   - 'docs/'
   - 'examples/*'
   - '!examples/react-native/'
-  - 'libframe/test/'
-  - 'libframe/docs/'
-  - 'libframe/scripts/'

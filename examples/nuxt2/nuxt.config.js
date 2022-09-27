@@ -30,8 +30,8 @@ async function telefuncMiddleware(req, res, next) {
   res.writeHead(httpResponse.statusCode).end(httpResponse.body)
 }
 
-// Nuxt uses the logging library `consola` which breaks `libframe/test`'s log listening mechanism;
-// we need to log a custom message so that `libframe/test` can know when the build is finished.
+// Nuxt uses the logging library `consola` which breaks `@brillout/test-e2e`'s log listening mechanism;
+// we need to log a custom message so that `@brillout/test-e2e` can know when the build is finished.
 function sendServerIsReadyMessage() {
   this.nuxt.hook('build:done', () => {
     process.stdout.write(`${SERVER_IS_READY}\n`)

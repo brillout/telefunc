@@ -12,8 +12,8 @@
     "// Run tests": "",
     "test": "pnpm run test:units && pnpm run test:e2e && pnpm run test:types",
     "test:units": "vitest",
-    "test:e2e": "cd libframe/test/ && pnpm run test:jest",
-    "test:types": "cd libframe/test/ && pnpm run test:types",
+    "test:e2e": "test-e2e",
+    "test:types": "test-types",
     "// Run `$ pnpm test:setup` before running `$ pnpm test`": "",
     "test:setup": "pnpm run clean && pnpm install && pnpm run build",
     "========= Dev": "",
@@ -22,16 +22,9 @@
     "========= Build": "",
     "// Build Telefunc": "",
     "build": "cd telefunc/ && pnpm run build",
-    "========= Handle ./libframe/ submodule": "",
-    "setup": "pnpm run libframe:clone",
-    "pnpm:devPreinstall": "pnpm run libframe:check",
-    "postinstall": "pnpm run libframe:init",
-    "libframe:check": "node ./.libframe-submodule/check.js",
-    "libframe:clone": "node ./.libframe-submodule/clone.js ",
-    "libframe:init": "pnpm exec submodule-init libframe/",
     "========= Upgrade deps": "",
-    "// Upgrade all dependencies of all `package.json` that have tests": "",
-    "bump": "cd libframe/scripts/ && pnpm run bump",
+    "// Upgrade all dependencies of all package.json to @latest": "",
+    "bump": "bump-dependencies",
     "========= Release": "",
     "release": "cd telefunc/ && pnpm run release",
     "========= Clean": "",
@@ -42,8 +35,10 @@
     "preinstall": "npx only-allow pnpm"
   },
   "devDependencies": {
+    "@brillout/bump-dependencies": "^0.1.1",
     "@brillout/dev-my-dep": "^0.0.10",
-    "@brillout/submodule-init": "0.1.2",
+    "@brillout/test-e2e": "^0.1.5",
+    "@brillout/test-types": "^0.1.2",
     "vitest": "^0.22.1"
   }
 }

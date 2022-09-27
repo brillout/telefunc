@@ -6,7 +6,7 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "server": "node server.mjs",
-    "build:telefunc": "(cd ../../ && pnpm run setup && pnpm install && pnpm run build) && npm pack ../../telefunc && mv telefunc-*.tgz telefunc.tgz && npm install telefunc@telefunc.tgz"
+    "build:telefunc": "(cd ../../ && pnpm install && pnpm run build) && npm pack ../../telefunc && mv telefunc-*.tgz telefunc.tgz && npm install telefunc@telefunc.tgz"
   },
   "dependencies": {
     "@babel/core": "^7.12.9",

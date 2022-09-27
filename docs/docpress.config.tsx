@@ -1,4 +1,4 @@
-import type { Config } from 'vikepress'
+import type { Config } from '@brillout/docpress'
 import React from 'react'
 import faviconUrl from './icons/telefunc-favicon.svg'
 import { headings, headingsWithoutLink } from './headings'
@@ -8,11 +8,13 @@ import { NavHeader, NavHeaderMobile } from './NavHeader'
 export default {
   projectInfo,
   faviconUrl,
-  algolia: null,
   navHeader: <NavHeader />,
   navHeaderMobile: <NavHeaderMobile />,
+  headings,
+  headingsWithoutLink,
   tagline: 'Remote Functions. Instead of API.',
   titleNormalCase: true,
-  headings,
-  headingsWithoutLink
+  twitterHandle: '@brillout',
+  websiteUrl: 'https://telefunc.com',
+  algolia: null,
 } as Config

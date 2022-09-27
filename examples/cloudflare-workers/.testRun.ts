@@ -1,4 +1,15 @@
-import { page, run, fetchHtml, isGithubAction, urlBase, isWindows, autoRetry } from '../../libframe/test/setup'
+import {
+  page,
+  test,
+  expect,
+  run,
+  skip,
+  fetchHtml,
+  isGithubAction,
+  urlBase,
+  isWindows,
+  autoRetry
+} from '@brillout/test-e2e'
 import assert from 'assert'
 
 export { testRun }
@@ -11,18 +22,18 @@ function testRun(cmd: 'npm run dev' | 'npm run preview:miniflare' | 'npm run pre
   // Wrangler v1 doesn't work with playwright pnpm 7 installation
   // TODO: use wrangler v2
   if (isWorker) {
-    test('SKIPED: miniflare and wrangler', () => {})
+    skip('SKIPPED: miniflare and wrangler')
     return
   }
 
   if ((isWindows() || !isNode16()) && isWorker) {
-    test('SKIPED: miniflare and wrangler', () => {})
+    skip('SKIPPED: miniflare and wrangler')
     return
   }
 
   if (isWrangler) {
     if (!isGithubAction() || process.env['GIT_BRANCH'] !== 'master') {
-      test('SKIPED: wrangler test is not run locally nor in Pull Requests', () => {})
+      skip('SKIPPED: wrangler test is not run locally nor in Pull Requests')
       return
     }
     test('API keys', () => {

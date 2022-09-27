@@ -1,19 +1,19 @@
 {
   "scripts": {
-    "dev": "vikepress dev",
-    "build": "vikepress build",
-    "preview": "vikepress build && vikepress preview"
+    "dev": "docpress dev",
+    "build": "docpress build",
+    "preview": "docpress build && docpress preview"
   },
   "dependencies": {
     "@types/node": "^17.0.10",
     "@types/react": "^17.0.9",
     "@types/react-dom": "^17.0.6",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "typescript": "^4.5.4",
-    "vikepress": "^0.0.36",
-    "vite": "^2.9.14",
-    "vite-plugin-ssr": "0.4.26"
+    "@brillout/docpress": "^0.0.46",
+    "vite": "^3.0.9",
+    "vite-plugin-ssr": "0.4.38"
   },
   "type": "module"
 }
