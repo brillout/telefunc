@@ -22,7 +22,7 @@ function transform(): Plugin {
       if (!viteIsSSR_options(options)) {
         return transformTelefuncFile(code, id, root)
       } else {
-        code = (await transformTelefuncFileSSR(code, id, root)).code
+        code = (await transformTelefuncFileSSR(code, id, root, true)).code
         if (id.endsWith('.ts')) {
           return generateShield(code)
         }
