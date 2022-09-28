@@ -71,7 +71,7 @@ export default function BabelPluginTelefunc(babel: { types: typeof BabelTypes })
         const exportList = getExportsFromBabelAST(path, babel.types)
 
         const root: string = context.file.opts.root!
-        const transformed = transformTelefuncFileSync(toPosixPath(filename), toPosixPath(root), exportList).code
+        const transformed: string = transformTelefuncFileSync(toPosixPath(filename), toPosixPath(root), exportList)
 
         const parsed = parse(transformed, {
           sourceType: 'module'

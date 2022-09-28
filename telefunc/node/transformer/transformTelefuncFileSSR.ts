@@ -9,12 +9,9 @@ async function transformTelefuncFileSSR(src: string, id: string, root: string, s
 
   const exportNames = await getExportNames(src)
 
-  const code = getCode(exportNames, src, id.replace(root, ''), skipAddTelefunction);
+  const code = getCode(exportNames, src, id.replace(root, ''), skipAddTelefunction)
 
-  return {
-    code,
-    map: null
-  }
+  return code
 }
 
 function getCode(exportNames: readonly string[], src: string, filePath: string, skipAddTelefunction?: boolean) {

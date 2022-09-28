@@ -11,10 +11,8 @@ function transformTelefuncFileSync(id: string, root: string, exportNames: readon
   assert(!telefuncFilePath.startsWith('/.'))
   assertPosixPath(telefuncFilePath)
 
-  return {
-    code: getCode(exportNames, telefuncFilePath),
-    map: null
-  }
+  const code = getCode(exportNames, telefuncFilePath)
+  return code
 }
 
 export function getCode(exportNames: readonly string[], telefuncFilePath: string) {
@@ -27,7 +25,9 @@ export function getCode(exportNames: readonly string[], telefuncFilePath: string
   exportNames.forEach((exportName) => {
     const varName = exportName === 'default' ? 'defaultExport' : exportName
 
-    lines.push(`const ${varName} =  (...args) => __remoteTelefunctionCall('${telefuncFilePath}', '${exportName}', args);`)
+    lines.push(
+      `const ${varName} =  (...args) => __remoteTelefunctionCall('${telefuncFilePath}', '${exportName}', args);`
+    )
 
     {
       assert(!telefuncFilePath.includes(':'))

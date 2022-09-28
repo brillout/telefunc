@@ -19,12 +19,12 @@ module.exports = async function (this: Loader, input: string): Promise<string> {
 
   assert(id.includes('.telefunc.'))
 
-  const isSSR = compiler.name === 'server'
-  if (isSSR) {
-    const { code } = await transformTelefuncFileSSR(input, toPosixPath(id), toPosixPath(root))
+  const isClientSide = compiler.name !== 'server'
+  if (isClientSide) {
+    const code = await transformTelefuncFile(input, toPosixPath(id), toPosixPath(root))
+    return code
+  } else {
+    const code = await transformTelefuncFileSSR(input, toPosixPath(id), toPosixPath(root))
     return code
   }
-
-  const { code } = await transformTelefuncFile(input, toPosixPath(id), toPosixPath(root))
-  return code
 }

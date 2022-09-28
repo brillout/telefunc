@@ -19,13 +19,26 @@ function transform(): Plugin {
       if (!id.includes('.telefunc.')) {
         return
       }
-      if (!viteIsSSR_options(options)) {
-        return transformTelefuncFile(code, id, root)
+
+      const isClientSide = !viteIsSSR_options(options)
+
+      if (isClientSide) {
+        code = await transformTelefuncFile(code, id, root)
       } else {
-        code = (await transformTelefuncFileSSR(code, id, root, true)).code
+        code = (await transformTelefuncFileSSR(code, id, root, true))
         if (id.endsWith('.ts')) {
-          return generateShield(code)
+          code = generateShield(code)
         }
+      }
+
+      if (isClientSide) {
+        return {
+          code,
+          // Remove unnecessary source map
+          map: null
+        }
+      } else {
+        return code
       }
     }
   }
