@@ -1,5 +1,5 @@
 import express from 'express'
-import { createPageRenderer } from 'vite-plugin-ssr'
+import { renderPage } from 'vite-plugin-ssr'
 import { telefunc, provideTelefuncContext } from 'telefunc'
 import cookieParser from 'cookie-parser'
 import { retrieveUser } from '#app/auth'
@@ -12,21 +12,22 @@ startServer()
 async function startServer() {
   const app = express()
 
-  let viteDevServer
   if (isProduction) {
     app.use(express.static(`${root}/dist/client`))
   } else {
     const vite = require('vite')
-    viteDevServer = await vite.createServer({
-      root,
-      server: { middlewareMode: 'ssr' }
-    })
-    app.use(viteDevServer.middlewares)
+    const viteDevMiddleware = (
+      await vite.createServer({
+        root,
+        server: { middlewareMode: true }
+      })
+    ).middlewares
+    app.use(viteDevMiddleware)
   }
 
   app.use(cookieParser())
   app.use(express.text()) // Parse & make HTTP request body available at `req.body`
-  app.all('/_telefunc', async (req, res, next) => {
+  app.all('/_telefunc', async (req, res) => {
     const user = retrieveUser(req)
     provideTelefuncContext({ user })
     const httpResponse = await telefunc({ url: req.originalUrl, method: req.method, body: req.body })
@@ -34,19 +35,18 @@ async function startServer() {
     res.status(statusCode).type(contentType).send(body)
   })
 
-  const renderPage = createPageRenderer({ viteDevServer, isProduction, root })
   app.get('*', async (req, res, next) => {
-    const url = req.originalUrl
     const user = retrieveUser(req)
     const pageContextInit = {
-      url,
-      user
+      user,
+      urlOriginal: req.originalUrl
     }
     const pageContext = await renderPage(pageContextInit)
     const { httpResponse } = pageContext
     if (!httpResponse) return next()
-    const { body, statusCode, contentType } = httpResponse
-    res.status(statusCode).type(contentType).send(body)
+    const { statusCode, contentType } = httpResponse
+    res.status(statusCode).type(contentType)
+    httpResponse.pipe(res)
   })
 
   const port = process.env.PORT || 3000

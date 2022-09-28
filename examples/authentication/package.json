@@ -2,7 +2,7 @@
   "scripts": {
     "dev": "npm run server",
     "prod": "npm run build && npm run server:prod",
-    "build": "vite build && vite build --ssr",
+    "build": "vite build",
     "server": "ts-node ./server",
     "server:prod": "cross-env NODE_ENV=production ts-node ./server"
   },
@@ -10,19 +10,20 @@
     "@types/cookie-parser": "^1.4.2",
     "@types/express": "^4.17.13",
     "@types/node": "^17.0.10",
-    "@types/react": "^17.0.30",
-    "@types/react-dom": "^17.0.9",
-    "@vitejs/plugin-react": "^1.0.4",
+    "@types/react": "^18.0.18",
+    "@types/react-dom": "^18.0.6",
+    "@vitejs/plugin-react": "^2.0.1",
     "cookie-parser": "^1.4.5",
     "cross-env": "^7.0.3",
     "express": "^4.17.1",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-streaming": "^0.3.3",
+    "telefunc": "0.1.25",
     "ts-node": "^10.3.0",
     "typescript": "^4.5.4",
-    "telefunc": "0.1.25",
-    "vite": "2.6.7",
-    "vite-plugin-ssr": "^0.3.26"
+    "vite": "^3.0.9",
+    "vite-plugin-ssr": "^0.4.32"
   },
   "imports": {
     "#app/*": "./*.ts",

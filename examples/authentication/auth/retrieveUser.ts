@@ -1,14 +1,15 @@
 export { retrieveUser }
 
-import { UserModel } from '#app/db'
+import { User, UserModel } from '#app/db'
 import { COOKIE_NAME } from './COOKIE_NAME'
 
-function retrieveUser(req: { cookies: { [COOKIE_NAME]?: string } }) {
+function retrieveUser(req: { cookies: { [COOKIE_NAME]?: string } }): User | null {
   const userId = retrieveUserId(req.cookies[COOKIE_NAME])
   if (userId === null) {
     return null
   }
-  return UserModel.getOne(userId)
+  const user = UserModel.getOne(userId)
+  return user
 }
 
 function retrieveUserId(cookieVal: string | undefined): null | number {

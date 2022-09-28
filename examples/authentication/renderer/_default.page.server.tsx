@@ -1,25 +1,31 @@
-import ReactDOMServer from 'react-dom/server'
 import React from 'react'
 import { PageShell } from './PageShell'
-import { escapeInject, dangerouslySkipEscape } from 'vite-plugin-ssr'
+import { escapeInject } from 'vite-plugin-ssr'
+import { renderToStream } from 'react-streaming/server'
 import logoUrl from './logo.svg'
-import type { PageContext } from './types'
-import type { PageContextBuiltIn } from 'vite-plugin-ssr'
+import type { PageContextServer } from './types'
+import { TelefuncSSR } from 'telefunc/react/server'
 
 export { render }
 // See https://vite-plugin-ssr.com/data-fetching
-export const passToClient = ['pageProps', 'urlPathname']
+export const passToClient = ['pageProps']
 
-async function render(pageContext: PageContextBuiltIn & PageContext) {
-  const { Page, pageProps } = pageContext
-  const pageHtml = ReactDOMServer.renderToString(
-    <PageShell pageContext={pageContext}>
-      <Page {...pageProps} />
-    </PageShell>
+async function render(pageContext: PageContextServer) {
+  const { Page, user } = pageContext
+  const telefuncContext = { user }
+
+  const page = (
+    <TelefuncSSR context={telefuncContext}>
+      <PageShell pageContext={pageContext}>
+        <Page />
+      </PageShell>
+    </TelefuncSSR>
   )
 
+  const stream = await renderToStream(page, { disable: false })
+
   // See https://vite-plugin-ssr.com/html-head
-  const { documentProps } = pageContext
+  const { documentProps } = pageContext.exports
   const title = (documentProps && documentProps.title) || 'Vite SSR app'
   const desc = (documentProps && documentProps.description) || 'App using Vite + vite-plugin-ssr'
 
@@ -33,7 +39,7 @@ async function render(pageContext: PageContextBuiltIn & PageContext) {
         <title>${title}</title>
       </head>
       <body>
-        <div id="page-view">${dangerouslySkipEscape(pageHtml)}</div>
+        <div id="page-view">${stream}</div>
       </body>
     </html>`
 

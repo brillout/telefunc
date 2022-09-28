@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Suspense } from 'react'
 import logo from './logo.svg'
 import { PageContextProvider } from './usePageContext'
 import type { PageContext } from './types'
@@ -21,7 +21,9 @@ function PageShell({ children, pageContext }: { children: React.ReactNode; pageC
               About
             </Link>
           </Sidebar>
-          <Content>{children}</Content>
+          <Content>
+            <Suspense fallback={<>Loading...</>}>{children}</Suspense>
+          </Content>
         </Layout>
       </PageContextProvider>
     </React.StrictMode>
