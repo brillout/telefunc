@@ -1,5 +1,4 @@
 {
-  "packageManager": "pnpm@6.21.0",
   "scripts": {
     "========= Docs": "",
     "// Develop website https://telefunc.com": "",
@@ -40,5 +39,6 @@
     "@brillout/test-e2e": "^0.1.5",
     "@brillout/test-types": "^0.1.2",
     "vitest": "^0.22.1"
-  }
+  },
+  "packageManager": "pnpm@7.9.5"
 }
