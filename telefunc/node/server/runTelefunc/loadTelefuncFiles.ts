@@ -4,7 +4,7 @@ import type { ViteDevServer } from 'vite'
 import type { TelefuncFiles } from '../types'
 import { assertUsage } from '../../utils'
 import { loadTelefuncFilesWithVite } from '../../vite/loadTelefuncFilesWithVite'
-import { loadTelefuncFilesWithInternalMechanism } from './loadTelefuncFilesWithInternalMechanism'
+import { loadTelefuncFilesWithRegistration } from './loadTelefuncFilesWithRegistration'
 import { loadTelefuncFilesFromConfig } from './loadTelefuncFilesFromConfig'
 
 async function loadTelefuncFiles(runContext: {
@@ -25,7 +25,7 @@ async function loadTelefuncFiles(runContext: {
   // - Nuxt
   // - Vite with `importBuild.js`
   {
-    const telefuncFilesLoaded = loadTelefuncFilesWithInternalMechanism()
+    const telefuncFilesLoaded = loadTelefuncFilesWithRegistration()
     if (telefuncFilesLoaded) {
       assertUsage(Object.keys(telefuncFilesLoaded).length > 0, getErrMsg('webpack'))
       return telefuncFilesLoaded

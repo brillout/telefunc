@@ -24,7 +24,7 @@ function getCode(exportNames: readonly string[], src: string, filePath: string, 
 
   let telefuncImport: string
   if (!skipAddTelefunction) {
-    telefuncImport = 'import { __internal_addTelefunction } from "telefunc";'
+    telefuncImport = 'import { __registerTelefunction } from "telefunc";'
   } else {
     telefuncImport = 'import { __assertTelefuncFileExport } from "telefunc";'
   }
@@ -36,7 +36,7 @@ function getCode(exportNames: readonly string[], src: string, filePath: string, 
   code += '\n\n'
   for (const exportName of exportNames) {
     if (!skipAddTelefunction) {
-      extraLines.push(`__internal_addTelefunction(${exportName}, "${exportName}", "${filePath}");`)
+      extraLines.push(`__registerTelefunction(${exportName}, "${exportName}", "${filePath}");`)
     } else {
       extraLines.push(`__assertTelefuncFileExport(${exportName}, "${exportName}", "${filePath}");`)
     }
