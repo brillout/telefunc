@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react'
+import React, { Suspense, useEffect, useRef } from 'react'
 import logo from './logo.svg'
 import { PageContextProvider } from './usePageContext'
 import type { PageContext } from './types'
@@ -22,11 +22,27 @@ function PageShell({ children, pageContext }: { children: React.ReactNode; pageC
             </Link>
           </Sidebar>
           <Content>
-            <Suspense fallback={<>Loading...</>}>{children}</Suspense>
+            <Suspense fallback={<Loading />}>{children}</Suspense>
           </Content>
         </Layout>
       </PageContextProvider>
     </React.StrictMode>
+  )
+}
+
+function Loading() {
+  const el = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    setTimeout(() => {
+      if (el.current) {
+        el.current.style.opacity = '1'
+      }
+    }, 30)
+  }, [])
+  return (
+    <div style={{ opacity: 0, transition: 'opacity 0.3s ease-in-out' }} ref={el}>
+      Loading...
+    </div>
   )
 }
 

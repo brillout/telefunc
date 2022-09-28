@@ -21,15 +21,21 @@ function testRun(cmd: 'npm run dev' | 'npm run prod') {
       expect(text).toContain('Buy strawberries')
     }
 
+    expect(await getNumberOfItems()).toBe(3)
     await page.fill('input[type="text"]', 'Buy bananas')
     await page.click('button[type="submit"]')
     await autoRetry(async () => {
-      expect(await page.textContent('body')).toContain('Buy bananas')
+      expect(await getNumberOfItems()).toBe(4)
     })
+    expect(await page.textContent('body')).toContain('Buy bananas')
   })
 
   test('New to-do item is persisted & rendered to HTML', async () => {
     const html = await fetchHtml('/')
     expect(html).toContain('<li>Buy bananas</li>')
   })
+}
+
+async function getNumberOfItems() {
+  return await page.evaluate(() => document.querySelectorAll('li').length)
 }

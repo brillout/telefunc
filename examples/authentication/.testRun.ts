@@ -1,18 +1,20 @@
-import { page, test, expect, run, urlBase, autoRetry } from '@brillout/test-e2e'
+import { page, test, expect, run, urlBase, autoRetry, isLinux } from '@brillout/test-e2e'
 
 export { testRun }
 
 function testRun(cmd: 'npm run dev' | 'npm run prod') {
-  run(cmd)
+  run(cmd, { additionalTimeout: 10 * 1000 })
 
   test('Log-in', async () => {
     await page.goto(`${urlBase}/`)
     await page.waitForSelector('button:not([disabled])')
     await page.click('text=Login as Rom')
+    await autoRetry(async () => {
+      expect(await page.textContent('body')).toContain('Cherries')
+    })
   })
 
   test('Add to-do item', async () => {
-    expect(await page.textContent('body')).toContain('Cherries')
     await page.waitForSelector('fieldset:not([disabled])')
     await page.fill('input[type="text"]', 'Banana')
     await page.click('button[type="submit"]')
@@ -22,31 +24,63 @@ function testRun(cmd: 'npm run dev' | 'npm run prod') {
   })
 
   test('New to-do item is persisted & rendered to HTML', async () => {
+    // We don't use `fetchHtml()` because it's missing the session's cookie
     const html = await page.evaluate(async () => await (await fetch('/')).text())
     expect(html).toContain('Banana')
   })
 
-  test('Sessions', async () => {
-    await page.goto(`${urlBase}/`)
-    await page.waitForSelector('button:not([disabled]) >> text=Logout')
-    await page.click('text=Logout')
+  if (isLinux()) {
+    test('Sessions', async () => {
+      await page.goto(`${urlBase}/`)
+      expect(await page.textContent('body')).toContain('Logout')
+      expect(await page.$('button >> text=Logout')).toBeTruthy()
+      await page.waitForSelector('button:not([disabled]) >> text=Logout')
+      await Promise.all([
+        // It is important to call waitForNavigation before click to set up waiting.
+        page.waitForNavigation(),
+        // Does a page reload
+        page.click('button >> text=Logout')
+      ])
+      expect(await page.$('button >> text=Logout')).toBeFalsy()
+      expect(await page.$('button >> text=Create Account')).toBeTruthy()
+      expect(await page.$('fieldset')).toBeTruthy()
+      await autoRetry(async () => {
+        expect(await page.$('fieldset:not([disabled])')).toBeTruthy()
+      })
 
-    await page.waitForSelector('fieldset:not([disabled])')
-    expect(await page.textContent('body')).toContain('Login')
-    await page.fill('input[type="text"]', 'Seb')
-    await page.click('text=Create Account')
+      await page.fill('input[type="text"]', 'Seb')
+      // Doesn't do a page reload
+      await page.click('button >> text=Create Account')
+      expect(await page.$('fieldset')).toBeTruthy()
+      await autoRetry(async () => {
+        expect(await page.$('fieldset:not([disabled])')).toBeTruthy()
+      })
+      expect(await page.$('button >> text=Login as Seb')).toBeTruthy()
+      expect(await page.$('button:not([disabled]) >> text=Login as Seb')).toBeTruthy()
 
-    await page.waitForSelector('button:not([disabled]) >> text=Login as Seb')
-    await page.click('button >> text=Login as Seb')
-    expect(await page.textContent('body')).toContain('Logged-in as Seb')
-    expect((await page.$$('li')).length).toBe(1)
-    expect(await page.textContent('body')).not.toContain('Cherries')
+      await Promise.all([
+        // It is important to call waitForNavigation before click to set up waiting.
+        page.waitForNavigation(),
+        // Does a page reload
+        page.click('button >> text=Login as Seb')
+      ])
+      expect(await page.$('button >> text=Logout')).toBeTruthy()
+      expect(await page.$('button >> text=Create Account')).toBeFalsy()
+      expect(await page.$('fieldset')).toBeTruthy()
+      // await page.waitForSelector('fieldset:not([disabled])', { state: 'attached' })
+      await autoRetry(async () => {
+        expect(await page.$('fieldset:not([disabled])')).toBeTruthy()
+      })
+      expect(await page.textContent('body')).toContain('Logged-in as Seb')
+      expect((await page.$$('li')).length).toBe(1)
+      expect(await page.textContent('body')).not.toContain('Cherries')
 
-    await page.waitForSelector('fieldset:not([disabled])')
-    await page.fill('input[type="text"]', 'Apples')
-    await page.click('button[type="submit"]')
-    await autoRetry(async () => {
-      expect(await page.textContent('body')).toContain('Apples')
+      await page.fill('input[type="text"]', 'Apples')
+      // Doesn't do a page reload
+      await page.click('button[type="submit"]')
+      await autoRetry(async () => {
+        expect(await page.textContent('body')).toContain('Apples')
+      })
     })
-  })
+  }
 }

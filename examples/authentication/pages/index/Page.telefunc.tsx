@@ -4,6 +4,7 @@ import { getContext } from 'telefunc'
 export { loadData }
 
 async function loadData() {
+  // await new Promise(r => setTimeout(r, 1000))
   const { user } = getContext()
   if (!user) {
     const userListInitial = UserModel.getAll()
