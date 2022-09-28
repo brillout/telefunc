@@ -93,6 +93,6 @@ function isFileAlreadyTransformed(path: NodePath<BabelTypes.Program>, types: typ
     if (!types.isImportSpecifier(specifier)) return false
     if (!types.isIdentifier(specifier.imported)) return false
 
-    return specifier.imported.name === '__internal_fetchTelefunc'
+    return specifier.imported.name === '__remoteTelefunctionCall'
   })
 }

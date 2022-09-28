@@ -22,12 +22,12 @@ export function getCode(exportNames: readonly string[], telefuncFilePath: string
 
   lines.push('// @ts-nocheck')
 
-  lines.push(`import { __internal_fetchTelefunc } from 'telefunc/client';`)
+  lines.push(`import { __remoteTelefunctionCall } from 'telefunc/client';`)
 
   exportNames.forEach((exportName) => {
     const varName = exportName === 'default' ? 'defaultExport' : exportName
 
-    lines.push(`const ${varName} =  (...args) => __internal_fetchTelefunc('${telefuncFilePath}', '${exportName}', args);`)
+    lines.push(`const ${varName} =  (...args) => __remoteTelefunctionCall('${telefuncFilePath}', '${exportName}', args);`)
 
     {
       assert(!telefuncFilePath.includes(':'))

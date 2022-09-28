@@ -1,8 +1,15 @@
 export { parseHttpRequest }
 
 import { parse } from '@brillout/json-s/parse'
-import { assertUsage, hasProp, getProjectError, getUrlPathname, assert, getTelefunctionKey } from '../../utils'
-import { getTelefunctionName } from './getTelefunctionName'
+import {
+  assertUsage,
+  hasProp,
+  getProjectError,
+  getUrlPathname,
+  assert,
+  getTelefunctionKey,
+  getTelefunctionName
+} from '../../utils'
 
 function parseHttpRequest(runContext: {
   httpRequest: { body: unknown; url: string; method: string }

@@ -1,12 +1,11 @@
-export { __internal_fetchTelefunc }
+export { remoteTelefunctionCall }
 
-import { makeHttpRequest } from './callTelefunc/makeHttpRequest'
-import { serializeTelefunctionArguments } from './callTelefunc/serializeTelefunctionArguments'
-import { getTelefunctionName } from './callTelefunc/getTelefunctionName'
+import { makeHttpRequest } from './remoteTelefunctionCall/makeHttpRequest'
+import { serializeTelefunctionArguments } from './remoteTelefunctionCall/serializeTelefunctionArguments'
 import { telefuncConfig } from './telefuncConfig'
-import { objectAssign, assertUsage, isBrowser, assert } from './utils'
+import { objectAssign, assertUsage, isBrowser, assert, getTelefunctionName } from './utils'
 
-async function __internal_fetchTelefunc(
+async function remoteTelefunctionCall(
   telefunctionFilePath: string,
   telefunctionFileExport: string,
   telefunctionArgs: unknown[]
