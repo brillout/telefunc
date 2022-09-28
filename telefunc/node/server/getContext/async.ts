@@ -10,10 +10,10 @@ let _asyncStore: AsyncLocalStorage<Telefunc.Context>
 
 installAsyncMode({ getContext_async, provideTelefuncContext_async })
 
-function getContext_async(): Telefunc.Context | undefined {
+function getContext_async(): Telefunc.Context | null {
   const context = _asyncStore.getStore()
   assert(context === undefined || isObject(context))
-  return context
+  return context ?? null
 }
 
 function provideTelefuncContext_async(context: Telefunc.Context) {

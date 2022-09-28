@@ -13,7 +13,7 @@ installSyncMode()
 function getContext<Context extends object = Telefunc.Context>(): Context {
   const context = _getContext()
   assertUsage(
-    context !== undefined,
+    context !== null,
     [
       `\`getContext()\`: no context found${!isSSR() ? '' : ' (SSR)'}.`,
       'Make sure to properly call `provideTelefuncContext()`,',
@@ -33,7 +33,7 @@ function provideTelefuncContext<Context extends object = Telefunc.Context>(conte
   _provideTelefuncContext(context)
 }
 
-var _getContext: () => Telefunc.Context | undefined
+var _getContext: () => Telefunc.Context | null
 var _provideTelefuncContext: (context: Telefunc.Context) => void
 
 function installSyncMode() {
