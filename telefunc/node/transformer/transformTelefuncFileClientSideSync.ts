@@ -1,9 +1,9 @@
-export { transformTelefuncFileSync }
+export { transformTelefuncFileClientSideSync }
 
 import { posix } from 'path'
 import { assert, assertPosixPath } from '../utils'
 
-function transformTelefuncFileSync(id: string, root: string, exportNames: readonly string[] | string[]) {
+function transformTelefuncFileClientSideSync(id: string, root: string, exportNames: readonly string[] | string[]) {
   assertPosixPath(id)
   assertPosixPath(root)
 

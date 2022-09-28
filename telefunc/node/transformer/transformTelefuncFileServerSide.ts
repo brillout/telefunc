@@ -1,9 +1,9 @@
-export { transformTelefuncFileSSR }
+export { transformTelefuncFileServerSide }
 
 import { getExportNames } from './getExportNames'
 import { assertPosixPath, getTelefunctionKey } from './utils'
 
-async function transformTelefuncFileSSR(src: string, id: string, root: string, skipAddTelefunction?: true) {
+async function transformTelefuncFileServerSide(src: string, id: string, root: string, skipAddTelefunction?: true) {
   assertPosixPath(id)
   assertPosixPath(root)
 
