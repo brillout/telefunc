@@ -1,0 +1,1 @@
+export { TelefuncSSR } from './useTelefuncContext'

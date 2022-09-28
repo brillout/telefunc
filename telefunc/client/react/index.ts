@@ -1,1 +1,1 @@
-export * from '../../shared/react'
+export { useData } from '../../shared/react'

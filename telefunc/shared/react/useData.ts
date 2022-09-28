@@ -14,7 +14,9 @@ function useData<Telefunction extends (...args: any[]) => any>(
     telefunctionKey,
     `The function \`${fnName || 'fn'}\` passed to \`useData(${fnName ? '' : 'fn'})\` isn't a telefunction`
   )
-  const asyncFn: () => ReturnType<Telefunction> = () => telefunction(...args)
+  const asyncFn: () => ReturnType<Telefunction> = () => {
+    return telefunction(...args)
+  }
   const key = [telefunctionKey, ...args]
   const result = useAsync(key, asyncFn)
   return result

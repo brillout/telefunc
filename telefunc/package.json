@@ -31,6 +31,10 @@
       "node": "./dist/cjs/node/react/index.js",
       "browser": "./dist/esm/client/react/index.js"
     },
+    "./react/server": {
+      "worker": "./dist/cjs/node/react/index.js",
+      "node": "./dist/cjs/node/react/server.js"
+    },
     "./vite": {
       "node": "./dist/cjs/node/vite/index.js"
     },
@@ -64,8 +68,8 @@
     "typescript": "^4.7.4",
     "vite": "^3.0.9"
   },
-  "peerDependencies": { "react-streaming": "^0.3.2"  },
-  "peerDependenciesMeta": { "react-streaming": { "optional": true } },
+  "peerDependencies": { "react-streaming": "^0.3.2", "react": "^18.0.0"  },
+  "peerDependenciesMeta": { "react-streaming": { "optional": true }, "react": { "optional": true } },
   "files": [
     "dist/cjs/",
     "dist/esm/",
