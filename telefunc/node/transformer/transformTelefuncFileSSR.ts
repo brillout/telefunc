@@ -9,8 +9,10 @@ async function transformTelefuncFileSSR(src: string, id: string, root: string, s
 
   const exportNames = await getExportNames(src)
 
+  const code = getCode(exportNames, src, id.replace(root, ''), skipAddTelefunction);
+
   return {
-    code: getCode(exportNames, src, id.replace(root, ''), skipAddTelefunction),
+    code,
     map: null
   }
 }
@@ -20,11 +22,14 @@ function getCode(exportNames: readonly string[], src: string, filePath: string, 
 
   let code = src
 
+  let telefuncImport: string
   if (!skipAddTelefunction) {
-    const telefuncImport = 'import { __internal_addTelefunction } from "telefunc";'
-    // No break line between `telefuncImport` and `src` in order to preserve the source map's line mapping
-    code = telefuncImport + src
+    telefuncImport = 'import { __internal_addTelefunction } from "telefunc";'
+  } else {
+    telefuncImport = 'import { __assertTelefuncFileExport } from "telefunc";'
   }
+  // No break line between `telefuncImport` and `src` in order to preserve the source map's line mapping
+  code = telefuncImport + src
 
   const extraLines: string[] = []
 
@@ -32,6 +37,8 @@ function getCode(exportNames: readonly string[], src: string, filePath: string, 
   for (const exportName of exportNames) {
     if (!skipAddTelefunction) {
       extraLines.push(`__internal_addTelefunction(${exportName}, "${exportName}", "${filePath}");`)
+    } else {
+      extraLines.push(`__assertTelefuncFileExport(${exportName}, "${exportName}", "${filePath}");`)
     }
     {
       const telefunctionKey = getTelefunctionKey(filePath, exportName)

@@ -9,6 +9,7 @@ export { onBug } from './runTelefunc/onBug'
 export type { Telefunc } from './getContext/TelefuncNamespace'
 
 export { __internal_addTelefunction } from './runTelefunc/loadTelefuncFilesWithInternalMechanism'
+export { assertTelefuncFileExport as __assertTelefuncFileExport } from './runTelefunc/assertTelefuncFileExport'
 
 import { assertUsage } from '../utils'
 
