@@ -1,57 +1,54 @@
-import { getContext_sync, provideTelefuncContext_sync } from './getContext/sync'
-import { assert, assertUsage, isObject } from '../utils'
-import type { Telefunc } from './getContext/TelefuncNamespace'
-
 export { getContext }
 export { getContextOptional }
 export { provideTelefuncContext }
 export { Telefunc }
-
 export { installAsyncMode }
-installSyncMode()
+
+import { getContext_sync, provideTelefuncContext_sync } from './getContext/sync'
+import { assert, assertUsage, isObject, getGlobalObject } from '../utils'
+import type { Telefunc } from './getContext/TelefuncNamespace'
+
+type GetContext = () => Telefunc.Context | null
+type ProvideTelefuncContext = (context: Telefunc.Context) => void
+
+const globalObject = getGlobalObject<{
+  getContext: GetContext
+  provideTelefuncContext: ProvideTelefuncContext
+  neverProvided: boolean
+}>('getContext.ts', {
+  getContext: getContext_sync,
+  provideTelefuncContext: provideTelefuncContext_sync,
+  neverProvided: true
+})
 
 function getContext<Context extends object = Telefunc.Context>(): Context {
-  const context = _getContext()
+  const context = globalObject.getContext()
   assertUsage(
-    context !== null,
-    [
-      `\`getContext()\`: no context found${!isSSR() ? '' : ' (SSR)'},`,
-      'make sure to (properly) use `provideTelefuncContext()`,',
-      `see https://telefunc.com/provideTelefuncContext${isSSR() ? '#ssr' : ''}`
-    ].join(' ')
+    globalObject.neverProvided === false,
+    '[getContext()] Make sure you provide a context object, see https://telefunc.com/getContext#provide'
   )
+  assertUsage(context !== null, '[getContext()] No context object found, see https://telefunc.com/getContext#not-found')
   assert(isObject(context))
   return context as Context
 }
 
 function getContextOptional() {
-  const context = _getContext()
+  const context = globalObject.getContext()
   return context
 }
 
 function provideTelefuncContext<Context extends object = Telefunc.Context>(context: Context) {
-  _provideTelefuncContext(context)
+  globalObject.neverProvided = false
+  globalObject.provideTelefuncContext(context)
 }
 
-var _getContext: () => Telefunc.Context | null
-var _provideTelefuncContext: (context: Telefunc.Context) => void
-
-function installSyncMode() {
-  _getContext = getContext_sync
-  _provideTelefuncContext = provideTelefuncContext_sync
-}
 async function installAsyncMode({
   getContext_async,
   provideTelefuncContext_async
 }: {
-  getContext_async: typeof _getContext
-  provideTelefuncContext_async: typeof _provideTelefuncContext
+  getContext_async: GetContext
+  provideTelefuncContext_async: ProvideTelefuncContext
 }) {
-  _getContext = getContext_async
-  _provideTelefuncContext = provideTelefuncContext_async
-}
-
-function isSSR(): boolean {
-  // TODO
-  return false
+  globalObject.getContext = getContext_async
+  globalObject.provideTelefuncContext = provideTelefuncContext_async
 }

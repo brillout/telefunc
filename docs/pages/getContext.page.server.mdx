@@ -1,15 +1,99 @@
+import { Link } from '@brillout/docpress'
+
 Environment: Node.js.
 
-Telefunctions often need context. Is the user logged-in? What is the user's ID? Etc.
+The `getContext()` function enables you to provide contextual information to your telefunctions.
 
-We use `getContext()` with `provideTelefuncContext()` in order to pass contextual information to telefunctions,
-We use `getContext()` with `provideTelefuncContext()` in order to provide contextual information to our telefunctions.
-such as the authenticated user's ID.
+The most commmon use case is to provide information about the logged-in user:
 
-TODO
+```js
+// TodoList.telefunc.js
 
-- Explain synchronous rule
-- Explain synchronous nature of `getContext()`
+export { fetchTodoItems }
+
+import { getContext } from 'telefunc'
+
+async function fetchTodoItems() {
+  const context = getContext()
+  const { user } = context
+  const todoItems = await Todo.findMany({ select: 'text', author: user.id })
+  return todoItems
+}
+```
+
+You can define and provide the `context` object to Telefunc at your server middleware:
+
+```js
+// server.js
+// Environment: Node.js
+
+import { telefunc } from 'telefunc'
+
+// Server middleware (Express.js/Fastify/Koa/Hapi/...)
+app.all('/_telefunc', async (req, res) => {
+  // Authentication middlewares (e.g. Passport.js or Grant) usually provide information
+  // about the logged-in user on the `req` object.
+  const user = req.user
+
+  // Or when using a third-party authentication provider (e.g. Auth0):
+  const user = await authProviderApi.getUser(req.headers)
+
+  const context = { user }
+
+  const httpResponse = await telefunc({
+    // We define `context` here
+    context,
+    // The other `telefunc()` middleware arguments
+    url: req.url,
+    method: req.method,
+    body: req.body,
+  })
+  const { body, statusCode, contentType } = httpResponse
+  res.status(statusCode).type(contentType).send(body)
+})
+```
+
+There are also other ways to pass the `context` object to Telefunc.
 
 
-> **Why?** If you wonder why ...
+## Provide
+
+How you pass the `context` object to Telefunc depends on your stack, see following integration guides.
+
+ - <Link href="/next" />
+ - <Link href="/nuxt" />
+ - <Link href="/vite" />
+ - <Link href="/install" />
+
+
+## Not found
+
+If you get this error:
+
+```
+[telefunc][getContext()] Context object not found, see https://telefunc.com/getContext#not-found
+```
+
+Then this usually means that you called `getContext()` after an `await` operator:
+
+```js
+// TodoList.telefunc.js
+
+export async function myTelefunction() {
+  await someting()
+  // ❌ BAD: we should call `getContext()` before `await something()`
+  const context = getContext()
+}
+```
+
+Instead, make sure to call `getContext()` before any `await` operator:
+
+```js
+// TodoList.telefunc.js
+
+export async function myTelefunction() {
+  // ✅ GOOD: we call `getContext()` before any `await` operator
+  const context = getContext()
+  await someting()
+}
+```
