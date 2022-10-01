@@ -31,16 +31,22 @@ function testRun(cmd: 'npm run dev' | 'npm run preview:miniflare' | 'npm run pre
     return
   }
 
-  if (isWrangler) {
-    if (!isGithubAction() || process.env['GIT_BRANCH'] !== 'master') {
-      skip('SKIPPED: wrangler test is not run locally nor in Pull Requests')
+  // - `CLOUDFLARE_ACCOUNT_ID`/`CLOUDFLARE_API_TOKEN` not available for:
+  //   - Vite's ecosystem CI
+  //   - Pull Requests
+  //     - https://github.community/t/feature-request-allow-secrets-in-approved-external-pull-requests/18071/4
+  if (!process.env['CLOUDFLARE_ACCOUNT_ID']) {
+    expect(process.env['CLOUDFLARE_ACCOUNT_ID']).toBeFalsy()
+    expect(process.env['CLOUDFLARE_API_TOKEN']).toBeFalsy()
+    if (isWrangler) {
+      skip(
+        "SKIPPED: wrangler tests cannot be run. Because missing environment variables `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_API_TOKEN`. (This is expected in Pull Requests and Vite's ecosystem CI.)"
+      )
       return
     }
-    test('API keys', () => {
-      const envVars = Object.keys(process.env)
-      expect(envVars).toContain('CF_ACCOUNT_ID')
-      expect(envVars).toContain('CF_API_TOKEN')
-    })
+  } else {
+    expect(process.env['CLOUDFLARE_ACCOUNT_ID']).toBeTruthy()
+    expect(process.env['CLOUDFLARE_API_TOKEN']).toBeTruthy()
   }
 
   {

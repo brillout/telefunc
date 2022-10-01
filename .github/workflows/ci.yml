@@ -1,23 +1,40 @@
 name: CI
 
+env:
+  # 7 GiB by default on GitHub, setting to 6 GiB
+  # https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources
+  NODE_OPTIONS: --max-old-space-size=6144
+
 on:
   push:
   pull_request:
 
 jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/setup-node@v3
+      with:
+        node-version: 18
+    - id: getMatrix
+      run: |
+        matrix=`node ./.github/workflows/ci/getTestJobs.mjs --ci`
+        echo "::set-output name=matrix::$matrix"
+    - run: echo ${{ steps.getMatrix.outputs.matrix }}
+    outputs:
+      matrix: ${{ steps.getMatrix.outputs.matrix }}
+
   test:
-    runs-on: ${{ matrix.os }}
+    needs: prepare
     strategy:
-      matrix:
-        os: [ubuntu-latest]
-        node_version: [16]
-        include:
-          - os: macos-latest
-            node_version: 14
-          - os: windows-latest
-            node_version: 14
+      matrix: ${{fromJson(needs.prepare.outputs.matrix)}}
       fail-fast: false
-    name: 'Test on node-${{ matrix.node_version }}, ${{ matrix.os }}'
+    env:
+      TEST_FILES: ${{ matrix.TEST_FILES }}
+    runs-on: ${{ matrix.os }}
+    name: '${{ matrix.jobName }}'
+
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -31,17 +48,12 @@ jobs:
           node-version: ${{ matrix.node_version }}
           cache: "pnpm"
 
-      - name: Install
-        run: |
-          pnpm install
-          pnpm exec playwright install
-
-      - name: Build
-        run: pnpm run build
+      - run: pnpm install
+      - run: pnpm exec playwright install chromium # Needed for Windows/MacOS
+      - run: pnpm run build
 
       - name: Run tests
-        run: pnpm run test
+        run: ${{ matrix.jobCmd }}
         env:
-          GIT_BRANCH: ${{ github.ref_name }}
-          CF_ACCOUNT_ID: ${{ secrets.CF_ACCOUNT_ID }}
-          CF_API_TOKEN: ${{ secrets.CF_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
