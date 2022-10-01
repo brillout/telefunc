@@ -69,6 +69,15 @@
             "node_version": "14"
           }
         ]
+      },
+      {
+        "name": "https://telefunc.com",
+        "setups": [
+          {
+            "os": "ubuntu-latest",
+            "node_version": "17"
+          }
+        ]
       }
     ]
   }
