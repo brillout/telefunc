@@ -4,7 +4,7 @@ import { escapeInject } from 'vite-plugin-ssr'
 import { renderToStream } from 'react-streaming/server'
 import logoUrl from './logo.svg'
 import type { PageContextServer } from './types'
-import { TelefuncSSR } from 'telefunc/react/server'
+import { TelefuncSSR } from 'telefunc/react-streaming/server'
 
 export { render }
 // See https://vite-plugin-ssr.com/data-fetching

@@ -26,14 +26,14 @@
       "node": "./dist/cjs/node/client.js",
       "worker": "./dist/cjs/node/client.js"
     },
-    "./react": {
-      "worker": "./dist/cjs/node/react/index.js",
-      "node": "./dist/cjs/node/react/index.js",
-      "browser": "./dist/esm/client/react/index.js"
+    "./react-streaming": {
+      "worker": "./dist/cjs/node/react-streaming/index.js",
+      "node": "./dist/cjs/node/react-streaming/index.js",
+      "browser": "./dist/esm/client/react-streaming/index.js"
     },
-    "./react/server": {
-      "worker": "./dist/cjs/node/react/index.js",
-      "node": "./dist/cjs/node/react/server.js"
+    "./react-streaming/server": {
+      "worker": "./dist/cjs/node/react-streaming/index.js",
+      "node": "./dist/cjs/node/react-streaming/server.js"
     },
     "./vite": {
       "node": "./dist/cjs/node/vite/index.js"

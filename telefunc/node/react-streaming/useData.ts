@@ -1,6 +1,6 @@
 export { useData }
 
-import { useData as useData_ } from '../../shared/react'
+import { useData as useData_ } from '../../shared/react-streaming'
 import { provideTelefuncContext } from '../server'
 
 import { useTelefuncContext } from './useTelefuncContext'

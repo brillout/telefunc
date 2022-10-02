@@ -2,7 +2,7 @@ import React from 'react'
 import { Auth, UserInfo } from './Auth'
 import { TodoList } from './TodoList'
 import { ClearCookies } from './ClearCookies'
-import { useData } from 'telefunc/react'
+import { useData } from 'telefunc/react-streaming'
 import { loadData } from './Page.telefunc'
 
 export { Page }
