@@ -25,7 +25,7 @@ function getContext<Context extends object = Telefunc.Context>(): Context {
   const context = globalObject.getContext()
   assertUsage(
     globalObject.neverProvided === false,
-    '[getContext()] Make sure you provide a context object, see https://telefunc.com/getContext#provide'
+    '[getContext()] Make sure to provide a context object before using getContext(), see https://telefunc.com/getContext#provide'
   )
   assertUsage(context !== null, '[getContext()] No context object found, see https://telefunc.com/getContext#not-found')
   assert(isObject(context))
