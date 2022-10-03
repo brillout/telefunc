@@ -1,0 +1,28 @@
+```ts
+// CreateTodo.telefunc.ts
+// Environment: Node.js server
+
+import { getContext, Abort } from 'telefunc'
+
+// Telefunc makes onNewTodo() remotely callable
+// from the browser.
+export { onNewTodo }
+
+// Telefunc infers TypeScript types to guarantee that
+// `text` is a `string` at runtime.
+async function onNewTodo(text: string) {
+  const { user } = getContext()
+  // Abort if the user isn't logged-in
+  if (!user) throw Abort()
+
+  // With an ORM:
+  const todoItem = new Todo({text, authorId: user.id})
+  await todoItem.save()
+
+  // Or with SQL:
+  await execute(
+    "INSERT INTO todo_items VALUES (:text, :authorId)",
+    { text, authorId: user.id }
+  )
+}
+```

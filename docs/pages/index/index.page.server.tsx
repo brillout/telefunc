@@ -1,5 +1,6 @@
 import React from 'react'
 import { Header } from './Header'
+import { CodePreview } from './CodePreview'
 import { Features } from './features/Features'
 import { ContactUs } from '@brillout/docpress'
 
@@ -9,6 +10,7 @@ function Page() {
   return (
     <>
       <Header />
+      <CodePreview />
       <div style={{ height: 30 }} />
       <Features />
       <div style={{ height: 30 }} />

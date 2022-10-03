@@ -69,8 +69,8 @@ function Features() {
           desc: (
             <>
               <p>
-                The frontend can directly tap into the <b>full power of the server</b>. You can use highly tailored &
-                optimized SQL/ORM queries for highly performant data retrieval and mutations.
+                The frontend can directly tap into the <b>full power of the server</b>. Use tailored and optimized
+                SQL/ORM queries for highly performant data retrieval and mutations.
               </p>
             </>
           )
@@ -84,11 +84,11 @@ function Features() {
           desc: (
             <>
               <p>
-                <b>Seamless TypeScript support</b> out-of-the-box.
+                <b>Seamless TypeScript support</b> out-of-the-box including all your favorite IDE features such as auto-import, replace-all-occurrences, etc.
               </p>
               <p>
                 Use your types across the frontend and backend for <b>end-to-end type safety</b>, including{' '}
-                <b>runtime validation</b>.
+                <b>automatic runtime validation</b>.
               </p>
             </>
           )
