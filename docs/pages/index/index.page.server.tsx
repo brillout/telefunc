@@ -2,7 +2,7 @@ import React from 'react'
 import { Header } from './Header'
 import { CodePreview } from './CodePreview'
 import { Features } from './features/Features'
-import { ContactUs } from '@brillout/docpress'
+import { ContactUs } from './ContactUs'
 
 export { Page }
 
@@ -14,7 +14,7 @@ function Page() {
       <div style={{ height: 30 }} />
       <Features />
       <div style={{ height: 30 }} />
-      <ContactUs text="Have a question? Want a feature? Found a bug?" />
+      <ContactUs / >
       <div style={{ height: 70 }} />
     </>
   )
