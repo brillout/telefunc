@@ -9,15 +9,18 @@ function applyShield(runContext: {
   telefunctionName: string
   telefunctionArgs: unknown[]
   logInvalidRequests: boolean
+  isProduction: boolean
 }): { isValidRequest: boolean } {
   const { telefunction } = runContext
 
   const hasShield = !shieldIsMissing(telefunction)
-  assertWarning(
-    hasShield || telefunction.length === 0,
-    `The telefunction ${runContext.telefunctionName} accepts arguments yet is missing \`shield()\`, see https://telefunc.com/shield`,
-    { onlyOnce: true }
-  )
+  if (runContext.isProduction) {
+    assertWarning(
+      hasShield || telefunction.length === 0,
+      `The telefunction ${runContext.telefunctionName} accepts arguments yet is missing \`shield()\`, see https://telefunc.com/shield`,
+      { onlyOnce: true }
+    )
+  }
   if (!hasShield) {
     return { isValidRequest: true }
   }

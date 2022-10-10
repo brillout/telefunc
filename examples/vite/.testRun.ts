@@ -12,6 +12,13 @@ function testRun(
     run(cmd, { serverIsReadyMessage })
   }
 
+  {
+    const isDev = cmd !== 'npm run preview'
+    if (isDev) {
+      skipShieldGenerationTest = true
+    }
+  }
+
   test('example', async () => {
     {
       const html = await fetchHtml('/')

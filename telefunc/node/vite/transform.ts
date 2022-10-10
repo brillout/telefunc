@@ -8,12 +8,16 @@ export { transform }
 
 function transform(): Plugin {
   let root: string
+  let isDev: boolean = false
   return {
     name: 'telefunc:transform',
     enforce: 'pre',
     configResolved: (config) => {
       root = toPosixPath(config.root)
       assert(root)
+    },
+    configureServer() {
+      isDev = true
     },
     async transform(code, id, options) {
       if (!id.includes('.telefunc.')) {
@@ -25,9 +29,11 @@ function transform(): Plugin {
       if (isClientSide) {
         code = await transformTelefuncFileClientSide(code, id, root)
       } else {
-        code = (await transformTelefuncFileServerSide(code, id, root, true))
-        if (id.endsWith('.ts')) {
-          code = generateShield(code)
+        code = await transformTelefuncFileServerSide(code, id, root, true)
+        if (!isDev) {
+          if (id.endsWith('.ts')) {
+            code = generateShield(code)
+          }
         }
       }
 
