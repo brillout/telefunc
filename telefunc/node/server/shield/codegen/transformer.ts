@@ -9,9 +9,12 @@ assert(typesSrc.includes('SimpleType'))
 
 const tAlias = '__shieldGenerator_t' // alias for shield.t
 
-const replaceShieldTypeAlias = (shieldStr: string) => shieldStr.replace(/(?<!t.const\('(?!'\)).*)t\./g, `${tAlias}.`)
+const replaceShieldTypeAlias = (shieldStr: string): string =>
+  shieldStr.replace(/(?<!t.const\('(?!'\)).*)t\./g, `${tAlias}.`)
 
-const generateShield = (telefuncFileCode: string): string => {
+const shieldName = (telefunctionName: string): string => `${telefunctionName}Shield`
+
+function generateShield(telefuncFileCode: string): string {
   const project = new Project({
     compilerOptions: {
       strict: true
@@ -20,9 +23,9 @@ const generateShield = (telefuncFileCode: string): string => {
 
   project.createSourceFile('types.ts', typesSrc)
   const telefuncFileSource = project.createSourceFile('telefunc.ts', telefuncFileCode)
-  // this source file is used for evaluating the template literal types' values
-  const shieldStrSource = project.createSourceFile('shield-str.ts')
 
+  // This source file is used for evaluating the template literal types' values
+  const shieldStrSource = project.createSourceFile('shield-str.ts')
   shieldStrSource.addImportDeclaration({
     moduleSpecifier: './types',
     namedImports: ['ShieldArrStr']
@@ -43,7 +46,7 @@ const generateShield = (telefuncFileCode: string): string => {
   // then diagnostics are used to get the value of the template literal type
   for (const telefunctionName of telefunctionNames) {
     shieldStrSource.addTypeAlias({
-      name: `${telefunctionName}Shield`,
+      name: shieldName(telefunctionName),
       type: `ShieldArrStr<Parameters<typeof ${telefunctionName}>>`
     })
   }
@@ -69,13 +72,14 @@ const generateShield = (telefuncFileCode: string): string => {
   })
 
   for (const telefunctionName of telefunctionNames) {
-    const typeAlias = shieldStrSource.getTypeAlias(`${telefunctionName}Shield`)
-    assert(typeAlias, `Failed to get typeAlias '${telefunctionName}Shield'.`)
+    const typeAliasName = shieldName(telefunctionName)
+    const typeAlias = shieldStrSource.getTypeAlias(typeAliasName)
+    assert(typeAlias, `Failed to get type alias \`${typeAliasName}\`.`)
 
     const shieldStr = typeAlias.getType().getLiteralValue()
 
     if (!shieldStr || typeof shieldStr !== 'string') {
-      assertWarning(false, `Failed to generate shield() for telefunction ${telefunctionName}()`, { onlyOnce: false })
+      assertWarning(false, `Failed to generate shield() for telefunction ${telefunctionName}()`, { onlyOnce: true })
       continue
     }
     const shieldStrWithAlias = replaceShieldTypeAlias(shieldStr)
@@ -84,7 +88,8 @@ const generateShield = (telefuncFileCode: string): string => {
     )
   }
 
-  return telefuncFileSource.getText()
+  const shieldCode = telefuncFileSource.getText()
+  return shieldCode
 }
 
 function readTypesFile() {
