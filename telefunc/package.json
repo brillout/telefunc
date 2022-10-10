@@ -1,6 +1,6 @@
 {
   "name": "telefunc",
-  "version": "0.1.25",
+  "version": "0.1.26",
   "scripts": {
     "build": "rm -rf dist/ && tsc --build",
     "dev": "pnpm run dev:fast",
@@ -68,8 +68,18 @@
     "typescript": "^4.7.4",
     "vite": "^3.0.9"
   },
-  "peerDependencies": { "react-streaming": "^0.3.3", "react": "^18.0.0"  },
-  "peerDependenciesMeta": { "react-streaming": { "optional": true }, "react": { "optional": true } },
+  "peerDependencies": {
+    "react-streaming": "^0.3.3",
+    "react": "^18.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react-streaming": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    }
+  },
   "files": [
     "dist/cjs/",
     "dist/esm/",

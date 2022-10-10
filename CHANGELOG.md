@@ -1,3 +1,27 @@
+## [0.1.26](https://github.com/brillout/telefunc/compare/v0.1.25...v0.1.26) (2022-10-10)
+
+
+### Bug Fixes
+
+* gracefully handle `.telefunc.js` non-function exports ([9eacb25](https://github.com/brillout/telefunc/commit/9eacb258d4ec11e1323da5029076050eefd25568))
+* improve DX around erroneous context setup ([a33d89b](https://github.com/brillout/telefunc/commit/a33d89b6b15578454c196afbd802a8fc7c70db2f))
+* improve error handling ([1dc21e2](https://github.com/brillout/telefunc/commit/1dc21e24ddebf48d2bac28e6c1e4b249dd279a5c))
+* improve error message upon telefunction not found ([cb6f7a8](https://github.com/brillout/telefunc/commit/cb6f7a8895738fe6ce994ed9d7b350688ec7fd88))
+* improve error message upon wrong `getContext()` usage ([0a0ac4e](https://github.com/brillout/telefunc/commit/0a0ac4e71f816b838cb759d7a78741a6fb0376d2))
+
+
+### Features
+
+* add SSR context support React hooks ([17e79d8](https://github.com/brillout/telefunc/commit/17e79d8826b40cf6110819b0afd284acdc8af75a))
+* new React hook `useData()` enabling using Telefunc for SSR data fetching ([7d8a757](https://github.com/brillout/telefunc/commit/7d8a757ffa6afa0be051cdf4f60440b2fc733927))
+
+
+### Performance Improvements
+
+* stop auto-generating `shiled()` in dev ([32a3008](https://github.com/brillout/telefunc/commit/32a3008a77c2c61713135c0c9490db196a05d91a))
+
+
+
 ## [0.1.25](https://github.com/brillout/telefunc/compare/v0.1.24...v0.1.25) (2022-09-05)
 
 
