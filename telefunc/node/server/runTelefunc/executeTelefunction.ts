@@ -1,7 +1,7 @@
 export { executeTelefunction }
 
 import { isAbort, Abort } from '../Abort'
-import { provideTelefuncContext, Telefunc } from '../getContext'
+import { restoreContext, Telefunc, isAsyncMode } from '../getContext'
 import type { Telefunction } from '../types'
 import { assertUsage, isPromise } from '../../utils'
 
@@ -14,8 +14,8 @@ async function executeTelefunction(runContext: {
 }) {
   const { telefunction, telefunctionArgs } = runContext
 
-  if (runContext.providedContext) {
-    provideTelefuncContext(runContext.providedContext)
+  if (!isAsyncMode()) {
+    restoreContext(runContext.providedContext)
   }
 
   let telefunctionError: unknown

@@ -3,7 +3,6 @@
     "skipLibCheck": true,
     "declaration": true,
     "strict": true,
-    "noUnusedLocals": true,
     "noUnusedParameters": true,
     "esModuleInterop": true,
     "noUncheckedIndexedAccess": true,

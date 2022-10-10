@@ -155,7 +155,6 @@ type ShieldStrMap<T extends any[]> = Head<T> extends never ? [] : [ShieldStr<Hea
 
 export type ShieldArrStr<T extends any[], M = ShieldStrMap<T>> = M extends any [] ? `[${JoinStrings<M>}]` : never
 
-// @ts-expect-error (unused variable)
 type _cases = [
   Expect<Equals<ShieldStr<string>, 't.string'>>,
   Expect<Equals<ShieldStr<number>, 't.number'>>,

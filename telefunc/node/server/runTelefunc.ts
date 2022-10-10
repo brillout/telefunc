@@ -1,7 +1,7 @@
 export { runTelefunc }
 
 import { assert, objectAssign } from '../utils'
-import { getContextOptional } from './getContext'
+import { getContextOptional, isAsyncMode } from './getContext'
 import { loadTelefuncFiles } from './runTelefunc/loadTelefuncFiles'
 import { parseHttpRequest } from './runTelefunc/parseHttpRequest'
 // import { getEtag } from './runTelefunc/getEtag'
@@ -68,7 +68,7 @@ async function runTelefunc_(httpRequest: { url: string; method: string; body: un
   }
 
   objectAssign(runContext, {
-    providedContext: getContextOptional() || null
+    providedContext: isAsyncMode() ? null : getContextOptional() || null
   })
   {
     const parsed = parseHttpRequest(runContext)
