@@ -1,7 +1,7 @@
 import { Plugin } from 'vite'
 import { transformTelefuncFileClientSide } from '../transformer/transformTelefuncFileClientSide'
 import { transformTelefuncFileServerSide } from '../transformer/transformTelefuncFileServerSide'
-import { generateShield } from '../server/shield/codegen/transformer'
+import { generateShield } from '../server/shield/codegen/generateShield'
 import { assert, toPosixPath, viteIsSSR_options } from './utils'
 
 export { transform }
@@ -32,7 +32,7 @@ function transform(): Plugin {
         code = await transformTelefuncFileServerSide(code, id, root, true)
         if (!isDev) {
           if (id.endsWith('.ts')) {
-            code = generateShield(code)
+            code = generateShield(code, id)
           }
         }
       }
