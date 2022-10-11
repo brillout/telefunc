@@ -1,4 +1,4 @@
-import { generateShield, replaceShieldTypeAlias } from './transformer'
+import { testGenerateShield, replaceShieldTypeAlias } from './generateShield'
 import { expect, describe, it } from 'vitest'
 
 describe('generateShield', () => {
@@ -6,7 +6,7 @@ describe('generateShield', () => {
     const src = `export function doSomething(arg: string) {
 
 }`
-    const shieldedSrc = generateShield(src)
+    const shieldedSrc = testGenerateShield(src)
     expect(shieldedSrc).toEqual(`import { shield as __shieldGenerator_shield } from "telefunc";
 
 ${src}
@@ -24,7 +24,7 @@ __shieldGenerator_shield(doSomething, [__shieldGenerator_t.string], { __autoGene
 export function doSomethingElse(arg: string | number, arg2: { val?: number }) {
 
 }`
-    const shieldedSrc = generateShield(src)
+    const shieldedSrc = testGenerateShield(src)
     expect(shieldedSrc).toEqual(`import { shield as __shieldGenerator_shield } from "telefunc";
 
 ${src}
