@@ -9,10 +9,6 @@
             "node_version": "18"
           },
           {
-            "os": "macos-latest",
-            "node_version": "14"
-          },
-          {
             "os": "windows-latest",
             "node_version": "14"
           }
@@ -44,10 +40,6 @@
             "node_version": "16"
           },
           {
-            "os": "macos-latest",
-            "node_version": "14"
-          },
-          {
             "os": "windows-latest",
             "node_version": "14"
           }
@@ -59,10 +51,6 @@
           {
             "os": "ubuntu-latest",
             "node_version": "16"
-          },
-          {
-            "os": "macos-latest",
-            "node_version": "14"
           },
           {
             "os": "windows-latest",
