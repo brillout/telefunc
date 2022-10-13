@@ -23,6 +23,7 @@ function testRun(cmd: 'pnpm run dev' | 'pnpm run preview') {
   if (isPreview) {
     test('Layout', async () => {
       await page.goto(urlBase + '/')
+      await page.waitForFunction(() => (window as any).__docpress_hydrationFinished)
       const layout = await page.evaluate(() => {
         return {
           html: getWidths(document.documentElement),
