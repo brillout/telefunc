@@ -1,4 +1,4 @@
-# Contribute to Telefunc
+# How to contribute
 
 - [System requirements](#system-requirements)
 - [Basics](#basics)
@@ -27,6 +27,7 @@ Install the entire monorepo:
 
 ```shell
 git clone git@github.com:brillout/telefunc
+# Go to the monorepo root
 cd telefunc/
 pnpm install
 ```
@@ -36,23 +37,21 @@ pnpm install
 Build Telefunc's source code:
 
 ```shell
-# At / (monorepo root)
+# At the monorepo root
 pnpm run build
 ```
 
 Develop Telefunc:
 
 ```shell
-# At / (monorepo root)
+# At the monorepo root
 pnpm run dev
 ```
 
 #### Run tests
 
-Run all tests:
-
 ```shell
-# At / (monorepo root)
+# At the monorepo root
 
 # Run the end-to-end tests (`/**/*.test.js`)
 pnpm exec test-e2e
@@ -67,7 +66,7 @@ Run only the tests of one example/boilerplate:
 ```shell
 cd examples/some-example/ && pnpm exec test-e2e
 # Altenertively: provide a substring of the path
-pnpm exec test-e2e ome-exampl
+pnpm exec test-e2e ome-exampl # At the monorepo root
 ```
 
 > On Debian, [these additional steps](https://github.com/brillout/vite-plugin-ssr/issues/283#issuecomment-1072974554) are required.
@@ -86,6 +85,8 @@ New examples should be minimal and implement only what you want to showcase.
 
 Follow the setup instructions at [Basics](#basics).
 
+> The `README` instructions of examples use `npm`. We use `pnpm` instead if we want to install the entire monorepo and build & link Telefunc's source code.
+
 To run the example:
 
 ```shell
@@ -94,6 +95,4 @@ cd examples/some-example/
 pnpm run dev
 ```
 
-> The `README` instructions of examples use `npm`. We use `pnpm` instead if we want to install the entire monorepo and build & link Telefunc's source code.
-
-Check whether the tests defined in `examples/some-example/*.spec.ts` are still valid and make changes accordingly. See [Basics](#basics) to run the example's tests.
+Check whether the tests defined in `examples/some-example/*.spec.ts` are still valid and make changes accordingly. See [Basics](#basics) for how to run the example's tests.
