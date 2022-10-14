@@ -80,6 +80,9 @@
       "optional": true
     }
   },
+  "engines": {
+    "node": ">=12.19.0"
+  },
   "files": [
     "dist/cjs/",
     "dist/esm/",
