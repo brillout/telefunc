@@ -23,7 +23,7 @@
 
 #### Install
 
-Install the entire monorepo:
+Download and install the entire monorepo:
 
 ```shell
 git clone git@github.com:brillout/telefunc
