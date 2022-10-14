@@ -36,14 +36,14 @@ pnpm install
 Build Telefunc's source code:
 
 ```shell
-# At / (monorepo root) or /telefunc/
+# At / (monorepo root)
 pnpm run build
 ```
 
 Develop Telefunc:
 
 ```shell
-# At / (monorepo root) or /telefunc/
+# At / (monorepo root)
 pnpm run dev
 ```
 
@@ -52,6 +52,8 @@ pnpm run dev
 Run all tests:
 
 ```shell
+# At / (monorepo root)
+
 # Run the end-to-end tests (`/**/*.test.js`)
 pnpm exec test-e2e
 # Run the unit tests (`/**/*.spec.js`)
@@ -88,11 +90,10 @@ To run the example:
 
 ```shell
 cd examples/some-example/
-# See package.json#scripts
-# E.g. package.json#scripts['dev']:
+# See package.json#scripts, e.g. package.json#scripts['dev']:
 pnpm run dev
 ```
 
-> The `README` instructions of examples use `npm`. We use `pnpm` instead because we install the entire monorepo (which we need to link and build the Telefunc source code).
+> The `README` instructions of examples use `npm`. We use `pnpm` instead if we want to install the entire monorepo and build & link Telefunc's source code.
 
 Check whether the tests defined in `examples/some-example/*.spec.ts` are still valid and make changes accordingly. See [Basics](#basics) to run the example's tests.
