@@ -53,7 +53,6 @@ function getProject(telefuncFilePath: string, telefuncFileCode: string) {
       project.createSourceFile(
         telefuncFilePath,
         telefuncFileCode,
-        // Why do we need `overwrite`? Is that a `ts-morph` bug?
         { overwrite: true }
       )
     } else {
