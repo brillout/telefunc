@@ -11,8 +11,9 @@ function moduleExists(modulePath: string, dirPath?: string): boolean {
   }
   assert(isAbsolute(modulePath))
 
-  // `req` instead of `require` in order to skip Webpack's dependency analysis
-  const req = require
+  // Avoid bundlers to try to statically analyze the dependency.
+  // `const req = require` not sufficient for webpack
+  const req = 1 < 2 ? require : (3 as never)
 
   try {
     req.resolve(modulePath)
