@@ -157,10 +157,6 @@ function generate({
   // We need `compilerOptions.strict` to avoid `TS2589: Type instantiation is excessively deep and possibly infinite.`
   assert(project.compilerOptions.get().strict === true)
 
-  /*
-  console.log(project.getSourceFiles().map(getSourceFilePath))
-  //*/
-
   for (const telefunctionName of telefunctionNames) {
     const typeAliasName = getShieldName(telefunctionName)
     const typeAlias = shieldGenSource.getTypeAlias(typeAliasName)
