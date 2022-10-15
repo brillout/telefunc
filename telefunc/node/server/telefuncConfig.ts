@@ -67,7 +67,6 @@ const configSpec = {
   },
   telefuncFiles: {
     validate(val: unknown) {
-      assertWarning(false, '`telefuncConfig.telefuncFiles` is experimental', { onlyOnce: true })
       assertUsage(
         Array.isArray(val) && val.every((v) => typeof v === 'string' && isAbsolute(v)),
         '`telefuncConfig.telefuncFiles` should be a list of absolute paths'
@@ -79,7 +78,6 @@ const configSpec = {
   },
   disableEtag: {
     validate(_val: unknown) {
-      assertWarning(false, '`telefuncConfig.disableEtag` is experimental', { onlyOnce: true })
     },
     getDefault() {
       return false
