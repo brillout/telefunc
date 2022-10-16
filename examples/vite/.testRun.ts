@@ -4,12 +4,15 @@ export { testRun }
 
 function testRun(
   cmd: 'npm run dev' | 'npm run preview' | 'npm run start',
-  { skipShieldGenerationTest }: { skipShieldGenerationTest?: true } = {}
+  {
+    skipShieldGenerationTest,
+    onlyFailOnBrowserError
+  }: { skipShieldGenerationTest?: true; onlyFailOnBrowserError?: true } = {}
 ) {
   {
     const isViteCli = cmd !== 'npm run start'
     const serverIsReadyMessage = isViteCli ? 'Local:' : undefined
-    run(cmd, { serverIsReadyMessage })
+    run(cmd, { serverIsReadyMessage, onlyFailOnBrowserError })
   }
 
   {
