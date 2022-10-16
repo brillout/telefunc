@@ -3,7 +3,11 @@ import { page, test, expect, run, urlBase, autoRetry, isLinux } from '@brillout/
 export { testRun }
 
 function testRun(cmd: 'npm run dev' | 'npm run prod') {
-  run(cmd, { additionalTimeout: 10 * 1000, onlyFailOnBrowserError: true })
+  run(cmd, {
+    additionalTimeout: 10 * 1000,
+    // warning saying that shield() cannot be generated
+    onlyFailOnBrowserError: true
+  })
 
   test('Log-in', async () => {
     await page.goto(`${urlBase}/`)
