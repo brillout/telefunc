@@ -22,6 +22,7 @@ function previewConfig(): Plugin {
     configurePreviewServer(server) {
       return () => {
         assertDist()
+        ;(process.env as Record<string, string>).NODE_ENV = 'production'
         addTelefuncMiddleware(server.middlewares)
       }
     }

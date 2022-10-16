@@ -1,17 +1,13 @@
 export { loadTelefuncFilesWithVite }
 
 import { loadBuild } from '@brillout/vite-plugin-import-build/loadBuild'
-import { assert, assertWarning, hasProp, isObject } from '../utils'
+import { assert, assertWarning, getNodeEnv, hasProp, isObject, isProduction } from '../utils'
 import { telefuncFilesGlobFilePath } from './telefuncFilesGlobPath'
 import type { ViteDevServer } from 'vite'
 import { GlobFiles, loadGlobFiles } from './loadGlobFiles'
 import { loadTelefuncFilesWithImportBuild } from './plugins/importBuild/loadBuild'
 
-async function loadTelefuncFilesWithVite(runContext: {
-  root: string | null
-  viteDevServer: ViteDevServer | null
-  isProduction: boolean
-}) {
+async function loadTelefuncFilesWithVite(runContext: { root: string | null; viteDevServer: ViteDevServer | null }) {
   const { notFound, moduleExports, provider } = await loadGlobImporter(runContext)
 
   if (notFound) {
@@ -27,11 +23,7 @@ async function loadTelefuncFilesWithVite(runContext: {
   return { telefuncFilesLoaded, viteProvider: provider }
 }
 
-async function loadGlobImporter(runContext: {
-  root: string | null
-  viteDevServer: ViteDevServer | null
-  isProduction: boolean
-}) {
+async function loadGlobImporter(runContext: { root: string | null; viteDevServer: ViteDevServer | null }) {
   if (runContext.viteDevServer) {
     const devPath = telefuncFilesGlobFilePath
     let moduleExports: unknown
@@ -49,7 +41,7 @@ async function loadGlobImporter(runContext: {
     if (success) {
       const moduleExports = await loadTelefuncFilesWithImportBuild()
       assert(moduleExports, { entryFile })
-      assertProd(runContext)
+      assertProd()
       return { moduleExports, provider: 'importBuild.cjs' as const }
     }
   }
@@ -57,12 +49,18 @@ async function loadGlobImporter(runContext: {
   return { notFound: true }
 }
 
-function assertProd(runContext: { isProduction: boolean }) {
-  assertWarning(
-    runContext.isProduction === true,
-    "This seems to be a production environment yet `telefuncConfig.isProduction !== true`. You should set `NODE_ENV.env='production' or `telefuncConfig.isProduction = true`.",
-    { onlyOnce: true }
-  )
+function assertProd() {
+  if (!isProduction()) {
+    const env = getNodeEnv()
+    assert(env === undefined || env === 'development' || env === '')
+    assertWarning(
+      false,
+      `This seems to be a production environment yet process.env.NODE_ENV is ${JSON.stringify(
+        env
+      )}. Set it to a different value such as "production" or "staging".`,
+      { onlyOnce: true }
+    )
+  }
 }
 
 function isObjectOfObjects(obj: unknown): obj is Record<string, Record<string, unknown>> {

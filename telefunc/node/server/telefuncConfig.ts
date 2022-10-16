@@ -2,7 +2,7 @@ export const telefuncConfig = getTelefuncConfigObject()
 
 import type { ViteDevServer } from 'vite'
 import { isAbsolute } from 'path'
-import { assert, assertInfo, assertUsage, assertWarning, hasProp } from '../utils'
+import { assert, assertInfo, assertUsage, hasProp } from '../utils'
 import { globalContext } from './globalContext'
 
 /** Telefunc Server Configuration */
@@ -10,7 +10,6 @@ type TelefuncServerConfig = {
   /** The Telefunc HTTP endpoint URL, e.g. `/api/_telefunc`. Default: `/_telefunc`. */
   telefuncUrl: string
   root: string | null
-  isProduction: boolean
   viteDevServer: ViteDevServer | null
   disableEtag: boolean
   telefuncFiles: string[] | null
@@ -18,16 +17,6 @@ type TelefuncServerConfig = {
 }
 
 const configSpec = {
-  isProduction: {
-    validate(val: unknown) {
-      assertUsage(val === true || val === false, '`telefuncConfig.isProduction` should be `true` or `false`')
-    },
-    getDefault() {
-      // If server environment is not a Node.js server, then we assume a (Cloudflare) worker environment
-      if (typeof process == 'undefined' || !hasProp(process, 'env')) return true
-      return process.env.NODE_ENV === 'production'
-    }
-  },
   root: {
     validate(val: unknown) {
       assertUsage(typeof val === 'string' && isAbsolute(val), '`telefuncConfig.root` should be an absolute path')
@@ -77,8 +66,7 @@ const configSpec = {
     }
   },
   disableEtag: {
-    validate(_val: unknown) {
-    },
+    validate(_val: unknown) {},
     getDefault() {
       return false
     }
@@ -104,8 +92,6 @@ function getTelefuncConfigObject(): TelefuncServerConfig {
       get telefuncFiles() { return configProvidedByUser['telefuncFiles'] ?? configSpec['telefuncFiles'].getDefault() },
       // prettier-ignore
       get root()          { return configProvidedByUser['root']          ?? configSpec['root'].getDefault()          },
-      // prettier-ignore
-      get isProduction()  { return configProvidedByUser['isProduction']  ?? configSpec['isProduction'].getDefault()  },
       // prettier-ignore
       get telefuncUrl()   { return configProvidedByUser['telefuncUrl']   ?? configSpec['telefuncUrl'].getDefault()   },
       // prettier-ignore

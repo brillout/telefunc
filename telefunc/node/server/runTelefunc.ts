@@ -1,6 +1,6 @@
 export { runTelefunc }
 
-import { assert, objectAssign } from '../utils'
+import { assert, objectAssign, isProduction } from '../utils'
 import { getContextOptional, isAsyncMode } from './getContext'
 import { loadTelefuncFiles } from './runTelefunc/loadTelefuncFiles'
 import { parseHttpRequest } from './runTelefunc/parseHttpRequest'
@@ -63,7 +63,7 @@ async function runTelefunc_(httpRequest: { url: string; method: string; body: un
   objectAssign(runContext, globalContext)
 
   {
-    const logInvalidRequests = !runContext.isProduction || runContext.debug
+    const logInvalidRequests = !isProduction() || runContext.debug
     objectAssign(runContext, { logInvalidRequests })
   }
 

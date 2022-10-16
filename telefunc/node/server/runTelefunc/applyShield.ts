@@ -1,7 +1,7 @@
 export { applyShield }
 
 import { shieldApply, shieldIsMissing } from '../shield'
-import { assertWarning } from '../../utils'
+import { assertWarning, isProduction } from '../../utils'
 import type { Telefunction } from '../types'
 
 function applyShield(runContext: {
@@ -9,12 +9,11 @@ function applyShield(runContext: {
   telefunctionName: string
   telefunctionArgs: unknown[]
   logInvalidRequests: boolean
-  isProduction: boolean
 }): { isValidRequest: boolean } {
   const { telefunction } = runContext
 
   const hasShield = !shieldIsMissing(telefunction)
-  if (runContext.isProduction) {
+  if (isProduction()) {
     assertWarning(
       hasShield || telefunction.length === 0,
       `The telefunction ${runContext.telefunctionName} accepts arguments yet is missing \`shield()\`, see https://telefunc.com/shield`,

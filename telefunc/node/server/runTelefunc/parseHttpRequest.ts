@@ -8,13 +8,13 @@ import {
   getUrlPathname,
   assert,
   getTelefunctionKey,
-  getTelefunctionName
+  getTelefunctionName,
+  isProduction
 } from '../../utils'
 
 function parseHttpRequest(runContext: {
   httpRequest: { body: unknown; url: string; method: string }
   logInvalidRequests: boolean
-  isProduction: boolean
   telefuncUrl: string
 }):
   | {
@@ -118,11 +118,7 @@ function assertBody(body: unknown, runContext: { telefuncUrl: string }) {
   )
 }
 
-function isWrongMethod(runContext: {
-  httpRequest: { method: string }
-  logInvalidRequests: boolean
-  isProduction: boolean
-}) {
+function isWrongMethod(runContext: { httpRequest: { method: string }; logInvalidRequests: boolean }) {
   if (['POST', 'post'].includes(runContext.httpRequest.method)) {
     return false
   }
@@ -146,11 +142,11 @@ function assertUrl(runContext: { httpRequest: { url: string }; telefuncUrl: stri
   )
 }
 
-function logParseError(errMsg: string, runContext: { isProduction: boolean; logInvalidRequests: boolean }) {
+function logParseError(errMsg: string, runContext: { logInvalidRequests: boolean }) {
   const errMsgPrefix = 'Malformed request in development.'
   const errMsgSuffix =
-    'This is unexpected since, in development, all requests are expected to originate from the Telefunc Client and should therefore be valid. If this error is happening in production, then make sure to set the environment variable `NODE_ENV="production"` or `telefunc({ isProduction: true })`.'
-  if (!runContext.isProduction) {
+    'This is unexpected since, in development, all requests are expected to originate from the Telefunc Client and should therefore be valid.'
+  if (!isProduction()) {
     errMsg = `${errMsgPrefix} ${errMsg} ${errMsgSuffix}`
   }
   if (runContext.logInvalidRequests) {
