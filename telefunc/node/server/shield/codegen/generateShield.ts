@@ -53,6 +53,7 @@ function getProject(telefuncFilePath: string, telefuncFileCode: string) {
       project.createSourceFile(
         telefuncFilePath,
         telefuncFileCode,
+        // We need `overwrite` because `telefuncFilePath` already exists on the filesystem
         { overwrite: true }
       )
     } else {
