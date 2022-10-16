@@ -3,7 +3,10 @@ import { page, test, expect, run, urlBase, autoRetry } from '@brillout/test-e2e'
 export { runTest }
 
 function runTest(cmd: 'npm run test:dev' | 'npm run test:prod') {
-  run(cmd)
+  run(cmd, {
+    // Prisma prints `Update available 3.9.2 -> 4.4.0` on stderr
+    onlyFailOnBrowserError: true
+  })
 
   test('Add to-do item', async () => {
     await page.goto(`${urlBase}/`)
