@@ -26,8 +26,8 @@ function testRun(cmd: 'npm run dev' | 'npm run prod') {
     await page.click('button[type="submit"]')
     await autoRetry(async () => {
       expect(await getNumberOfItems()).toBe(4)
+      expect(await page.textContent('body')).toContain('Buy bananas')
     })
-    expect(await page.textContent('body')).toContain('Buy bananas')
   })
 
   test('New to-do item is persisted & rendered to HTML', async () => {
