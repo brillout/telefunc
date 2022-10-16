@@ -4,12 +4,14 @@ export { testRun }
 
 function testRun(cmd: 'npm run dev' | 'npm run prod') {
   run(cmd, {
-    serverIsReadyMessage: 'started server on'
+    serverIsReadyMessage: 'started server on',
     /* Debug Next.js in GitHub Actions:
     debug: true,
     additionalTimeout: 240 * 1000,
     serverIsReadyDelay: 20 * 1000,
     //*/
+    // warning saying that shield() cannot be generated
+    onlyFailOnBrowserError: true
   })
 
   test('To-do list and context', async () => {
