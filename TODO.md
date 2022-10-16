@@ -1,5 +1,3 @@
- - Check `examples/vite/` prod env var warnings
  - From auto-generate warnings from build-time to runtime
  - Measure what makes auto generate slow
  - [Vite] Make `telefunc.js` file loading lazy instead of eager by using extractExportNames
- - [vps] Avoid duplicated error login upon ssr build error
