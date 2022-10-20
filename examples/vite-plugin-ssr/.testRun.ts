@@ -1,4 +1,4 @@
-import { page, test, expect, run, urlBase, autoRetry, fetchHtml } from '@brillout/test-e2e'
+import { page, test, expect, run, urlBase, autoRetry, fetchHtml, isWindows, sleep } from '@brillout/test-e2e'
 
 export { testRun }
 
@@ -22,12 +22,13 @@ function testRun(cmd: 'npm run dev' | 'npm run prod') {
     }
 
     expect(await getNumberOfItems()).toBe(3)
+    if (isWindows()) sleep(3000)
     await page.fill('input[type="text"]', 'Buy bananas')
     await page.click('button[type="submit"]')
     await autoRetry(async () => {
       expect(await getNumberOfItems()).toBe(4)
-      expect(await page.textContent('body')).toContain('Buy bananas')
     })
+    expect(await page.textContent('body')).toContain('Buy bananas')
   })
 
   test('New to-do item is persisted & rendered to HTML', async () => {
