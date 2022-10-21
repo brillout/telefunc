@@ -3,47 +3,49 @@ export { transformTelefuncFileServerSide }
 import { getExportNames } from './getExportNames'
 import { assertPosixPath, getTelefunctionKey } from './utils'
 
-async function transformTelefuncFileServerSide(src: string, id: string, root: string, skipAddTelefunction?: true) {
+async function transformTelefuncFileServerSide(src: string, id: string, root: string, skipRegistration?: true) {
   assertPosixPath(id)
   assertPosixPath(root)
 
   const exportNames = await getExportNames(src)
 
-  const code = getCode(exportNames, src, id.replace(root, ''), skipAddTelefunction)
+  const code = registerAndAssertTelefunctions(exportNames, src, id.replace(root, ''), skipRegistration)
 
   return code
 }
 
-function getCode(exportNames: readonly string[], src: string, filePath: string, skipAddTelefunction?: boolean) {
+function registerAndAssertTelefunctions(exportNames: readonly string[], src: string, filePath: string, skipRegistration?: boolean) {
   assertPosixPath(filePath)
 
-  let code = src
-
-  let telefuncImport: string
-  if (!skipAddTelefunction) {
-    telefuncImport = 'import { __registerTelefunction } from "telefunc";'
-  } else {
-    telefuncImport = 'import { __assertTelefuncFileExport } from "telefunc";'
-  }
-  // No break line between `telefuncImport` and `src` in order to preserve the source map's line mapping
-  code = telefuncImport + src
-
-  const extraLines: string[] = []
-
-  code += '\n\n'
-  for (const exportName of exportNames) {
-    if (!skipAddTelefunction) {
-      extraLines.push(`__registerTelefunction(${exportName}, "${exportName}", "${filePath}");`)
+  const codePreprend = (() => {
+    if (!skipRegistration) {
+      // `__registerTelefunction()` includes `__assertTelefuncFileExport()`
+      return 'import { __registerTelefunction } from "telefunc";'
     } else {
-      extraLines.push(`__assertTelefuncFileExport(${exportName}, "${exportName}", "${filePath}");`)
+      return 'import { __assertTelefuncFileExport } from "telefunc";'
     }
-    {
-      const telefunctionKey = getTelefunctionKey(filePath, exportName)
-      extraLines.push(`${exportName}['_key'] = ${JSON.stringify(telefunctionKey)};`)
+  })()
+
+  const codeAppend = (() => {
+    const lines: string[] = []
+
+    for (const exportName of exportNames) {
+      if (!skipRegistration) {
+        lines.push(`__registerTelefunction(${exportName}, "${exportName}", "${filePath}");`)
+      } else {
+        lines.push(`__assertTelefuncFileExport(${exportName}, "${exportName}", "${filePath}");`)
+      }
+      {
+        const telefunctionKey = getTelefunctionKey(filePath, exportName)
+        lines.push(`${exportName}['_key'] = ${JSON.stringify(telefunctionKey)};`)
+      }
     }
-  }
 
-  code += '\n' + extraLines.join('\n')
+    return lines.join('\n')
+  })()
 
+
+  // No break line between `codePreprend` and `src` in order to preserve the source map's line mapping
+  const code = `${codePreprend}${src}\n\n${codeAppend}\n`
   return code
 }

@@ -5,21 +5,25 @@ import '../vite/clear' // When running Telefunc's test suite, a previous Vite te
 
 // Subset of `import type { LoaderDefinitionFunction } from 'webpack'`
 type Loader = {
-  _compiler?: {
+  _compiler: {
     name: string
     context: string
   }
   resource: string
+  mode: 'production' | 'development'
 }
 
 module.exports = async function (this: Loader, input: string): Promise<string> {
-  const compiler = this._compiler!
-  const id = this.resource
+  assert(typeof this._compiler.name === 'string')
+  const isClientSide = this._compiler.name !== 'server'
+  assert(typeof this._compiler.context === 'string')
   const root = this._compiler!.context
-
+  assert(typeof this.resource === 'string')
+  const id = this.resource
   assert(id.includes('.telefunc.'))
+  assert(this.mode === 'production' || this.mode === 'development')
+  // const isDev = this.mode === 'dev'
 
-  const isClientSide = compiler.name !== 'server'
   if (isClientSide) {
     const code = await transformTelefuncFileClientSide(input, toPosixPath(id), toPosixPath(root))
     return code
