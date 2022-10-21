@@ -22,13 +22,13 @@ module.exports = async function (this: Loader, input: string): Promise<string> {
   const id = this.resource
   assert(id.includes('.telefunc.'))
   assert(this.mode === 'production' || this.mode === 'development')
-  // const isDev = this.mode === 'dev'
+  const isDev = this.mode === 'development'
 
   if (isClientSide) {
     const code = await transformTelefuncFileClientSide(input, toPosixPath(id), toPosixPath(root))
     return code
   } else {
-    const code = await transformTelefuncFileServerSide(input, toPosixPath(id), toPosixPath(root))
+    const code = await transformTelefuncFileServerSide(input, toPosixPath(id), toPosixPath(root), false, isDev)
     return code
   }
 }

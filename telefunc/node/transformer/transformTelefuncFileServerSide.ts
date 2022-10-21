@@ -2,14 +2,27 @@ export { transformTelefuncFileServerSide }
 
 import { getExportNames } from './getExportNames'
 import { assert, assertPosixPath, getTelefunctionKey } from './utils'
+import { generateShield } from '../server/shield/codegen/generateShield'
 
-async function transformTelefuncFileServerSide(src: string, id: string, root: string, skipRegistration?: true) {
+async function transformTelefuncFileServerSide(
+  src: string,
+  id: string,
+  root: string,
+  skipRegistration: boolean,
+  isDev: boolean
+) {
   assertPosixPath(id)
   assertPosixPath(root)
 
   const exportNames = await getExportNames(src)
 
-  const code = decorateTelefunctions(exportNames, src, id.replace(root, ''), skipRegistration)
+  let code = decorateTelefunctions(exportNames, src, id.replace(root, ''), skipRegistration)
+
+  if (!isDev) {
+    if (id.endsWith('.ts')) {
+      code = generateShield(code, id)
+    }
+  }
 
   return code
 }
