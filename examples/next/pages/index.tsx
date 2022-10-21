@@ -1,10 +1,18 @@
-import { getUser } from '../auth/getUser'
-import { TodoList } from '../components/TodoList'
-import { Todo } from '../database/Todo'
-
 export default Page
+export { getServerSideProps }
 
-function Page(props) {
+import { getUser, type User } from '../auth/getUser'
+import { TodoList } from '../components/TodoList'
+import { Todo, type TodoItem } from '../database/Todo'
+import React from 'react'
+import { GetServerSideProps } from 'next'
+
+type Props = {
+  user: User
+  todoItemsInitial: TodoItem[]
+}
+
+function Page(props: Props) {
   const title = `${props.user.name}'s to-do list`
   return (
     <>
@@ -14,7 +22,7 @@ function Page(props) {
   )
 }
 
-export async function getServerSideProps(context) {
+const getServerSideProps: GetServerSideProps<Props> = async (context) => {
   const user = getUser(context.req)
   const todoItems = Todo.findMany({ authorId: user.id })
   return {

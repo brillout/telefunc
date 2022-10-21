@@ -1,9 +1,9 @@
-import React, { useState } from 'react'
-import { onNewTodo } from './TodoList.telefunc.js'
-
 export { TodoList }
 
-function TodoList({ todoItemsInitial }) {
+import React, { useState } from 'react'
+import { onNewTodo } from './TodoList.telefunc'
+
+function TodoList({ todoItemsInitial }: { todoItemsInitial: { text: string }[] }) {
   const [todoItems, setTodoItems] = useState(todoItemsInitial)
   const [text, setText] = useState('')
   return (

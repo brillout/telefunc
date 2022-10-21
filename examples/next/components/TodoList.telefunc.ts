@@ -3,7 +3,7 @@ import { Todo } from '../database/Todo'
 
 export { onNewTodo }
 
-async function onNewTodo({ text }) {
+async function onNewTodo({ text }: { text: string }) {
   const { user } = getContext()
   if (!user) {
     throw Abort()
