@@ -1,4 +1,4 @@
-import { page, test, expect, run, urlBase, autoRetry, fetchHtml, isWindows, sleep } from '@brillout/test-e2e'
+import { page, test, expect, run, urlBase, autoRetry, fetchHtml, isWindows, isMac, sleep } from '@brillout/test-e2e'
 
 export { testRun }
 
@@ -22,7 +22,7 @@ function testRun(cmd: 'npm run dev' | 'npm run prod') {
     }
 
     expect(await getNumberOfItems()).toBe(3)
-    if (isWindows()) sleep(3000)
+    if (isWindows() || isMac()) sleep(3000)
     await page.fill('input[type="text"]', 'Buy bananas')
     await page.click('button[type="submit"]')
     await autoRetry(async () => {
