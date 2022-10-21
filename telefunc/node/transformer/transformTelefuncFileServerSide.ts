@@ -1,7 +1,7 @@
 export { transformTelefuncFileServerSide }
 
 import { getExportNames } from './getExportNames'
-import { assertPosixPath, getTelefunctionKey } from './utils'
+import { assert, assertPosixPath, getTelefunctionKey } from './utils'
 
 async function transformTelefuncFileServerSide(src: string, id: string, root: string, skipRegistration?: true) {
   assertPosixPath(id)
@@ -9,31 +9,34 @@ async function transformTelefuncFileServerSide(src: string, id: string, root: st
 
   const exportNames = await getExportNames(src)
 
-  const code = registerAndAssertTelefunctions(exportNames, src, id.replace(root, ''), skipRegistration)
+  const code = decorateTelefunctions(exportNames, src, id.replace(root, ''), skipRegistration)
 
   return code
 }
 
-function registerAndAssertTelefunctions(exportNames: readonly string[], src: string, filePath: string, skipRegistration?: boolean) {
+function decorateTelefunctions(
+  exportNames: readonly string[],
+  src: string,
+  filePath: string,
+  skipRegistration?: boolean
+) {
   assertPosixPath(filePath)
 
-  const codePreprend = (() => {
+  const codePreprend: string = (() => {
+    let line = 'import { __assertTelefuncFileExport } from "telefunc";'
     if (!skipRegistration) {
-      // `__registerTelefunction()` includes `__assertTelefuncFileExport()`
-      return 'import { __registerTelefunction } from "telefunc";'
-    } else {
-      return 'import { __assertTelefuncFileExport } from "telefunc";'
+      line += 'import { __registerTelefunction } from "telefunc";'
     }
+    return line
   })()
 
-  const codeAppend = (() => {
+  const codeAppend: string = (() => {
     const lines: string[] = []
 
     for (const exportName of exportNames) {
+      lines.push(`__assertTelefuncFileExport(${exportName}, "${exportName}", "${filePath}");`)
       if (!skipRegistration) {
         lines.push(`__registerTelefunction(${exportName}, "${exportName}", "${filePath}");`)
-      } else {
-        lines.push(`__assertTelefuncFileExport(${exportName}, "${exportName}", "${filePath}");`)
       }
       {
         const telefunctionKey = getTelefunctionKey(filePath, exportName)
@@ -44,8 +47,8 @@ function registerAndAssertTelefunctions(exportNames: readonly string[], src: str
     return lines.join('\n')
   })()
 
-
-  // No break line between `codePreprend` and `src` in order to preserve the source map's line mapping
+  // No break line before `src` to avoid breaking the source map
+  assert(!codePreprend.includes('\n'))
   const code = `${codePreprend}${src}\n\n${codeAppend}\n`
   return code
 }

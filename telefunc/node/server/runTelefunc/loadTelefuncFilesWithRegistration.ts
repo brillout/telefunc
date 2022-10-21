@@ -5,7 +5,6 @@ export { registerTelefunction }
 
 import { TelefuncFiles, Telefunction } from '../types'
 import { getGlobalObject } from '../../utils'
-import { assertTelefuncFileExport } from './assertTelefuncFileExport'
 
 // Using the global scope is needed for Next.js. I'm guessing that Next.js is including the `node_modules/` files in a seperate bundle than user files.
 const g = getGlobalObject<{ telefuncFilesLoaded: null | TelefuncFiles }>('loadTelefuncFilesWithRegistration.ts', {
@@ -17,7 +16,6 @@ function loadTelefuncFilesWithRegistration(): null | TelefuncFiles {
 }
 
 function registerTelefunction(telefunction: Telefunction, exportName: string, telefuncFilePath: string) {
-  assertTelefuncFileExport(telefunction, exportName, telefuncFilePath)
   g.telefuncFilesLoaded = g.telefuncFilesLoaded ?? {}
   g.telefuncFilesLoaded[telefuncFilePath] = {
     ...g.telefuncFilesLoaded[telefuncFilePath],
