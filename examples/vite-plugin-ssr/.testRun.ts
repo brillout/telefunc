@@ -22,7 +22,7 @@ function testRun(cmd: 'npm run dev' | 'npm run prod') {
     }
 
     expect(await getNumberOfItems()).toBe(3)
-    if (isWindows() || isMac()) sleep(3000)
+    if (isWindows() || isMac()) await sleep(5 * 1000)
     await page.fill('input[type="text"]', 'Buy bananas')
     await page.click('button[type="submit"]')
     await autoRetry(async () => {
