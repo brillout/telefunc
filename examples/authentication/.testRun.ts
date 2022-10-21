@@ -1,4 +1,4 @@
-import { page, test, expect, run, urlBase, autoRetry, isLinux } from '@brillout/test-e2e'
+import { page, test, expect, run, urlBase, autoRetry, isLinux, sleep } from '@brillout/test-e2e'
 
 export { testRun }
 
@@ -43,6 +43,7 @@ function testRun(cmd: 'npm run dev' | 'npm run prod') {
         // Does a page reload
         page.click('button >> text=Logout')
       ])
+      await sleep(3 * 1000) // Blind attempt to remove test flakiness
       expect(await page.$('button >> text=Logout')).toBeFalsy()
       expect(await page.$('button >> text=Create Account')).toBeTruthy()
       expect(await page.$('fieldset')).toBeTruthy()
