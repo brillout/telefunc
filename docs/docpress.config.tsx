@@ -16,5 +16,5 @@ export default {
   titleNormalCase: true,
   twitterHandle: '@brillout',
   websiteUrl: 'https://telefunc.com',
-  algolia: null,
+  algolia: null
 } as Config

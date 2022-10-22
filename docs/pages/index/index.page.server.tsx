@@ -14,7 +14,7 @@ function Page() {
       <div style={{ height: 30 }} />
       <Features />
       <div style={{ height: 30 }} />
-      <ContactUs / >
+      <ContactUs />
       <div style={{ height: 70 }} />
     </>
   )

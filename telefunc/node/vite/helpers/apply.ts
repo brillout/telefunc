@@ -31,4 +31,3 @@ function apply(
     assert(false)
   }
 }
-

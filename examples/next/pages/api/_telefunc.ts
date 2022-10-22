@@ -5,7 +5,7 @@ import assert from 'assert'
 
 telefuncConfig.telefuncUrl = '/api/_telefunc'
 
-export default async function telefuncMiddleware (req: NextApiRequest, res: NextApiResponse) {
+export default async function telefuncMiddleware(req: NextApiRequest, res: NextApiResponse) {
   const user = getUser(req)
   provideTelefuncContext({ user })
   const { url, method, body } = req

@@ -84,7 +84,8 @@ function Features() {
           desc: (
             <>
               <p>
-                <b>Seamless TypeScript support</b> out-of-the-box including all your favorite IDE features such as auto-import, replace-all-occurrences, etc.
+                <b>Seamless TypeScript support</b> out-of-the-box including all your favorite IDE features such as
+                auto-import, replace-all-occurrences, etc.
               </p>
               <p>
                 Use your types across the frontend and backend for <b>end-to-end type safety</b>, including{' '}

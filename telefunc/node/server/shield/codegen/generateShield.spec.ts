@@ -42,8 +42,6 @@ __telefunc_shield(doSomethingElse, [__telefunc_t.or(__telefunc_t.number, __telef
     expect(replaceShieldTypeAlias("t.const('some-t.string')")).toEqual("__telefunc_t.const('some-t.string')")
     expect(replaceShieldTypeAlias("t.const('t.const't.')")).toEqual("__telefunc_t.const('t.const't.')")
 
-    expect(replaceShieldTypeAlias("t.array(t.const('t.'))")).toEqual(
-      "__telefunc_t.array(__telefunc_t.const('t.'))"
-    )
+    expect(replaceShieldTypeAlias("t.array(t.const('t.'))")).toEqual("__telefunc_t.array(__telefunc_t.const('t.'))")
   })
 })

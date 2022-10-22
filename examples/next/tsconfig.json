@@ -4,11 +4,7 @@
     "module": "ES2020",
     "moduleResolution": "Node",
     "target": "ES2017",
-    "lib": [
-      "DOM",
-      "DOM.Iterable",
-      "ESNext"
-    ],
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "jsx": "preserve",
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -19,12 +15,6 @@
     "resolveJsonModule": true,
     "isolatedModules": true
   },
-  "include": [
-    "next-env.d.ts",
-    "**/*.ts",
-    "**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
 }

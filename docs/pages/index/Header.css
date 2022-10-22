@@ -60,7 +60,7 @@
 }
 @media screen and (max-width: 350px) {
   #header-logo h1 {
-    font-size: 3.0em;
+    font-size: 3em;
   }
   #header-logo img {
     height: 70px;

@@ -19,7 +19,8 @@ function Header() {
         <h1>Telefunc</h1>
       </div>
       <div id="header-tagline">
-        Remote Functions.<br id="header-tagline-newline" /> Instead of API.
+        Remote Functions.
+        <br id="header-tagline-newline" /> Instead of API.
       </div>
     </CenterHorizontal>
   )

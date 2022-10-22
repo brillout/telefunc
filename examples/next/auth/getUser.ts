@@ -2,7 +2,7 @@ export { getUser }
 export type { User }
 
 type User = {
-  id: number,
+  id: number
   name: string
 }
 
