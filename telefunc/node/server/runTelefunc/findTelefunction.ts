@@ -8,7 +8,7 @@ function findTelefunction(runContext: {
   telefunctionName: string
   telefuncFilePath: string
   telefuncFilesLoaded: Record<string, Record<string, unknown>>
-  telefunctionFileExport: string
+  telefuncExportName: string
   telefunctions: Record<string, Telefunction>
   logInvalidRequests: boolean
 }) {
@@ -34,7 +34,7 @@ function findTelefunction(runContext: {
 
   function getNotFoundErrMsg() {
     let errMsg = `Telefunction ${runContext.telefunctionName} not found:`
-    const { telefuncFilesLoaded, telefuncFilePath, telefunctionFileExport } = runContext
+    const { telefuncFilesLoaded, telefuncFilePath, telefuncExportName } = runContext
     const telefuncFile = telefuncFilesLoaded[telefuncFilePath]
     if (!telefuncFile) {
       errMsg += ` the file \`${runContext.telefuncFilePath}\` doesn't seem to exist. Found \`.telefunc.js\` files:`
@@ -50,8 +50,8 @@ function findTelefunction(runContext: {
         )
         .join('')
     } else {
-      assert(!telefuncFile[telefunctionFileExport])
-      errMsg += ` the file \`${runContext.telefuncFilePath}\` doesn't seem to have an export \`${telefunctionFileExport}\`. Found telefunctions:`
+      assert(!telefuncFile[telefuncExportName])
+      errMsg += ` the file \`${runContext.telefuncFilePath}\` doesn't seem to have an export \`${telefuncExportName}\`. Found telefunctions:`
       assert(!telefuncFilePath.includes(runContext.telefunctionKey))
       errMsg += [runContext.telefunctionKey, ...telefunctionsFound]
         .sort()

@@ -7,18 +7,18 @@ import { objectAssign, assertUsage, isBrowser, assert, getTelefunctionName } fro
 
 async function remoteTelefunctionCall(
   telefuncFilePath: string,
-  telefunctionFileExport: string,
+  telefuncExportName: string,
   telefunctionArgs: unknown[]
 ): Promise<unknown> {
   assertUsage(isBrowser(), 'The Telefunc Client is meant to be run only in the browser.')
 
   const callContext = {}
   {
-    const telefunctionName = getTelefunctionName({ telefunctionFileExport, telefuncFilePath })
+    const telefunctionName = getTelefunctionName({ telefuncExportName, telefuncFilePath })
     objectAssign(callContext, {
       telefunctionName,
       telefuncFilePath,
-      telefunctionFileExport,
+      telefuncExportName,
       telefunctionArgs
     })
   }

@@ -19,7 +19,7 @@ function parseHttpRequest(runContext: {
 }):
   | {
       telefuncFilePath: string
-      telefunctionFileExport: string
+      telefuncExportName: string
       telefunctionName: string
       telefunctionKey: string
       telefunctionArgs: unknown[]
@@ -79,14 +79,14 @@ function parseHttpRequest(runContext: {
   }
 
   const telefuncFilePath = bodyParsed.file
-  const telefunctionFileExport = bodyParsed.name
+  const telefuncExportName = bodyParsed.name
   const telefunctionArgs = bodyParsed.args
-  const telefunctionKey = getTelefunctionKey(telefuncFilePath, telefunctionFileExport)
-  const telefunctionName = getTelefunctionName({ telefuncFilePath, telefunctionFileExport })
+  const telefunctionKey = getTelefunctionKey(telefuncFilePath, telefuncExportName)
+  const telefunctionName = getTelefunctionName({ telefuncFilePath, telefuncExportName })
 
   return {
     telefuncFilePath,
-    telefunctionFileExport,
+    telefuncExportName,
     telefunctionName,
     telefunctionKey,
     telefunctionArgs,

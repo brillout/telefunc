@@ -2,10 +2,10 @@ export { getTelefunctionName }
 
 function getTelefunctionName({
   telefuncFilePath,
-  telefunctionFileExport
+  telefuncExportName
 }: {
   telefuncFilePath: string
-  telefunctionFileExport: string
+  telefuncExportName: string
 }) {
-  return `\`${telefunctionFileExport}()\` (${telefuncFilePath})`
+  return `\`${telefuncExportName}()\` (${telefuncFilePath})`
 }

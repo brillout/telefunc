@@ -5,18 +5,18 @@ import { assert, assertUsage, lowercaseFirstLetter, hasProp } from '../utils'
 
 function serializeTelefunctionArguments(callContext: {
   telefuncFilePath: string
-  telefunctionFileExport: string
+  telefuncExportName: string
   telefunctionArgs: unknown[]
   telefuncUrl: string
   telefunctionName: string
 }) {
   const bodyParsed = {
     file: callContext.telefuncFilePath,
-    name: callContext.telefunctionFileExport,
+    name: callContext.telefuncExportName,
     args: callContext.telefunctionArgs
   }
   assert(typeof callContext.telefuncFilePath === 'string')
-  assert(typeof callContext.telefunctionFileExport === 'string')
+  assert(typeof callContext.telefuncExportName === 'string')
   assert(Array.isArray(callContext.telefunctionArgs))
   let httpRequestBody: string
   try {
