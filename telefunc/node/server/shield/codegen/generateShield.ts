@@ -131,7 +131,7 @@ function generate({
     })
   }
 
-  const shieldAlias = '__shieldGenerator_shield' // alias for shield
+  const shieldAlias = '__telefunc_shield' // alias for shield
   telefuncFileSource.addImportDeclaration({
     moduleSpecifier: 'telefunc',
     namedImports: [
@@ -355,7 +355,7 @@ function findTsConfig(telefuncFilePath: string): string | null {
   } while (true)
 }
 
-const tAlias = '__shieldGenerator_t' // alias for shield.t
+const tAlias = '__telefunc_t' // alias for shield.t
 function replaceShieldTypeAlias(shieldStr: string): string {
   return shieldStr.replace(/(?<!t.const\('(?!'\)).*)t\./g, `${tAlias}.`)
 }
