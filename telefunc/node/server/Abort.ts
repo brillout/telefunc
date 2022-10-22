@@ -2,7 +2,7 @@ export { Abort }
 export { isAbort }
 
 import { assert, assertUsage, objectAssign } from '../utils'
-const stamp = Symbol('isAbort')
+const stamp = '__telefunc_isAbort'
 
 function isAbort(thing: unknown): thing is ReturnType<typeof Abort> {
   assert(thing !== Abort) // Catched earlier in `executeTelefunction()`
