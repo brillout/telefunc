@@ -14,7 +14,8 @@ const STATUS_CODE_INVALID = 400
 async function makeHttpRequest(callContext: {
   telefuncUrl: string
   httpRequestBody: string
-  telefunctionName: string
+  telefuncExportName: string
+  telefuncFilePath: string
   httpHeaders: Record<string, string>
 }): Promise<{ telefunctionReturn: unknown } | { telefunctionCallError: TelefunctionError }> {
   let response: Response
@@ -44,7 +45,9 @@ async function makeHttpRequest(callContext: {
   } else if (statusCode === STATUS_CODE_ABORT) {
     const { ret } = await parseResponseBody(response, callContext)
     const abortValue = ret
-    const telefunctionCallError = new Error(`Abort. (Telefunction ${callContext.telefunctionName}.)`)
+    const telefunctionCallError = new Error(
+      `Aborted telefunction call ${callContext.telefuncExportName}() (${callContext.telefuncFilePath}).`
+    )
     objectAssign(telefunctionCallError, { isAbort: true as const, abortValue })
     executeCallErrorListeners(telefunctionCallError)
     return { telefunctionCallError }

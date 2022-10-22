@@ -5,7 +5,6 @@ import type { Telefunction } from '../types'
 
 function findTelefunction(runContext: {
   telefunctionKey: string
-  telefunctionName: string
   telefuncFilePath: string
   telefuncFilesLoaded: Record<string, Record<string, unknown>>
   telefuncExportName: string
@@ -16,7 +15,7 @@ function findTelefunction(runContext: {
   assertUsage(
     telefunctionsFound.length > 0,
     [
-      `Telefunction ${runContext.telefunctionName} not found.`,
+      `Telefunction ${runContext.telefuncExportName}() (${runContext.telefuncFilePath}) not found.`,
       "Your app doesn't seem to have any `.telefunc.{js|ts|...}` file."
     ].join(' ')
   )
@@ -33,7 +32,7 @@ function findTelefunction(runContext: {
   return telefunction
 
   function getNotFoundErrMsg() {
-    let errMsg = `Telefunction ${runContext.telefunctionName} not found:`
+    let errMsg = `Telefunction ${runContext.telefuncExportName}() (${runContext.telefuncFilePath}) not found:`
     const { telefuncFilesLoaded, telefuncFilePath, telefuncExportName } = runContext
     const telefuncFile = telefuncFilesLoaded[telefuncFilePath]
     if (!telefuncFile) {

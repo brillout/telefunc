@@ -6,7 +6,8 @@ import type { Telefunction } from '../types'
 
 function applyShield(runContext: {
   telefunction: Telefunction
-  telefunctionName: string
+  telefuncExportName: string
+  telefuncFilePath: string
   telefunctionArgs: unknown[]
   logInvalidRequests: boolean
 }): { isValidRequest: boolean } {
@@ -16,7 +17,7 @@ function applyShield(runContext: {
   if (isProduction()) {
     assertWarning(
       hasShield || telefunction.length === 0,
-      `The telefunction ${runContext.telefunctionName} accepts arguments yet is missing \`shield()\`, see https://telefunc.com/shield`,
+      `The telefunction ${runContext.telefuncExportName}() (${runContext.telefuncFilePath}) accepts arguments yet is missing shield(), see https://telefunc.com/shield`,
       { onlyOnce: true }
     )
   }
@@ -32,7 +33,7 @@ function applyShield(runContext: {
   if (runContext.logInvalidRequests) {
     const err = new Error(
       [
-        `The arguments passed to the telefunction ${runContext.telefunctionName} have the wrong type.`,
+        `The arguments passed to the telefunction ${runContext.telefuncExportName}() (${runContext.telefuncFilePath}) have the wrong type.`,
         `Arguments: \`${JSON.stringify(runContext.telefunctionArgs)}\`.`,
         `Wrong type: ${applyResult}`
       ].join(' ')

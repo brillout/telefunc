@@ -5,7 +5,8 @@ import { assert, assertUsage, hasProp, lowercaseFirstLetter } from '../../utils'
 
 function serializeTelefunctionResult(runContext: {
   telefunctionReturn: unknown
-  telefunctionName: string
+  telefuncExportName: string
+  telefuncFilePath: string
   telefunctionAborted: boolean
 }): string {
   const bodyValue: Record<string, unknown> = {
@@ -22,7 +23,7 @@ function serializeTelefunctionResult(runContext: {
     assertUsage(
       false,
       [
-        `Cannot serialize value returned by telefunction ${runContext.telefunctionName}.`,
+        `Cannot serialize value returned by telefunction ${runContext.telefuncExportName}() (${runContext.telefuncFilePath}).`,
         'Make sure that telefunctions always return a serializable value.',
         `Serialization error: ${lowercaseFirstLetter(err.message)}`
       ].join(' ')

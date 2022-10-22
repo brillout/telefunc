@@ -3,7 +3,7 @@ export { remoteTelefunctionCall }
 import { makeHttpRequest } from './remoteTelefunctionCall/makeHttpRequest'
 import { serializeTelefunctionArguments } from './remoteTelefunctionCall/serializeTelefunctionArguments'
 import { telefuncConfig } from './telefuncConfig'
-import { objectAssign, assertUsage, isBrowser, assert, getTelefunctionName } from './utils'
+import { objectAssign, assertUsage, isBrowser, assert } from './utils'
 
 async function remoteTelefunctionCall(
   telefuncFilePath: string,
@@ -14,9 +14,7 @@ async function remoteTelefunctionCall(
 
   const callContext = {}
   {
-    const telefunctionName = getTelefunctionName({ telefuncExportName, telefuncFilePath })
     objectAssign(callContext, {
-      telefunctionName,
       telefuncFilePath,
       telefuncExportName,
       telefunctionArgs

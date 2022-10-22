@@ -8,7 +8,6 @@ import {
   getUrlPathname,
   assert,
   getTelefunctionKey,
-  getTelefunctionName,
   isProduction
 } from '../../utils'
 
@@ -20,7 +19,6 @@ function parseHttpRequest(runContext: {
   | {
       telefuncFilePath: string
       telefuncExportName: string
-      telefunctionName: string
       telefunctionKey: string
       telefunctionArgs: unknown[]
       isMalformed: false
@@ -82,12 +80,10 @@ function parseHttpRequest(runContext: {
   const telefuncExportName = bodyParsed.name
   const telefunctionArgs = bodyParsed.args
   const telefunctionKey = getTelefunctionKey(telefuncFilePath, telefuncExportName)
-  const telefunctionName = getTelefunctionName({ telefuncFilePath, telefuncExportName })
 
   return {
     telefuncFilePath,
     telefuncExportName,
-    telefunctionName,
     telefunctionKey,
     telefunctionArgs,
     isMalformed: false
