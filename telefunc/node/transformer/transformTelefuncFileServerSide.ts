@@ -36,7 +36,7 @@ function decorateTelefunctions(
   assertPosixPath(filePath)
 
   const codePreprend: string = (() => {
-    let line = 'import { __assertTelefuncFileExport } from "telefunc";'
+    let line = 'import { __assertTelefunction } from "telefunc";'
     if (!skipRegistration) {
       line += 'import { __registerTelefunction } from "telefunc";'
     }
@@ -47,7 +47,7 @@ function decorateTelefunctions(
     const lines: string[] = []
 
     for (const exportName of exportNames) {
-      lines.push(`__assertTelefuncFileExport(${exportName}, "${exportName}", "${filePath}");`)
+      lines.push(`__assertTelefunction(${exportName}, "${exportName}", "${filePath}");`)
       if (!skipRegistration) {
         lines.push(`__registerTelefunction(${exportName}, "${exportName}", "${filePath}");`)
       }

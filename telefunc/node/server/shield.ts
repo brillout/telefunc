@@ -35,11 +35,11 @@ const shield: {
   let telefunction: Telefunction
   let telefunctionShield: TelefunctionShield
   if (isTelefunction(arg1)) {
-    assertTelefunctionShield(arg2, 'shield(telefunction, telefunctionShield)')
+    assertShield(arg2, 'shield(telefunction, telefunctionShield)')
     telefunction = arg1
     telefunctionShield = arg2
   } else if (isTelefunction(arg2)) {
-    assertTelefunctionShield(arg1, 'shield(telefunctionShield, telefunction)')
+    assertShield(arg1, 'shield(telefunctionShield, telefunction)')
     telefunction = arg2
     telefunctionShield = arg1
   } else {
@@ -51,7 +51,7 @@ const shield: {
 
 type Telefunction = Function
 
-function assertTelefunctionShield(
+function assertShield(
   telefunctionShield: unknown,
   shieldInvokation: 'shield(telefunction, telefunctionShield)' | 'shield(telefunctionShield, telefunction)'
 ): asserts telefunctionShield is TelefunctionShield {

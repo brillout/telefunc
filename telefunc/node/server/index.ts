@@ -9,7 +9,7 @@ export { onBug } from './runTelefunc/onBug'
 export type { Telefunc } from './getContext/TelefuncNamespace'
 
 export { registerTelefunction as __registerTelefunction } from './runTelefunc/loadTelefuncFilesWithRegistration'
-export { assertTelefuncFileExport as __assertTelefuncFileExport } from './runTelefunc/assertTelefuncFileExport'
+export { assertTelefunction as __assertTelefunction } from './runTelefunc/assertTelefunction'
 
 import { assertUsage } from '../utils'
 
