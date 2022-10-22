@@ -237,7 +237,7 @@ function toImport(importPath: string) {
 }
 
 function printResult(root: string) {
-  // Is empty for JavaScript users
+  // `generatedShields` is empty for JavaScript users
   if (generatedShields.length === 0) return
   printIntroForVite()
   printSuccesses(root)
