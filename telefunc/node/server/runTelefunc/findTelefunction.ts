@@ -6,7 +6,7 @@ import type { Telefunction } from '../types'
 function findTelefunction(runContext: {
   telefunctionKey: string
   telefunctionName: string
-  telefunctionFilePath: string
+  telefuncFilePath: string
   telefuncFilesLoaded: Record<string, Record<string, unknown>>
   telefunctionFileExport: string
   telefunctions: Record<string, Telefunction>
@@ -34,13 +34,13 @@ function findTelefunction(runContext: {
 
   function getNotFoundErrMsg() {
     let errMsg = `Telefunction ${runContext.telefunctionName} not found:`
-    const { telefuncFilesLoaded, telefunctionFilePath, telefunctionFileExport } = runContext
-    const telefuncFile = telefuncFilesLoaded[telefunctionFilePath]
+    const { telefuncFilesLoaded, telefuncFilePath, telefunctionFileExport } = runContext
+    const telefuncFile = telefuncFilesLoaded[telefuncFilePath]
     if (!telefuncFile) {
-      errMsg += ` the file \`${runContext.telefunctionFilePath}\` doesn't seem to exist. Found \`.telefunc.js\` files:`
+      errMsg += ` the file \`${runContext.telefuncFilePath}\` doesn't seem to exist. Found \`.telefunc.js\` files:`
       const telefuncFilePaths = Object.keys(telefuncFilesLoaded)
-      assert(!telefuncFilePaths.includes(telefunctionFilePath))
-      errMsg += [runContext.telefunctionFilePath, ...telefuncFilePaths]
+      assert(!telefuncFilePaths.includes(telefuncFilePath))
+      errMsg += [runContext.telefuncFilePath, ...telefuncFilePaths]
         .sort()
         .map(
           (telefuncFilePath) =>
@@ -51,8 +51,8 @@ function findTelefunction(runContext: {
         .join('')
     } else {
       assert(!telefuncFile[telefunctionFileExport])
-      errMsg += ` the file \`${runContext.telefunctionFilePath}\` doesn't seem to have an export \`${telefunctionFileExport}\`. Found telefunctions:`
-      assert(!telefunctionFilePath.includes(runContext.telefunctionKey))
+      errMsg += ` the file \`${runContext.telefuncFilePath}\` doesn't seem to have an export \`${telefunctionFileExport}\`. Found telefunctions:`
+      assert(!telefuncFilePath.includes(runContext.telefunctionKey))
       errMsg += [runContext.telefunctionKey, ...telefunctionsFound]
         .sort()
         .map(

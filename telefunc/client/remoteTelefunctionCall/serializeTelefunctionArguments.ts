@@ -4,18 +4,18 @@ import { stringify } from '@brillout/json-s/stringify'
 import { assert, assertUsage, lowercaseFirstLetter, hasProp } from '../utils'
 
 function serializeTelefunctionArguments(callContext: {
-  telefunctionFilePath: string
+  telefuncFilePath: string
   telefunctionFileExport: string
   telefunctionArgs: unknown[]
   telefuncUrl: string
   telefunctionName: string
 }) {
   const bodyParsed = {
-    file: callContext.telefunctionFilePath,
+    file: callContext.telefuncFilePath,
     name: callContext.telefunctionFileExport,
     args: callContext.telefunctionArgs
   }
-  assert(typeof callContext.telefunctionFilePath === 'string')
+  assert(typeof callContext.telefuncFilePath === 'string')
   assert(typeof callContext.telefunctionFileExport === 'string')
   assert(Array.isArray(callContext.telefunctionArgs))
   let httpRequestBody: string

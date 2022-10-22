@@ -6,7 +6,7 @@ import { telefuncConfig } from './telefuncConfig'
 import { objectAssign, assertUsage, isBrowser, assert, getTelefunctionName } from './utils'
 
 async function remoteTelefunctionCall(
-  telefunctionFilePath: string,
+  telefuncFilePath: string,
   telefunctionFileExport: string,
   telefunctionArgs: unknown[]
 ): Promise<unknown> {
@@ -14,10 +14,10 @@ async function remoteTelefunctionCall(
 
   const callContext = {}
   {
-    const telefunctionName = getTelefunctionName({ telefunctionFileExport, telefunctionFilePath })
+    const telefunctionName = getTelefunctionName({ telefunctionFileExport, telefuncFilePath })
     objectAssign(callContext, {
       telefunctionName,
-      telefunctionFilePath,
+      telefuncFilePath,
       telefunctionFileExport,
       telefunctionArgs
     })

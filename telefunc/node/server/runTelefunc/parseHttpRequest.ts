@@ -18,7 +18,7 @@ function parseHttpRequest(runContext: {
   telefuncUrl: string
 }):
   | {
-      telefunctionFilePath: string
+      telefuncFilePath: string
       telefunctionFileExport: string
       telefunctionName: string
       telefunctionKey: string
@@ -78,14 +78,14 @@ function parseHttpRequest(runContext: {
     return { isMalformed: true }
   }
 
-  const telefunctionFilePath = bodyParsed.file
+  const telefuncFilePath = bodyParsed.file
   const telefunctionFileExport = bodyParsed.name
   const telefunctionArgs = bodyParsed.args
-  const telefunctionKey = getTelefunctionKey(telefunctionFilePath, telefunctionFileExport)
-  const telefunctionName = getTelefunctionName({ telefunctionFilePath, telefunctionFileExport })
+  const telefunctionKey = getTelefunctionKey(telefuncFilePath, telefunctionFileExport)
+  const telefunctionName = getTelefunctionName({ telefuncFilePath, telefunctionFileExport })
 
   return {
-    telefunctionFilePath,
+    telefuncFilePath,
     telefunctionFileExport,
     telefunctionName,
     telefunctionKey,
