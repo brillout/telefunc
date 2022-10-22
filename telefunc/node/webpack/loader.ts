@@ -14,7 +14,7 @@ type Loader = {
 }
 
 module.exports = async function (this: Loader, input: string): Promise<string> {
-  assert(typeof this._compiler.name === 'string')
+  assert(this._compiler.name === 'client' || this._compiler.name === 'server')
   const isClientSide = this._compiler.name !== 'server'
   assert(typeof this._compiler.context === 'string')
   const root = this._compiler!.context
