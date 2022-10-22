@@ -10,7 +10,7 @@ import type { Plugin } from 'vite'
 import { importBuild } from './plugins/importBuild'
 import { importGlobOn } from './importGlob'
 import { previewConfig } from './plugins/previewConfig'
-import { printShieldGen } from './plugins/printShieldGen'
+import { printShieldGenResult } from './plugins/printShieldGenResult'
 
 // Return as `any` to avoid Plugin type mismatches when there are multiple Vite versions installed
 function plugin(): any {
@@ -32,7 +32,7 @@ function plugin(): any {
     ...importBuild(),
     ...devConfig(),
     previewConfig(),
-    printShieldGen()
+    printShieldGenResult()
   ]
   return plugins
 }

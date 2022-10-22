@@ -1,6 +1,6 @@
 export { generateShield }
 export { replaceShieldTypeAlias }
-export { printGenStatus }
+export { printResult }
 export { testGenerateShield }
 
 import { Project, VariableDeclarationKind, SourceFile, getCompilerOptionsFromTsConfig } from 'ts-morph'
@@ -236,7 +236,7 @@ function toImport(importPath: string) {
   return `./${importPath}`
 }
 
-function printGenStatus(root: string) {
+function printResult(root: string) {
   // Is empty for JavaScript users
   if (generatedShields.length === 0) return
   printIntroForVite()
