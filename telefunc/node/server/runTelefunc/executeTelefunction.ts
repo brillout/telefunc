@@ -7,7 +7,7 @@ import { assertUsage, isPromise } from '../../utils'
 
 async function executeTelefunction(runContext: {
   telefunction: Telefunction
-  telefuncExportName: string
+  telefunctionName: string
   telefuncFilePath: string
   telefunctionArgs: unknown[]
   telefunctions: Record<string, Telefunction>
@@ -25,11 +25,11 @@ async function executeTelefunction(runContext: {
   const onError = (err: unknown) => {
     assertUsage(
       typeof err === 'object' && err !== null,
-      `The telefunction ${runContext.telefuncExportName}() (${runContext.telefuncFilePath}) threw a non-object error: \`${err}\`. Make sure the telefunction does \`throw new Error(${err})\` instead.`
+      `The telefunction ${runContext.telefunctionName}() (${runContext.telefuncFilePath}) threw a non-object error: \`${err}\`. Make sure the telefunction does \`throw new Error(${err})\` instead.`
     )
     assertUsage(
       err !== Abort,
-      `Missing parentheses \`()\` in \`throw Abort\` (it should be \`throw Abort()\`) at telefunction: ${runContext.telefuncExportName}() (${runContext.telefuncFilePath}).`
+      `Missing parentheses \`()\` in \`throw Abort\` (it should be \`throw Abort()\`) at telefunction ${runContext.telefunctionName}() (${runContext.telefuncFilePath}).`
     )
     if (isAbort(err)) {
       telefunctionAborted = true
@@ -51,7 +51,7 @@ async function executeTelefunction(runContext: {
   if (!telefunctionHasErrored && !telefunctionAborted) {
     assertUsage(
       isPromise(resultSync),
-      `The telefunction ${runContext.telefuncExportName}() (${runContext.telefuncFilePath}) did not return a promise. A telefunction should always return a promise (e.g. define it as a \`async function\`).`
+      `The telefunction ${runContext.telefunctionName}() (${runContext.telefuncFilePath}) did not return a promise. A telefunction should always return a promise (e.g. define it as a \`async function\`).`
     )
     try {
       telefunctionReturn = await resultSync

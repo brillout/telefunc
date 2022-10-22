@@ -7,7 +7,7 @@ function findTelefunction(runContext: {
   telefunctionKey: string
   telefuncFilePath: string
   telefuncFilesLoaded: Record<string, Record<string, unknown>>
-  telefuncExportName: string
+  telefunctionName: string
   telefunctions: Record<string, Telefunction>
   logInvalidRequests: boolean
 }) {
@@ -15,7 +15,7 @@ function findTelefunction(runContext: {
   assertUsage(
     telefunctionsFound.length > 0,
     [
-      `Telefunction ${runContext.telefuncExportName}() (${runContext.telefuncFilePath}) not found.`,
+      `Telefunction ${runContext.telefunctionName}() (${runContext.telefuncFilePath}) not found.`,
       "Your app doesn't seem to have any `.telefunc.{js|ts|...}` file."
     ].join(' ')
   )
@@ -32,8 +32,8 @@ function findTelefunction(runContext: {
   return telefunction
 
   function getNotFoundErrMsg() {
-    let errMsg = `Telefunction ${runContext.telefuncExportName}() (${runContext.telefuncFilePath}) not found:`
-    const { telefuncFilesLoaded, telefuncFilePath, telefuncExportName } = runContext
+    let errMsg = `Telefunction ${runContext.telefunctionName}() (${runContext.telefuncFilePath}) not found:`
+    const { telefuncFilesLoaded, telefuncFilePath, telefunctionName } = runContext
     const telefuncFile = telefuncFilesLoaded[telefuncFilePath]
     if (!telefuncFile) {
       errMsg += ` the file \`${runContext.telefuncFilePath}\` doesn't seem to exist. Found \`.telefunc.js\` files:`
@@ -49,8 +49,8 @@ function findTelefunction(runContext: {
         )
         .join('')
     } else {
-      assert(!telefuncFile[telefuncExportName])
-      errMsg += ` the file \`${runContext.telefuncFilePath}\` doesn't seem to have an export \`${telefuncExportName}\`. Found telefunctions:`
+      assert(!telefuncFile[telefunctionName])
+      errMsg += ` the file \`${runContext.telefuncFilePath}\` doesn't seem to have an export \`${telefunctionName}\`. Found telefunctions:`
       assert(!telefuncFilePath.includes(runContext.telefunctionKey))
       errMsg += [runContext.telefunctionKey, ...telefunctionsFound]
         .sort()

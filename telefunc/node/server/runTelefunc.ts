@@ -75,12 +75,12 @@ async function runTelefunc_(httpRequest: { url: string; method: string; body: un
     if (parsed.isMalformed) {
       return invalidRequest
     }
-    const { telefunctionKey, telefunctionArgs, telefuncFilePath, telefuncExportName } = parsed
+    const { telefunctionKey, telefunctionArgs, telefuncFilePath, telefunctionName } = parsed
     objectAssign(runContext, {
       telefunctionKey,
       telefunctionArgs,
       telefuncFilePath,
-      telefuncExportName
+      telefunctionName
     })
   }
 

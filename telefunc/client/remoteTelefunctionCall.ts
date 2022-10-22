@@ -7,7 +7,7 @@ import { objectAssign, assertUsage, isBrowser, assert } from './utils'
 
 async function remoteTelefunctionCall(
   telefuncFilePath: string,
-  telefuncExportName: string,
+  telefunctionName: string,
   telefunctionArgs: unknown[]
 ): Promise<unknown> {
   assertUsage(isBrowser(), 'The Telefunc Client is meant to be run only in the browser.')
@@ -16,7 +16,7 @@ async function remoteTelefunctionCall(
   {
     objectAssign(callContext, {
       telefuncFilePath,
-      telefuncExportName,
+      telefunctionName,
       telefunctionArgs
     })
   }
