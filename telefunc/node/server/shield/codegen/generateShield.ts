@@ -267,7 +267,6 @@ function printFailures(root: string) {
     }
   })
 
-  const docsLink = 'https://telefunc.com/shield#typescript'
   assertWarning(
     failures.length === 0,
     [
@@ -275,10 +274,11 @@ function printFailures(root: string) {
       failures.length === 1 ? '' : 's',
       ' ',
       formatGeneratedShields(failures, root),
-      '. ',
-      hasTypeScriptErrors
-        ? `TypeScript errors (printed above) can be problematic for shield() generation. Fix your TypeScript errors and try again. See ${docsLink} for more information.`
-        : `See ${docsLink} for how to fix this.`
+      '.',
+      !hasTypeScriptErrors
+        ? ''
+        : ' TypeScript errors (printed above) can be problematic for shield() generation. Fix your TypeScript errors and try again.',
+      ' See https://telefunc.com/shield#typescript for more information.'
     ].join(''),
     { onlyOnce: true }
   )
