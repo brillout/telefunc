@@ -4,23 +4,28 @@ import { loadBuild } from '@brillout/vite-plugin-import-build/loadBuild'
 import { assert, assertWarning, getNodeEnv, hasProp, isObject, isProduction } from '../utils'
 import { telefuncFilesGlobFilePath } from './telefuncFilesGlobPath'
 import type { ViteDevServer } from 'vite'
-import { GlobFiles, loadGlobFiles } from './loadGlobFiles'
 import { loadTelefuncFilesWithImportBuild } from './plugins/importBuild/loadBuild'
 
-async function loadTelefuncFilesWithVite(runContext: { root: string | null; viteDevServer: ViteDevServer | null }) {
-  const { notFound, moduleExports, provider } = await loadGlobImporter(runContext)
-
-  if (notFound) {
-    return { telefuncFilesLoaded: null }
+async function loadTelefuncFilesWithVite(runContext: {
+  telefuncFilePath: string
+  root: string | null
+  viteDevServer: ViteDevServer | null
+}): Promise<null | {
+  telefuncFilesLoaded: Record<string, Record<string, unknown>>
+  telefuncFilesAll: string[]
+  viteProvider: 'viteDevServer' | 'importBuild.cjs'
+}> {
+  const ret = await loadGlobImporter(runContext)
+  if (!ret) {
+    return null
   }
-
-  // console.log('provider', provider)
-  assert(isObject(moduleExports), { moduleExports, provider })
-  assert(hasProp(moduleExports, 'telefuncFilesGlob'), { moduleExports, provider })
+  const { moduleExports, viteProvider } = ret
+  assert(isObject(moduleExports), { moduleExports, viteProvider })
+  assert(hasProp(moduleExports, 'telefuncFilesGlob'), { moduleExports, viteProvider })
   const telefuncFilesGlob = moduleExports.telefuncFilesGlob as GlobFiles
-  const telefuncFilesLoaded = await loadGlobFiles(telefuncFilesGlob)
+  const { telefuncFilesLoaded, telefuncFilesAll } = await loadGlobFiles(telefuncFilesGlob, runContext.telefuncFilePath)
   assert(isObjectOfObjects(telefuncFilesLoaded))
-  return { telefuncFilesLoaded, viteProvider: provider }
+  return { telefuncFilesLoaded, viteProvider, telefuncFilesAll }
 }
 
 async function loadGlobImporter(runContext: { root: string | null; viteDevServer: ViteDevServer | null }) {
@@ -33,7 +38,7 @@ async function loadGlobImporter(runContext: { root: string | null; viteDevServer
       runContext.viteDevServer.ssrFixStacktrace(err as Error)
       throw err
     }
-    return { moduleExports, provider: 'viteDevServer' as const }
+    return { moduleExports, viteProvider: 'viteDevServer' as const }
   }
 
   {
@@ -42,11 +47,11 @@ async function loadGlobImporter(runContext: { root: string | null; viteDevServer
       const moduleExports = await loadTelefuncFilesWithImportBuild()
       assert(moduleExports, { entryFile })
       assertProd()
-      return { moduleExports, provider: 'importBuild.cjs' as const }
+      return { moduleExports, viteProvider: 'importBuild.cjs' as const }
     }
   }
 
-  return { notFound: true }
+  return null
 }
 
 function assertProd() {
@@ -65,4 +70,21 @@ function assertProd() {
 
 function isObjectOfObjects(obj: unknown): obj is Record<string, Record<string, unknown>> {
   return isObject(obj) && Object.values(obj).every(isObject)
+}
+
+type GlobFiles = Record<FilePath, () => Promise<Record<ExportName, ExportValue>>>
+type FilePath = string
+type ExportName = string
+type ExportValue = unknown
+
+async function loadGlobFiles(telefuncFilesGlob: GlobFiles, telefuncFilePath: string) {
+  const telefuncFilesAll = Object.keys(telefuncFilesGlob)
+  const telefuncFilesLoaded = Object.fromEntries(
+    await Promise.all(
+      Object.entries(telefuncFilesGlob)
+        .filter(([filePath]) => filePath === telefuncFilePath)
+        .map(async ([filePath, loadModuleExports]) => [filePath, await loadModuleExports()])
+    )
+  )
+  return { telefuncFilesAll, telefuncFilesLoaded }
 }

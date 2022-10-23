@@ -5,7 +5,6 @@ import { getContextOptional, isAsyncMode } from './getContext'
 import { loadTelefuncFiles } from './runTelefunc/loadTelefuncFiles'
 import { parseHttpRequest } from './runTelefunc/parseHttpRequest'
 // import { getEtag } from './runTelefunc/getEtag'
-import { getTelefunctions } from './runTelefunc/getTelefunctions'
 import { executeTelefunction } from './runTelefunc/executeTelefunction'
 import { serializeTelefunctionResult } from './runTelefunc/serializeTelefunctionResult'
 import { handleError } from './runTelefunc/handleError'
@@ -85,15 +84,9 @@ async function runTelefunc_(httpRequest: { url: string; method: string; body: un
   }
 
   {
-    const telefuncFilesLoaded = await loadTelefuncFiles(runContext)
+    const { telefuncFilesLoaded, telefuncFilesAll } = await loadTelefuncFiles(runContext)
     assert(telefuncFilesLoaded, 'No `.telefunc.js` file found')
-    objectAssign(runContext, { telefuncFilesLoaded })
-    runContext.telefuncFilesLoaded
-  }
-
-  {
-    const { telefunctions } = await getTelefunctions(runContext)
-    objectAssign(runContext, { telefunctions })
+    objectAssign(runContext, { telefuncFilesLoaded, telefuncFilesAll })
   }
 
   {

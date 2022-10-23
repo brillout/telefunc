@@ -10,7 +10,6 @@ async function executeTelefunction(runContext: {
   telefunctionName: string
   telefuncFilePath: string
   telefunctionArgs: unknown[]
-  telefunctions: Record<string, Telefunction>
   providedContext: Telefunc.Context | null
 }) {
   const { telefunction, telefunctionArgs } = runContext

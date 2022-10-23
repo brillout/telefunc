@@ -1,26 +1,37 @@
 export { findTelefunction }
 
 import { assert, assertUsage, projectErrorPrefix } from '../../utils'
-import type { Telefunction } from '../types'
+import type { TelefuncFiles, Telefunction } from '../types'
+import { assertTelefunction } from './assertTelefunction'
 
 function findTelefunction(runContext: {
-  telefunctionKey: string
   telefuncFilePath: string
-  telefuncFilesLoaded: Record<string, Record<string, unknown>>
+  telefuncFilesLoaded: TelefuncFiles
+  telefuncFilesAll: string[]
   telefunctionName: string
-  telefunctions: Record<string, Telefunction>
   logInvalidRequests: boolean
-}) {
-  const telefunctionsFound = Object.keys(runContext.telefunctions)
+}): null | Telefunction {
   assertUsage(
-    telefunctionsFound.length > 0,
+    runContext.telefuncFilesAll.length > 0,
     [
       `Telefunction ${runContext.telefunctionName}() (${runContext.telefuncFilePath}) not found.`,
       "Your app doesn't seem to have any `.telefunc.{js|ts|...}` file."
     ].join(' ')
   )
 
-  const telefunction = runContext.telefunctions[runContext.telefunctionKey]
+  const telefuncFile = findTelefuncFile(runContext)
+  const telefunction = (() => {
+    if (!telefuncFile) {
+      return null
+    }
+    if (!(runContext.telefunctionName in telefuncFile.fileExports)) {
+      return null
+    }
+    const telefunction = telefuncFile.fileExports[runContext.telefunctionName]
+    assertTelefunction(telefunction, runContext.telefunctionName, telefuncFile.filePath)
+    return telefunction
+  })()
+
   if (!telefunction) {
     if (runContext.logInvalidRequests) {
       const errMsg = getNotFoundErrMsg()
@@ -33,35 +44,50 @@ function findTelefunction(runContext: {
 
   function getNotFoundErrMsg() {
     let errMsg = `Telefunction ${runContext.telefunctionName}() (${runContext.telefuncFilePath}) not found:`
-    const { telefuncFilesLoaded, telefuncFilePath, telefunctionName } = runContext
-    const telefuncFile = telefuncFilesLoaded[telefuncFilePath]
     if (!telefuncFile) {
       errMsg += ` the file \`${runContext.telefuncFilePath}\` doesn't seem to exist. Found \`.telefunc.js\` files:`
-      const telefuncFilePaths = Object.keys(telefuncFilesLoaded)
-      assert(!telefuncFilePaths.includes(telefuncFilePath))
-      errMsg += [runContext.telefuncFilePath, ...telefuncFilePaths]
+      assert(!runContext.telefuncFilesAll.includes(runContext.telefuncFilePath))
+      errMsg += [runContext.telefuncFilePath, ...runContext.telefuncFilesAll]
         .sort()
         .map(
-          (telefuncFilePath) =>
-            `\n  ${telefuncFilePath} ${
-              telefuncFilePaths.includes(telefuncFilePath) ? '[✅ Exists]' : "[❌ Doesn't exist]"
-            }`
+          (filePath) =>
+            `\n  ${filePath} ${runContext.telefuncFilesAll.includes(filePath) ? '[✅ Exists]' : "[❌ Doesn't exist]"}`
         )
         .join('')
     } else {
-      assert(!telefuncFile[telefunctionName])
-      errMsg += ` the file \`${runContext.telefuncFilePath}\` doesn't seem to have an export \`${telefunctionName}\`. Found telefunctions:`
-      assert(!telefuncFilePath.includes(runContext.telefunctionKey))
-      errMsg += [runContext.telefunctionKey, ...telefunctionsFound]
+      assert(!telefuncFile.fileExports[runContext.telefunctionName])
+      errMsg += ` the file \`${runContext.telefuncFilePath}\` doesn't seem to have an export a telefunction \`${runContext.telefunctionName}\`. Found telefunctions:`
+      const telefuncFileExportNames = Object.keys(telefuncFile.fileExports)
+      assert(!telefuncFileExportNames.includes(runContext.telefunctionName))
+      errMsg += [runContext.telefunctionName, ...telefuncFileExportNames]
         .sort()
         .map(
-          (telefunctionKey) =>
-            `\n  ${telefunctionKey} ${
-              telefunctionsFound.includes(telefunctionKey) ? '[✅ Exists]' : "[❌ Doesn't exist]"
+          (exportName) =>
+            `\n  export { ${exportName} } in ${telefuncFile.filePath} ${
+              telefuncFileExportNames.includes(exportName) ? '[✅ Exists]' : "[❌ Doesn't exist]"
             }`
         )
         .join('')
     }
     return errMsg
   }
+}
+
+function findTelefuncFile(runContext: {
+  telefuncFilesLoaded: TelefuncFiles
+  telefuncFilePath: string
+  telefuncFilesAll: string[]
+}) {
+  const found = Object.entries(runContext.telefuncFilesLoaded).filter(([telefuncFilePath]) => {
+    assert(runContext.telefuncFilesAll.includes(telefuncFilePath))
+    return telefuncFilePath === runContext.telefuncFilePath
+  })
+  if (found.length === 0) {
+    assert(!runContext.telefuncFilesAll.includes(runContext.telefuncFilePath))
+    return null
+  }
+  assert(found.length === 1)
+  const [filePath, fileExports] = found[0]!
+  const telefuncFileFound = { filePath, fileExports }
+  return telefuncFileFound
 }

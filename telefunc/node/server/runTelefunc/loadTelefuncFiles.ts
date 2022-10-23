@@ -11,12 +11,13 @@ async function loadTelefuncFiles(runContext: {
   root: string | null
   viteDevServer: ViteDevServer | null
   telefuncFiles: string[] | null
-}): Promise<TelefuncFiles | null> {
+  telefuncFilePath: string
+}): Promise<{ telefuncFilesLoaded: TelefuncFiles; telefuncFilesAll: string[] }> {
   // Handles:
   // - When the user provides the telefunc file paths with `telefuncConfig.telefuncFiles`
   if (runContext.telefuncFiles) {
-    const telefuncFilesLoaded = loadTelefuncFilesFromConfig(runContext.telefuncFiles, runContext.root)
-    return telefuncFilesLoaded
+    const telefuncFilesLoaded = await loadTelefuncFilesFromConfig(runContext.telefuncFiles, runContext.root)
+    return { telefuncFilesLoaded, telefuncFilesAll: Object.keys(telefuncFilesLoaded) }
   }
 
   // Handles:
@@ -27,17 +28,18 @@ async function loadTelefuncFiles(runContext: {
     const telefuncFilesLoaded = loadTelefuncFilesWithRegistration()
     if (telefuncFilesLoaded) {
       assertUsage(Object.keys(telefuncFilesLoaded).length > 0, getErrMsg('webpack'))
-      return telefuncFilesLoaded
+      return { telefuncFilesLoaded, telefuncFilesAll: Object.keys(telefuncFilesLoaded) }
     }
   }
 
   // Handles:
   // - Vite
   {
-    const { telefuncFilesLoaded, viteProvider } = await loadTelefuncFilesWithVite(runContext)
-    if (telefuncFilesLoaded) {
+    const ret = await loadTelefuncFilesWithVite(runContext)
+    if (ret) {
+      const { telefuncFilesLoaded, viteProvider, telefuncFilesAll } = ret
       assertUsage(Object.keys(telefuncFilesLoaded).length > 0, getErrMsg(`Vite [\`${viteProvider}\`]`))
-      return telefuncFilesLoaded
+      return { telefuncFilesLoaded, telefuncFilesAll }
     }
   }
 
@@ -45,5 +47,5 @@ async function loadTelefuncFiles(runContext: {
 }
 
 function getErrMsg(crawler: string) {
-  return 'No `.telefunc.{js|ts|...}` file found. Did you create one? (Crawler: ' + crawler + '.)'
+  return 'No `.telefunc.{js|ts|...}` file found. Did you create one? (Stack: ' + crawler + '.)'
 }
