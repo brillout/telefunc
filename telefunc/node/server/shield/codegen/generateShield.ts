@@ -286,20 +286,11 @@ function printFailures(root: string) {
 
 function printSuccesses(root: string) {
   const successes = generatedShields.filter((s) => !s.failed)
-  const hasFailures = successes.length < generatedShields.length
   if (successes.length > 0) {
     console.log(
       [
         pc.green('✓'),
-        `${successes.length} shield() generated`,
-        (() => {
-          const onlyOne = successes.length === 1
-          if (!hasFailures) {
-            return `covering ${onlyOne ? 'the telefunction' : 'all telefunctions'}:`
-          } else {
-            return `for the telefunction${onlyOne ? '' : 's'}:`
-          }
-        })(),
+        `${successes.length} shield() generated for the telefunction${generatedShields.length === 1 ? '' : 's'}:`,
         formatGeneratedShields(successes, root)
       ].join(' ')
     )
