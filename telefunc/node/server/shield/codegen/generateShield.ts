@@ -1,18 +1,10 @@
 export { generateShield }
 export { replaceShieldTypeAlias }
-export { printResult }
+export { logResult }
 export { testGenerateShield }
 
 import { Project, VariableDeclarationKind, SourceFile, getCompilerOptionsFromTsConfig } from 'ts-morph'
-import {
-  assert,
-  assertUsage,
-  assertWarning,
-  assertModuleScope,
-  objectAssign,
-  unique,
-  projectInfo
-} from '../../../utils'
+import { assert, assertUsage, assertWarning, assertModuleScope, objectAssign, unique } from '../../../utils'
 import fs from 'fs'
 import path from 'path'
 import pc from 'picocolors'
@@ -26,6 +18,7 @@ type GeneratedShield = {
 
 assertModuleScope('codegen/generateShield.ts')
 const generatedShields: GeneratedShield[] = []
+let resutlAlreayLogged = false
 const projects: Record<string, Project> = {}
 
 function generateShield(telefuncFileCode: string, telefuncFilePath: string): string {
@@ -236,16 +229,18 @@ function toImport(importPath: string) {
   return `./${importPath}`
 }
 
-function printResult(root: string) {
+function logResult(root: string, logSuccessPrefix: string, logIntro: null | string) {
   // `generatedShields` is empty for JavaScript users
   if (generatedShields.length === 0) return
-  printIntroForVite()
-  printSuccesses(root)
+  if (resutlAlreayLogged) {
+    assert(generatedShields.length === 0)
+    return
+  }
+  if (logIntro) console.log(logIntro)
+  printSuccesses(root, logSuccessPrefix)
   printFailures(root)
-}
-
-function printIntroForVite() {
-  console.log(`${pc.cyan(`telefunc v${projectInfo.projectVersion}`)} ${pc.green('shield() generation')}`)
+  resutlAlreayLogged = true
+  generatedShields.length = 0
 }
 
 function printFailures(root: string) {
@@ -284,13 +279,13 @@ function printFailures(root: string) {
   )
 }
 
-function printSuccesses(root: string) {
+function printSuccesses(root: string, logSuccessPrefix: string) {
   const successes = generatedShields.filter((s) => !s.failed)
   if (successes.length > 0) {
     console.log(
       [
-        pc.green('✓'),
-        `${successes.length} shield() generated for the telefunction${generatedShields.length === 1 ? '' : 's'}:`,
+        logSuccessPrefix,
+        `shield() generated for the telefunction${generatedShields.length === 1 ? '' : 's'}`,
         formatGeneratedShields(successes, root)
       ].join(' ')
     )
@@ -301,7 +296,7 @@ function formatGeneratedShields(generatedShields: GeneratedShield[], root: strin
   return formatList(
     generatedShields.map(({ telefunctionName, telefuncFilePath }) => {
       telefuncFilePath = path.relative(root, telefuncFilePath)
-      return `${pc.bold(telefunctionName + '()')} (${telefuncFilePath})`
+      return `${telefunctionName}() (${telefuncFilePath})`
     })
   )
 }

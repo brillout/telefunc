@@ -1,8 +1,9 @@
 export { printShieldGenResult }
 
 import type { Plugin, ResolvedConfig } from 'vite'
-import { printResult } from '../../server/shield/codegen/generateShield'
-import { viteIsSSR } from '../utils'
+import { logResult } from '../../server/shield/codegen/generateShield'
+import { viteIsSSR, projectInfo } from '../utils'
+import pc from 'picocolors'
 
 function printShieldGenResult(): Plugin {
   let config: ResolvedConfig
@@ -15,7 +16,9 @@ function printShieldGenResult(): Plugin {
     async writeBundle() {
       if (viteIsSSR(config)) {
         await new Promise((r) => process.nextTick(r)) // Ensuring we log to the console after Vite
-        printResult(config.root)
+        const logSuccessPrefix = pc.green('✓')
+        const logIntro = `${pc.cyan(`telefunc v${projectInfo.projectVersion}`)} ${pc.green('shield() generation')}`
+        logResult(config.root, logSuccessPrefix, logIntro)
       }
     }
   }
