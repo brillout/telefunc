@@ -3,7 +3,6 @@ export { makeHttpRequest }
 import { parse } from '@brillout/json-s/parse'
 import { assert, assertUsage, isObject, objectAssign } from '../utils'
 import { executeCallErrorListeners } from './onTelefunctionRemoteCallError'
-import type { TelefunctionError } from '../TelefunctionError'
 
 const method = 'POST'
 const STATUS_CODE_SUCCESS = 200
@@ -17,7 +16,7 @@ async function makeHttpRequest(callContext: {
   telefunctionName: string
   telefuncFilePath: string
   httpHeaders: Record<string, string>
-}): Promise<{ telefunctionReturn: unknown } | { telefunctionCallError: TelefunctionError }> {
+}): Promise<{ telefunctionReturn: unknown }> {
   let response: Response
   try {
     response = await fetch(callContext.telefuncUrl, {
@@ -33,7 +32,7 @@ async function makeHttpRequest(callContext: {
     const telefunctionCallError = new Error('No Server Connection')
     objectAssign(telefunctionCallError, { isConnectionError: true as const })
     executeCallErrorListeners(telefunctionCallError)
-    return { telefunctionCallError }
+    throw telefunctionCallError
   }
 
   const statusCode = response.status
@@ -50,32 +49,31 @@ async function makeHttpRequest(callContext: {
     )
     objectAssign(telefunctionCallError, { isAbort: true as const, abortValue })
     executeCallErrorListeners(telefunctionCallError)
-    return { telefunctionCallError }
+    throw telefunctionCallError
   } else if (statusCode === STATUS_CODE_BUG) {
     const responseBody = await response.text()
+    const errMsg = 'Internal Server Error'
     assertUsage(
-      responseBody === 'Internal Server Error (Telefunc)',
+      responseBody === errMsg,
       installErr({
         reason: 'an HTTP response body that Telefunc never generates',
         method,
         callContext
       })
     )
-    const telefunctionCallError = new Error('Server Error')
-    return { telefunctionCallError }
+    throw new Error(errMsg)
   } else if (statusCode === STATUS_CODE_INVALID) {
     const responseBody = await response.text()
     assertUsage(
-      responseBody === 'Invalid Request (Telefunc)',
+      responseBody === 'Invalid Telefunc Request',
       installErr({
         reason: 'an HTTP response body that Telefunc never generates',
         method,
         callContext
       })
     )
-    // In theory this error should never happen.
-    const telefunctionCallError = new Error('Invalid Telefunc Request')
-    return { telefunctionCallError }
+    // This should never happen as the Telefunc Client shouldn't make invalid requests
+    assert(false)
   } else {
     assertUsage(
       statusCode !== 404,

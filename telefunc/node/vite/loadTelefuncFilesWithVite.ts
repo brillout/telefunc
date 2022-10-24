@@ -86,5 +86,6 @@ async function loadGlobFiles(telefuncFilesGlob: GlobFiles, telefuncFilePath: str
         .map(async ([filePath, loadModuleExports]) => [filePath, await loadModuleExports()])
     )
   )
+  assert(Object.keys(telefuncFilesLoaded).length <= 1)
   return { telefuncFilesAll, telefuncFilesLoaded }
 }

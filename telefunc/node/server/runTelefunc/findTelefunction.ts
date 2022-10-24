@@ -43,9 +43,9 @@ function findTelefunction(runContext: {
   return telefunction
 
   function getNotFoundErrMsg() {
-    let errMsg = `Telefunction ${runContext.telefunctionName}() (${runContext.telefuncFilePath}) not found:`
+    let errMsg = `Telefunction ${runContext.telefunctionName}() (${runContext.telefuncFilePath}) not found: `
     if (!telefuncFile) {
-      errMsg += ` the file \`${runContext.telefuncFilePath}\` doesn't seem to exist. Found \`.telefunc.js\` files:`
+      errMsg += `the file ${runContext.telefuncFilePath} doesn't exist. Found \`.telefunc.js\` files:`
       assert(!runContext.telefuncFilesAll.includes(runContext.telefuncFilePath))
       errMsg += [runContext.telefuncFilePath, ...runContext.telefuncFilesAll]
         .sort()
@@ -56,18 +56,26 @@ function findTelefunction(runContext: {
         .join('')
     } else {
       assert(!telefuncFile.fileExports[runContext.telefunctionName])
-      errMsg += ` the file \`${runContext.telefuncFilePath}\` doesn't seem to have an export a telefunction \`${runContext.telefunctionName}\`. Found telefunctions:`
+      assert(telefuncFile.filePath === runContext.telefuncFilePath)
+      errMsg += `the file ${telefuncFile.filePath} doesn't export a telefunction named "${runContext.telefunctionName}". `
       const telefuncFileExportNames = Object.keys(telefuncFile.fileExports)
-      assert(!telefuncFileExportNames.includes(runContext.telefunctionName))
-      errMsg += [runContext.telefunctionName, ...telefuncFileExportNames]
-        .sort()
-        .map(
-          (exportName) =>
-            `\n  export { ${exportName} } in ${telefuncFile.filePath} ${
-              telefuncFileExportNames.includes(exportName) ? '[✅ Exists]' : "[❌ Doesn't exist]"
-            }`
-        )
-        .join('')
+      if (telefuncFileExportNames.length === 0) {
+        errMsg += `(The file ${telefuncFile.filePath} doesn't export any telefunction.)`
+      } else {
+        errMsg += 'Found telefunctions:'
+        assert(!telefuncFileExportNames.includes(runContext.telefunctionName))
+        errMsg += [runContext.telefunctionName, ...telefuncFileExportNames]
+          .sort()
+          .map(
+            (exportName) =>
+              `\n  ${telefuncFile.filePath} ${
+                telefuncFileExportNames.includes(exportName)
+                  ? `exports telefunction ${exportName}() ✅`
+                  : `doesn't have an export "${exportName}" ❌`
+              }`
+          )
+          .join('')
+      }
     }
     return errMsg
   }
