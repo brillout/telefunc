@@ -59,7 +59,7 @@
     "ts-morph": "^14.0.0"
   },
   "devDependencies": {
-    "@brillout/release-me": "^0.0.6",
+    "@brillout/release-me": "^0.0.8",
     "@nuxt/types": "^2.15.8",
     "@types/express": "^4.17.11",
     "@types/jest": "^27.4.0",
