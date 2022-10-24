@@ -1,3 +1,22 @@
+## [0.1.27](https://github.com/brillout/telefunc/compare/v0.1.26...v0.1.27) (2022-10-24)
+
+
+### Bug Fixes
+
+* add shield() codegen to webpack loaders (fix [#35](https://github.com/brillout/telefunc/issues/35)) ([79cb772](https://github.com/brillout/telefunc/commit/79cb772eff160a62834e462418c54c1463ed9504))
+* improve DX upon server errors ([4321598](https://github.com/brillout/telefunc/commit/4321598321f4dd1144d738f7711164457748d653))
+* improve shield() gen logs ([adf13ed](https://github.com/brillout/telefunc/commit/adf13ed0f59776b7ba82ce1f729fb5d03e84af2e))
+* improve shield() generation ([de0996e](https://github.com/brillout/telefunc/commit/de0996eccdbb3da65c761c92cbdc1936f1260a7b))
+* remove superfluous `isProduction` config and improve `isProduction()` check ([a166c58](https://github.com/brillout/telefunc/commit/a166c5845928cb6287949f285f7d6a49fd80bcc2))
+* use strings instead of symbols as keys ([bdbd31e](https://github.com/brillout/telefunc/commit/bdbd31e11a734526d4fa033a896c525d82ee82a8))
+
+
+### Performance Improvements
+
+* [Vite] lazy load `.telefunc.js` files ([dcf1423](https://github.com/brillout/telefunc/commit/dcf1423fb10bd82b6df887d36b78041a7f84abe3))
+
+
+
 ## [0.1.26](https://github.com/brillout/telefunc/compare/v0.1.25...v0.1.26) (2022-10-10)
 
 
