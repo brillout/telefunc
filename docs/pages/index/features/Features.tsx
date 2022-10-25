@@ -39,7 +39,7 @@ function Features() {
                 <b>flexible</b>.
               </p>
               <p>
-                Telefunc introduces new techniques that enable advanced permissions and <b>increased safety</b>.
+                Telefunc introduces new techniques to define advanced permissions and increase safety.
               </p>
             </>
           )
@@ -56,7 +56,6 @@ function Features() {
                 Telefunc supports <b>Next.js</b>, <b>CRA</b>, <b>Nuxt</b>, <b>Vite</b>, <b>vite-plugin-ssr</b>,{' '}
                 <b>React Native</b> and other frameworks based on Webpack, Babel, Parcel or Vite.
               </p>
-              <p>You want to change your stack? Bring Telefunc along.</p>
             </>
           )
         },
@@ -69,8 +68,8 @@ function Features() {
           desc: (
             <>
               <p>
-                The frontend can directly tap into the <b>full power of the server</b>. Use tailored and optimized
-                SQL/ORM queries for highly performant data retrieval and mutations.
+                The frontend can directly tap into the <b>full power of the server</b>. Use tailored SQL/ORM queries for
+                highly performant data retrieval and mutations.
               </p>
             </>
           )
@@ -88,8 +87,7 @@ function Features() {
                 auto-import, replace-all-occurrences, etc.
               </p>
               <p>
-                Use your types across the frontend and backend for <b>end-to-end type safety</b>, including{' '}
-                <b>automatic runtime validation</b>.
+                <b>Automatic runtime validation</b> for end-to-end type safety.
               </p>
             </>
           )

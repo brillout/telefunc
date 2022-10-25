@@ -3,14 +3,13 @@
 // Environment: Browser
 
 // CreateTodo.telefunc.ts isn't actually loaded: Tele-
-// func transforms `.telefunc.(js|ts)` files into a
-// thin HTTP client.
+// func transforms it into a thin HTTP client.
 import { onNewTodo } from './CreateTodo.telefunc.ts'
 
-async function onClick(form: Form) {
+async function onClick(form) {
   const text = form.input.value
   // Behind the scenes, Telefunc makes an HTTP request
-  // to our Node.js server.
+  // to the server.
   await onNewTodo(text)
 }
 
