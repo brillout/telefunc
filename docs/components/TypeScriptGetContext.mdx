@@ -1,0 +1,31 @@
+We can use `Telefunc.Context` to globally set the type of `const context = getContext()`.
+
+```ts
+// TelefuncContext.d.ts
+
+import 'telefunc'
+import type { User } from './User.ts'
+
+declare module 'telefunc' {
+  namespace Telefunc {
+    interface Context {
+      user: null | User
+    }
+  }
+}
+```
+```ts
+// User.ts
+
+export type User = { id: number }
+```
+```ts
+// *.telefunc.ts
+
+import { getContext } from 'telefunc'
+
+export async function someTelefunction() {
+  const { user } = getContext()
+  // TypeScript knows that `user.id` is of type `number`
+}
+```

@@ -89,7 +89,7 @@ export const headings: HeadingDefinition[] = [
     level: 2,
     title: 'Permissions',
     url: '/permissions',
-    sectionTitles: ['`getContext()` wrappers']
+    sectionTitles: ['`getContext()` wrapping']
   },
   {
     level: 2,

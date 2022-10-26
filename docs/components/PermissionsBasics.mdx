@@ -1,0 +1,53 @@
+We implement permissions by using `throw Abort()` and `return`:
+
+```ts
+// TodoItem.telefunc.ts
+// Environment: Server
+
+export { onTextChange }
+
+import { getContext, Abort } from 'telefunc'
+
+function onTextChange(id: string, text: string) {
+  const { user } = getContext()
+  if (!user) {
+    // We return `notLoggedIn: true` so that frontend can redirect the user to login page
+    return { notLoggedIn: true }
+  }
+
+  const todoItem = await Todo.findOne({ id })
+  if (!todoItem) {
+    // `throw Abort()` corresponds to "403 Forbidden" of classical APIs
+    throw Abort()
+  }
+
+  // Easy implementation of advanced permissions such as "only
+  // allow the author or admins to modify a to-do item".
+  if (todoItem.authorId !== user.id && !user.isAdmin) {
+    throw Abort()
+  }
+  await todoItem.update({ text })
+}
+```
+
+In general, we use `throw Abort()` upon permission denials but, sometimes, the frontend needs to know why the the telefunction call failed:
+here we return `{ notLoggedIn: true }` so that our frontend can perform a redirection.
+
+```tsx
+// TodoItem.tsx
+// Environment: Browser
+
+import { onTextChange } from './TodoItem.telefunc'
+
+function onChange(id: string, text: string) {
+  const res = await onTextChange(id, text)
+  if (res?.notLoggedIn) {
+    // Redirect user to login page
+    window.location.href = '/login'
+  }
+}
+
+function TodoItem({ id, text }: { id: string; text: string }) {
+  return <input input="text" value={text} onChange={(ev) => onChange(id, ev.target.value)} />
+}
+```

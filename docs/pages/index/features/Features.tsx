@@ -1,6 +1,7 @@
 import React from 'react'
 import { Emoji } from '@brillout/docpress'
 import { FeatureList } from '@brillout/docpress'
+import LearnMorePermissions from './LearnMorePermissions.mdx'
 
 export { Features }
 
@@ -42,7 +43,8 @@ function Features() {
                 Telefunc introduces new techniques to define advanced permissions and increase safety.
               </p>
             </>
-          )
+          ),
+          learnMore: <LearnMorePermissions />,
         },
         {
           title: (
