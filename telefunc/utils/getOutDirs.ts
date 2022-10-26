@@ -1,7 +1,7 @@
 import type { UserConfig, ResolvedConfig } from 'vite'
 import { viteIsSSR } from './viteIsSSR'
 import { assert } from './assert'
-import { assertPosixPath } from './filesystemPathHandling'
+import { assertPosixPath, toPosixPath } from './filesystemPathHandling'
 import path from 'path'
 
 export { getOutDirs }
@@ -35,7 +35,7 @@ function getOutDirs_prerender(config: ResolvedConfig): OutDirs {
 
 /** Appends `client/` or `server/` to `config.build.outDir` */
 function determineOutDir(config: UserConfig): string {
-  let outDirRoot = config.build?.outDir || 'dist'
+  const outDirRoot = toPosixPath(config.build?.outDir || 'dist')
   assertPosixPath(outDirRoot)
   // When using Telefunc + vite-plugin-ssr then `config.build.outDir` may already be set
   if (!isOutDirRoot(outDirRoot)) {
