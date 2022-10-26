@@ -1,3 +1,12 @@
+## [0.1.28](https://github.com/brillout/telefunc/compare/v0.1.27...v0.1.28) (2022-10-26)
+
+
+### Bug Fixes
+
+* stop assuming UserConfig.build.outDir to be a posix path ([013c2fc](https://github.com/brillout/telefunc/commit/013c2fc56b62e2c5328f4b6dc54a580ef9075e21))
+
+
+
 ## [0.1.27](https://github.com/brillout/telefunc/compare/v0.1.26...v0.1.27) (2022-10-24)
 
 
