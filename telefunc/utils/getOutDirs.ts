@@ -5,7 +5,6 @@ import { assertPosixPath, toPosixPath } from './filesystemPathHandling'
 import path from 'path'
 
 export { getOutDirs }
-export { getOutDirs_prerender }
 export { determineOutDir }
 
 type OutDirs = {
@@ -24,12 +23,6 @@ function getOutDirs(config: ResolvedConfig): OutDirs {
   assertConfig(config)
   assert('/client'.length === '/server'.length)
   let outDirRoot = outDir.slice(0, -1 * '/client'.length)
-  return getAllOutDirs(outDirRoot, config.root)
-}
-function getOutDirs_prerender(config: ResolvedConfig): OutDirs {
-  const outDirRoot = config.build.outDir
-  assertPosixPath(outDirRoot)
-  assertIsOutDirRoot(outDirRoot)
   return getAllOutDirs(outDirRoot, config.root)
 }
 
