@@ -16,10 +16,10 @@ const globalObject = getGlobalObject<{ context: null | Telefunc.Context; isResto
 function getContext_sync(): Telefunc.Context {
   const { context, isRestored } = globalObject
   assert(context === null || isObject(context))
-  assertUsage(
-    context !== null,
-    isRestored ? '[getContext()] No context object found, see https://telefunc.com/getContext#not-found' : provideErrMsg
-  )
+  const errMsg = isRestored
+    ? provideErrMsg
+    : '[getContext()] Cannot access context object, see https://telefunc.com/getContext#access'
+  assertUsage(context !== null, errMsg)
   return context
 }
 
