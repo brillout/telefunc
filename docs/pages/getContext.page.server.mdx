@@ -1,4 +1,4 @@
-import { Link } from '@brillout/docpress'
+import { Link, CodeBlock } from '@brillout/docpress'
 
 The `getContext()` function enables our telefunctions to access contextual information.
 
@@ -101,9 +101,7 @@ export async function someTelefunction() {
 
 If you get this error:
 
-```
-[telefunc][Wrong Usage][getContext()] Cannot access context object, see https://telefunc.com/getContext#access
-```
+<CodeBlock lineBreak={true}>{'[telefunc][Wrong Usage][getContext()] Cannot access context object, see https://telefunc.com/getContext#access'}</CodeBlock>
 
 Then this means that you called `getContext()` after an `await` operator:
 

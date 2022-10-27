@@ -1,35 +1,38 @@
-With REST/GraphQL, API endpoints are usually:
+import { CodeBlock } from '@brillout/docpress'
+
+With REST/GraphQL, API endpoints are:
  - Generic
  - Backend-owned
 
-With Telefunc it's the exact opposite as telefunctions are usually:
+With Telefunc, it's the exact opposite as telefunctions are:
  - Tailored
  - Frontend-owned
 
 This inversion leads to profound improvements in development speed.
 
-That's why we recommend to implement what we call "event-based telefunctions".
+That's why we recommend to implement what we call *event-based telefunctions*.
 
-> You may be tempted to create generic telefunctions, but this is usually an anti-pattern with Telefunc.
+> You may be tempted to create generic telefunctions but, with Telefunc, this is an anti-pattern as explained below.
 
 
 ## Example
 
-Let's imagine a to-do app that wants to to implement a new feature "mark all tasks as completed".
+Let's imagine a to-do app that wants to implement a new feature "mark all tasks as completed".
 
 With a RESTful API, the app does these requests:
 
 ```
-#
-GET    https://api.todo.com/task?completed=false
-POST   https://api.todo.com/task/42                { "completed": true }
-POST   https://api.todo.com/task/1337              { "completed": true }
-POST   https://api.todo.com/task/7                 { "completed": true }
+HTTP VERB       HTTP URL                                      HTTP BODY PAYLOAD
+=========       =========================================     ====================
+GET             https://api.todo.com/task?completed=false     ∅
+POST            https://api.todo.com/task/42                  { "completed": true }
+POST            https://api.todo.com/task/1337                { "completed": true }
+POST            https://api.todo.com/task/7                   { "completed": true }
 ```
 
-> Note how it's usually the Backend team that's responsible of implementing and modelling such API.
+> It's usually the Backend team that owns and is responsible of implementing and modelling such API.
 
-With Telefunc, instead, the app calls a telefunction like this:
+With Telefunc, the app calls a telefunction like this instead:
 
 ```ts
 // TodoList.telefunc.ts
@@ -51,11 +54,13 @@ export async function onMarkAllAsCompleted() {
 }
 ```
 
-> With Telefunc, it's usually the Frontend team that's responsible for defining telefunctions.
+> When using Telefunc, it's usually the Frontend team that owns and is responsible for defining telefunctions.
 
-The fondamental difference here is that the RESTful API is essentially a set of generic endpoints whereas `onMarkAllAsCompleted()` is a tailored endpoint.
+The key difference is that our telefunction `onMarkAllAsCompleted()` is created specifically to serve the needs of the component `TodoList.tsx`, whereas the RESTful API is a set of generic endpoints that are agnositc to the frontend.
 
-Typically, such tailored telefunctions are triggered by some kind of user event:
+> This key difference is the foundation of why Telefunc enables unparalleled development speed.
+
+In our example, we named our telefunction `"onMarkAllAsCompleted"` because it's triggered by a user event:
 
 ```tsx
 // TodoList.tsx
@@ -78,25 +83,35 @@ function TodoList() {
 }
 ```
 
-In general, 
-We call 
+When creating telefunctions that are always tailored to serve the needs of a UI commponent, we soon realize that telefunctions are always triggered by some kind of event.
 
-Note how `onMarkAllAsCompleted()` 
-Such tailored teleunctions are triggered 
-
-In essence, a REST/GraphQL API is a set of generic endpoints.
+That's why we recommend to start all your telefunction names with `"on"`:
 
 
 
 
-## Naming Convention
 
-We recommend to prefix all your telefunction names with `on` (e.g. `onTodoTextChange`, `onTodoCompleted`, ...).
+## Naming convention
 
-To foster Telefunc users to create event-based telefunctions, Telefunc displays a warning whenever a telefunction name isn't prefix with `on`:
+We recommend to prefix all your telefunction names with `"on"`:
 
 ```
-[telefunc][Wrong Usage] The name of your telefunction textChange() (/componens/TodoItem.ts) should be prefixed with `on`, see https://telefunc.com/event-based#naming-convention
+TELEFUNCTION NAME      FOLLOWS CONVENTION
+=================      ==================
+textUpdate             ❌
+loadData               ❌
+onTextUpdate           ✅
+onPageLoad             ✅
+onPagination           ✅
+onRender               ✅
 ```
 
-If you want to deviate from that naming convention, then reach out on GitHub or Discord. (If there is a valid use case, then Telefunc will implement an option to disable the naming convention).
+> Note how we name data-fetching telefunctions `"onPageLoad"`, `"onPagination"`, and `"onRender"`: data is fetched as well upon some event.
+
+To foster event-based telefunctions, Telefunc displays a warning whenever a telefunction name doesn't start with `"on"`:
+
+<CodeBlock lineBreak={true}>{'[telefunc][Warning] We recommend the name of your telefunction textChange() (/componens/TodoItem.ts) to start with "on", see https://telefunc.com/event-based#naming-convention'}</CodeBlock>
+
+If you want to deviate from that naming convention, then reach out on GitHub or Discord. (If there is a valid use case for not respecting the naming convention, then Telefunc will implement an option to disable it).
+
+> First-time Telefunc users often create generic endpoints because that's what we are used to from RESTful/GraphQL APIs, but defining tailored telefunctions instead is paramount to reap the full benefits of Telefunc.
