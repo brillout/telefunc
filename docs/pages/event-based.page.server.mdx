@@ -1,0 +1,102 @@
+With REST/GraphQL, API endpoints are usually:
+ - Generic
+ - Backend-owned
+
+With Telefunc it's the exact opposite as telefunctions are usually:
+ - Tailored
+ - Frontend-owned
+
+This inversion leads to profound improvements in development speed.
+
+That's why we recommend to implement what we call "event-based telefunctions".
+
+> You may be tempted to create generic telefunctions, but this is usually an anti-pattern with Telefunc.
+
+
+## Example
+
+Let's imagine a to-do app that wants to to implement a new feature "mark all tasks as completed".
+
+With a RESTful API, the app does these requests:
+
+```
+#
+GET    https://api.todo.com/task?completed=false
+POST   https://api.todo.com/task/42                { "completed": true }
+POST   https://api.todo.com/task/1337              { "completed": true }
+POST   https://api.todo.com/task/7                 { "completed": true }
+```
+
+> Note how it's usually the Backend team that's responsible of implementing and modelling such API.
+
+With Telefunc, instead, the app calls a telefunction like this:
+
+```ts
+// TodoList.telefunc.ts
+// Environment: Server
+
+export async function onMarkAllAsCompleted() {
+  // With SQL:
+  await sql('UPDATE tasks SET completed = true WHERE completed = false')
+
+  // With an ORM
+  const updateUser = await Todo.update({
+    where: {
+      completed: false
+    },
+    data: {
+      completed: true
+    },
+  })
+}
+```
+
+> With Telefunc, it's usually the Frontend team that's responsible for defining telefunctions.
+
+The fondamental difference here is that the RESTful API is essentially a set of generic endpoints whereas `onMarkAllAsCompleted()` is a tailored endpoint.
+
+Typically, such tailored telefunctions are triggered by some kind of user event:
+
+```tsx
+// TodoList.tsx
+// Environment: Browser
+
+import { onMarkAllAsCompleted } from './TodoList.telefunc.ts'
+
+async function onClick(form) {
+  const text = form.input.value
+  // Behind the scenes, Telefunc makes an HTTP request
+  // to the server.
+  await onNewTodo(text)
+}
+
+function TodoList() {
+  return <>
+    <button onClick={() => onMarkAllAsCompleted}>Mark all as completed</button>
+    {/* ... */}
+  </>
+}
+```
+
+In general, 
+We call 
+
+Note how `onMarkAllAsCompleted()` 
+Such tailored teleunctions are triggered 
+
+In essence, a REST/GraphQL API is a set of generic endpoints.
+
+
+
+
+## Naming Convention
+
+We recommend to prefix all your telefunction names with `on` (e.g. `onTodoTextChange`, `onTodoCompleted`, ...).
+
+To foster Telefunc users to create event-based telefunctions, Telefunc displays a warning whenever a telefunction name isn't prefix with `on`:
+
+```
+[telefunc][Wrong Usage] The name of your telefunction textChange() (/componens/TodoItem.ts) should be prefixed with `on`, see https://telefunc.com/event-based#naming-convention
+```
+
+If you want to deviate from that naming convention, then reach out on GitHub or Discord. (If there is a valid use case, then Telefunc will implement an option to disable the naming convention).

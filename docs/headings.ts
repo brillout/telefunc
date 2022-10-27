@@ -93,6 +93,11 @@ export const headings: HeadingDefinition[] = [
   },
   {
     level: 2,
+    title: 'Event Based',
+    url: '/event-based'
+  },
+  {
+    level: 2,
     title: 'Error Handling',
     url: '/error-handling'
   },
@@ -153,13 +158,13 @@ export const headings: HeadingDefinition[] = [
   },
   {
     level: 2,
-    title: '`shield()`',
-    url: '/shield'
+    title: '`throw Abort()`',
+    url: '/Abort'
   },
   {
     level: 2,
-    title: '`Abort()`',
-    url: '/Abort'
+    title: '`shield()`',
+    url: '/shield'
   },
   {
     level: 4,

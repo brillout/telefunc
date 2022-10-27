@@ -1,19 +1,14 @@
 import PermissionsBasics from '../components/PermissionsBasics.mdx'
-import TypeScriptGetContext from '../components/TypeScriptGetContext.mdx'
+import { Link } from '@brillout/docpress'
 
 ## Basics
 
 <PermissionsBasics />
 
 
-## TypeScript
-
-<TypeScriptGetContext />
-
-
 ## `getContext()` wrapping
 
-To implement permissions once and re-using them, we can use utility wrappers:
+To implement a permission once and re-use it, we can use a `getContext()` wrapper:
 
 ```ts
 // components/TodoItem.telefunc.ts
@@ -33,7 +28,7 @@ function onTextChange(id: string, text: string) {
 // auth/getUser.ts
 // Environment: Node.js
 
-// Note that `auth/getUser.ts` is not a `.telefunc.js` file and `getUser()` not a telefunction
+// Note that getUser() isn't a telefunction: it's just a little wrapper around getContext()
 export { getUser }
 
 import { getContext, Abort } from 'telefunc'
@@ -52,6 +47,8 @@ function getUser() {
 
 import { onTelefunctionRemoteCallError } from 'telefunc/client'
 
+// onTelefunctionRemoteCallError() is called whenever the browser-side fails to make
+// a telefunction call, allowing us to implement global behavior like below
 onTelefunctionRemoteCallError(err => {
   if (err.isAbort && err.abortValue.notLoggedIn) {
     // Redirect user to login page
@@ -60,4 +57,7 @@ onTelefunctionRemoteCallError(err => {
 })
 ```
 
-> In general we recommend to use `return someValue` while using `throw Abort(someValue)` only when defining such global utility wrapper.
+## See also
+
+ - <Link href="/Abort" />
+ - <Link href="/getContext" />

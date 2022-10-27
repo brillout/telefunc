@@ -17,7 +17,7 @@ async function onNewTodo(text: string) {
   await Todo.create({ text, authorId: user.id })
 
   // With SQL:
-  await run(
+  await sql(
     "INSERT INTO todo_items VALUES (:text, :authorId)",
     { text, authorId: user.id })
 }
