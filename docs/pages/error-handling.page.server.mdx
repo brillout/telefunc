@@ -3,10 +3,9 @@ import { Link } from '@brillout/docpress'
 Common erroneous situations and we handle them:
  - A telefunction is called with wrong permissions, see <Link href="/permissions" />.
  - The user entered invalid `<form>` values, see <Link href="/form-validation" />.
- - Our code has a bug, see [Bugs](#bugs).
- - The user's browser coulnd't connect to our server, see [Network Errors](#network-errors).
-
-To track errors: <Link href="/error-tracking" />.
+ - Our code has a bug, see [Bugs](#bugs) section below.
+ - The user's browser coulnd't connect to our server, see [Network Errors](#network-errors) section below.
+ - To track errors (e.g. Sentry), see [Error Tracking](#error-tracking) section below.
 
 > Telefunc automatically sets the right HTTP status code: we don't have to care about this.
 
@@ -83,3 +82,24 @@ A telefunction call throws an error if it cannot connect to the server:
 ```
 
 We usually use our UI Framework (React, Vue, ...) to gracefully handle network problems.
+
+
+## Error tracking
+
+To track bugs, we use `onBug()`:
+
+```js
+import { onBug } from 'telefunc'
+
+onBug(err => {
+  // ...
+})
+```
+
+Allowing us, for example, to install the tracker code of a tracking service ([Sentry](https://sentry.io/), [Bugsnag](https://www.bugsnag.com/), [Rollbar](https://rollbar.com/), ...).
+
+`onBug()` is called:
+ - When one of your telefunction throws an error that is not `Abort()`. (In other words, your telefunction has a bug.)
+ - When Telefunc throws an error. (In other words, Telefunc has a bug).
+
+> `throw Abort()` does *not* trigger `onBug()`. It's expected that `throw Abort()` may be called (when some third-party erroneously calls a telefunction). In other words, `throw Abort()` isn't a bug.

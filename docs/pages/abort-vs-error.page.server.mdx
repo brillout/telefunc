@@ -1,5 +1,7 @@
 import { Link } from '@brillout/docpress'
 
+<ReadingRecommendation links={['/RPC']} />
+
 You may wonder, why not using `throw new Error()` instead of `throw Abort()`?
 
 ```js
@@ -19,11 +21,9 @@ export async function getTodoList() {
 }
 ```
 
-In principle we could as well use `throw new Error()` because, like `throw Abort()`, it cancels and therefore secures telefunction calls. But it leads to subtle erroneous Telefunc behavior.
+By using `throw Abort()`, we are telling Telefunc that this is an error that is **expected** to happen (when a third-party makes an invalid or unprivileged telefunction call). Whereas `throw new Error()` is **unexpected**: it should never happen and, if it does happen, then it's a bug in our backend code.
 
-Essentially, by using `throw Abort()`, we are telling Telefunc that this is an error that is expected to happen when a third-party makes an invalid/unprivileged call. Whereas `throw new Error()` is unexpected: it should never happen and, if it does happen, then it's a bug in our backend code.
-
-For example, a `throw Abort()` will not trigger our `onTelefuncServerError()` callbacks. See <Link href="/error-tracking" />.
+For example, `throw Abort()` doesn't trigger `onTelefuncServerError()`, see <Link href="/error-tracking" />.
 
 
 ## Rule

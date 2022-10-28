@@ -1,6 +1,0 @@
-import { Link, Emoji, Note } from '@brillout/docpress'
-
-<Note icon={<Emoji name="warning" />}>We have to use `throw Abort()` even if we know that our frontend calls `onCommentDelete()` only for logged-in users that are admins, see <Link href="/abort-shield#random-telefunction-calls" />.</Note>
-
-> We don't use `Abort()` for `throw new Error('Wrong findTodoItem() usage')` because it's about wrong *internal* usage and not wrong *public* usage. (More infos at <Link href='/abort-vs-error' />.)
-

@@ -22,8 +22,6 @@ async function onLoad() {
 }
 ```
 
-> We name our telefunction "onLoad" because of <Link href="/event-based#naming-convention" />.
-
 Before we can use `getContext()`, we need to provide a context object to Telefunc:
 
 
@@ -54,6 +52,7 @@ app.all('/_telefunc', async (req, res) => {
     method: req.method,
     body: req.body,
   })
+
   const { body, statusCode, contentType } = httpResponse
   res.status(statusCode).type(contentType).send(body)
 })

@@ -16,9 +16,15 @@ const headingsWithoutLink: HeadingWithoutLink[] = [
     url: '/isomorphic-import'
   },
   {
-    title: 'Basics',
-    url: '/basics'
-  }
+    title: 'RPC',
+    url: '/RPC'
+  },
+  {
+    level: 2,
+    title: 'Server-Side Rendering (SSR)',
+    url: '/ssr',
+    sectionTitles: ['SSR frameworks']
+  },
 ]
 
 export const headings: HeadingDefinition[] = [
@@ -32,12 +38,6 @@ export const headings: HeadingDefinition[] = [
     title: 'Introduction',
     titleDocument: 'Telefunc',
     url: '/'
-  },
-  {
-    level: 2,
-    title: 'Tour',
-    url: '/tour',
-    sectionTitles: ['TypeScript']
   },
   {
     level: 2,
@@ -81,16 +81,6 @@ export const headings: HeadingDefinition[] = [
   },
   {
     level: 2,
-    title: '`Abort()` & `shield()`',
-    url: '/abort-shield'
-  },
-  {
-    level: 2,
-    title: 'Authentication',
-    url: '/auth'
-  },
-  {
-    level: 2,
     title: 'Permissions',
     url: '/permissions',
     sectionTitles: ['`getContext()` wrapping']
@@ -107,49 +97,13 @@ export const headings: HeadingDefinition[] = [
   },
   {
     level: 2,
-    title: 'File structure',
-    url: '/file-structure'
-  },
-  {
-    level: 2,
     title: 'Form validation',
     url: '/form-validation'
-  },
-  {
-    level: 4,
-    title: 'More'
-  },
-  {
-    level: 2,
-    title: 'TypeScript',
-    url: '/typescript',
-    sectionTitles: ['`shield()`', '`getContext()`']
-  },
-  {
-    level: 2,
-    title: 'Error Tracking',
-    url: '/error-tracking'
   },
   {
     level: 2,
     title: 'File Upload',
     url: '/file-upload'
-  },
-  {
-    level: 2,
-    title: 'Telefunc Server',
-    url: '/telefunc-server'
-  },
-  {
-    level: 2,
-    title: 'Waterfalls',
-    url: '/waterfalls'
-  },
-  {
-    level: 2,
-    title: 'Server-Side Rendering (SSR)',
-    url: '/ssr',
-    sectionTitles: ['SSR frameworks']
   },
   {
     level: 1,

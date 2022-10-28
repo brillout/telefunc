@@ -7,7 +7,53 @@ telefunctions are public and need protection.
 
 ## TypeScript
 
-See <Link href="/typescript#shield" doNotInferSectionTitle={true} />.
+Telefunc automatically generates `shield()` for telefunctions,
+if we use a stack that transpile server-side code (e.g. Next.js, Nuxt, and Vite).
+
+```ts
+// hello.telefunc.ts
+
+// No need to define `shield()` when using TypeScript: Telefunc automatically generates `shield()`.
+// I.e. Telefunc aborts if a third-party calls `hello({ name: 42 })`.
+export async function hello({ name }: { name: string }) {
+   return `Welcome to Telefunc, ${name}.`
+}
+```
+
+This means that, not only do we seamlessly use types across frontend-backend, but we also get runtime type-safety for free.
+
+> When using Telefunc with a TypeScript ORM (e.g. [Prisma](https://www.prisma.io/)) or SQL builder (e.g. [Kysely](https://github.com/koskimas/kysely) or [others](https://github.com/stars/brillout/lists/sql)), we get end-to-end type safety all the way from database to frontend.
+
+For stacks that don't transpile server-side code (e.g. React Native, CRA, Parcel), we need to define `shield()` ourselves.
+
+TypeScript automatically infers the type of telefunction arguments using `shield()`:
+
+```ts
+import { shield } from 'telefunc'
+
+export const onNewTodo = shield(
+  [shield.type.string],
+  async function (text) {
+    // ✅ TypeScript knows that `text` is of type `string`
+  }
+)
+```
+
+Note that the following won't work:
+
+```ts
+import { shield } from 'telefunc'
+
+export shield(onNewTodo, [shield.type.string])
+// TypeScript cannot infer the type of named functions by design.
+async function onNewTodo(text) {
+  // ❌ TypeScript doesn't know that `text` is of type `string`
+}
+```
+
+> For a reference table of all types `shield.type.*` with their TypeScript counterparts,
+> see <Link href="/shield#all-types" />.
+
 
 
 ## Common types
