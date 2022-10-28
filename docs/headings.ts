@@ -20,10 +20,8 @@ const headingsWithoutLink: HeadingWithoutLink[] = [
     url: '/RPC'
   },
   {
-    level: 2,
     title: 'Server-Side Rendering (SSR)',
-    url: '/ssr',
-    sectionTitles: ['SSR frameworks']
+    url: '/ssr'
   },
 ]
 
