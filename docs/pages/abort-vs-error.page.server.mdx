@@ -23,7 +23,7 @@ export async function getTodoList() {
 
 By using `throw Abort()`, we are telling Telefunc that this is an error that is **expected** to happen (when a third-party makes an invalid or unprivileged telefunction call). Whereas `throw new Error()` is **unexpected**: it should never happen and, if it does happen, then it's a bug in our backend code.
 
-For example, `throw Abort()` doesn't trigger `onTelefuncServerError()`, see <Link href="/error-tracking" />.
+For example, `throw Abort()` doesn't trigger `onBug()`, see <Link href="/error-handling#error-tracking" />.
 
 
 ## Rule
