@@ -23,14 +23,14 @@ With a RESTful API, the app does these requests:
 
 ```
 HTTP VERB       HTTP URL                                      HTTP BODY PAYLOAD
-=========       =========================================     ====================
+=========       =========================================     =====================
 GET             https://api.todo.com/task?completed=false     ∅
 POST            https://api.todo.com/task/42                  { "completed": true }
 POST            https://api.todo.com/task/1337                { "completed": true }
 POST            https://api.todo.com/task/7                   { "completed": true }
 ```
 
-> It's usually the Backend team that owns and is responsible of implementing and modelling such API.
+> It's usually the backend team that owns and is responsible of implementing and modelling such API.
 
 With Telefunc, the app calls a telefunction like this instead:
 
@@ -39,11 +39,11 @@ With Telefunc, the app calls a telefunction like this instead:
 // Environment: Server
 
 export async function onMarkAllAsCompleted() {
-  // With SQL:
+  // With SQL
   await sql('UPDATE tasks SET completed = true WHERE completed = false')
 
   // With an ORM
-  const updateUser = await Todo.update({
+  const updateUser = await Tasks.update({
     where: {
       completed: false
     },
@@ -54,7 +54,7 @@ export async function onMarkAllAsCompleted() {
 }
 ```
 
-> When using Telefunc, it's usually the Frontend team that owns and is responsible for defining telefunctions.
+> With Telefunc, it's the frontend team that owns and is responsible for defining telefunctions.
 
 The key difference is that our telefunction `onMarkAllAsCompleted()` is created specifically to serve the needs of the component `TodoList.tsx`, whereas the RESTful API is a set of generic endpoints that are agnositc to the frontend.
 
@@ -68,24 +68,19 @@ In our example, we named our telefunction `"onMarkAllAsCompleted"` because it's 
 
 import { onMarkAllAsCompleted } from './TodoList.telefunc.ts'
 
-async function onClick(form) {
-  const text = form.input.value
-  // Behind the scenes, Telefunc makes an HTTP request
-  // to the server.
-  await onNewTodo(text)
-}
-
 function TodoList() {
   return <>
-    <button onClick={() => onMarkAllAsCompleted}>Mark all as completed</button>
+    <button onClick={ async () => await onMarkAllAsCompleted() }>
+      Mark all as completed
+    </button>
     {/* ... */}
   </>
 }
 ```
 
-While we define telefunctions tailored to serve the needs of a UI commponent, we soon realize that telefunctions are always triggered by some kind of event.
+While defining telefunctions tailored to serve the needs of a UI commponent, we soon realize that telefunctions are always triggered by some kind of event.
 
-That's why we recommend to start all your telefunction names with `"on"`:
+That's why we recommend to start all telefunction names with `"on"`:
 
 
 
@@ -93,37 +88,37 @@ That's why we recommend to start all your telefunction names with `"on"`:
 
 ## Naming convention
 
-We recommend to prefix all your telefunction names with `"on"`:
+We recommend to prefix all telefunction names with `"on"`:
 
 ```bash
-     TELEFUNCTION NAME
-     =================
-❌   updateText
-✅   onTextUpdate
-❌   loadData
-✅   onLoad
-✅   onPagination
-✅   onInfiniteScroll
+    TELEFUNCTION NAME
+    =================
+❌  updateText
+✅  onTextUpdate
+❌  loadData
+✅  onLoad
+✅  onPagination
+✅  onInfiniteScroll
 ```
 
-We also recommend to collocate your telefunctions with your UI components:
+We also recommend to collocate `.telefunc.js` files with UI components:
 
 ```bash
-CONVENTION FILES                                
-========== ===============================      
-           components/TodoItem.tsx
-✅         components/TodoItem.telefunc.ts      
-❌         db/todo.telefunc.ts                  
-           pages/edit/Page.vue
-✅         pages/edit/Page.telefunc.ts          
-❌         pages/edit/all.telefunc.ts           
+    FILES
+    ===============================
+    components/TodoItem.tsx
+✅  components/TodoItem.telefunc.ts
+❌  db/todo.telefunc.ts
+    pages/edit/Page.vue
+✅  pages/edit/Page.telefunc.js
+❌  pages/edit/all.telefunc.js
 ```
 
 To foster event-based telefunctions, Telefunc displays a warning whenever a convention isn't followed:
 
 <CodeBlock lineBreak={true}>{'[telefunc][Warning] We recommend the name of your telefunction textChange() (/componens/TodoItem.ts) to start with "on", see https://telefunc.com/event-based#naming-convention'}</CodeBlock>
-<CodeBlock lineBreak={true}>{'[telefunc][Warning] We recommend to collocate of your telefunc file /db/todo.telefunc.ts next to a component file, see https://telefunc.com/event-based#naming-convention'}</CodeBlock>
+<CodeBlock lineBreak={true}>{'[telefunc][Warning] We recommend to collocate your telefunc file /db/todo.telefunc.ts next to a component file, see https://telefunc.com/event-based#naming-convention'}</CodeBlock>
 
-If you want to deviate from that naming convention, then reach out on GitHub or Discord. (If there is a valid use case for not respecting the naming convention, then Telefunc will implement an option to disable it).
+> First-time Telefunc users often create generic telefunctions because that's what we are used to do with REST/GraphQL, but defining tailored telefunctions instead is paramount to reap the full benefits of Telefunc.
 
-> First-time Telefunc users often create generic endpoints because that's what we are used to from RESTful/GraphQL APIs, but defining tailored telefunctions instead is paramount to reap the full benefits of Telefunc.
+> If you want to deviate from the naming convention, then reach out on GitHub or Discord: if there is a valid use case for not respecting the naming convention, then Telefunc will implement an option to disable it.
