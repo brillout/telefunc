@@ -14,14 +14,6 @@ function MostlyMutations({ toolName }: { toolName: JSX.Element | string }) {
         We still use Telefunc for data mutations and data fetches occurring after the initial page is already rendered
         and hydrated. For example, for modifying a to-do item, or for feeding data to an infinite scroll component.
       </p>
-      <p>
-        See also:
-        <ul>
-          <li>
-            <Link href="/ssr#ssr-frameworks" doNotInferSectionTitle={true} />
-          </li>
-        </ul>
-      </p>
     </>
   )
 }
