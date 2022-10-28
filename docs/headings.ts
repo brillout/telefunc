@@ -97,7 +97,7 @@ export const headings: HeadingDefinition[] = [
   },
   {
     level: 2,
-    title: 'Event Based',
+    title: 'Event-based',
     url: '/event-based'
   },
   {

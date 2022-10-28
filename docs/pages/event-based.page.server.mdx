@@ -12,7 +12,7 @@ This inversion leads to profound improvements in development speed.
 
 That's why we recommend to implement what we call *event-based telefunctions*.
 
-> You may be tempted to create generic telefunctions but, with Telefunc, this is an anti-pattern as explained below.
+> You may be tempted to create generic telefunctions but this is an anti-pattern as explained below.
 
 
 ## Example
@@ -83,7 +83,7 @@ function TodoList() {
 }
 ```
 
-When creating telefunctions that are always tailored to serve the needs of a UI commponent, we soon realize that telefunctions are always triggered by some kind of event.
+While we define telefunctions tailored to serve the needs of a UI commponent, we soon realize that telefunctions are always triggered by some kind of event.
 
 That's why we recommend to start all your telefunction names with `"on"`:
 
@@ -95,22 +95,34 @@ That's why we recommend to start all your telefunction names with `"on"`:
 
 We recommend to prefix all your telefunction names with `"on"`:
 
-```
-TELEFUNCTION NAME      FOLLOWS CONVENTION
-=================      ==================
-textUpdate             ❌
-loadData               ❌
-onTextUpdate           ✅
-onPageLoad             ✅
-onPagination           ✅
-onRender               ✅
+```bash
+TELEFUNCTION NAME                    FOLLOWS CONVENTION
+=================                    ==================
+updateText                           ❌
+onTextUpdate                         ✅
+loadData                             ❌
+onLoad                               ✅
+onPagination                         ✅
+onInfiniteScroll                     ✅
 ```
 
-> Note how we name data-fetching telefunctions `"onPageLoad"`, `"onPagination"`, and `"onRender"`: data is fetched as well upon some event.
+We also recommend to collocate your telefunctions with your UI components:
 
-To foster event-based telefunctions, Telefunc displays a warning whenever a telefunction name doesn't start with `"on"`:
+```bash
+FILES                                FOLLOWS CONVENTION
+===============================      ==================
+components/TodoItem.tsx
+components/TodoItem.telefunc.ts      ✅
+db/todo.telefunc.ts                  ❌
+pages/edit/Page.vue
+pages/edit/Page.telefunc.ts          ✅
+pages/edit/all.telefunc.ts           ❌
+```
+
+To foster event-based telefunctions, Telefunc displays a warning whenever a convention isn't followed:
 
 <CodeBlock lineBreak={true}>{'[telefunc][Warning] We recommend the name of your telefunction textChange() (/componens/TodoItem.ts) to start with "on", see https://telefunc.com/event-based#naming-convention'}</CodeBlock>
+<CodeBlock lineBreak={true}>{'[telefunc][Warning] We recommend to collocate of your telefunc file /db/todo.telefunc.ts next to a component file, see https://telefunc.com/event-based#naming-convention'}</CodeBlock>
 
 If you want to deviate from that naming convention, then reach out on GitHub or Discord. (If there is a valid use case for not respecting the naming convention, then Telefunc will implement an option to disable it).
 

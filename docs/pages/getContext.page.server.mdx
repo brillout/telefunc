@@ -6,11 +6,11 @@ The `getContext()` function enables our telefunctions to access contextual infor
 // TodoList.telefunc.ts
 // Environment: Server
 
-export { onRender }
+export { onLoad }
 
 import { getContext } from 'telefunc'
 
-async function onRender() {
+async function onLoad() {
   // The most commmon use case is to provide information about the logged-in user:
   const context = getContext()
   const { user } = context
@@ -22,7 +22,7 @@ async function onRender() {
 }
 ```
 
-> The telefunction's name "onRender" may seem like a bad name at first, but it's actually a fitting name: see <Link href="/event-based" />.
+> We name our telefunction "onLoad" because of <Link href="/event-based#naming-convention" />.
 
 Before we can use `getContext()`, we need to provide a context object to Telefunc:
 
@@ -62,41 +62,6 @@ app.all('/_telefunc', async (req, res) => {
 There are also other ways to pass the `context` object to Telefunc.
 
 
-## TypeScript
-
-We can use `Telefunc.Context` to globally set the type of `const context = getContext()`.
-
-```ts
-// TelefuncContext.d.ts
-
-import 'telefunc'
-import type { User } from './User.ts'
-
-declare module 'telefunc' {
-  namespace Telefunc {
-    interface Context {
-      user: null | User
-    }
-  }
-}
-```
-```ts
-// User.ts
-
-export type User = { id: number }
-```
-```ts
-// *.telefunc.ts
-
-import { getContext } from 'telefunc'
-
-export async function someTelefunction() {
-  const { user } = getContext()
-  // TypeScript knows that `user.id` is of type `number`
-}
-```
-
-
 ## Access
 
 If you get this error:
@@ -127,3 +92,54 @@ export async function myTelefunction() {
 }
 ```
 
+
+## TypeScript
+
+We can use `Telefunc.Context` to globally set the type of `const context = getContext()`:
+
+```ts
+// TelefuncContext.d.ts
+
+import 'telefunc'
+import type { User } from './User.ts'
+
+declare module 'telefunc' {
+  namespace Telefunc {
+    interface Context {
+      user: null | User
+    }
+  }
+}
+```
+```ts
+// User.ts
+
+export type User = { id: number }
+```
+```ts
+// *.telefunc.ts
+
+import { getContext } from 'telefunc'
+
+export async function someTelefunction() {
+  // TypeScript knows that `user.id` is a `number`
+  const { user } = getContext()
+}
+```
+
+We can also directly set `const context = getContext<MyContext>()`:
+
+```ts
+// *.telefunc.ts
+
+import { getContext } from 'telefunc'
+
+type Context = {
+  userId: number
+}
+
+export async function someTelefunction() {
+  // TypeScript knows that `userId` is a `number`
+  const { userId } = getContext<Context>()
+}
+```
