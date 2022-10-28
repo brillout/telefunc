@@ -1,6 +1,6 @@
 import { Link, Note } from '@brillout/docpress'
 
-> You don't know what RPC is? The <Link href="/tour" text="Telefunc Tour" /> explains what it is.
+> See <Link href="/RPC" /> if you don't know what it is.
 
 <Note>
 <b>TL;DR</b>
@@ -30,7 +30,7 @@ GraphQL/RESTful APIs are generic:
 they are meant to serve frontends without knowing the frontends' data query/mutation requirements.
 
 In contrast,
-as we discussed in <Link href="/tour#inversion-of-control" />,
+as we discussed in <Link href="/event-based" />,
 telefunctions (RPC endpoints) are tailored to our frontend's UI components.
 This means that our telefunctions are only useful for our frontend and
 third parties cannot use them to build third-party frontends.
@@ -57,7 +57,7 @@ But we can as well achieve a decoupled frontend-backend development with RPC by 
 
 ## Telefunc Server
 
-We usually install Telefunc <Link text="as a Node.js server middleware" href="/tour#how-it-works" noBreadcrumb />.
+We usually install Telefunc as a Node.js server middleware.
 This induces a tight coupling between our frontend and our Node.js server.
 
 For example, let's consider this telefunction:

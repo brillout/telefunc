@@ -7,14 +7,10 @@ When a user enters a form with invalid inputs, such as an invalid email address,
 We can pass invalid information to the frontend by using `return someValue` instead of `throw Abort()`.
 
 ```js
-// SignUpForm.telefunc.js
-// Environment: Node.js
+// SignUpForm.telefunc.ts
+// Environment: Server
 
-import { shield } from 'telefunc'
-const t = shield.type
-
-shield(onFormSubmit, [t.string, t.string])
-export async function onFormSubmit(email, password) {
+export async function onFormSubmit(email: string, password: string) {
   // Form validation
   const invalidInputs = {}
 
@@ -36,11 +32,8 @@ export async function onFormSubmit(email, password) {
   }
 
   // Some ORM/SQL query
-  const user = new User({ email, password })
-  await user.save()
+  const user = await User.create({ email, password })
 
   return { user }
 }
 ```
-
-> We could also use `throw Abort({ invalidInputs })` but `return { invalidInputs }` is usually more convenient for form validation.

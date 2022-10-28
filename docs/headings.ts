@@ -76,10 +76,6 @@ export const headings: HeadingDefinition[] = [
     titleEmoji: 'books'
   },
   {
-    level: 4,
-    title: 'Basics'
-  },
-  {
     level: 2,
     title: 'Permissions',
     url: '/permissions',
@@ -87,7 +83,7 @@ export const headings: HeadingDefinition[] = [
   },
   {
     level: 2,
-    title: 'Event-based',
+    title: 'Event-based telefunctions',
     url: '/event-based'
   },
   {

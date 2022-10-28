@@ -1,10 +1,10 @@
-import { Link, Emoji, Note } from '@brillout/docpress'
+import { Link } from '@brillout/docpress'
 
 > This page explains:
 > - What RPC is.
 > - How RPC and Telefunc work.
 > - RPC endpoints (i.e. telefunctions) already need protection.
-
+>
 > You can skip reading this page if you are alreay familiar with RPC.
 
 ## Hello world
@@ -413,14 +413,10 @@ export async function onNewTodo({ text, isCompleted }) {
 
 Not only does `shield()` call `throw Abort()` on our behalf, but it also infers the arguments' type for IntelliSense and TypeScript.
 
-See also:
- - <Link href="/shield" />
- - <Link href="/typescript#shield" doNotInferSectionTitle={true} />
-
 
 ## Random telefunction calls
 
-Because <Link text="telefunctions are public" href="/tour#telefunctions-need-protection" />,
+Because telefunctions are public,
 any of our telefunction can be called by anyone at any time with any arguments.
 
 One way to think about this is that any random telefunction call can happen at any time.

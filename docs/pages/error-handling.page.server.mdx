@@ -1,14 +1,6 @@
 import { Link } from '@brillout/docpress'
 
-Common erroneous situations and we handle them:
- - A telefunction is called with wrong permissions, see <Link href="/permissions" />.
- - The user entered invalid `<form>` values, see <Link href="/form-validation" />.
- - Our code has a bug, see [Bugs](#bugs) section below.
- - The user's browser coulnd't connect to our server, see [Network Errors](#network-errors) section below.
- - To track errors (e.g. Sentry), see [Error Tracking](#error-tracking) section below.
-
-> Telefunc automatically sets the right HTTP status code: we don't have to care about this.
-
+> To block unauthorized access see <Link href="/permissions" /> instead, and for handling invalid `<form>` values see <Link href="/form-validation" /> instead.
 
 ## Bugs
 
@@ -55,7 +47,7 @@ This means we can treat bugs occuring in our telefunctions just like any other b
 
 ## Network Errors
 
-A telefunction call throws an error if it cannot connect to the server:
+If the user's browser can't connect to our server:
 
 ```html
 <!-- index.html -->
@@ -80,8 +72,6 @@ A telefunction call throws an error if it cannot connect to the server:
   </body>
 </html>
 ```
-
-We usually use our UI Framework (React, Vue, ...) to gracefully handle network problems.
 
 
 ## Error tracking
