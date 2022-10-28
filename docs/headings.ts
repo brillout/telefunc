@@ -96,7 +96,7 @@ export const headings: HeadingDefinition[] = [
   },
   {
     level: 2,
-    title: 'File Upload',
+    title: 'File upload',
     url: '/file-upload'
   },
   {
@@ -126,11 +126,6 @@ export const headings: HeadingDefinition[] = [
     level: 2,
     title: '`getContext()`',
     url: '/getContext'
-  },
-  {
-    level: 2,
-    title: '`provideTelefuncContext()`',
-    url: '/provideTelefuncContext'
   },
   {
     level: 4,
