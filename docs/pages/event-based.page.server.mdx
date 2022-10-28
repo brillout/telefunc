@@ -96,27 +96,27 @@ That's why we recommend to start all your telefunction names with `"on"`:
 We recommend to prefix all your telefunction names with `"on"`:
 
 ```bash
-TELEFUNCTION NAME                    FOLLOWS CONVENTION
-=================                    ==================
-updateText                           ❌
-onTextUpdate                         ✅
-loadData                             ❌
-onLoad                               ✅
-onPagination                         ✅
-onInfiniteScroll                     ✅
+     TELEFUNCTION NAME
+     =================
+❌   updateText
+✅   onTextUpdate
+❌   loadData
+✅   onLoad
+✅   onPagination
+✅   onInfiniteScroll
 ```
 
 We also recommend to collocate your telefunctions with your UI components:
 
 ```bash
-FILES                                FOLLOWS CONVENTION
-===============================      ==================
-components/TodoItem.tsx
-components/TodoItem.telefunc.ts      ✅
-db/todo.telefunc.ts                  ❌
-pages/edit/Page.vue
-pages/edit/Page.telefunc.ts          ✅
-pages/edit/all.telefunc.ts           ❌
+CONVENTION FILES                                
+========== ===============================      
+           components/TodoItem.tsx
+✅         components/TodoItem.telefunc.ts      
+❌         db/todo.telefunc.ts                  
+           pages/edit/Page.vue
+✅         pages/edit/Page.telefunc.ts          
+❌         pages/edit/all.telefunc.ts           
 ```
 
 To foster event-based telefunctions, Telefunc displays a warning whenever a convention isn't followed:
