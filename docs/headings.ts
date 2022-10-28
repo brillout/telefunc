@@ -14,6 +14,10 @@ const headingsWithoutLink: HeadingWithoutLink[] = [
   {
     title: 'Isomorphic `import`',
     url: '/isomorphic-import'
+  },
+  {
+    title: 'Basics',
+    url: '/basics'
   }
 ]
 
