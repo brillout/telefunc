@@ -1,7 +1,6 @@
 import React from 'react'
 import { Emoji } from '@brillout/docpress'
 import { FeatureList } from '@brillout/docpress'
-import LearnMorePermissions from './LearnMorePermissions.mdx'
 
 export { Features }
 
@@ -44,7 +43,6 @@ function Features() {
               </p>
             </>
           ),
-          learnMore: <LearnMorePermissions />,
         },
         {
           title: (
