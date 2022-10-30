@@ -5,6 +5,7 @@ import { createRequire } from 'module'
 
 startServer()
 
+telefuncConfig.disableNamingConvention = true
 {
   const require = createRequire(import.meta.url)
   telefuncConfig.telefuncFiles = [require.resolve('./hello.telefunc.mjs')]

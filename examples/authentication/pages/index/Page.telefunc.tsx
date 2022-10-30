@@ -1,9 +1,9 @@
 import { TodoModel, UserModel } from '#app/db'
 import { getContext } from 'telefunc'
 
-export { loadData }
+export { onLoad }
 
-async function loadData() {
+async function onLoad() {
   // await new Promise(r => setTimeout(r, 1000))
   const { user } = getContext()
   if (!user) {

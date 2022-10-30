@@ -59,8 +59,8 @@ async function makeTelefuncHttpRequest(name: string | number) {
   const resp = await fetch(`${urlBase}/_telefunc`, {
     method: 'POST',
     body: JSON.stringify({
-      file: '/hello.telefunc.ts',
-      name: 'hello',
+      file: '/index.telefunc.ts',
+      name: 'onHello',
       args: [{ name }]
     })
   })

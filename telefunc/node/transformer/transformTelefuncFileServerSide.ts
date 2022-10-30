@@ -16,7 +16,7 @@ async function transformTelefuncFileServerSide(
 
   const exportNames = await getExportNames(src)
 
-  let code = decorateTelefunctions(exportNames, src, id.replace(root, ''), skipRegistration)
+  let code = decorateTelefunctions(exportNames, src, id.replace(root, ''), root, skipRegistration)
 
   if (!isDev) {
     if (id.endsWith('.ts')) {
@@ -31,6 +31,7 @@ function decorateTelefunctions(
   exportNames: readonly string[],
   src: string,
   filePath: string,
+  appRootDir: string,
   skipRegistration: boolean
 ) {
   assertPosixPath(filePath)
@@ -43,7 +44,7 @@ function decorateTelefunctions(
   const codeAppend: string = (() => {
     const lines: string[] = []
     for (const exportName of exportNames) {
-      lines.push(`__decorateTelefunction(${exportName}, "${exportName}", "${filePath}", ${String(skipRegistration)});`)
+      lines.push(`__decorateTelefunction(${exportName}, "${exportName}", "${filePath}", "${appRootDir}", ${String(skipRegistration)});`)
     }
     return lines.join('\n')
   })()

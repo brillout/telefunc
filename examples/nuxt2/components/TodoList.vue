@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import { getTodoListData, onNewTodo } from './TodoList.telefunc.js'
+import { onLoad, onNewTodo } from './TodoList.telefunc.js'
 export default {
   data: () => ({
     todoItems: [],
@@ -30,7 +30,7 @@ export default {
     }
   },
   async fetch() {
-    const { todoItems, userName } = await getTodoListData()
+    const { todoItems, userName } = await onLoad()
     this.todoItems.push(...todoItems)
     this.userName = userName
   }

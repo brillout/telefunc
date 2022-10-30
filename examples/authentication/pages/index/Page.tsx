@@ -3,12 +3,12 @@ import { Auth, UserInfo } from './Auth'
 import { TodoList } from './TodoList'
 import { ClearCookies } from './ClearCookies'
 import { useData } from 'telefunc/react-streaming'
-import { loadData } from './Page.telefunc'
+import { onLoad } from './Page.telefunc'
 
 export { Page }
 
 function Page() {
-  const data = useData(loadData)
+  const data = useData(onLoad)
   if (data.notLoggedIn) {
     return (
       <>

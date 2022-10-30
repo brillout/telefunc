@@ -14,6 +14,7 @@ type TelefuncServerConfig = {
   disableEtag: boolean
   telefuncFiles: string[] | null
   debug: boolean
+  disableNamingConvention: boolean
 }
 
 const configSpec = {
@@ -79,6 +80,14 @@ const configSpec = {
       if (typeof process == 'undefined' || !hasProp(process, 'env')) return false
       return !!process.env.DEBUG
     }
+  },
+  disableNamingConvention: {
+    validate(val: unknown) {
+      assertUsage(typeof val === 'boolean', '`telefuncConfig.disableNamingConvention` should be a boolean')
+    },
+    getDefault() {
+      return false
+    }
   }
 }
 
@@ -87,17 +96,19 @@ function getTelefuncConfigObject(): TelefuncServerConfig {
   const telefuncConfig = new Proxy(
     {
       // prettier-ignore
-      get viteDevServer() { return configProvidedByUser['viteDevServer'] ?? configSpec['viteDevServer'].getDefault() },
+      get viteDevServer()           { return configProvidedByUser['viteDevServer']           ?? configSpec['viteDevServer'].getDefault()           },
       // prettier-ignore
-      get telefuncFiles() { return configProvidedByUser['telefuncFiles'] ?? configSpec['telefuncFiles'].getDefault() },
+      get telefuncFiles()           { return configProvidedByUser['telefuncFiles']           ?? configSpec['telefuncFiles'].getDefault()           },
       // prettier-ignore
-      get root()          { return configProvidedByUser['root']          ?? configSpec['root'].getDefault()          },
+      get root()                    { return configProvidedByUser['root']                    ?? configSpec['root'].getDefault()                    },
       // prettier-ignore
-      get telefuncUrl()   { return configProvidedByUser['telefuncUrl']   ?? configSpec['telefuncUrl'].getDefault()   },
+      get telefuncUrl()             { return configProvidedByUser['telefuncUrl']             ?? configSpec['telefuncUrl'].getDefault()             },
       // prettier-ignore
-      get disableEtag()   { return configProvidedByUser['disableEtag']   ?? configSpec['disableEtag'].getDefault()   },
+      get disableEtag()             { return configProvidedByUser['disableEtag']             ?? configSpec['disableEtag'].getDefault()             },
       // prettier-ignore
-      get debug()         { return configProvidedByUser['debug']         ?? configSpec['debug'].getDefault()         }
+      get debug()                   { return configProvidedByUser['debug']                   ?? configSpec['debug'].getDefault()                   },
+      // prettier-ignore
+      get disableNamingConvention() { return configProvidedByUser['disableNamingConvention'] ?? configSpec['disableNamingConvention'].getDefault() }
     },
     { set }
   )

@@ -2,7 +2,7 @@
 import { getContext } from 'telefunc'
 
 export { onNewTodo }
-export { loadTodoItems }
+export { onLoad }
 
 const database: {
   todoItems: { text: string }[]
@@ -10,7 +10,7 @@ const database: {
   todoItems: []
 }
 
-async function loadTodoItems() {
+async function onLoad() {
   const { todoItems } = database
   // Simulate slow network
   await sleep(3 * 1000)

@@ -1,5 +1,5 @@
 import React from 'react'
-import { createAccount } from './CreateAccount.telefunc'
+import { onCreateAccount } from './CreateAccount.telefunc'
 import { TextInputForm } from '#app/components/forms/TextInputForm'
 import { User } from '#app/db/User'
 
@@ -10,7 +10,7 @@ function CreateAccount({ onNewAccount }: { onNewAccount: (userList: User[]) => v
     <TextInputForm
       onSubmit={async (text: string) => {
         const name = text
-        const userList = await createAccount(name)
+        const userList = await onCreateAccount(name)
         onNewAccount(userList)
       }}
       submitButtonText="Create Account"

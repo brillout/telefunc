@@ -1,10 +1,10 @@
 import { Todo } from '../database/Todo'
 import { getUser } from '../auth/getUser'
 
-export { getTodoListData }
+export { onLoad }
 export { onNewTodo }
 
-async function getTodoListData() {
+async function onLoad() {
   const user = getUser()
   const authorId = user.id
   const userName = user.name
