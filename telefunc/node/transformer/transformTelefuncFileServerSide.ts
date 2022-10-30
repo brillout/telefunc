@@ -1,7 +1,7 @@
 export { transformTelefuncFileServerSide }
 
 import { getExportNames } from './getExportNames'
-import { assert, assertPosixPath, getTelefunctionKey } from './utils'
+import { assert, assertPosixPath } from './utils'
 import { generateShield } from '../server/shield/codegen/generateShield'
 
 async function transformTelefuncFileServerSide(
@@ -31,32 +31,20 @@ function decorateTelefunctions(
   exportNames: readonly string[],
   src: string,
   filePath: string,
-  skipRegistration?: boolean
+  skipRegistration: boolean
 ) {
   assertPosixPath(filePath)
 
   const codePreprend: string = (() => {
-    let line = 'import { __assertTelefunction } from "telefunc";'
-    if (!skipRegistration) {
-      line += 'import { __registerTelefunction } from "telefunc";'
-    }
+    let line = 'import { __decorateTelefunction } from "telefunc";'
     return line
   })()
 
   const codeAppend: string = (() => {
     const lines: string[] = []
-
     for (const exportName of exportNames) {
-      lines.push(`__assertTelefunction(${exportName}, "${exportName}", "${filePath}");`)
-      if (!skipRegistration) {
-        lines.push(`__registerTelefunction(${exportName}, "${exportName}", "${filePath}");`)
-      }
-      {
-        const telefunctionKey = getTelefunctionKey(filePath, exportName)
-        lines.push(`${exportName}['_key'] = ${JSON.stringify(telefunctionKey)};`)
-      }
+      lines.push(`__decorateTelefunction(${exportName}, "${exportName}", "${filePath}", ${String(skipRegistration)});`)
     }
-
     return lines.join('\n')
   })()
 
