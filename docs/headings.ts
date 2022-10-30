@@ -81,11 +81,6 @@ export const headings: HeadingDefinition[] = [
   },
   {
     level: 2,
-    title: 'Event-based telefunctions',
-    url: '/event-based'
-  },
-  {
-    level: 2,
     title: 'Error handling',
     url: '/error-handling'
   },
@@ -93,6 +88,11 @@ export const headings: HeadingDefinition[] = [
     level: 2,
     title: 'Form validation',
     url: '/form-validation'
+  },
+  {
+    level: 2,
+    title: 'Event-based telefunctions',
+    url: '/event-based'
   },
   {
     level: 2,
