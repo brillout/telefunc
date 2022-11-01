@@ -90,8 +90,14 @@ By default, we recommend to prefix all telefunction names with `"on"`:
 ```bash
     TELEFUNCTION NAME
     =================
-❌  updateText
-✅  onTextUpdate
+    # Generic telefunction
+❌  updateTodoItem
+    # Tailored telefunction reacting to a specific user event
+✅  onTodoItemTextUpdate
+    # Tailored telefunction reacting to a specific user event
+✅  onTodoItemCompleteToggle
+
+    # Data-fetching telefunction
 ❌  loadData
 ✅  onLoad
 ✅  onPagination
@@ -103,9 +109,12 @@ We also recommend to collocate `.telefunc.js` files with UI components:
 ```bash
     FILES
     ===============================
+    # UI Component
     components/TodoItem.tsx
 ✅  components/TodoItem.telefunc.ts
 ❌  db/todo.telefunc.ts
+
+    # UI Component
     pages/edit/Page.vue
 ✅  pages/edit/Page.telefunc.js
 ❌  pages/edit/all.telefunc.js
@@ -126,10 +135,10 @@ telefunc.disableNamingConvention = true
 
 ## Exceptions
 
-By default, we recommend implementing telefunctions that are tailored instead of generic, as explained above.
+We recommend implementing telefunctions that are tailored instead of generic, as explained above.
 
 But there are exceptions.
 
-The most common one is if we have several clients that are deployed independently of each other and where few generic telefunctions are enough to serve the needs of all clients.
+The most common one is if our telefunctions are cosumed not only by one client but by several clients and if these clients are deployed independently of each other. In that case it can make sense to define few generic telefunctions covering all clients at once instead of defining different telefunctions for each client (it then also make sense to not respect the naming convention).
 
-> At scale, it can make sense to deploy one Telefunc server per client; that way we preserve the fast development speed of tailored telefunctions.
+> An alternative is to deploy one Telefunc server per client; that way we preserve the fast development speed of tailored telefunctions.
