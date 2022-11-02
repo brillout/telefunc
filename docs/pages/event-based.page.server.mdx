@@ -90,11 +90,10 @@ By default, we recommend to prefix all telefunction names with `"on"`:
 ```bash
     TELEFUNCTION NAME
     =================
-    # Generic telefunction
+    # Generic telefunction:
 ❌  updateTodoItem
-    # Tailored telefunction reacting to a specific user event
+    # Tailored telefunction reacting to a specific user event:
 ✅  onTodoItemTextUpdate
-    # Tailored telefunction reacting to a specific user event
 ✅  onTodoItemCompleteToggle
 
     # Data-fetching telefunction
@@ -122,16 +121,15 @@ We also recommend to collocate `.telefunc.js` files with UI components:
 
 To foster event-based telefunctions, Telefunc displays a warning whenever the naming convention isn't followed.
 
-> First-time Telefunc users often create generic telefunctions out of the habit of using REST/GraphQL, but defining tailored telefunctions instead is usually the better appraoch as explained above.
-
 We can use `disableNamingConvention` to disable the warnings:
 
 ```js
 // server.js
-
 import { telefuncConfig } from 'telefunc'
 telefunc.disableNamingConvention = true
 ```
+
+> First-time Telefunc users often create generic telefunctions out of the habit of using REST/GraphQL, but defining tailored telefunctions instead is usually the better appraoch as explained above.
 
 ## Exceptions
 
@@ -139,6 +137,6 @@ We recommend implementing telefunctions that are tailored instead of generic, as
 
 But there are exceptions.
 
-The most common one is if our telefunctions are cosumed not only by one client but by several clients and if these clients are deployed independently of each other. In that case it can make sense to define few generic telefunctions covering all clients at once instead of defining different telefunctions for each client (it then also make sense to not respect the naming convention).
+The most common one is if our telefunctions are consumed not only by one client but by several clients, and if these clients are deployed independently of each other. In that case it can make sense to define few generic telefunctions covering all clients at once instead of defining different telefunctions for each client.
 
 > An alternative is to deploy one Telefunc server per client; that way we preserve the fast development speed of tailored telefunctions.
