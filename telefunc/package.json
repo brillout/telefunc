@@ -52,6 +52,7 @@
     }
   },
   "dependencies": {
+    "@brillout/import": "^0.1.2",
     "@brillout/json-s": "^0.4.6",
     "@brillout/vite-plugin-import-build": "^0.1.0",
     "es-module-lexer": "^0.7.1",
@@ -67,7 +68,7 @@
     "next": "^12.0.8",
     "rollup": "^2.67.1",
     "typescript": "^4.8.4",
-    "vite": "^3.0.9"
+    "vite": "^3.2.2"
   },
   "peerDependencies": {
     "react": "^18.0.0",

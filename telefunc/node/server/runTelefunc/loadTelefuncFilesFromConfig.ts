@@ -1,8 +1,9 @@
 export { loadTelefuncFilesFromConfig }
 
-import { assert, assertPosixPath, assertUsage, dynamicImport, toPosixPath } from '../../utils'
+import { assert, assertPosixPath, assertUsage, toPosixPath } from '../../utils'
 import { posix } from 'path'
 import type { TelefuncFiles } from '../types'
+import { import_ } from '@brillout/import'
 
 async function loadTelefuncFilesFromConfig(runContext: {
   telefuncFilesManuallyProvidedByUser: string[]
@@ -20,7 +21,7 @@ async function loadTelefuncFilesFromConfig(runContext: {
         `The telefunc file \`${telefuncFilePath}\` is not inlcuded in your project root \`${appRootDir}\`.`
       )
       assert(!path.startsWith('/') && !path.startsWith('.'))
-      telefuncFilesLoaded['/' + path] = await dynamicImport(telefuncFilePath)
+      telefuncFilesLoaded['/' + path] = await import_(telefuncFilePath)
     })
   )
   return telefuncFilesLoaded

@@ -208,6 +208,7 @@ importers:
 
   telefunc:
     specifiers:
+      '@brillout/import': ^0.1.2
       '@brillout/json-s': ^0.4.6
       '@brillout/release-me': ^0.0.8
       '@brillout/vite-plugin-import-build': ^0.1.0
@@ -221,8 +222,9 @@ importers:
       rollup: ^2.67.1
       ts-morph: ^14.0.0
       typescript: ^4.8.4
-      vite: ^3.0.9
+      vite: ^3.2.2
     dependencies:
+      '@brillout/import': 0.1.2
       '@brillout/json-s': 0.4.6
       '@brillout/vite-plugin-import-build': 0.1.0
       es-module-lexer: 0.7.1
@@ -237,7 +239,7 @@ importers:
       next: 12.0.10
       rollup: 2.67.1
       typescript: 4.8.4
-      vite: 3.0.9
+      vite: 3.2.2
 
 packages:
 
@@ -2723,6 +2725,10 @@ packages:
       string-width: 2.1.1
     dev: false
 
+  /@brillout/import/0.1.2:
+    resolution: {integrity: sha512-UYxk0fxswiI8C16Mh/wBP5EfD84BlwMhmHYPYVs3SLvkx2dNCRV4VwXbR8ZLhcJ/lU/AdyV6SxJzJl7krY70Sg==}
+    dev: false
+
   /@brillout/json-s/0.1.5:
     resolution: {integrity: sha512-J25bhw1BxtuyRx5CXMlAHH3SKX2dv0cghf2p7BCS6UNqgrUhXq96FhfsafF7a+/20Egi0m3U5PSjjtRXLzD8Kw==}
     dev: false
@@ -2807,7 +2813,7 @@ packages:
         optional: true
     dependencies:
       esbuild: 0.14.54
-      postcss: 8.4.16
+      postcss: 8.4.18
       resolve: 1.22.1
       rollup: 2.78.1
     optionalDependencies:
@@ -13382,6 +13388,14 @@ packages:
       picocolors: 1.0.0
       source-map-js: 1.0.2
 
+  /postcss/8.4.18:
+    resolution: {integrity: sha512-Wi8mWhncLJm11GATDaQKobXSNEYGUHeQLiQqDFG1qQ5UTDPTEvKw0Xt5NsTpktGTwLps3ByrWsBrG0rB8YQ9oA==}
+    engines: {node: ^10 || ^12 || >=14}
+    dependencies:
+      nanoid: 3.3.4
+      picocolors: 1.0.0
+      source-map-js: 1.0.2
+
   /postcss/8.4.5:
     resolution: {integrity: sha512-jBDboWM8qpaqwkMwItqTQTiFikhs/67OYVvblFFTM7MrZjt6yMKd6r2kgXizEbTTljacm4NldIlZnhbjr84QYg==}
     engines: {node: ^10 || ^12 || >=14}
@@ -14213,6 +14227,14 @@ packages:
     optionalDependencies:
       fsevents: 2.3.2
     dev: false
+
+  /rollup/2.79.1:
+    resolution: {integrity: sha512-uKxbd0IhMZOhjAiD5oAFp7BqvkA4Dv47qpOCtaNvng4HBwdbWtdOh8f5nZNuk2rp51PMGk3bzfWu5oayNEuYnw==}
+    engines: {node: '>=10.0.0'}
+    hasBin: true
+    optionalDependencies:
+      fsevents: 2.3.2
+    dev: true
 
   /run-async/2.4.1:
     resolution: {integrity: sha512-tvVnVv01b8c1RrA6Ep7JkStj85Guv/YrMcwqYQnwjsAS2cTmmPGBBjAjpCW7RrSodNSoE2/qg9O4bceNvUuDgQ==}
@@ -15959,6 +15981,36 @@ packages:
       rollup: 2.77.3
     optionalDependencies:
       fsevents: 2.3.2
+
+  /vite/3.2.2:
+    resolution: {integrity: sha512-pLrhatFFOWO9kS19bQ658CnRYzv0WLbsPih6R+iFeEEhDOuYgYCX2rztUViMz/uy/V8cLCJvLFeiOK7RJEzHcw==}
+    engines: {node: ^14.18.0 || >=16.0.0}
+    hasBin: true
+    peerDependencies:
+      less: '*'
+      sass: '*'
+      stylus: '*'
+      sugarss: '*'
+      terser: ^5.4.0
+    peerDependenciesMeta:
+      less:
+        optional: true
+      sass:
+        optional: true
+      stylus:
+        optional: true
+      sugarss:
+        optional: true
+      terser:
+        optional: true
+    dependencies:
+      esbuild: 0.15.9
+      postcss: 8.4.18
+      resolve: 1.22.1
+      rollup: 2.79.1
+    optionalDependencies:
+      fsevents: 2.3.2
+    dev: true
 
   /vitest/0.22.1:
     resolution: {integrity: sha512-+x28YTnSLth4KbXg7MCzoDAzPJlJex7YgiZbUh6YLp0/4PqVZ7q7/zyfdL0OaPtKTpNiQFPpMC8Y2MSzk8F7dw==}
