@@ -63,11 +63,10 @@ function resolveServerConfig(): ConfigResolved {
 }
 
 function validateUserConfig(configUserUnwrapped: ConfigUser, prop: string, val: unknown) {
-  // @ts-ignore
-  configUserUnwrapped[prop] = val
-
   if (prop === 'root') {
-    assertUsage(typeof val === 'string' && isAbsolute(val), 'telefuncConfig.root should be an absolute path')
+    assertUsage(typeof val === 'string', 'telefuncConfig.root should be a string')
+    assertUsage(isAbsolute(val), 'telefuncConfig.root should be an absolute path')
+    configUserUnwrapped[prop] = val
   } else if (prop === 'viteDevServer') {
     assertWarning(
       false,
@@ -78,24 +77,27 @@ function validateUserConfig(configUserUnwrapped: ConfigUser, prop: string, val: 
       }
     )
   } else if (prop === 'telefuncUrl') {
-    assertUsage(
-      typeof val === 'string' && val.startsWith('/'),
-      "telefuncConfig.telefuncUrl should be a string that starts with '/'"
-    )
+    assertUsage(typeof val === 'string', 'telefuncConfig.telefuncUrl should be a string')
+    assertUsage(val.startsWith('/'), "telefuncConfig.telefuncUrl should start with '/'")
+    configUserUnwrapped[prop] = val
   } else if (prop === 'telefuncFiles') {
     const wrongType = '`telefuncConfig.telefuncFiles` should be a list of paths'
     assertUsage(Array.isArray(val), wrongType)
     val.forEach((val: unknown) => {
       assertUsage(typeof val === 'string', wrongType)
       assertUsage(isAbsolute(val), `[telefuncConfig.telefuncFiles] ${val} should be an absolute path`)
-      assertUsage(isTelefuncFilePath(val), `[telefuncConfig.telefuncFiles] ${val} doesn't contain the \`.telefunc.\``)
+      assertUsage(isTelefuncFilePath(val), `[telefuncConfig.telefuncFiles] ${val} doesn't contain \`.telefunc.\``)
     })
+    configUserUnwrapped[prop] = val
   } else if (prop === 'disableEtag') {
     assertUsage(typeof val === 'boolean', 'telefuncConfig.disableEtag should be a boolean')
+    configUserUnwrapped[prop] = val
   } else if (prop === 'debug') {
     assertUsage(typeof val === 'boolean', 'telefuncConfig.debug should be a boolean')
+    configUserUnwrapped[prop] = val
   } else if (prop === 'disableNamingConvention') {
     assertUsage(typeof val === 'boolean', '`telefuncConfig.disableNamingConvention` should be a boolean')
+    configUserUnwrapped[prop] = val
   } else {
     assertUsage(false, `Unknown telefuncConfig.${prop}`)
   }
