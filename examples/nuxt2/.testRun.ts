@@ -5,7 +5,7 @@ export { testRun }
 
 function testRun(cmd: 'npm run dev' | 'npm run prod') {
   const additionalTimeout = 10 * 1000
-  const serverIsReadyDelay = 10 * 1000
+  const serverIsReadyDelay = 30 * 1000
   run(cmd, { serverIsReadyMessage: SERVER_IS_READY, serverIsReadyDelay, additionalTimeout })
 
   test('To-do list and context', async () => {
