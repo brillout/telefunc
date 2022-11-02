@@ -22,7 +22,7 @@ const headingsWithoutLink: HeadingWithoutLink[] = [
   {
     title: 'Server-Side Rendering (SSR)',
     url: '/ssr'
-  },
+  }
 ]
 
 export const headings: HeadingDefinition[] = [

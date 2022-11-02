@@ -61,7 +61,7 @@ async function runTelefunc_(httpRequest: { url: string; method: string; body: un
     serverConfig: {
       disableNamingConvention: serverConfig.disableNamingConvention,
       debug: serverConfig.debug,
-      telefuncUrl: serverConfig.telefuncUrl,
+      telefuncUrl: serverConfig.telefuncUrl
     },
     viteDevServer: serverConfig.viteDevServer,
     appRootDir: serverConfig.root,

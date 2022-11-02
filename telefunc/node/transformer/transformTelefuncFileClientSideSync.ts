@@ -3,7 +3,11 @@ export { transformTelefuncFileClientSideSync }
 import { posix } from 'path'
 import { assert, assertPosixPath } from '../utils'
 
-function transformTelefuncFileClientSideSync(id: string, appRootDir: string, exportNames: readonly string[] | string[]) {
+function transformTelefuncFileClientSideSync(
+  id: string,
+  appRootDir: string,
+  exportNames: readonly string[] | string[]
+) {
   assertPosixPath(id)
   assertPosixPath(appRootDir)
 

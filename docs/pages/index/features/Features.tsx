@@ -38,11 +38,9 @@ function Features() {
                 Telefunc enables <b>programmatically defined permissions</b>. It's both <b>simple</b> and{' '}
                 <b>flexible</b>.
               </p>
-              <p>
-                Telefunc introduces new techniques to define advanced permissions and increase safety.
-              </p>
+              <p>Telefunc introduces new techniques to define advanced permissions and increase safety.</p>
             </>
-          ),
+          )
         },
         {
           title: (
