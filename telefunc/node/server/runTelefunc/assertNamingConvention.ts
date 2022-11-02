@@ -25,10 +25,10 @@ function assertNamingConvention(
 function assertCollocation(telefuncFilePath: string, appRootDir: string) {
   let fs: typeof fsType
   let path: typeof pathType
-  const r: NodeRequire = require
+  const req: NodeRequire = require
   try {
-    fs = r('fs')
-    path = r('path')
+    fs = req('fs')
+    path = req('path')
   } catch {
     return
   }

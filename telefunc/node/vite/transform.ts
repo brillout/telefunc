@@ -1,4 +1,4 @@
-import { Plugin } from 'vite'
+import type { Plugin } from 'vite'
 import { transformTelefuncFileClientSide } from '../transformer/transformTelefuncFileClientSide'
 import { transformTelefuncFileServerSide } from '../transformer/transformTelefuncFileServerSide'
 import { assert, toPosixPath, viteIsSSR_options } from './utils'
