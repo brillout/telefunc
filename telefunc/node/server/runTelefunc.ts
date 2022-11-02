@@ -12,7 +12,7 @@ import { callBugListeners } from './runTelefunc/onBug'
 import { applyShield } from './runTelefunc/applyShield'
 import { findTelefunction } from './runTelefunc/findTelefunction'
 import { globalContext } from './globalContext'
-import { telefuncConfig } from './telefuncConfig'
+import { serverConfig } from './serverConfig'
 
 type HttpResponse = {
   statusCode: 200 | 403 | 500 | 400
@@ -56,16 +56,21 @@ async function runTelefunc(runContext: Parameters<typeof runTelefunc_>[0]) {
 
 async function runTelefunc_(httpRequest: { url: string; method: string; body: unknown }): Promise<HttpResponse> {
   const runContext = {}
-  objectAssign(runContext, { httpRequest })
-  objectAssign(runContext, telefuncConfig)
   objectAssign(runContext, {
-    appRootDir: telefuncConfig.root
+    httpRequest,
+    serverConfig: {
+      disableNamingConvention: serverConfig.disableNamingConvention,
+      debug: serverConfig.debug,
+      telefuncUrl: serverConfig.telefuncUrl,
+    },
+    viteDevServer: serverConfig.viteDevServer,
+    appRootDir: serverConfig.root,
+    telefuncFilesProvidedByUser: serverConfig.telefuncFiles
   })
-  runContext.viteDevServer = null
   objectAssign(runContext, globalContext)
 
   {
-    const logInvalidRequests = !isProduction() || runContext.debug
+    const logInvalidRequests = !isProduction() || runContext.serverConfig.debug
     objectAssign(runContext, { logInvalidRequests })
   }
 

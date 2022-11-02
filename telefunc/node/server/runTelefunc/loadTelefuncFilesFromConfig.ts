@@ -5,14 +5,14 @@ import { posix } from 'path'
 import type { TelefuncFiles } from '../types'
 
 async function loadTelefuncFilesFromConfig(runContext: {
-  telefuncFiles: string[]
+  telefuncFilesProvidedByUser: string[]
   appRootDir: string | null
 }): Promise<TelefuncFiles> {
   const { appRootDir } = runContext
   assertUsage(appRootDir, 'You need to set `telefuncConfig.root`.')
   const telefuncFilesLoaded: TelefuncFiles = {}
   await Promise.all(
-    runContext.telefuncFiles.map(async (telefuncFilePath) => {
+    runContext.telefuncFilesProvidedByUser.map(async (telefuncFilePath) => {
       const path = posix.relative(toPosixPath(appRootDir), toPosixPath(telefuncFilePath))
       assertPosixPath(path)
       assertUsage(

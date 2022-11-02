@@ -12,7 +12,9 @@ function findTelefunction(runContext: {
   telefunctionName: string
   logInvalidRequests: boolean
   appRootDir: null | string
-  disableNamingConvention: boolean
+  serverConfig: {
+    disableNamingConvention: boolean
+  }
 }): null | Telefunction {
   assertUsage(
     runContext.telefuncFilesAll.length > 0,
@@ -32,7 +34,7 @@ function findTelefunction(runContext: {
     }
     const telefunction = telefuncFile.fileExports[runContext.telefunctionName]
     assertTelefunction(telefunction, runContext.telefunctionName, telefuncFile.filePath)
-    if (!isProduction() && !runContext.disableNamingConvention) {
+    if (!isProduction() && !runContext.serverConfig.disableNamingConvention) {
       assertNamingConvention(telefunction, runContext.telefunctionName, telefuncFile.filePath, runContext.appRootDir)
     }
     return telefunction

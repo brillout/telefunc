@@ -10,15 +10,17 @@ import { loadTelefuncFilesFromConfig } from './loadTelefuncFilesFromConfig'
 async function loadTelefuncFiles(runContext: {
   appRootDir: string | null
   viteDevServer: ViteDevServer | null
-  telefuncFiles: string[] | null
+  telefuncFilesProvidedByUser: string[] | null
   telefuncFilePath: string
 }): Promise<{ telefuncFilesLoaded: TelefuncFiles; telefuncFilesAll: string[] }> {
   // Handles:
   // - When the user provides the telefunc file paths with `telefuncConfig.telefuncFiles`
-  if (runContext.telefuncFiles) {
-    assert(hasProp(runContext, 'telefuncFiles', 'string[]')) // Help TS narrow `runContext`
-    const telefuncFilesLoaded = await loadTelefuncFilesFromConfig(runContext)
-    return { telefuncFilesLoaded, telefuncFilesAll: Object.keys(telefuncFilesLoaded) }
+  {
+    if (runContext.telefuncFilesProvidedByUser) {
+      assert(hasProp(runContext, 'telefuncFilesProvidedByUser', 'string[]')) // Help TS narrow `runContext`
+      const telefuncFilesLoaded = await loadTelefuncFilesFromConfig(runContext)
+      return { telefuncFilesLoaded, telefuncFilesAll: Object.keys(telefuncFilesLoaded) }
+    }
   }
 
   // Handles:

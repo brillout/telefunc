@@ -14,7 +14,9 @@ import {
 function parseHttpRequest(runContext: {
   httpRequest: { body: unknown; url: string; method: string }
   logInvalidRequests: boolean
-  telefuncUrl: string
+  serverConfig: {
+    telefuncUrl: string
+  }
 }):
   | {
       telefuncFilePath: string
@@ -90,9 +92,9 @@ function parseHttpRequest(runContext: {
   }
 }
 
-function assertBody(body: unknown, runContext: { telefuncUrl: string }) {
+function assertBody(body: unknown, runContext: { serverConfig: { telefuncUrl: string } }) {
   const errorNote = [
-    `Make sure that \`body\` is the HTTP body string of the request HTTP POST \`Content-Type: text/plain\` \`${runContext.telefuncUrl}\`.`,
+    `Make sure that \`body\` is the HTTP body string of the request HTTP POST \`Content-Type: text/plain\` \`${runContext.serverConfig.telefuncUrl}\`.`,
     'Note that with some server frameworks, such as Express.js, a server middleware is needed to process the HTTP body of `Content-Type: text/plain` requests.'
   ].join(' ')
   assertUsage(
@@ -130,11 +132,11 @@ function isWrongMethod(runContext: { httpRequest: { method: string }; logInvalid
   return true
 }
 
-function assertUrl(runContext: { httpRequest: { url: string }; telefuncUrl: string }) {
+function assertUrl(runContext: { httpRequest: { url: string }; serverConfig: { telefuncUrl: string } }) {
   const urlPathname = getUrlPathname(runContext.httpRequest.url)
   assertUsage(
-    urlPathname === runContext.telefuncUrl,
-    `telefunc({ url }): The HTTP request \`url\` pathname \`${urlPathname}\` should be \`${runContext.telefuncUrl}\`. Make sure that \`url\` is the HTTP request URL, or change \`telefuncConfig.telefuncUrl\` to \`${urlPathname}\`.`
+    urlPathname === runContext.serverConfig.telefuncUrl,
+    `telefunc({ url }): The HTTP request \`url\` pathname \`${urlPathname}\` should be \`${runContext.serverConfig.telefuncUrl}\`. Make sure that \`url\` is the HTTP request URL, or change \`telefuncConfig.telefuncUrl\` to \`${urlPathname}\`.`
   )
 }
 

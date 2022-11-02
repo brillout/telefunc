@@ -1,4 +1,4 @@
-export const telefuncConfig = getTelefuncConfigObject()
+export const serverConfig = getTelefuncConfigObject()
 
 import type { ViteDevServer } from 'vite'
 import { isAbsolute } from 'path'
@@ -93,22 +93,22 @@ const configSpec = {
 
 function getTelefuncConfigObject(): TelefuncServerConfig {
   const configProvidedByUser: Partial<TelefuncServerConfig> = {}
-  const telefuncConfig = new Proxy(
+  const serverConfig: TelefuncServerConfig = new Proxy(
     {
       // prettier-ignore
-      get viteDevServer()           { return configProvidedByUser['viteDevServer']           ?? configSpec['viteDevServer'].getDefault()           },
+      get viteDevServer()           { return configProvidedByUser.viteDevServer           ?? configSpec.viteDevServer.getDefault()           },
       // prettier-ignore
-      get telefuncFiles()           { return configProvidedByUser['telefuncFiles']           ?? configSpec['telefuncFiles'].getDefault()           },
+      get telefuncFiles()           { return configProvidedByUser.telefuncFiles           ?? configSpec.telefuncFiles.getDefault()           },
       // prettier-ignore
-      get root()                    { return configProvidedByUser['root']                    ?? configSpec['root'].getDefault()                    },
+      get root()                    { return configProvidedByUser.root                    ?? configSpec.root.getDefault()                    },
       // prettier-ignore
-      get telefuncUrl()             { return configProvidedByUser['telefuncUrl']             ?? configSpec['telefuncUrl'].getDefault()             },
+      get telefuncUrl()             { return configProvidedByUser.telefuncUrl             ?? configSpec.telefuncUrl.getDefault()             },
       // prettier-ignore
-      get disableEtag()             { return configProvidedByUser['disableEtag']             ?? configSpec['disableEtag'].getDefault()             },
+      get disableEtag()             { return configProvidedByUser.disableEtag             ?? configSpec.disableEtag.getDefault()             },
       // prettier-ignore
-      get debug()                   { return configProvidedByUser['debug']                   ?? configSpec['debug'].getDefault()                   },
+      get debug()                   { return configProvidedByUser.debug                   ?? configSpec.debug.getDefault()                   },
       // prettier-ignore
-      get disableNamingConvention() { return configProvidedByUser['disableNamingConvention'] ?? configSpec['disableNamingConvention'].getDefault() }
+      get disableNamingConvention() { return configProvidedByUser.disableNamingConvention ?? configSpec.disableNamingConvention.getDefault() }
     },
     { set }
   )
@@ -120,5 +120,5 @@ function getTelefuncConfigObject(): TelefuncServerConfig {
     configProvidedByUser[prop] = val
     return true
   }
-  return telefuncConfig
+  return serverConfig
 }
