@@ -3,8 +3,7 @@ export { resolveServerConfig }
 
 import type { ViteDevServer } from 'vite'
 import { isAbsolute } from 'path'
-import { assert, assertWarning, assertUsage, hasProp, toPosixPath, isTelefuncFilePath } from '../utils'
-import { globalContext } from './globalContext'
+import { assertWarning, assertUsage, hasProp, toPosixPath, isTelefuncFilePath } from '../utils'
 
 /** Telefunc Server Configuration */
 type ConfigUser = {
