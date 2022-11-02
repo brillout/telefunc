@@ -8,7 +8,6 @@ import { loadTelefuncFilesWithImportBuild } from './plugins/importBuild/loadBuil
 
 async function loadTelefuncFilesWithVite(runContext: {
   telefuncFilePath: string
-  root: string | null
   viteDevServer: ViteDevServer | null
 }): Promise<null | {
   telefuncFilesLoaded: Record<string, Record<string, unknown>>
@@ -28,7 +27,7 @@ async function loadTelefuncFilesWithVite(runContext: {
   return { telefuncFilesLoaded, viteProvider, telefuncFilesAll }
 }
 
-async function loadGlobImporter(runContext: { root: string | null; viteDevServer: ViteDevServer | null }) {
+async function loadGlobImporter(runContext: { viteDevServer: ViteDevServer | null }) {
   if (runContext.viteDevServer) {
     const devPath = telefuncFilesGlobFilePath
     let moduleExports: unknown

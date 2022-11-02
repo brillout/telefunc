@@ -229,7 +229,7 @@ function toImport(importPath: string) {
   return `./${importPath}`
 }
 
-function logResult(root: string, logSuccessPrefix: string, logIntro: null | string) {
+function logResult(appRootDir: string, logSuccessPrefix: string, logIntro: null | string) {
   // `generatedShields` is empty for JavaScript users
   if (generatedShields.length === 0) return
   if (resutlAlreayLogged) {
@@ -237,13 +237,13 @@ function logResult(root: string, logSuccessPrefix: string, logIntro: null | stri
     return
   }
   if (logIntro) console.log(logIntro)
-  printSuccesses(root, logSuccessPrefix)
-  printFailures(root)
+  printSuccesses(appRootDir, logSuccessPrefix)
+  printFailures(appRootDir)
   resutlAlreayLogged = true
   generatedShields.length = 0
 }
 
-function printFailures(root: string) {
+function printFailures(appRootDir: string) {
   const failures = generatedShields.filter((s) => s.failed)
 
   const projects = unique(failures.map((f) => f.project))
@@ -268,7 +268,7 @@ function printFailures(root: string) {
       'Failed to generate shield() for telefunction',
       failures.length === 1 ? '' : 's',
       ' ',
-      formatGeneratedShields(failures, root),
+      formatGeneratedShields(failures, appRootDir),
       '.',
       !hasTypeScriptErrors
         ? ''
@@ -279,23 +279,23 @@ function printFailures(root: string) {
   )
 }
 
-function printSuccesses(root: string, logSuccessPrefix: string) {
+function printSuccesses(appRootDir: string, logSuccessPrefix: string) {
   const successes = generatedShields.filter((s) => !s.failed)
   if (successes.length > 0) {
     console.log(
       [
         logSuccessPrefix,
         `shield() generated for the telefunction${generatedShields.length === 1 ? '' : 's'}`,
-        formatGeneratedShields(successes, root)
+        formatGeneratedShields(successes, appRootDir)
       ].join(' ')
     )
   }
 }
 
-function formatGeneratedShields(generatedShields: GeneratedShield[], root: string) {
+function formatGeneratedShields(generatedShields: GeneratedShield[], appRootDir: string) {
   return formatList(
     generatedShields.map(({ telefunctionName, telefuncFilePath }) => {
-      telefuncFilePath = path.relative(root, telefuncFilePath)
+      telefuncFilePath = path.relative(appRootDir, telefuncFilePath)
       return `${telefunctionName}() (${telefuncFilePath})`
     })
   )

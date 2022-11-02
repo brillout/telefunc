@@ -4,16 +4,20 @@ import { assert, assertPosixPath, assertUsage, dynamicImport, toPosixPath } from
 import { posix } from 'path'
 import type { TelefuncFiles } from '../types'
 
-async function loadTelefuncFilesFromConfig(telefuncFiles: string[], root: string | null): Promise<TelefuncFiles> {
-  assertUsage(root, 'You need to set `telefuncConfig.root`.')
+async function loadTelefuncFilesFromConfig(runContext: {
+  telefuncFiles: string[]
+  appRootDir: string | null
+}): Promise<TelefuncFiles> {
+  const { appRootDir } = runContext
+  assertUsage(appRootDir, 'You need to set `telefuncConfig.root`.')
   const telefuncFilesLoaded: TelefuncFiles = {}
   await Promise.all(
-    telefuncFiles.map(async (telefuncFilePath) => {
-      const path = posix.relative(toPosixPath(root), toPosixPath(telefuncFilePath))
+    runContext.telefuncFiles.map(async (telefuncFilePath) => {
+      const path = posix.relative(toPosixPath(appRootDir), toPosixPath(telefuncFilePath))
       assertPosixPath(path)
       assertUsage(
         !path.startsWith('../'),
-        `The telefunc file \`${telefuncFilePath}\` is not inlcuded in your project root \`${root}\`.`
+        `The telefunc file \`${telefuncFilePath}\` is not inlcuded in your project root \`${appRootDir}\`.`
       )
       assert(!path.startsWith('/') && !path.startsWith('.'))
       telefuncFilesLoaded['/' + path] = await dynamicImport(telefuncFilePath)

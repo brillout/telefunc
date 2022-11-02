@@ -7,15 +7,15 @@ import { generateShield } from '../server/shield/codegen/generateShield'
 async function transformTelefuncFileServerSide(
   src: string,
   id: string,
-  root: string,
+  appRootDir: string,
   skipRegistration: boolean,
   isDev: boolean
 ) {
   assertPosixPath(id)
-  assertPosixPath(root)
+  assertPosixPath(appRootDir)
 
   const exportNames = await getExportNames(src)
-  let code = decorateTelefunctions(exportNames, src, id.replace(root, ''), root, skipRegistration)
+  let code = decorateTelefunctions(exportNames, src, id.replace(appRootDir, ''), appRootDir, skipRegistration)
 
   if (id.endsWith('.ts') && !isDev) {
     code = generateShield(code, id)

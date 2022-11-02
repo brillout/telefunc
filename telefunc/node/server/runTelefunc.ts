@@ -58,6 +58,9 @@ async function runTelefunc_(httpRequest: { url: string; method: string; body: un
   const runContext = {}
   objectAssign(runContext, { httpRequest })
   objectAssign(runContext, telefuncConfig)
+  objectAssign(runContext, {
+    appRootDir: telefuncConfig.root
+  })
   runContext.viteDevServer = null
   objectAssign(runContext, globalContext)
 

@@ -2,13 +2,13 @@ export { loadTelefuncFiles }
 
 import type { ViteDevServer } from 'vite'
 import type { TelefuncFiles } from '../types'
-import { assertUsage } from '../../utils'
+import { assertUsage, assert, hasProp } from '../../utils'
 import { loadTelefuncFilesWithVite } from '../../vite/loadTelefuncFilesWithVite'
 import { loadTelefuncFilesWithRegistration } from './loadTelefuncFilesWithRegistration'
 import { loadTelefuncFilesFromConfig } from './loadTelefuncFilesFromConfig'
 
 async function loadTelefuncFiles(runContext: {
-  root: string | null
+  appRootDir: string | null
   viteDevServer: ViteDevServer | null
   telefuncFiles: string[] | null
   telefuncFilePath: string
@@ -16,7 +16,8 @@ async function loadTelefuncFiles(runContext: {
   // Handles:
   // - When the user provides the telefunc file paths with `telefuncConfig.telefuncFiles`
   if (runContext.telefuncFiles) {
-    const telefuncFilesLoaded = await loadTelefuncFilesFromConfig(runContext.telefuncFiles, runContext.root)
+    assert(hasProp(runContext, 'telefuncFiles', 'string[]')) // Help TS narrow `runContext`
+    const telefuncFilesLoaded = await loadTelefuncFilesFromConfig(runContext)
     return { telefuncFilesLoaded, telefuncFilesAll: Object.keys(telefuncFilesLoaded) }
   }
 
