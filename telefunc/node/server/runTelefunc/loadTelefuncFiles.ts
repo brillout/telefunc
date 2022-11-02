@@ -18,8 +18,9 @@ async function loadTelefuncFiles(runContext: {
   {
     if (runContext.telefuncFilesManuallyProvidedByUser) {
       assert(hasProp(runContext, 'telefuncFilesManuallyProvidedByUser', 'string[]')) // Help TS narrow `runContext`
-      const telefuncFilesLoaded = await loadTelefuncFilesFromConfig(runContext)
-      return { telefuncFilesLoaded, telefuncFilesAll: Object.keys(telefuncFilesLoaded) }
+      const { telefuncFilesLoaded, telefuncFilesAll } = await loadTelefuncFilesFromConfig(runContext)
+      assertUsage(Object.keys(telefuncFilesAll).length > 0, getErrMsg('manually provided by user'))
+      return { telefuncFilesLoaded, telefuncFilesAll }
     }
   }
 
@@ -30,8 +31,9 @@ async function loadTelefuncFiles(runContext: {
   {
     const telefuncFilesLoaded = loadTelefuncFilesWithRegistration()
     if (telefuncFilesLoaded) {
-      assertUsage(Object.keys(telefuncFilesLoaded).length > 0, getErrMsg('webpack'))
-      return { telefuncFilesLoaded, telefuncFilesAll: Object.keys(telefuncFilesLoaded) }
+      const telefuncFilesAll = Object.keys(telefuncFilesLoaded)
+      assertUsage(Object.keys(telefuncFilesAll).length > 0, getErrMsg('automatic registration'))
+      return { telefuncFilesLoaded, telefuncFilesAll }
     }
   }
 
@@ -41,7 +43,7 @@ async function loadTelefuncFiles(runContext: {
     const ret = await loadTelefuncFilesWithVite(runContext)
     if (ret) {
       const { telefuncFilesLoaded, viteProvider, telefuncFilesAll } = ret
-      assertUsage(Object.keys(telefuncFilesLoaded).length > 0, getErrMsg(`Vite [\`${viteProvider}\`]`))
+      assertUsage(Object.keys(telefuncFilesAll).length > 0, getErrMsg(`Vite [\`${viteProvider}\`]`))
       return { telefuncFilesLoaded, telefuncFilesAll }
     }
   }
@@ -49,6 +51,10 @@ async function loadTelefuncFiles(runContext: {
   assertUsage(false, "You don't seem to be using Telefunc with a supported stack. Reach out on GitHub or Discord.")
 }
 
-function getErrMsg(crawler: string) {
-  return 'No `.telefunc.{js|ts|...}` file found. Did you create one? (Stack: ' + crawler + '.)'
+function getErrMsg(retrievalMethod: string) {
+  return (
+    'No `.telefunc.{js|ts|...}` file found. Did you create one? (Telefunc files retrieval method: ' +
+    retrievalMethod +
+    '.)'
+  )
 }

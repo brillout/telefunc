@@ -1,7 +1,7 @@
 export { loadTelefuncFilesWithVite }
 
 import { loadBuild } from '@brillout/vite-plugin-import-build/loadBuild'
-import { assert, assertWarning, getNodeEnv, hasProp, isObject, isProduction } from '../utils'
+import { assert, assertWarning, getNodeEnv, hasProp, isObject, isProduction, assertTelefuncFilePath } from '../utils'
 import { telefuncFilesGlobFilePath } from './telefuncFilesGlobPath'
 import type { ViteDevServer } from 'vite'
 import { loadTelefuncFilesWithImportBuild } from './plugins/importBuild/loadBuild'
@@ -22,7 +22,7 @@ async function loadTelefuncFilesWithVite(runContext: {
   assert(isObject(moduleExports), { moduleExports, viteProvider })
   assert(hasProp(moduleExports, 'telefuncFilesGlob'), { moduleExports, viteProvider })
   const telefuncFilesGlob = moduleExports.telefuncFilesGlob as GlobFiles
-  const { telefuncFilesLoaded, telefuncFilesAll } = await loadGlobFiles(telefuncFilesGlob, runContext.telefuncFilePath)
+  const { telefuncFilesLoaded, telefuncFilesAll } = await loadGlobFiles(telefuncFilesGlob, runContext)
   assert(isObjectOfObjects(telefuncFilesLoaded))
   return { telefuncFilesLoaded, viteProvider, telefuncFilesAll }
 }
@@ -76,13 +76,17 @@ type FilePath = string
 type ExportName = string
 type ExportValue = unknown
 
-async function loadGlobFiles(telefuncFilesGlob: GlobFiles, telefuncFilePath: string) {
+async function loadGlobFiles(telefuncFilesGlob: GlobFiles, runContext: { telefuncFilePath: string }) {
   const telefuncFilesAll = Object.keys(telefuncFilesGlob)
   const telefuncFilesLoaded = Object.fromEntries(
     await Promise.all(
       Object.entries(telefuncFilesGlob)
-        .filter(([filePath]) => filePath === telefuncFilePath)
-        .map(async ([filePath, loadModuleExports]) => [filePath, await loadModuleExports()])
+        .filter(([telefuncFilePath]) => {
+          assertTelefuncFilePath(telefuncFilePath)
+          assertTelefuncFilePath(runContext.telefuncFilePath)
+          return telefuncFilePath === runContext.telefuncFilePath
+        })
+        .map(async ([telefuncFilePath, loadModuleExports]) => [telefuncFilePath, await loadModuleExports()])
     )
   )
   assert(Object.keys(telefuncFilesLoaded).length <= 1)

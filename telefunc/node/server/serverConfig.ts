@@ -2,7 +2,7 @@ export const serverConfig = getTelefuncConfigObject()
 
 import type { ViteDevServer } from 'vite'
 import { isAbsolute } from 'path'
-import { assert, assertInfo, assertUsage, hasProp } from '../utils'
+import { assert, assertInfo, assertUsage, hasProp, toPosixPath } from '../utils'
 import { globalContext } from './globalContext'
 
 /** Telefunc Server Configuration */
@@ -19,8 +19,12 @@ type TelefuncServerConfig = {
 
 const configSpec = {
   root: {
-    validate(val: unknown) {
+    validate(val: unknown): asserts val is string {
       assertUsage(typeof val === 'string' && isAbsolute(val), '`telefuncConfig.root` should be an absolute path')
+    },
+    clean(val: unknown) {
+      assert(typeof val === 'string')
+      return toPosixPath(val)
     },
     getDefault() {
       if (typeof process == 'undefined' || !hasProp(process, 'cwd')) return null
@@ -116,6 +120,9 @@ function getTelefuncConfigObject(): TelefuncServerConfig {
     const option = configSpec[prop as keyof typeof configSpec]
     assertUsage(option, `Unknown \`telefuncConfig.${prop}\`.`)
     option.validate(val)
+    if ('clean' in option) {
+      val = option.clean(val)
+    }
     // @ts-ignore
     configProvidedByUser[prop] = val
     return true
