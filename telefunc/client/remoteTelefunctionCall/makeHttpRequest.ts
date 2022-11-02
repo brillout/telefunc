@@ -15,7 +15,7 @@ async function makeHttpRequest(callContext: {
   httpRequestBody: string
   telefunctionName: string
   telefuncFilePath: string
-  httpHeaders: Record<string, string>
+  httpHeaders: Record<string, string> | null
 }): Promise<{ telefunctionReturn: unknown }> {
   let response: Response
   try {

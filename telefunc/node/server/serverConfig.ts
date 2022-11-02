@@ -22,7 +22,6 @@ type ConfigUser = {
   /** @deprecated */
   viteDevServer?: ViteDevServer
 }
-
 type ConfigResolved = {
   telefuncUrl: string
   root: string | null

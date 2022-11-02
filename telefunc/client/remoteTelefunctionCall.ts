@@ -2,7 +2,7 @@ export { remoteTelefunctionCall }
 
 import { makeHttpRequest } from './remoteTelefunctionCall/makeHttpRequest'
 import { serializeTelefunctionArguments } from './remoteTelefunctionCall/serializeTelefunctionArguments'
-import { telefuncConfig } from './telefuncConfig'
+import { resolveClientConfig } from './clientConfig'
 import { objectAssign, assertUsage, isBrowser } from './utils'
 
 async function remoteTelefunctionCall(
@@ -21,7 +21,7 @@ async function remoteTelefunctionCall(
     })
   }
 
-  objectAssign(callContext, telefuncConfig)
+  objectAssign(callContext, resolveClientConfig())
 
   {
     const httpRequestBody = serializeTelefunctionArguments(callContext)
