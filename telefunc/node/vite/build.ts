@@ -1,4 +1,4 @@
-import { Plugin } from 'vite'
+import type { Plugin } from 'vite'
 import type { InputOption } from 'rollup'
 import { assert, isObject } from '../utils'
 import { telefuncFilesGlobFileNameBase } from './telefuncFilesGlobFileNameBase'
