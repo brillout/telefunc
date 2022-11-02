@@ -8,6 +8,7 @@ import { import_ } from '@brillout/import'
 async function loadTelefuncFilesFromConfig(runContext: {
   telefuncFilesManuallyProvidedByUser: string[]
   appRootDir: string | null
+  telefuncFilePath: string
 }): Promise<{ telefuncFilesLoaded: TelefuncFiles; telefuncFilesAll: string[] }> {
   const { appRootDir } = runContext
   assertUsage(appRootDir, 'You need to set `telefuncConfig.root` to be able to use `telefuncConfig.telefuncFiles`')
@@ -18,6 +19,11 @@ async function loadTelefuncFilesFromConfig(runContext: {
     runContext.telefuncFilesManuallyProvidedByUser.map(async (telefuncFilePathAbsolute) => {
       const telefuncFilePath = resolveTelefuncFilePath(telefuncFilePathAbsolute, appRootDir)
       telefuncFilesAll.push(telefuncFilePath)
+      assertTelefuncFilePath(runContext.telefuncFilePath)
+      assertTelefuncFilePath(telefuncFilePath)
+      if (telefuncFilePath !== runContext.telefuncFilePath) {
+        return
+      }
       const telefunctions: any = await import_(telefuncFilePathAbsolute)
       telefuncFilesLoaded[telefuncFilePath] = telefunctions
     })
