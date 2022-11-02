@@ -65,7 +65,7 @@ async function runTelefunc_(httpRequest: { url: string; method: string; body: un
     },
     viteDevServer: serverConfig.viteDevServer,
     appRootDir: serverConfig.root,
-    telefuncFilesProvidedByUser: serverConfig.telefuncFiles
+    telefuncFilesManuallyProvidedByUser: serverConfig.telefuncFiles
   })
   objectAssign(runContext, globalContext)
 
