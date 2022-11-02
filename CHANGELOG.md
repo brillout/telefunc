@@ -1,3 +1,21 @@
+## [0.1.29](https://github.com/brillout/telefunc/compare/v0.1.28...v0.1.29) (2022-11-02)
+
+
+### Bug Fixes
+
+* add naming convention warnings ([37ab2bf](https://github.com/brillout/telefunc/commit/37ab2bf8f3b12a5a58b95aeda5fc1da82da31e37))
+* fix wrong error message ([e8d5b45](https://github.com/brillout/telefunc/commit/e8d5b45906e7e0402fd19dbfe3100a48d5a91090))
+* improve dynamic loading of modules ([972f8c2](https://github.com/brillout/telefunc/commit/972f8c218ba13b3488c26627da726c0e40e851f6))
+* improve wrong config error messages ([d6b5998](https://github.com/brillout/telefunc/commit/d6b5998ba637f71ad0a03d9d8498182dae2eef4a))
+* improve wrong usage message ([2fa05d5](https://github.com/brillout/telefunc/commit/2fa05d542905d1233d1e275a3a4b3d6d604e1e52))
+
+
+### Performance Improvements
+
+* lazy-load telefunc files ([87ec5d2](https://github.com/brillout/telefunc/commit/87ec5d27a1b15affe4fa6d07569ef5c1f9663d0f))
+
+
+
 ## [0.1.28](https://github.com/brillout/telefunc/compare/v0.1.27...v0.1.28) (2022-10-26)
 
 
