@@ -1,7 +1,7 @@
 export { loadTelefuncFilesWithVite }
 
 import { loadBuild } from '@brillout/vite-plugin-import-build/loadBuild'
-import { assert, assertWarning, getNodeEnv, hasProp, isObject, isProduction, assertTelefuncFilePath } from '../utils'
+import { assert, assertWarning, getNodeEnv, hasProp, isObject, isProduction, isTelefuncFilePath } from '../utils'
 import { telefuncFilesGlobFilePath } from './telefuncFilesGlobPath'
 import type { ViteDevServer } from 'vite'
 import { loadTelefuncFilesWithImportBuild } from './plugins/importBuild/loadBuild'
@@ -82,8 +82,8 @@ async function loadGlobFiles(telefuncFilesGlob: GlobFiles, runContext: { telefun
     await Promise.all(
       Object.entries(telefuncFilesGlob)
         .filter(([telefuncFilePath]) => {
-          assertTelefuncFilePath(telefuncFilePath)
-          assertTelefuncFilePath(runContext.telefuncFilePath)
+          assert(isTelefuncFilePath(telefuncFilePath))
+          assert(isTelefuncFilePath(runContext.telefuncFilePath))
           return telefuncFilePath === runContext.telefuncFilePath
         })
         .map(async ([telefuncFilePath, loadModuleExports]) => [telefuncFilePath, await loadModuleExports()])

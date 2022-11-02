@@ -1,6 +1,6 @@
 export { loadTelefuncFilesFromConfig }
 
-import { assert, assertPosixPath, assertUsage, toPosixPath, assertTelefuncFilePath } from '../../utils'
+import { assert, assertPosixPath, assertUsage, isTelefuncFilePath } from '../../utils'
 import { posix } from 'path'
 import type { TelefuncFiles } from '../types'
 import { import_ } from '@brillout/import'
@@ -19,8 +19,8 @@ async function loadTelefuncFilesFromConfig(runContext: {
     runContext.telefuncFilesManuallyProvidedByUser.map(async (telefuncFilePathAbsolute) => {
       const telefuncFilePath = resolveTelefuncFilePath(telefuncFilePathAbsolute, appRootDir)
       telefuncFilesAll.push(telefuncFilePath)
-      assertTelefuncFilePath(runContext.telefuncFilePath)
-      assertTelefuncFilePath(telefuncFilePath)
+      assert(isTelefuncFilePath(runContext.telefuncFilePath))
+      assert(isTelefuncFilePath(telefuncFilePath))
       if (telefuncFilePath !== runContext.telefuncFilePath) {
         return
       }
@@ -32,7 +32,7 @@ async function loadTelefuncFilesFromConfig(runContext: {
 }
 
 function resolveTelefuncFilePath(telefuncFilePathAbsolute: string, appRootDir: string): string {
-  telefuncFilePathAbsolute = toPosixPath(telefuncFilePathAbsolute)
+  assertPosixPath(telefuncFilePathAbsolute)
   const path = posix.relative(appRootDir, telefuncFilePathAbsolute)
   assertPosixPath(path)
   assertUsage(
@@ -41,6 +41,6 @@ function resolveTelefuncFilePath(telefuncFilePathAbsolute: string, appRootDir: s
   )
   assert(!path.startsWith('/') && !path.startsWith('.'))
   const telefuncFilePath = '/' + path
-  assertTelefuncFilePath(telefuncFilePathAbsolute)
+  assert(isTelefuncFilePath(telefuncFilePathAbsolute))
   return telefuncFilePath
 }

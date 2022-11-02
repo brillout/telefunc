@@ -1,10 +1,10 @@
-export { assertTelefuncFilePath }
+export { isTelefuncFilePath }
 
 import { assertPosixPath } from './filesystemPathHandling'
 import { assert } from './assert'
 
-function assertTelefuncFilePath(filePath: string) {
+function isTelefuncFilePath(filePath: string): boolean {
   assertPosixPath(filePath)
   assert(filePath.startsWith('/'))
-  assert(filePath.includes('.telefunc.'))
+  return filePath.includes('.telefunc.')
 }

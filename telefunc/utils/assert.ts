@@ -3,9 +3,10 @@ export { assertUsage }
 export { assertWarning }
 export { assertInfo }
 export { getProjectError }
-export { errorPrefix as projectErrorPrefix }
+export { errorPrefix }
 
 import { createErrorWithCleanStackTrace } from './createErrorWithCleanStackTrace'
+import { getGlobalObject } from './getGlobalObject'
 import { projectInfo } from './projectInfo'
 
 const errorPrefix = `[${projectInfo.npmPackageName}@${projectInfo.projectVersion}]`
@@ -34,7 +35,7 @@ function assert(condition: unknown, debugInfo?: unknown): asserts condition {
       `${internalErrorPrefix} You stumbled upon a bug in ${projectInfo.projectName}'s source code.`,
       `Reach out at ${projectInfo.githubRepository}/issues/new or ${projectInfo.discordInviteToolChannel} and include this error stack (the error stack is usually enough to fix the problem).`,
       'A maintainer will fix the bug (usually under 24 hours).',
-      `Do not hesitate to reach out as it makes ${projectInfo.projectName} more robust.`,
+      `Don't hesitate to reach out as it makes ${projectInfo.projectName} more robust.`,
       debugStr
     ].join(' '),
     numberOfStackTraceLinesToRemove
@@ -56,30 +57,53 @@ function assertUsage(condition: unknown, errorMessage: string): asserts conditio
 }
 
 function getProjectError(errorMessage: string) {
-  const pluginError = createErrorWithCleanStackTrace(`${errorPrefix} ${errorMessage}`, numberOfStackTraceLinesToRemove)
+  const sep = errorMessage.startsWith('[') ? '' : ' '
+  const pluginError = createErrorWithCleanStackTrace(
+    `${errorPrefix}${sep}${errorMessage}`,
+    numberOfStackTraceLinesToRemove
+  )
   return pluginError
 }
 
-let loggedWarnings: Set<string> = new Set()
-function assertWarning(condition: unknown, errorMessage: string, { onlyOnce }: { onlyOnce: boolean | string }): void {
+const globalObject = getGlobalObject<{ alreadyLogged: Set<string> }>('assert.ts', { alreadyLogged: new Set() })
+function assertWarning(
+  condition: unknown,
+  errorMessage: string,
+  { onlyOnce, showStackTrace }: { onlyOnce: boolean | string; showStackTrace?: true }
+): void {
   if (condition) {
     return
   }
   const msg = `${warningPrefix} ${errorMessage}`
   if (onlyOnce) {
+    const { alreadyLogged } = globalObject
     const key = onlyOnce === true ? msg : onlyOnce
-    if (loggedWarnings.has(key)) {
+    if (alreadyLogged.has(key)) {
       return
     } else {
-      loggedWarnings.add(key)
+      alreadyLogged.add(key)
     }
   }
-  console.warn(msg)
+  if (showStackTrace) {
+    console.warn(new Error(msg))
+  } else {
+    console.warn(msg)
+  }
 }
 
-function assertInfo(condition: unknown, errorMessage: string): void {
+function assertInfo(condition: unknown, errorMessage: string, { onlyOnce }: { onlyOnce: boolean }): void {
   if (condition) {
     return
   }
-  console.warn(`${infoPrefix} ${errorMessage}`)
+  const msg = `${infoPrefix} ${errorMessage}`
+  if (onlyOnce) {
+    const { alreadyLogged } = globalObject
+    const key = msg
+    if (alreadyLogged.has(key)) {
+      return
+    } else {
+      alreadyLogged.add(key)
+    }
+  }
+  console.log(msg)
 }

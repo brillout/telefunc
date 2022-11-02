@@ -1,6 +1,6 @@
 export { findTelefunction }
 
-import { assert, assertUsage, projectErrorPrefix, isProduction } from '../../utils'
+import { assert, assertUsage, errorPrefix as projectErrorPrefix, isProduction } from '../../utils'
 import type { TelefuncFiles, Telefunction } from '../types'
 import { assertNamingConvention } from './assertNamingConvention'
 import { assertTelefunction } from './assertTelefunction'
