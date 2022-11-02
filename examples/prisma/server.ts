@@ -31,9 +31,11 @@ async function installFrontend(app: Express) {
     app.use(express.static(`${root}/dist/client`))
   } else {
     const vite = await import('vite')
-    const viteDevServer = await vite.createServer({
-      server: { middlewareMode: 'html' }
-    })
-    app.use(viteDevServer.middlewares)
+    const viteDevMiddleware = (
+      await vite.createServer({
+        server: { middlewareMode: 'html' }
+      })
+    ).middlewares
+    app.use(viteDevMiddleware)
   }
 }
