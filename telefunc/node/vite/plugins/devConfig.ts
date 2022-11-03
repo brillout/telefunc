@@ -13,15 +13,21 @@ function devConfig(): Plugin[] {
         optimizeDeps: {
           include: [
             'telefunc/client',
-            '@brillout/json-serializer/parse',
-            '@brillout/json-serializer/stringify',
-            // Vite bug workaround. I don't know why, but Vite somehow thinks it needs to pre-optimize `telefunc` module:
+            // Vite bug workaround. I don't know why, but Vite somehow thinks it needs to pre-optimize the `telefunc` module:
             // ```
             // 11:12:30 AM [vite] ✨ new dependencies optimized: telefunc
             // 11:12:30 AM [vite] ✨ optimized dependencies changed. reloading
             // ```
             // (Vite correctly bundles `package.json#exports["."].browser` though.)
             'telefunc'
+            /* Doesn't seem to be needed. Adding these makes Vite complain:
+             * ```
+             * Failed to resolve dependency: @brillout/json-serializer/parse, present in 'optimizeDeps.include'
+             * Failed to resolve dependency: @brillout/json-serializer/stringify, present in 'optimizeDeps.include'
+             * ```
+            '@brillout/json-serializer/parse',
+            '@brillout/json-serializer/stringify',
+            */
           ]
         }
       }),
