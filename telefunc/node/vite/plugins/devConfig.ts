@@ -11,7 +11,17 @@ function devConfig(): Plugin[] {
       apply: apply('dev'),
       config: () => ({
         optimizeDeps: {
-          include: ['telefunc/client', '@brillout/json-s/parse', '@brillout/json-s/stringify']
+          include: [
+            'telefunc/client',
+            '@brillout/json-s/parse',
+            '@brillout/json-s/stringify',
+            // Vite bug workaround. I don't know why, but Vite somehow thinks it needs to pre-optimize `telefunc` module:
+            // ```
+            // 11:12:30 AM [vite] ✨ new dependencies optimized: telefunc
+            // 11:12:30 AM [vite] ✨ optimized dependencies changed. reloading
+            // ```
+            'telefunc'
+          ]
         }
       }),
       async configResolved(config) {
