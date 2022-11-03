@@ -1,3 +1,12 @@
+## [0.1.30](https://github.com/brillout/telefunc/compare/v0.1.29...v0.1.30) (2022-11-03)
+
+
+### Bug Fixes
+
+* workaround Vite bug that wrongfully pre-optimizes `telefunc` module ([7ead64b](https://github.com/brillout/telefunc/commit/7ead64bf1b09571eb753d587bcdc7b1cec7420dc))
+
+
+
 ## [0.1.29](https://github.com/brillout/telefunc/compare/v0.1.28...v0.1.29) (2022-11-02)
 
 
