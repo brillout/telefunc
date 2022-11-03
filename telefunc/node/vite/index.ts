@@ -11,11 +11,15 @@ import { packageJsonFile } from './plugins/packageJsonFile'
 import { importBuild } from './plugins/importBuild'
 import { previewConfig } from './plugins/previewConfig'
 import { printShieldGenResult } from './plugins/printShieldGenResult'
+import { manifest } from './plugins/manifest'
 import { importGlobOn } from './importGlob/toggle'
 
+import { ConfigUser } from '../server/serverConfig'
+
 // Return as `any` to avoid Plugin type mismatches when there are multiple Vite versions installed
-function plugin(): any {
+function plugin(config?: ConfigUser): any {
   importGlobOn()
+
   const plugins: Plugin[] = [
     transform(),
     commonConfig(),
@@ -25,6 +29,7 @@ function plugin(): any {
     packageJsonFile(),
     ...importBuild(),
     previewConfig(),
+    manifest(config),
     printShieldGenResult()
   ]
   return plugins

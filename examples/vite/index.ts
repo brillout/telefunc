@@ -1,3 +1,3 @@
-import { onHello } from './index.telefunc'
-const { message } = await onHello({ name: 'Eva' })
+import { hello } from './hello.telefunc'
+const { message } = await hello({ name: 'Eva' })
 document.querySelector('#view')!.textContent = message

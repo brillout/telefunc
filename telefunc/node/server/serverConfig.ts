@@ -1,5 +1,6 @@
 export { configUser as telefuncConfig }
 export { resolveServerConfig }
+export type { ConfigUser }
 
 import type { ViteDevServer } from 'vite'
 import { isAbsolute } from 'path'

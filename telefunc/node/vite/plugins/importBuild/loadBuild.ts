@@ -1,23 +1,38 @@
 export { loadTelefuncFilesWithImportBuild }
-export { setBuildLoader }
+export { setLoaders }
 
-const buildGetter = (globalThis.__telefunc_vite_buildGetter = globalThis.__telefunc_vite_buildGetter || {
-  loadTelefuncFiles: null
-})
+import { telefuncConfig } from '../../../server/serverConfig'
+import { getGlobalObject } from '../../utils'
+import { assertManifest } from '../manifest/assertManifest'
 
-function setBuildLoader({ loadTelefuncFiles }: { loadTelefuncFiles: () => Promise<unknown> }) {
-  buildGetter.loadTelefuncFiles = loadTelefuncFiles
+const globalObject = getGlobalObject<{
+  loadTelefuncFiles?: LoadTelefuncFiles
+}>('loadBuild.ts', {})
+
+type LoadTelefuncFiles = () => Promise<unknown>
+type LoadManifest = () => Record<string, unknown>
+
+function setLoaders({
+  loadTelefuncFiles,
+  loadManifest
+}: {
+  loadTelefuncFiles: LoadTelefuncFiles
+  loadManifest: LoadManifest
+}) {
+  globalObject.loadTelefuncFiles = loadTelefuncFiles
+  setServerConfig(loadManifest)
 }
+
+function setServerConfig(loadManifest: LoadManifest) {
+  const manifest = loadManifest()
+  assertManifest(manifest)
+  Object.assign(telefuncConfig, manifest.config)
+}
+
 async function loadTelefuncFilesWithImportBuild(): Promise<unknown> {
-  if (buildGetter.loadTelefuncFiles === null) {
+  if (!globalObject.loadTelefuncFiles) {
     return null
   }
-  const moduleExports = await buildGetter.loadTelefuncFiles()
+  const moduleExports = await globalObject.loadTelefuncFiles()
   return moduleExports
-}
-
-declare global {
-  var __telefunc_vite_buildGetter: {
-    loadTelefuncFiles: (() => Promise<unknown>) | null
-  }
 }

@@ -5,6 +5,7 @@ import type { Plugin, ResolvedConfig } from 'vite'
 import { projectInfo, toPosixPath, getOutDirs } from '../../utils'
 import path from 'path'
 import { telefuncFilesGlobFileNameBase } from '../../importGlob/telefuncFilesGlobFileNameBase'
+import { manifestFileName } from '../manifest'
 
 function importBuild(): Plugin[] {
   let config: ResolvedConfig
@@ -35,9 +36,10 @@ function getImporterCode(config: ResolvedConfig, telefuncFilesEntry: string) {
   const importPath = path.posix.relative(outDirServer, importPathAbsolute)
   // console.log(`\n  importPath: ${importPath}\n  outDirServer: ${outDirServer}\n  importPathAbsolute: ${importPathAbsolute}\n  config.build.outDir: ${config.build.outDir}`)
   const importerCode = [
-    `const { setBuildLoader } = require('${importPath}');`,
-    'setBuildLoader({',
-    `  loadTelefuncFiles: () => import('./${telefuncFilesEntry}')`,
+    `const { setLoaders } = require('${importPath}');`,
+    'setLoaders({',
+    `  loadTelefuncFiles: () => import('./${telefuncFilesEntry}'),`,
+    `  loadManifest: () => require('./${manifestFileName}')`,
     '});',
     ''
   ].join('\n')
