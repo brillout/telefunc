@@ -20,6 +20,7 @@ function devConfig(): Plugin[] {
             // 11:12:30 AM [vite] ✨ new dependencies optimized: telefunc
             // 11:12:30 AM [vite] ✨ optimized dependencies changed. reloading
             // ```
+            // (Vite correctly bundles `package.json#exports["."].browser` though.)
             'telefunc'
           ]
         }
