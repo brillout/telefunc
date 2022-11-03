@@ -4,7 +4,7 @@ import type { Plugin } from 'vite'
 import type { InputOption } from 'rollup'
 import { telefuncFilesGlobFileNameBase } from '../importGlob/telefuncFilesGlobFileNameBase'
 import { telefuncFilesGlobFilePath } from '../importGlob/telefuncFilesGlobPath'
-import { assert, isObject, viteIsSSR, determineOutDir } from '../utils'
+import { assert, isObject, determineOutDir } from '../utils'
 
 function buildConfig(): Plugin {
   return {
@@ -12,16 +12,15 @@ function buildConfig(): Plugin {
     apply: 'build',
     config: (config) => {
       const outDir = determineOutDir(config)
-      if (!viteIsSSR(config)) {
+      if (!config.build?.ssr) {
         return {
           build: {
             outDir
           }
         }
       } else {
-        const viteEntry = getViteEntry()
         const input = {
-          ...viteEntry,
+          [telefuncFilesGlobFileNameBase]: telefuncFilesGlobFilePath,
           ...normalizeRollupInput(config.build?.rollupOptions?.input)
         }
         return {
@@ -39,7 +38,7 @@ function normalizeRollupInput(input?: InputOption): Record<string, string> {
   if (!input) {
     return {}
   }
-  /*
+  /* So far, it seems like we don't this.
   if (typeof input === "string") {
     return { [input]: input };
   }
@@ -49,11 +48,4 @@ function normalizeRollupInput(input?: InputOption): Record<string, string> {
   */
   assert(isObject(input))
   return input
-}
-
-function getViteEntry() {
-  const viteEntry = {
-    [telefuncFilesGlobFileNameBase]: telefuncFilesGlobFilePath
-  }
-  return viteEntry
 }
