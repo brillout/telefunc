@@ -1,3 +1,13 @@
+## [0.1.32](https://github.com/brillout/telefunc/compare/v0.1.31...v0.1.32) (2022-11-03)
+
+
+### Bug Fixes
+
+* let Vite discover nested dependency upon pre-optimizing ([164afd3](https://github.com/brillout/telefunc/commit/164afd38b591d500805b0f72fe66eec1905b59f3))
+* update `@brillout/json-serializer` ([755a8ba](https://github.com/brillout/telefunc/commit/755a8ba65a2a4f625f57446a57b213e500f782b7))
+
+
+
 ## [0.1.31](https://github.com/brillout/telefunc/compare/v0.1.30...v0.1.31) (2022-11-03)
 
 

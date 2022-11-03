@@ -18,7 +18,7 @@
     "@cloudflare/wrangler": "^1.19.8",
     "express": "^4.17.2",
     "miniflare": "^2.3.0",
-    "telefunc": "0.1.31",
+    "telefunc": "0.1.32",
     "vite": "^2.8.1"
   }
 }
