@@ -53,7 +53,7 @@
   },
   "dependencies": {
     "@brillout/import": "^0.1.2",
-    "@brillout/json-serializer": "^0.5.2",
+    "@brillout/json-serializer": "^0.5.3",
     "@brillout/vite-plugin-import-build": "^0.1.0",
     "es-module-lexer": "^0.7.1",
     "picocolors": "^1.0.0",

@@ -209,7 +209,7 @@ importers:
   telefunc:
     specifiers:
       '@brillout/import': ^0.1.2
-      '@brillout/json-serializer': ^0.5.2
+      '@brillout/json-serializer': ^0.5.3
       '@brillout/release-me': ^0.0.8
       '@brillout/vite-plugin-import-build': ^0.1.0
       '@nuxt/types': ^2.15.8
@@ -225,7 +225,7 @@ importers:
       vite: ^3.2.2
     dependencies:
       '@brillout/import': 0.1.2
-      '@brillout/json-serializer': 0.5.2
+      '@brillout/json-serializer': 0.5.3
       '@brillout/vite-plugin-import-build': 0.1.0
       es-module-lexer: 0.7.1
       picocolors: 1.0.0
@@ -2741,8 +2741,8 @@ packages:
     resolution: {integrity: sha512-wTTbuWmrNBlF9WYq/YJ91UZvEi27uYdV12dOeKBujUojPihs5EhMi8uItugF8iJ797o3la8A9oWfy52OwCIs+Q==}
     dev: false
 
-  /@brillout/json-serializer/0.5.2:
-    resolution: {integrity: sha512-Jeq5BqlFKUoOdPQL3W4P8emlkkmtyfD72Q1H6K8JF/1b0F3TrdiY532C9+T+sk6oMNzsQW7DfYDW/NspEgSSHQ==}
+  /@brillout/json-serializer/0.5.3:
+    resolution: {integrity: sha512-IxlOMD5gOM0WfFGdeR98jHKiC82Ad1tUnSjvLS5jnRkfMEKBI+YzHA32Umw8W3Ccp5N4fNEX229BW6RaRpxRWQ==}
     dev: false
 
   /@brillout/part-regex/0.1.2:
