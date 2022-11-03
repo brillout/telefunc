@@ -1,6 +1,6 @@
 export { makeHttpRequest }
 
-import { parse } from '@brillout/json-s/parse'
+import { parse } from '@brillout/json-serializer/parse'
 import { assert, assertUsage, isObject, objectAssign } from '../utils'
 import { executeCallErrorListeners } from './onTelefunctionRemoteCallError'
 

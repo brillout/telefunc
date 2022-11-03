@@ -1,6 +1,6 @@
 export { parseHttpRequest }
 
-import { parse } from '@brillout/json-s/parse'
+import { parse } from '@brillout/json-serializer/parse'
 import {
   assertUsage,
   hasProp,
