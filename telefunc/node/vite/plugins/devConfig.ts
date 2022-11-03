@@ -29,7 +29,7 @@ function devConfig(): Plugin[] {
       }
     },
     {
-      name: 'vite-plugin-ssr:dev:ssr-middleware',
+      name: 'vite-plugin-ssr:devConfig:serverMiddleware',
       apply: apply('dev', { skipMiddlewareMode: true, onlyViteCli: true }),
       configureServer(server) {
         return () => {
