@@ -1,3 +1,12 @@
+## [0.1.31](https://github.com/brillout/telefunc/compare/v0.1.30...v0.1.31) (2022-11-03)
+
+
+### Features
+
+* allow server config to be defined with `vite.config.js` ([41440e2](https://github.com/brillout/telefunc/commit/41440e2bdce0693dc72e9f555e9889dbc0db70f8))
+
+
+
 ## [0.1.30](https://github.com/brillout/telefunc/compare/v0.1.29...v0.1.30) (2022-11-03)
 
 
