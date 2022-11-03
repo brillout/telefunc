@@ -10,7 +10,9 @@ function devConfig(): Plugin[] {
       name: 'vite-plugin-ssr:devConfig',
       apply: apply('dev'),
       config: () => ({
-        ssr: { external: ['telefunc'] }
+        optimizeDeps: {
+          include: ['telefunc/client', '@brillout/json-s/parse', '@brillout/json-s/stringify']
+        }
       }),
       async configResolved(config) {
         await determineFsAllowList(config)

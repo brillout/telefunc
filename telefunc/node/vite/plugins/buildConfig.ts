@@ -1,15 +1,14 @@
+export { buildConfig }
+
 import type { Plugin } from 'vite'
 import type { InputOption } from 'rollup'
-import { assert, isObject } from '../utils'
-import { telefuncFilesGlobFileNameBase } from './telefuncFilesGlobFileNameBase'
-import { telefuncFilesGlobFilePath } from './telefuncFilesGlobPath'
-import { viteIsSSR, determineOutDir } from './utils'
+import { telefuncFilesGlobFileNameBase } from '../importGlob/telefuncFilesGlobFileNameBase'
+import { telefuncFilesGlobFilePath } from '../importGlob/telefuncFilesGlobPath'
+import { assert, isObject, viteIsSSR, determineOutDir } from '../utils'
 
-export { build }
-
-function build(): Plugin {
+function buildConfig(): Plugin {
   return {
-    name: 'telefunc:build',
+    name: 'telefunc:buildConfig',
     apply: 'build',
     config: (config) => {
       const outDir = determineOutDir(config)

@@ -4,7 +4,7 @@ import { importBuild as importBuild_ } from '@brillout/vite-plugin-import-build/
 import type { Plugin, ResolvedConfig } from 'vite'
 import { projectInfo, toPosixPath, getOutDirs } from '../../utils'
 import path from 'path'
-import { telefuncFilesGlobFileNameBase } from '../../telefuncFilesGlobFileNameBase'
+import { telefuncFilesGlobFileNameBase } from '../../importGlob/telefuncFilesGlobFileNameBase'
 
 function importBuild(): Plugin[] {
   let config: ResolvedConfig

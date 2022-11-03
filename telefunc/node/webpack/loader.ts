@@ -1,7 +1,7 @@
 import { toPosixPath } from '../utils'
 import { transformTelefuncFileClientSide } from '../transformer/transformTelefuncFileClientSide'
 import { transformTelefuncFileServerSide } from '../transformer/transformTelefuncFileServerSide'
-import '../vite/clear' // When running Telefunc's test suite, a previous Vite test may have generated files that need to be removed.
+import '../vite/helpers/clear' // When running Telefunc's test suite, a previous Vite test may have generated files that need to be removed.
 import type { Loader } from './types'
 import { getInfo } from './getInfo'
 
