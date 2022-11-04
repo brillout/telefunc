@@ -10,18 +10,18 @@ import { assertWarning, assertUsage, hasProp, toPosixPath, isTelefuncFilePath } 
 type ConfigUser = {
   /** The Telefunc HTTP endpoint URL, e.g. `/api/_telefunc`. Default: `/_telefunc`. */
   telefuncUrl?: string
+  /** See https://telefunc.com/event-based#naming-convention */
+  disableNamingConvention?: boolean
+  /** Your `.telefunc.js` files */
+  telefuncFiles?: string[]
   /** Your project root directory, e.g. `/home/alice/code/my-app/` */
   root?: string
   /** Wether to disable ETag cache headers */
   disableEtag?: boolean
-  /** Your `.telefunc.js` files */
-  telefuncFiles?: string[]
-  /** Enable debug logs */
-  debug?: boolean
-  /** See https://telefunc.com/event-based#naming-convention */
-  disableNamingConvention?: boolean
   /** @deprecated */
   viteDevServer?: ViteDevServer
+  /** Enable debug logs */
+  debug?: boolean
 }
 type ConfigResolved = {
   telefuncUrl: string
