@@ -3,7 +3,7 @@ export { resolveClientConfig }
 
 import { assertUsage } from './utils'
 
-/** Telefunc Server Configuration */
+/** Telefunc Client Configuration */
 type ConfigUser = {
   /** The Telefunc HTTP endpoint URL, e.g. `https://example.org/_telefunc`. Default: `/_telefunc`. */
   telefuncUrl?: string
