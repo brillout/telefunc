@@ -1,5 +1,5 @@
 export { telefuncConfig } from './clientConfig'
-export { onTelefunctionRemoteCallError } from './remoteTelefunctionCall/onTelefunctionRemoteCallError'
+export { onAbort, onTelefunctionRemoteCallError } from './remoteTelefunctionCall/onAbort'
 export type { TelefunctionError } from './TelefunctionError'
 
 export { remoteTelefunctionCall as __remoteTelefunctionCall } from './remoteTelefunctionCall'

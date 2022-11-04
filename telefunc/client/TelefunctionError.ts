@@ -1,18 +1,18 @@
 export type { TelefunctionError }
+export type { TelefunctionCallAbort }
 
-type TelefunctionError = Error &
-  (
-    | {
-        isConnectionError?: undefined
-        isAbort?: undefined
-      }
-    | {
-        isConnectionError: true
-        isAbort?: undefined
-      }
-    | {
-        isConnectionError?: undefined
-        isAbort: true
-        abortValue: unknown
-      }
-  )
+type TelefunctionError = TelefunctionCallErrorSsr | TelefunctionCallErrorConnection | TelefunctionCallAbort
+
+type TelefunctionCallErrorSsr = Error & {
+  isConnectionError?: undefined
+  isAbort?: undefined
+}
+type TelefunctionCallErrorConnection = Error & {
+  isConnectionError: true
+  isAbort?: undefined
+}
+type TelefunctionCallAbort = Error & {
+  isConnectionError?: undefined
+  isAbort: true
+  abortValue: unknown
+}

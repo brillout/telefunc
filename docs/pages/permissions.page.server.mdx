@@ -96,12 +96,10 @@ function getUser() {
 ```js
 // Environment: Browser
 
-import { onTelefunctionRemoteCallError } from 'telefunc/client'
+import { onAbort } from 'telefunc/client'
 
-// onTelefunctionRemoteCallError() is called whenever the browser-side fails to make
-// a telefunction call, allowing us to implement global behavior like below
-onTelefunctionRemoteCallError(err => {
-  if (err.isAbort && err.abortValue.notLoggedIn) {
+onAbort(err => {
+  if (err.abortValue.notLoggedIn) {
     // Redirect user to login page
     window.location.href = '/login'
   }

@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom/client'
 import { PageShell } from './PageShell'
 import type { PageContextClient } from './types'
 
-import { onTelefunctionRemoteCallError } from 'telefunc/client'
+import { onAbort } from 'telefunc/client'
 
 let root: ReactDOM.Root
 async function render(pageContext: PageContextClient) {
@@ -27,8 +27,8 @@ async function render(pageContext: PageContextClient) {
   }
 }
 
-onTelefunctionRemoteCallError((err) => {
-  if (err.isAbort && err.abortValue === 'LOGGED_OUT') {
+onAbort((err) => {
+  if (err.abortValue === 'LOGGED_OUT') {
     window.location.reload()
   }
 })

@@ -2,7 +2,7 @@ export { makeHttpRequest }
 
 import { parse } from '@brillout/json-serializer/parse'
 import { assert, assertUsage, isObject, objectAssign } from '../utils'
-import { executeCallErrorListeners } from './onTelefunctionRemoteCallError'
+import { callOnAbortListeners } from './onAbort'
 
 const method = 'POST'
 const STATUS_CODE_SUCCESS = 200
@@ -31,7 +31,6 @@ async function makeHttpRequest(callContext: {
   } catch (_) {
     const telefunctionCallError = new Error('No Server Connection')
     objectAssign(telefunctionCallError, { isConnectionError: true as const })
-    executeCallErrorListeners(telefunctionCallError)
     throw telefunctionCallError
   }
 
@@ -48,7 +47,7 @@ async function makeHttpRequest(callContext: {
       `Aborted telefunction call ${callContext.telefunctionName}() (${callContext.telefuncFilePath}).`
     )
     objectAssign(telefunctionCallError, { isAbort: true as const, abortValue })
-    executeCallErrorListeners(telefunctionCallError)
+    callOnAbortListeners(telefunctionCallError)
     throw telefunctionCallError
   } else if (statusCode === STATUS_CODE_BUG) {
     const responseBody = await response.text()
