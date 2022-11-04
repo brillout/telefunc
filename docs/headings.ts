@@ -12,10 +12,6 @@ const headingsWithoutLink: HeadingWithoutLink[] = [
     url: '/ssr-context'
   },
   {
-    title: 'Isomorphic `import`',
-    url: '/isomorphic-import'
-  },
-  {
     title: 'RPC',
     url: '/RPC'
   },
