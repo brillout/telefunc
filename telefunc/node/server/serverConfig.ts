@@ -2,9 +2,8 @@ export { configUser as telefuncConfig }
 export { resolveServerConfig }
 export type { ConfigUser }
 
-import type { ViteDevServer } from 'vite'
 import { isAbsolute } from 'path'
-import { assertWarning, assertUsage, hasProp, toPosixPath, isTelefuncFilePath } from '../utils'
+import { assertUsage, hasProp, toPosixPath, isTelefuncFilePath } from '../utils'
 
 /** Telefunc Server Configuration */
 type ConfigUser = {
@@ -18,8 +17,6 @@ type ConfigUser = {
   root?: string
   /** Wether to disable ETag cache headers */
   disableEtag?: boolean
-  /** @deprecated */
-  viteDevServer?: ViteDevServer
 }
 type ConfigResolved = {
   telefuncUrl: string
@@ -57,15 +54,6 @@ function validateUserConfig(configUserUnwrapped: ConfigUser, prop: string, val: 
     assertUsage(typeof val === 'string', 'telefuncConfig.root should be a string')
     assertUsage(isAbsolute(val), 'telefuncConfig.root should be an absolute path')
     configUserUnwrapped[prop] = val
-  } else if (prop === 'viteDevServer') {
-    assertWarning(
-      false,
-      '`telefuncConfig.viteDevServer` is not needed anymore. Remove your `telefuncConfig.viteDevServer` configuration to get rid of this message. (Telefunc now automatically retrieves the Vite dev server.)',
-      {
-        onlyOnce: true,
-        showStackTrace: true
-      }
-    )
   } else if (prop === 'telefuncUrl') {
     assertUsage(typeof val === 'string', 'telefuncConfig.telefuncUrl should be a string')
     assertUsage(val.startsWith('/'), "telefuncConfig.telefuncUrl should start with '/'")
