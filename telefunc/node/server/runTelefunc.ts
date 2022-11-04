@@ -62,7 +62,6 @@ async function runTelefunc_(httpRequest: { url: string; method: string; body: un
       httpRequest,
       serverConfig: {
         disableNamingConvention: serverConfig.disableNamingConvention,
-        debug: serverConfig.debug,
         telefuncUrl: serverConfig.telefuncUrl
       },
       appRootDir: serverConfig.root,
@@ -72,7 +71,7 @@ async function runTelefunc_(httpRequest: { url: string; method: string; body: un
   }
 
   {
-    const logInvalidRequests = !isProduction() || runContext.serverConfig.debug
+    const logInvalidRequests = !isProduction() /* || process.env.DEBUG.includes('telefunc') */
     objectAssign(runContext, { logInvalidRequests })
   }
 

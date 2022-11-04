@@ -20,15 +20,12 @@ type ConfigUser = {
   disableEtag?: boolean
   /** @deprecated */
   viteDevServer?: ViteDevServer
-  /** Enable debug logs */
-  debug?: boolean
 }
 type ConfigResolved = {
   telefuncUrl: string
   root: string | null
   disableEtag: boolean
   telefuncFiles: string[] | null
-  debug: boolean
   disableNamingConvention: boolean
 }
 
@@ -39,12 +36,6 @@ function resolveServerConfig(): ConfigResolved {
     disableEtag: configUser.disableEtag ?? false,
     disableNamingConvention: configUser.disableNamingConvention ?? false,
     telefuncUrl: configUser.telefuncUrl || '/_telefunc',
-    debug:
-      configUser.debug ??
-      (() => {
-        if (typeof process == 'undefined' || !hasProp(process, 'env')) return false
-        return !!process.env.DEBUG
-      })(),
     telefuncFiles: (() => {
       if (configUser.telefuncFiles) {
         return configUser.telefuncFiles.map(toPosixPath)
@@ -90,9 +81,6 @@ function validateUserConfig(configUserUnwrapped: ConfigUser, prop: string, val: 
     configUserUnwrapped[prop] = val
   } else if (prop === 'disableEtag') {
     assertUsage(typeof val === 'boolean', 'telefuncConfig.disableEtag should be a boolean')
-    configUserUnwrapped[prop] = val
-  } else if (prop === 'debug') {
-    assertUsage(typeof val === 'boolean', 'telefuncConfig.debug should be a boolean')
     configUserUnwrapped[prop] = val
   } else if (prop === 'disableNamingConvention') {
     assertUsage(typeof val === 'boolean', '`telefuncConfig.disableNamingConvention` should be a boolean')
