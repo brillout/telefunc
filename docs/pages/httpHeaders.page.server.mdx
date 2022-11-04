@@ -1,0 +1,15 @@
+Environment: Client.
+
+Send additional HTTP headers to be sent along Telefunc HTTP requests.
+
+Usually used for sending authentication headers.
+
+```js
+// Environment: Browser
+
+import { telefuncConfig } from 'telefunc/client'
+
+telefuncConfig.httpHeaders = {
+  Authorization: `Bearer ${token}`
+}
+```

@@ -1,0 +1,15 @@
+import { Link } from '@brillout/docpress'
+
+Environment: Server.
+
+If our stack doesn't support <Link text="server-side transformation" href="/transformer" />, then we have to use the `telefuncFiles` config for providing the list of `.telefunc.js` files to Telefunc.
+
+```js
+// Environment: Server
+
+import { telefuncConfig } from 'telefunc'
+
+telefuncConfig.telefuncFiles = [
+  require.resolve('./hello.telefunc.mjs')
+]
+```

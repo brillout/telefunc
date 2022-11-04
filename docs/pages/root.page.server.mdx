@@ -1,0 +1,15 @@
+import { Link } from '@brillout/docpress'
+
+Environment: Server.
+
+We use the `root` config to tell Telefunc where our project's root directory lives.
+
+```js
+// Environment: Server
+
+import { telefuncConfig } from 'telefunc'
+
+telefuncConfig.root = '/home/alice/code/my-app/'
+```
+
+It's optional and most stacks don't this config. It's only required if we use <Link href="/telefuncFiles" />.

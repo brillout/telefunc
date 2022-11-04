@@ -1,0 +1,30 @@
+import { Link } from '@brillout/docpress'
+
+We add Telefunc to our server by using the server middleware `telefunc()`:
+
+```js
+// server.js
+
+import { telefunc } from 'telefunc'
+
+// Server (Express.js/Fastify/Koa/Hapi/...)
+app.all('/_telefunc', async (req, res) => {
+  const httpResponse = await telefunc({
+    // *** REQUIRED ***
+    // The HTTP request URL (e.g. `/_telefunc` if we didn't modify `config.telefuncUrl`)
+    url: req.url,
+    // The HTTP request method (GET, POST, ...)
+    method: req.method,
+    // Can be a string, buffer, or stream
+    body: req.body,
+    // *** OPTIONAL ***
+    context: {
+      /* Some context */
+    },
+  })
+  const { body, statusCode, contentType } = httpResponse
+  res.status(statusCode).type(contentType).send(body)
+})
+```
+
+The `context` parameter is needed if we want to use `getContext()`, see <Link href="/getContext#provide" />.

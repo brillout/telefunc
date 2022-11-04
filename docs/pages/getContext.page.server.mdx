@@ -22,19 +22,17 @@ async function onLoad() {
 }
 ```
 
-Before we can use `getContext()`, we need to provide a context object to Telefunc:
-
 
 ## Provide
 
-We provide the `context` object to Telefunc at our server Telefunc middleware:
+Before we can use `getContext()`, we need to provide the `context` object to the <Link text="Telefunc Server Middleware" href="/telefunc" />:
 
 ```js
 // server.js
 
 import { telefunc } from 'telefunc'
 
-// Server middleware (Express.js/Fastify/Koa/Hapi/...)
+// Server (Express.js/Fastify/Koa/Hapi/...)
 app.all('/_telefunc', async (req, res) => {
   // Authentication middlewares (e.g. Passport.js or Grant) usually provide information
   // about the logged-in user on the `req` object.
