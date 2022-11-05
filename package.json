@@ -40,5 +40,10 @@
     "@brillout/test-types": "^0.1.2",
     "vitest": "^0.22.1"
   },
+  "pnpm": {
+    "overrides": {
+      "@brillout/docpress>vite": "npm:@brillout/vite@3.2.2-bugfix-2"
+    }
+  },
   "packageManager": "pnpm@7.9.5"
 }
