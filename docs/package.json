@@ -11,7 +11,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "typescript": "^4.8.4",
-    "@brillout/docpress": "^0.1.7"
+    "@brillout/docpress": "^0.1.8"
   },
   "type": "module"
 }
