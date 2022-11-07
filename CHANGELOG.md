@@ -1,3 +1,14 @@
+## [0.1.33](https://github.com/brillout/telefunc/compare/v0.1.32...v0.1.33) (2022-11-07)
+
+
+### Bug Fixes
+
+* implement `onAbort()` and soft-deprecate `onTelefunctionRemoteCallError()` ([ff15341](https://github.com/brillout/telefunc/commit/ff153416f5eac4a8ce295219c50762f4d37ebc0b))
+* rename `telefuncConfig` to `config` ([01695da](https://github.com/brillout/telefunc/commit/01695da3a71098483949e95ddad06112fd7ca1ff))
+* simplify handling of isomorphic code ([5457a30](https://github.com/brillout/telefunc/commit/5457a303c0979cb63ec9ade5abdc62739367d8b1))
+
+
+
 ## [0.1.32](https://github.com/brillout/telefunc/compare/v0.1.31...v0.1.32) (2022-11-03)
 
 
