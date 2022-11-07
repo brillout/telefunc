@@ -1,13 +1,13 @@
 import express from 'express'
-import { telefunc, telefuncConfig } from 'telefunc'
+import { telefunc, config } from 'telefunc'
 import { createRequire } from 'module'
 
 startServer()
 
-telefuncConfig.disableNamingConvention = true
+config.disableNamingConvention = true
 {
   const require = createRequire(import.meta.url)
-  telefuncConfig.telefuncFiles = [require.resolve('./hello.telefunc.mjs')]
+  config.telefuncFiles = [require.resolve('./hello.telefunc.mjs')]
 }
 
 async function startServer() {

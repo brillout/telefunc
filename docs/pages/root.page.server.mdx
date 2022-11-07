@@ -2,14 +2,14 @@ import { Link } from '@brillout/docpress'
 
 **Environment**: Server.
 
-We use `telefuncConfig.root` to tell Telefunc where our project's root directory lives.
+We use `config.root` to tell Telefunc where our project's root directory lives.
 
 ```js
 // Environment: Server
 
-import { telefuncConfig } from 'telefunc'
+import { config } from 'telefunc'
 
-telefuncConfig.root = '/home/alice/code/my-app/'
+config.root = '/home/alice/code/my-app/'
 ```
 
-It's optional and is only needed if we use <Link text={<code>telefuncConfig.telefuncFiles</code>} href="/telefuncFiles" />.
+It's optional and is only needed if we use <Link text={<code>config.telefuncFiles</code>} href="/telefuncFiles" />.

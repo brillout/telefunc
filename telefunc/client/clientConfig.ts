@@ -1,4 +1,4 @@
-export { configUser as telefuncConfig }
+export { configUser as config }
 export { resolveClientConfig }
 
 import { assertUsage } from './utils'
@@ -26,21 +26,21 @@ function resolveClientConfig(): ConfigResolved {
 
 function validateUserConfig(configUserUnwrapped: ConfigUser, prop: string, val: unknown) {
   if (prop === 'telefuncUrl') {
-    assertUsage(typeof val === 'string', 'telefuncConfig.telefuncUrl should be a string')
+    assertUsage(typeof val === 'string', 'config.telefuncUrl should be a string')
     const isIpAddress = (value: string) => /^\d/.test(value)
     assertUsage(
       val.startsWith('/') || val.startsWith('http') || isIpAddress(val),
-      `Setting \`telefuncConfig.telefuncUrl\` to \`${val}\` but it should be one of the following: a URL pathname (e.g. \`/_telefunc\`), a URL with origin (e.g. \`https://example.org/_telefunc\`), or an IP address (e.g. \`192.158.1.38\`).`
+      `Setting \`config.telefuncUrl\` to \`${val}\` but it should be one of the following: a URL pathname (e.g. \`/_telefunc\`), a URL with origin (e.g. \`https://example.org/_telefunc\`), or an IP address (e.g. \`192.158.1.38\`).`
     )
     configUserUnwrapped[prop] = val
   } else if (prop === 'httpHeaders') {
     assertUsage(
       typeof val === 'object' && val !== null && Object.values(val).every((v) => typeof v === 'string'),
-      '`telefuncConfig.httpHeaders` should be an object of strings'
+      '`config.httpHeaders` should be an object of strings'
     )
     configUserUnwrapped[prop] = val as Record<string, string>
   } else {
-    assertUsage(false, `Unknown telefuncConfig.${prop}`)
+    assertUsage(false, `Unknown config.${prop}`)
   }
 
   return true

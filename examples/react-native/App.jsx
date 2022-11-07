@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { View, Text } from 'react-native'
 import { hello } from './hello.telefunc.mjs'
-import { telefuncConfig } from 'telefunc/client'
+import { config } from 'telefunc/client'
 
-telefuncConfig.telefuncUrl = 'http://localhost:3000/_telefunc'
+config.telefuncUrl = 'http://localhost:3000/_telefunc'
 
 export default function App() {
   const [state, set] = useState({ isLoading: true })

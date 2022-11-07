@@ -1,8 +1,8 @@
-import { telefunc, telefuncConfig } from 'telefunc'
+import { telefunc, config } from 'telefunc'
 
 export { handleTelefunc }
 
-telefuncConfig.disableNamingConvention = true
+config.disableNamingConvention = true
 
 async function handleTelefunc({ url, method, body }) {
   const httpResponse = await telefunc({ url, method, body })

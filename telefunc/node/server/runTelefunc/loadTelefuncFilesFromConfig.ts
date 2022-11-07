@@ -11,7 +11,7 @@ async function loadTelefuncFilesFromConfig(runContext: {
   telefuncFilePath: string
 }): Promise<{ telefuncFilesLoaded: TelefuncFiles; telefuncFilesAll: string[] }> {
   const { appRootDir } = runContext
-  assertUsage(appRootDir, 'You need to set `telefuncConfig.root` to be able to use `telefuncConfig.telefuncFiles`')
+  assertUsage(appRootDir, 'You need to set `config.root` to be able to use `config.telefuncFiles`')
   assertPosixPath(appRootDir)
   const telefuncFilesLoaded: TelefuncFiles = {}
   const telefuncFilesAll: string[] = []

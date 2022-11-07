@@ -1,9 +1,9 @@
 import { getUser } from '../../auth/getUser'
-import { telefunc, telefuncConfig, provideTelefuncContext } from 'telefunc'
+import { telefunc, config, provideTelefuncContext } from 'telefunc'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import assert from 'assert'
 
-telefuncConfig.telefuncUrl = '/api/_telefunc'
+config.telefuncUrl = '/api/_telefunc'
 
 export default async function telefuncMiddleware(req: NextApiRequest, res: NextApiResponse) {
   const user = getUser(req)

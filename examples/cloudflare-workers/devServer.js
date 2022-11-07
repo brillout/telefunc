@@ -1,5 +1,5 @@
 const express = require('express')
-const { telefunc, telefuncConfig } = require('telefunc')
+const { telefunc, config } = require('telefunc')
 
 startServer()
 
@@ -18,7 +18,7 @@ function start(app) {
 
 function installTelefunc(app) {
   app.use(express.text())
-  telefuncConfig.disableNamingConvention = true
+  config.disableNamingConvention = true
   app.all('/_telefunc', async (req, res) => {
     const { originalUrl: url, method, body } = req
     const httpResponse = await telefunc({ url, method, body })

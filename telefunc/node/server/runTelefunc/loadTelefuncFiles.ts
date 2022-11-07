@@ -14,7 +14,7 @@ async function loadTelefuncFiles(runContext: {
   telefuncFilePath: string
 }): Promise<{ telefuncFilesLoaded: TelefuncFiles; telefuncFilesAll: string[] }> {
   // Handles:
-  // - When the user provides the telefunc file paths with `telefuncConfig.telefuncFiles`
+  // - When the user provides the telefunc file paths with `config.telefuncFiles`
   {
     if (runContext.telefuncFilesManuallyProvidedByUser) {
       assert(hasProp(runContext, 'telefuncFilesManuallyProvidedByUser', 'string[]')) // Help TS narrow `runContext`

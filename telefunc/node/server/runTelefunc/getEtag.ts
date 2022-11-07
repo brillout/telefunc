@@ -16,7 +16,7 @@ async function getEtag(runContext: { disableEtag: boolean; httpResponseBody: str
     /*
     assertWarning(
       false,
-      'The HTTP response ETag header missing because the Node.js module `crypto` could not be loaded. Set `telefuncConfig.disableEtag = true` to remove this warning.',
+      'The HTTP response ETag header missing because the Node.js module `crypto` could not be loaded. Set `config.disableEtag = true` to remove this warning.',
       { onlyOnce: true }
     )
     */
