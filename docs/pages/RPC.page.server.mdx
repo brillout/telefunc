@@ -2,8 +2,8 @@ import { Link } from '@brillout/docpress'
 
 > This page explains:
 > - What RPC is.
-> - How RPC and Telefunc work.
-> - RPC endpoints (i.e. telefunctions) already need protection.
+> - How RPC (and Telefunc) work.
+> - That RPC endpoints (i.e. telefunctions) need protection.
 >
 > You can skip reading this page if you are alreay familiar with RPC.
 
@@ -13,7 +13,7 @@ Telefunc enables functions defined on the server-side to be called remotely from
 
 ```js
 // hello.telefunc.js
-// Environment: Node.js server
+// Environment: Server
 
 export { hello }
 
@@ -55,11 +55,11 @@ This, in essence, enables our frontend to use SQL/ORM queries.
 
 ```js
 // TodoList.telefunc.js
-// Environment: Node.js server
+// Environment: Server
 
-export { getTodoItems }
+export { onLoad }
 
-async function getTodoItems() {
+async function onLoad() {
   // ORM
   const todoItems = await Todo.findMany({ select: 'text' })
   // SQL
@@ -73,12 +73,12 @@ async function getTodoItems() {
 // TodoList.jsx
 // Environment: Browser
 
-import { getTodoItems } from './TodoList.telefunc.js'
+import { onLoad } from './TodoList.telefunc.js'
 
 async function TodoList() {
-  // Our frontend uses the telefunction `getTodoItems()` to execute a SQL/ORM query that
+  // Our frontend uses the telefunction `onLoad()` to execute a SQL/ORM query that
   // retrieves the data it needs.
-  const todoItems = await getTodoItems()
+  const todoItems = await onLoad()
   return (
     <ul>{ todoItems.map(item =>
       <li>{ item.text }</li>
@@ -95,7 +95,7 @@ Our frontend can also use telefunctions to mutate data.
 
 ```js
 // CreateTodo.telefunc.js
-// Environment: Node.js server
+// Environment: Server
 
 import { shield } from 'telefunc'
 
@@ -153,7 +153,7 @@ Let's see what happens when we call a telefunction.
 
 ```js
 // hello.telefunc.js
-// Environment: Node.js server
+// Environment: Server
 
 export { hello }
 
@@ -234,7 +234,7 @@ Thus, such telefunction is problematic:
 
 ```js
 // sql.telefunc.js
-// Environment: Node.js server
+// Environment: Server
 
 export { run }
 
@@ -270,7 +270,7 @@ the following telefunction is not safe.
 
 ```js
 // run.telefunc.js
-// Environment: Node.js server
+// Environment: Server
 
 export { run }
 
@@ -283,7 +283,7 @@ But we can `throw Abort()` to protect it:
 
 ```js
 // run.telefunc.js
-// Environment: Node.js server
+// Environment: Server
 
 import { Abort, getContext } from 'telefunc'
 
@@ -306,7 +306,7 @@ By using `throw Abort()` we essentially cancel forbidden telefunction calls:
 
 ```js
 // TodoList.telefunc.js
-// Environment: Node.js
+// Environment: Server
 
 // `getTodoList()` is a public: it can be called not only by our frontend but really by anyone
 export { getTodoList }
@@ -344,7 +344,7 @@ We can also use `throw Abort()` to ensure the type of telefunction arguments:
 
 ```js
 // CreateTodo.telefunc.js
-// Environment: Node.js server
+// Environment: Server
 
 export async function onNewTodo(text) {
   // While our frontend may always call `onNewTodo(text)` with `typeof text === 'string'`,
@@ -368,7 +368,7 @@ But this quickly becomes cumbersome:
 
 ```js
 // CreateTodo.telefunc.js
-// Environment: Node.js
+// Environment: Server
 
 export async function onNewTodo(args) {
   if (
@@ -387,7 +387,7 @@ For more convenience we can use `shield()` instead of `throw Abort()`:
 
 ```js
 // CreateTodo.telefunc.js
-// Environment: Node.js server
+// Environment: Server
 
 import { shield } from 'telefunc'
 const t = shield.type
@@ -400,7 +400,7 @@ export async function onNewTodo(text) {
 
 ```js
 // CreateTodo.telefunc.js
-// Environment: Node.js
+// Environment: Server
 
 import { shield } from 'telefunc'
 const t = shield.type
@@ -449,7 +449,7 @@ But we still need to use `throw Abort()` to protect our telefunction against cal
 
 ```js
 // Comment.telefunc.js
-// Environment: Node.js
+// Environment: Server
 
 import { getContext, Abort, shield } from 'telefunc'
 

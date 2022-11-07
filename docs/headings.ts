@@ -22,7 +22,11 @@ const headingsWithoutLink: HeadingWithoutLink[] = [
   {
     title: 'Telefunc Transformer',
     url: '/transformer'
-  }
+  },
+  {
+    title: 'RPC vs GraphQL/REST',
+    url: '/RPC-vs-GraphQL-REST'
+  },
 ]
 
 export const headings: HeadingDefinition[] = [
@@ -36,11 +40,6 @@ export const headings: HeadingDefinition[] = [
     title: 'Introduction',
     titleDocument: 'Telefunc',
     url: '/'
-  },
-  {
-    level: 2,
-    title: 'RPC vs GraphQL/REST',
-    url: '/RPC-vs-GraphQL-REST'
   },
   {
     level: 1,
