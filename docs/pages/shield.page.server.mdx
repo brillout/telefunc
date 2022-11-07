@@ -1,5 +1,7 @@
 import { Link } from '@brillout/docpress'
 
+**Environment**: Server.
+
 We use `shield()` to assert telefunction arguments;
 as explained in <Link href="/RPC" />,
 telefunctions are public and need protection.
@@ -7,20 +9,22 @@ telefunctions are public and need protection.
 
 ## TypeScript
 
-Telefunc automatically generates `shield()` for telefunctions,
-if we use a stack that transpile server-side code (e.g. Next.js, Nuxt, and Vite).
+Telefunc can automatically generate `shield()` for telefunctions.
+
+> Telefunc only does this for stacks that transpile server-side code (e.g. Next.js, Nuxt, and Vite).
 
 ```ts
 // hello.telefunc.ts
 
-// No need to define `shield()` when using TypeScript: Telefunc automatically generates `shield()`.
-// I.e. Telefunc aborts if a third-party calls `hello({ name: 42 })`.
+// No need to define shield() when using TypeScript: Telefunc automatically generates `shield()`.
+// For example here, Telefunc automatically aborts the telefunction call if the argument is
+// `hello({ name: 42 })`: `name` is a `number` but should be a `string`.
 export async function hello({ name }: { name: string }) {
    return `Welcome to Telefunc, ${name}.`
 }
 ```
 
-This means that, not only do we seamlessly use types across frontend-backend, but we also get runtime type-safety for free.
+This means that, not only can we seamlessly use types across frontend-backend, but we also get automatic runtime type-safety.
 
 > When using Telefunc with a TypeScript ORM (e.g. [Prisma](https://www.prisma.io/)) or SQL builder (e.g. [Kysely](https://github.com/koskimas/kysely) or [others](https://github.com/stars/brillout/lists/sql)), we get end-to-end type safety all the way from database to frontend.
 
@@ -44,16 +48,12 @@ Note that the following won't work:
 ```ts
 import { shield } from 'telefunc'
 
-export shield(onNewTodo, [shield.type.string])
+shield(onNewTodo, [shield.type.string])
 // TypeScript cannot infer the type of named functions by design.
-async function onNewTodo(text) {
+export async function onNewTodo(text) {
   // ❌ TypeScript doesn't know that `text` is of type `string`
 }
 ```
-
-> For a reference table of all types `shield.type.*` with their TypeScript counterparts,
-> see <Link href="/shield#all-types" />.
-
 
 
 ## Common types

@@ -97,9 +97,9 @@ Our frontend can also use telefunctions to mutate data.
 // CreateTodo.telefunc.js
 // Environment: Server
 
-import { shield } from 'telefunc'
-
 export { onNewTodo }
+
+import { shield } from 'telefunc'
 
 // We'll talk about `shield()` in a moment
 shield(onNewTodo, [shield.type.string])
@@ -256,13 +256,6 @@ curl https://our-website.com/_telefunc --data '{
 We should always keep mind that our telefunctions are public and need protection.
 
 
-
-
-
-
-
-TMP
-
 ## `throw Abort()`
 
 As we've seen in the previous section,
@@ -285,9 +278,9 @@ But we can `throw Abort()` to protect it:
 // run.telefunc.js
 // Environment: Server
 
-import { Abort, getContext } from 'telefunc'
-
 export { run }
+
+import { Abort, getContext } from 'telefunc'
 
 async function run(sql) {
   // We'll talk about `getContext()` later
@@ -308,15 +301,15 @@ By using `throw Abort()` we essentially cancel forbidden telefunction calls:
 // TodoList.telefunc.js
 // Environment: Server
 
-// `getTodoList()` is a public: it can be called not only by our frontend but really by anyone
-export { getTodoList }
+// `onLoad()` is a public: it can be called not only by our frontend but really by anyone
+export { onLoad }
 
 import { getContext } from 'telefunc'
 
-async function getTodoList() {
+async function onLoad() {
   const { user } = getContext()
 
-  // We forbid `getTodoList()` to be called by a user that is not not logged-in
+  // We forbid `onLoad()` to be called by a user that is not not logged-in
   if (!user) {
     throw Abort()
   }
@@ -340,7 +333,7 @@ Also,
 since telefunctions are public and can be called by anyone,
 we cannot assuming anything about the arguments.
 
-We can also use `throw Abort()` to ensure the type of telefunction arguments:
+We can use `throw Abort()` again to ensure the type of telefunction arguments:
 
 ```js
 // CreateTodo.telefunc.js

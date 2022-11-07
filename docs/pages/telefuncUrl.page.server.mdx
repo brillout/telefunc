@@ -1,10 +1,10 @@
 import { Link, Note } from '@brillout/docpress'
 
-Environment: Server & Browser.<br/>
+**Environment**: Server & Browser.<br/>
 
-By default, Telefunc makes HTTP requests to the URL `/_telefunc`.
+By default, Telefunc makes its HTTP requests by using the URL `/_telefunc`.
 
-We can use the `telefuncUrl` config to change the URL.
+We can use `telefuncConfig.telefuncUrl` to change Telefunc's URL.
 
 ```js
 // Environment: Server
@@ -22,4 +22,4 @@ import { telefuncConfig } from 'telefunc/client'
 telefuncConfig.telefuncUrl = '/api/_telefunc'
 ```
 
-<Note type="warning">Make sure to change the URL of both the Telefunc Client and the Telefunc Server.</Note>
+<Note type="warning">Make sure to change the URL at both the Telefunc Client *and* the Telefunc Server.</Note>

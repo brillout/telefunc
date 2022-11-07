@@ -1,8 +1,10 @@
-import { Link } from '@brillout/docpress'
+import { Link, Note } from '@brillout/docpress'
 
-Environment: Server.
+**Environment**: Server.
 
-If our stack doesn't support <Link text="server-side transformation" href="/transformer" />, then we have to use the `telefuncFiles` config for providing the list of `.telefunc.js` files to Telefunc.
+<Note type="warning">This config is experimental and breaking changes can be introduced in any minor version update.</Note>
+
+If our stack doesn't support <Link text="server-side transformation" href="/transformer" />, then we have to use `telefuncConfig.telefuncFiles` for providing Telefunc the list of `.telefunc.js` files.
 
 ```js
 // Environment: Server
