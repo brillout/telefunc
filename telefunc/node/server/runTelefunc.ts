@@ -25,9 +25,8 @@ type HttpResponse = {
 const abortedRequestStatusCode = 403
 
 // HTTP Response for:
-// - User's telefunction threw an error (that isn't `Abort()`).
-// - The Telefunc code throw an error (i.e. Telefunc has a bug).
-// - The telefunction couldn't be found (i.e. Telefunc has a bug or user didn't define any telefunction).
+// - User's telefunction threw an error that isn't `Abort()` (i.e. the telefunction has a bug).
+// - The Telefunc code threw an error (i.e. Telefunc has a bug).
 const serverError = {
   statusCode: 500 as const,
   body: 'Internal Server Error',
@@ -37,6 +36,7 @@ const serverError = {
 
 // HTTP Response for:
 // - Some non-telefunc client makes a malformed HTTP request.
+// - The telefunction couldn't be found.
 const invalidRequest = {
   statusCode: 400 as const,
   body: 'Invalid Telefunc Request',
@@ -101,7 +101,7 @@ async function runTelefunc_(httpRequest: { url: string; method: string; body: un
   {
     const telefunction = findTelefunction(runContext)
     if (!telefunction) {
-      return serverError
+      return invalidRequest
     }
     objectAssign(runContext, { telefunction })
   }
