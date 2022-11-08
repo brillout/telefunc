@@ -1,8 +1,10 @@
 import { Link } from '@brillout/docpress'
 
-> - To block unauthorized access, see <Link href="/permissions" />.
-> - To handling invalid `<form>` values, see <Link href="/form-validation" />.
-> - To install error tracking, see <Link href="/onBug" />.
+> This page is about handling bugs and network errors.
+>
+> - To block unauthorized access: <Link href="/permissions" />
+> - To handle invalid `<form>` values: <Link href="/form-validation" />
+> - To install error tracking: <Link href="/onBug" />
 
 ## Bugs
 
@@ -16,11 +18,11 @@ export { hello }
 
 function hello(name) {
   // This telefunction has a bug: it should be `name` instead of `namee`
-  return 'Hello ' + namee;
+  return 'Hello ' + namee
 }
 ```
 
-Then the telefunction call throws an error:
+Then telefunction calls throw an error:
 
 ```html
 <!-- index.html -->
@@ -35,16 +37,16 @@ Then the telefunction call throws an error:
         await hello('Eva')
         console.log("I'm never printed")
       } catch(err) {
-        console.log(err.message) // Prints 'Server Error'
+        console.log(err.message) // Prints 'Internal Server Error'
       }
     </script>
   </body>
 </html>
 ```
 
-This means we can treat bugs occuring in our telefunctions just like any other bug.
+To avoid leaking sensitive information, Telefunc doesn't send the original `Error` to the frontend.
 
-> Just like with other bugs, we usually use our UI Framwork (React, Vue, ...) to handle bugs occuring during a telefunction call.
+> For expected errors, such as authentication and validation errors, we can propagate error information to the frontend by using `throw Abort(someValue)`, see for example <Link href="/permissions#getcontext-wrapping" doNotInferSectionTitle={true} />.
 
 
 ## Network Errors

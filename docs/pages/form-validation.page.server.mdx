@@ -1,10 +1,6 @@
-import { ReadingRecommendation } from '@brillout/docpress'
-
-<ReadingRecommendation links={['/permissions']} />
-
 When a user enters a form with invalid inputs, such as an invalid email address, then we want our UI to tell the user what went wrong.
 
-We can pass invalid information to the frontend by using `return someValue` instead of `throw Abort()`.
+We can pass invalid information to the frontend by using `return someValue` (instead of `throw Abort()`).
 
 ```js
 // SignUpForm.telefunc.ts
@@ -23,7 +19,7 @@ export async function onFormSubmit(email: string, password: string) {
   if (!password) {
     invalidInputs.password = 'Please enter a password.'
   } else if (password.length < 8) {
-    invalidInputs.password = 'Password is too short: it should have at least 8 charachters.'
+    invalidInputs.password = 'Password must have at least 8 charachters.'
   }
 
   if (Object.keys(invalidInputs).length > 0) {

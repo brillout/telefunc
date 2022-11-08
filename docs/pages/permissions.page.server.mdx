@@ -15,7 +15,7 @@ import { getContext, Abort } from 'telefunc'
 function onTextChange(id: string, text: string) {
   const { user } = getContext()
   if (!user) {
-    // We return `notLoggedIn: true` so that frontend can redirect the user to the login page
+    // We return `notLoggedIn: true` so that the frontend can redirect the user to the login page
     return { notLoggedIn: true }
   }
 
@@ -25,8 +25,8 @@ function onTextChange(id: string, text: string) {
     throw Abort()
   }
 
-  // Easy implementation of advanced permissions such as "only allow
-  // the author or admins to modify a to-do item".
+  // We can easily programmatically implement advanced permissions such
+  // as "only allow the author or admins to modify a to-do item".
   if (todoItem.authorId !== user.id && !user.isAdmin) {
     throw Abort()
   }
@@ -35,7 +35,7 @@ function onTextChange(id: string, text: string) {
 ```
 
 In general, we use `throw Abort()` upon permission denials but, sometimes, the frontend needs to know why the the telefunction call failed:
-in this example we return `{ notLoggedIn: true }` instead of `throw Abort()` so that the frontend can perform a redirection.
+in this example we return `{ notLoggedIn: true }` instead of `throw Abort()` so that the frontend can perform a redirection:
 
 ```tsx
 // TodoItem.tsx
@@ -59,7 +59,7 @@ function TodoItem({ id, text }: { id: string; text: string }) {
 
 ## `getContext()` wrapping
 
-To implement a permission once and re-use it, we can use a `getContext()` wrapper:
+To implement permission logic once and re-use it, we can define a `getContext()` wrapper:
 
 ```ts
 // components/TodoItem.telefunc.ts
@@ -79,7 +79,7 @@ function onTextChange(id: string, text: string) {
 // auth/getUser.ts
 // Environment: Node.js
 
-// Note that getUser() isn't a telefunction: it's just a little wrapper around getContext()
+// Note that getUser() isn't a telefunction: it's a wrapper around getContext()
 export { getUser }
 
 import { getContext, Abort } from 'telefunc'
