@@ -11,13 +11,10 @@ import { Link } from '@brillout/docpress'
 We usually call telefunctions remotely from the browser:
 
 ```js
-// CreateTodo.telefunc.js
+// CreateTodo.telefunc.ts
 // Environment: Node.js server
 
-import { shield } from 'telefunc'
-
-shield(onNewTodo, [shield.type.string])
-export async function onNewTodo(text) {
+export async function onNewTodo(text: string) {
   const todoItem = new Todo({ text })
   await todoItem.save()
 }

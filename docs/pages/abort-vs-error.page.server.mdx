@@ -76,14 +76,12 @@ function getUser({ permission }) {
 > Such `getContext()` wrapper is a common Telefunc technique explained at <Link href="/permissions#getcontext-wrapping" doNotInferSectionTitle={true} />.
 
 ```js
-// components/Comment.telefunc.js
+// components/Comment.telefunc.ts
 // Environment: Node.js
 
 import { getUser } from '../auth/getUser'
-import { shield } from 'telefunc'
 
-shield(onCommentDelete, [shield.type.number])
-export async function onCommentDelete(id) {
+export async function onCommentDelete(id: number) {
   // Only admins are allowed to delete a comment
   const user = getUser({ permission: 'admin' })
   const comment = await Comment.findOne({ id })
