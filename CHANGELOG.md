@@ -1,3 +1,13 @@
+## [0.1.34](https://github.com/brillout/telefunc/compare/v0.1.33...v0.1.34) (2022-11-12)
+
+
+### Bug Fixes
+
+* avoid importBuild var collision ([7d67401](https://github.com/brillout/telefunc/commit/7d67401f883a30b84fec3cf589e57d1560d557d8))
+* improve HTTP response upon telefunction not found ([4ffe81f](https://github.com/brillout/telefunc/commit/4ffe81f0aafb6e9b1b939b98773d2a4b83657df1))
+
+
+
 ## [0.1.33](https://github.com/brillout/telefunc/compare/v0.1.32...v0.1.33) (2022-11-07)
 
 
