@@ -36,11 +36,13 @@ function getImporterCode(config: ResolvedConfig, telefuncFilesEntry: string) {
   const importPath = path.posix.relative(outDirServer, importPathAbsolute)
   // console.log(`\n  importPath: ${importPath}\n  outDirServer: ${outDirServer}\n  importPathAbsolute: ${importPathAbsolute}\n  config.build.outDir: ${config.build.outDir}`)
   const importerCode = [
-    `const { setLoaders } = require('${importPath}');`,
-    'setLoaders({',
-    `  loadTelefuncFiles: () => import('./${telefuncFilesEntry}'),`,
-    `  loadManifest: () => require('./${manifestFileName}')`,
-    '});',
+    '{',
+    `  const { setLoaders } = require('${importPath}');`,
+    '  setLoaders({',
+    `    loadTelefuncFiles: () => import('./${telefuncFilesEntry}'),`,
+    `    loadManifest: () => require('./${manifestFileName}')`,
+    '  });',
+    '}',
     ''
   ].join('\n')
   return importerCode
