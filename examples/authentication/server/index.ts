@@ -1,6 +1,6 @@
 import express from 'express'
 import { renderPage } from 'vite-plugin-ssr'
-import { telefunc, provideTelefuncContext } from 'telefunc'
+import { telefunc } from 'telefunc'
 import cookieParser from 'cookie-parser'
 import { retrieveUser } from '#app/auth'
 
@@ -28,9 +28,8 @@ async function startServer() {
   app.use(cookieParser())
   app.use(express.text()) // Parse & make HTTP request body available at `req.body`
   app.all('/_telefunc', async (req, res) => {
-    const user = retrieveUser(req)
-    provideTelefuncContext({ user })
-    const httpResponse = await telefunc({ url: req.originalUrl, method: req.method, body: req.body })
+    const context = { user: retrieveUser(req) }
+    const httpResponse = await telefunc({ url: req.originalUrl, method: req.method, body: req.body, context })
     const { body, statusCode, contentType } = httpResponse
     res.status(statusCode).type(contentType).send(body)
   })
