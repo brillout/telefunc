@@ -1,3 +1,12 @@
+## [0.1.36](https://github.com/brillout/telefunc/compare/v0.1.35...v0.1.36) (2022-11-14)
+
+
+### Bug Fixes
+
+* implement `context` argument ([d3a6d63](https://github.com/brillout/telefunc/commit/d3a6d636dfb02a3c124beb2013d3e9d93e2cc858))
+
+
+
 ## [0.1.35](https://github.com/brillout/telefunc/compare/v0.1.34...v0.1.35) (2022-11-14)
 
 
