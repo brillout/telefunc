@@ -1,7 +1,8 @@
 export { runTelefunc }
+export type { HttpResponse }
 
 import { assert, objectAssign, isProduction } from '../utils'
-import { getContextOptional, isAsyncMode } from './getContext'
+import { Telefunc } from './getContext'
 import { loadTelefuncFiles } from './runTelefunc/loadTelefuncFiles'
 import { parseHttpRequest } from './runTelefunc/parseHttpRequest'
 // import { getEtag } from './runTelefunc/getEtag'
@@ -14,10 +15,15 @@ import { findTelefunction } from './runTelefunc/findTelefunction'
 import { globalContext } from './globalContext'
 import { resolveServerConfig } from './serverConfig'
 
+/** The HTTP Response of a telefunction remote call HTTP Request */
 type HttpResponse = {
+  /** HTTP Response Status Code */
   statusCode: 200 | 403 | 500 | 400
+  /** HTTP Response Body */
   body: string
+  /** HTTP Response Header `Content-Type` */
   contentType: 'text/plain'
+  /** HTTP Response Header `ETag` */
   etag: string | null
 }
 
@@ -54,7 +60,12 @@ async function runTelefunc(runContext: Parameters<typeof runTelefunc_>[0]) {
   }
 }
 
-async function runTelefunc_(httpRequest: { url: string; method: string; body: unknown }): Promise<HttpResponse> {
+async function runTelefunc_(httpRequest: {
+  url: string
+  method: string
+  body: unknown
+  context?: Telefunc.Context
+}): Promise<HttpResponse> {
   const runContext = {}
   {
     const serverConfig = resolveServerConfig()
@@ -76,7 +87,7 @@ async function runTelefunc_(httpRequest: { url: string; method: string; body: un
   }
 
   objectAssign(runContext, {
-    providedContext: isAsyncMode() ? null : getContextOptional() || null
+    providedContext: httpRequest.context || null
   })
   {
     const parsed = parseHttpRequest(runContext)

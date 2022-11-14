@@ -8,16 +8,8 @@ const headingsWithoutLink: HeadingWithoutLink[] = [
     url: '/abort-vs-error'
   },
   {
-    title: 'The SSR context problem',
-    url: '/ssr-context'
-  },
-  {
     title: 'RPC',
     url: '/RPC'
-  },
-  {
-    title: 'Server-Side Rendering (SSR)',
-    url: '/ssr'
   },
   {
     title: 'Telefunc Transformer',

@@ -20,18 +20,11 @@ function devConfig(): Plugin[] {
             // ```
             // (Vite correctly bundles `package.json#exports["."].browser` though.)
             'telefunc'
-            /* Doesn't seem to be needed. Adding these makes Vite complain:
-             * ```
-             * Failed to resolve dependency: @brillout/json-serializer/parse, present in 'optimizeDeps.include'
-             * Failed to resolve dependency: @brillout/json-serializer/stringify, present in 'optimizeDeps.include'
-             * ```
-            '@brillout/json-serializer/parse',
-            '@brillout/json-serializer/stringify',
-            */
           ]
         }
       }),
       async configResolved(config) {
+        fixOptimizeDeps(config.optimizeDeps)
         await determineFsAllowList(config)
       }
     },
@@ -45,6 +38,20 @@ function devConfig(): Plugin[] {
       }
     }
   ]
+}
+
+// - Vite-plugin-ssr adds @brillout/json-serializer to optimizeDeps.exclude
+// - We need to remove @brillout/json-serializer from optimizeDeps.exclude to avoid:
+//   ```
+//   10:41:35 AM [vite] Internal server error: Failed to resolve import "@brillout/json-serializer/parse" from "node_modules/.vite/deps/chunk-HMXEIHOJ.js?v=9404be11". Does the file exist?
+//   ```
+// - We can't add @brillout/json-serializer to optimizeDeps.include because Vite complains:
+//   ```
+//   Failed to resolve dependency: @brillout/json-serializer/parse, present in 'optimizeDeps.include'
+//   Failed to resolve dependency: @brillout/json-serializer/stringify, present in 'optimizeDeps.include'
+//   ```
+function fixOptimizeDeps(optimizeDeps: { exclude?: string[] }) {
+  optimizeDeps.exclude = optimizeDeps.exclude?.filter((entry) => !entry.startsWith('@brillout/json-serializer'))
 }
 
 async function determineFsAllowList(config: ResolvedConfig) {

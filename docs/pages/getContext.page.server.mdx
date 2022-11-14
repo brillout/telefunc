@@ -2,7 +2,7 @@ import { Link, CodeBlock } from '@brillout/docpress'
 
 **Environment**: Server.
 
-The `getContext()` function enables telefunctions to access contextual information.
+`getContext()` enables telefunctions to access contextual information.
 
 ```js
 // TodoList.telefunc.ts
@@ -11,7 +11,6 @@ The `getContext()` function enables telefunctions to access contextual informati
 import { getContext } from 'telefunc'
 
 export async function onLoad() {
-  // A commmon use case is to provide information about the logged-in user:
   const context = getContext()
   const { user } = context
   const todoItems = await Todo.findMany({ select: 'text', authorId: user.id })
@@ -21,6 +20,8 @@ export async function onLoad() {
   }
 }
 ```
+
+It's most commonly used for implementing permissions, see <Link href="/permissions" />.
 
 
 ## Provide
