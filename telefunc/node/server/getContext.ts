@@ -12,7 +12,7 @@ import {
   restoreContext_sync,
   getContextOptional_sync
 } from './getContext/sync'
-import { assert, assertUsage, isObject, getGlobalObject } from '../utils'
+import { assert, assertUsage, assertWarning, isObject, getGlobalObject } from '../utils'
 import type { Telefunc } from './getContext/TelefuncNamespace'
 import { provideErrMsg } from './getContext/provideErrMessage'
 
@@ -50,6 +50,8 @@ function getContextOptional() {
 }
 
 function provideTelefuncContext<Context extends object = Telefunc.Context>(context: Context) {
+  // TODO: check whether it's possible to deprecate `provideTelefuncContext()` for Nuxt
+  // assertWarning(false, 'provideTelefuncContext() is deprecated', { onlyOnce: true })
   globalObject.neverProvided = false
   globalObject.provideTelefuncContext(context)
 }
