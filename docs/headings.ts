@@ -26,7 +26,7 @@ const headingsWithoutLink: HeadingWithoutLink[] = [
   {
     title: 'RPC vs GraphQL/REST',
     url: '/RPC-vs-GraphQL-REST'
-  },
+  }
 ]
 
 export const headings: HeadingDefinition[] = [
@@ -60,6 +60,11 @@ export const headings: HeadingDefinition[] = [
     level: 2,
     title: 'Nuxt',
     url: '/nuxt'
+  },
+  {
+    level: 2,
+    title: 'SvelteKit',
+    url: '/svelte-kit'
   },
   {
     level: 2,
@@ -202,5 +207,5 @@ export const headings: HeadingDefinition[] = [
     level: 2,
     title: 'Babel Plugin',
     url: '/babel-plugin'
-  },
+  }
 ]
