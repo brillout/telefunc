@@ -1,3 +1,13 @@
+## [0.1.35](https://github.com/brillout/telefunc/compare/v0.1.34...v0.1.35) (2022-11-14)
+
+
+### Bug Fixes
+
+* normalize rollupOptions.input ([fd034ed](https://github.com/brillout/telefunc/commit/fd034ed81a81de8e4d5153b3759cfa7adf407289))
+* remove @brillout/json-serializer from optimizeDeps.exclude (fix [#53](https://github.com/brillout/telefunc/issues/53)) ([11f6ed6](https://github.com/brillout/telefunc/commit/11f6ed6fb1c8329b6cab226169cffe6f11022a0b))
+
+
+
 ## [0.1.34](https://github.com/brillout/telefunc/compare/v0.1.33...v0.1.34) (2022-11-12)
 
 
