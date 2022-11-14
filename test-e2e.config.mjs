@@ -48,6 +48,10 @@ function getCiJobs() {
       setups: [ubuntu16, win14]
     },
     {
+      name: 'SvelteKit',
+      setups: [ubuntu16, win14]
+    },
+    {
       name: 'https://telefunc.com',
       setups: [ubuntu18]
     }

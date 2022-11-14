@@ -6,7 +6,7 @@ const GET: RequestHandler = async (event) => {
   const method = event.request.method
   const url = event.request.url
 
-  const httpResponse = await telefunc({ url, method, body })
+  const httpResponse = await telefunc({ url, method, body, context: event.locals })
   const { body: responseBody, statusCode, contentType } = httpResponse
 
   return new Response(responseBody, {

@@ -178,7 +178,7 @@ importers:
       svelte: ^3.53.1
       svelte-check: ^2.9.2
       svelte-preprocess: ^4.10.7
-      telefunc: 0.1.34
+      telefunc: 0.1.36
       tslib: ^2.4.1
       typescript: ^4.8.4
       vite: ^3.2.3
@@ -3125,7 +3125,7 @@ packages:
     engines: {node: '>=16.7'}
     dependencies:
       '@miniflare/shared': 2.3.0
-      kleur: 4.1.4
+      kleur: 4.1.5
     dev: false
 
   /@miniflare/core/2.3.0:
@@ -3137,7 +3137,7 @@ packages:
       '@miniflare/watcher': 2.3.0
       busboy: 0.3.1
       dotenv: 10.0.0
-      kleur: 4.1.4
+      kleur: 4.1.5
       set-cookie-parser: 2.5.1
       undici: 4.13.0
     dev: false
@@ -3169,7 +3169,7 @@ packages:
       '@miniflare/core': 2.3.0
       '@miniflare/shared': 2.3.0
       '@miniflare/web-sockets': 2.3.0
-      kleur: 4.1.4
+      kleur: 4.1.5
       selfsigned: 2.0.1
       undici: 4.13.0
       ws: 8.5.0
@@ -3207,7 +3207,7 @@ packages:
     engines: {node: '>=16.7'}
     dependencies:
       ignore: 5.2.0
-      kleur: 4.1.4
+      kleur: 4.1.5
     dev: false
 
   /@miniflare/sites/2.3.0:
@@ -10548,7 +10548,7 @@ packages:
     dev: true
 
   /is-fullwidth-code-point/2.0.0:
-    resolution: {integrity: sha1-o7MKXE8ZkYMWeqq5O+764937ZU8=}
+    resolution: {integrity: sha512-VHskAKYM8RfSFXwee5t5cbN5PZeq1Wrh6qd5bkyiXIf6UQcN6w/A0eXM9r6t8d+GYOh+o6ZhiEnb88LN/Y8m2w==}
     engines: {node: '>=4'}
     dev: false
 
@@ -15496,7 +15496,7 @@ packages:
       ansi-regex: 2.1.1
 
   /strip-ansi/4.0.0:
-    resolution: {integrity: sha1-qEeQIusaw2iocTibY1JixQXuNo8=}
+    resolution: {integrity: sha512-4XaJ2zQdCzROZDivEVIDPkcQn8LMFSa8kj8Gxb/Lnwzv9A8VctNZ+lfivC/sV3ivW8ElJTERXZoPBRrZKkNKow==}
     engines: {node: '>=4'}
     dependencies:
       ansi-regex: 3.0.0

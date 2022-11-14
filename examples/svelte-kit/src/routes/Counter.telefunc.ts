@@ -1,14 +1,14 @@
 import { getContext } from 'telefunc'
 
 export { onLoadData }
-export { onAction }
+export { onCounterIncrement }
 
 const database = {
   value: 42
 }
 
 async function onLoadData() {
-  const { user } = getContext<App.Locals>()
+  const { user } = getContext()
   const { value } = database
   return {
     user,
@@ -16,7 +16,7 @@ async function onLoadData() {
   }
 }
 
-async function onAction(action: string) {
+async function onCounterIncrement(action: string) {
   if (action === 'inc') {
     database.value++
   } else if (action === 'dec') {
