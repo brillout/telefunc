@@ -1,6 +1,5 @@
 export { loadTelefuncFiles }
 
-import type { ViteDevServer } from 'vite'
 import type { TelefuncFiles } from '../types'
 import { assertUsage, assert, hasProp } from '../../utils'
 import { loadTelefuncFilesWithVite } from '../../vite/loadTelefuncFilesWithVite'
@@ -9,7 +8,6 @@ import { loadTelefuncFilesFromConfig } from './loadTelefuncFilesFromConfig'
 
 async function loadTelefuncFiles(runContext: {
   appRootDir: string | null
-  viteDevServer: ViteDevServer | null
   telefuncFilesManuallyProvidedByUser: string[] | null
   telefuncFilePath: string
 }): Promise<{ telefuncFilesLoaded: TelefuncFiles; telefuncFilesAll: string[] }> {
@@ -26,7 +24,7 @@ async function loadTelefuncFiles(runContext: {
 
   // Handles:
   // - Next.js
-  // - Nuxt
+  // - Nuxt 2
   // - Vite with `importBuild.js`
   {
     const telefuncFilesLoaded = loadTelefuncFilesWithRegistration()

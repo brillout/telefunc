@@ -3,18 +3,15 @@ export { loadTelefuncFilesWithVite }
 import { loadBuild } from '@brillout/vite-plugin-import-build/loadBuild'
 import { assert, assertWarning, getNodeEnv, hasProp, isObject, isProduction, isTelefuncFilePath } from '../utils'
 import { telefuncFilesGlobFilePath } from './importGlob/telefuncFilesGlobPath'
-import type { ViteDevServer } from 'vite'
 import { loadTelefuncFilesWithImportBuild } from './plugins/importBuild/loadBuild'
+import { getViteDevServer } from '../server/globalContext'
 
-async function loadTelefuncFilesWithVite(runContext: {
-  telefuncFilePath: string
-  viteDevServer: ViteDevServer | null
-}): Promise<null | {
+async function loadTelefuncFilesWithVite(runContext: { telefuncFilePath: string }): Promise<null | {
   telefuncFilesLoaded: Record<string, Record<string, unknown>>
   telefuncFilesAll: string[]
   viteProvider: 'viteDevServer' | 'importBuild.cjs'
 }> {
-  const ret = await loadGlobImporter(runContext)
+  const ret = await loadGlobImporter()
   if (!ret) {
     return null
   }
@@ -27,14 +24,15 @@ async function loadTelefuncFilesWithVite(runContext: {
   return { telefuncFilesLoaded, viteProvider, telefuncFilesAll }
 }
 
-async function loadGlobImporter(runContext: { viteDevServer: ViteDevServer | null }) {
-  if (runContext.viteDevServer) {
+async function loadGlobImporter() {
+  const viteDevServer = getViteDevServer()
+  if (viteDevServer) {
     const devPath = telefuncFilesGlobFilePath
     let moduleExports: unknown
     try {
-      moduleExports = await runContext.viteDevServer.ssrLoadModule(devPath)
+      moduleExports = await viteDevServer.ssrLoadModule(devPath)
     } catch (err: unknown) {
-      runContext.viteDevServer.ssrFixStacktrace(err as Error)
+      viteDevServer.ssrFixStacktrace(err as Error)
       throw err
     }
     return { moduleExports, viteProvider: 'viteDevServer' as const }
