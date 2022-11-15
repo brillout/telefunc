@@ -1,9 +1,9 @@
-import { assert, isObject, getGlobalObject, assertUsage } from '../../utils'
-import type { Telefunc } from './TelefuncNamespace'
-
 export { getContext_sync }
 export { provideTelefuncContext_sync }
 export { restoreContext_sync }
+
+import { assert, isObject, getGlobalObject, assertUsage } from '../../utils'
+import type { Telefunc } from './TelefuncNamespace'
 
 const globalObject = getGlobalObject<{
   context: null | Telefunc.Context
@@ -20,6 +20,7 @@ const globalObject = getGlobalObject<{
 function getContext_sync(): Telefunc.Context {
   if (globalObject.context === null) {
     // Using `neverRestored` to detect SSR doesn't always work.
+    //  - Reliable alternative: use an Async Hook in dev to detect SSR.
     if (globalObject.neverRestored) {
       assertUsage(false, 'Using Telefunc to fetch the initial data of your page is discouraged, see https://telefunc.com/initial-page-data') // prettier-ignore
     }
@@ -29,9 +30,8 @@ function getContext_sync(): Telefunc.Context {
       assertUsage(false, '[getContext()] Cannot access context object, see https://telefunc.com/getContext#access')
     }
   }
-  const { context } = globalObject
-  assert(isObject(context))
-  return context
+  assert(isObject(globalObject.context))
+  return globalObject.context
 }
 
 function restoreContext_sync(context: null | Telefunc.Context) {

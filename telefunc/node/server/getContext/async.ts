@@ -1,14 +1,14 @@
+export { getContext_async }
+export { provideTelefuncContext_async }
+
 import { AsyncLocalStorage } from 'async_hooks'
 import { assert, assertWarning, isObject, getGlobalObject, assertUsage } from '../../utils'
 import { installAsyncMode } from '../getContext'
 import type { Telefunc } from './TelefuncNamespace'
 
-export { getContext_async }
-export { provideTelefuncContext_async }
+installAsyncMode({ getContext_async, provideTelefuncContext_async, restoreContext_async })
 
 const globalObject = getGlobalObject<{ asyncStore?: AsyncLocalStorage<Telefunc.Context> }>('getContext/async.ts', {})
-
-installAsyncMode({ getContext_async, provideTelefuncContext_async, restoreContext_async })
 
 function getContext_async(): Telefunc.Context {
   const errMsg = '[getContext()] Make sure to call provideTelefuncContext() before calling getContext()'
@@ -21,7 +21,7 @@ function getContext_async(): Telefunc.Context {
 
 function provideTelefuncContext_async(context: Telefunc.Context): void {
   assertUsage(isObject(context), '[provideTelefuncContext(context)] Argument `context` should be an object')
-  globalObject.asyncStore = globalObject.asyncStore || new AsyncLocalStorage()
+  globalObject.asyncStore = globalObject.asyncStore ?? new AsyncLocalStorage()
   globalObject.asyncStore.enterWith(context)
 }
 
