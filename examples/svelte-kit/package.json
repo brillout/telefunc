@@ -4,6 +4,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "test:preview": "vite build && vite preview",
+    "pretest:types": "svelte-kit sync",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
   },
