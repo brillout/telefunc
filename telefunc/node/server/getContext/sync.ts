@@ -1,48 +1,58 @@
 import { assert, isObject, getGlobalObject, assertUsage } from '../../utils'
-import { provideErrMsg } from './provideErrMessage'
 import type { Telefunc } from './TelefuncNamespace'
 
 export { getContext_sync }
 export { provideTelefuncContext_sync }
 export { restoreContext_sync }
-export { getContextOptional_sync }
 
-// Using the global scope is needed for Next.js. I'm guessing that Next.js is including the `node_modules/` files in a seperate bundle than user files.
-const globalObject = getGlobalObject<{ context: null | Telefunc.Context; isRestored: boolean }>('getContext/sync.ts', {
+const globalObject = getGlobalObject<{
+  context: null | Telefunc.Context
+  hasRestoreAccess: boolean
+  neverProvided: boolean
+  neverRestored: boolean
+}>('getContext/sync.ts', {
   context: null,
-  isRestored: false
+  hasRestoreAccess: false,
+  neverProvided: true,
+  neverRestored: true
 })
 
 function getContext_sync(): Telefunc.Context {
-  const { context, isRestored } = globalObject
-  assert(context === null || isObject(context))
-  const errMsg = isRestored
-    ? provideErrMsg
-    : '[getContext()] Cannot access context object, see https://telefunc.com/getContext#access'
-  assertUsage(context !== null, errMsg)
+  if (globalObject.context === null) {
+    // Using `neverRestored` to detect SSR doesn't always work.
+    if (globalObject.neverRestored) {
+      assertUsage(false, 'Using Telefunc to fetch the initial data of your page is discouraged, see https://telefunc.com/initial-page-data') // prettier-ignore
+    }
+    if (globalObject.hasRestoreAccess || globalObject.neverProvided) {
+      assertUsage(false, '[getContext()] Make sure to provide a context object, see https://telefunc.com/getContext#provide') // prettier-ignore
+    } else {
+      assertUsage(false, '[getContext()] Cannot access context object, see https://telefunc.com/getContext#access')
+    }
+  }
+  const { context } = globalObject
+  assert(isObject(context))
   return context
 }
 
-function getContextOptional_sync() {
-  return globalObject.context
-}
-
 function restoreContext_sync(context: null | Telefunc.Context) {
-  provide(context, true)
+  globalObject.neverRestored = false
+  provide(context)
 }
 
 function provideTelefuncContext_sync(context: Telefunc.Context) {
-  provide(context, false)
+  assertUsage(isObject(context), '[provideTelefuncContext(context)] Argument `context` should be an object')
+  provide(context)
 }
 
-function provide(context: null | Telefunc.Context, isRestored: boolean) {
+function provide(context: null | Telefunc.Context) {
   assert(context === null || isObject(context))
   if (context) {
+    globalObject.neverProvided = false
     globalObject.context = context
   }
-  globalObject.isRestored = isRestored
+  globalObject.hasRestoreAccess = true
   process.nextTick(() => {
     globalObject.context = null
-    globalObject.isRestored = false
+    globalObject.hasRestoreAccess = false
   })
 }
