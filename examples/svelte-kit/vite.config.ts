@@ -6,8 +6,7 @@ const port = 3000
 
 const config: UserConfig = {
   plugins: [
-    // FIXME: telefunc dev server middleware conflicts with sveltekit `src/routes/_telefunc/+server.ts`
-    telefunc().filter((p: any) => p.name !== 'vite-plugin-ssr:devConfig:serverMiddleware'),
+    telefunc(),
     sveltekit()
   ],
   build: { target: 'esnext' },
