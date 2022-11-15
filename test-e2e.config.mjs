@@ -7,7 +7,7 @@ export default {
 function getCiJobs() {
   const ubuntu18 = {
     os: 'ubuntu-latest',
-    node_version: '16'
+    node_version: '18'
   }
   const ubuntu16 = {
     os: 'ubuntu-latest',

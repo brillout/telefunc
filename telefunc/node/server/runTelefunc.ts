@@ -12,7 +12,6 @@ import { handleError } from './runTelefunc/handleError'
 import { callBugListeners } from './runTelefunc/onBug'
 import { applyShield } from './runTelefunc/applyShield'
 import { findTelefunction } from './runTelefunc/findTelefunction'
-import { globalContext } from './globalContext'
 import { resolveServerConfig } from './serverConfig'
 
 /** The HTTP Response of a telefunction remote call HTTP Request */
@@ -55,7 +54,7 @@ async function runTelefunc(runContext: Parameters<typeof runTelefunc_>[0]) {
     return await runTelefunc_(runContext)
   } catch (err: unknown) {
     callBugListeners(err)
-    handleError(err, globalContext.viteDevServer || null)
+    handleError(err)
     return serverError
   }
 }
@@ -76,8 +75,7 @@ async function runTelefunc_(httpRequest: {
         telefuncUrl: serverConfig.telefuncUrl
       },
       appRootDir: serverConfig.root,
-      telefuncFilesManuallyProvidedByUser: serverConfig.telefuncFiles,
-      viteDevServer: globalContext.viteDevServer ?? null
+      telefuncFilesManuallyProvidedByUser: serverConfig.telefuncFiles
     })
   }
 
