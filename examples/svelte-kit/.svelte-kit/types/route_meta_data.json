@@ -1,0 +1,11 @@
+{
+	"/": [
+		"src/routes/+page.server.ts"
+	],
+	"/_telefunc": [
+		"src/routes/_telefunc/+server.ts"
+	],
+	"/about": [
+		"src/routes/about/+page.ts"
+	]
+}
