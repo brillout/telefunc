@@ -1,20 +1,7 @@
+import { database } from '$lib/database'
 import { getContext } from 'telefunc'
 
-export { onLoadData }
 export { onCounterIncrement }
-
-const database = {
-  value: 42
-}
-
-async function onLoadData() {
-  const { user } = getContext()
-  const { value } = database
-  return {
-    user,
-    value
-  }
-}
 
 async function onCounterIncrement(action: string) {
   if (action === 'inc') {
