@@ -21,10 +21,6 @@ function getCiJobs() {
     os: 'windows-latest',
     node_version: '14'
   }
-  const win16 = {
-    os: 'windows-latest',
-    node_version: '16'
-  }
   const mac17 = {
     os: 'macos-latest',
     node_version: '17'
@@ -53,7 +49,7 @@ function getCiJobs() {
     },
     {
       name: 'SvelteKit',
-      setups: [ubuntu16, win16]
+      setups: [ubuntu16]
     },
     {
       name: 'https://telefunc.com',
