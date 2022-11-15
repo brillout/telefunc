@@ -6,7 +6,8 @@ function MostlyMutations({ toolName }: { toolName: JSX.Element | string }) {
   return (
     <>
       <p>
-        We recommend against using Telefunc to fetch the initial data of pages; instead, we recommend to use {toolName}
+        We recommend against using Telefunc for fetching the initial data of a page. Instead, we recommend to use{' '}
+        {toolName}
         's built-in data fetching mechanism.
       </p>
       <p>
