@@ -53,7 +53,7 @@ function getProject(telefuncFilePath: string, telefuncFileCode: string) {
       project = projects[key] = new Project({
         tsConfigFilePath,
         // Add all project files, which is needed for picking up the Telefunc.Context value
-        //  - What `Telefunc.Context` is, is explained at https://telefunc.com/typescript#getcontext
+        //  - What `Telefunc.Context` is, is explained at https://telefunc.com/getContext#typescript
         skipAddingFilesFromTsConfig: false
       })
 
