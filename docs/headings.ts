@@ -18,7 +18,11 @@ const headingsWithoutLink: HeadingWithoutLink[] = [
   {
     title: 'RPC vs GraphQL/REST',
     url: '/RPC-vs-GraphQL-REST'
-  }
+  },
+  {
+    title: 'Initial Page Data',
+    url: '/initial-page-data'
+  },
 ]
 
 export const headings: HeadingDefinition[] = [
