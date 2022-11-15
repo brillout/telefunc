@@ -175,6 +175,7 @@ importers:
       '@sveltejs/adapter-node': next
       '@sveltejs/kit': next
       '@types/cookie': ^0.5.1
+      run-script-os: ^1.1.6
       svelte: ^3.53.1
       svelte-check: ^2.9.2
       svelte-preprocess: ^4.10.7
@@ -187,8 +188,9 @@ importers:
     devDependencies:
       '@fontsource/fira-mono': 4.5.10
       '@sveltejs/adapter-node': 1.0.0-next.100
-      '@sveltejs/kit': 1.0.0-next.546_svelte@3.53.1+vite@3.2.3
+      '@sveltejs/kit': 1.0.0-next.547_svelte@3.53.1+vite@3.2.3
       '@types/cookie': 0.5.1
+      run-script-os: 1.1.6
       svelte: 3.53.1
       svelte-check: 2.9.2_svelte@3.53.1
       svelte-preprocess: 4.10.7_f4bsrsgtzvlkrtbz2ig7nipio4
@@ -4188,8 +4190,8 @@ packages:
       rollup: 2.79.1
     dev: true
 
-  /@sveltejs/kit/1.0.0-next.546_svelte@3.53.1+vite@3.2.3:
-    resolution: {integrity: sha512-QEA8fIdgRdjf9e0ti+EuEPG3SopyhA9/B4VuWqkT8W6A2q+jb5v2ZvImDRbpOnXJ0G55hlnFq9Mp2hHQ4DYYbQ==}
+  /@sveltejs/kit/1.0.0-next.547_svelte@3.53.1+vite@3.2.3:
+    resolution: {integrity: sha512-QhmoRt0nHISyl+0KRUoo/lod79eBSBgBqxb3E1hWLQLKF7vX5bCkXcZ84WReQtDwHkqvPrmJK2IBcF6za5nhjw==}
     engines: {node: '>=16.14'}
     hasBin: true
     requiresBuild: true
@@ -14773,6 +14775,11 @@ packages:
     dependencies:
       aproba: 1.2.0
     dev: false
+
+  /run-script-os/1.1.6:
+    resolution: {integrity: sha512-ql6P2LzhBTTDfzKts+Qo4H94VUKpxKDFz6QxxwaUZN0mwvi7L3lpOI7BqPCq7lgDh3XLl0dpeXwfcVIitlrYrw==}
+    hasBin: true
+    dev: true
 
   /rxjs/6.6.7:
     resolution: {integrity: sha512-hTdwr+7yYNIT5n4AMYp85KA6yw2Va0FLa3Rguvbpa4W3I5xynaBZo41cM3XM+4Q6fRMj3sBYIR1VAmZMXYJvRQ==}

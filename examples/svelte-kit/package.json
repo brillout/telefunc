@@ -4,7 +4,9 @@
     "build": "vite build",
     "preview": "vite preview",
     "test:preview": "vite build && vite preview",
-    "pretest": "svelte-kit sync",
+    "pretest": "run-script-os",
+    "pretest:nix": "svelte-kit sync",
+    "pretest:default": "echo 'nothing to do'",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
   },
@@ -13,6 +15,7 @@
     "@sveltejs/adapter-node": "next",
     "@sveltejs/kit": "next",
     "@types/cookie": "^0.5.1",
+    "run-script-os": "^1.1.6",
     "svelte": "^3.53.1",
     "svelte-check": "^2.9.2",
     "svelte-preprocess": "^4.10.7",
