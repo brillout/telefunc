@@ -10,14 +10,10 @@ function previewConfig(): Plugin {
   return {
     name: 'vite-plugin-ssr:previewConfig',
     apply: apply('preview'),
-    config(config) {
-      const outDir = determineOutDir(config)
-      return {
-        build: { outDir }
-      }
-    },
     configResolved(config_) {
       config = config_
+      const outDir = determineOutDir(config) ?? undefined
+      if (outDir) config.build.outDir = outDir
     },
     configurePreviewServer(server) {
       return () => {

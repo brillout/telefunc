@@ -11,25 +11,21 @@ function buildConfig(): Plugin {
     name: 'telefunc:buildConfig',
     apply: 'build',
     config: (config) => {
-      const outDir = determineOutDir(config)
-      if (!config.build?.ssr) {
-        return {
-          build: {
-            outDir
-          }
-        }
-      } else {
+      if (config.build?.ssr) {
         const input = {
           [telefuncFilesGlobFileNameBase]: telefuncFilesGlobFilePath,
           ...normalizeRollupInput(config.build?.rollupOptions?.input)
         }
         return {
           build: {
-            rollupOptions: { input },
-            outDir
+            rollupOptions: { input }
           }
         }
       }
+    },
+    configResolved(config) {
+      const outDir = determineOutDir(config)
+      if (outDir) config.build.outDir = outDir
     }
   }
 }
