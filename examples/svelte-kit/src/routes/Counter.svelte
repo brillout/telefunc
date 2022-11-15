@@ -15,7 +15,7 @@
 </script>
 
 <div class="counter">
-	<button on:click={async () => (count = (await onCounterIncrement('dec')).value)} aria-label="Decrease the counter by one">
+	<button class="counter-dec" on:click={async () => (count = (await onCounterIncrement('dec')).value)} aria-label="Decrease the counter by one">
 		<svg aria-hidden="true" viewBox="0 0 1 1">
 			<path d="M0,0.5 L1,0.5" />
 		</svg>
@@ -28,7 +28,7 @@
 		</div>
 	</div>
 
-	<button on:click={async () => (count = (await onCounterIncrement('inc')).value)} aria-label="Increase the counter by one">
+	<button class="counter-inc" on:click={async () => (count = (await onCounterIncrement('inc')).value)} aria-label="Increase the counter by one">
 		<svg aria-hidden="true" viewBox="0 0 1 1">
 			<path d="M0,0.5 L1,0.5 M0.5,0 L0.5,1" />
 		</svg>

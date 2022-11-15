@@ -1,5 +1,4 @@
 import { database } from '$lib/database'
-import { getContext } from 'telefunc'
 
 export { onCounterIncrement }
 
