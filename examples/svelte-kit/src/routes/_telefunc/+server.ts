@@ -2,16 +2,18 @@ import { telefunc } from 'telefunc';
 import type { RequestHandler } from './$types';
 
 const GET: RequestHandler = async (event) => {
-	const body = await event.request.text();
-	const method = event.request.method;
-	const url = event.request.url;
-
-	const httpResponse = await telefunc({ url, method, body, context: event.locals });
-	const { body: responseBody, statusCode, contentType } = httpResponse;
-
-	return new Response(responseBody, {
-		headers: new Headers({ contentType }),
-		status: statusCode
+	const response = await telefunc({
+		url: event.request.url,
+		method: event.request.method,
+		body: await event.request.text(),
+		context: {
+			// We pass the `context` object here, see https://telefunc.com/getContext
+			someContext: 'hello'
+		}
+	});
+	return new Response(response.body, {
+		headers: new Headers({ contentType: response.contentType }),
+		status: response.statusCode
 	});
 };
 
