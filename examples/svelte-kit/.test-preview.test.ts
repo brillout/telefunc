@@ -1,2 +1,2 @@
-import { testRun } from './.testRun'
-testRun('pnpm run preview')
+import { testRun } from './.testRun';
+testRun('pnpm run preview');

@@ -1,8 +1,8 @@
-import { database } from '$lib/database'
+import { database } from '$lib/database';
 
-export { onCounterIncrement }
+export { onCounterIncrement };
 
 async function onCounterIncrement(diff: number) {
-  database.value = database.value + diff
-  return database.value
+	database.value = database.value + diff;
+	return database.value;
 }

@@ -1,10 +1,10 @@
-import { database } from '$lib/database'
+import { database } from '$lib/database';
 
-export { load }
+export { load };
 
 const load: import('./$types').PageServerLoad = async () => {
-  const { value } = database
-  return {
-    value
-  }
-}
+	const { value } = database;
+	return {
+		value
+	};
+};
