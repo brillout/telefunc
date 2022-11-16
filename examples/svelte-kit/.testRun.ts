@@ -1,31 +1,34 @@
-import { page, test, expect, run, urlBase, autoRetry, fetchHtml } from '@brillout/test-e2e'
-
 export { testRun }
 
-function testRun(cmd: 'pnpm run dev' | 'pnpm run test:preview') {
+import { page, test, expect, run, urlBaseChange, autoRetry, fetchHtml, sleep } from '@brillout/test-e2e'
+
+function testRun(cmd: 'pnpm run dev' | 'pnpm run preview') {
+  const urlBase = cmd.includes('dev') ? 'http://localhost:5173' : 'http://localhost:4173'
+  urlBaseChange(urlBase)
+
   run(cmd, {
-    serverIsReadyMessage: 'Network: use --host to expose'
+    serverIsReadyMessage: urlBase
   })
 
-  test('Load home page then about page', async () => {
+  test('Home page', async () => {
     const html = await fetchHtml('/')
-    expect(html).toContain('try editing')
-    expect(html).toContain('42')
-    await page.goto(`${urlBase}/about`)
-    const text = await page.textContent('body')
-    expect(text).toContain('About this app')
+    expect(html).toContain('<h1>Welcome to SvelteKit</h1>')
+    expect(html).toContain('<span>Counter: 42</span>')
   })
 
   test('Increment counter', async () => {
     await page.goto(`${urlBase}/`)
-    await page.click('button.counter-inc')
+    expect(await page.textContent('span')).toBe('Counter: 42')
+    await page.evaluate(() => setTimeout(() => (window as any).__wait = true, 1000))
+    await page.waitForFunction(() => (window as any).__wait)
+    await page.click('button >> text=+1')
     await autoRetry(async () => {
-      expect(await page.textContent('body')).toContain('43')
+      expect(await page.textContent('span')).toBe('Counter: 43')
     })
   })
 
-  test('New to-do item is persisted & rendered to HTML', async () => {
+  test('New counter value is persisted', async () => {
     const html = await fetchHtml('/')
-    expect(html).toContain('43')
+    expect(html).toContain('<span>Counter: 43</span>')
   })
 }

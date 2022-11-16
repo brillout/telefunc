@@ -1,17 +1,9 @@
-import { sveltekit } from '@sveltejs/kit/vite'
-import type { UserConfig } from 'vite'
-import { telefunc } from 'telefunc/vite'
-
-const port = 3000
+import { sveltekit } from '@sveltejs/kit/vite';
+import type { UserConfig } from 'vite';
+import { telefunc } from 'telefunc/vite';
 
 const config: UserConfig = {
-  plugins: [
-    telefunc(),
-    sveltekit()
-  ],
-  build: { target: 'esnext' },
-  server: { port, host: true },
-  preview: { port }
-}
+	plugins: [sveltekit(), telefunc()]
+};
 
-export default config
+export default config;

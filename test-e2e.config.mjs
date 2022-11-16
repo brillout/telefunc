@@ -1,7 +1,8 @@
 export default {
   ci: {
     jobs: getCiJobs()
-  }
+  },
+  tolerateError
 }
 
 function getCiJobs() {
@@ -56,4 +57,17 @@ function getCiJobs() {
       setups: [ubuntu18]
     }
   ]
+}
+
+function tolerateError(log) {
+  return isFetchExperimentalWarning()
+
+  function isFetchExperimentalWarning() {
+    return (
+      log.logSource === 'stderr' &&
+      log.logText.includes(
+        'ExperimentalWarning: The Fetch API is an experimental feature. This feature could change at any time'
+      )
+    )
+  }
 }
