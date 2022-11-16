@@ -1,0 +1,3 @@
+{
+  "testCommand": "pnpm run check"
+}
