@@ -22,7 +22,7 @@ const headingsWithoutLink: HeadingWithoutLink[] = [
   {
     title: 'Initial Page Data',
     url: '/initial-page-data'
-  },
+  }
 ]
 
 export const headings: HeadingDefinition[] = [
