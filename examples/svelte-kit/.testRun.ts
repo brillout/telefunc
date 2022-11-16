@@ -6,7 +6,7 @@ function testRun(cmd: 'pnpm run dev' | 'pnpm run preview') {
   const port = cmd.includes('dev') ? '5173' : '4173'
   const serverUrl = `http://localhost:${port}`
   run(cmd, {
-    serverIsReadyMessage: port,
+    serverIsReadyMessage: (log) => log.includes('Local:') && log.includes(port),
     serverUrl
   })
 
