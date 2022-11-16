@@ -60,7 +60,7 @@ function getCiJobs() {
 }
 
 function tolerateError(log) {
-  return isFetchExperimentalWarning() || isRollupEmptyChunkWarning()
+  return isFetchExperimentalWarning() || isRollupEmptyChunkWarning() || isSvlekitTypesGenWarning()
 
   function isFetchExperimentalWarning() {
     return (
@@ -72,11 +72,12 @@ function tolerateError(log) {
   }
 
   function isRollupEmptyChunkWarning() {
+    return log.logSource === 'stderr' && log.logText.includes('Generated an empty chunk: "hooks"')
+  }
+
+  function isSvlekitTypesGenWarning() {
     return (
-      log.logSource === 'stderr' &&
-      log.logText.includes(
-        'Generated an empty chunk: "hooks"'
-      )
+      log.logSource === 'stderr' && log.logText.includes('Cannot find base config file "./.svelte-kit/tsconfig.json"')
     )
   }
 }
