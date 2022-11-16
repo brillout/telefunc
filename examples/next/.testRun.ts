@@ -1,4 +1,4 @@
-import { page, test, expect, run, urlBase, autoRetry, fetchHtml } from '@brillout/test-e2e'
+import { page, test, expect, run, getServerUrl, autoRetry, fetchHtml } from '@brillout/test-e2e'
 
 export { testRun }
 
@@ -17,7 +17,7 @@ function testRun(cmd: 'npm run dev' | 'npm run prod') {
     expect(html).toContain('<h1>Elisabeth&#x27;s to-do list</h1>')
     expect(html).toContain('<li>Buy milk</li>')
     expect(html).toContain('<li>Buy strawberries</li>')
-    await page.goto(`${urlBase}/`)
+    await page.goto(`${getServerUrl()}/`)
     const text = await page.textContent('body')
     expect(text).toContain("Elisabeth's to-do list")
     expect(text).toContain('Buy milk')

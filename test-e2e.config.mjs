@@ -60,13 +60,22 @@ function getCiJobs() {
 }
 
 function tolerateError(log) {
-  return isFetchExperimentalWarning()
+  return isFetchExperimentalWarning() || isRollupEmptyChunkWarning()
 
   function isFetchExperimentalWarning() {
     return (
       log.logSource === 'stderr' &&
       log.logText.includes(
         'ExperimentalWarning: The Fetch API is an experimental feature. This feature could change at any time'
+      )
+    )
+  }
+
+  function isRollupEmptyChunkWarning() {
+    return (
+      log.logSource === 'stderr' &&
+      log.logText.includes(
+        'Generated an empty chunk: "hooks"'
       )
     )
   }

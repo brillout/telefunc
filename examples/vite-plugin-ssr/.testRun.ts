@@ -1,4 +1,4 @@
-import { page, test, expect, run, urlBase, autoRetry, fetchHtml, isWindows, isMac, sleep } from '@brillout/test-e2e'
+import { page, test, expect, run, getServerUrl, autoRetry, fetchHtml, isWindows, isMac, sleep } from '@brillout/test-e2e'
 
 export { testRun }
 
@@ -13,7 +13,7 @@ function testRun(cmd: 'npm run dev' | 'npm run prod') {
   })
 
   test('Add to-do item', async () => {
-    await page.goto(`${urlBase}/`)
+    await page.goto(`${getServerUrl()}/`)
     {
       const text = await page.textContent('body')
       expect(text).toContain('To-do List')

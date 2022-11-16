@@ -6,7 +6,7 @@ import {
   skip,
   fetchHtml,
   isGithubAction,
-  urlBase,
+  getServerUrl,
   isWindows,
   autoRetry
 } from '@brillout/test-e2e'
@@ -72,7 +72,7 @@ function testRun(cmd: 'npm run dev' | 'npm run preview:miniflare' | 'npm run pre
   })
 
   test('telefunction hello()', async () => {
-    await page.goto(urlBase + '/')
+    await page.goto(getServerUrl() + '/')
     await autoRetry(async () => {
       expect(await page.textContent('#view')).toBe('Welcome Eva')
     })

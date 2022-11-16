@@ -1,6 +1,6 @@
 export { testRun }
 
-import { page, test, expect, run, fetchHtml, partRegex, urlBase } from '@brillout/test-e2e'
+import { page, test, expect, run, fetchHtml, partRegex, getServerUrl } from '@brillout/test-e2e'
 
 function testRun(cmd: 'pnpm run dev' | 'pnpm run preview') {
   {
@@ -22,7 +22,7 @@ function testRun(cmd: 'pnpm run dev' | 'pnpm run preview') {
 
   if (isPreview) {
     test('Layout', async () => {
-      await page.goto(urlBase + '/')
+      await page.goto(getServerUrl() + '/')
       await page.waitForFunction(() => (window as any).__docpress_hydrationFinished)
       const layout = await page.evaluate(() => {
         return {

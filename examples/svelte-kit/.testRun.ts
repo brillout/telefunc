@@ -1,13 +1,12 @@
 export { testRun }
 
-import { page, test, expect, run, urlBaseChange, autoRetry, fetchHtml, sleep } from '@brillout/test-e2e'
+import { page, test, expect, run, autoRetry, fetchHtml } from '@brillout/test-e2e'
 
 function testRun(cmd: 'pnpm run dev' | 'pnpm run preview') {
-  const urlBase = cmd.includes('dev') ? 'http://localhost:5173' : 'http://localhost:4173'
-  urlBaseChange(urlBase)
-
+  const serverUrl = cmd.includes('dev') ? 'http://localhost:5173' : 'http://localhost:4173'
   run(cmd, {
-    serverIsReadyMessage: urlBase
+    serverIsReadyMessage: serverUrl,
+    serverUrl
   })
 
   test('Home page', async () => {
@@ -17,7 +16,7 @@ function testRun(cmd: 'pnpm run dev' | 'pnpm run preview') {
   })
 
   test('Increment counter', async () => {
-    await page.goto(`${urlBase}/`)
+    await page.goto(`${serverUrl}/`)
     expect(await page.textContent('span')).toBe('Counter: 42')
     await page.evaluate(() => setTimeout(() => (window as any).__wait = true, 1000))
     await page.waitForFunction(() => (window as any).__wait)
