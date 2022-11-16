@@ -3,7 +3,8 @@ export { testRun }
 import { page, test, expect, run, autoRetry, fetchHtml } from '@brillout/test-e2e'
 
 function testRun(cmd: 'pnpm run dev' | 'pnpm run preview') {
-  const serverUrl = cmd.includes('dev') ? 'http://localhost:5173' : 'http://localhost:4173'
+  const port = cmd.includes('dev') ? '5173' : '4173'
+  const serverUrl = `http://localhost:${port}`
   run(cmd, {
     serverIsReadyMessage: serverUrl,
     serverUrl
