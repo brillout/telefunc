@@ -1,3 +1,16 @@
+## [0.1.37](https://github.com/brillout/telefunc/compare/v0.1.36...v0.1.37) (2022-11-17)
+
+
+### Bug Fixes
+
+* ensure gobalContext is globally shared ([7dc059d](https://github.com/brillout/telefunc/commit/7dc059d04c818006cb1e15da45d6bf309b8f7b45))
+* ensure Telefunc's Vite server middleware is last ([21998d3](https://github.com/brillout/telefunc/commit/21998d32c3227f2f90eeb7638b027f0e3dd10fb9))
+* improve error message upon using Telefunc for SSR ([4d17fae](https://github.com/brillout/telefunc/commit/4d17faeea917e46f4a63d2b60112626c49a3e3da))
+* set build.outDir only if necessary ([#54](https://github.com/brillout/telefunc/issues/54)) ([db069d2](https://github.com/brillout/telefunc/commit/db069d269b1b7f45263baeb4a2785af3642ce4c1))
+* skip checking outDir upon preview ([7629b18](https://github.com/brillout/telefunc/commit/7629b183da57b50514255a27a03741d0b09b9708))
+
+
+
 ## [0.1.36](https://github.com/brillout/telefunc/compare/v0.1.35...v0.1.36) (2022-11-14)
 
 
