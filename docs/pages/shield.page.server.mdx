@@ -16,9 +16,9 @@ Telefunc can automatically generate `shield()` for telefunctions.
 ```ts
 // hello.telefunc.ts
 
-// No need to define shield() when using TypeScript: Telefunc automatically generates `shield()`.
-// For example here, Telefunc automatically aborts the telefunction call if the argument is
-// `hello({ name: 42 })`: `name` is a `number` but should be a `string`.
+// We don't need to define a shield() when using TypeScript: Telefunc automatically generates
+// it for us. For example here, Telefunc automatically aborts the telefunction call if the
+// argument is `hello({ name: 42 })` and throws an error that `name` should be a `number`.
 export async function hello({ name }: { name: string }) {
    return `Welcome to Telefunc, ${name}.`
 }

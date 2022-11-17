@@ -1,4 +1,4 @@
-import { page, test, expect, run, urlBase, autoRetry, isLinux, sleep } from '@brillout/test-e2e'
+import { page, test, expect, run, getServerUrl, autoRetry, isLinux, sleep } from '@brillout/test-e2e'
 
 export { testRun }
 
@@ -8,7 +8,7 @@ function testRun(cmd: 'npm run dev' | 'npm run prod') {
   })
 
   test('Log-in', async () => {
-    await page.goto(`${urlBase}/`)
+    await page.goto(`${getServerUrl()}/`)
     await page.waitForSelector('button:not([disabled])')
     await page.click('text=Login as Rom')
     await autoRetry(async () => {
@@ -33,7 +33,7 @@ function testRun(cmd: 'npm run dev' | 'npm run prod') {
 
   if (isLinux()) {
     test('Sessions', async () => {
-      await page.goto(`${urlBase}/`)
+      await page.goto(`${getServerUrl()}/`)
       expect(await page.textContent('body')).toContain('Logout')
       expect(await page.$('button >> text=Logout')).toBeTruthy()
       await page.waitForSelector('button:not([disabled]) >> text=Logout')

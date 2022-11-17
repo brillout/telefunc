@@ -31,6 +31,8 @@ function devConfig(): Plugin[] {
     {
       name: 'vite-plugin-ssr:devConfig:serverMiddleware',
       apply: apply('dev', { skipMiddlewareMode: true, onlyViteCli: true }),
+      // Ensure that SvelteKit's configureServer() has precedence, see https://github.com/brillout/telefunc/pull/54
+      enforce: 'post',
       configureServer(server) {
         return () => {
           addTelefuncMiddleware(server.middlewares)

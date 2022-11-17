@@ -27,13 +27,14 @@ function getOutDirs(config: ResolvedConfig): OutDirs {
 }
 
 /** Appends `client/` or `server/` to `config.build.outDir` */
-function determineOutDir(config: UserConfig): string {
-  const outDirRoot = toPosixPath(config.build?.outDir || 'dist')
+function determineOutDir(config: ResolvedConfig): string | null {
+  const outDirRoot = toPosixPath(config.build.outDir)
+  console.log(config.build?.outDir, config.build?.ssr)
   assertPosixPath(outDirRoot)
-  // When using Telefunc + vite-plugin-ssr then `config.build.outDir` may already be set
+  // When using vite-plugin-ssr and SvelteKit then `config.build.outDir` is already set
   if (!isOutDirRoot(outDirRoot)) {
     assertConfig(config)
-    return outDirRoot
+    return null
   }
   const { outDirClient, outDirServer } = declineOutDirs(outDirRoot)
   if (viteIsSSR(config)) {

@@ -1,7 +1,8 @@
 export default {
   ci: {
     jobs: getCiJobs()
-  }
+  },
+  tolerateError
 }
 
 function getCiJobs() {
@@ -48,8 +49,35 @@ function getCiJobs() {
       setups: [ubuntu16, win14]
     },
     {
+      name: 'SvelteKit',
+      setups: [ubuntu16]
+    },
+    {
       name: 'https://telefunc.com',
       setups: [ubuntu18]
     }
   ]
+}
+
+function tolerateError(log) {
+  return isFetchExperimentalWarning() || isRollupEmptyChunkWarning() || isSveltekitTypesGenWarning()
+
+  function isFetchExperimentalWarning() {
+    return (
+      log.logSource === 'stderr' &&
+      log.logText.includes(
+        'ExperimentalWarning: The Fetch API is an experimental feature. This feature could change at any time'
+      )
+    )
+  }
+
+  function isRollupEmptyChunkWarning() {
+    return log.logSource === 'stderr' && log.logText.includes('Generated an empty chunk: "hooks"')
+  }
+
+  function isSveltekitTypesGenWarning() {
+    return (
+      log.logSource === 'stderr' && log.logText.includes('Cannot find base config file "./.svelte-kit/tsconfig.json"')
+    )
+  }
 }

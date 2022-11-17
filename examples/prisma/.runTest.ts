@@ -1,4 +1,4 @@
-import { page, test, expect, run, urlBase, autoRetry } from '@brillout/test-e2e'
+import { page, test, expect, run, getServerUrl, autoRetry } from '@brillout/test-e2e'
 
 export { runTest }
 
@@ -9,7 +9,7 @@ function runTest(cmd: 'npm run test:dev' | 'npm run test:prod') {
   })
 
   test('Add to-do item', async () => {
-    await page.goto(`${urlBase}/`)
+    await page.goto(`${getServerUrl()}/`)
     expect(await page.textContent('h1')).toBe('To-do List')
     await page.fill('input[placeholder="Title"]', 'Cherries')
     await page.fill('input[placeholder="Content"]', 'Buy cherries')
@@ -21,7 +21,7 @@ function runTest(cmd: 'npm run test:dev' | 'npm run test:prod') {
   })
 
   test('New to-do item is persisted & rendered to HTML', async () => {
-    await page.goto(`${urlBase}/`)
+    await page.goto(`${getServerUrl()}/`)
     await autoRetry(async () => {
       const html = await page.content()
       expect(html).toContain('Cherries')
