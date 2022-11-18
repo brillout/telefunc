@@ -42,10 +42,11 @@ function addRollupInput(config: ResolvedConfig) {
 }
 function assertRollupInput(rollupBundle: Record<string, unknown>, config: ResolvedConfig) {
   if (!config.build?.ssr) return
-  const rollupInputEntries = Object.keys(rollupBundle)
+  const name1 = `${telefuncFilesGlobFileNameBase}.js`
+  const name2 = `${telefuncFilesGlobFileNameBase}.mjs`
+  const entries = Object.keys(rollupBundle)
   assertUsage(
-    rollupInputEntries.includes(`${telefuncFilesGlobFileNameBase}.js`) ||
-      rollupInputEntries.includes(`${telefuncFilesGlobFileNameBase}.mjs`),
+    entries.includes(name1) || entries.includes(name2),
     "You seem to be using a tool that conflicts with Telefunc. Reach out to a Telefunc maintainer. (Info for maintainer: couldn't find Telefunc's Rollup input entry.)"
   )
 }
