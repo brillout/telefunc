@@ -4,18 +4,30 @@ import type { Plugin, ResolvedConfig } from 'vite'
 import type { InputOption } from 'rollup'
 import { telefuncFilesGlobFileNameBase } from '../importGlob/telefuncFilesGlobFileNameBase'
 import { telefuncFilesGlobFilePath } from '../importGlob/telefuncFilesGlobPath'
-import { assert, isObject, determineOutDir } from '../utils'
+import { assert, assertUsage, isObject, determineOutDir } from '../utils'
 
-function buildConfig(): Plugin {
-  return {
-    name: 'telefunc:buildConfig',
-    apply: 'build',
-    enforce: 'post',
-    configResolved(config) {
-      setOutDir(config)
-      addRollupInput(config)
+function buildConfig(): Plugin[] {
+  let config: ResolvedConfig
+  return [
+    {
+      name: 'telefunc:buildConfig',
+      apply: 'build',
+      enforce: 'post',
+      configResolved(config_) {
+        config = config_
+        setOutDir(config)
+        addRollupInput(config)
+      }
+    },
+    {
+      name: 'telefunc:buildConfig:assert',
+      apply: 'build',
+      enforce: 'pre',
+      generateBundle(_rollupOptions, rollupBundle) {
+        assertRollupInput(rollupBundle, config)
+      }
     }
-  }
+  ]
 }
 
 function setOutDir(config: ResolvedConfig) {
@@ -24,13 +36,19 @@ function setOutDir(config: ResolvedConfig) {
 }
 
 function addRollupInput(config: ResolvedConfig) {
-  if (!config.build?.ssr) {
-    return
-  }
+  if (!config.build?.ssr) return
   config.build.rollupOptions.input = normalizeRollupInput(config.build.rollupOptions.input)
   config.build.rollupOptions.input[telefuncFilesGlobFileNameBase] = telefuncFilesGlobFilePath
 }
-
+function assertRollupInput(rollupBundle: Record<string, unknown>, config: ResolvedConfig) {
+  if (!config.build?.ssr) return
+  const rollupInputEntries = Object.keys(rollupBundle)
+  assertUsage(
+    rollupInputEntries.includes(`${telefuncFilesGlobFileNameBase}.js`) ||
+      rollupInputEntries.includes(`${telefuncFilesGlobFileNameBase}.mjs`),
+    "You seem to be using a tool that conflicts with Telefunc. Reach out to a Telefunc maintainer. (Info for maintainer: couldn't find Telefunc's Rollup input entry.)"
+  )
+}
 function normalizeRollupInput(input?: InputOption): Record<string, string> {
   if (!input) {
     return {}
