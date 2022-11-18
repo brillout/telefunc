@@ -1,3 +1,13 @@
+## [0.1.39](https://github.com/brillout/telefunc/compare/v0.1.38...v0.1.39) (2022-11-18)
+
+
+### Bug Fixes
+
+* improve error message upon third-party Vite plugin conflicting with Telefunc ([98cec22](https://github.com/brillout/telefunc/commit/98cec2295d96e900d27cf2cb1330a58d384feb30))
+* remove dangling log ([6201ca0](https://github.com/brillout/telefunc/commit/6201ca02e154bce3d31c885c355831a5cf0655ab))
+
+
+
 ## [0.1.38](https://github.com/brillout/telefunc/compare/v0.1.37...v0.1.38) (2022-11-18)
 
 
