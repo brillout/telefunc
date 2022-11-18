@@ -1,6 +1,6 @@
 export { buildConfig }
 
-import type { Plugin } from 'vite'
+import type { Plugin, ResolvedConfig } from 'vite'
 import type { InputOption } from 'rollup'
 import { telefuncFilesGlobFileNameBase } from '../importGlob/telefuncFilesGlobFileNameBase'
 import { telefuncFilesGlobFilePath } from '../importGlob/telefuncFilesGlobPath'
@@ -10,24 +10,25 @@ function buildConfig(): Plugin {
   return {
     name: 'telefunc:buildConfig',
     apply: 'build',
-    config: (config) => {
-      if (config.build?.ssr) {
-        const input = {
-          [telefuncFilesGlobFileNameBase]: telefuncFilesGlobFilePath,
-          ...normalizeRollupInput(config.build?.rollupOptions?.input)
-        }
-        return {
-          build: {
-            rollupOptions: { input }
-          }
-        }
-      }
-    },
+    enforce: 'post',
     configResolved(config) {
-      const outDir = determineOutDir(config)
-      if (outDir) config.build.outDir = outDir
+      setOutDir(config)
+      addRollupInput(config)
     }
   }
+}
+
+function setOutDir(config: ResolvedConfig) {
+  const outDir = determineOutDir(config)
+  if (outDir) config.build.outDir = outDir
+}
+
+function addRollupInput(config: ResolvedConfig) {
+  if (!config.build?.ssr) {
+    return
+  }
+  config.build.rollupOptions.input = normalizeRollupInput(config.build.rollupOptions.input)
+  config.build.rollupOptions.input[telefuncFilesGlobFileNameBase] = telefuncFilesGlobFilePath
 }
 
 function normalizeRollupInput(input?: InputOption): Record<string, string> {
