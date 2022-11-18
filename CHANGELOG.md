@@ -1,3 +1,12 @@
+## [0.1.38](https://github.com/brillout/telefunc/compare/v0.1.37...v0.1.38) (2022-11-18)
+
+
+### Bug Fixes
+
+* manually add Telefunc's rollup input ([146fee9](https://github.com/brillout/telefunc/commit/146fee977e5f396efa5e4c068e7cb24af7c6a395))
+
+
+
 ## [0.1.37](https://github.com/brillout/telefunc/compare/v0.1.36...v0.1.37) (2022-11-17)
 
 

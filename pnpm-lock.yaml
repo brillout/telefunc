@@ -51,7 +51,7 @@ importers:
       react: ^18.2.0
       react-dom: ^18.2.0
       react-streaming: ^0.3.3
-      telefunc: 0.1.37
+      telefunc: 0.1.38
       ts-node: ^10.3.0
       typescript: ^4.8.4
       vite: ^3.0.9
@@ -83,7 +83,7 @@ importers:
       '@rollup/plugin-node-resolve': ^13.1.3
       express: ^4.17.1
       rollup: ^2.67.1
-      telefunc: 0.1.37
+      telefunc: 0.1.38
     dependencies:
       '@babel/core': 7.17.5
       '@babel/preset-env': 7.16.11_@babel+core@7.17.5
@@ -99,7 +99,7 @@ importers:
       '@cloudflare/wrangler': ^1.19.8
       express: ^4.17.2
       miniflare: ^2.3.0
-      telefunc: 0.1.37
+      telefunc: 0.1.38
       vite: ^2.8.1
     dependencies:
       '@cloudflare/kv-asset-handler': 0.2.0
@@ -116,7 +116,7 @@ importers:
       next: ^12.3.1
       react: ^18.0.2
       react-dom: ^18.0.2
-      telefunc: 0.1.37
+      telefunc: 0.1.38
     dependencies:
       eslint: 8.26.0
       eslint-config-next: 12.3.1_eslint@8.26.0
@@ -131,7 +131,7 @@ importers:
       body-parser: ^1.19.0
       core-js: ^3.15.1
       nuxt: ^2.15.7
-      telefunc: 0.1.37
+      telefunc: 0.1.38
       vue: ^2.6.14
       webpack: ^4.46.0
     dependencies:
@@ -153,7 +153,7 @@ importers:
       prisma: ^3.5.0
       react: ^17.0.0
       react-dom: ^17.0.0
-      telefunc: 0.1.37
+      telefunc: 0.1.38
       typescript: ^4.8.4
       vite: ^2.6.4
     dependencies:
@@ -178,7 +178,7 @@ importers:
       svelte: ^3.44.0
       svelte-check: ^2.7.1
       svelte-preprocess: ^4.10.6
-      telefunc: 0.1.37
+      telefunc: 0.1.38
       tslib: ^2.3.1
       typescript: ^4.7.4
       vite: ^3.1.0
@@ -198,7 +198,7 @@ importers:
 
   examples/vite:
     specifiers:
-      telefunc: 0.1.37
+      telefunc: 0.1.38
       vite: npm:@brillout/vite@3.1.0-apptype-fix
     dependencies:
       telefunc: link:../../telefunc
@@ -214,7 +214,7 @@ importers:
       react: ^18.2.0
       react-dom: ^18.2.0
       react-streaming: ^0.3.3
-      telefunc: 0.1.37
+      telefunc: 0.1.38
       typescript: ^4.8.4
       vite: ^3.0.9
       vite-plugin-ssr: ^0.4.29
