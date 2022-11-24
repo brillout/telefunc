@@ -28,13 +28,18 @@ function getOutDirs(config: ResolvedConfig): OutDirs {
 
 /** Appends `client/` or `server/` to `config.build.outDir` */
 function determineOutDir(config: ResolvedConfig): string | null {
+  // https://github.com/withastro/astro/issues/5211#issuecomment-1326084151
+  if (config.plugins.some((p) => p.name?.startsWith('astro:'))) return null
+
   const outDirRoot = toPosixPath(config.build.outDir)
   assertPosixPath(outDirRoot)
+
   // When using vite-plugin-ssr and SvelteKit then `config.build.outDir` is already set
   if (!isOutDirRoot(outDirRoot)) {
     assertConfig(config)
     return null
   }
+
   const { outDirClient, outDirServer } = declineOutDirs(outDirRoot)
   if (viteIsSSR(config)) {
     return outDirServer
