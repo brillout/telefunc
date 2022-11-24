@@ -11,7 +11,7 @@ function previewConfig(): Plugin {
     apply: apply('preview'),
     configResolved(config_) {
       config = config_
-      const outDir = determineOutDir(config) ?? undefined
+      const outDir = determineOutDir(config)
       if (outDir) config.build.outDir = outDir
     },
     // Ensure that SvelteKit's configurePreviewServer() has precedence, see https://github.com/brillout/telefunc/pull/54
