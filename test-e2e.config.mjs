@@ -53,6 +53,10 @@ function getCiJobs() {
       setups: [ubuntu16]
     },
     {
+      name: 'Prisma',
+      setups: [win14, mac17]
+    },
+    {
       name: 'https://telefunc.com',
       setups: [ubuntu18]
     }
