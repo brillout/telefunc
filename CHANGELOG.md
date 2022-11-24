@@ -1,3 +1,12 @@
+## [0.1.40](https://github.com/brillout/telefunc/compare/v0.1.39...v0.1.40) (2022-11-24)
+
+
+### Bug Fixes
+
+* don't set outDir when used with Astro (withastro/astro[#5211](https://github.com/brillout/telefunc/issues/5211)) ([6ed9990](https://github.com/brillout/telefunc/commit/6ed99900b5d8c1fddcf53a0e4255e69b051c00db))
+
+
+
 ## [0.1.39](https://github.com/brillout/telefunc/compare/v0.1.38...v0.1.39) (2022-11-18)
 
 
