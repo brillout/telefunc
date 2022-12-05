@@ -5,7 +5,7 @@ export { runTest }
 function runTest(cmd: 'npm run test:dev' | 'npm run test:prod') {
   run(cmd, {
     // Prisma prints `Update available 3.9.2 -> 4.4.0` on stderr
-    onlyFailOnBrowserError: true
+    doNotFailOnWarning: true
   })
 
   test('Add to-do item', async () => {

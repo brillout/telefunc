@@ -6,13 +6,13 @@ function testRun(
   cmd: 'npm run dev' | 'npm run preview' | 'npm run start',
   {
     skipShieldGenerationTest,
-    onlyFailOnBrowserError
-  }: { skipShieldGenerationTest?: true; onlyFailOnBrowserError?: true } = {}
+    doNotFailOnWarning
+  }: { skipShieldGenerationTest?: true; doNotFailOnWarning?: true } = {}
 ) {
   {
     const isViteCli = cmd !== 'npm run start'
     const serverIsReadyMessage = isViteCli ? 'Local:' : undefined
-    run(cmd, { serverIsReadyMessage, onlyFailOnBrowserError })
+    run(cmd, { serverIsReadyMessage, doNotFailOnWarning })
   }
 
   {
