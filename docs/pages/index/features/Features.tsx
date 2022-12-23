@@ -1,6 +1,6 @@
 import React from 'react'
 import { Emoji } from '@brillout/docpress'
-import { FeatureList } from '@brillout/docpress'
+import { FeatureList } from '@brillout/docpress/features/FeatureList'
 
 export { Features }
 
