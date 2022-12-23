@@ -173,8 +173,8 @@ importers:
 
   examples/svelte-kit:
     specifiers:
-      '@sveltejs/adapter-auto': 1.0.0-next.91
-      '@sveltejs/kit': 1.0.0-next.588
+      '@sveltejs/adapter-auto': 1.0.0
+      '@sveltejs/kit': 1.0.1
       prettier: ^2.6.2
       prettier-plugin-svelte: ^2.7.0
       svelte: ^3.44.0
@@ -187,8 +187,8 @@ importers:
     dependencies:
       telefunc: link:../../telefunc
     devDependencies:
-      '@sveltejs/adapter-auto': 1.0.0-next.91_erfcpd5wjw6nq2fayxkx23hrei
-      '@sveltejs/kit': 1.0.0-next.588_svelte@3.53.1+vite@4.0.3
+      '@sveltejs/adapter-auto': 1.0.0_@sveltejs+kit@1.0.1
+      '@sveltejs/kit': 1.0.1_svelte@3.53.1+vite@4.0.3
       prettier: 2.7.1
       prettier-plugin-svelte: 2.8.0_nryolsexf6k3znhuh4uzpugsem
       svelte: 3.53.1
@@ -2852,7 +2852,7 @@ packages:
         optional: true
     dependencies:
       esbuild: 0.14.54
-      postcss: 8.4.18
+      postcss: 8.4.20
       resolve: 1.22.1
       rollup: 2.78.1
     optionalDependencies:
@@ -4292,18 +4292,18 @@ packages:
     engines: {node: '>=6'}
     dev: true
 
-  /@sveltejs/adapter-auto/1.0.0-next.91_erfcpd5wjw6nq2fayxkx23hrei:
-    resolution: {integrity: sha512-U57tQdzTfFINim8tzZSARC9ztWPzwOoHwNOpGdb2o6XrD0mEQwU9DsII7dBblvzg+xCnmd0pw7PDtXz5c5t96w==}
+  /@sveltejs/adapter-auto/1.0.0_@sveltejs+kit@1.0.1:
+    resolution: {integrity: sha512-yKyPvlLVua1bJ/42FrR3X041mFGdB4GzTZOAEoHUcNBRE5Mhx94+eqHpC3hNvAOiLEDcKfVO0ObyKSu7qldU+w==}
     peerDependencies:
-      '@sveltejs/kit': ^1.0.0-next.587
+      '@sveltejs/kit': ^1.0.0
     dependencies:
-      '@sveltejs/kit': 1.0.0-next.588_svelte@3.53.1+vite@4.0.3
+      '@sveltejs/kit': 1.0.1_svelte@3.53.1+vite@4.0.3
       import-meta-resolve: 2.2.0
     dev: true
 
-  /@sveltejs/kit/1.0.0-next.588_svelte@3.53.1+vite@4.0.3:
-    resolution: {integrity: sha512-AHGlPbz/KdH+IsPt3TAteL6N9vbIxt18D9M18cbO7zlqrcWvnPmPL8xZseIxyVSLB7jSmxoV8So6Zo8WFB+uag==}
-    engines: {node: '>=16.14'}
+  /@sveltejs/kit/1.0.1_svelte@3.53.1+vite@4.0.3:
+    resolution: {integrity: sha512-C41aCaDjA7xoUdsrc/lSdU1059UdLPIRE1vEIRRynzpMujNgp82bTMHkDosb6vykH6LrLf3tT2w2/5NYQhKYGQ==}
+    engines: {node: ^16.14 || >=18}
     hasBin: true
     requiresBuild: true
     peerDependencies:
@@ -14114,6 +14114,7 @@ packages:
       nanoid: 3.3.4
       picocolors: 1.0.0
       source-map-js: 1.0.2
+    dev: true
 
   /postcss/8.4.20:
     resolution: {integrity: sha512-6Q04AXR1212bXr5fh03u8aAwbLxAQNGQ/Q1LNa0VfOI06ZAlhPHtQvE4OIdpj4kLThXilalPnmDSOD65DcHt+g==}
