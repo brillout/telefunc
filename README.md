@@ -6,7 +6,7 @@ Examples: [examples/](examples)
 <br/>
 Version history & breaking changes: [CHANGELOG.md](CHANGELOG.md)
 
-Follow: [Twitter > @brillout](https://twitter.com/brillout)
+Follow: [Twitter > @brillout](https://twitter.com/brillout) / [Mastodon > @brillout@webtoo.ls](https://m.webtoo.ls/@brillout)
 <br/>
 Chat: <a href="https://discord.com/invite/dSDMGGJZQy">Discord > Cubes<img src="/docs/icons/hash.svg" height="17" width="23" valign="text-bottom" alt="hash"/>telefunc</a>
 
