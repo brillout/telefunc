@@ -1,6 +1,6 @@
 import type { Config } from '@brillout/docpress'
 import React from 'react'
-import faviconUrl from './icons/telefunc-favicon.svg'
+import faviconUrl from './icons/telefunc.svg'
 import { headings, headingsWithoutLink } from './headings'
 import { projectInfo } from './utils'
 import { NavHeader, NavHeaderMobile } from './NavHeader'
