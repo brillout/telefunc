@@ -1,3 +1,13 @@
+## [0.1.41](https://github.com/brillout/telefunc/compare/v0.1.40...v0.1.41) (2023-01-17)
+
+
+### Bug Fixes
+
+* remove unnecessary and problematic getOutDirs() ([6bce954](https://github.com/brillout/telefunc/commit/6bce95469862b308bdb05c2637ed50e9fb64a813))
+* update @brillout/vite-plugin-import-build ([8f5cff2](https://github.com/brillout/telefunc/commit/8f5cff26bc27abfe34aadf5757935734bc5f09ff))
+
+
+
 ## [0.1.40](https://github.com/brillout/telefunc/compare/v0.1.39...v0.1.40) (2022-11-24)
 
 
