@@ -2,7 +2,7 @@ export { importBuild }
 
 import { importBuild as importBuild_ } from '@brillout/vite-plugin-import-build/plugin'
 import type { Plugin, ResolvedConfig } from 'vite'
-import { projectInfo, toPosixPath, getOutDirs } from '../../utils'
+import { projectInfo, toPosixPath } from '../../utils'
 import path from 'path'
 import { telefuncFilesGlobFileNameBase } from '../../importGlob/telefuncFilesGlobFileNameBase'
 import { manifestFileName } from '../manifest'
@@ -32,8 +32,8 @@ function getImporterCode(config: ResolvedConfig, telefuncFilesEntry: string) {
   const importPathAbsolute = toPosixPath(
     require.resolve(`../../../../../../dist/cjs/node/vite/plugins/importBuild/loadBuild.js`)
   )
-  const { outDirServer } = getOutDirs(config)
-  const importPath = path.posix.relative(outDirServer, importPathAbsolute)
+  const { outDir } = config.build
+  const importPath = path.posix.relative(outDir, importPathAbsolute)
   // console.log(`\n  importPath: ${importPath}\n  outDirServer: ${outDirServer}\n  importPathAbsolute: ${importPathAbsolute}\n  config.build.outDir: ${config.build.outDir}`)
   const importerCode = [
     '{',

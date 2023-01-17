@@ -1,40 +1,23 @@
+export { determineOutDir }
+
 import type { UserConfig, ResolvedConfig } from 'vite'
 import { viteIsSSR } from './viteIsSSR'
 import { assert } from './assert'
 import { assertPosixPath, toPosixPath } from './filesystemPathHandling'
 import path from 'path'
 
-export { getOutDirs }
-export { determineOutDir }
-
-type OutDirs = {
-  /** Absolute path to `outDir` */
-  outDirRoot: string
-  /** Absolute path to `${outDir}/client` */
-  outDirClient: string
-  /** Absolute path to `${outDir}/server` */
-  outDirServer: string
-}
-
-function getOutDirs(config: ResolvedConfig): OutDirs {
-  const outDir = config.build.outDir
-  assertPosixPath(outDir)
-  assertIsNotOutDirRoot(outDir)
-  assertConfig(config)
-  assert('/client'.length === '/server'.length)
-  let outDirRoot = outDir.slice(0, -1 * '/client'.length)
-  return getAllOutDirs(outDirRoot, config.root)
-}
-
 /** Appends `client/` or `server/` to `config.build.outDir` */
 function determineOutDir(config: ResolvedConfig): string | null {
-  // https://github.com/withastro/astro/issues/5211#issuecomment-1326084151
+  // The mechansism to detect a framework down below doesn't work for Astro
+  //  - https://github.com/withastro/astro/issues/5211#issuecomment-1326084151
   if (config.plugins.some((p) => p.name?.startsWith('astro:'))) return null
 
   const outDirRoot = toPosixPath(config.build.outDir)
   assertPosixPath(outDirRoot)
 
-  // When using vite-plugin-ssr and SvelteKit then `config.build.outDir` is already set
+  // Mechanism to detect whether Telefunc is used with framework.
+  // When used with a framework then Telefunc should let the framework determine `outDir`.
+  // E.g. vite-plugin-ssr and SvelteKit already set `config.build.outDir`.
   if (!isOutDirRoot(outDirRoot)) {
     assertConfig(config)
     return null
@@ -46,32 +29,6 @@ function determineOutDir(config: ResolvedConfig): string | null {
   } else {
     return outDirClient
   }
-}
-
-function getAllOutDirs(outDirRoot: string, root: string) {
-  if (!outDirIsAbsolutePath(outDirRoot)) {
-    assertPosixPath(outDirRoot)
-    assertPosixPath(root)
-    outDirRoot = path.posix.join(root, outDirRoot)
-  }
-
-  let { outDirClient, outDirServer } = declineOutDirs(outDirRoot)
-  outDirRoot = outDirRoot + '/'
-  outDirClient = outDirClient + '/'
-  outDirServer = outDirServer + '/'
-
-  assertNormalization(outDirRoot)
-  assertNormalization(outDirClient)
-  assertNormalization(outDirServer)
-
-  return { outDirRoot, outDirClient, outDirServer }
-}
-
-function assertNormalization(outDirAny: string) {
-  assertPosixPath(outDirAny)
-  assert(outDirIsAbsolutePath(outDirAny))
-  assert(outDirAny.endsWith('/'))
-  assert(!outDirAny.endsWith('//'))
 }
 
 function declineOutDirs(outDirRoot: string) {
@@ -105,14 +62,4 @@ function assertConfig(config: UserConfig | ResolvedConfig) {
   } else {
     assert(outDir.endsWith('/client'))
   }
-}
-
-function outDirIsAbsolutePath(outDir: string) {
-  // There doesn't seem to be a better alternative to determine whether `outDir` is an aboslute path
-  //  - Very unlikely that `outDir`'s first dir macthes the filesystem's first dir
-  return getFirstDir(outDir) === getFirstDir(process.cwd())
-}
-function getFirstDir(p: string) {
-  const firstDir = p.split(/\/|\\/).filter(Boolean)[0]
-  return firstDir
 }
