@@ -1,4 +1,5 @@
 export { determineOutDir }
+export { getOutDirAbsolute }
 
 import type { UserConfig, ResolvedConfig } from 'vite'
 import { viteIsSSR } from './viteIsSSR'
@@ -62,4 +63,25 @@ function assertConfig(config: UserConfig | ResolvedConfig) {
   } else {
     assert(outDir.endsWith('/client'))
   }
+}
+
+function getOutDirAbsolute(config: ResolvedConfig): string {
+  let { outDir } = config.build
+  assertPosixPath(outDir)
+  if (!outDirIsAbsolutePath(outDir)) {
+    const { root } = config
+    assertPosixPath(root)
+    outDir = path.posix.join(root, outDir)
+  }
+  return outDir
+}
+
+function outDirIsAbsolutePath(outDir: string) {
+  // There doesn't seem to be a better alternative to determine whether `outDir` is an aboslute path
+  //  - Very unlikely that `outDir`'s first dir macthes the filesystem's first dir
+  return getFirstDir(outDir) === getFirstDir(process.cwd())
+}
+function getFirstDir(p: string) {
+  const firstDir = p.split(/\/|\\/).filter(Boolean)[0]
+  return firstDir
 }
