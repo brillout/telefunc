@@ -26,14 +26,15 @@ type HttpResponse = {
   etag: string | null
 }
 
-// Status code for `throw Abort()`
-const abortedRequestStatusCode = 403
+// HTTP Response for:
+//  - `throw Abort()`
+const abortedRequestStatusCode = 403 // "Forbidden"
 
 // HTTP Response for:
 // - User's telefunction threw an error that isn't `Abort()` (i.e. the telefunction has a bug).
 // - The Telefunc code threw an error (i.e. Telefunc has a bug).
 const serverError = {
-  statusCode: 500 as const,
+  statusCode: 500 as const, // "Internal Server Error"
   body: 'Internal Server Error',
   contentType: 'text/plain' as const,
   etag: null
@@ -43,7 +44,7 @@ const serverError = {
 // - Some non-telefunc client makes a malformed HTTP request.
 // - The telefunction couldn't be found.
 const invalidRequest = {
-  statusCode: 400 as const,
+  statusCode: 400 as const, // "Bad Request"
   body: 'Invalid Telefunc Request',
   contentType: 'text/plain' as const,
   etag: null
