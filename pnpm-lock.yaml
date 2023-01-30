@@ -238,7 +238,7 @@ importers:
     specifiers:
       '@brillout/import': ^0.1.2
       '@brillout/json-serializer': ^0.5.3
-      '@brillout/release-me': ^0.0.8
+      '@brillout/release-me': ^0.1.3
       '@brillout/vite-plugin-import-build': ^0.1.4
       '@nuxt/types': ^2.15.8
       '@types/express': ^4.17.11
@@ -259,7 +259,7 @@ importers:
       picocolors: 1.0.0
       ts-morph: 14.0.0
     devDependencies:
-      '@brillout/release-me': 0.0.8
+      '@brillout/release-me': 0.1.3
       '@nuxt/types': 2.15.8
       '@types/express': 4.17.13
       '@types/jest': 27.4.0
@@ -306,7 +306,7 @@ packages:
     engines: {node: '>=6.9.0'}
     dependencies:
       '@ampproject/remapping': 2.1.0
-      '@babel/code-frame': 7.16.7
+      '@babel/code-frame': 7.18.6
       '@babel/generator': 7.17.0
       '@babel/helper-compilation-targets': 7.16.7_@babel+core@7.17.2
       '@babel/helper-module-transforms': 7.16.7
@@ -2624,7 +2624,7 @@ packages:
     resolution: {integrity: sha512-fpFIXvqD6kC7c7PUNnZ0Z8cQXlarCLtCUpt2S1Dx7PjoRtCFffvOkHHSom+m5HIxMZn5bIBVb71lhabcmjEsqg==}
     engines: {node: '>=6.9.0'}
     dependencies:
-      '@babel/code-frame': 7.16.7
+      '@babel/code-frame': 7.18.6
       '@babel/generator': 7.17.0
       '@babel/helper-environment-visitor': 7.16.7
       '@babel/helper-function-name': 7.16.7
@@ -2790,8 +2790,8 @@ packages:
       '@brillout/assert': 0.1.7
     dev: false
 
-  /@brillout/release-me/0.0.8:
-    resolution: {integrity: sha512-sZUjOMkcQ2Eq3tDiL24t4Mgt93tMAs7oeNy/LHqPBlWGO+db8U+ZSpdAhae7rIyse53fBuXV9KLH0DdDkFkLGA==}
+  /@brillout/release-me/0.1.3:
+    resolution: {integrity: sha512-W1nu8MhRhJ90mUjBXLEoZ+U1sx9xa/FpYodWjlv7rGbuNNqZKBT0nR9S19QQw8pa25zEGfkW62LTrrltL/+0JQ==}
     hasBin: true
     dependencies:
       conventional-changelog: 3.1.25
@@ -5471,7 +5471,7 @@ packages:
     engines: {node: '>=8'}
 
   /ansi-styles/2.2.1:
-    resolution: {integrity: sha1-tDLdM1i2NM914eRmQ2gkBTPB3b4=}
+    resolution: {integrity: sha512-kmCevFghRiWM7HB5zTPULl4r9bVFSWjz62MhqizDGUrq2NWuNMQyuv4tHHoKJHs69M/MF64lEcHdYIocrdWQYA==}
     engines: {node: '>=0.10.0'}
     dev: false
 
@@ -11144,14 +11144,14 @@ packages:
     dev: true
 
   /kind-of/3.2.2:
-    resolution: {integrity: sha1-MeohpzS6ubuw8yRm2JOupR5KPGQ=}
+    resolution: {integrity: sha512-NOW9QQXMoZGg/oqnVNoNTTIFEIid1627WCffUBJEdMxYApq7mNE7CpzucIPc+ZQg25Phej7IJSmX3hO+oblOtQ==}
     engines: {node: '>=0.10.0'}
     dependencies:
       is-buffer: 1.1.6
     dev: false
 
   /kind-of/4.0.0:
-    resolution: {integrity: sha1-IIE989cSkosgc3hpGkUGb65y3Vc=}
+    resolution: {integrity: sha512-24XsCxmEbRwEDbz/qz3stgin8TTzZ1ESR56OMCN0ujYg+vRutNSiOj9bHH9u85DKgXguraugV5sFuvbD4FW/hw==}
     engines: {node: '>=0.10.0'}
     dependencies:
       is-buffer: 1.1.6
