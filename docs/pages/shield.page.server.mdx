@@ -9,9 +9,9 @@ telefunctions are public and need protection.
 
 ## TypeScript
 
-Telefunc can automatically generate `shield()` for telefunctions.
+If we use TypeScript, then Telefunc automatically generates a `shield()` for each telefunction.
 
-> Telefunc automatically generates `shield()` only for stacks that transpile server-side code (Next.js, Vite, vite-plugin-ssr, SvelteKit, Nuxt, etc.).
+In other words, Telefunc automatically checks the argument types at runtime:
 
 ```ts
 // hello.telefunc.ts
@@ -24,13 +24,13 @@ export async function hello({ name }: { name: string }) {
 }
 ```
 
-This means that, not only can we seamlessly use types across frontend-backend, but we also get automatic runtime type-safety.
+With Telefunc, not only can we seamlessly re-use types across our frontend and backend code, but we also get automatic type-safety at runtime. If we use a TypeScript ORM (e.g. [Prisma](https://www.prisma.io/)) or SQL builder (e.g. [Kysely](https://github.com/koskimas/kysely) and [others](https://github.com/stars/brillout/lists/sql)), then we get end-to-end type safety all the way from database to frontend.
 
-> When using Telefunc with a TypeScript ORM (e.g. [Prisma](https://www.prisma.io/)) or SQL builder (e.g. [Kysely](https://github.com/koskimas/kysely) or [others](https://github.com/stars/brillout/lists/sql)), we get end-to-end type safety all the way from database to frontend.
+> Telefunc's automatic `shield()` generation only works for stacks that transpile server-side code (Next.js, Vite, vite-plugin-ssr, SvelteKit, Nuxt, etc.).
+>
+> For stacks that don't transpile server-side code (e.g. React Native, CRA, Parcel), we need to define `shield()` manually ourselves.
 
-For stacks that don't transpile server-side code (e.g. React Native, CRA, Parcel), we need to define `shield()` ourselves.
-
-TypeScript automatically infers the type of telefunction arguments using `shield()`:
+If we define `shield()` manually (instead of using Telefunc's automatic `shield()` generator), then note we can use `shield()` to infer types:
 
 ```ts
 import { shield } from 'telefunc'
@@ -43,7 +43,7 @@ export const onNewTodo = shield(
 )
 ```
 
-Note that the following won't work:
+Note that the following doesn't work:
 
 ```ts
 import { shield } from 'telefunc'
