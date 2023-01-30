@@ -1,14 +1,22 @@
 import { Link } from '@brillout/docpress'
 import { MostlyMutations } from '../components'
 
-## Install
-
-See example. (Boilerplates and install instructions are work-in-progress.)
-
 ## Example
 
- - <Link href="/examples/next" />
+- <Link href="/examples/next" />
 
-## Data fetching
+## Initial Data
 
-<MostlyMutations toolName="Next" />
+<MostlyMutations
+  toolName="Next.js"
+  builtInMechanism={
+    <p>
+      For example, we can use Next.js's <code>getServerSideProps</code> to fetch initial data directly from a database,
+      see{' '}
+      <a href="https://nextjs.org/docs/basic-features/data-fetching/get-server-side-props">
+        Next.js Docs &gt; Data Fetching &gt; getServerSideProps
+      </a>
+      {'.'}
+    </p>
+  }
+/>

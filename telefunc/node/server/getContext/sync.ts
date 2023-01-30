@@ -22,7 +22,7 @@ function getContext_sync(): Telefunc.Context {
     // Using `neverRestored` to detect SSR doesn't always work.
     //  - Reliable alternative: use an Async Hook in dev to detect SSR.
     if (globalObject.neverRestored) {
-      assertUsage(false, 'Using Telefunc to fetch the initial data of your page is discouraged, see https://telefunc.com/initial-page-data') // prettier-ignore
+      assertUsage(false, 'Using Telefunc to fetch the initial data of your page is discouraged, see https://telefunc.com/initial-data') // prettier-ignore
     }
     if (globalObject.hasRestoreAccess || globalObject.neverProvided) {
       assertUsage(false, '[getContext()] Make sure to provide a context object, see https://telefunc.com/getContext#provide') // prettier-ignore

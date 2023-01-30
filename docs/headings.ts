@@ -22,6 +22,10 @@ const headingsWithoutLink: HeadingWithoutLink[] = [
   {
     title: 'Initial Page Data',
     url: '/initial-page-data'
+  },
+  {
+    title: 'Initial Data',
+    url: '/initial-data'
   }
 ]
 
@@ -44,23 +48,28 @@ export const headings: HeadingDefinition[] = [
   },
   {
     level: 2,
-    title: 'Vite',
-    url: '/vite'
-  },
-  {
-    level: 2,
     title: 'Next.js',
     url: '/next'
   },
   {
     level: 2,
-    title: 'Nuxt',
-    url: '/nuxt'
+    title: 'SvelteKit',
+    url: '/svelte-kit'
   },
   {
     level: 2,
-    title: 'SvelteKit',
-    url: '/svelte-kit'
+    title: 'Vite',
+    url: '/vite'
+  },
+  {
+    level: 2,
+    title: 'Vite-plugin-ssr',
+    url: '/vite-plugin-ssr'
+  },
+  {
+    level: 2,
+    title: 'Nuxt',
+    url: '/nuxt'
   },
   {
     level: 2,

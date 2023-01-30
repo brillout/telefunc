@@ -5,7 +5,6 @@ import { MostlyMutations } from '../components'
 
 - <Link href="/examples/svelte-kit" />
 
-
 ## Add to existing app
 
 Example of adding Telefunc to an existing app: [`7178fec`](https://github.com/brillout/telefunc/commit/7178fecec8e08c55b1f9057d8c9fb1563698be27).
@@ -18,7 +17,18 @@ Example of adding Telefunc to an existing app: [`7178fec`](https://github.com/br
 
 That's it. Enjoy end-to-end typesafety with automatic runtime validation.
 
+## Initial Data
 
-## Initial page data
-
-<MostlyMutations toolName="SvelteKit" />
+<MostlyMutations
+  toolName="SvelteKit"
+  builtInMechanism={
+    <p>
+      For example, we can use SvelteKit's <code>load</code> function in a <code>+page.server.js</code> file to fetch
+      initial data directly from a database, see{' '}
+      <a href="https://kit.svelte.dev/docs/load#universal-vs-server">
+        SvelteKit Docs &gt; Loading data &gt; Universal vs server
+      </a>
+      {'.'}
+    </p>
+  }
+/>
