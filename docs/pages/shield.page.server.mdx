@@ -2,12 +2,29 @@ import { Link } from '@brillout/docpress'
 
 **Environment**: Server.
 
-We use `shield()` to assert telefunction arguments;
-as explained in <Link href="/RPC" />,
-telefunctions are public and need protection.
+We use `shield()` to guarantee the type of telefunction arguments. (As explained in <Link href="/RPC" />,
+telefunctions are public and need protection.)
+
+```js
+// CreateTodo.telefunc.js
+// Environment: Server
+
+export { onNewTodo }
+
+import { shield } from 'telefunc'
+const t = shield.type
+
+shield(onNewTodo, [t.string])
+async function onNewTodo(text) {
+  // `text` is guaranteed to be a `string`: if `onNewTodo(42)` is called then Telefunc
+  // throws an error that `text` should be a `string` (instead of a `number`)
+}
+```
+
+> If we use TypeScript, then Telefunc automaticaly defines `shield()`, see <Link href="#typescript-automatic" />.
 
 
-## TypeScript
+## TypeScript - Automatic
 
 If we use TypeScript, then Telefunc automatically generates `shield()` for each telefunction.
 
@@ -28,9 +45,12 @@ With Telefunc, not only can we seamlessly re-use types across our frontend and b
 
 > Telefunc's automatic `shield()` generation only works for stacks that transpile server-side code (Next.js, Vite, vite-plugin-ssr, SvelteKit, Nuxt, etc.).
 >
-> For stacks that don't transpile server-side code (e.g. React Native, CRA, Parcel), we need to define `shield()` manually ourselves.
+> For stacks that don't transpile server-side code (e.g. React Native, CRA, Parcel), we need to define `shield()` manually ourselves: see <Link href="#typescript-manual" />.
 
-If we define `shield()` manually (instead of using Telefunc's automatic `shield()` generator), then we can use `shield()` to infer types:
+
+## TypeScript - Manual
+
+If we define `shield()` manually (instead of using Telefunc's automatic `shield()` generator as described in <Link href="#typescript-automatic" />), then note that we don't need to define the arguments type twice:
 
 ```ts
 import { shield } from 'telefunc'

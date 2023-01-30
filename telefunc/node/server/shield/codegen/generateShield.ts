@@ -273,7 +273,7 @@ function printFailures(appRootDir: string) {
       !hasTypeScriptErrors
         ? ''
         : ' TypeScript errors (printed above) can be problematic for shield() generation. Fix your TypeScript errors and try again.',
-      ' See https://telefunc.com/shield#typescript for more information.'
+      ' See https://telefunc.com/shield#typescript-automatic for more information.'
     ].join(''),
     { onlyOnce: true }
   )

@@ -140,7 +140,7 @@ export const headings: HeadingDefinition[] = [
     level: 2,
     title: '`shield()`',
     url: '/shield',
-    sectionTitles: ['TypeScript']
+    sectionTitles: ['TypeScript - Automatic', 'TypeScript - Manual']
   },
   {
     level: 4,
