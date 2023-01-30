@@ -9,9 +9,9 @@ telefunctions are public and need protection.
 
 ## TypeScript
 
-If we use TypeScript, then Telefunc automatically generates a `shield()` for each telefunction.
+If we use TypeScript, then Telefunc automatically generates `shield()` for each telefunction.
 
-In other words, Telefunc automatically checks the argument types at runtime:
+In other words: telefunction argument types are automatically validated at runtime:
 
 ```ts
 // hello.telefunc.ts
@@ -30,7 +30,7 @@ With Telefunc, not only can we seamlessly re-use types across our frontend and b
 >
 > For stacks that don't transpile server-side code (e.g. React Native, CRA, Parcel), we need to define `shield()` manually ourselves.
 
-If we define `shield()` manually (instead of using Telefunc's automatic `shield()` generator), then note we can use `shield()` to infer types:
+If we define `shield()` manually (instead of using Telefunc's automatic `shield()` generator), then we can use `shield()` to infer types:
 
 ```ts
 import { shield } from 'telefunc'
