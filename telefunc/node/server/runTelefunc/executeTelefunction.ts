@@ -16,6 +16,7 @@ async function executeTelefunction(runContext: {
 
   restoreContext(runContext.providedContext)
 
+  let telefunctionReturn: unknown
   let telefunctionError: unknown
   let telefunctionHasErrored = false
   let telefunctionAborted = false
@@ -44,7 +45,6 @@ async function executeTelefunction(runContext: {
     onError(err)
   }
 
-  let telefunctionReturn: unknown
   if (!telefunctionHasErrored && !telefunctionAborted) {
     assertUsage(
       isPromise(resultSync),
