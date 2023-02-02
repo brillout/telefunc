@@ -1,3 +1,12 @@
+## [0.1.43](https://github.com/brillout/telefunc/compare/v0.1.42...v0.1.43) (2023-02-02)
+
+
+### Bug Fixes
+
+* ensure telefunctionReturn is initialized (fix [#58](https://github.com/brillout/telefunc/issues/58)) ([aa7d82e](https://github.com/brillout/telefunc/commit/aa7d82eb376942e0525bf4ded4e80eabfca443c2))
+
+
+
 ## [0.1.42](https://github.com/brillout/telefunc/compare/v0.1.41...v0.1.42) (2023-01-30)
 
 
