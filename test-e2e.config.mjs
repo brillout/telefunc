@@ -22,6 +22,10 @@ function getCiJobs() {
     os: 'windows-latest',
     node_version: '14'
   }
+  const win18 = {
+    os: 'windows-latest',
+    node_version: '18'
+  }
   const mac17 = {
     os: 'macos-latest',
     node_version: '17'
@@ -50,7 +54,7 @@ function getCiJobs() {
     },
     {
       name: 'SvelteKit',
-      setups: [ubuntu16, win14]
+      setups: [ubuntu16, win18]
     },
     {
       name: 'Prisma',
