@@ -50,7 +50,7 @@ function getCiJobs() {
     },
     {
       name: 'SvelteKit',
-      setups: [ubuntu16]
+      setups: [ubuntu16, win14]
     },
     {
       name: 'Prisma',
