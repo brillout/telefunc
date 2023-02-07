@@ -67,7 +67,8 @@ function assertConfig(config: UserConfig | ResolvedConfig) {
 
 function getOutDirAbsolute(config: ResolvedConfig): string {
   let { outDir } = config.build
-  assertPosixPath(outDir)
+  // SvelteKit sets config.build.outDir to `D:\a\telefunc\telefunc\examples\svelte-kit\.svelte-kit/output/server.`
+  outDir = toPosixPath(outDir)
   if (!outDirIsAbsolutePath(outDir)) {
     const { root } = config
     assertPosixPath(root)
