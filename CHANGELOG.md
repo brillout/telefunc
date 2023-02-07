@@ -1,3 +1,13 @@
+## [0.1.44](https://github.com/brillout/telefunc/compare/v0.1.43...v0.1.44) (2023-02-07)
+
+
+### Bug Fixes
+
+* convert SvetelteKit provided paths to posix paths ([#59](https://github.com/brillout/telefunc/issues/59)) ([64b2623](https://github.com/brillout/telefunc/commit/64b2623b95252d3c8c186ea713fb71e7c0645e3c))
+* update @brillout/vite-plugin-import-build ([#59](https://github.com/brillout/telefunc/issues/59)) ([947cc61](https://github.com/brillout/telefunc/commit/947cc61b0c36296823a294567b03e183c72295a3))
+
+
+
 ## [0.1.43](https://github.com/brillout/telefunc/compare/v0.1.42...v0.1.43) (2023-02-02)
 
 
