@@ -71,8 +71,11 @@ async function makeHttpRequest(callContext: {
         callContext
       })
     )
+    /* With Next.js 12: when renaming a `.telefunc.js` file the client makes a request with the new `.telefunc.js` name while the server is still serving the old `.telefunc.js` name. Seems like a race condition: trying again seems to fix the error.
     // This should never happen as the Telefunc Client shouldn't make invalid requests
     assert(false)
+    */
+    assertUsage(false, 'Try again. You may need to reload the page. (The client and server are/was out-of-sync.)')
   } else {
     assertUsage(
       statusCode !== 404,
