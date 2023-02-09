@@ -239,7 +239,7 @@ importers:
       '@brillout/import': ^0.1.2
       '@brillout/json-serializer': ^0.5.3
       '@brillout/release-me': ^0.1.3
-      '@brillout/vite-plugin-import-build': ^0.1.5
+      '@brillout/vite-plugin-import-build': ^0.1.6
       '@nuxt/types': ^2.15.8
       '@types/express': ^4.17.11
       '@types/jest': ^27.4.0
@@ -254,7 +254,7 @@ importers:
     dependencies:
       '@brillout/import': 0.1.2
       '@brillout/json-serializer': 0.5.3
-      '@brillout/vite-plugin-import-build': 0.1.5
+      '@brillout/vite-plugin-import-build': 0.1.6
       es-module-lexer: 0.7.1
       picocolors: 1.0.0
       ts-morph: 14.0.0
@@ -2832,8 +2832,8 @@ packages:
     resolution: {integrity: sha512-zn90Jwy9TKrBSB45ikPMmxvnGRRfrreeGKtb0DWbKrxlFf+0dOPSmPxxgO7EKBahQJAC8XxeUSMKcPwPmR1b4Q==}
     dev: false
 
-  /@brillout/vite-plugin-import-build/0.1.5:
-    resolution: {integrity: sha512-qApmCjLCYY5ZfP6+Qmqq9kKvsmeex3uvZQIOpqALrolnhSW/tQbjxk1J5cU0xMot6TPDmVb05e73lgJElVzRwQ==}
+  /@brillout/vite-plugin-import-build/0.1.6:
+    resolution: {integrity: sha512-A9GH4PWqZ13GTHalGdXO7ndlHNwN/8351GyD2OR+is+Nz3SpaVl5EcP2hXseEf/TBOq+TFFl49agTjKqlh73oQ==}
     dev: false
 
   /@brillout/vite/3.1.0-apptype-fix:
