@@ -4,10 +4,7 @@ export { testRun }
 
 function testRun(
   cmd: 'npm run dev' | 'npm run preview' | 'npm run start',
-  {
-    skipShieldGenerationTest,
-    doNotFailOnWarning
-  }: { skipShieldGenerationTest?: true; doNotFailOnWarning?: true } = {}
+  { skipShieldGenerationTest, doNotFailOnWarning }: { skipShieldGenerationTest?: true; doNotFailOnWarning?: true } = {}
 ) {
   {
     const isViteCli = cmd !== 'npm run start'
