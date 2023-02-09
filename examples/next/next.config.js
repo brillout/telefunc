@@ -1,3 +1,8 @@
 const withTelefunc = require('telefunc/next').default
 
-module.exports = withTelefunc()
+/** @type {import('next').NextConfig} */
+const nextConfig = withTelefunc({
+  reactStrictMode: true,
+})
+
+module.exports = nextConfig
