@@ -239,7 +239,7 @@ importers:
       '@brillout/import': ^0.1.2
       '@brillout/json-serializer': ^0.5.3
       '@brillout/release-me': ^0.1.3
-      '@brillout/vite-plugin-import-build': ^0.1.10
+      '@brillout/vite-plugin-import-build': ^0.1.11
       '@nuxt/types': ^2.15.8
       '@types/express': ^4.17.11
       '@types/jest': ^27.4.0
@@ -254,7 +254,7 @@ importers:
     dependencies:
       '@brillout/import': 0.1.2
       '@brillout/json-serializer': 0.5.3
-      '@brillout/vite-plugin-import-build': 0.1.10
+      '@brillout/vite-plugin-import-build': 0.1.11
       es-module-lexer: 0.7.1
       picocolors: 1.0.0
       ts-morph: 14.0.0
@@ -2764,6 +2764,10 @@ packages:
     resolution: {integrity: sha512-4qA9sNtQZCY02MeLjTP+O9LfY9T6d2ajYS7whyvgBklJzWzLUNbJp940ClxK64hbDPqag9AQZt45beEAGcSYYA==}
     dev: false
 
+  /@brillout/import/0.2.2:
+    resolution: {integrity: sha512-JatRCkrFxss1iwRrFlnY3yPFyD2yGWIeFprMH++TmZ+wqnRlwfN0ECDJea0EyagSGXlb2CUxFIH3dBMBiV05sw==}
+    dev: false
+
   /@brillout/json-s/0.1.5:
     resolution: {integrity: sha512-J25bhw1BxtuyRx5CXMlAHH3SKX2dv0cghf2p7BCS6UNqgrUhXq96FhfsafF7a+/20Egi0m3U5PSjjtRXLzD8Kw==}
     dev: false
@@ -2834,8 +2838,10 @@ packages:
     resolution: {integrity: sha512-zn90Jwy9TKrBSB45ikPMmxvnGRRfrreeGKtb0DWbKrxlFf+0dOPSmPxxgO7EKBahQJAC8XxeUSMKcPwPmR1b4Q==}
     dev: false
 
-  /@brillout/vite-plugin-import-build/0.1.10:
-    resolution: {integrity: sha512-dRs38raOhwEpvv/DuBv5zipa/g+JZu3DIxBQLulaSBBmu3XYfq/IyMjkqhZhpSuXf9RD5xm//hFECAXUpD4BGQ==}
+  /@brillout/vite-plugin-import-build/0.1.11:
+    resolution: {integrity: sha512-ZfSty5JawSqixGDimF65h3OWm3WNpqQ8ygI+Hf02ndQte+8URNoinK36SGVOnXncwYE2iTsKNSB7RPMYycZ3nQ==}
+    dependencies:
+      '@brillout/import': 0.2.2
     dev: false
 
   /@brillout/vite/3.1.0-apptype-fix:
