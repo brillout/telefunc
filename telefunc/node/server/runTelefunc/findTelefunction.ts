@@ -1,6 +1,6 @@
 export { findTelefunction }
 
-import { assert, assertUsage, errorPrefix as projectErrorPrefix, isProduction } from '../../utils'
+import { assert, assertUsage, errorPrefix as projectErrorPrefix } from '../../utils'
 import type { TelefuncFiles, Telefunction } from '../types'
 import { assertNamingConvention } from './assertNamingConvention'
 import { assertTelefunction } from './assertTelefunction'
@@ -34,7 +34,7 @@ function findTelefunction(runContext: {
     }
     const telefunction = telefuncFile.fileExports[runContext.telefunctionName]
     assertTelefunction(telefunction, runContext.telefunctionName, telefuncFile.filePath)
-    if (!isProduction() && !runContext.serverConfig.disableNamingConvention) {
+    if (!runContext.serverConfig.disableNamingConvention) {
       assertNamingConvention(telefunction, runContext.telefunctionName, telefuncFile.filePath, runContext.appRootDir)
     }
     return telefunction

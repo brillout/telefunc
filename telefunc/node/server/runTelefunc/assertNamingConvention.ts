@@ -1,6 +1,6 @@
 export { assertNamingConvention }
 
-import { assert, assertWarning } from '../../utils'
+import { assert, assertWarning, isProduction } from '../../utils'
 import type { Telefunction } from '../types'
 import type * as fsType from 'fs'
 import type * as pathType from 'path'
@@ -11,6 +11,7 @@ function assertNamingConvention(
   telefuncFilePath: string,
   appRootDir: null | string
 ): asserts exportValue is Telefunction {
+  if (isProduction()) return
   assertWarning(
     /on[A-Z]/.test(exportName),
     `We recommend the name of your telefunction ${exportName}() (${telefuncFilePath}) to start with "on", see https://telefunc.com/event-based#naming-convention'`,
