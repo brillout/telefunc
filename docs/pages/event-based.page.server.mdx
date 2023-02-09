@@ -16,7 +16,7 @@ You may be tempted to create generic telefunctions out of the habit of using RES
 
 ## Example
 
-Let's imagine a to-do app that wants to implement a new feature "mark all tasks as completed".
+Let's imagine a to-do list app that wants to implement a new feature "mark all tasks as completed".
 
 With a RESTful API, the app typically does these requests:
 
@@ -55,15 +55,15 @@ export async function onMarkAllAsCompleted() {
 }
 ```
 
-> With Telefunc, it's the frontend team that owns and is responsible for defining telefunctions.
+> It's usually the frontend team that owns and is responsible for defining such telefunction.
 
 The key difference is that our telefunction `onMarkAllAsCompleted()` is created specifically to serve the needs of our component `TodoList.tsx`, whereas a RESTful API is a set of generic endpoints that are agnostic to our frontend.
 
-Not only is it more performant, but it's also faster to implement tailored telefunction as the need arises instead of having to implement an entire RESTful API before even starting developing the frontend.
+Not only is it more performant, but it's also faster to implement tailored telefunctions as the need arises &ndash; instead of having to implement an entire RESTful API before even getting started with the development of the frontend.
 
-That's why, in general, we recommend implementing telefunctions that are tailored instead of generic.
+Thus, in general, we recommend implementing telefunctions that are tailored instead of generic.
 
-We named our telefunction "onMarkAllAsCompleted" instead of "markAllAsCompleted" because it's triggered by a user event:
+We named our telefunction "onMarkAllAsCompleted" (instead of "markAllAsCompleted") because it's triggered by a user event:
 
 ```tsx
 // TodoList.tsx
@@ -85,7 +85,7 @@ function TodoList() {
 }
 ```
 
-When defining telefunctions tailored to serve the needs of UI commponents, we soon realize that telefunctions are usually triggered by some kind of event.
+When defining telefunctions tailored to serve the needs of UI commponents, we soon realize that telefunctions are usually triggered by a user event.
 
 
 ## Naming convention
