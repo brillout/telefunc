@@ -1,6 +1,6 @@
 export { assertNamingConvention }
 
-import { assert, assertWarning, isProduction } from '../../utils'
+import { assert, assertWarning, isProduction, assertPosixPath } from '../../utils'
 import type { Telefunction } from '../types'
 import type * as fsType from 'fs'
 import type * as pathType from 'path'
@@ -36,6 +36,8 @@ function assertStartsWithOn(exportName: string, telefuncFilePath: string) {
 function assertCollocation(telefuncFilePath: string, appRootDir: string | null, exportValue: unknown) {
   appRootDir = appRootDir || ((exportValue as any)._appRootDir as undefined | string) || null
   if (!appRootDir) return
+
+  assertPosixPath(telefuncFilePath)
 
   let fs: typeof fsType
   let path: typeof pathType
