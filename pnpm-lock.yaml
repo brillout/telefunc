@@ -9,13 +9,13 @@ importers:
     specifiers:
       '@brillout/bump-dependencies': ^0.1.1
       '@brillout/dev-my-dep': ^0.0.10
-      '@brillout/test-e2e': ^0.3.0
+      '@brillout/test-e2e': ^0.3.12
       '@brillout/test-types': ^0.1.3
       vitest: ^0.22.1
     devDependencies:
       '@brillout/bump-dependencies': 0.1.1
       '@brillout/dev-my-dep': 0.0.10
-      '@brillout/test-e2e': 0.3.0
+      '@brillout/test-e2e': 0.3.12
       '@brillout/test-types': 0.1.3
       vitest: 0.22.1
 
@@ -2801,17 +2801,19 @@ packages:
       semver: 7.3.8
     dev: true
 
-  /@brillout/test-e2e/0.3.0:
-    resolution: {integrity: sha512-4dBXPUiiasN2XUfffvDTOo4Lwx3WNnScf3moXjL6FnJthpE1KZGictEDI0FYQPktg7OTJxm0hZt7zCdmbjGy5g==}
+  /@brillout/test-e2e/0.3.12:
+    resolution: {integrity: sha512-V5j6c3Cpa+PyDwlmAdXc66zj56LmE37igtcExok54Y2ZNtVhf9EsQ+1kcxSyYLfvsSFfPfM2Heuf1UdOqyprig==}
     hasBin: true
     dependencies:
       '@brillout/part-regex': 0.1.2
       chai: 4.3.6
-      esbuild: 0.15.13
+      esbuild: 0.16.10
       fast-glob: 3.2.12
       node-fetch: 2.6.7
       picocolors: 1.0.0
+      pixelmatch: 5.3.0
       playwright-chromium: 1.25.1
+      pngjs: 6.0.0
       source-map-support: 0.5.21
       strip-ansi: 6.0.1
     transitivePeerDependencies:
@@ -13485,6 +13487,13 @@ packages:
     engines: {node: '>=10'}
     dev: false
 
+  /pixelmatch/5.3.0:
+    resolution: {integrity: sha512-o8mkY4E/+LNUf6LzX96ht6k6CEDi65k9G2rjMtBe9Oo+VPKSvl+0GKHuH/AlG+GA5LPG/i5hrekkxUc3s2HU+Q==}
+    hasBin: true
+    dependencies:
+      pngjs: 6.0.0
+    dev: true
+
   /pkg-dir/3.0.0:
     resolution: {integrity: sha512-/E57AYkoeQ25qkxMj5PBOVgF8Kiu/h7cYS30Z5+R7WaiCCBfLq58ZI/dSeaEKb9WVJV5n/03QwrN3IeWIFllvw==}
     engines: {node: '>=6'}
@@ -13512,6 +13521,11 @@ packages:
     resolution: {integrity: sha512-lSvPCmA2n7LawD2Hw7gSCLScZ+vYRkhU8xH0AapMyzwN+ojoDqhkH/KIEUxwNu2PjPoE/fcE0wLAksdOhJ2O5g==}
     engines: {node: '>=14'}
     hasBin: true
+    dev: true
+
+  /pngjs/6.0.0:
+    resolution: {integrity: sha512-TRzzuFRRmEoSW/p1KVAmiOgPco2Irlah+bGFCeNfJXxxYGwSw7YwAOAcd7X28K/m5bjBWKsC29KyoMfHbypayg==}
+    engines: {node: '>=12.13.0'}
     dev: true
 
   /pnp-webpack-plugin/1.7.0:
