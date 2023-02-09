@@ -37,8 +37,6 @@ function assertCollocation(telefuncFilePath: string, appRootDir: string | null, 
   appRootDir = appRootDir || ((exportValue as any)._appRootDir as undefined | string) || null
   if (!appRootDir) return
 
-  assertPosixPath(telefuncFilePath)
-
   let fs: typeof fsType
   let path: typeof pathType
   const req: NodeRequire = require
@@ -49,15 +47,18 @@ function assertCollocation(telefuncFilePath: string, appRootDir: string | null, 
     return
   }
 
-  const basename = path.basename(telefuncFilePath).split('.')[0]!
-  const telefuncFileDir = path.dirname(telefuncFilePath)
-  const telefuncFileDirAbsolute = path.join(appRootDir, telefuncFileDir)
+  assertPosixPath(telefuncFilePath)
+
+  const basename = path.posix.basename(telefuncFilePath).split('.')[0]!
+  const telefuncFileDir = path.posix.dirname(telefuncFilePath)
+  const telefuncFileDirAbsolute = path.posix.join(appRootDir, telefuncFileDir)
   const collocatedFiles = fs.readdirSync(telefuncFileDirAbsolute)
   const collocatedFilesMatchYes: string[] = []
   const collocatedFilesMatchNot: string[] = []
   collocatedFiles.forEach((file) => {
+    assertPosixPath(file) // file is a filename so it shouldn't contain any windows backslash
     const sameBasename = file.startsWith(basename)
-    file = path.join(telefuncFileDir, file)
+    file = path.posix.join(telefuncFileDir, file)
     if (sameBasename) {
       collocatedFilesMatchYes.push(file)
     } else {
