@@ -1,3 +1,17 @@
+## [0.1.45](https://github.com/brillout/telefunc/compare/v0.1.44...v0.1.45) (2023-02-09)
+
+
+### Bug Fixes
+
+* improve error message when client/server out-of-sync ([21fb6ed](https://github.com/brillout/telefunc/commit/21fb6ed8d7c88cbc1dcc3ad08745d85fdae2795d))
+* improve naming convention warnings ([#61](https://github.com/brillout/telefunc/issues/61)) ([c886472](https://github.com/brillout/telefunc/commit/c886472093b5c2d9ea865c4744a2941af7789136))
+* show posix paths for naming convention warnings ([29d3853](https://github.com/brillout/telefunc/commit/29d38532e216d6d9eef2c1daa673c8256996be19))
+* update @brillout/vite-plugin-import-build ([#61](https://github.com/brillout/telefunc/issues/61)) ([ce67cc0](https://github.com/brillout/telefunc/commit/ce67cc0297b524177d7108602dd69543ad8fb8d1))
+* update @brillout/vite-plugin-import-build ([#61](https://github.com/brillout/telefunc/issues/61)) ([cd4d619](https://github.com/brillout/telefunc/commit/cd4d619c94bcebf5adfd547648f72fb4e472dc63))
+* update @brillout/vite-plugin-import-build (fix workaround) ([d17c18e](https://github.com/brillout/telefunc/commit/d17c18e44b5fe03736314ab9ac9baadf7b665e16))
+
+
+
 ## [0.1.44](https://github.com/brillout/telefunc/compare/v0.1.43...v0.1.44) (2023-02-07)
 
 
