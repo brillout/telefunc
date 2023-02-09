@@ -1,8 +1,10 @@
-const withTelefunc = require('telefunc/next').default
-
 /** @type {import('next').NextConfig} */
-const nextConfig = withTelefunc({
-  reactStrictMode: true,
-})
+let nextConfig = {
+  reactStrictMode: true
+}
+
+// Telefunc
+const withTelefunc = require('telefunc/next').default
+nextConfig = withTelefunc(nextConfig)
 
 module.exports = nextConfig
