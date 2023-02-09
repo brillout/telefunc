@@ -57,9 +57,9 @@ export async function onMarkAllAsCompleted() {
 
 > With Telefunc, it's the frontend team that owns and is responsible for defining telefunctions.
 
-The key difference is that our telefunction `onMarkAllAsCompleted()` is created specifically to serve the needs of our component `TodoList.tsx`, whereas the RESTful API is a set of generic endpoints that are agnostic to our frontend.
+The key difference is that our telefunction `onMarkAllAsCompleted()` is created specifically to serve the needs of our component `TodoList.tsx`, whereas a RESTful API is a set of generic endpoints that are agnostic to our frontend.
 
-Not only is it more performant, but it's also faster to implement tailored telefunction as the need arises instead of having to implement an entire RESTful API before even getting started developing the frontend.
+Not only is it more performant, but it's also faster to implement tailored telefunction as the need arises instead of having to implement an entire RESTful API before even starting developing the frontend.
 
 That's why, in general, we recommend implementing telefunctions that are tailored instead of generic.
 
@@ -101,7 +101,7 @@ By default, we recommend to prefix all telefunction names with "on":
 ✅  onTodoItemTextUpdate
 ✅  onTodoItemCompleteToggle
 
-❌  # Data-fetching telefunction
+    # Data-fetching telefunction
 ❌  loadData
 ✅  onLoad
 ✅  onPagination
