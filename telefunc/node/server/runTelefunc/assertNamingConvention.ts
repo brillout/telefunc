@@ -12,18 +12,31 @@ function assertNamingConvention(
   appRootDir: null | string
 ): asserts exportValue is Telefunction {
   if (isProduction()) return
-  assertWarning(
-    /on[A-Z]/.test(exportName),
-    `We recommend the name of your telefunction ${exportName}() (${telefuncFilePath}) to start with "on", see https://telefunc.com/event-based#naming-convention'`,
-    { onlyOnce: true }
-  )
-  appRootDir = appRootDir || ((exportValue as any)._appRootDir as undefined | string) || null
-  if (appRootDir) {
-    assertCollocation(telefuncFilePath, appRootDir)
+  assertStartsWithOn(exportName, telefuncFilePath)
+  assertCollocation(telefuncFilePath, appRootDir, exportValue)
+}
+
+function assertStartsWithOn(exportName: string, telefuncFilePath: string) {
+  if (/on[A-Z]/.test(exportName)) return
+  if (!/on/.test(exportName)) {
+    assertWarning(
+      false,
+      `We recommend the name of your telefunction ${exportName}() (${telefuncFilePath}) to start with "on", see https://telefunc.com/event-based#naming-convention'`,
+      { onlyOnce: true }
+    )
+  } else {
+    assertWarning(
+      /on[A-Z]/.test(exportName),
+      `The name of your telefunction ${exportName}() (${telefuncFilePath}) starts with "on" but isn't followed by a capital letter, see https://telefunc.com/event-based#naming-convention'`,
+      { onlyOnce: true }
+    )
   }
 }
 
-function assertCollocation(telefuncFilePath: string, appRootDir: string) {
+function assertCollocation(telefuncFilePath: string, appRootDir: string | null, exportValue: unknown) {
+  appRootDir = appRootDir || ((exportValue as any)._appRootDir as undefined | string) || null
+  if (!appRootDir) return
+
   let fs: typeof fsType
   let path: typeof pathType
   const req: NodeRequire = require
@@ -33,14 +46,36 @@ function assertCollocation(telefuncFilePath: string, appRootDir: string) {
   } catch {
     return
   }
-  const telefuncFilePathAbsolute = path.join(appRootDir, telefuncFilePath)
-  const dirFiles = fs.readdirSync(path.dirname(telefuncFilePathAbsolute))
-  const pathBase = path.basename(telefuncFilePathAbsolute).split('.')[0]!
-  const fileMatches = dirFiles.filter((file) => file.startsWith(pathBase))
-  assert(fileMatches.length >= 1, { telefuncFilePathAbsolute, dirFiles })
+
+  const basename = path.basename(telefuncFilePath).split('.')[0]!
+  const telefuncFileDir = path.dirname(telefuncFilePath)
+  const telefuncFileDirAbsolute = path.join(appRootDir, telefuncFileDir)
+  const collocatedFiles = fs.readdirSync(telefuncFileDirAbsolute)
+  const collocatedFilesMatchYes: string[] = []
+  const collocatedFilesMatchNot: string[] = []
+  collocatedFiles.forEach((file) => {
+    const sameBasename = file.startsWith(basename)
+    file = path.join(telefuncFileDir, file)
+    if (sameBasename) {
+      collocatedFilesMatchYes.push(file)
+    } else {
+      collocatedFilesMatchNot.push(file)
+    }
+  })
+  /* There seem to be a race condition: https://github.com/brillout/telefunc/issues/61
+  assert(collocatedFilesMatchYes.length >= 1, { telefuncFilePathAbsolute, collocatedFiles })
+  */
+  assert(!isProduction()) // New lines in production logs are a no-go
   assertWarning(
-    fileMatches.length >= 2,
-    `We recommend to collocate ${telefuncFilePath} with a UI component file, see https://telefunc.com/event-based#naming-convention`,
+    collocatedFilesMatchYes.length >= 2,
+    [
+      `We recommend to collocate ${telefuncFilePath} with a UI component file, see https://telefunc.com/event-based#naming-convention`,
+      '    Your telefunction:',
+      `      ${telefuncFilePath}`,
+      '    Its collocated files:',
+      ...collocatedFilesMatchNot.map((f) => '      ' + f),
+      `    None of its collocated files share its base name '${basename}'.`
+    ].join('\n'),
     { onlyOnce: true }
   )
 }
