@@ -1,7 +1,7 @@
 export { loadTelefuncFiles }
 
 import type { TelefuncFiles } from '../types'
-import { assertUsage, assert, hasProp } from '../../utils'
+import { assertUsage, assert, hasProp, isWebpack, isVitePluginSsr } from '../../utils'
 import { loadTelefuncFilesWithVite } from '../../vite/loadTelefuncFilesWithVite'
 import { loadTelefuncFilesWithRegistration } from './loadTelefuncFilesWithRegistration'
 import { loadTelefuncFilesFromConfig } from './loadTelefuncFilesFromConfig'
@@ -37,13 +37,10 @@ async function loadTelefuncFiles(runContext: {
 
   // Handles:
   // - Vite
-  {
-    const ret = await loadTelefuncFilesWithVite(runContext)
-    if (ret) {
-      const { telefuncFilesLoaded, viteProvider, telefuncFilesAll } = ret
-      assertUsage(Object.keys(telefuncFilesAll).length > 0, getNothingFoundErr(`Vite [\`${viteProvider}\`]`))
-      return { telefuncFilesLoaded, telefuncFilesAll }
-    }
+  if (!isWebpack() || isVitePluginSsr()) {
+    const { telefuncFilesLoaded, viteProvider, telefuncFilesAll } = await loadTelefuncFilesWithVite(runContext)
+    assertUsage(Object.keys(telefuncFilesAll).length > 0, getNothingFoundErr(`Vite [\`${viteProvider}\`]`))
+    return { telefuncFilesLoaded, telefuncFilesAll }
   }
 
   assertUsage(false, "You don't seem to be using Telefunc with a supported stack. Reach out on GitHub or Discord.")

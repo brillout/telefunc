@@ -1,21 +1,17 @@
 export { loadTelefuncFilesWithVite }
 
-import { loadBuild } from '@brillout/vite-plugin-import-build/loadBuild'
+import { loadServerBuild } from '@brillout/vite-plugin-import-build/loadServerBuild'
 import { assert, assertWarning, getNodeEnv, hasProp, isObject, isProduction, isTelefuncFilePath } from '../utils'
 import { telefuncFilesGlobFilePath } from './importGlob/telefuncFilesGlobPath'
 import { loadTelefuncFilesWithImportBuild } from './plugins/importBuild/loadBuild'
 import { getViteDevServer } from '../server/globalContext'
 
-async function loadTelefuncFilesWithVite(runContext: { telefuncFilePath: string }): Promise<null | {
+async function loadTelefuncFilesWithVite(runContext: { telefuncFilePath: string }): Promise<{
   telefuncFilesLoaded: Record<string, Record<string, unknown>>
   telefuncFilesAll: string[]
   viteProvider: 'viteDevServer' | 'importBuild.cjs'
 }> {
-  const ret = await loadGlobImporter()
-  if (!ret) {
-    return null
-  }
-  const { moduleExports, viteProvider } = ret
+  const { moduleExports, viteProvider } = await loadGlobImporter()
   assert(isObject(moduleExports), { moduleExports, viteProvider })
   assert(hasProp(moduleExports, 'telefuncFilesGlob'), { moduleExports, viteProvider })
   const telefuncFilesGlob = moduleExports.telefuncFilesGlob as GlobFiles
@@ -36,19 +32,13 @@ async function loadGlobImporter() {
       throw err
     }
     return { moduleExports, viteProvider: 'viteDevServer' as const }
+  } else {
+    await loadServerBuild()
+    const moduleExports = await loadTelefuncFilesWithImportBuild()
+    assert(moduleExports)
+    assertProd()
+    return { moduleExports, viteProvider: 'importBuild.cjs' as const }
   }
-
-  {
-    const { success, entryFile } = await loadBuild()
-    if (success) {
-      const moduleExports = await loadTelefuncFilesWithImportBuild()
-      assert(moduleExports, { entryFile })
-      assertProd()
-      return { moduleExports, viteProvider: 'importBuild.cjs' as const }
-    }
-  }
-
-  return null
 }
 
 function assertProd() {
