@@ -11,6 +11,14 @@
     "tsc:watch:client": "tsc --incremental --watch --project ./client/tsconfig.json",
     "release": "release-me patch"
   },
+  "dependencies": {
+    "@brillout/import": "^0.1.2",
+    "@brillout/json-serializer": "^0.5.3",
+    "@brillout/vite-plugin-import-build": "^0.2.7",
+    "es-module-lexer": "^0.7.1",
+    "picocolors": "^1.0.0",
+    "ts-morph": "^14.0.0"
+  },
   "main": "./dist/cjs/node/server/index.js",
   "exports": {
     ".": {
@@ -50,14 +58,6 @@
     "./babel": {
       "node": "./dist/cjs/node/babel/plugin.js"
     }
-  },
-  "dependencies": {
-    "@brillout/import": "^0.1.2",
-    "@brillout/json-serializer": "^0.5.3",
-    "@brillout/vite-plugin-import-build": "^0.2.7",
-    "es-module-lexer": "^0.7.1",
-    "picocolors": "^1.0.0",
-    "ts-morph": "^14.0.0"
   },
   "devDependencies": {
     "@brillout/release-me": "^0.1.3",
