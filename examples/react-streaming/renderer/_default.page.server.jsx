@@ -1,13 +1,12 @@
-// See https://vite-plugin-ssr.com/render
 export { render }
-// See https://vite-plugin-ssr.com/data-fetching
 export { passToClient }
 
 import React from 'react'
-import { renderToString } from 'react-dom/server'
-import { escapeInject, dangerouslySkipEscape } from 'vite-plugin-ssr'
+import { escapeInject } from 'vite-plugin-ssr'
+import { renderToStream } from 'react-streaming/server'
 import { PageLayout } from './PageLayout'
 
+// See https://vite-plugin-ssr.com/data-fetching
 const passToClient = ['pageProps']
 
 async function render(pageContext) {
@@ -17,12 +16,12 @@ async function render(pageContext) {
       <Page {...pageProps} />
     </PageLayout>
   )
-  const pageHtml = renderToString(page)
+  const stream = await renderToStream(page, { disable: false })
 
   return escapeInject`<!DOCTYPE html>
     <html>
       <body>
-        <div id="page-view">${dangerouslySkipEscape(pageHtml)}</div>
+        <div id="page-view">${stream}</div>
       </body>
     </html>`
 }

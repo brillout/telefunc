@@ -68,7 +68,9 @@ function getCiJobs() {
 }
 
 function tolerateError(log) {
-  return isFetchExperimentalWarning() || isRollupEmptyChunkWarning() || isSveltekitTypesGenWarning()
+  return (
+    isFetchExperimentalWarning() || isRollupEmptyChunkWarning() || isSveltekitTypesGenWarning() || isVpsSlowWarning()
+  )
 
   function isFetchExperimentalWarning() {
     return (
@@ -86,6 +88,18 @@ function tolerateError(log) {
   function isSveltekitTypesGenWarning() {
     return (
       log.logSource === 'stderr' && log.logText.includes('Cannot find base config file "./.svelte-kit/tsconfig.json"')
+    )
+  }
+
+  // TODO: remove
+  function isVpsSlowWarning() {
+    const txt = log.logText
+    return (
+      log.logSource === 'stderr' &&
+      txt.includes('[vite-plugin-ssr@') &&
+      txt.includes(
+        "][Warning] Crawling your user files took an unexpected long time (2058ms). Create a new issue on vite-plugin-ssr's GitHub."
+      )
     )
   }
 }

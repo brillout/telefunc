@@ -1,10 +1,11 @@
 export { TodoList }
 
 import React, { useState } from 'react'
-import { onNewTodo } from './TodoList.telefunc.js'
-import type { TodoItem } from '../../database/todoItems.js'
+import { onNewTodo, onLoad } from './TodoList.telefunc.js'
+import { useData } from 'telefunc/react-streaming'
 
-function TodoList({ todoItemsInitial }: { todoItemsInitial: TodoItem[] }) {
+function TodoList() {
+  const todoItemsInitial = useData(onLoad)
   const [todoItems, setTodoItems] = useState(todoItemsInitial)
   const [draft, setDraft] = useState('')
   return (

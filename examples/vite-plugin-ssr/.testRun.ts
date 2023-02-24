@@ -32,8 +32,17 @@ function testRun(cmd: 'npm run dev' | 'npm run prod') {
       expect(text).toContain('Buy strawberries')
     }
 
-    expect(await getNumberOfItems()).toBe(3)
-    if (isWindows() || isMac()) await sleep(5 * 1000)
+    // Await hydration
+    expect(await page.textContent('button[type="button"]')).toBe('Counter 0')
+    await autoRetry(async () => {
+      await page.click('button[type="button"]')
+      expect(await page.textContent('button[type="button"]')).toContain('Counter 1')
+    })
+
+    // Await suspense boundary (for examples/react-streaming)
+    await autoRetry(async () => {
+      expect(await page.textContent('body')).toContain('Buy milk')
+    })
     await page.fill('input[type="text"]', 'Buy bananas')
     await page.click('button[type="submit"]')
     await autoRetry(async () => {

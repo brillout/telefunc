@@ -11,6 +11,7 @@ function Page() {
       <Suspense fallback={<div>Loading...</div>}>
         <TodoList />
       </Suspense>
+      <Counter />
     </>
   )
 }
@@ -23,4 +24,15 @@ function Timer() {
     }, 100)
   })
   return <p>(This page is interactive while data is loading: {counter})</p>
+}
+
+function Counter() {
+  const [count, setCount] = useState(0)
+  return (
+    <div>
+      <button type="button" onClick={() => setCount((count) => count + 1)}>
+        Counter {count}
+      </button>
+    </div>
+  )
 }

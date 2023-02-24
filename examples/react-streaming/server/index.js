@@ -23,6 +23,14 @@ async function startServer() {
     app.use(viteDevMiddleware)
   }
 
+  app.use(function (req, _res, next) {
+    req.user = {
+      id: 0,
+      name: 'Elisabeth'
+    }
+    next()
+  })
+
   app.use(express.text()) // Parse & make HTTP request body available at `req.body`
   app.all('/_telefunc', async (req, res) => {
     const context = { user: req.user }
