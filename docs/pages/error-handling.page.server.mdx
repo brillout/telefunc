@@ -63,7 +63,40 @@ We can:
 <br/>
 **1. Propagate the error to the frontend.**
 
-We can propagate error information to the frontend by using `throw Abort(someValue)`, see for example <Link href="/permissions#getcontext-wrapping" doNotInferSectionTitle={true} />.
+We can propagate error information to the frontend like this:
+
+```js
+import { validate } from 'some-library'
+function onFromSubmit(data) {
+  try {
+    validate(data)
+  } catch(err) {
+    return {
+      errorMessage: 'Data is invalid. Please enter valid data.'
+    }
+  }
+}
+```
+
+We can also use `throw Abort(someValue)`:
+
+```js
+import { validate } from 'some-library'
+function onFromSubmit(data) {
+  try {
+    validate(data)
+  } catch(err) {
+    // In general, we recommend using `throw
+    throw Abort({ validationError: 'Data is invalid' })
+  }
+}
+```
+
+In general, we recommend using `return { someValue }` instead of `throw Abort(someValue)`, see <Link href="/form-validation" />.
+
+> We need to catch the error and use a `throw Abort(someValue)` instead because Telefunc doesn't send the original `Error` object to the frontend (in order to avoid leaking sensitive information).
+
+Also see <Link href="/permissions#getcontext-wrapping" doNotInferSectionTitle={true} />.
 
 <br/>
 **2. Handle the error on the server-side.**
