@@ -193,10 +193,12 @@ So, when we call `hello('Eva')` in the browser-side, the following happens:
  2. On the server-side, our Telefunc middleware:
     ```js
     // server.js
-    import { createTelefunc } from 'telefunc'
 
-    // Server middleware (Express.js/Fastify/Koa/Hapi/...)
-    const { telefunc } = createTelefunc()
+    // Server (Express.js/Fastify/...)
+
+    import { telefunc } from 'telefunc'
+
+    // Telefunc middleware
     app.use('/_telefunc', async (req, res) => {
       const httpResponse = await telefunc(req)
       res.send(httpResponse.body)

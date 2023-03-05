@@ -49,6 +49,32 @@ To avoid leaking sensitive information, Telefunc doesn't send the original `Erro
 > For expected errors, such as authentication and validation errors, we can propagate error information to the frontend by using `throw Abort(someValue)`, see for example <Link href="/permissions#getcontext-wrapping" doNotInferSectionTitle={true} />.
 
 
+## Expected Errors
+
+An error thrown by a telefunction may not be a bug but an expected error instead.
+
+For example, some authentication libraries throw an error if the user isn't logged in. We can handle the error thrown by such library in our Telefunc server middleware:
+
+```js
+// server.js
+
+// Server (Express.js/Fastify/...)
+
+import { telefunc } from 'telefunc'
+
+// Telefunc middleware
+app.all('/_telefunc', async (req, res) => {
+  const httpResponse = await telefunc(/* ... */)
+  // Telefunc exposes any error thrown by a telefunction at httpResponse.err
+  if (httpResponse.err) {
+    // Our error handling
+  }
+})
+```
+
+Also see <Link href="/getContext#provide" />.
+
+
 ## Network Errors
 
 If the user's browser can't connect to our server:

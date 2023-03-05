@@ -2,14 +2,16 @@ import { Link } from '@brillout/docpress'
 
 **Environment**: Server.
 
-We add Telefunc to our server by using the Telefunc Server Middleware `telefunc()`:
+We install Telefunc by using Telefunc's server middleware `telefunc()`:
 
 ```js
 // server.js
 
+// Server (Express.js/Fastify/...)
+
 import { telefunc } from 'telefunc'
 
-// Server (Express.js/Fastify/Koa/Hapi/...)
+// Telefunc middleware
 app.all('/_telefunc', async (req, res) => {
   const httpResponse = await telefunc({
     // HTTP Request URL, which is '/_telefunc' if we didn't modify config.telefuncUrl
@@ -28,4 +30,4 @@ app.all('/_telefunc', async (req, res) => {
 })
 ```
 
-The `context` parameter is optional and is only needed if we use `getContext()`. See <Link href="/getContext#provide" />.
+The `context` parameter is optional and is only needed if we use `getContext()`, see <Link href="/getContext#provide" />.

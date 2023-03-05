@@ -31,9 +31,11 @@ Before we can use `getContext()`, we need to provide the contex` object to <Link
 ```js
 // server.js
 
+// Server (Express.js/Fastify/...)
+
 import { telefunc } from 'telefunc'
 
-// Server (Express.js/Fastify/Koa/Hapi/...)
+// Telefunc middleware
 app.all('/_telefunc', async (req, res) => {
   // Authentication middlewares (e.g. Passport.js or Grant) usually provide information
   // about the logged-in user on the `req` object.

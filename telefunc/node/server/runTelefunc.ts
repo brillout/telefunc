@@ -24,6 +24,8 @@ type HttpResponse = {
   contentType: 'text/plain'
   /** HTTP Response Header `ETag` */
   etag: string | null
+  /** Error thrown by your telefunction */
+  err?: unknown
 }
 
 // HTTP Response for:
@@ -50,13 +52,16 @@ const invalidRequest = {
   etag: null
 }
 
-async function runTelefunc(runContext: Parameters<typeof runTelefunc_>[0]) {
+async function runTelefunc(runContext: Parameters<typeof runTelefunc_>[0]): Promise<HttpResponse> {
   try {
     return await runTelefunc_(runContext)
   } catch (err: unknown) {
     callBugListeners(err)
     handleError(err)
-    return serverError
+    return {
+      err,
+      ...serverError
+    }
   }
 }
 
