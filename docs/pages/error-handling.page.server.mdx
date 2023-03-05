@@ -61,6 +61,7 @@ We can:
  2. handle the error on the server-side.
 
 <br/>
+
 **1. Propagate the error to the frontend.**
 
 We can propagate error information to the frontend like this:
@@ -72,7 +73,7 @@ function onFromSubmit(data) {
     validate(data)
   } catch(err) {
     return {
-      errorMessage: 'Data is invalid. Please enter valid data.'
+      errorMessage: `Data is invalid: ${err.message}. Please enter valid data.`
     }
   }
 }
@@ -92,13 +93,14 @@ function onFromSubmit(data) {
 }
 ```
 
-In general, we recommend using `return { someValue }` instead of `throw Abort(someValue)`, see <Link href="/form-validation" />.
+Also see <Link href="/permissions#getcontext-wrapping" doNotInferSectionTitle={true} />.
+
+> In general, we recommend using `return { someValue }` instead of `throw Abort(someValue)`, see <Link href="/form-validation" />.
 
 > We need to catch the error and use a `throw Abort(someValue)` instead because Telefunc doesn't send the original `Error` object to the frontend (in order to avoid leaking sensitive information).
 
-Also see <Link href="/permissions#getcontext-wrapping" doNotInferSectionTitle={true} />.
-
 <br/>
+
 **2. Handle the error on the server-side.**
 
 We can handle the thrown error at our Telefunc server middleware:
