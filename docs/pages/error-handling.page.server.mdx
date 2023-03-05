@@ -1,6 +1,6 @@
 import { Link } from '@brillout/docpress'
 
-> This page is about handling bugs, expeced errors, and network errors.
+> This page is about handling bugs, expected errors, and network errors.
 >
 > - To block unauthorized access: <Link href="/permissions" />
 > - To handle invalid `<form>` values: <Link href="/form-validation" />
@@ -39,6 +39,8 @@ Then a telefunction call throws an error:
         console.log("I'm never printed")
       } catch(err) {
         console.log(err.message) // Prints 'Internal Server Error'
+        // E.g. show a popup "Something went wrong. Try again (later)."
+        // ...
       }
     </script>
   </body>
@@ -68,6 +70,7 @@ We can propagate error information to the frontend like this:
 
 ```js
 import { validate } from 'some-library'
+
 function onFromSubmit(data) {
   try {
     validate(data)
@@ -83,12 +86,14 @@ We can also use `throw Abort(someValue)`:
 
 ```js
 import { validate } from 'some-library'
+
 function onFromSubmit(data) {
   try {
     validate(data)
   } catch(err) {
-    // In general, we recommend using `throw
-    throw Abort({ validationError: 'Data is invalid' })
+    throw Abort({
+      errorMessage: `Data is invalid: ${err.message}. Please enter valid data.`
+    })
   }
 }
 ```
@@ -97,7 +102,7 @@ Also see <Link href="/permissions#getcontext-wrapping" doNotInferSectionTitle={t
 
 > In general, we recommend using `return { someValue }` instead of `throw Abort(someValue)`, see <Link href="/form-validation" />.
 
-> We need to catch the error and use a `throw Abort(someValue)` instead because Telefunc doesn't send the original `Error` object to the frontend (in order to avoid leaking sensitive information).
+> We need to catch the error and use `throw Abort(someValue)` because Telefunc doesn't send the original `Error` object to the frontend (in order to avoid leaking sensitive information).
 
 <br/>
 
