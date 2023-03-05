@@ -6,6 +6,7 @@ import { Link } from '@brillout/docpress'
 > - To handle invalid `<form>` values: <Link href="/form-validation" />
 > - To install error tracking: <Link href="/onBug" />
 
+
 ## Bugs
 
 If a telefunction has a bug:
@@ -22,7 +23,7 @@ function hello(name) {
 }
 ```
 
-Then telefunction calls throw an error:
+Then a telefunction call throws an error:
 
 ```html
 <!-- index.html -->
@@ -44,16 +45,28 @@ Then telefunction calls throw an error:
 </html>
 ```
 
-To avoid leaking sensitive information, Telefunc doesn't send the original `Error` to the frontend.
-
-> For expected errors, such as authentication and validation errors, we can propagate error information to the frontend by using `throw Abort(someValue)`, see for example <Link href="/permissions#getcontext-wrapping" doNotInferSectionTitle={true} />.
+> To avoid leaking sensitive information, Telefunc doesn't send the original `Error` object to the frontend.
 
 
 ## Expected Errors
 
 An error thrown by a telefunction may not be a bug but an expected error instead.
 
-For example, some authentication libraries throw an error if the user isn't logged in. We can handle the error thrown by such library in our Telefunc server middleware:
+For example:
+ - Some authentication libraries throw an error if the user isn't logged in.
+ - Some validation libraries throw errors upon invalid data.
+
+We can:
+ 1. Propagate the error to the frontend.
+ 2. Handle the error on the server-side.
+
+**1. Propagate the error to the frontend.**
+
+We can propagate error information to the frontend by using `throw Abort(someValue)`, see for example <Link href="/permissions#getcontext-wrapping" doNotInferSectionTitle={true} />.
+
+**2. Handle the error on the server-side.**
+
+We can handle the thrown error at our Telefunc server middleware:
 
 ```js
 // server.js
