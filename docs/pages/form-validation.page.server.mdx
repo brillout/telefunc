@@ -1,6 +1,6 @@
 When a user enters a form with invalid inputs, such as an invalid email address, then we want our UI to tell the user what went wrong.
 
-We can pass invalid information to the frontend by using `return someValue` (instead of `throw Abort()`).
+We can pass information about invalid inputs to the frontend by using `return someValue`:
 
 ```js
 // SignUpForm.telefunc.ts
@@ -36,7 +36,7 @@ export async function onFormSubmit(email: string, password: string) {
 
 ## `throw Abort(someValue)`
 
-We can also use `throw Abort(someValue)` instead of `return someValue`.
+We can use `throw Abort(someValue)` instead of `return someValue`:
 
 ```js
 // SignUpForm.telefunc.ts
@@ -57,7 +57,8 @@ export async function onFormSubmit(email: string, password: string) {
 ```
 
 In general, we recommend using `return { someValue }` instead of `throw Abort(someValue)` because:
- - `return someValue` has better TypeScript DX, as TypeScript doesn't typecheck catched errors:
+ 1. It makes the code's intent clearer: the reader of our code knows that `return someValue` is an expected case that will be handled by the frontend, whereas when throwing an error it isn't obvious whether/where/how the error will be handled by the frontend.
+ 1. `return someValue` has better TypeScript DX, as TypeScript doesn't typecheck catched errors:
    ```ts
    try {
      /* ... */
@@ -66,4 +67,3 @@ In general, we recommend using `return { someValue }` instead of `throw Abort(so
      const errCasted = (err as ValidationError | SomeOtherError)
    }
    ```
- - It makes the code's intent clearer: the reader of our code knows that `return someValue` is an expected case that will be handled by the frontend, whereas when throwing an error it isn't obvious whether/where/how the error will be handled by the frontend.
