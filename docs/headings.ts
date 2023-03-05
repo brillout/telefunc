@@ -101,7 +101,8 @@ export const headings: HeadingDefinition[] = [
   {
     level: 2,
     title: 'Form validation',
-    url: '/form-validation'
+    url: '/form-validation',
+    sectionTitles: ['`throw Abort(someValue)`']
   },
   {
     level: 2,

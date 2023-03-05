@@ -86,6 +86,7 @@ We can also use `throw Abort(someValue)`:
 
 ```js
 import { validate } from 'some-library'
+import { Abort } from 'telefunc'
 
 function onFromSubmit(data) {
   try {
@@ -100,7 +101,7 @@ function onFromSubmit(data) {
 
 Also see <Link href="/permissions#getcontext-wrapping" doNotInferSectionTitle={true} />.
 
-> In general, we recommend using `return { someValue }` instead of `throw Abort(someValue)`, see <Link href="/form-validation" />.
+> In general, we recommend using `return { someValue }` instead of `throw Abort(someValue)`, see <Link href="/form-validation#throw-abort" />.
 
 > We need to catch the error and use `throw Abort(someValue)` because Telefunc doesn't send the original `Error` object to the frontend (in order to avoid leaking sensitive information).
 

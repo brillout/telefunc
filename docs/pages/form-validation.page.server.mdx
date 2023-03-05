@@ -8,23 +8,23 @@ We can pass invalid information to the frontend by using `return someValue` (ins
 
 export async function onFormSubmit(email: string, password: string) {
   // Form validation
-  const invalidInputs = {}
+  const inputErrors = {}
 
   if (!email) {
-    invalidInputs.email = 'Please enter your email.'
+    inputErrors.email = 'Please enter your email.'
   } else if (!email.includes('@')) {
-    invalidInputs.email = 'Invalid email; make sure to enter a valid email.'
+    inputErrors.email = 'Invalid email; make sure to enter a valid email.'
   }
 
   if (!password) {
-    invalidInputs.password = 'Please enter a password.'
+    inputErrors.password = 'Please enter a password.'
   } else if (password.length < 8) {
-    invalidInputs.password = 'Password must have at least 8 charachters.'
+    inputErrors.password = 'Password must have at least 8 charachters.'
   }
 
-  if (Object.keys(invalidInputs).length > 0) {
+  if (Object.keys(inputErrors).length > 0) {
     // Instead of `throw Abort()`
-    return { invalidInputs }
+    return { inputErrors }
   }
 
   // Some ORM/SQL query
@@ -33,3 +33,37 @@ export async function onFormSubmit(email: string, password: string) {
   return { user }
 }
 ```
+
+## `throw Abort(someValue)`
+
+We can also use `throw Abort(someValue)` instead of `return someValue`.
+
+```js
+// SignUpForm.telefunc.ts
+// Environment: Server
+
+import { Abort } from 'telefunc'
+
+export async function onFormSubmit(email: string, password: string) {
+  if (!email) {
+    throw Abort({
+      inputErrors: {
+        email: 'Please enter your email.'
+      }
+    })
+  }
+  /* ... */
+}
+```
+
+In general, we recommend using `return { someValue }` instead of `throw Abort(someValue)` because:
+ - `return someValue` has better TypeScript DX, as TypeScript doesn't typecheck catched errors:
+   ```ts
+   try {
+     /* ... */
+   } catch(err: unkown) {
+     // err needs to be casted
+     const errCasted = (err as ValidationError | SomeOtherError)
+   }
+   ```
+ - It makes the code's intent clearer: the reader of our code knows that `return someValue` is an expected case that will be handled by the frontend, whereas when throwing an error it isn't obvious whether/where/how the error will be handled by the frontend.
