@@ -1,3 +1,12 @@
+## [0.1.51](https://github.com/brillout/telefunc/compare/v0.1.50...v0.1.51) (2023-03-05)
+
+
+### Bug Fixes
+
+* expose error thrown by telefunctions at httpResponse.err (fix [#64](https://github.com/brillout/telefunc/issues/64)) ([bd68427](https://github.com/brillout/telefunc/commit/bd6842744740a045dec193c184040dfcd54b6155))
+
+
+
 ## [0.1.50](https://github.com/brillout/telefunc/compare/v0.1.49...v0.1.50) (2023-02-25)
 
 
