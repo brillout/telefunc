@@ -5,7 +5,7 @@ import {
   run,
   skip,
   fetchHtml,
-  isGithubAction,
+  isCI,
   getServerUrl,
   isWindows,
   autoRetry
@@ -50,7 +50,7 @@ function testRun(cmd: 'npm run dev' | 'npm run preview:miniflare' | 'npm run pre
   }
 
   {
-    const additionalTimeout = !isWorker ? 0 : (isGithubAction() ? 2 : 1) * 120 * 1000
+    const additionalTimeout = !isWorker ? 0 : (isCI() ? 2 : 1) * 120 * 1000
     const serverIsReadyMessage = (() => {
       if (isMiniflare) {
         return 'Listening on :3000'

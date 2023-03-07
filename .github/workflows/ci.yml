@@ -32,6 +32,7 @@ jobs:
       fail-fast: false
     env:
       TEST_FILES: ${{ matrix.TEST_FILES }}
+      TEST_INSPECT: ${{ matrix.TEST_INSPECT }}
     runs-on: ${{ matrix.os }}
     name: '${{ matrix.jobName }}'
 
@@ -57,3 +58,13 @@ jobs:
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+
+      - name: Upload screenshots
+        if: ${{ failure() }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: 'screenshots'
+          path: |
+            **/test-screenshot-expect.png
+            **/test-screenshot-actual.png
+            **/test-screenshot-differ.png
