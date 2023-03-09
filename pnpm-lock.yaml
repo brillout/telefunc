@@ -21,7 +21,7 @@ importers:
 
   docs:
     specifiers:
-      '@brillout/docpress': ^0.3.9
+      '@brillout/docpress': ^0.3.13
       '@types/node': ^17.0.10
       '@types/react': ^17.0.9
       '@types/react-dom': ^17.0.6
@@ -30,7 +30,7 @@ importers:
       typescript: ^4.8.4
       vite-plugin-ssr: ^0.4.69
     dependencies:
-      '@brillout/docpress': 0.3.9_se7lxagkunlp4luyiouooh4dii
+      '@brillout/docpress': 0.3.13_se7lxagkunlp4luyiouooh4dii
       '@types/node': 17.0.16
       '@types/react': 17.0.39
       '@types/react-dom': 17.0.11
@@ -2742,8 +2742,8 @@ packages:
     hasBin: true
     dev: true
 
-  /@brillout/docpress/0.3.9_se7lxagkunlp4luyiouooh4dii:
-    resolution: {integrity: sha512-6hqaJ3EZrHo9ji9wngai94T8X25zslxgreOlzPa5acErh3vwDiJh8lGsx+lo9xpSN6YeRxQivvoYrY1Ikj8mQg==}
+  /@brillout/docpress/0.3.13_se7lxagkunlp4luyiouooh4dii:
+    resolution: {integrity: sha512-fb7taUitFtGyD2HM//DmywY5YxqcIre+SgXUXc6XUJqif3wm4HSrWSfRXNwGi99NBYD1lhuulqe2tta2CT7ilg==}
     hasBin: true
     peerDependencies:
       react: '18'
@@ -2762,7 +2762,7 @@ packages:
       shiki: 0.10.1
       twemoji: 13.1.0
       vite: /@brillout/vite/3.2.2-bugfix-2_@types+node@17.0.16
-      vite-plugin-ssr: 0.4.69_wng26z4qkjffcsqt2mctt2vqpe
+      vite-plugin-ssr: 0.4.88_wng26z4qkjffcsqt2mctt2vqpe
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -17196,28 +17196,6 @@ packages:
       sirv: 2.0.2
     dev: false
 
-  /vite-plugin-ssr/0.4.69_wng26z4qkjffcsqt2mctt2vqpe:
-    resolution: {integrity: sha512-PqPSkA6arTXQy6V2WN71kt9HDKZZU4gCkZudCMVgnym61nfNiAPBtGoX9x3SEMTZXaUv5P73NpTe+4GhbRILIA==}
-    engines: {node: '>=12.19.0'}
-    hasBin: true
-    peerDependencies:
-      react-streaming: '>=0.3.5'
-      vite: '>=3.0.0'
-    peerDependenciesMeta:
-      react-streaming:
-        optional: true
-    dependencies:
-      '@brillout/import': 0.2.1
-      '@brillout/json-serializer': 0.5.3
-      '@brillout/vite-plugin-import-build': 0.1.0
-      cac: 6.7.12
-      es-module-lexer: 0.10.5
-      fast-glob: 3.2.12
-      picocolors: 1.0.0
-      sirv: 2.0.2
-      vite: /@brillout/vite/3.2.2-bugfix-2_@types+node@17.0.16
-    dev: false
-
   /vite-plugin-ssr/0.4.88_vite@3.0.9:
     resolution: {integrity: sha512-y/4sCt9/tERUHYvKHoeQV2Z0XzCF7e340A2zfiSWAPog+0aL84EOSi8OMrpr4Whx4FefQ8+ASP2F0UHymC8LCQ==}
     engines: {node: '>=12.19.0'}
@@ -17263,6 +17241,29 @@ packages:
       react-streaming: 0.3.5_biqbaboplfbrettd7655fr4n2y
       sirv: 2.0.2
       vite: 3.2.3
+    dev: false
+
+  /vite-plugin-ssr/0.4.88_wng26z4qkjffcsqt2mctt2vqpe:
+    resolution: {integrity: sha512-y/4sCt9/tERUHYvKHoeQV2Z0XzCF7e340A2zfiSWAPog+0aL84EOSi8OMrpr4Whx4FefQ8+ASP2F0UHymC8LCQ==}
+    engines: {node: '>=12.19.0'}
+    hasBin: true
+    peerDependencies:
+      react-streaming: '>=0.3.5'
+      vite: '>=3.0.0'
+    peerDependenciesMeta:
+      react-streaming:
+        optional: true
+    dependencies:
+      '@brillout/import': 0.2.2
+      '@brillout/json-serializer': 0.5.3
+      '@brillout/vite-plugin-import-build': 0.2.10
+      cac: 6.7.12
+      es-module-lexer: 0.10.5
+      esbuild: 0.17.10
+      fast-glob: 3.2.12
+      picocolors: 1.0.0
+      sirv: 2.0.2
+      vite: /@brillout/vite/3.2.2-bugfix-2_@types+node@17.0.16
     dev: false
 
   /vite-plugin-ssr/0.4.88_yel4lnfarxdqhqx4tg54kj7c3y:
