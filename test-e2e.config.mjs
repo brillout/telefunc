@@ -67,25 +67,23 @@ function getCiJobs() {
   ]
 }
 
-function tolerateError(log) {
+function tolerateError({ logSource, logText }) {
   return isFetchExperimentalWarning() || isRollupEmptyChunkWarning() || isSveltekitTypesGenWarning()
 
   function isFetchExperimentalWarning() {
     return (
-      log.logSource === 'stderr' &&
-      log.logText.includes(
+      logSource === 'stderr' &&
+      logText.includes(
         'ExperimentalWarning: The Fetch API is an experimental feature. This feature could change at any time'
       )
     )
   }
 
   function isRollupEmptyChunkWarning() {
-    return log.logSource === 'stderr' && log.logText.includes('Generated an empty chunk: "hooks"')
+    return logSource === 'stderr' && logText.includes('Generated an empty chunk: "hooks"')
   }
 
   function isSveltekitTypesGenWarning() {
-    return (
-      log.logSource === 'stderr' && log.logText.includes('Cannot find base config file "./.svelte-kit/tsconfig.json"')
-    )
+    return logSource === 'stderr' && logText.includes('Cannot find base config file "./.svelte-kit/tsconfig.json"')
   }
 }
