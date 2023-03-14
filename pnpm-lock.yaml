@@ -9,13 +9,13 @@ importers:
     specifiers:
       '@brillout/bump-dependencies': ^0.1.1
       '@brillout/dev-my-dep': ^0.0.10
-      '@brillout/test-e2e': ^0.4.11
+      '@brillout/test-e2e': ^0.5.3
       '@brillout/test-types': ^0.1.3
       vitest: ^0.22.1
     devDependencies:
       '@brillout/bump-dependencies': 0.1.1
       '@brillout/dev-my-dep': 0.0.10
-      '@brillout/test-e2e': 0.4.11
+      '@brillout/test-e2e': 0.5.3
       '@brillout/test-types': 0.1.3
       vitest: 0.22.1
 
@@ -2819,8 +2819,8 @@ packages:
       semver: 7.3.8
     dev: true
 
-  /@brillout/test-e2e/0.4.11:
-    resolution: {integrity: sha512-bqYCExCwdvQfFeQLSnPJdK3c9TZ+rWJfNzrWsaTG9vAcQWMxiTIt9qYtNvnT50P7vpBKR9JkT0+JiZ8oKiu/0w==}
+  /@brillout/test-e2e/0.5.3:
+    resolution: {integrity: sha512-oVR02knL4nHOpV4LwQhqCoVMu0SBKME09TDJrqcA2ct0rCqxW8h3HNZ0smsbDnkrvcsc1PPbKH/17kTtTtvBXw==}
     hasBin: true
     dependencies:
       '@brillout/part-regex': 0.1.2

@@ -2,7 +2,8 @@ export default {
   ci: {
     jobs: getCiJobs()
   },
-  tolerateError
+  tolerateError,
+  tolerateSkip: true
 }
 
 function getCiJobs() {
@@ -68,16 +69,7 @@ function getCiJobs() {
 }
 
 function tolerateError({ logSource, logText }) {
-  return isFetchExperimentalWarning() || isRollupEmptyChunkWarning() || isSveltekitTypesGenWarning()
-
-  function isFetchExperimentalWarning() {
-    return (
-      logSource === 'stderr' &&
-      logText.includes(
-        'ExperimentalWarning: The Fetch API is an experimental feature. This feature could change at any time'
-      )
-    )
-  }
+  return isRollupEmptyChunkWarning() || isSveltekitTypesGenWarning()
 
   function isRollupEmptyChunkWarning() {
     return logSource === 'stderr' && logText.includes('Generated an empty chunk: "hooks"')
