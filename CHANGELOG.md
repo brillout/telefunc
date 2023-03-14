@@ -1,3 +1,13 @@
+## [0.1.52](https://github.com/brillout/telefunc/compare/v0.1.51...v0.1.52) (2023-03-14)
+
+
+### Bug Fixes
+
+* update @brillout/vite-plugin-import-build ([4b94a83](https://github.com/brillout/telefunc/commit/4b94a83cbbed9269505a20c266df468206df99d6))
+* update @brillout/vite-plugin-import-build (fix [#66](https://github.com/brillout/telefunc/issues/66)) ([80f7d56](https://github.com/brillout/telefunc/commit/80f7d56bd4701bf15c594f1a3e21c1148a983bc2))
+
+
+
 ## [0.1.51](https://github.com/brillout/telefunc/compare/v0.1.50...v0.1.51) (2023-03-05)
 
 

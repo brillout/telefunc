@@ -5,7 +5,7 @@
     "preview": "npm run build && vite preview"
   },
   "dependencies": {
-    "telefunc": "0.1.51",
+    "telefunc": "0.1.52",
     "vite": "npm:@brillout/vite@3.1.0-apptype-fix"
   },
   "type": "module"
