@@ -2,8 +2,7 @@ export default {
   ci: {
     jobs: getCiJobs()
   },
-  tolerateError,
-  tolerateSkip: true
+  tolerateError
 }
 
 function getCiJobs() {
