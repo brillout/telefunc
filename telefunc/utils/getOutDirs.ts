@@ -2,7 +2,6 @@ export { determineOutDir }
 export { getOutDirAbsolute }
 
 import type { UserConfig, ResolvedConfig } from 'vite'
-import { viteIsSSR } from './viteIsSSR'
 import { assert } from './assert'
 import { assertPosixPath, toPosixPath } from './filesystemPathHandling'
 import path from 'path'
@@ -25,7 +24,7 @@ function determineOutDir(config: ResolvedConfig): string | null {
   }
 
   const { outDirClient, outDirServer } = declineOutDirs(outDirRoot)
-  if (viteIsSSR(config)) {
+  if (config.build.ssr) {
     return outDirServer
   } else {
     return outDirClient
@@ -58,7 +57,7 @@ function assertConfig(config: UserConfig | ResolvedConfig) {
   const outDir = config.build?.outDir
   assert(outDir)
   assertIsNotOutDirRoot(outDir)
-  if (viteIsSSR(config)) {
+  if (config.build.ssr) {
     assert(outDir.endsWith('/server'))
   } else {
     assert(outDir.endsWith('/client'))

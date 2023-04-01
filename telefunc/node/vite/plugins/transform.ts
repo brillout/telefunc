@@ -3,7 +3,7 @@ export { transform }
 import type { Plugin } from 'vite'
 import { transformTelefuncFileClientSide } from '../../transformer/transformTelefuncFileClientSide'
 import { transformTelefuncFileServerSide } from '../../transformer/transformTelefuncFileServerSide'
-import { assert, toPosixPath, viteIsSSR_options } from '../utils'
+import { assert, toPosixPath } from '../utils'
 
 function transform(): Plugin {
   let root: string
@@ -23,7 +23,7 @@ function transform(): Plugin {
         return
       }
 
-      const isClientSide = !viteIsSSR_options(options)
+      const isClientSide = !options?.ssr
 
       if (isClientSide) {
         code = await transformTelefuncFileClientSide(code, id, root)

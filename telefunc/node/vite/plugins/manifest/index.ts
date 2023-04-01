@@ -3,7 +3,7 @@ export { manifestFileName }
 
 import type { Plugin } from 'vite'
 import { config, type ConfigUser } from '../../../server/serverConfig'
-import { assert, viteIsSSR, projectInfo } from '../../utils'
+import { assert, projectInfo } from '../../utils'
 import { assertManifest } from './assertManifest'
 
 const manifestFileName = 'telefunc.json' as const
@@ -33,7 +33,7 @@ function manifest(configUser: ConfigUser = {}): Plugin {
       })
     },
     configResolved(viteConfig) {
-      ssr = viteIsSSR(viteConfig)
+      ssr = !!viteConfig.build.ssr
     }
   }
 }
