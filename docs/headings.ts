@@ -1,8 +1,8 @@
-import type { HeadingDefinition, HeadingWithoutLink } from '@brillout/docpress'
+import type { HeadingDefinition, HeadingDetachedDefinition } from '@brillout/docpress'
 
-export { headingsWithoutLink }
+export { headingsDetached }
 
-const headingsWithoutLink: HeadingWithoutLink[] = [
+const headingsDetached: HeadingDetachedDefinition[] = [
   {
     title: '`Abort()` vs `new Error()`',
     url: '/abort-vs-error'
