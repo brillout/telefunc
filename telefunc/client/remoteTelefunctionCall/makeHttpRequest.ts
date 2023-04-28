@@ -3,6 +3,7 @@ export { makeHttpRequest }
 import { parse } from '@brillout/json-serializer/parse'
 import { assert, assertUsage, isObject, objectAssign } from '../utils'
 import { callOnAbortListeners } from './onAbort'
+import type { CallContext } from '../clientConfig'
 
 const method = 'POST'
 const STATUS_CODE_SUCCESS = 200
@@ -10,16 +11,11 @@ const STATUS_CODE_ABORT = 403
 const STATUS_CODE_BUG = 500
 const STATUS_CODE_INVALID = 400
 
-async function makeHttpRequest(callContext: {
-  telefuncUrl: string
-  httpRequestBody: string
-  telefunctionName: string
-  telefuncFilePath: string
-  httpHeaders: Record<string, string> | null
-}): Promise<{ telefunctionReturn: unknown }> {
+async function makeHttpRequest(callContext: CallContext): Promise<{ telefunctionReturn: unknown }> {
   let response: Response
   try {
-    response = await fetch(callContext.telefuncUrl, {
+    const url = typeof callContext.telefuncUrl === 'string' ? callContext.telefuncUrl : callContext.telefuncUrl(callContext)
+    response = await fetch(url, {
       method,
       body: callContext.httpRequestBody,
       credentials: 'same-origin',
