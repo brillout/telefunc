@@ -42,7 +42,7 @@ function getProject(telefuncFilePath: string, telefuncFileCode: string) {
         }
       })
 
-      assert(project.getSourceFiles(telefuncFilePath).length === 0)
+      assert(!project.getSourceFile(telefuncFilePath))
       project.createSourceFile(
         telefuncFilePath,
         telefuncFileCode,
@@ -81,12 +81,14 @@ function getProject(telefuncFilePath: string, telefuncFileCode: string) {
     namedImports: ['ShieldArrStr']
   })
 
-  const files = project.getSourceFiles(telefuncFilePath)
-  assert(files.length <= 1)
-  const telefuncFileSource = files[0]
+  const telefuncFileSource = project.getSourceFile(telefuncFilePath)
   if (!telefuncFileSource) {
-    const sourceFiles = project.getSourceFiles().map(getSourceFilePath)
-    assert(false, { telefuncFileSource, sourceFiles })
+    const sourceFiles = project.getSourceFiles().map(
+      (sourceFile) =>
+        // @ts-expect-error
+        sourceFile._compilerNode.fileName
+    )
+    assert(false, sourceFiles)
   }
 
   return { project, telefuncFileSource, shieldGenSource }
@@ -344,11 +346,6 @@ function findTsConfig(telefuncFilePath: string): string | null {
 const tAlias = '__telefunc_t' // alias for shield.t
 function replaceShieldTypeAlias(shieldStr: string): string {
   return shieldStr.replace(/(?<!t.const\('(?!'\)).*)t\./g, `${tAlias}.`)
-}
-
-function getSourceFilePath(sourceFile: SourceFile): string[] {
-  // @ts-expect-error
-  return sourceFile._compilerNode.fileName
 }
 
 function getFilsystemRoot(): string {
