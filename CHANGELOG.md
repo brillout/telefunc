@@ -1,3 +1,12 @@
+## [0.1.53](https://github.com/brillout/telefunc/compare/v0.1.52...v0.1.53) (2023-04-28)
+
+
+### Bug Fixes
+
+* use ts-morph project.getSourceFile() instead of glob pattern matching (fix [#71](https://github.com/brillout/telefunc/issues/71)) ([3412ce5](https://github.com/brillout/telefunc/commit/3412ce5ec189b42416cf156933f07a7669759ea3))
+
+
+
 ## [0.1.52](https://github.com/brillout/telefunc/compare/v0.1.51...v0.1.52) (2023-03-14)
 
 
