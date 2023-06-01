@@ -2,9 +2,10 @@ export type { PageContextServer }
 export type { PageContextClient }
 export type { PageContext }
 
-import type { PageContextBuiltIn } from 'vite-plugin-ssr/types'
-// import type { PageContextBuiltInClient } from 'vite-plugin-ssr/client/router' // When using Client Routing
-import type { PageContextBuiltInClient } from 'vite-plugin-ssr/client/router'
+import type {
+  PageContextBuiltIn,
+  PageContextBuiltInClientWithClientRouting as PageContextBuiltInClient
+} from 'vite-plugin-ssr/types'
 import type { User } from '#app/db'
 
 type Page = () => React.ReactElement
