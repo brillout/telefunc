@@ -18,9 +18,9 @@ function getCiJobs() {
     os: 'ubuntu-latest',
     node_version: '17'
   }
-  const win14 = {
+  const win16 = {
     os: 'windows-latest',
-    node_version: '14'
+    node_version: '16'
   }
   const win18 = {
     os: 'windows-latest',
@@ -34,7 +34,7 @@ function getCiJobs() {
   return [
     {
       name: 'Vite',
-      setups: [ubuntu18, win14, mac17]
+      setups: [ubuntu18, win16, mac17]
     },
     {
       name: 'React Native',
@@ -46,11 +46,11 @@ function getCiJobs() {
     },
     {
       name: 'Next.js',
-      setups: [ubuntu16, win14]
+      setups: [ubuntu16, win16]
     },
     {
       name: 'Nuxt 2',
-      setups: [ubuntu16, win14]
+      setups: [ubuntu16, win16]
     },
     {
       name: 'SvelteKit',
@@ -58,7 +58,7 @@ function getCiJobs() {
     },
     {
       name: 'Prisma',
-      setups: [win14, mac17]
+      setups: [win16, mac17]
     },
     {
       name: 'https://telefunc.com',
