@@ -1,3 +1,12 @@
+## [0.1.54](https://github.com/brillout/telefunc/compare/v0.1.53...v0.1.54) (2023-06-01)
+
+
+### Bug Fixes
+
+* tolerate + prefix in collocation convention ([13a3545](https://github.com/brillout/telefunc/commit/13a354579602e3cebfd3ae12c8dd0057afbb0424))
+
+
+
 ## [0.1.53](https://github.com/brillout/telefunc/compare/v0.1.52...v0.1.53) (2023-04-28)
 
 
