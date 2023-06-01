@@ -6,7 +6,7 @@
   },
   "dependencies": {
     "telefunc": "0.1.54",
-    "vite": "npm:@brillout/vite@3.1.0-apptype-fix"
+    "vite": "^4.3.9"
   },
   "type": "module"
 }
