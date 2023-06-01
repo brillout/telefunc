@@ -47,22 +47,28 @@ function assertCollocation(telefuncFilePath: string, appRootDir: string | null, 
     return
   }
 
-  assertPosixPath(telefuncFilePath)
+  const getBasename = (fileNameOrPath: string): string => {
+    assertPosixPath(fileNameOrPath)
+    let basename = path.posix.basename(fileNameOrPath).split('.')[0]!
+    if (basename.startsWith('+')) basename = basename.slice(1)
+    return basename
+  }
 
-  const basename = path.posix.basename(telefuncFilePath).split('.')[0]!
+  assertPosixPath(telefuncFilePath)
+  const telefuncFileBasename = getBasename(telefuncFilePath)
   const telefuncFileDir = path.posix.dirname(telefuncFilePath)
   const telefuncFileDirAbsolute = path.posix.join(appRootDir, telefuncFileDir)
   const collocatedFiles = fs.readdirSync(telefuncFileDirAbsolute)
   const collocatedFilesMatchYes: string[] = []
   const collocatedFilesMatchNot: string[] = []
-  collocatedFiles.forEach((file) => {
-    assertPosixPath(file) // file is a filename so it shouldn't contain any windows backslash
-    const sameBasename = file.startsWith(basename)
-    file = path.posix.join(telefuncFileDir, file)
-    if (sameBasename) {
-      collocatedFilesMatchYes.push(file)
+  collocatedFiles.forEach((fileName) => {
+    assertPosixPath(fileName) // fileName isn't a path so it shouldn't contain any backslash windows path separator
+    const fileBasename = getBasename(fileName)
+    fileName = path.posix.join(telefuncFileDir, fileName)
+    if (fileBasename === telefuncFileBasename) {
+      collocatedFilesMatchYes.push(fileName)
     } else {
-      collocatedFilesMatchNot.push(file)
+      collocatedFilesMatchNot.push(fileName)
     }
   })
   /* There seem to be a race condition: https://github.com/brillout/telefunc/issues/61
@@ -74,10 +80,10 @@ function assertCollocation(telefuncFilePath: string, appRootDir: string | null, 
     [
       `We recommend to collocate ${telefuncFilePath} with a UI component file, see https://telefunc.com/event-based#naming-convention`,
       '    Your telefunction:',
-      `      ${telefuncFilePath}`,
+      `      ${telefuncFilePath} (base name: '${telefuncFileBasename}')`,
       '    Its collocated files:',
-      ...collocatedFilesMatchNot.map((f) => '      ' + f),
-      `    None of its collocated files share its base name '${basename}'.`
+      ...collocatedFilesMatchNot.map((fileName) => `      ${fileName} (base name: '${getBasename(fileName)}'`),
+      `    None of its collocated files share its base name '${telefuncFileBasename}'.`
     ].join('\n'),
     { onlyOnce: true }
   )
