@@ -2,7 +2,7 @@ export { render }
 export { passToClient }
 
 import React from 'react'
-import { escapeInject } from 'vite-plugin-ssr'
+import { escapeInject } from 'vite-plugin-ssr/server'
 import { renderToStream } from 'react-streaming/server'
 import { PageLayout } from './PageLayout'
 

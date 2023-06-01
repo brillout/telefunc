@@ -1,6 +1,6 @@
 import React from 'react'
 import { PageShell } from './PageShell'
-import { escapeInject } from 'vite-plugin-ssr'
+import { escapeInject } from 'vite-plugin-ssr/server'
 import { renderToStream } from 'react-streaming/server'
 import logoUrl from './logo.svg'
 import type { PageContextServer } from './types'
