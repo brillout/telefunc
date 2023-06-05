@@ -1,4 +1,4 @@
-import { Link, CodeBlock } from '@brillout/docpress'
+import { Link, CodeBlockTransformer } from '@brillout/docpress'
 
 **Environment**: Server.
 
@@ -63,7 +63,11 @@ app.all('/_telefunc', async (req, res) => {
 
 If you get this error:
 
-<CodeBlock lineBreak="break-word">{'[telefunc][Wrong Usage][getContext()] Cannot access context object, see https://telefunc.com/getContext#access'}</CodeBlock>
+<CodeBlockTransformer lineBreak="break-word">
+```
+[telefunc][Wrong Usage][getContext()] Cannot access context object, see https://telefunc.com/getContext#access
+```
+</CodeBlockTransformer>
 
 Then this means called `getContext()` after an `await` operator:
 

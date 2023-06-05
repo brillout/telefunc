@@ -5,7 +5,7 @@
     "preview": "docpress build && docpress preview"
   },
   "dependencies": {
-    "@brillout/docpress": "^0.4.15",
+    "@brillout/docpress": "^0.4.16",
     "@types/node": "^17.0.10",
     "@types/react": "^17.0.9",
     "@types/react-dom": "^17.0.6",
