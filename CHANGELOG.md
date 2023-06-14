@@ -1,3 +1,13 @@
+## [0.1.55](https://github.com/brillout/telefunc/compare/v0.1.54...v0.1.55) (2023-06-14)
+
+
+### Bug Fixes
+
+* remove problematic filePath assert() ([3910b18](https://github.com/brillout/telefunc/commit/3910b188e7347bf29cb5b019ad59ed78e15ecfec))
+* update @brillout/vite-plugin-import-build ([ded2d80](https://github.com/brillout/telefunc/commit/ded2d809f201f8b98425c5786f90ee138242f79a))
+
+
+
 ## [0.1.54](https://github.com/brillout/telefunc/compare/v0.1.53...v0.1.54) (2023-06-01)
 
 
