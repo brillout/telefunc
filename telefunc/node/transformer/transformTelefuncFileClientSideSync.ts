@@ -1,7 +1,7 @@
 export { transformTelefuncFileClientSideSync }
 
 import { posix } from 'path'
-import { assert, assertPosixPath } from '../utils'
+import { assert, assertPosixPath, getTelefunctionKey } from '../utils'
 
 function transformTelefuncFileClientSideSync(
   id: string,
@@ -34,8 +34,7 @@ export function getCode(exportNames: readonly string[], telefuncFilePath: string
     )
 
     {
-      assert(!telefuncFilePath.includes(':'))
-      const key = `${telefuncFilePath}:${exportName}`
+      const key = getTelefunctionKey(telefuncFilePath, exportName)
       lines.push(`${varName}._key = ${JSON.stringify(key)};`)
     }
 
