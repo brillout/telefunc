@@ -1,3 +1,12 @@
+## [0.1.56](https://github.com/brillout/telefunc/compare/v0.1.55...v0.1.56) (2023-06-14)
+
+
+### Bug Fixes
+
+* improve telefunction key assertion ([099a212](https://github.com/brillout/telefunc/commit/099a212055e042e75a8eaf1bb4069401ba0a37c7))
+
+
+
 ## [0.1.55](https://github.com/brillout/telefunc/compare/v0.1.54...v0.1.55) (2023-06-14)
 
 
