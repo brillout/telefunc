@@ -25,7 +25,8 @@ function generateShield(telefuncFileCode: string, telefuncFilePath: string): str
   const { project, telefuncFileSource, shieldGenSource } = getProject(telefuncFilePath, telefuncFileCode)
   // We should preserve prior `telefuncFileCode` transformations
   telefuncFileSource.replaceWithText(telefuncFileCode)
-  return generate({ project, telefuncFileSource, shieldGenSource, telefuncFilePath })
+  const telefuncFileCodeWithShield = generate({ project, telefuncFileSource, shieldGenSource, telefuncFilePath })
+  return telefuncFileCodeWithShield
 }
 
 function getProject(telefuncFilePath: string, telefuncFileCode: string) {
@@ -178,8 +179,8 @@ function generate({
     )
   }
 
-  const shieldCode = telefuncFileSource.getText()
-  return shieldCode
+  const telefuncFileCodeWithShield = telefuncFileSource.getText()
+  return telefuncFileCodeWithShield
 }
 
 function testGenerateShield(telefuncFileCode: string): string {
