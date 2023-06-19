@@ -22,15 +22,15 @@ type ShieldRes<S extends string, Acc extends string[] = []> = {
 }
 
 type SimpleType<T, Acc extends any[] = []> = Equals<T, string> extends true
-  ? ShieldRes<'t.string', Acc>
+  ? ShieldRes<'__telefunc_t.string', Acc>
   : Equals<T, number> extends true
-  ? ShieldRes<'t.number', Acc>
+  ? ShieldRes<'__telefunc_t.number', Acc>
   : Equals<T, boolean> extends true
-  ? ShieldRes<'t.boolean', Acc>
+  ? ShieldRes<'__telefunc_t.boolean', Acc>
   : Equals<T, Date> extends true
-  ? ShieldRes<'t.date', Acc>
+  ? ShieldRes<'__telefunc_t.date', Acc>
   : Equals<T, any> extends true
-  ? ShieldRes<'t.any', Acc>
+  ? ShieldRes<'__telefunc_t.any', Acc>
   : false
 
 type ReplaceAll<S extends string, From extends string, To extends string> = From extends ''
@@ -40,11 +40,11 @@ type ReplaceAll<S extends string, From extends string, To extends string> = From
   : S
 
 type Literal<T, Acc extends any[]> = T extends string
-  ? ShieldRes<`t.const('${ReplaceAll<T, "'", "\\'">}')`, Acc>
+  ? ShieldRes<`__telefunc_t.const('${ReplaceAll<T, "'", "\\'">}')`, Acc>
   : T extends boolean
-  ? ShieldRes<`t.const(${T})`, Acc>
+  ? ShieldRes<`__telefunc_t.const(${T})`, Acc>
   : T extends number
-  ? ShieldRes<`t.const(${T})`, Acc>
+  ? ShieldRes<`__telefunc_t.const(${T})`, Acc>
   : false
 
 type Joined<T extends any[], Acc extends any[], List = ShieldList<T>, J = JoinShieldResList<List>> = J extends string
@@ -109,19 +109,19 @@ type ShieldUnion<T, Acc extends any[]> = ShieldList<UnionToTuple<T>> extends Shi
 type IsUnion<T> = [T] extends [UnionToIntersection<T>] ? false : true
 
 type Wrap<T extends string, Keyword> = Keyword extends 'nullable'
-  ? `t.nullable(${T})`
+  ? `__telefunc_t.nullable(${T})`
   : Keyword extends 'optional'
-  ? `t.optional(${T})`
+  ? `__telefunc_t.optional(${T})`
   : Keyword extends 'tuple'
-  ? `t.tuple(${T})`
+  ? `__telefunc_t.tuple(${T})`
   : Keyword extends 'array'
-  ? `t.array(${T})`
+  ? `__telefunc_t.array(${T})`
   : Keyword extends '{}'
   ? `{ ${T} }`
   : Keyword extends 'union'
-  ? `t.or(${T})`
+  ? `__telefunc_t.or(${T})`
   : Keyword extends 'object'
-  ? `t.object(${T})`
+  ? `__telefunc_t.object(${T})`
   : T
 
 type WrapShieldRes<T extends ShieldRes<any, any>> = T extends ShieldRes<infer S, infer Acc>
@@ -161,51 +161,97 @@ type ShieldStrMap<T extends any[]> = Head<T> extends never ? [] : [ShieldStr<Hea
 export type ShieldArrStr<T extends any[], M = ShieldStrMap<T>> = M extends any[] ? `[${JoinStrings<M>}]` : never
 
 type _cases = [
-  Expect<Equals<ShieldStr<string>, 't.string'>>,
-  Expect<Equals<ShieldStr<number>, 't.number'>>,
-  Expect<Equals<ShieldStr<boolean>, 't.boolean'>>,
-  Expect<Equals<ShieldStr<Date>, 't.date'>>,
-  Expect<Equals<ShieldStr<any>, 't.any'>>,
-  Expect<Equals<ShieldStr<string | null>, 't.nullable(t.string)'>>,
-  Expect<Equals<ShieldStr<string | undefined>, 't.optional(t.string)'>>,
-  Expect<Equals<ShieldStr<number | null | undefined>, 't.optional(t.nullable(t.number))'>>,
-  Expect<Equals<ShieldStr<1 | null>, 't.nullable(t.const(1))'>>,
-  Expect<Equals<ShieldStr<1 | undefined>, 't.optional(t.const(1))'>>,
-  Expect<Equals<ShieldStr<[number, boolean]>, 't.tuple(t.number, t.boolean)'>>,
+  Expect<Equals<ShieldStr<string>, '__telefunc_t.string'>>,
+  Expect<Equals<ShieldStr<number>, '__telefunc_t.number'>>,
+  Expect<Equals<ShieldStr<boolean>, '__telefunc_t.boolean'>>,
+  Expect<Equals<ShieldStr<Date>, '__telefunc_t.date'>>,
+  Expect<Equals<ShieldStr<any>, '__telefunc_t.any'>>,
+  Expect<Equals<ShieldStr<string | null>, '__telefunc_t.nullable(__telefunc_t.string)'>>,
+  Expect<Equals<ShieldStr<string | undefined>, '__telefunc_t.optional(__telefunc_t.string)'>>,
+  Expect<
+    Equals<ShieldStr<number | null | undefined>, '__telefunc_t.optional(__telefunc_t.nullable(__telefunc_t.number))'>
+  >,
+  Expect<Equals<ShieldStr<1 | null>, '__telefunc_t.nullable(__telefunc_t.const(1))'>>,
+  Expect<Equals<ShieldStr<1 | undefined>, '__telefunc_t.optional(__telefunc_t.const(1))'>>,
+  Expect<Equals<ShieldStr<[number, boolean]>, '__telefunc_t.tuple(__telefunc_t.number, __telefunc_t.boolean)'>>,
   Expect<
     EqualsAnyOf<
       ShieldStr<[number?, boolean?]>,
-      ['t.tuple(t.optional(t.number), t.optional(t.boolean))', 't.tuple(t.optional(t.boolean), t.optional(t.number))']
+      [
+        '__telefunc_t.tuple(__telefunc_t.optional(__telefunc_t.number), __telefunc_t.optional(__telefunc_t.boolean))',
+        '__telefunc_t.tuple(__telefunc_t.optional(__telefunc_t.boolean), __telefunc_t.optional(__telefunc_t.number))'
+      ]
     >
   >,
   Expect<
     EqualsAnyOf<
       ShieldStr<'one' | 'two'>,
-      ["t.or(t.const('two'), t.const('one'))", "t.or(t.const('one'), t.const('two'))"]
+      [
+        "__telefunc_t.or(__telefunc_t.const('two'), __telefunc_t.const('one'))",
+        "__telefunc_t.or(__telefunc_t.const('one'), __telefunc_t.const('two'))"
+      ]
     >
   >,
   Expect<
     EqualsAnyOf<
       ShieldStr<1 | 2 | undefined>,
-      ['t.optional(t.or(t.const(2), t.const(1)))', 't.optional(t.or(t.const(1), t.const(2)))']
+      [
+        '__telefunc_t.optional(__telefunc_t.or(__telefunc_t.const(2), __telefunc_t.const(1)))',
+        '__telefunc_t.optional(__telefunc_t.or(__telefunc_t.const(1), __telefunc_t.const(2)))'
+      ]
     >
   >,
-  Expect<EqualsAnyOf<ShieldStr<number | string>, ['t.or(t.number, t.string)', 't.or(t.string, t.number)']>>,
-  Expect<Equals<ShieldStr<number[]>, 't.array(t.number)'>>,
-  Expect<Equals<ShieldStr<[number, string][]>, 't.array(t.tuple(t.number, t.string))'>>,
-  Expect<Equals<ShieldStr<{ age: number; hasBike: boolean }>, '{ hasBike: t.boolean, age: t.number }'>>,
-  Expect<Equals<ShieldStr<{ age: number; hasBike?: boolean }>, '{ hasBike: t.optional(t.boolean), age: t.number }'>>,
-  Expect<Equals<ShieldStr<'test'>, "t.const('test')">>,
-  Expect<Equals<ShieldStr<"'test'">, "t.const('\\'test\\'')">>,
-  Expect<Equals<ShieldStr<true>, 't.const(true)'>>,
-  Expect<Equals<ShieldStr<false>, 't.const(false)'>>,
-  Expect<Equals<ShieldStr<123>, 't.const(123)'>>,
-  Expect<Equals<ShieldStr<{ isGood: boolean } | string>, 't.or({ isGood: t.boolean }, t.string)'>>,
-  Expect<Equals<ShieldStr<{ age: number }[]>, 't.array({ age: t.number })'>>,
-  Expect<Equals<ShieldStr<Record<string, number>>, 't.object(t.number)'>>,
-  Expect<Equals<ShieldStr<Record<string, { age?: number }>>, 't.object({ age: t.optional(t.number) })'>>,
-  Expect<Equals<ShieldStr<Record<string, number>[]>, 't.array(t.object(t.number))'>>,
-  Expect<Equals<ShieldArrStr<[string, number]>, '[t.string, t.number]'>>,
-  Expect<Equals<ShieldArrStr<[number?]>, '[t.optional(t.number)]'>>,
-  Expect<Equals<ShieldArrStr<[string, number?, string?]>, '[t.string, t.optional(t.number), t.optional(t.string)]'>>
+  Expect<
+    EqualsAnyOf<
+      ShieldStr<number | string>,
+      [
+        '__telefunc_t.or(__telefunc_t.number, __telefunc_t.string)',
+        '__telefunc_t.or(__telefunc_t.string, __telefunc_t.number)'
+      ]
+    >
+  >,
+  Expect<Equals<ShieldStr<number[]>, '__telefunc_t.array(__telefunc_t.number)'>>,
+  Expect<
+    Equals<
+      ShieldStr<[number, string][]>,
+      '__telefunc_t.array(__telefunc_t.tuple(__telefunc_t.number, __telefunc_t.string))'
+    >
+  >,
+  Expect<
+    Equals<ShieldStr<{ age: number; hasBike: boolean }>, '{ hasBike: __telefunc_t.boolean, age: __telefunc_t.number }'>
+  >,
+  Expect<
+    Equals<
+      ShieldStr<{ age: number; hasBike?: boolean }>,
+      '{ hasBike: __telefunc_t.optional(__telefunc_t.boolean), age: __telefunc_t.number }'
+    >
+  >,
+  Expect<Equals<ShieldStr<'test'>, "__telefunc_t.const('test')">>,
+  Expect<Equals<ShieldStr<"'test'">, "__telefunc_t.const('\\'test\\'')">>,
+  Expect<Equals<ShieldStr<true>, '__telefunc_t.const(true)'>>,
+  Expect<Equals<ShieldStr<false>, '__telefunc_t.const(false)'>>,
+  Expect<Equals<ShieldStr<123>, '__telefunc_t.const(123)'>>,
+  Expect<
+    Equals<
+      ShieldStr<{ isGood: boolean } | string>,
+      '__telefunc_t.or({ isGood: __telefunc_t.boolean }, __telefunc_t.string)'
+    >
+  >,
+  Expect<Equals<ShieldStr<{ age: number }[]>, '__telefunc_t.array({ age: __telefunc_t.number })'>>,
+  Expect<Equals<ShieldStr<Record<string, number>>, '__telefunc_t.object(__telefunc_t.number)'>>,
+  Expect<
+    Equals<
+      ShieldStr<Record<string, { age?: number }>>,
+      '__telefunc_t.object({ age: __telefunc_t.optional(__telefunc_t.number) })'
+    >
+  >,
+  Expect<Equals<ShieldStr<Record<string, number>[]>, '__telefunc_t.array(__telefunc_t.object(__telefunc_t.number))'>>,
+  Expect<Equals<ShieldArrStr<[string, number]>, '[__telefunc_t.string, __telefunc_t.number]'>>,
+  Expect<Equals<ShieldArrStr<[number?]>, '[__telefunc_t.optional(__telefunc_t.number)]'>>,
+  Expect<
+    Equals<
+      ShieldArrStr<[string, number?, string?]>,
+      '[__telefunc_t.string, __telefunc_t.optional(__telefunc_t.number), __telefunc_t.optional(__telefunc_t.string)]'
+    >
+  >
 ]
