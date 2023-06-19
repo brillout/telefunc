@@ -1,12 +1,4 @@
-type Expect<T extends true> = T
-
 type Equals<X, Y> = (<T>() => T extends X ? 1 : 2) extends <T>() => T extends Y ? 1 : 2 ? true : false
-
-type EqualsAnyOf<T, L extends any[]> = L extends [infer Head, ...infer Tail]
-  ? Equals<T, Head> extends true
-    ? true
-    : EqualsAnyOf<T, Tail>
-  : false
 
 type UnionToIntersection<T> = (T extends T ? (params: T) => any : never) extends (params: infer P) => any ? P : never
 
@@ -160,6 +152,7 @@ type ShieldStrMap<T extends any[]> = Head<T> extends never ? [] : [ShieldStr<Hea
 
 export type ShieldArrStr<T extends any[], M = ShieldStrMap<T>> = M extends any[] ? `[${JoinStrings<M>}]` : never
 
+/* Uncomment this to test this file
 type _cases = [
   Expect<Equals<ShieldStr<string>, '__telefunc_t.string'>>,
   Expect<Equals<ShieldStr<number>, '__telefunc_t.number'>>,
@@ -255,3 +248,10 @@ type _cases = [
     >
   >
 ]
+type Expect<T extends true> = T
+type EqualsAnyOf<T, L extends any[]> = L extends [infer Head, ...infer Tail]
+  ? Equals<T, Head> extends true
+    ? true
+    : EqualsAnyOf<T, Tail>
+  : false
+//*/
