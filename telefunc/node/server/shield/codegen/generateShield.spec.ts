@@ -76,5 +76,13 @@ __telefunc_shield(onFoo, [__telefunc_t.string, __telefunc_t.or(__telefunc_t.cons
     expect(replaceShieldTypeAlias("t.const('t.const't.')")).toEqual("__telefunc_t.const('t.const't.')")
 
     expect(replaceShieldTypeAlias("t.array(t.const('t.'))")).toEqual("__telefunc_t.array(__telefunc_t.const('t.'))")
+
+    expect(
+      replaceShieldTypeAlias(
+        "[t.string, t.or(t.const('UNKNOWN'), t.const('NOT_ATTENDING'), t.const('ATTENDING'), t.const('MAYBE'))]"
+      )
+    ).toEqual(
+      "[__telefunc_t.string, __telefunc_t.or(__telefunc_t.const('UNKNOWN'), t.const('NOT_ATTENDING'), t.const('ATTENDING'), t.const('MAYBE'))]"
+    )
   })
 })
