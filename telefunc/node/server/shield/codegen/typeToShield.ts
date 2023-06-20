@@ -152,7 +152,7 @@ type ShieldStrMap<T extends any[]> = Head<T> extends never ? [] : [ShieldStr<Hea
 
 export type ShieldArrStr<T extends any[], M = ShieldStrMap<T>> = M extends any[] ? `[${JoinStrings<M>}]` : never
 
-/* Uncomment this to test this file
+/* Uncomment this to unit test this file
 type _cases = [
   Expect<Equals<ShieldStr<string>, '__telefunc_t.string'>>,
   Expect<Equals<ShieldStr<number>, '__telefunc_t.number'>>,
