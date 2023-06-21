@@ -1,8 +1,8 @@
-import { Link, Note } from '@brillout/docpress'
+import { Link, NoteWithoutIcon, NoteWithCustomIcon } from '@brillout/docpress'
 
 > See <Link href="/RPC" /> if you don't know what it is.
 
-<Note>
+<NoteWithoutIcon>
 <b>TL;DR</b>
 
 A GraphQL/RESTful API is only needed if:
@@ -13,7 +13,7 @@ Otherwise, we can use RPC for a significant increase in development speed.
 
 Contrary to common belief, we can use RPC while having
 a decoupled frontend-backend development.
-</Note>
+</NoteWithoutIcon>
 
 
 ## Third Parties
@@ -35,12 +35,12 @@ telefunctions (RPC endpoints) are tailored to our frontend's UI components.
 This means that our telefunctions are only useful for our frontend and
 third parties cannot use them to build third-party frontends.
 
-<Note icon={<span style={{fontSize: "1.1em"}}>⚗️</span>}>
+<NoteWithCustomIcon icon={<span style={{fontSize: "1.1em"}}>⚗️</span>}>
   <b>Research Area</b>.
   It is theoretically possible to also use RPC for giving third parties access to our database,
   but this has not been done so far.
   Reach out to the Telefunc maintainers if you are interested in exploring this topic.
-</Note>
+</NoteWithCustomIcon>
 
 
 ## Decoupled frontend-backend
