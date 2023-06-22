@@ -1,3 +1,12 @@
+## [0.1.57](https://github.com/brillout/telefunc/compare/v0.1.56...v0.1.57) (2023-06-22)
+
+
+### Bug Fixes
+
+* simplify shield() generation (fix [#75](https://github.com/brillout/telefunc/issues/75)) ([f57cf11](https://github.com/brillout/telefunc/commit/f57cf1113b4a147765591a04501d6a3dde24ffb7))
+
+
+
 ## [0.1.56](https://github.com/brillout/telefunc/compare/v0.1.55...v0.1.56) (2023-06-14)
 
 
