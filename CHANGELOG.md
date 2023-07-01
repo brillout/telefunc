@@ -1,3 +1,12 @@
+## [0.1.58](https://github.com/brillout/telefunc/compare/v0.1.57...v0.1.58) (2023-07-01)
+
+
+### Bug Fixes
+
+* fix types for /react-streaming export (fix [#76](https://github.com/brillout/telefunc/issues/76)) ([7c84233](https://github.com/brillout/telefunc/commit/7c8423301212732cf6499dd5763f8f1927625017))
+
+
+
 ## [0.1.57](https://github.com/brillout/telefunc/compare/v0.1.56...v0.1.57) (2023-06-22)
 
 
