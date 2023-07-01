@@ -26,6 +26,7 @@
     "bump": "bump-dependencies",
     "========= Release": "",
     "release": "cd telefunc/ && pnpm run release",
+    "release:commit": "cd telefunc/ && pnpm run release:commit",
     "========= Clean": "",
     "// Remove all generated files": "",
     "clean": "git clean -Xdf",
