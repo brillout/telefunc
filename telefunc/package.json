@@ -104,6 +104,7 @@
     "dist/cjs/",
     "dist/esm/",
     "*.d.ts",
+    "react-streaming/*.d.ts",
     "*.js"
   ],
   "keywords": [
