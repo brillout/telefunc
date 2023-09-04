@@ -1,3 +1,12 @@
+## [0.1.59](https://github.com/brillout/telefunc/compare/v0.1.58...v0.1.59) (2023-09-04)
+
+
+### Bug Fixes
+
+* improve prop paths in serialization error messages (update @brillout/json-serializer) ([92ae904](https://github.com/brillout/telefunc/commit/92ae90492c320ad9ad90f0b76193f86bf3781e97))
+
+
+
 ## [0.1.58](https://github.com/brillout/telefunc/compare/v0.1.57...v0.1.58) (2023-07-01)
 
 
