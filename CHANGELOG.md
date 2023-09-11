@@ -1,3 +1,12 @@
+## [0.1.60](https://github.com/brillout/telefunc/compare/v0.1.59...v0.1.60) (2023-09-11)
+
+
+### Bug Fixes
+
+* update ts-morph ([dafc8cd](https://github.com/brillout/telefunc/commit/dafc8cda3645fd860a90248f6322390da983b1b2))
+
+
+
 ## [0.1.59](https://github.com/brillout/telefunc/compare/v0.1.58...v0.1.59) (2023-09-04)
 
 
