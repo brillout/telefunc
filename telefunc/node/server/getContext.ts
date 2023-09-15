@@ -3,9 +3,11 @@ export { provideTelefuncContext }
 export { restoreContext }
 export { installAsyncMode }
 export { isAsyncMode }
+export type { Telefunc }
 
 import { getContext_sync, provideTelefuncContext_sync, restoreContext_sync } from './getContext/sync'
 import { assert, isObject, getGlobalObject } from '../utils'
+import type { Telefunc } from './getContext/TelefuncNamespace'
 
 type GetContext = () => Telefunc.Context
 type ProvideTelefuncContext = (context: Telefunc.Context) => void

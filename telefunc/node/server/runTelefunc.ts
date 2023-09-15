@@ -2,6 +2,7 @@ export { runTelefunc }
 export type { HttpResponse }
 
 import { assert, objectAssign, isProduction } from '../utils'
+import { Telefunc } from './getContext'
 import { loadTelefuncFiles } from './runTelefunc/loadTelefuncFiles'
 import { parseHttpRequest } from './runTelefunc/parseHttpRequest'
 // import { getEtag } from './runTelefunc/getEtag'
