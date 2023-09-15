@@ -1,7 +1,7 @@
 import 'telefunc'
 import type { User } from './auth/getUser'
 
-declare module 'telefunc' {
+declare global {
   namespace Telefunc {
     interface Context {
       user: null | User

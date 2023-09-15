@@ -1,4 +1,4 @@
-export declare namespace Telefunc {
+declare namespace Telefunc {
   // Can be overriden by the user
   export interface Context {}
 }

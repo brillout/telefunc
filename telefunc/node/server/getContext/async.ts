@@ -4,7 +4,6 @@ export { provideTelefuncContext_async }
 import { AsyncLocalStorage } from 'async_hooks'
 import { assert, assertWarning, isObject, getGlobalObject, assertUsage } from '../../utils'
 import { installAsyncMode } from '../getContext'
-import type { Telefunc } from './TelefuncNamespace'
 
 installAsyncMode({ getContext_async, provideTelefuncContext_async, restoreContext_async })
 
