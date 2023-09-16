@@ -7,9 +7,7 @@ function testRun(
   { skipShieldGenerationTest, doNotFailOnWarning }: { skipShieldGenerationTest?: true; doNotFailOnWarning?: true } = {}
 ) {
   {
-    const isViteCli = cmd !== 'npm run start'
-    const serverIsReadyMessage = isViteCli ? 'Local:' : undefined
-    run(cmd, { serverIsReadyMessage, doNotFailOnWarning })
+    run(cmd, { doNotFailOnWarning })
   }
 
   {
