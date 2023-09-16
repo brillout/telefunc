@@ -6,9 +6,7 @@ function testRun(
   cmd: 'npm run dev' | 'npm run preview' | 'npm run start' | 'npm run prod',
   { skipShieldGenerationTest, doNotFailOnWarning }: { skipShieldGenerationTest?: true; doNotFailOnWarning?: true } = {}
 ) {
-  {
-    run(cmd, { doNotFailOnWarning })
-  }
+  run(cmd, { doNotFailOnWarning })
 
   {
     const isDev = cmd !== 'npm run preview'
