@@ -28,7 +28,6 @@ function installTelefunc(app) {
 
 async function installFrontend(app) {
   const root = await getRoot()
-  console.log(root)
   app.use(express.static(`${root}/dist`))
 }
 
