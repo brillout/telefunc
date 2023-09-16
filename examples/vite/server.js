@@ -1,39 +1,50 @@
-import express  from 'express'
-import path from 'path'
-import {fileURLToPath} from 'url'
-
+import express from 'express'
 import { telefunc } from 'telefunc'
 
-// manual import (if needed) https://github.com/brillout/vite-plugin-import-build#manual-import
-//await import('./dist/server/importBuild.cjs')
+startServer()
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
+async function startServer() {
+  const app = express()
+  installTelefunc(app)
+  await installFrontend(app)
+  start(app)
+}
 
-const app = express()
+function installTelefunc(app) {
+  app.use(express.text())
+  app.all('/_telefunc', async (req, res) => {
+    const { originalUrl: url, method, body } = req
+    const httpResponse = await telefunc({ url, method, body })
+    res.status(httpResponse.statusCode).type(httpResponse.contentType).send(httpResponse.body)
+  })
+}
 
-app.use('/', express.static(__dirname + '/dist/client'))
+async function installFrontend(app) {
+  if (process.env.NODE_ENV === 'production') {
+    const root = await getRoot()
+    app.use(express.static(`${root}/dist/client`))
+  } else {
+    const vite = await import('vite')
+    const viteDevMiddleware = (
+      await vite.createServer({
+        server: { middlewareMode: true }
+      })
+    ).middlewares
+    app.use(viteDevMiddleware)
+  }
+}
 
-// Telefunc middleware
-app.all('/_telefunc', express.text(), async (req, res) => {
-    const httpResponse = await telefunc({
-        // HTTP Request URL, which is '/_telefunc' if we didn't modify config.telefuncUrl
-        url: req.url,
-        // HTTP Request Method (GET, POST, ...)
-        method: req.method,
-        // HTTP Request Body, which can be a string, buffer, or stream
-        body: req.body,
-        // Optional
-        context: {
-            /* Some context */
-        }
-    })
-    const { body, statusCode, contentType } = httpResponse
-    res.status(statusCode).type(contentType).send(body)
-})
+function start(app) {
+  const port = process.env.PORT || 3000
+  app.listen(port)
+  console.log(`Server running at http://localhost:${port}`)
+}
 
-app.get('/hi', (_, res) => res.send('Hello from express for vite+telefunc'))
-
-const port = process.env.PORT || 3000
-app.listen(port, 
-    () =>  { console.log(`Server running at http://localhost:${port}`) })
+// https://stackoverflow.com/questions/46745014/alternative-for-dirname-in-node-js-when-using-es6-modules
+async function getRoot() {
+  const { dirname } = await import('path')
+  const { fileURLToPath } = await import('url')
+  const __dirname = dirname(fileURLToPath(import.meta.url))
+  const root = __dirname
+  return root
+}

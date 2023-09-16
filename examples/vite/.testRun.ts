@@ -3,7 +3,7 @@ import { page, test, expect, run, getServerUrl, autoRetry, fetchHtml, fetch } fr
 export { testRun }
 
 function testRun(
-  cmd: 'npm run dev' | 'npm run preview' | 'npm run start',
+  cmd: 'npm run dev' | 'npm run preview' | 'npm run start' | 'npm run prod',
   { skipShieldGenerationTest, doNotFailOnWarning }: { skipShieldGenerationTest?: true; doNotFailOnWarning?: true } = {}
 ) {
   {
