@@ -64,7 +64,7 @@ function validateUserConfig(configUserUnwrapped: ConfigUser, prop: string, val: 
     val.forEach((val: unknown) => {
       assertUsage(typeof val === 'string', wrongType)
       assertUsage(isAbsolute(val), `[config.telefuncFiles] ${val} should be an absolute path`)
-      assertUsage(isTelefuncFilePath(val), `[config.telefuncFiles] ${val} doesn't contain \`.telefunc.\``)
+      assertUsage(isTelefuncFilePath(toPosixPath(val)), `[config.telefuncFiles] ${val} doesn't contain \`.telefunc.\``)
     })
     configUserUnwrapped[prop] = val
   } else if (prop === 'disableEtag') {
