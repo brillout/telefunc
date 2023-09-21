@@ -90,7 +90,7 @@ importers:
         specifier: ^0.3.5
         version: 0.3.5(react-dom@18.2.0)(react@18.2.0)
       telefunc:
-        specifier: 0.1.60
+        specifier: 0.1.61
         version: link:../../telefunc
       ts-node:
         specifier: ^10.3.0
@@ -126,7 +126,7 @@ importers:
         specifier: ^2.67.1
         version: 2.67.1
       telefunc:
-        specifier: 0.1.60
+        specifier: 0.1.61
         version: link:../../telefunc
 
   examples/cloudflare-workers:
@@ -144,7 +144,7 @@ importers:
         specifier: ^2.3.0
         version: 2.3.0
       telefunc:
-        specifier: 0.1.60
+        specifier: 0.1.61
         version: link:../../telefunc
       vite:
         specifier: ^4.3.9
@@ -168,7 +168,7 @@ importers:
         specifier: ^18.0.2
         version: 18.2.0(react@18.2.0)
       telefunc:
-        specifier: 0.1.60
+        specifier: 0.1.61
         version: link:../../telefunc
 
   examples/nuxt2:
@@ -186,7 +186,7 @@ importers:
         specifier: ^2.15.7
         version: 2.15.8(consola@2.15.3)(typescript@4.9.5)
       telefunc:
-        specifier: 0.1.60
+        specifier: 0.1.61
         version: link:../../telefunc
       vue:
         specifier: ^2.6.14
@@ -222,7 +222,7 @@ importers:
         specifier: ^17.0.0
         version: 17.0.2(react@17.0.2)
       telefunc:
-        specifier: 0.1.60
+        specifier: 0.1.61
         version: link:../../telefunc
       typescript:
         specifier: ^4.8.4
@@ -258,7 +258,7 @@ importers:
         specifier: ^0.3.5
         version: 0.3.5(react-dom@18.2.0)(react@18.2.0)
       telefunc:
-        specifier: 0.1.60
+        specifier: 0.1.61
         version: link:../../telefunc
       typescript:
         specifier: ^4.8.4
@@ -273,7 +273,7 @@ importers:
   examples/svelte-kit:
     dependencies:
       telefunc:
-        specifier: 0.1.60
+        specifier: 0.1.61
         version: link:../../telefunc
     devDependencies:
       '@sveltejs/adapter-auto':
@@ -316,7 +316,7 @@ importers:
         specifier: ^4.18.2
         version: 4.18.2
       telefunc:
-        specifier: 0.1.60
+        specifier: 0.1.61
         version: link:../../telefunc
       vite:
         specifier: ^4.3.9
@@ -346,7 +346,7 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
       telefunc:
-        specifier: 0.1.60
+        specifier: 0.1.61
         version: link:../../telefunc
       typescript:
         specifier: ^4.8.4

@@ -1,3 +1,19 @@
+## [0.1.61](https://github.com/brillout/telefunc/compare/v0.1.60...v0.1.61) (2023-09-21)
+
+
+### Bug Fixes
+
+* convert config.telefuncFiles to posix paths before validating (fix [#90](https://github.com/brillout/telefunc/issues/90)) ([e16c585](https://github.com/brillout/telefunc/commit/e16c585ec9fa9ecbe8170b8ac30b295003890dab))
+* remove assertion that fails on windows ([#90](https://github.com/brillout/telefunc/issues/90)) ([b9d7d0c](https://github.com/brillout/telefunc/commit/b9d7d0ccb69f723db4ead79dbef440a8c0a8caf6))
+* update @brillout/import ([#90](https://github.com/brillout/telefunc/issues/90)) ([f0e8bad](https://github.com/brillout/telefunc/commit/f0e8bad6321dd3fc7dc6bb0700b7d62e373bde42))
+
+
+### Reverts
+
+* "use global namespace instead of module "telefunc" namespace" ([616fd09](https://github.com/brillout/telefunc/commit/616fd0933c3add63b754c1424fd585b0c9c700b2))
+
+
+
 ## [0.1.60](https://github.com/brillout/telefunc/compare/v0.1.59...v0.1.60) (2023-09-11)
 
 
