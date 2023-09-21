@@ -38,7 +38,7 @@ function getCiJobs() {
     },
     {
       name: 'React Native',
-      setups: [win18]
+      setups: [ubuntu16, win18]
     },
     {
       name: 'Cloudflare Workers',
