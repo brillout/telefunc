@@ -361,8 +361,8 @@ importers:
   telefunc:
     dependencies:
       '@brillout/import':
-        specifier: ^0.1.2
-        version: 0.1.2
+        specifier: ^0.2.3
+        version: 0.2.3
       '@brillout/json-serializer':
         specifier: ^0.5.6
         version: 0.5.6
@@ -2855,10 +2855,6 @@ packages:
     dependencies:
       reassert: 1.1.21
       string-width: 2.1.1
-    dev: false
-
-  /@brillout/import@0.1.2:
-    resolution: {integrity: sha512-UYxk0fxswiI8C16Mh/wBP5EfD84BlwMhmHYPYVs3SLvkx2dNCRV4VwXbR8ZLhcJ/lU/AdyV6SxJzJl7krY70Sg==}
     dev: false
 
   /@brillout/import@0.2.3:
