@@ -7,7 +7,10 @@ startServer()
 config.disableNamingConvention = true
 {
   const require = createRequire(import.meta.url)
+  Error.stackTraceLimit = Infinity
+  console.log(1)
   config.telefuncFiles = [require.resolve('./hello.telefunc.mjs')]
+  console.log(2)
 }
 
 async function startServer() {
