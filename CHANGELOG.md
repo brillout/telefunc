@@ -8,11 +8,6 @@
 * update @brillout/import ([#90](https://github.com/brillout/telefunc/issues/90)) ([f0e8bad](https://github.com/brillout/telefunc/commit/f0e8bad6321dd3fc7dc6bb0700b7d62e373bde42))
 
 
-### Reverts
-
-* "use global namespace instead of module "telefunc" namespace" ([616fd09](https://github.com/brillout/telefunc/commit/616fd0933c3add63b754c1424fd585b0c9c700b2))
-
-
 
 ## [0.1.60](https://github.com/brillout/telefunc/compare/v0.1.59...v0.1.60) (2023-09-11)
 
