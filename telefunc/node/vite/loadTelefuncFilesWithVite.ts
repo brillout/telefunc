@@ -33,9 +33,15 @@ async function loadGlobImporter() {
     }
     return { moduleExports, viteProvider: 'viteDevServer' as const }
   } else {
-    await loadServerBuild()
-    const moduleExports = await loadTelefuncFilesWithImportBuild()
-    assert(moduleExports)
+    let moduleExports: unknown
+    moduleExports = await loadTelefuncFilesWithImportBuild()
+    if (moduleExports === null) {
+      await loadServerBuild()
+      moduleExports = await loadTelefuncFilesWithImportBuild()
+      assert(moduleExports)
+    } else {
+      assert(moduleExports)
+    }
     assertProd()
     return { moduleExports, viteProvider: 'importBuild.cjs' as const }
   }
