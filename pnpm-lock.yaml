@@ -577,7 +577,7 @@ packages:
       '@babel/compat-data': 7.17.0
       '@babel/core': 7.17.5
       '@babel/helper-validator-option': 7.16.7
-      browserslist: 4.19.1
+      browserslist: 4.21.3
       semver: 6.3.0
     dev: false
 
@@ -4514,7 +4514,7 @@ packages:
       '@nuxt/utils': 2.15.8
       babel-loader: 8.2.3(@babel/core@7.22.5)(webpack@4.46.0)
       cache-loader: 4.1.0(webpack@4.46.0)
-      caniuse-lite: 1.0.30001419
+      caniuse-lite: 1.0.30001473
       consola: 2.15.3
       css-loader: 4.3.0(webpack@4.46.0)
       cssnano: 4.1.11
@@ -6477,18 +6477,6 @@ packages:
     dependencies:
       pako: 1.0.11
 
-  /browserslist@4.19.1:
-    resolution: {integrity: sha512-u2tbbG5PdKRTUoctO3NBD8FQ5HdPh1ZXPHzp1rwaa5jTc+RV9/+RlWiAIKmjRPQF+xbGM9Kklj5bZQFa2s/38A==}
-    engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
-    hasBin: true
-    dependencies:
-      caniuse-lite: 1.0.30001473
-      electron-to-chromium: 1.4.242
-      escalade: 3.1.1
-      node-releases: 2.0.6
-      picocolors: 1.0.0
-    dev: false
-
   /browserslist@4.21.3:
     resolution: {integrity: sha512-898rgRXLAyRkM1GryrrBHGkqA5hlpkV5MhtZwg9QXeiyLUYs2k00Un05aX5l2/yJIOObYKOpS2JNo8nJDE7fWQ==}
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
@@ -6733,9 +6721,6 @@ packages:
       lodash.memoize: 4.1.2
       lodash.uniq: 4.5.0
     dev: false
-
-  /caniuse-lite@1.0.30001419:
-    resolution: {integrity: sha512-aFO1r+g6R7TW+PNQxKzjITwLOyDhVRLjW0LcwS/HCZGUUKTGNp9+IwLC4xyDSZBygVL/mxaFR3HIV6wEKQuSzw==}
 
   /caniuse-lite@1.0.30001473:
     resolution: {integrity: sha512-ewDad7+D2vlyy+E4UJuVfiBsU69IL+8oVmTuZnH5Q6CIUbxNfI50uVpRHbUPDD6SUaN2o0Lh4DhTrvLG/Tn1yg==}
@@ -12613,7 +12598,7 @@ packages:
         optional: true
     dependencies:
       '@next/env': 12.0.10
-      caniuse-lite: 1.0.30001419
+      caniuse-lite: 1.0.30001473
       postcss: 8.4.5
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
@@ -12818,7 +12803,7 @@ packages:
     engines: {node: '>=0.10.0'}
 
   /normalize-range@0.1.2:
-    resolution: {integrity: sha1-LRDAa9/TEuqXd2laTShDlFa3WUI=}
+    resolution: {integrity: sha512-bdok/XvKII3nUpklnV6P2hxtMNrCboOjAcyBuQnWEhO665FwrSNRxU+AqpsyvO6LgGYPspN+lu5CLtw4jPRKNA==}
     engines: {node: '>=0.10.0'}
     dev: false
 
