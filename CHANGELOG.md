@@ -1,3 +1,12 @@
+## [0.1.62](https://github.com/brillout/telefunc/compare/v0.1.61...v0.1.62) (2023-09-30)
+
+
+### Bug Fixes
+
+* support manually importing dist/server/importBuild.cjs ([01b9ea5](https://github.com/brillout/telefunc/commit/01b9ea56586fa176d71cb06da9d02d7b9979e81c))
+
+
+
 ## [0.1.61](https://github.com/brillout/telefunc/compare/v0.1.60...v0.1.61) (2023-09-21)
 
 
