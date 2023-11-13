@@ -88,7 +88,8 @@ function getProject(telefuncFilePath: string, telefuncFileCode: string) {
         // @ts-expect-error
         sourceFile._compilerNode.fileName
     )
-    assert(false, sourceFiles)
+    const errMsg = JSON.stringify({ sourceFiles, tsConfigFilePath, telefuncFilePath }, null, 2)
+    assert(false, errMsg)
   }
 
   return { project, telefuncFileSource, shieldGenSource }
