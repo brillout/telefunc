@@ -1,3 +1,12 @@
+## [0.1.63](https://github.com/brillout/telefunc/compare/v0.1.62...v0.1.63) (2023-11-13)
+
+
+### Bug Fixes
+
+* improve debug info ([ebc352c](https://github.com/brillout/telefunc/commit/ebc352cdf333e1586495c083139a023d3eadab96))
+
+
+
 ## [0.1.62](https://github.com/brillout/telefunc/compare/v0.1.61...v0.1.62) (2023-09-30)
 
 
