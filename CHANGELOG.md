@@ -1,3 +1,12 @@
+## [0.1.64](https://github.com/brillout/telefunc/compare/v0.1.63...v0.1.64) (2023-11-15)
+
+
+### Bug Fixes
+
+* don't use tsconfig.json outside of appRootDir ([74590a2](https://github.com/brillout/telefunc/commit/74590a282f485a7b5d64e2683dd6bceffda15644))
+
+
+
 ## [0.1.63](https://github.com/brillout/telefunc/compare/v0.1.62...v0.1.63) (2023-11-13)
 
 
