@@ -3,7 +3,15 @@ export { logResult }
 export { testGenerateShield }
 
 import { Project, VariableDeclarationKind, SourceFile, getCompilerOptionsFromTsConfig } from 'ts-morph'
-import { assert, assertUsage, assertWarning, assertModuleScope, objectAssign, unique } from '../../../utils'
+import {
+  assert,
+  assertUsage,
+  assertWarning,
+  assertModuleScope,
+  objectAssign,
+  unique,
+  assertPosixPath
+} from '../../../utils'
 import fs from 'fs'
 import path from 'path'
 import pc from 'picocolors'
@@ -20,16 +28,16 @@ const generatedShields: GeneratedShield[] = []
 let resutlAlreayLogged = false
 const projects: Record<string, Project> = {}
 
-function generateShield(telefuncFileCode: string, telefuncFilePath: string): string {
-  const { project, telefuncFileSource, shieldGenSource } = getProject(telefuncFilePath, telefuncFileCode)
+function generateShield(telefuncFileCode: string, telefuncFilePath: string, appRootDir: string): string {
+  const { project, telefuncFileSource, shieldGenSource } = getProject(telefuncFilePath, telefuncFileCode, appRootDir)
   // We should preserve prior `telefuncFileCode` transformations
   telefuncFileSource.replaceWithText(telefuncFileCode)
   const telefuncFileCodeWithShield = generate({ project, telefuncFileSource, shieldGenSource, telefuncFilePath })
   return telefuncFileCodeWithShield
 }
 
-function getProject(telefuncFilePath: string, telefuncFileCode: string) {
-  const tsConfigFilePath = findTsConfig(telefuncFilePath)
+function getProject(telefuncFilePath: string, telefuncFileCode: string, appRootDir: string) {
+  const tsConfigFilePath = findTsConfig(telefuncFilePath, appRootDir)
   const key = tsConfigFilePath ?? '__no_tsconfig'
   const typeToShieldFilePath = path.join(getFilsystemRoot(), '__telefunc_typeToShield.ts')
 
@@ -325,12 +333,18 @@ function getTypeToShieldSrc() {
   return typeToShieldSrc
 }
 
-function findTsConfig(telefuncFilePath: string): string | null {
+function findTsConfig(telefuncFilePath: string, appRootDir: string): string | null {
   assert(fs.existsSync(telefuncFilePath))
+  assertPosixPath(telefuncFilePath)
+  assertPosixPath(appRootDir)
+  assert(telefuncFilePath.startsWith(appRootDir))
   let curr = telefuncFilePath
   do {
     const dir = path.dirname(curr)
     if (dir === curr) {
+      return null
+    }
+    if (!dir.startsWith(appRootDir)) {
       return null
     }
     const tsConfigFilePath = path.join(dir, 'tsconfig.json')

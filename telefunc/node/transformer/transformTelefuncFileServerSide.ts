@@ -18,7 +18,7 @@ async function transformTelefuncFileServerSide(
   let code = decorateTelefunctions(exportNames, src, id.replace(appRootDir, ''), appRootDir, skipRegistration)
 
   if (id.endsWith('.ts') && !isDev) {
-    code = generateShield(code, id)
+    code = generateShield(code, id, appRootDir)
   }
 
   return code
