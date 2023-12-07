@@ -406,6 +406,9 @@ importers:
       '@types/node':
         specifier: ^17.0.10
         version: 17.0.16
+      '@types/react':
+        specifier: ^18.2.42
+        version: 18.2.42
       next:
         specifier: ^12.0.8
         version: 12.0.10(@babel/core@7.22.5)(react-dom@18.2.0)(react@18.2.0)
@@ -4008,7 +4011,7 @@ packages:
       react: '>=16'
     dependencies:
       '@types/mdx': 2.0.1
-      '@types/react': 17.0.39
+      '@types/react': 18.2.42
       react: 18.2.0
     dev: false
 
@@ -5617,7 +5620,6 @@ packages:
 
   /@types/prop-types@15.7.4:
     resolution: {integrity: sha512-rZ5drC/jWjrArrS8BR6SIr4cWpW09RNTYt9AMZo3Jwwif+iacXAqgVjm0B0Bv/S1jhDXKHqRVNCbACkJ89RAnQ==}
-    dev: false
 
   /@types/pug@2.0.4:
     resolution: {integrity: sha512-cevKhB0yUJCFKzCnkB6HbDRZdYwVRRXzhIKRDgfAR1dnzEwZLRGf5lKpLJLZEP/odmaWT+gWNwH02bRhQIBYPg==}
@@ -5677,7 +5679,6 @@ packages:
       '@types/prop-types': 15.7.4
       '@types/scheduler': 0.16.2
       csstype: 3.0.10
-    dev: false
 
   /@types/relateurl@0.2.29:
     resolution: {integrity: sha512-QSvevZ+IRww2ldtfv1QskYsqVVVwCKQf1XbwtcyyoRvLIQzfyPhj/C+3+PKzSDRdiyejaiLgnq//XTkleorpLg==}
@@ -5711,7 +5712,6 @@ packages:
 
   /@types/scheduler@0.16.2:
     resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==}
-    dev: false
 
   /@types/send@0.17.4:
     resolution: {integrity: sha512-x2EM6TJOybec7c52BX0ZspPodMsQUd5L6PRwOunVyVUhXiBSKf3AezDL8Dgvgt5o0UfKNfuA0eMLr2wLT4AiBA==}
@@ -8357,7 +8357,6 @@ packages:
 
   /csstype@3.0.10:
     resolution: {integrity: sha512-2u44ZG2OcNUO9HDp/Jl8C07x6pU/eTR3ncV91SiK3dhG9TWvRVsCoJw14Ckx5DgWkzGA3waZWO3d7pgqpUI/XA==}
-    dev: false
 
   /cuint@0.2.2:
     resolution: {integrity: sha1-QICG1AlVDCYxFVYZ6fp7ytw7mRs=}
