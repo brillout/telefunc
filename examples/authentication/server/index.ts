@@ -43,8 +43,9 @@ async function startServer() {
     const pageContext = await renderPage(pageContextInit)
     const { httpResponse } = pageContext
     if (!httpResponse) return next()
-    const { statusCode, contentType } = httpResponse
-    res.status(statusCode).type(contentType)
+    const { statusCode, headers } = httpResponse
+    res.status(statusCode)
+    headers.forEach(([name, value]) => res.setHeader(name, value))
     httpResponse.pipe(res)
   })
 

@@ -68,7 +68,13 @@ function getCiJobs() {
 }
 
 function tolerateError({ logSource, logText }) {
-  return isRollupEmptyChunkWarning() || isSveltekitTypesGenWarning()
+  return (
+    isRollupEmptyChunkWarning() ||
+    isSveltekitTypesGenWarning() ||
+    isCJSVikeWarning() ||
+    isCJSViteWarning() ||
+    isVikeOldDesignWarning()
+  )
 
   function isRollupEmptyChunkWarning() {
     return logSource === 'stderr' && logText.includes('Generated an empty chunk: "hooks"')
@@ -76,5 +82,30 @@ function tolerateError({ logSource, logText }) {
 
   function isSveltekitTypesGenWarning() {
     return logSource === 'stderr' && logText.includes('Cannot find base config file "./.svelte-kit/tsconfig.json"')
+  }
+
+  function isCJSVikeWarning() {
+    return (
+      logSource === 'stderr' &&
+      logText.includes('We recommend setting ') &&
+      logText.includes('/package.json#type to "module", see https://vike.dev/CJS')
+    )
+  }
+  function isCJSViteWarning() {
+    return (
+      logSource === 'stderr' &&
+      logText.includes(
+        "The CJS build of Vite's Node API is deprecated. See https://vitejs.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details."
+      )
+    )
+  }
+
+  function isVikeOldDesignWarning() {
+    return (
+      logSource === 'stderr' &&
+      logText.includes(
+        'You are using the old deprecated design, update to the new V1 design, see https://vike.dev/migration/v1-design'
+      )
+    )
   }
 }
