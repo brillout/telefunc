@@ -255,8 +255,8 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
       react-streaming:
-        specifier: ^0.3.5
-        version: 0.3.5(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^0.3.16
+        version: 0.3.16(react-dom@18.2.0)(react@18.2.0)
       telefunc:
         specifier: 0.1.64
         version: link:../../telefunc
@@ -268,7 +268,7 @@ importers:
         version: 4.3.9
       vite-plugin-ssr:
         specifier: ^0.4.131
-        version: 0.4.131(react-streaming@0.3.5)(vite@4.3.9)
+        version: 0.4.131(react-streaming@0.3.16)(vite@4.3.9)
 
   examples/svelte-kit:
     dependencies:
@@ -15486,18 +15486,6 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
 
-  /react-streaming@0.3.5(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-/Yy4Uarn2qiGe8pRY+LvzFRBAVjU2vN8CfzQI9qdW6E6gbqg6PsCgy04zudZO3Ht0xwg7B3WWZuA+kZ2HHwR9Q==}
-    peerDependencies:
-      react: '>=18'
-      react-dom: '>=18'
-    dependencies:
-      '@brillout/json-serializer': 0.5.3
-      isbot-fast: 1.2.0
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-    dev: false
-
   /react@17.0.2:
     resolution: {integrity: sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA==}
     engines: {node: '>=0.10.0'}
@@ -18002,7 +17990,7 @@ packages:
       - terser
     dev: true
 
-  /vite-plugin-ssr@0.4.131(react-streaming@0.3.5)(vite@4.3.9):
+  /vite-plugin-ssr@0.4.131(react-streaming@0.3.16)(vite@4.3.9):
     resolution: {integrity: sha512-M8ay5UuQUEMBHhg87BVhXGjPV+/xO3PZWzZ63S8J8rX4Xv+sQbnDswGYm/TJ+Ga/9NTgrFDAKqUfEb3pEpd+Aw==}
     engines: {node: '>=12.19.0'}
     hasBin: true
@@ -18022,7 +18010,7 @@ packages:
       es-module-lexer: 0.10.5
       esbuild: 0.17.19
       fast-glob: 3.2.12
-      react-streaming: 0.3.5(react-dom@18.2.0)(react@18.2.0)
+      react-streaming: 0.3.16(react-dom@18.2.0)(react@18.2.0)
       sirv: 2.0.2
       vite: 4.3.9
     dev: false
