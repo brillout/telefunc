@@ -46,7 +46,7 @@ function getCiJobs() {
     },
     {
       name: 'Next.js',
-      setups: [ubuntu16, win16]
+      setups: [ubuntu18, win18]
     },
     {
       name: 'Nuxt 2',
