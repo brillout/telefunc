@@ -378,9 +378,6 @@ importers:
       react:
         specifier: ^18.0.0
         version: 18.2.0
-      react-streaming:
-        specifier: ^0.3.3
-        version: 0.3.5(react-dom@18.2.0)(react@18.2.0)
       ts-morph:
         specifier: ^19.0.0
         version: 19.0.0
@@ -412,6 +409,9 @@ importers:
       next:
         specifier: ^12.0.8
         version: 12.0.10(@babel/core@7.22.5)(react-dom@18.2.0)(react@18.2.0)
+      react-streaming:
+        specifier: ^0.3.16
+        version: 0.3.16(react-dom@18.2.0)(react@18.2.0)
       rollup:
         specifier: ^2.67.1
         version: 2.67.1
@@ -2965,7 +2965,6 @@ packages:
 
   /@brillout/import@0.2.3:
     resolution: {integrity: sha512-1T8WlD75eeFSMrptGy8jiLHmfHgMmSjWvLOIUvHmSVZt+6k0eQqYUoK4KbmE4T9pVLIfxvZSOm2D68VEqKRHRw==}
-    dev: false
 
   /@brillout/json-s@0.1.5:
     resolution: {integrity: sha512-J25bhw1BxtuyRx5CXMlAHH3SKX2dv0cghf2p7BCS6UNqgrUhXq96FhfsafF7a+/20Egi0m3U5PSjjtRXLzD8Kw==}
@@ -2977,7 +2976,6 @@ packages:
 
   /@brillout/json-serializer@0.5.6:
     resolution: {integrity: sha512-48u+Wthh0muDueyooi/Or59DDFCPitnuCN9OkMWoj7MQAbDn5pS/cVBB7ds6ENmtC1Qb0spI4PfKZxQSBEkubg==}
-    dev: false
 
   /@brillout/part-regex@0.1.2:
     resolution: {integrity: sha512-3b/5PLhJ4xMF/cyY1aJXIMQT0TONFFgUX3tH2wfdrHe78OYe8igl0iaHkJ3kzgN0V+x562Of2AoMwThtLaAj5Q==}
@@ -7323,7 +7321,7 @@ packages:
       normalize-path: 3.0.0
       readdirp: 3.6.0
     optionalDependencies:
-      fsevents: 2.3.2
+      fsevents: 2.3.3
 
   /chownr@1.1.4:
     resolution: {integrity: sha512-jJ0bqzaylmJtVnNgzTeSOs8DPavpbYgEr/b0YL8/2GO3xJEhInFmhKMUnEJQjZumK7KXGFhUy89PrsJWlakBVg==}
@@ -10431,19 +10429,11 @@ packages:
       nan: 2.15.0
     optional: true
 
-  /fsevents@2.3.2:
-    resolution: {integrity: sha512-xiqMQR4xAeHTuB9uWm+fFRcIOgKBMiOBP+eXiyT7jsgVCq1bkVygt00oASowB7EdtpOHaaPgKt812P9ab+DDKA==}
-    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
-    os: [darwin]
-    requiresBuild: true
-    optional: true
-
   /fsevents@2.3.3:
     resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
     engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
     os: [darwin]
     requiresBuild: true
-    dev: false
     optional: true
 
   /function-bind@1.1.1:
@@ -11615,7 +11605,6 @@ packages:
   /isbot-fast@1.2.0:
     resolution: {integrity: sha512-twjuQzy2gKMDVfKGQyQqrx6Uy4opu/fiVUTTpdqtFsd7OQijIp5oXvb27n5EemYXaijh5fomndJt/SPRLsEdSg==}
     engines: {node: '>=6.0.0'}
-    dev: false
 
   /isexe@2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
@@ -15222,7 +15211,6 @@ packages:
       isbot-fast: 1.2.0
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
-    dev: false
 
   /react-streaming@0.3.5(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-/Yy4Uarn2qiGe8pRY+LvzFRBAVjU2vN8CfzQI9qdW6E6gbqg6PsCgy04zudZO3Ht0xwg7B3WWZuA+kZ2HHwR9Q==}
@@ -15643,21 +15631,21 @@ packages:
     engines: {node: '>=10.0.0'}
     hasBin: true
     optionalDependencies:
-      fsevents: 2.3.2
+      fsevents: 2.3.3
 
   /rollup@2.79.1:
     resolution: {integrity: sha512-uKxbd0IhMZOhjAiD5oAFp7BqvkA4Dv47qpOCtaNvng4HBwdbWtdOh8f5nZNuk2rp51PMGk3bzfWu5oayNEuYnw==}
     engines: {node: '>=10.0.0'}
     hasBin: true
     optionalDependencies:
-      fsevents: 2.3.2
+      fsevents: 2.3.3
 
   /rollup@3.20.2:
     resolution: {integrity: sha512-3zwkBQl7Ai7MFYQE0y1MeQ15+9jsi7XxfrqwTb/9EK8D9C9+//EBR4M+CuA1KODRaNbFez/lWxA5vhEGZp4MUg==}
     engines: {node: '>=14.18.0', npm: '>=8.0.0'}
     hasBin: true
     optionalDependencies:
-      fsevents: 2.3.2
+      fsevents: 2.3.3
     dev: true
 
   /rollup@3.23.0:
@@ -15665,7 +15653,7 @@ packages:
     engines: {node: '>=14.18.0', npm: '>=8.0.0'}
     hasBin: true
     optionalDependencies:
-      fsevents: 2.3.2
+      fsevents: 2.3.3
 
   /rollup@4.6.1:
     resolution: {integrity: sha512-jZHaZotEHQaHLgKr8JnQiDT1rmatjgKlMekyksz+yk9jt/8z9quNjnKNRoaM0wd9DC2QKXjmWWuDYtM3jfF8pQ==}
@@ -17689,7 +17677,7 @@ packages:
       resolve: 1.22.0
       rollup: 2.67.1
     optionalDependencies:
-      fsevents: 2.3.2
+      fsevents: 2.3.3
     dev: false
 
   /vite@3.2.2:
@@ -17719,7 +17707,7 @@ packages:
       resolve: 1.22.1
       rollup: 2.79.1
     optionalDependencies:
-      fsevents: 2.3.2
+      fsevents: 2.3.3
     dev: true
 
   /vite@4.2.1:
@@ -17752,7 +17740,7 @@ packages:
       resolve: 1.22.1
       rollup: 3.20.2
     optionalDependencies:
-      fsevents: 2.3.2
+      fsevents: 2.3.3
     dev: true
 
   /vite@4.3.9(@types/node@17.0.16):
@@ -17785,7 +17773,7 @@ packages:
       postcss: 8.4.24
       rollup: 3.23.0
     optionalDependencies:
-      fsevents: 2.3.2
+      fsevents: 2.3.3
 
   /vite@5.0.6(@types/node@20.10.4):
     resolution: {integrity: sha512-MD3joyAEBtV7QZPl2JVVUai6zHms3YOmLR+BpMzLlX2Yzjfcc4gTgNi09d/Rua3F4EtC8zdwPU8eQYyib4vVMQ==}
