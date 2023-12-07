@@ -5,7 +5,7 @@ export type { PageContext }
 import type {
   PageContextBuiltIn,
   PageContextBuiltInClientWithClientRouting as PageContextBuiltInClient
-} from 'vite-plugin-ssr/types'
+} from 'vike/types'
 import type { User } from '#app/db'
 
 type Page = () => React.ReactElement

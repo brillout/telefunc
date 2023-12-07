@@ -98,12 +98,12 @@ importers:
       typescript:
         specifier: ^5.3.3
         version: 5.3.3
+      vike:
+        specifier: ^0.4.142
+        version: 0.4.149(react-streaming@0.3.16)(vite@5.0.6)
       vite:
         specifier: ^5.0.6
         version: 5.0.6(@types/node@20.10.4)
-      vite-plugin-ssr:
-        specifier: ^0.4.142
-        version: 0.4.142(react-streaming@0.3.16)(vite@5.0.6)
 
   examples/babel:
     dependencies:
@@ -2977,6 +2977,10 @@ packages:
   /@brillout/json-serializer@0.5.6:
     resolution: {integrity: sha512-48u+Wthh0muDueyooi/Or59DDFCPitnuCN9OkMWoj7MQAbDn5pS/cVBB7ds6ENmtC1Qb0spI4PfKZxQSBEkubg==}
 
+  /@brillout/json-serializer@0.5.8:
+    resolution: {integrity: sha512-vEuXw30ok+mJfJutOxXKBb4lBJ0HymA7lev9PcYK6W/hzjhCTPk9Bdk85HrcNcKZWRQiwoWtw0F2Di4TRJ7ssQ==}
+    dev: false
+
   /@brillout/part-regex@0.1.2:
     resolution: {integrity: sha512-3b/5PLhJ4xMF/cyY1aJXIMQT0TONFFgUX3tH2wfdrHe78OYe8igl0iaHkJ3kzgN0V+x562Of2AoMwThtLaAj5Q==}
     dev: true
@@ -3048,6 +3052,12 @@ packages:
 
   /@brillout/vite-plugin-import-build@0.2.18:
     resolution: {integrity: sha512-sedZNrqIboHCeSnN7hwo34xRyP8egfMHcifixQ2YGNnQVb93884drTVE3b0vlSGz7LWumVDochKuHdWQljup9A==}
+    dependencies:
+      '@brillout/import': 0.2.3
+    dev: false
+
+  /@brillout/vite-plugin-import-build@0.2.20:
+    resolution: {integrity: sha512-/bdw1dg+H1nOYSy2PzYInQoZlIFP2uwyaF2GX64fyBqVAEWGopiMlnx294CbysjmP9Z+fJe48TkMzyogkyIDLw==}
     dependencies:
       '@brillout/import': 0.2.3
     dev: false
@@ -9233,7 +9243,7 @@ packages:
   /esbuild-node-loader@0.6.5:
     resolution: {integrity: sha512-uPP+dllWm38cFvDysdocutN3lfe5pTIbddAHp1ENyLzpHYqE2r+3Wo+pfg9X3p8DFWwzIisft5YkeBIthIcixw==}
     dependencies:
-      esbuild: 0.17.19
+      esbuild: 0.19.8
     dev: false
 
   /esbuild-openbsd-64@0.13.15:
@@ -17583,6 +17593,33 @@ packages:
       vfile-message: 3.1.0
     dev: false
 
+  /vike@0.4.149(react-streaming@0.3.16)(vite@5.0.6):
+    resolution: {integrity: sha512-5eB0obgc9rmYbVkWRSbADGZGwjaYF+JLScgj9Q86zFSGOnQzb+kDZ2OS7nG1PSOmnpnVqHQIjTYv2BAm6j2IOg==}
+    engines: {node: '>=16.0.0'}
+    hasBin: true
+    peerDependencies:
+      react-streaming: '>=0.3.5'
+      vite: '>=3.1.0'
+    peerDependenciesMeta:
+      react-streaming:
+        optional: true
+    dependencies:
+      '@brillout/import': 0.2.3
+      '@brillout/json-serializer': 0.5.8
+      '@brillout/picocolors': 1.0.10
+      '@brillout/require-shim': 0.1.2
+      '@brillout/vite-plugin-import-build': 0.2.20
+      acorn: 8.8.2
+      cac: 6.7.14
+      es-module-lexer: 1.4.1
+      esbuild: 0.17.19
+      fast-glob: 3.2.12
+      react-streaming: 0.3.16(react-dom@18.2.0)(react@18.2.0)
+      sirv: 2.0.2
+      source-map-support: 0.5.21
+      vite: 5.0.6(@types/node@20.10.4)
+    dev: false
+
   /vite-node@0.32.2(@types/node@17.0.16):
     resolution: {integrity: sha512-dTQ1DCLwl2aEseov7cfQ+kDMNJpM1ebpyMMMwWzBvLbis8Nla/6c9WQcqpPssTwS6Rp/+U6KwlIj8Eapw4bLdA==}
     engines: {node: '>=v14.18.0'}
@@ -17627,33 +17664,6 @@ packages:
       react-streaming: 0.3.5(react-dom@18.2.0)(react@18.2.0)
       sirv: 2.0.2
       vite: 4.3.9(@types/node@17.0.16)
-    dev: false
-
-  /vite-plugin-ssr@0.4.142(react-streaming@0.3.16)(vite@5.0.6):
-    resolution: {integrity: sha512-ZDgpocnTEUmhYxGgMah8ZNK1Sfy5CFVcdXu+Ll3zRtGIPyWT5vYvASs2BLYEneqantHpde2b31Khzb0hxmP62w==}
-    engines: {node: '>=16.0.0'}
-    hasBin: true
-    peerDependencies:
-      react-streaming: '>=0.3.5'
-      vite: '>=3.1.0'
-    peerDependenciesMeta:
-      react-streaming:
-        optional: true
-    dependencies:
-      '@brillout/import': 0.2.3
-      '@brillout/json-serializer': 0.5.6
-      '@brillout/picocolors': 1.0.10
-      '@brillout/require-shim': 0.1.2
-      '@brillout/vite-plugin-import-build': 0.2.18
-      acorn: 8.8.2
-      cac: 6.7.14
-      es-module-lexer: 1.4.1
-      esbuild: 0.17.19
-      fast-glob: 3.2.12
-      react-streaming: 0.3.16(react-dom@18.2.0)(react@18.2.0)
-      sirv: 2.0.2
-      source-map-support: 0.5.21
-      vite: 5.0.6(@types/node@20.10.4)
     dev: false
 
   /vite@2.8.3:

@@ -1,5 +1,5 @@
 import express from 'express'
-import { renderPage } from 'vite-plugin-ssr/server'
+import { renderPage } from 'vike/server'
 import { telefunc } from 'telefunc'
 import cookieParser from 'cookie-parser'
 import { retrieveUser } from '#app/auth'

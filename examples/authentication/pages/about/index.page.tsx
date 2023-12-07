@@ -9,7 +9,7 @@ function Page() {
       <p>This app showcases:</p>
       <ul>
         <li>RPC, with Telefunc.</li>
-        <li>SSR, with vite-plugin-ssr.</li>
+        <li>SSR, with Vike.</li>
         <li>Authentication, with Telefunc's context SSR provisioning.</li>
       </ul>
     </>

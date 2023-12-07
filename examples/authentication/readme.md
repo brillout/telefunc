@@ -1,7 +1,7 @@
 Example of implementing a to-do list with:
  - Telefunc
  - [Vite](https://vitejs.dev)
- - [vite-plugin-ssr](https://vite-plugin-ssr.com)
+ - [Vike](https://vike.dev)
  - Authentication
 
 To run it:
