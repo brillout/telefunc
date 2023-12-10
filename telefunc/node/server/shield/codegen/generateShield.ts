@@ -49,14 +49,6 @@ function getProject(telefuncFilePath: string, telefuncFileCode: string, appRootD
           strict: true
         }
       })
-
-      assert(!project.getSourceFile(telefuncFilePath))
-      project.createSourceFile(
-        telefuncFilePath,
-        telefuncFileCode,
-        // We need `overwrite` because `telefuncFilePath` already exists on the filesystem
-        { overwrite: true }
-      )
     } else {
       project = projects[key] = new Project({
         tsConfigFilePath,
@@ -75,9 +67,18 @@ function getProject(telefuncFilePath: string, telefuncFileCode: string, appRootD
     // This source file is used for evaluating the template literal types' values
     project.createSourceFile(typeToShieldFilePath, getTypeToShieldSrc())
   }
-
   const project = projects[key]!
   objectAssign(project, { tsConfigFilePath })
+
+  if (!tsConfigFilePath) {
+    assert(!project.getSourceFile(telefuncFilePath))
+    project.createSourceFile(
+      telefuncFilePath,
+      telefuncFileCode,
+      // We need `overwrite` because `telefuncFilePath` already exists on the filesystem
+      { overwrite: true }
+    )
+  }
 
   const shieldGenFilePath = path.join(
     path.dirname(telefuncFilePath),
