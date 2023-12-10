@@ -96,7 +96,16 @@ function getProject(telefuncFilePath: string, telefuncFileCode: string, appRootD
         // @ts-expect-error
         sourceFile._compilerNode.fileName
     )
-    const errMsg = JSON.stringify({ sourceFiles, tsConfigFilePath, telefuncFilePath }, null, 2)
+    const errMsg = JSON.stringify(
+      {
+        telefuncFilePath,
+        sourceFiles,
+        tsConfigFilePath,
+        appRootDir
+      },
+      null,
+      2
+    )
     assert(false, errMsg)
   }
 
