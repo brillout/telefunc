@@ -6,6 +6,10 @@ export default {
 }
 
 function getCiJobs() {
+  const ubuntu20 = {
+    os: 'ubuntu-latest',
+    node_version: '20'
+  }
   const ubuntu18 = {
     os: 'ubuntu-latest',
     node_version: '18'
@@ -25,6 +29,10 @@ function getCiJobs() {
   const win18 = {
     os: 'windows-latest',
     node_version: '18'
+  }
+  const win20 = {
+    os: 'windows-latest',
+    node_version: '20'
   }
   const mac17 = {
     os: 'macos-latest',
@@ -46,7 +54,7 @@ function getCiJobs() {
     },
     {
       name: 'Next.js',
-      setups: [ubuntu18, win18]
+      setups: [ubuntu20, win20]
     },
     {
       name: 'Nuxt 2',
