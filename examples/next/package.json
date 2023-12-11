@@ -5,13 +5,14 @@
     "prod": "next build && next start",
     "start": "next start"
   },
+  "// Pinned eslint and typescript because of https://stackoverflow.com/questions/76996326/parsing-error-deprecationerror-originalkeywordkind-has-been-deprecated-since": "",
   "dependencies": {
-    "eslint": "^8.55.0",
+    "eslint": "8.47.0",
     "eslint-config-next": "^14.0.4",
     "next": "^14.0.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "telefunc": "0.1.64",
-    "typescript": "^5.3.3"
+    "typescript": "5.1.6"
   }
 }
