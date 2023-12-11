@@ -81,7 +81,8 @@ function tolerateError({ logSource, logText }) {
     isSveltekitTypesGenWarning() ||
     isCJSVikeWarning() ||
     isCJSViteWarning() ||
-    isVikeOldDesignWarning()
+    isVikeOldDesignWarning() ||
+    isNextJsEslintWarning()
   )
 
   function isRollupEmptyChunkWarning() {
@@ -113,6 +114,15 @@ function tolerateError({ logSource, logText }) {
       logSource === 'stderr' &&
       logText.includes(
         'You are using the old deprecated design, update to the new V1 design, see https://vike.dev/migration/v1-design'
+      )
+    )
+  }
+
+  function isNextJsEslintWarning() {
+    return (
+      logSource === 'stderr' &&
+      logText.includes(
+        "DeprecationWarning: 'originalKeywordKind' has been deprecated since v5.0.0 and will no longer be usable after v5.2.0. Use 'identifierToKeywordKind(identifier)' instead."
       )
     )
   }
