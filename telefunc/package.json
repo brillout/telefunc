@@ -58,6 +58,10 @@
     },
     "./babel": {
       "node": "./dist/cjs/node/babel/plugin.js"
+    },
+    "./__internal/loadBuild": {
+      "worker": "./dist/cjs/node/vite/plugins/importBuild/loadBuild.js",
+      "node": "./dist/cjs/node/vite/plugins/importBuild/loadBuild.js"
     }
   },
   "devDependencies": {
