@@ -11,6 +11,7 @@
     "next": "^14.0.4",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "telefunc": "0.1.64"
+    "telefunc": "0.1.64",
+    "typescript": "^5.3.3"
   }
 }
