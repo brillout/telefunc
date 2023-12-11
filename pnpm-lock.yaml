@@ -87,8 +87,8 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
       react-streaming:
-        specifier: ^0.3.16
-        version: 0.3.16(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^0.3.18
+        version: 0.3.18(react-dom@18.2.0)(react@18.2.0)
       telefunc:
         specifier: 0.1.64
         version: link:../../telefunc
@@ -100,7 +100,7 @@ importers:
         version: 5.3.3
       vike:
         specifier: ^0.4.149
-        version: 0.4.149(react-streaming@0.3.16)(vite@5.0.6)
+        version: 0.4.149(react-streaming@0.3.18)(vite@5.0.6)
       vite:
         specifier: ^5.0.6
         version: 5.0.6(@types/node@20.10.4)
@@ -15349,6 +15349,19 @@ packages:
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
 
+  /react-streaming@0.3.18(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-4qugTyVx0r1i/o+PzrcqwThqLgjNdqNgzCYnIFASImSB9yPkhUqFIKyLXm6sQIcZ8gu2E2xdSvCdikfmVYER5g==}
+    peerDependencies:
+      react: '>=18'
+      react-dom: '>=18'
+    dependencies:
+      '@brillout/import': 0.2.3
+      '@brillout/json-serializer': 0.5.8
+      isbot-fast: 1.2.0
+      react: 18.2.0
+      react-dom: 18.2.0(react@18.2.0)
+    dev: false
+
   /react@17.0.2:
     resolution: {integrity: sha512-gnhPt75i/dq/z3/6q/0asP78D0u592D5L1pd7M8P+dck6Fu/jJeL6iVVK23fptSUZj8Vjf++7wXA8UNclGQcbA==}
     engines: {node: '>=0.10.0'}
@@ -17785,7 +17798,7 @@ packages:
       vfile-message: 3.1.0
     dev: false
 
-  /vike@0.4.149(react-streaming@0.3.16)(vite@5.0.6):
+  /vike@0.4.149(react-streaming@0.3.18)(vite@5.0.6):
     resolution: {integrity: sha512-5eB0obgc9rmYbVkWRSbADGZGwjaYF+JLScgj9Q86zFSGOnQzb+kDZ2OS7nG1PSOmnpnVqHQIjTYv2BAm6j2IOg==}
     engines: {node: '>=16.0.0'}
     hasBin: true
@@ -17806,7 +17819,7 @@ packages:
       es-module-lexer: 1.4.1
       esbuild: 0.17.19
       fast-glob: 3.2.12
-      react-streaming: 0.3.16(react-dom@18.2.0)(react@18.2.0)
+      react-streaming: 0.3.18(react-dom@18.2.0)(react@18.2.0)
       sirv: 2.0.2
       source-map-support: 0.5.21
       vite: 5.0.6(@types/node@20.10.4)
