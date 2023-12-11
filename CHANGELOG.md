@@ -1,3 +1,17 @@
+## [0.1.65](https://github.com/brillout/telefunc/compare/v0.1.64...v0.1.65) (2023-12-11)
+
+
+### Bug Fixes
+
+* add types exports ([9c33704](https://github.com/brillout/telefunc/commit/9c3370427b8efaf09ae48487937f21aaf0415c87))
+* fix worker export ([0f58135](https://github.com/brillout/telefunc/commit/0f5813589e50493c139f3bb27a95f2ae085437ef))
+* improve debug info ([9362a50](https://github.com/brillout/telefunc/commit/9362a50186745cf807b97b57485b417d47e928d0))
+* make standalone builds easier (vikejs/vike[#1165](https://github.com/brillout/telefunc/issues/1165), vikejs/vike[#1342](https://github.com/brillout/telefunc/issues/1342)) ([3765c56](https://github.com/brillout/telefunc/commit/3765c5659ad46fe31ea0817f3a65c9a72924ba12))
+* update Telefunc's Next.js log ([ee07acb](https://github.com/brillout/telefunc/commit/ee07acb6e6649850a9a26e8e66cbeebe227856ee))
+* user app without tsconfig.json ([7d3b0d0](https://github.com/brillout/telefunc/commit/7d3b0d0a757b40a9e27511b9dbb07f6bd6242ac0))
+
+
+
 ## [0.1.64](https://github.com/brillout/telefunc/compare/v0.1.63...v0.1.64) (2023-11-15)
 
 
