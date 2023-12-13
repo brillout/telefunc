@@ -3,7 +3,7 @@ export { setLoaders }
 
 import { config } from '../../../server/serverConfig'
 import { getGlobalObject } from '../../utils'
-import { assertManifest } from '../manifest/assertManifest'
+import { assertManifest } from './assertManifest'
 
 const globalObject = getGlobalObject<{
   loadTelefuncFiles?: LoadTelefuncFiles
