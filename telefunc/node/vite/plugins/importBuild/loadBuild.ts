@@ -1,5 +1,5 @@
 export { loadTelefuncFilesWithImportBuild }
-export { setLoaders }
+export { setTelefuncLoaders }
 
 import { config } from '../../../server/serverConfig'
 import { getGlobalObject } from '../../utils'
@@ -12,7 +12,7 @@ const globalObject = getGlobalObject<{
 type LoadTelefuncFiles = () => Promise<unknown>
 type LoadManifest = () => Record<string, unknown>
 
-function setLoaders({
+function setTelefuncLoaders({
   loadTelefuncFiles,
   loadManifest
 }: {

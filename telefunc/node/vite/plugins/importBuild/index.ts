@@ -4,8 +4,8 @@ import { importBuild as importBuild_ } from '@brillout/vite-plugin-import-build/
 import type { Plugin, ResolvedConfig } from 'vite'
 import { assert, assertPosixPath, getOutDirAbsolute, projectInfo, toPosixPath } from '../../utils'
 import path from 'path'
-import { telefuncFilesGlobFileNameBase } from '../../importGlob/telefuncFilesGlobFileNameBase'
 import { getTelefuncManifest } from './getTelefuncManifest'
+import { telefuncFilesGlobFilePath } from '../../importGlob/telefuncFilesGlobPath'
 
 function importBuild(): Plugin[] {
   let config: ResolvedConfig
@@ -18,29 +18,27 @@ function importBuild(): Plugin[] {
       }
     },
     importBuild_({
-      getImporterCode: ({ findBuildEntry }) => {
-        const telefuncFilesEntry = findBuildEntry(telefuncFilesGlobFileNameBase)
-        return getImporterCode(config, telefuncFilesEntry)
+      getImporterCode: () => {
+        return getImporterCode(config)
       },
       libraryName: projectInfo.projectName
     })
   ]
 }
 
-function getImporterCode(config: ResolvedConfig, telefuncFilesEntry: string) {
+function getImporterCode(config: ResolvedConfig) {
   const importPath = getImportPath(config)
 
   const telefuncManifest = getTelefuncManifest()
 
   // console.log(`\n  importPath: ${importPath}\n  outDirServer: ${outDirServer}\n  importPathAbsolute: ${importPathAbsolute}\n  config.build.outDir: ${config.build.outDir}`)
   const importerCode = [
-    '{',
-    `  const { setLoaders } = require('${importPath}');`,
-    '  setLoaders({',
-    `    loadTelefuncFiles: () => import('./${telefuncFilesEntry}'),`,
-    `    loadManifest: () => (${JSON.stringify(telefuncManifest, null, 2)})`,
-    '  });',
-    '}',
+    `import { setTelefuncLoaders } from '${importPath}';`,
+    `import * as telefuncFiles from '${telefuncFilesGlobFilePath}';`,
+    'setTelefuncLoaders({',
+    `  loadTelefuncFiles: () => telefuncFiles,`,
+    `  loadManifest: () => (${JSON.stringify(telefuncManifest, null, 2)})`,
+    '});',
     ''
   ].join('\n')
   return importerCode

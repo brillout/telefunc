@@ -27,7 +27,7 @@ function plugin(configUser?: ConfigUser): any {
     transform(),
     commonConfig(),
     ...devConfig(),
-    ...buildConfig(),
+    buildConfig(),
     retrieveDevServer(),
     packageJsonFile(),
     ...importBuild(),

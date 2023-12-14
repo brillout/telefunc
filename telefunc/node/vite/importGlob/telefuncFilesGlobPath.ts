@@ -1,8 +1,11 @@
-import { telefuncFilesGlobFileNameBase } from './telefuncFilesGlobFileNameBase'
+export { telefuncFilesGlobFilePath }
+
+import { toPosixPath } from '../utils'
+
 let dir: string
 try {
   dir = __dirname + (() => '')() // trick to avoid `@vercel/ncc` to glob import
 } catch {
   dir = '__telefunc_NOT_AVAILABLE'
 }
-export const telefuncFilesGlobFilePath = `${dir}/${telefuncFilesGlobFileNameBase}.js`
+const telefuncFilesGlobFilePath = toPosixPath(`${dir}/telefuncFilesGlob.js`)
