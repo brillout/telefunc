@@ -1,11 +1,11 @@
-// See https://vite-plugin-ssr.com/render
+// See https://vike.dev/render
 export { render }
-// See https://vite-plugin-ssr.com/data-fetching
+// See https://vike.dev/data-fetching
 export { passToClient }
 
 import React from 'react'
 import { renderToString } from 'react-dom/server'
-import { escapeInject, dangerouslySkipEscape } from 'vite-plugin-ssr/server'
+import { escapeInject, dangerouslySkipEscape } from 'vike/server'
 import { PageLayout } from './PageLayout'
 
 const passToClient = ['pageProps']

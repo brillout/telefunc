@@ -1,4 +1,4 @@
-Example of using Telefunc with [Vite](https://vitejs.dev), [vite-plugin-ssr](https://vite-plugin-ssr.com), and [`react-streaming`](https://github.com/brillout/react-streaming).
+Example of using Telefunc with [Vite](https://vitejs.dev), [Vike](https://vike.dev), and [`react-streaming`](https://github.com/brillout/react-streaming).
 
 To run it:
 

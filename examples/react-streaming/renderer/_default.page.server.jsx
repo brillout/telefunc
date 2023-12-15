@@ -2,11 +2,11 @@ export { render }
 export { passToClient }
 
 import React from 'react'
-import { escapeInject } from 'vite-plugin-ssr/server'
+import { escapeInject } from 'vike/server'
 import { renderToStream } from 'react-streaming/server'
 import { PageLayout } from './PageLayout'
 
-// See https://vite-plugin-ssr.com/data-fetching
+// See https://vike.dev/data-fetching
 const passToClient = ['pageProps']
 
 async function render(pageContext) {
