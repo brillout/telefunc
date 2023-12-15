@@ -76,9 +76,9 @@
     }
   },
   "devDependencies": {
-    "@babel/core": "^7.17.5",
-    "@babel/parser": "^7.17.3",
-    "@babel/types": "^7.17.0",
+    "@babel/core": "7.23.6",
+    "@babel/parser": "7.23.6",
+    "@babel/types": "7.23.6",
     "@brillout/release-me": "^0.1.7",
     "@nuxt/types": "^2.15.8",
     "@types/express": "^4.17.11",
