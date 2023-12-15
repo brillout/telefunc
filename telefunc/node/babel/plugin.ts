@@ -1,8 +1,10 @@
+export default BabelPluginTelefunc
+
 import { parse } from '@babel/parser'
-import { PluginObj, NodePath } from '@babel/core'
-import * as BabelTypes from '@babel/types'
 import { transformTelefuncFileClientSideSync } from '../transformer/transformTelefuncFileClientSideSync'
 import { toPosixPath } from '../utils'
+import type { PluginObj, NodePath } from '@babel/core'
+import type * as BabelTypes from '@babel/types'
 
 function getExportsFromBabelAST(programNodePath: NodePath<BabelTypes.Program>, types: typeof BabelTypes) {
   const body = programNodePath.node.body
@@ -59,7 +61,7 @@ function getExportsFromBabelAST(programNodePath: NodePath<BabelTypes.Program>, t
   return exported
 }
 
-export default function BabelPluginTelefunc(babel: { types: typeof BabelTypes }): PluginObj {
+function BabelPluginTelefunc(babel: { types: typeof BabelTypes }): PluginObj {
   return {
     visitor: {
       Program(path, context) {
