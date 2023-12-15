@@ -13,7 +13,6 @@ export default {
   headings,
   headingsDetached,
   tagline: 'Remote Functions. Instead of API.',
-  titleNormalCase: true,
   twitterHandle: '@brillout',
   websiteUrl: 'https://telefunc.com',
   algolia: null
