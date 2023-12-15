@@ -44,6 +44,9 @@ importers:
       typescript:
         specifier: ^5.0.3
         version: 5.0.3
+      vike:
+        specifier: 0.4.150
+        version: 0.4.150(vite@4.3.9)
 
   examples/authentication:
     dependencies:

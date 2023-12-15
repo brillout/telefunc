@@ -10,6 +10,7 @@
     "@types/react-dom": "^17.0.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "vike": "0.4.150",
     "typescript": "^5.0.3"
   },
   "type": "module"
