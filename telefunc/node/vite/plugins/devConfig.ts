@@ -7,7 +7,7 @@ import path from 'path'
 function devConfig(): Plugin[] {
   return [
     {
-      name: 'vite-plugin-ssr:devConfig',
+      name: 'telefunc:devConfig',
       apply: apply('dev'),
       config: () => ({
         optimizeDeps: {
@@ -29,7 +29,7 @@ function devConfig(): Plugin[] {
       }
     },
     {
-      name: 'vite-plugin-ssr:devConfig:serverMiddleware',
+      name: 'telefunc:devConfig:serverMiddleware',
       apply: apply('dev', { skipMiddlewareMode: true, onlyViteCli: true }),
       // Ensure that SvelteKit's configureServer() has precedence, see https://github.com/brillout/telefunc/pull/54
       enforce: 'post',
@@ -42,7 +42,7 @@ function devConfig(): Plugin[] {
   ]
 }
 
-// - Vite-plugin-ssr adds @brillout/json-serializer to optimizeDeps.exclude
+// - Vike adds @brillout/json-serializer to optimizeDeps.exclude
 // - We need to remove @brillout/json-serializer from optimizeDeps.exclude to avoid:
 //   ```
 //   10:41:35 AM [vite] Internal server error: Failed to resolve import "@brillout/json-serializer/parse" from "node_modules/.vite/deps/chunk-HMXEIHOJ.js?v=9404be11". Does the file exist?
@@ -61,7 +61,7 @@ async function determineFsAllowList(config: ResolvedConfig) {
 
   // Current directory: node_modules/telefunc/dist/cjs/node/vite/plugins/devConfig.js
   const telefuncRoot = path.join(__dirname, '../../../../../')
-  // Assert that `telefuncRoot` is indeed pointing to `node_modules/vite-plugin-ssr/`
+  // Assert that `telefuncRoot` is indeed pointing to `node_modules/vike/`
   require.resolve(`${telefuncRoot}/dist/cjs/node/vite/plugins/devConfig.js`)
   fsAllow.push(telefuncRoot)
 }

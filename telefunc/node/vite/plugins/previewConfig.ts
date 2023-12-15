@@ -7,7 +7,7 @@ import { apply, addTelefuncMiddleware } from '../helpers'
 function previewConfig(): Plugin {
   let config: ResolvedConfig
   return {
-    name: 'vite-plugin-ssr:previewConfig',
+    name: 'telefunc:previewConfig',
     apply: apply('preview'),
     configResolved(config_) {
       config = config_

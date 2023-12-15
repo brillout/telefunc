@@ -17,7 +17,7 @@ function determineOutDir(config: ResolvedConfig): string | null {
 
   // Mechanism to detect whether Telefunc is used with framework.
   // When used with a framework then Telefunc should let the framework determine `outDir`.
-  // E.g. vite-plugin-ssr and SvelteKit already set `config.build.outDir`.
+  // E.g. Vike and SvelteKit already set `config.build.outDir`.
   if (!isOutDirRoot(outDirRoot)) {
     assertConfig(config)
     return null
