@@ -63,8 +63,8 @@ export const headings: HeadingDefinition[] = [
   },
   {
     level: 2,
-    title: 'Vite-plugin-ssr',
-    url: '/vite-plugin-ssr'
+    title: 'Vike',
+    url: '/vike'
   },
   {
     level: 2,

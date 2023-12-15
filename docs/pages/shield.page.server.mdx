@@ -43,7 +43,7 @@ export async function hello({ name }: { name: string }) {
 
 With Telefunc, not only can we seamlessly re-use types across our frontend and backend code, but we also get automatic type-safety at runtime. If we use a TypeScript ORM (e.g. [Prisma](https://www.prisma.io/)) or SQL builder (e.g. [Kysely](https://github.com/koskimas/kysely) and [others](https://github.com/stars/brillout/lists/sql)), then we get end-to-end type safety all the way from database to frontend.
 
-> Telefunc's automatic `shield()` generation only works for stacks that transpile server-side code (Next.js, Vite, vite-plugin-ssr, SvelteKit, Nuxt, etc.).
+> Telefunc's automatic `shield()` generation only works for stacks that transpile server-side code (Next.js, Vite, Vike, SvelteKit, Nuxt, etc.).
 >
 > For stacks that don't transpile server-side code (e.g. React Native, CRA, Parcel), we need to define `shield()` manually ourselves: see <Link href="#typescript-manual" />.
 

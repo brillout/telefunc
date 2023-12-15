@@ -51,7 +51,7 @@ function Features() {
           desc: (
             <>
               <p>
-                Telefunc supports <b>Next.js</b>, <b>CRA</b>, <b>Nuxt</b>, <b>Vite</b>, <b>vite-plugin-ssr</b>,{' '}
+                Telefunc supports <b>Next.js</b>, <b>CRA</b>, <b>Nuxt</b>, <b>Vite</b>, <b>Vike</b>,{' '}
                 <b>React Native</b> and other frameworks based on Webpack, Babel, Parcel or Vite.
               </p>
             </>
