@@ -22,8 +22,8 @@
     "telefunc": "0.1.67",
     "ts-node": "^10.9.1",
     "typescript": "^5.3.3",
-    "vite": "^5.0.6",
-    "vike": "0.4.150-commit-d0822a3"
+    "vike": "^0.4.151",
+    "vite": "^5.0.6"
   },
   "imports": {
     "#app/*": "./*.ts",
