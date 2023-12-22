@@ -27,8 +27,8 @@ importers:
   docs:
     dependencies:
       '@brillout/docpress':
-        specifier: ^0.5.26
-        version: 0.5.26(react-dom@18.2.0)(react@18.2.0)(rollup@2.79.1)
+        specifier: ^0.5.28
+        version: 0.5.28(react-dom@18.2.0)(react@18.2.0)(rollup@2.79.1)
       '@types/react':
         specifier: ^17.0.9
         version: 17.0.39
@@ -44,9 +44,6 @@ importers:
       typescript:
         specifier: ^5.0.3
         version: 5.0.3
-      vike:
-        specifier: 0.4.150
-        version: 0.4.150(vite@4.3.9)
 
   examples/authentication:
     dependencies:
@@ -145,7 +142,7 @@ importers:
         version: link:../../telefunc
       vite:
         specifier: ^4.3.9
-        version: 4.3.9(@types/node@17.0.16)
+        version: 4.3.9
 
   examples/next:
     dependencies:
@@ -268,7 +265,7 @@ importers:
         version: 0.4.151(react-streaming@0.3.18)(vite@4.3.9)
       vite:
         specifier: ^4.3.9
-        version: 4.3.9(@types/node@17.0.16)
+        version: 4.3.9
 
   examples/svelte-kit:
     dependencies:
@@ -341,7 +338,7 @@ importers:
         version: 0.4.151(react-streaming@0.3.18)(vite@4.3.9)
       vite:
         specifier: ^4.3.9
-        version: 4.3.9(@types/node@17.0.16)
+        version: 4.3.9
 
   examples/vite:
     dependencies:
@@ -356,7 +353,7 @@ importers:
         version: link:../../telefunc
       vite:
         specifier: ^4.3.9
-        version: 4.3.9(@types/node@17.0.16)
+        version: 4.3.9
 
   telefunc:
     dependencies:
@@ -2924,8 +2921,8 @@ packages:
     hasBin: true
     dev: true
 
-  /@brillout/docpress@0.5.26(react-dom@18.2.0)(react@18.2.0)(rollup@2.79.1):
-    resolution: {integrity: sha512-PgtGHERE6EF0e56pk7DA4Q9EHPCSwHnfhcRi7hsWJwqDwJ7aNgL+h+hpdaf/Q83+7LXiz5w0sFJJz7NHGAHfQw==}
+  /@brillout/docpress@0.5.28(react-dom@18.2.0)(react@18.2.0)(rollup@2.79.1):
+    resolution: {integrity: sha512-DnjLl6/SjVdtw8DwsrIEYdzklLBbKpTzpPQ/8Cg4YHlpI4gjSy9Ra0xgs9HJWSNDrH6Ny+RMflGC5IiEJr7Y+g==}
     hasBin: true
     peerDependencies:
       react: '18'
@@ -2943,8 +2940,8 @@ packages:
       remark-gfm: 3.0.1
       shiki: 0.10.1
       twemoji: 13.1.0
-      vike: 0.4.150(vite@4.3.9)
-      vite: 4.3.9(@types/node@17.0.16)
+      vike: 0.4.151(react-streaming@0.3.18)(vite@4.3.9)
+      vite: 4.3.9
     transitivePeerDependencies:
       - '@swc/helpers'
       - '@types/node'
@@ -3037,12 +3034,6 @@ packages:
       source-map-support: 0.5.21
       typescript: 4.9.5
     dev: true
-
-  /@brillout/vite-plugin-import-build@0.2.22:
-    resolution: {integrity: sha512-n5sv0HdCB5WC2QJSnTN6iS/F+sJsF0AmtsCCaQ+5+dRjgsoGGsa3auinJV8tuEog5WsX+3MF8RIwn3A/u0e04w==}
-    dependencies:
-      '@brillout/import': 0.2.3
-    dev: false
 
   /@brillout/vite-plugin-import-build@0.3.1:
     resolution: {integrity: sha512-ynQfW8o8a/WKaWn4r2y6t7dwzGj9t3KIWv2N4BJAr+3lqjlCP9+YVtoshMziLprlctpMnKzOOKqVMjwLWzx0Eg==}
@@ -5863,7 +5854,7 @@ packages:
       vite: ^4
     dependencies:
       '@swc/core': 1.3.62
-      vite: 4.3.9(@types/node@17.0.16)
+      vite: 4.3.9
     transitivePeerDependencies:
       - '@swc/helpers'
     dev: false
@@ -5897,7 +5888,7 @@ packages:
       '@babel/plugin-transform-react-jsx-source': 7.23.3(@babel/core@7.23.5)
       magic-string: 0.26.2
       react-refresh: 0.14.0
-      vite: 4.3.9(@types/node@17.0.16)
+      vite: 4.3.9
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -5912,7 +5903,7 @@ packages:
       '@babel/plugin-transform-react-jsx-self': 7.22.5(@babel/core@7.22.5)
       '@babel/plugin-transform-react-jsx-source': 7.22.5(@babel/core@7.22.5)
       react-refresh: 0.14.0
-      vite: 4.3.9(@types/node@17.0.16)
+      vite: 4.3.9
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -14920,6 +14911,7 @@ packages:
       nanoid: 3.3.7
       picocolors: 1.0.0
       source-map-js: 1.0.2
+    dev: false
 
   /postcss@8.4.31:
     resolution: {integrity: sha512-PS08Iboia9mts/2ygV3eLpY5ghnUcfLV/EXTOW1E2qYxJKGGBUtNjN76FYHnMs36RmARn41bC0AZmn+rR0OVpQ==}
@@ -14937,7 +14929,6 @@ packages:
       nanoid: 3.3.7
       picocolors: 1.0.0
       source-map-js: 1.0.2
-    dev: false
 
   /postcss@8.4.5:
     resolution: {integrity: sha512-jBDboWM8qpaqwkMwItqTQTiFikhs/67OYVvblFFTM7MrZjt6yMKd6r2kgXizEbTTljacm4NldIlZnhbjr84QYg==}
@@ -17763,32 +17754,6 @@ packages:
       vfile-message: 3.1.0
     dev: false
 
-  /vike@0.4.150(vite@4.3.9):
-    resolution: {integrity: sha512-R2cfpRWTZb0WOgMDsh5oLGq9yJV4aPjEyjpnvy0Rkntv9YpX4EXp9MmNHUTqNJJqBeURtJKHQpfPbFRgbPjIbQ==}
-    engines: {node: '>=16.0.0'}
-    hasBin: true
-    peerDependencies:
-      react-streaming: '>=0.3.5'
-      vite: '>=3.1.0'
-    peerDependenciesMeta:
-      react-streaming:
-        optional: true
-    dependencies:
-      '@brillout/import': 0.2.3
-      '@brillout/json-serializer': 0.5.8
-      '@brillout/picocolors': 1.0.10
-      '@brillout/require-shim': 0.1.2
-      '@brillout/vite-plugin-import-build': 0.2.22
-      acorn: 8.11.2
-      cac: 6.7.14
-      es-module-lexer: 1.4.1
-      esbuild: 0.17.19
-      fast-glob: 3.2.12
-      sirv: 2.0.2
-      source-map-support: 0.5.21
-      vite: 4.3.9(@types/node@17.0.16)
-    dev: false
-
   /vike@0.4.151(react-streaming@0.3.18)(vite@4.3.9):
     resolution: {integrity: sha512-Jq71YsW3QWdWAQQt5mZfDoeBNVOG4gbQecNZT3wV/a2Sp9s5v8YTK5wLlCSmh/mzioRo1rEo5q7jXPIfWtG7FA==}
     engines: {node: '>=16.0.0'}
@@ -17813,7 +17778,7 @@ packages:
       react-streaming: 0.3.18(react-dom@18.2.0)(react@18.2.0)
       sirv: 2.0.2
       source-map-support: 0.5.21
-      vite: 4.3.9(@types/node@17.0.16)
+      vite: 4.3.9
     dev: false
 
   /vike@0.4.151(react-streaming@0.3.18)(vite@5.0.6):
@@ -17951,6 +17916,38 @@ packages:
       fsevents: 2.3.3
     dev: true
 
+  /vite@4.3.9:
+    resolution: {integrity: sha512-qsTNZjO9NoJNW7KnOrgYwczm0WctJ8m/yqYAMAK9Lxt4SoySUfS5S8ia9K7JHpa3KEeMfyF8LoJ3c5NeBJy6pg==}
+    engines: {node: ^14.18.0 || >=16.0.0}
+    hasBin: true
+    peerDependencies:
+      '@types/node': '>= 14'
+      less: '*'
+      sass: '*'
+      stylus: '*'
+      sugarss: '*'
+      terser: ^5.4.0
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
+      less:
+        optional: true
+      sass:
+        optional: true
+      stylus:
+        optional: true
+      sugarss:
+        optional: true
+      terser:
+        optional: true
+    dependencies:
+      esbuild: 0.17.19
+      postcss: 8.4.24
+      rollup: 3.23.0
+    optionalDependencies:
+      fsevents: 2.3.3
+    dev: false
+
   /vite@4.3.9(@types/node@17.0.16):
     resolution: {integrity: sha512-qsTNZjO9NoJNW7KnOrgYwczm0WctJ8m/yqYAMAK9Lxt4SoySUfS5S8ia9K7JHpa3KEeMfyF8LoJ3c5NeBJy6pg==}
     engines: {node: ^14.18.0 || >=16.0.0}
@@ -17978,10 +17975,11 @@ packages:
     dependencies:
       '@types/node': 17.0.16
       esbuild: 0.17.19
-      postcss: 8.4.24
+      postcss: 8.4.32
       rollup: 3.23.0
     optionalDependencies:
       fsevents: 2.3.3
+    dev: true
 
   /vite@5.0.6(@types/node@20.10.4):
     resolution: {integrity: sha512-MD3joyAEBtV7QZPl2JVVUai6zHms3YOmLR+BpMzLlX2Yzjfcc4gTgNi09d/Rua3F4EtC8zdwPU8eQYyib4vVMQ==}
