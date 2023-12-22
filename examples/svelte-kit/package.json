@@ -12,7 +12,7 @@
     "format": "prettier --plugin-search-dir . --write ."
   },
   "dependencies": {
-    "telefunc": "0.1.66"
+    "telefunc": "0.1.67"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^2.0.0",

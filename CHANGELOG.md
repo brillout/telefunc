@@ -1,3 +1,13 @@
+## [0.1.67](https://github.com/brillout/telefunc/compare/v0.1.66...v0.1.67) (2023-12-22)
+
+
+### Bug Fixes
+
+* serialize manifest instead of emitting it ([a085605](https://github.com/brillout/telefunc/commit/a085605b213b8062fe8f644e52aa9aaeb307e95e))
+* update @brillout/vite-plugin-import-build ([2b0f70b](https://github.com/brillout/telefunc/commit/2b0f70b0b0b93707f35bc7adb9383dbdacf76ddb))
+
+
+
 ## [0.1.66](https://github.com/brillout/telefunc/compare/v0.1.65...v0.1.66) (2023-12-12)
 
 
