@@ -1,7 +1,7 @@
+export { onNewTodo }
+
 import { getContext, Abort } from 'telefunc'
 import { Todo } from '../database/Todo'
-
-export { onNewTodo }
 
 async function onNewTodo({ text }: { text: string }) {
   const { user } = getContext()

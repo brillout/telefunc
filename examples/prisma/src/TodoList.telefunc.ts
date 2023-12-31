@@ -1,14 +1,17 @@
+export { onGetTodos }
+export { onToggleTodo }
+export { onDeleteTodo }
+
 import { Abort, shield } from 'telefunc'
 import prisma from './client'
-
 const t = shield.type
 
-export async function onGetTodos() {
+async function onGetTodos() {
   const todos = await prisma.todo.findMany()
   return todos
 }
 
-export const onToggleTodo = shield([t.number], async (id) => {
+const onToggleTodo = shield([t.number], async (id) => {
   const todo = await getTodoItem(id)
   await prisma.todo.update({
     where: { id },
@@ -16,7 +19,7 @@ export const onToggleTodo = shield([t.number], async (id) => {
   })
 })
 
-export const onDeleteTodo = shield([t.number], async (id) => {
+const onDeleteTodo = shield([t.number], async (id) => {
   await ensureTodoExistence(id)
   await prisma.todo.delete({ where: { id } })
 })

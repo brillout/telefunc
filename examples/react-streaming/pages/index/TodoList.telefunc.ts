@@ -1,8 +1,8 @@
-// TODO
-import { getContext } from 'telefunc'
-
 export { onNewTodo }
 export { onLoad }
+
+// TODO
+import { getContext } from 'telefunc'
 
 const database: {
   todoItems: { text: string }[]

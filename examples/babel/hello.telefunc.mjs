@@ -1,8 +1,9 @@
+export { hello }
+
 import { shield } from 'telefunc'
 const t = shield.type
 
-shield(hello, [{ name: t.string }])
-export async function hello({ name }) {
+const hello = shield([{ name: t.string }], async function ({ name }) {
   const message = `Welcome ${name}`
   return { message }
-}
+})
