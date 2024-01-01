@@ -2,14 +2,17 @@ import { Link } from '@brillout/docpress'
 
 **Environment**: Server.
 
-We use `config.root` to tell Telefunc where our project's root directory lives.
+If you use <Link href="/telefuncFiles">`config.telefuncFiles`</Link>, then you also need to set `config.root`.
 
 ```js
 // Environment: Server
 
 import { config } from 'telefunc'
 
-config.root = '/home/alice/code/my-app/'
+// The project's root directory
+config.root = __dirname
 ```
 
-It's optional and is only needed if we use <Link text={<code>config.telefuncFiles</code>} href="/telefuncFiles" />.
+> If you have a monorepo structure, then set `config.root` to the root directory of your client-side (i.e. the root of Vite/Vike/Next.js/Nuxt/...), otherwise Telefunc will not be able to match your `.telefunc.js` files/imports between the server-side and the client-side.
+
+It's only needed if you use <Link href="/telefuncFiles">`config.telefuncFiles`</Link>.

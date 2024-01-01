@@ -2,16 +2,22 @@ import { Link, Warning } from '@brillout/docpress'
 
 **Environment**: Server.
 
-<Warning>This config is experimental and breaking changes can be introduced in any minor version update.</Warning>
+<Warning>This is a beta feature.</Warning>
 
-If our stack doesn't support <Link text="server-side transformation" href="/transformer" />, then we have to use `config.telefuncFiles` for providing Telefunc the list of `.telefunc.js` files.
+If you don't install Telefunc on your server-side (see <Link href="/transformer" />), then you need to use `config.telefuncFiles` in order to provide the list of `.telefunc.js` files.
 
 ```js
 // Environment: Server
 
 import { config } from 'telefunc'
 
+// List of telefunc files
 config.telefuncFiles = [
   require.resolve('./hello.telefunc.mjs')
 ]
+
+// The root directory of the project
+config.root = __dirname
 ```
+
+You will also need to set <Link href="/root">`config.root`</Link>.

@@ -1,8 +1,10 @@
 import { Link } from '@brillout/docpress'
 
-The Telefunc Transformer prepares `.telefunc.js` files for:
+Telefunc plugins transforms `.telefunc.js` files for:
 
 - The client-side, replacing `.telefunc.js` imports with a thin HTTP client.
-- The server-side, for <Link text="automatic TypeScript runtime validation" href="/shield#typescript" doNotInferSectionTitle={true} />.
+- The server-side, for <Link text="automatic TypeScript runtime validation" href="/shield#typescript-automatic" doNotInferSectionTitle={true} />.
 
-> It's possible to use Telefunc without transformer, see [#52](https://github.com/brillout/telefunc/issues/52).
+Telefunc plugins also automatically crawl your `.telefunc.js` files (so that you don't have to use <Link href="/telefuncFiles">`config.telefuncFiles`</Link>).
+
+> There is work-in-progress to be able to use Telefunc without any transformer, see [#52](https://github.com/brillout/telefunc/issues/52).
