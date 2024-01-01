@@ -37,7 +37,7 @@ function resolveTelefuncFilePath(telefuncFilePathAbsolute: string, appRootDir: s
   assertPosixPath(path)
   assertUsage(
     !path.startsWith('../'),
-    `Your telefunc file \`${telefuncFilePathAbsolute}\` is not inlcuded in your project root \`${appRootDir}\`.`
+    `Your telefunc file ${telefuncFilePathAbsolute} doesn't live inside the root directory ${appRootDir} of your project. Either move your telefunc file inside the root, or change config.root (https://telefunc.com/root).`
   )
   assert(!path.startsWith('/') && !path.startsWith('.'))
   const telefuncFilePath = '/' + path
