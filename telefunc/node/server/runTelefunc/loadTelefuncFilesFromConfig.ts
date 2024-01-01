@@ -5,25 +5,25 @@ import { posix } from 'path'
 import type { TelefuncFiles } from '../types'
 import { import_ } from '@brillout/import'
 import pc from '@brillout/picocolors'
+import { getServerConfig } from '../serverConfig'
 
 async function loadTelefuncFilesFromConfig(runContext: {
-  telefuncFilesManuallyProvidedByUser: string[]
-  appRootDir: string | null
   telefuncFilePath: string
 }): Promise<{ telefuncFilesLoaded: TelefuncFiles; telefuncFilesAll: string[] }> {
-  const { appRootDir } = runContext
+  const { root, telefuncFiles } = getServerConfig()
   assertUsage(
-    appRootDir,
+    root,
     `You need to set ${pc.cyan('config.root')} to be able to use ${pc.cyan(
       'config.telefuncFiles'
     )}, see https://telefunc.com/root`
   )
-  assertPosixPath(appRootDir)
+  assert(telefuncFiles)
+  assertPosixPath(root)
   const telefuncFilesLoaded: TelefuncFiles = {}
   const telefuncFilesAll: string[] = []
   await Promise.all(
-    runContext.telefuncFilesManuallyProvidedByUser.map(async (telefuncFilePathAbsolute) => {
-      const telefuncFilePath = resolveTelefuncFilePath(telefuncFilePathAbsolute, appRootDir)
+    telefuncFiles.map(async (telefuncFilePathAbsolute) => {
+      const telefuncFilePath = resolveTelefuncFilePath(telefuncFilePathAbsolute, root)
       telefuncFilesAll.push(telefuncFilePath)
       assert(isTelefuncFilePath(runContext.telefuncFilePath))
       assert(isTelefuncFilePath(telefuncFilePath))
