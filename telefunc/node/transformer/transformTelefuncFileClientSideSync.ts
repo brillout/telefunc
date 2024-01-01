@@ -11,7 +11,7 @@ function transformTelefuncFileClientSideSync(
   assertPosixPath(id)
   assertPosixPath(appRootDir)
 
-  let telefuncFilePath = '/' + posix.relative(appRootDir, id)
+  let telefuncFilePath = posix.relative(appRootDir, id)
   assertPosixPath(telefuncFilePath)
   assertUsage(
     !telefuncFilePath.startsWith('../'),
