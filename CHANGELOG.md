@@ -1,3 +1,15 @@
+## [0.1.68](https://github.com/brillout/telefunc/compare/v0.1.67...v0.1.68) (2024-01-01)
+
+
+### Bug Fixes
+
+* further improve error messages (fix [#96](https://github.com/brillout/telefunc/issues/96)) ([1bc4d05](https://github.com/brillout/telefunc/commit/1bc4d05db10464412d88be829d4e19b7c2e2f74f))
+* improve error message (fix [#94](https://github.com/brillout/telefunc/issues/94)) ([218326f](https://github.com/brillout/telefunc/commit/218326faa54d3ce6ac49f92b41dad36117169749))
+* improve error message (fix [#95](https://github.com/brillout/telefunc/issues/95)) ([49e0ca3](https://github.com/brillout/telefunc/commit/49e0ca323ab9410e3330c763bcf6b94203a2b0b6))
+* improve error message (fix [#96](https://github.com/brillout/telefunc/issues/96)) ([d42f963](https://github.com/brillout/telefunc/commit/d42f9630b1a337526ffc4742755e1792f6441b8e))
+
+
+
 ## [0.1.67](https://github.com/brillout/telefunc/compare/v0.1.66...v0.1.67) (2023-12-22)
 
 
