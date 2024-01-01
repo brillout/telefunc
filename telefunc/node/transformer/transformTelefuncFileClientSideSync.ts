@@ -1,7 +1,7 @@
 export { transformTelefuncFileClientSideSync }
 
 import { posix } from 'path'
-import { assert, assertPosixPath, getTelefunctionKey } from '../utils'
+import { assert, assertPosixPath, assertUsage, getTelefunctionKey } from '../utils'
 
 function transformTelefuncFileClientSideSync(
   id: string,
@@ -11,9 +11,14 @@ function transformTelefuncFileClientSideSync(
   assertPosixPath(id)
   assertPosixPath(appRootDir)
 
-  const telefuncFilePath = '/' + posix.relative(appRootDir, id)
-  assert(!telefuncFilePath.startsWith('/.'))
+  let telefuncFilePath = '/' + posix.relative(appRootDir, id)
   assertPosixPath(telefuncFilePath)
+  assertUsage(
+    !telefuncFilePath.startsWith('../'),
+    `The telefunc file ${telefuncFilePath} needs to live inside the root directory ${appRootDir} (wich is the root directory of Vite/Vike/Next.js/Nuxt/...)`
+  )
+  assert(!telefuncFilePath.startsWith('/') && !telefuncFilePath.startsWith('.'))
+  telefuncFilePath = `/${telefuncFilePath}`
 
   const code = getCode(exportNames, telefuncFilePath)
   return code
