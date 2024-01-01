@@ -1,5 +1,5 @@
 export { configUser as config }
-export { resolveServerConfig }
+export { getServerConfig }
 export type { ConfigUser }
 
 import { isAbsolute } from 'path'
@@ -28,7 +28,7 @@ type ConfigResolved = {
 
 const configUser: ConfigUser = new Proxy({}, { set: validateUserConfig })
 
-function resolveServerConfig(): ConfigResolved {
+function getServerConfig(): ConfigResolved {
   return {
     disableEtag: configUser.disableEtag ?? false,
     disableNamingConvention: configUser.disableNamingConvention ?? false,

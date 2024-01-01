@@ -12,7 +12,7 @@ import { handleError } from './runTelefunc/handleError'
 import { callBugListeners } from './runTelefunc/onBug'
 import { applyShield } from './runTelefunc/applyShield'
 import { findTelefunction } from './runTelefunc/findTelefunction'
-import { resolveServerConfig } from './serverConfig'
+import { getServerConfig } from './serverConfig'
 
 /** The HTTP Response of a telefunction remote call HTTP Request */
 type HttpResponse = {
@@ -73,7 +73,7 @@ async function runTelefunc_(httpRequest: {
 }): Promise<HttpResponse> {
   const runContext = {}
   {
-    const serverConfig = resolveServerConfig()
+    const serverConfig = getServerConfig()
     objectAssign(runContext, {
       httpRequest,
       serverConfig: {
