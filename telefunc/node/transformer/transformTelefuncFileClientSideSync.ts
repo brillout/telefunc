@@ -15,7 +15,7 @@ function transformTelefuncFileClientSideSync(
   assertPosixPath(telefuncFilePath)
   assertUsage(
     !telefuncFilePath.startsWith('../'),
-    `The telefunc file ${telefuncFilePath} needs to live inside the root directory ${appRootDir} (wich is the root directory of Vite/Vike/Next.js/Nuxt/...)`
+    `The telefunc file ${telefuncFilePath} needs to live inside ${appRootDir} (the client-side root directory, i.e. the root directory of Vite/Vike/Next.js/Nuxt/...)`
   )
   assert(!telefuncFilePath.startsWith('/') && !telefuncFilePath.startsWith('.'))
   telefuncFilePath = `/${telefuncFilePath}`

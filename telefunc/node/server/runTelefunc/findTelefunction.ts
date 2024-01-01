@@ -4,6 +4,8 @@ import { assert, assertUsage, errorPrefix as projectErrorPrefix } from '../../ut
 import type { TelefuncFiles, Telefunction } from '../types'
 import { assertNamingConvention } from './assertNamingConvention'
 import { assertTelefunction } from './assertTelefunction'
+import { getServerConfig } from '../serverConfig'
+import pc from '@brillout/picocolors'
 
 function findTelefunction(runContext: {
   telefuncFilePath: string
@@ -53,7 +55,21 @@ function findTelefunction(runContext: {
   function getNotFoundErrMsg() {
     let errMsg = `Telefunction ${runContext.telefunctionName}() (${runContext.telefuncFilePath}) not found: `
     if (!telefuncFile) {
-      errMsg += `the file ${runContext.telefuncFilePath} doesn't exist. Found \`.telefunc.js\` files:`
+      let extraMsg: string | null = null
+      const serverConfig = getServerConfig()
+      if (serverConfig.telefuncFiles) {
+        assert(serverConfig.telefuncFiles.length > 0)
+        assert(serverConfig.root)
+        extraMsg = `Did you set ${pc.cyan('config.root')} to the *client-side* root (see https://telefunc.com/root)?`
+      }
+      errMsg += [
+        `the file ${runContext.telefuncFilePath} doesn't exist.`,
+        // Hint about config.root
+        extraMsg,
+        'Found `.telefunc.js` files:'
+      ]
+        .filter(Boolean)
+        .join(' ')
       assert(!runContext.telefuncFilesAll.includes(runContext.telefuncFilePath))
       errMsg += [runContext.telefuncFilePath, ...runContext.telefuncFilesAll]
         .sort()

@@ -13,6 +13,6 @@ import { config } from 'telefunc'
 config.root = __dirname
 ```
 
-> If you have a monorepo structure, then set `config.root` to the root directory of your client-side (i.e. the root of Vite/Vike/Next.js/Nuxt/...), otherwise Telefunc will not be able to match your `.telefunc.js` files/imports between the server-side and the client-side.
+> If you have a monorepo structure, then set `config.root` to the root directory of your client-side (i.e. the root of Vite/Vike/Next.js/Nuxt/...). Don't set `config.root` to the monorepo root, nor to the root directory of your server. (The `config.root` setting enables Telefunc to match your `.telefunc.js` files/imports between the server-side and the client-side.)
 
 It's only needed if you use <Link href="/telefuncFiles">`config.telefuncFiles`</Link>.
