@@ -15,6 +15,7 @@
   "dependencies": {
     "@brillout/import": "^0.2.3",
     "@brillout/json-serializer": "^0.5.6",
+    "@brillout/picocolors": "^1.0.10",
     "@brillout/vite-plugin-import-build": "^0.3.1",
     "es-module-lexer": "^0.7.1",
     "picocolors": "^1.0.0",

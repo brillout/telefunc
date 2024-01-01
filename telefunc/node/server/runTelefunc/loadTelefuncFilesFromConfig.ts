@@ -4,6 +4,7 @@ import { assert, assertPosixPath, assertUsage, isTelefuncFilePath } from '../../
 import { posix } from 'path'
 import type { TelefuncFiles } from '../types'
 import { import_ } from '@brillout/import'
+import pc from '@brillout/picocolors'
 
 async function loadTelefuncFilesFromConfig(runContext: {
   telefuncFilesManuallyProvidedByUser: string[]
@@ -11,7 +12,12 @@ async function loadTelefuncFilesFromConfig(runContext: {
   telefuncFilePath: string
 }): Promise<{ telefuncFilesLoaded: TelefuncFiles; telefuncFilesAll: string[] }> {
   const { appRootDir } = runContext
-  assertUsage(appRootDir, 'You need to set `config.root` to be able to use `config.telefuncFiles`')
+  assertUsage(
+    appRootDir,
+    `You need to set ${pc.cyan('config.root')} to be able to use ${pc.cyan(
+      'config.telefuncFiles'
+    )}, see https://telefunc.com/root`
+  )
   assertPosixPath(appRootDir)
   const telefuncFilesLoaded: TelefuncFiles = {}
   const telefuncFilesAll: string[] = []
@@ -37,7 +43,9 @@ function resolveTelefuncFilePath(telefuncFilePathAbsolute: string, appRootDir: s
   assertPosixPath(path)
   assertUsage(
     !path.startsWith('../'),
-    `Your telefunc file ${telefuncFilePathAbsolute} doesn't live inside the root directory ${appRootDir} of your project. Either move your telefunc file inside the root, or change config.root (https://telefunc.com/root).`
+    `Your telefunc file ${telefuncFilePathAbsolute} doesn't live inside the root directory ${appRootDir} of your project. Either move your telefunc file inside the root, or change ${pc.cyan(
+      'config.root'
+    )} (https://telefunc.com/root).`
   )
   assert(!path.startsWith('/') && !path.startsWith('.'))
   const telefuncFilePath = '/' + path

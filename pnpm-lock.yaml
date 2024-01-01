@@ -142,7 +142,7 @@ importers:
         version: link:../../telefunc
       vite:
         specifier: ^4.3.9
-        version: 4.3.9
+        version: 4.3.9(@types/node@17.0.16)
 
   examples/next:
     dependencies:
@@ -265,7 +265,7 @@ importers:
         version: 0.4.151(react-streaming@0.3.18)(vite@4.3.9)
       vite:
         specifier: ^4.3.9
-        version: 4.3.9
+        version: 4.3.9(@types/node@17.0.16)
 
   examples/svelte-kit:
     dependencies:
@@ -338,7 +338,7 @@ importers:
         version: 0.4.151(react-streaming@0.3.18)(vite@4.3.9)
       vite:
         specifier: ^4.3.9
-        version: 4.3.9
+        version: 4.3.9(@types/node@17.0.16)
 
   examples/vite:
     dependencies:
@@ -353,7 +353,7 @@ importers:
         version: link:../../telefunc
       vite:
         specifier: ^4.3.9
-        version: 4.3.9
+        version: 4.3.9(@types/node@17.0.16)
 
   telefunc:
     dependencies:
@@ -363,6 +363,9 @@ importers:
       '@brillout/json-serializer':
         specifier: ^0.5.6
         version: 0.5.6
+      '@brillout/picocolors':
+        specifier: ^1.0.10
+        version: 1.0.10
       '@brillout/vite-plugin-import-build':
         specifier: ^0.3.1
         version: 0.3.1
@@ -2941,7 +2944,7 @@ packages:
       shiki: 0.10.1
       twemoji: 13.1.0
       vike: 0.4.151(react-streaming@0.3.18)(vite@4.3.9)
-      vite: 4.3.9
+      vite: 4.3.9(@types/node@17.0.16)
     transitivePeerDependencies:
       - '@swc/helpers'
       - '@types/node'
@@ -5854,7 +5857,7 @@ packages:
       vite: ^4
     dependencies:
       '@swc/core': 1.3.62
-      vite: 4.3.9
+      vite: 4.3.9(@types/node@17.0.16)
     transitivePeerDependencies:
       - '@swc/helpers'
     dev: false
@@ -5888,7 +5891,7 @@ packages:
       '@babel/plugin-transform-react-jsx-source': 7.23.3(@babel/core@7.23.5)
       magic-string: 0.26.2
       react-refresh: 0.14.0
-      vite: 4.3.9
+      vite: 4.3.9(@types/node@17.0.16)
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -5903,7 +5906,7 @@ packages:
       '@babel/plugin-transform-react-jsx-self': 7.22.5(@babel/core@7.22.5)
       '@babel/plugin-transform-react-jsx-source': 7.22.5(@babel/core@7.22.5)
       react-refresh: 0.14.0
-      vite: 4.3.9
+      vite: 4.3.9(@types/node@17.0.16)
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -14911,7 +14914,6 @@ packages:
       nanoid: 3.3.7
       picocolors: 1.0.0
       source-map-js: 1.0.2
-    dev: false
 
   /postcss@8.4.31:
     resolution: {integrity: sha512-PS08Iboia9mts/2ygV3eLpY5ghnUcfLV/EXTOW1E2qYxJKGGBUtNjN76FYHnMs36RmARn41bC0AZmn+rR0OVpQ==}
@@ -14929,6 +14931,7 @@ packages:
       nanoid: 3.3.7
       picocolors: 1.0.0
       source-map-js: 1.0.2
+    dev: false
 
   /postcss@8.4.5:
     resolution: {integrity: sha512-jBDboWM8qpaqwkMwItqTQTiFikhs/67OYVvblFFTM7MrZjt6yMKd6r2kgXizEbTTljacm4NldIlZnhbjr84QYg==}
@@ -17778,7 +17781,7 @@ packages:
       react-streaming: 0.3.18(react-dom@18.2.0)(react@18.2.0)
       sirv: 2.0.2
       source-map-support: 0.5.21
-      vite: 4.3.9
+      vite: 4.3.9(@types/node@17.0.16)
     dev: false
 
   /vike@0.4.151(react-streaming@0.3.18)(vite@5.0.6):
@@ -17916,38 +17919,6 @@ packages:
       fsevents: 2.3.3
     dev: true
 
-  /vite@4.3.9:
-    resolution: {integrity: sha512-qsTNZjO9NoJNW7KnOrgYwczm0WctJ8m/yqYAMAK9Lxt4SoySUfS5S8ia9K7JHpa3KEeMfyF8LoJ3c5NeBJy6pg==}
-    engines: {node: ^14.18.0 || >=16.0.0}
-    hasBin: true
-    peerDependencies:
-      '@types/node': '>= 14'
-      less: '*'
-      sass: '*'
-      stylus: '*'
-      sugarss: '*'
-      terser: ^5.4.0
-    peerDependenciesMeta:
-      '@types/node':
-        optional: true
-      less:
-        optional: true
-      sass:
-        optional: true
-      stylus:
-        optional: true
-      sugarss:
-        optional: true
-      terser:
-        optional: true
-    dependencies:
-      esbuild: 0.17.19
-      postcss: 8.4.24
-      rollup: 3.23.0
-    optionalDependencies:
-      fsevents: 2.3.3
-    dev: false
-
   /vite@4.3.9(@types/node@17.0.16):
     resolution: {integrity: sha512-qsTNZjO9NoJNW7KnOrgYwczm0WctJ8m/yqYAMAK9Lxt4SoySUfS5S8ia9K7JHpa3KEeMfyF8LoJ3c5NeBJy6pg==}
     engines: {node: ^14.18.0 || >=16.0.0}
@@ -17975,11 +17946,10 @@ packages:
     dependencies:
       '@types/node': 17.0.16
       esbuild: 0.17.19
-      postcss: 8.4.32
+      postcss: 8.4.24
       rollup: 3.23.0
     optionalDependencies:
       fsevents: 2.3.3
-    dev: true
 
   /vite@5.0.6(@types/node@20.10.4):
     resolution: {integrity: sha512-MD3joyAEBtV7QZPl2JVVUai6zHms3YOmLR+BpMzLlX2Yzjfcc4gTgNi09d/Rua3F4EtC8zdwPU8eQYyib4vVMQ==}
