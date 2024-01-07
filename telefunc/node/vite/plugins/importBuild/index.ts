@@ -1,6 +1,6 @@
 export { importBuild }
 
-import { importBuild as importBuild_ } from '@brillout/vite-plugin-import-build/plugin'
+import { serverEntryPlugin } from '@brillout/vite-plugin-server-entry/plugin'
 import type { Plugin, ResolvedConfig } from 'vite'
 import { assert, assertPosixPath, getOutDirAbsolute, projectInfo, toPosixPath } from '../../utils'
 import path from 'path'
@@ -17,7 +17,7 @@ function importBuild(): Plugin[] {
         config = config_
       }
     },
-    importBuild_({
+    serverEntryPlugin({
       getImporterCode: () => {
         return getImporterCode(config)
       },
