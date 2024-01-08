@@ -17,7 +17,7 @@ function importBuild(): Plugin[] {
         config = config_
       }
     },
-    serverEntryPlugin({
+    ...serverEntryPlugin({
       getImporterCode: () => {
         return getImporterCode(config)
       },
