@@ -7,7 +7,13 @@ import { assertUsage, hasProp, toPosixPath, isTelefuncFilePath } from '../utils'
 
 /** Telefunc Server Configuration */
 type ConfigUser = {
-  /** The Telefunc HTTP endpoint URL, e.g. `/api/_telefunc`. Default: `/_telefunc`. */
+  /**
+   * The Telefunc HTTP endpoint URL, e.g. `/api/_telefunc`.
+   *
+   * @default /_telefunc
+   *
+   * https://telefunc.com/telefuncUrl
+   */
   telefuncUrl?: string
   /** See https://telefunc.com/event-based#naming-convention */
   disableNamingConvention?: boolean
@@ -56,7 +62,10 @@ function validateUserConfig(configUserUnwrapped: ConfigUser, prop: string, val: 
     configUserUnwrapped[prop] = val
   } else if (prop === 'telefuncUrl') {
     assertUsage(typeof val === 'string', 'config.telefuncUrl should be a string')
-    assertUsage(val.startsWith('/'), "config.telefuncUrl should start with '/'")
+    assertUsage(
+      val.startsWith('/'),
+      `config.telefuncUrl (server-side) is '${val}' but it should start with '/' (it should be a URL pathname such as '/_telefunc'), see https://telefunc.com/telefuncUrl`
+    )
     configUserUnwrapped[prop] = val
   } else if (prop === 'telefuncFiles') {
     const wrongType = '`config.telefuncFiles` should be a list of paths'

@@ -1,25 +1,63 @@
 import { Link, Warning } from '@brillout/docpress'
+import { ConfigWhereClient, ConfigWhereServer } from '../components'
 
-**Environment**: Server & Browser.<br/>
+**Environment**: server, client.<br/>
 
-By default, Telefunc makes its HTTP requests by using the URL `/_telefunc`.
+By default, Telefunc uses the URL pathname `/_telefunc` to communicate between client and server.
 
-We can use `config.telefuncUrl` to change Telefunc's URL.
+You can use `config.telefuncUrl` to change that URL.
+
+
+## Basic usage
+
+You always need to set the value twice: on the server- and client-side.
+
+On the server-side:
 
 ```js
-// Environment: Server
+// Environment: server
 
 import { config } from 'telefunc'
 
 config.telefuncUrl = '/api/_telefunc'
 ```
 
+<ConfigWhereServer />
+
+On the client-side:
+
 ```js
-// Environment: Browser
+// Environment: client
 
 import { config } from 'telefunc/client'
 
 config.telefuncUrl = '/api/_telefunc'
 ```
 
-<Warning>Make sure to change the URL at both the Telefunc Client *and* the Telefunc Server.</Warning>
+<ConfigWhereClient />
+
+
+## Different domain
+
+If you deploy your frontend and backend at different domain names, then do the following.
+
+```js
+// Environment: client
+
+import { config } from 'telefunc/client'
+
+// The client-side value can be:
+// - a URL pathname (such as '/_telefunc')
+// - a URL with origin (such as 'https://example.org/api/_telefunc')
+// - an IP address (such as '192.158.1.38')
+config.telefuncUrl = 'https://example.org/api/_telefunc'
+```
+
+```js
+// Environment: server
+
+import { config } from 'telefunc'
+
+// The server-side value always needs to be a URL pathname (such as '/_telefunc')
+config.telefuncUrl = '/api/_telefunc'
+```

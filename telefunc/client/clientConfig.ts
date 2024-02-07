@@ -5,7 +5,13 @@ import { assertUsage } from './utils'
 
 /** Telefunc Client Configuration */
 type ConfigUser = {
-  /** The Telefunc HTTP endpoint URL, e.g. `https://example.org/_telefunc`. Default: `/_telefunc`. */
+  /**
+   * The Telefunc HTTP endpoint URL, for example `https://example.org/_telefunc`.
+   *
+   * @default /_telefunc
+   *
+   * https://telefunc.com/telefuncUrl
+   */
   telefuncUrl?: string
   /** Additional headers sent along Telefunc HTTP requests */
   httpHeaders?: Record<string, string>
@@ -30,7 +36,7 @@ function validateUserConfig(configUserUnwrapped: ConfigUser, prop: string, val: 
     const isIpAddress = (value: string) => /^\d/.test(value)
     assertUsage(
       val.startsWith('/') || val.startsWith('http') || isIpAddress(val),
-      `Setting \`config.telefuncUrl\` to \`${val}\` but it should be one of the following: a URL pathname (e.g. \`/_telefunc\`), a URL with origin (e.g. \`https://example.org/_telefunc\`), or an IP address (e.g. \`192.158.1.38\`).`
+      `config.telefuncUrl (client-side) is '${val}' but it should be one of the following: a URL pathname (such as '/_telefunc'), a URL with origin (such as 'https://example.org/_telefunc'), or an IP address (such as '192.158.1.38') — see https://telefunc.com/telefuncUrl`
     )
     configUserUnwrapped[prop] = val
   } else if (prop === 'httpHeaders') {

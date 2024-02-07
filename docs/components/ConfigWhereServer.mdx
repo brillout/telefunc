@@ -1,0 +1,13 @@
+> You usually define server-side configs (`import { config } from 'telefunc'`) at your server entry. For example if you use [Express.js](https://expressjs.com/):
+> ```js
+> // /server/index.js
+> // Environment: server
+>
+> import express from 'express'
+> import { config } from 'telefunc'
+>
+> const app = express()
+>
+> // Config values can be set here
+> config.someServerSideSetting = 'some-value'
+> ```
