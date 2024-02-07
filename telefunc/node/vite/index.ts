@@ -16,12 +16,15 @@ import type { Plugin } from 'vite'
 import type { ConfigUser } from '../server/serverConfig'
 
 // Return as `any` to avoid Plugin type mismatches when there are multiple Vite versions installed
-function plugin(configUser?: ConfigUser): any {
+function plugin(
+  /** @deprecated */
+  configUser?: never
+): any {
   importGlobOn()
 
-  // - For dev
-  // - Ensures that `configUser` is valid before `config` is serialized while building
-  Object.assign(config, configUser)
+  // We use this for minimal /examples/* that don't have any server code.
+  // Telefunc users aren't expected to use this. (We expect users to always have server code.)
+  Object.assign(config, configUser as undefined | ConfigUser)
 
   const plugins: Plugin[] = [
     transform(),

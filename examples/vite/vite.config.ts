@@ -5,6 +5,7 @@ const port = 3000
 
 export default {
   plugins: [
+    // @ts-expect-error
     telefunc({
       disableNamingConvention: true
     })
