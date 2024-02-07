@@ -1,21 +1,32 @@
-import { Link } from '@brillout/docpress'
+import { Link, Warning } from '@brillout/docpress'
 import { ConfigWhereServer } from '../components'
 
-**Environment**: Server.
+**Environment**: server.
+
+<Warning>This is a beta feature.</Warning>
 
 If you use <Link href="/telefuncFiles">`config.telefuncFiles`</Link>, then you also need to set `config.root`.
 
 ```js
-// Environment: Server
+// Environment: server
 
 import { config } from 'telefunc'
 
-// The project's root directory
+// Your project's root directory
 config.root = __dirname
 ```
 
-This setting is only needed if you use <Link href="/telefuncFiles">`config.telefuncFiles`</Link>.
+The `config.root` setting is only needed if you use <Link href="/telefuncFiles">`config.telefuncFiles`</Link>.
 
 <ConfigWhereServer />
 
-> If you have a monorepo structure, then set `config.root` to the root directory of your client-side (i.e. the root of Vite/Vike/Next.js/Nuxt/...). Don't set `config.root` to the monorepo root, nor to the root directory of your server. (The `config.root` setting enables Telefunc to match your `.telefunc.js` files/imports between the server-side and the client-side.)
+
+## Monorepo
+
+If you have a monorepo structure, then set `config.root` to the root directory of your client-side (i.e. the root of Vite/Vike/Next.js/Nuxt/...). Don't set `config.root` to the monorepo root, nor to the root directory of your server. (The `config.root` setting enables Telefunc to match your `.telefunc.js` files/imports between the server-side and the client-side.)
+
+
+## See also
+
+- <Link href="/telefuncFiles" />
+- <Link href="/transformer" />

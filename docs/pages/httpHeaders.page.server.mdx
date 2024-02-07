@@ -1,13 +1,14 @@
+import { Link } from '@brillout/docpress'
 import { ConfigWhereClient } from '../components'
 
-**Environment**: Browser.
+**Environment**: client.
 
 Send additional HTTP headers to be sent along Telefunc HTTP requests.
 
 Usually used for sending authentication headers.
 
 ```js
-// Environment: Browser
+// Environment: client
 
 import { config } from 'telefunc/client'
 
@@ -17,3 +18,8 @@ config.httpHeaders = {
 ```
 
 <ConfigWhereClient />
+
+
+## See also
+
+- <Link href="/permissions" />
