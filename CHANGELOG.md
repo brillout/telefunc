@@ -1,3 +1,13 @@
+## [0.1.71](https://github.com/brillout/telefunc/compare/v0.1.70...v0.1.71) (2024-02-07)
+
+
+### Bug Fixes
+
+* improve error messages & docs for config.telefuncUrl (fix [#63](https://github.com/brillout/telefunc/issues/63)) ([1585b66](https://github.com/brillout/telefunc/commit/1585b66f0b8a399c3246118a232bf78094474973))
+* soft-deprecate setting config over Vite plugin ([#63](https://github.com/brillout/telefunc/issues/63)) ([2657f86](https://github.com/brillout/telefunc/commit/2657f8601d1dbbd22c1e43014a61543da3d40974))
+
+
+
 ## [0.1.70](https://github.com/brillout/telefunc/compare/v0.1.69...v0.1.70) (2024-01-07)
 
 
