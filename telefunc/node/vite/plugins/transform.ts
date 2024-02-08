@@ -34,7 +34,7 @@ function transform(): Plugin {
       if (isClientSide) {
         return {
           code,
-          // Remove unnecessary source map
+          // Pass through source map https://rollupjs.org/plugin-development/#source-code-transformations
           map: null
         }
       } else {
