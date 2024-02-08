@@ -1,15 +1,18 @@
 {
   "scripts": {
-    "dev": "docpress dev",
-    "build": "docpress build",
-    "preview": "docpress build && docpress preview"
+    "dev": "vite dev",
+    "build": "vite build",
+    "preview": "vite build && vite preview"
   },
   "dependencies": {
-    "@brillout/docpress": "^0.5.34",
+    "@brillout/docpress": "^0.6.0",
+    "@types/node": "^20.11.16",
     "@types/react": "^17.0.9",
     "@types/react-dom": "^17.0.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "vike": "0.4.161-commit-0e9c635",
+    "vite": "npm:@brillout/vite@5.1.0-commit-3dc7abd",
     "typescript": "^5.0.3"
   },
   "type": "module"
