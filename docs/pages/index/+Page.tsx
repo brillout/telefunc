@@ -1,10 +1,10 @@
+export { Page }
+
 import React from 'react'
 import { Header } from './Header'
 import { CodePreview } from './CodePreview'
 import { Features } from './features/Features'
 import { ContactUs } from './ContactUs'
-
-export { Page }
 
 function Page() {
   return (
