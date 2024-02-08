@@ -82,7 +82,12 @@ function tolerateError({ logSource, logText }) {
     isCJSVikeWarning() ||
     isCJSViteWarning() ||
     isVikeDeprecatedDesignWarning() ||
-    isNextJsEslintWarning()
+    isNextJsEslintWarning() ||
+    [
+      // TODO: remove once all examples/tests use Vite >=5.1.0
+      'The glob option "as" has been deprecated in favour of "query"'
+      // TODO: move everything to this array
+    ].some((t) => logText.includes(t))
   )
 
   function isRollupEmptyChunkWarning() {
