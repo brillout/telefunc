@@ -28,7 +28,7 @@ importers:
     dependencies:
       '@brillout/docpress':
         specifier: ^0.6.0
-        version: 0.6.0(@brillout/vite@5.1.0-commit-3dc7abd)(@types/node@20.11.17)(@types/react-dom@17.0.11)(@types/react@17.0.39)(react-dom@18.2.0)(react@18.2.0)(rollup@2.79.1)(typescript@5.0.3)(vike@0.4.161-commit-0e9c635)
+        version: 0.6.0(@brillout/vite@5.1.0-commit-3dc7abd)(@types/node@20.11.17)(@types/react-dom@17.0.11)(@types/react@17.0.39)(react-dom@18.2.0)(react@18.2.0)(rollup@2.79.1)(typescript@5.0.3)(vike@0.4.161-commit-32e5021)
       '@types/node':
         specifier: ^20.11.16
         version: 20.11.17
@@ -48,8 +48,8 @@ importers:
         specifier: ^5.0.3
         version: 5.0.3
       vike:
-        specifier: 0.4.161-commit-0e9c635
-        version: 0.4.161-commit-0e9c635(@brillout/vite@5.1.0-commit-3dc7abd)
+        specifier: 0.4.161-commit-32e5021
+        version: 0.4.161-commit-32e5021(@brillout/vite@5.1.0-commit-3dc7abd)
       vite:
         specifier: npm:@brillout/vite@5.1.0-commit-3dc7abd
         version: /@brillout/vite@5.1.0-commit-3dc7abd(@types/node@20.11.17)
@@ -2933,7 +2933,7 @@ packages:
     hasBin: true
     dev: true
 
-  /@brillout/docpress@0.6.0(@brillout/vite@5.1.0-commit-3dc7abd)(@types/node@20.11.17)(@types/react-dom@17.0.11)(@types/react@17.0.39)(react-dom@18.2.0)(react@18.2.0)(rollup@2.79.1)(typescript@5.0.3)(vike@0.4.161-commit-0e9c635):
+  /@brillout/docpress@0.6.0(@brillout/vite@5.1.0-commit-3dc7abd)(@types/node@20.11.17)(@types/react-dom@17.0.11)(@types/react@17.0.39)(react-dom@18.2.0)(react@18.2.0)(rollup@2.79.1)(typescript@5.0.3)(vike@0.4.161-commit-32e5021):
     resolution: {integrity: sha512-7PC7ivq4/n5DOOLSr0jnqg7IwUDTA8/xtDupxBV5T4fGcIBj5Q80RSr+XDD1GPd40kmSGWG/usD6krTB6pX9Qg==}
     peerDependencies:
       '@types/node': '*'
@@ -2960,7 +2960,7 @@ packages:
       shiki: 0.10.1
       twemoji: 13.1.0
       typescript: 5.0.3
-      vike: 0.4.161-commit-0e9c635(@brillout/vite@5.1.0-commit-3dc7abd)
+      vike: 0.4.161-commit-32e5021(@brillout/vite@5.1.0-commit-3dc7abd)
       vike-contributors: 0.0.9
       vite: /@brillout/vite@5.1.0-commit-3dc7abd(@types/node@20.11.17)
     transitivePeerDependencies:
@@ -17885,8 +17885,8 @@ packages:
       vite: 5.0.6(@types/node@20.10.4)
     dev: false
 
-  /vike@0.4.161-commit-0e9c635(@brillout/vite@5.1.0-commit-3dc7abd):
-    resolution: {integrity: sha512-aCdGo2lNVqV+6P/vTESrIoz2FOKuZ7Pa90lTrICwNfMR9WZ/O+h3FLqK60foJTybVqsUQ4WY8uY/VTxn/SpRUA==}
+  /vike@0.4.161-commit-32e5021(@brillout/vite@5.1.0-commit-3dc7abd):
+    resolution: {integrity: sha512-QKimflviHD4MXEaSg1/7pyE9JrrS53/oZnivOhkkLb18X1cXRSdhoOEazKP8F5pxECtAfEOQWMOw/Q+AYn2PIQ==}
     engines: {node: '>=16.0.0'}
     hasBin: true
     peerDependencies:
