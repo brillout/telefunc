@@ -28,7 +28,7 @@ importers:
     dependencies:
       '@brillout/docpress':
         specifier: ^0.6.0
-        version: 0.6.0(@brillout/vite@5.1.0-commit-3dc7abd)(@types/node@20.11.17)(@types/react-dom@17.0.11)(@types/react@17.0.39)(react-dom@18.2.0)(react@18.2.0)(rollup@2.79.1)(typescript@5.0.3)(vike@0.4.161-commit-32e5021)
+        version: 0.6.0(@brillout/vite@5.1.0-commit-3dc7abd)(@types/node@20.11.17)(@types/react-dom@17.0.11)(@types/react@17.0.39)(react-dom@18.2.0)(react@18.2.0)(rollup@2.79.1)(typescript@5.0.3)(vike@0.4.161-commit-b829fee)
       '@types/node':
         specifier: ^20.11.16
         version: 20.11.17
@@ -48,8 +48,8 @@ importers:
         specifier: ^5.0.3
         version: 5.0.3
       vike:
-        specifier: 0.4.161-commit-32e5021
-        version: 0.4.161-commit-32e5021(@brillout/vite@5.1.0-commit-3dc7abd)
+        specifier: 0.4.161-commit-b829fee
+        version: 0.4.161-commit-b829fee(@brillout/vite@5.1.0-commit-3dc7abd)
       vite:
         specifier: npm:@brillout/vite@5.1.0-commit-3dc7abd
         version: /@brillout/vite@5.1.0-commit-3dc7abd(@types/node@20.11.17)
@@ -90,8 +90,8 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
       react-streaming:
-        specifier: ^0.3.18
-        version: 0.3.18(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^0.3.22
+        version: 0.3.22(react-dom@18.2.0)(react@18.2.0)
       telefunc:
         specifier: 0.1.71
         version: link:../../telefunc
@@ -103,7 +103,7 @@ importers:
         version: 5.3.3
       vike:
         specifier: ^0.4.156
-        version: 0.4.156(react-streaming@0.3.18)(vite@5.0.6)
+        version: 0.4.156(react-streaming@0.3.22)(vite@5.0.6)
       vite:
         specifier: ^5.0.6
         version: 5.0.6(@types/node@20.10.4)
@@ -261,8 +261,8 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
       react-streaming:
-        specifier: ^0.3.18
-        version: 0.3.18(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^0.3.22
+        version: 0.3.22(react-dom@18.2.0)(react@18.2.0)
       telefunc:
         specifier: 0.1.71
         version: link:../../telefunc
@@ -271,7 +271,7 @@ importers:
         version: 4.9.5
       vike:
         specifier: ^0.4.156
-        version: 0.4.156(react-streaming@0.3.18)(vite@4.3.9)
+        version: 0.4.156(react-streaming@0.3.22)(vite@4.3.9)
       vite:
         specifier: ^4.3.9
         version: 4.3.9
@@ -344,7 +344,7 @@ importers:
         version: 4.9.5
       vike:
         specifier: ^0.4.156
-        version: 0.4.156(react-streaming@0.3.18)(vite@4.3.9)
+        version: 0.4.156(react-streaming@0.3.22)(vite@4.3.9)
       vite:
         specifier: ^4.3.9
         version: 4.3.9
@@ -422,8 +422,8 @@ importers:
         specifier: ^12.0.8
         version: 12.0.10(@babel/core@7.23.6)(react-dom@18.2.0)(react@18.2.0)
       react-streaming:
-        specifier: ^0.3.18
-        version: 0.3.18(react-dom@18.2.0)(react@18.2.0)
+        specifier: ^0.3.22
+        version: 0.3.22(react-dom@18.2.0)(react@18.2.0)
       rollup:
         specifier: ^2.67.1
         version: 2.67.1
@@ -626,6 +626,19 @@ packages:
     dependencies:
       '@babel/compat-data': 7.23.5
       '@babel/core': 7.17.5
+      '@babel/helper-validator-option': 7.23.5
+      browserslist: 4.22.2
+      semver: 6.3.1
+    dev: false
+
+  /@babel/helper-compilation-targets@7.16.7(@babel/core@7.23.6):
+    resolution: {integrity: sha512-mGojBwIWcwGD6rfqgRXVlVYmPAv7eOpIemUG3dGnDdCY4Pae70ROij3XmfrH6Fa1h1aiDylpglbZyktfzyo/hA==}
+    engines: {node: '>=6.9.0'}
+    peerDependencies:
+      '@babel/core': ^7.0.0
+    dependencies:
+      '@babel/compat-data': 7.23.5
+      '@babel/core': 7.23.6
       '@babel/helper-validator-option': 7.23.5
       browserslist: 4.22.2
       semver: 6.3.1
@@ -2709,11 +2722,11 @@ packages:
     peerDependencies:
       '@babel/core': ^7.0.0-0
     dependencies:
-      '@babel/compat-data': 7.23.5
+      '@babel/compat-data': 7.17.0
       '@babel/core': 7.23.6
-      '@babel/helper-compilation-targets': 7.22.15
+      '@babel/helper-compilation-targets': 7.16.7(@babel/core@7.23.6)
       '@babel/helper-plugin-utils': 7.16.7
-      '@babel/helper-validator-option': 7.23.5
+      '@babel/helper-validator-option': 7.16.7
       '@babel/plugin-bugfix-safari-id-destructuring-collision-in-function-expression': 7.16.7(@babel/core@7.23.6)
       '@babel/plugin-bugfix-v8-spread-parameters-in-optional-chaining': 7.16.7(@babel/core@7.23.6)
       '@babel/plugin-proposal-async-generator-functions': 7.16.8(@babel/core@7.23.6)
@@ -2778,12 +2791,12 @@ packages:
       '@babel/plugin-transform-unicode-escapes': 7.16.7(@babel/core@7.23.6)
       '@babel/plugin-transform-unicode-regex': 7.16.7(@babel/core@7.23.6)
       '@babel/preset-modules': 0.1.5(@babel/core@7.23.6)
-      '@babel/types': 7.23.6
+      '@babel/types': 7.17.0
       babel-plugin-polyfill-corejs2: 0.3.1(@babel/core@7.23.6)
       babel-plugin-polyfill-corejs3: 0.5.2(@babel/core@7.23.6)
       babel-plugin-polyfill-regenerator: 0.3.1(@babel/core@7.23.6)
       core-js-compat: 3.21.0
-      semver: 6.3.1
+      semver: 6.3.0
     transitivePeerDependencies:
       - supports-color
     dev: false
@@ -2933,7 +2946,7 @@ packages:
     hasBin: true
     dev: true
 
-  /@brillout/docpress@0.6.0(@brillout/vite@5.1.0-commit-3dc7abd)(@types/node@20.11.17)(@types/react-dom@17.0.11)(@types/react@17.0.39)(react-dom@18.2.0)(react@18.2.0)(rollup@2.79.1)(typescript@5.0.3)(vike@0.4.161-commit-32e5021):
+  /@brillout/docpress@0.6.0(@brillout/vite@5.1.0-commit-3dc7abd)(@types/node@20.11.17)(@types/react-dom@17.0.11)(@types/react@17.0.39)(react-dom@18.2.0)(react@18.2.0)(rollup@2.79.1)(typescript@5.0.3)(vike@0.4.161-commit-b829fee):
     resolution: {integrity: sha512-7PC7ivq4/n5DOOLSr0jnqg7IwUDTA8/xtDupxBV5T4fGcIBj5Q80RSr+XDD1GPd40kmSGWG/usD6krTB6pX9Qg==}
     peerDependencies:
       '@types/node': '*'
@@ -2960,7 +2973,7 @@ packages:
       shiki: 0.10.1
       twemoji: 13.1.0
       typescript: 5.0.3
-      vike: 0.4.161-commit-32e5021(@brillout/vite@5.1.0-commit-3dc7abd)
+      vike: 0.4.161-commit-b829fee(@brillout/vite@5.1.0-commit-3dc7abd)
       vike-contributors: 0.0.9
       vite: /@brillout/vite@5.1.0-commit-3dc7abd(@types/node@20.11.17)
     transitivePeerDependencies:
@@ -15377,8 +15390,8 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: false
 
-  /react-streaming@0.3.18(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-4qugTyVx0r1i/o+PzrcqwThqLgjNdqNgzCYnIFASImSB9yPkhUqFIKyLXm6sQIcZ8gu2E2xdSvCdikfmVYER5g==}
+  /react-streaming@0.3.22(react-dom@18.2.0)(react@18.2.0):
+    resolution: {integrity: sha512-8kFMtAZQ1oUVnVKJvBqy/DUl1ZjoaRDe/v6GuYQWN4OX4K8jnmDt1NBuQxcjKob26+9Wx618km4m+/Q7PmAPfw==}
     peerDependencies:
       react: '>=18'
       react-dom: '>=18'
@@ -17831,7 +17844,7 @@ packages:
     requiresBuild: true
     dev: false
 
-  /vike@0.4.156(react-streaming@0.3.18)(vite@4.3.9):
+  /vike@0.4.156(react-streaming@0.3.22)(vite@4.3.9):
     resolution: {integrity: sha512-CaeG+clu+oLDKSv4B+6aOYoWNUb/URF6dK3/AeC9NJD0XvsfW8at1yQO5hA3M1SVWpe7c/tUGw1uYVgceT4JMw==}
     engines: {node: '>=16.0.0'}
     hasBin: true
@@ -17852,13 +17865,13 @@ packages:
       es-module-lexer: 1.4.1
       esbuild: 0.19.8
       fast-glob: 3.2.12
-      react-streaming: 0.3.18(react-dom@18.2.0)(react@18.2.0)
+      react-streaming: 0.3.22(react-dom@18.2.0)(react@18.2.0)
       sirv: 2.0.2
       source-map-support: 0.5.21
       vite: 4.3.9
     dev: false
 
-  /vike@0.4.156(react-streaming@0.3.18)(vite@5.0.6):
+  /vike@0.4.156(react-streaming@0.3.22)(vite@5.0.6):
     resolution: {integrity: sha512-CaeG+clu+oLDKSv4B+6aOYoWNUb/URF6dK3/AeC9NJD0XvsfW8at1yQO5hA3M1SVWpe7c/tUGw1uYVgceT4JMw==}
     engines: {node: '>=16.0.0'}
     hasBin: true
@@ -17879,14 +17892,14 @@ packages:
       es-module-lexer: 1.4.1
       esbuild: 0.19.8
       fast-glob: 3.2.12
-      react-streaming: 0.3.18(react-dom@18.2.0)(react@18.2.0)
+      react-streaming: 0.3.22(react-dom@18.2.0)(react@18.2.0)
       sirv: 2.0.2
       source-map-support: 0.5.21
       vite: 5.0.6(@types/node@20.10.4)
     dev: false
 
-  /vike@0.4.161-commit-32e5021(@brillout/vite@5.1.0-commit-3dc7abd):
-    resolution: {integrity: sha512-QKimflviHD4MXEaSg1/7pyE9JrrS53/oZnivOhkkLb18X1cXRSdhoOEazKP8F5pxECtAfEOQWMOw/Q+AYn2PIQ==}
+  /vike@0.4.161-commit-b829fee(@brillout/vite@5.1.0-commit-3dc7abd):
+    resolution: {integrity: sha512-gUVdqE0VQ5lV+BK+LcSCfmEq6RQ3CFrpmpFItBsn/9srvMBvmV4H+o+MYrRPYLXcdHRUnKBKlegkWypgVEcQYA==}
     engines: {node: '>=16.0.0'}
     hasBin: true
     peerDependencies:

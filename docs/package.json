@@ -11,7 +11,7 @@
     "@types/react-dom": "^17.0.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "vike": "0.4.161-commit-32e5021",
+    "vike": "0.4.161-commit-b829fee",
     "vite": "npm:@brillout/vite@5.1.0-commit-3dc7abd",
     "typescript": "^5.0.3"
   },
