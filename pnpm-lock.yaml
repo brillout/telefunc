@@ -27,8 +27,8 @@ importers:
   docs:
     dependencies:
       '@brillout/docpress':
-        specifier: ^0.6.0
-        version: 0.6.0(@brillout/vite@5.1.0-commit-3dc7abd)(@types/node@20.11.17)(@types/react-dom@17.0.11)(@types/react@17.0.39)(react-dom@18.2.0)(react@18.2.0)(rollup@2.79.1)(typescript@5.0.3)(vike@0.4.161-commit-b829fee)
+        specifier: ^0.6.3
+        version: 0.6.3(@brillout/vite@5.1.0-commit-3dc7abd)(@types/node@20.11.17)(@types/react-dom@17.0.11)(@types/react@17.0.39)(react-dom@18.2.0)(react@18.2.0)(rollup@2.79.1)(typescript@5.0.3)(vike@0.4.161-commit-b829fee)
       '@types/node':
         specifier: ^20.11.16
         version: 20.11.17
@@ -2946,8 +2946,8 @@ packages:
     hasBin: true
     dev: true
 
-  /@brillout/docpress@0.6.0(@brillout/vite@5.1.0-commit-3dc7abd)(@types/node@20.11.17)(@types/react-dom@17.0.11)(@types/react@17.0.39)(react-dom@18.2.0)(react@18.2.0)(rollup@2.79.1)(typescript@5.0.3)(vike@0.4.161-commit-b829fee):
-    resolution: {integrity: sha512-7PC7ivq4/n5DOOLSr0jnqg7IwUDTA8/xtDupxBV5T4fGcIBj5Q80RSr+XDD1GPd40kmSGWG/usD6krTB6pX9Qg==}
+  /@brillout/docpress@0.6.3(@brillout/vite@5.1.0-commit-3dc7abd)(@types/node@20.11.17)(@types/react-dom@17.0.11)(@types/react@17.0.39)(react-dom@18.2.0)(react@18.2.0)(rollup@2.79.1)(typescript@5.0.3)(vike@0.4.161-commit-b829fee):
+    resolution: {integrity: sha512-FxS4kWpSzqys3zJIMYzlO21OWCwGs/ZFknUn4cKaIaywPr3XvXFIGb/m0EJcCqNN6kGjHOgtIFwBPv+Epsj4+Q==}
     peerDependencies:
       '@types/node': '*'
       '@types/react': '*'
