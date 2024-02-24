@@ -97,6 +97,11 @@ function getProject(telefuncFilePath: string, telefuncFileCode: string, appRootD
         // @ts-expect-error
         sourceFile._compilerNode.fileName
     )
+    /*
+    import { ts } from 'ts-morph'
+    const typescriptVersion = ts.version
+    const tsMorphVersion = require('ts-morph/package.json').version
+    */
     const errMsg = JSON.stringify(
       {
         telefuncFilePath,
