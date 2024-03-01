@@ -10,11 +10,7 @@ const importGlob = `import.meta.glob("/**/*.telefunc.${scriptFileExtensions}")`
 function importGlobOff() {
   writeFileSync(
     telefuncFilesGlobPath,
-    // prettier-ignore
-    [
-      'exports.importGlobOff = true',
-      ''
-    ].join('\n')
+    ['exports.importGlobOff = true', ''].join('\n')
   )
 }
 
