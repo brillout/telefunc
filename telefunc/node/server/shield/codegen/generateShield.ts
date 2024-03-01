@@ -91,56 +91,7 @@ function getProject(telefuncFilePath: string, telefuncFileCode: string, appRootD
   })
 
   const telefuncFileSource = project.getSourceFile(telefuncFilePath)
-  if (!telefuncFileSource) {
-    const sourceFiles: string[] = project.getSourceFiles().map(
-      (sourceFile) =>
-        // @ts-expect-error
-        sourceFile._compilerNode.fileName
-    )
-    if (tsConfigFilePath) {
-      const userTsFiles = sourceFiles.filter((filePath) => !filePath.includes('__telefunc_'))
-      const msg1 = `The TypeScript configuration ${tsConfigFilePath} doesn't seem to include`
-      const msg2 = `Make sure to configure the ${pc.cyan('include')} and ${pc.cyan('exclude')} (or ${pc.cyan(
-        'files'
-      )}) options of that tsconfig.json` as const
-      if (userTsFiles.length === 0) {
-        assertUsage(
-          false,
-          [
-            //
-            `${msg1} any file (i.e. it includes 0 files).`,
-            `${msg2} to match at least one file.`
-          ].join(' ')
-        )
-      } else {
-        assertUsage(
-          false,
-          [
-            `${msg1} the ${telefuncFilePath} file.`,
-            `${msg2} to match the ${telefuncFilePath} file.`,
-            `It currently matches the following files:\n${userTsFiles.map((f) => `  ${f}`).join('\n')}`
-          ].join(' ')
-        )
-      }
-    } else {
-      /*
-      import { ts } from 'ts-morph'
-      const typescriptVersion = ts.version
-      const tsMorphVersion = require('ts-morph/package.json').version
-      */
-      const debugInfo = JSON.stringify(
-        {
-          telefuncFilePath,
-          sourceFiles,
-          tsConfigFilePath,
-          appRootDir
-        },
-        null,
-        2
-      )
-      assert(false, debugInfo)
-    }
-  }
+  assertTelefuncFilesSource(telefuncFileSource, { project, telefuncFilePath, tsConfigFilePath, appRootDir })
 
   return { project, telefuncFileSource, shieldGenSource }
 }
@@ -404,4 +355,74 @@ function getFilsystemRoot(): string {
   const fsRoot = process.cwd().split(path.sep)[0]
   assert(fsRoot)
   return fsRoot
+}
+
+function assertTelefuncFilesSource(
+  telefuncFileSource: SourceFile | undefined,
+  {
+    telefuncFilePath,
+    project,
+    tsConfigFilePath,
+    appRootDir
+  }: {
+    telefuncFilePath: string
+    project: Project
+    tsConfigFilePath: string | null
+    appRootDir: string
+  }
+): asserts telefuncFileSource is SourceFile {
+  if (telefuncFileSource) {
+    return
+  }
+
+  // Log an error
+
+  const sourceFiles: string[] = project.getSourceFiles().map(
+    (sourceFile) =>
+      // @ts-expect-error
+      sourceFile._compilerNode.fileName
+  )
+  if (tsConfigFilePath) {
+    const userTsFiles = sourceFiles.filter((filePath) => !filePath.includes('__telefunc_'))
+    const msg1 = `The TypeScript configuration ${tsConfigFilePath} doesn't seem to include`
+    const msg2 = `Make sure to configure the ${pc.cyan('include')} and ${pc.cyan('exclude')} (or ${pc.cyan(
+      'files'
+    )}) options of that tsconfig.json` as const
+    if (userTsFiles.length === 0) {
+      assertUsage(
+        false,
+        [
+          //
+          `${msg1} any file (i.e. it includes 0 files).`,
+          `${msg2} to match at least one file.`
+        ].join(' ')
+      )
+    } else {
+      assertUsage(
+        false,
+        [
+          `${msg1} the ${telefuncFilePath} file.`,
+          `${msg2} to match the ${telefuncFilePath} file.`,
+          `It currently matches the following files:\n${userTsFiles.map((f) => `  ${f}`).join('\n')}`
+        ].join(' ')
+      )
+    }
+  } else {
+    /* Should we show TypeScript and ts-morph version?
+    import { ts } from 'ts-morph'
+    const typescriptVersion = ts.version
+    const tsMorphVersion = require('ts-morph/package.json').version
+    */
+    const debugInfo = JSON.stringify(
+      {
+        telefuncFilePath,
+        sourceFiles,
+        tsConfigFilePath,
+        appRootDir
+      },
+      null,
+      2
+    )
+    assert(false, debugInfo)
+  }
 }
