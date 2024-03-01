@@ -3,6 +3,7 @@ type Equals<X, Y> = (<T>() => T extends X ? 1 : 2) extends <T>() => T extends Y 
 type UnionToIntersection<T> = (T extends T ? (params: T) => any : never) extends (params: infer P) => any ? P : never
 
 // prettier-ignore
+// biome-ignore format:
 type UnionToTuple<T, Res extends any[] = []> = UnionToIntersection<
   T extends any ? () => T : never
 > extends () => infer ReturnType
@@ -15,6 +16,7 @@ type ShieldRes<S extends string, Acc extends string[] = []> = {
 }
 
 // prettier-ignore
+// biome-ignore format:
 type SimpleType<T, Acc extends any[] = []> = Equals<T, string> extends true
   ? ShieldRes<'__telefunc_t.string', Acc>
   : Equals<T, number> extends true
@@ -28,6 +30,7 @@ type SimpleType<T, Acc extends any[] = []> = Equals<T, string> extends true
   : false
 
 // prettier-ignore
+// biome-ignore format:
 type ReplaceAll<S extends string, From extends string, To extends string> = From extends ''
   ? S
   : S extends `${infer Before}${From}${infer After}`
@@ -35,6 +38,7 @@ type ReplaceAll<S extends string, From extends string, To extends string> = From
   : S
 
 // prettier-ignore
+// biome-ignore format:
 type Literal<T, Acc extends any[]> = T extends string
   ? ShieldRes<`__telefunc_t.const('${ReplaceAll<T, "'", "\\'">}')`, Acc>
   : T extends boolean
@@ -48,6 +52,7 @@ type Joined<T extends any[], Acc extends any[], List = ShieldList<T>, J = JoinSh
   : never
 
 // prettier-ignore
+// biome-ignore format:
 type ArrayLike<T extends any[], Acc extends any[] = []> = T extends [...infer U]
   ? Equals<U['length'], number> extends true
     ? T extends (infer V)[]
@@ -74,11 +79,13 @@ type ShieldRecord<T extends Record<string, any>> = {
 }
 
 // prettier-ignore
+// biome-ignore format:
 type KeyValueShieldRes<T extends Record<string, any>, Acc extends any[]> = ShieldRecord<T> extends Record<any, any>
   ? JoinRecord<ShieldRecord<T>, Acc>
   : never
 
 // prettier-ignore
+// biome-ignore format:
 type KeyValueOrObjectShield<T extends Record<string, any>, Acc extends any[]> = T extends Record<infer K, infer V>
   ? Equals<K, string> extends true
     ? Shield<V, ['object', ...Acc]>
@@ -86,6 +93,7 @@ type KeyValueOrObjectShield<T extends Record<string, any>, Acc extends any[]> = 
   : KeyValueShieldRes<T, Acc>
 
 // prettier-ignore
+// biome-ignore format:
 type Shield<T, Acc extends any[] = []> = SimpleType<T> extends ShieldRes<any>
   ? SimpleType<T, Acc>
   : undefined extends T
@@ -103,6 +111,7 @@ type Shield<T, Acc extends any[] = []> = SimpleType<T> extends ShieldRes<any>
   : never
 
 // prettier-ignore
+// biome-ignore format:
 type ShieldUnion<T, Acc extends any[]> = ShieldList<UnionToTuple<T>> extends ShieldRes<any, any>[]
   ? Joined<UnionToTuple<T>, ['union', ...Acc]>
   : never
@@ -110,6 +119,7 @@ type ShieldUnion<T, Acc extends any[]> = ShieldList<UnionToTuple<T>> extends Shi
 type IsUnion<T> = [T] extends [UnionToIntersection<T>] ? false : true
 
 // prettier-ignore
+// biome-ignore format:
 type Wrap<T extends string, Keyword> = Keyword extends 'nullable'
   ? `__telefunc_t.nullable(${T})`
   : Keyword extends 'optional'
@@ -127,6 +137,7 @@ type Wrap<T extends string, Keyword> = Keyword extends 'nullable'
   : T
 
 // prettier-ignore
+// biome-ignore format:
 type WrapShieldRes<T extends ShieldRes<any, any>> = T extends ShieldRes<infer S, infer Acc>
   ? Acc extends [infer Head, ...infer Tail]
     ? Tail extends any[]
