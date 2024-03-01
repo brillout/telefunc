@@ -2,6 +2,7 @@ type Equals<X, Y> = (<T>() => T extends X ? 1 : 2) extends <T>() => T extends Y 
 
 type UnionToIntersection<T> = (T extends T ? (params: T) => any : never) extends (params: infer P) => any ? P : never
 
+// prettier-ignore
 type UnionToTuple<T, Res extends any[] = []> = UnionToIntersection<
   T extends any ? () => T : never
 > extends () => infer ReturnType
@@ -13,6 +14,7 @@ type ShieldRes<S extends string, Acc extends string[] = []> = {
   acc: Acc
 }
 
+// prettier-ignore
 type SimpleType<T, Acc extends any[] = []> = Equals<T, string> extends true
   ? ShieldRes<'__telefunc_t.string', Acc>
   : Equals<T, number> extends true
@@ -25,12 +27,14 @@ type SimpleType<T, Acc extends any[] = []> = Equals<T, string> extends true
   ? ShieldRes<'__telefunc_t.any', Acc>
   : false
 
+// prettier-ignore
 type ReplaceAll<S extends string, From extends string, To extends string> = From extends ''
   ? S
   : S extends `${infer Before}${From}${infer After}`
   ? `${Before}${To}${ReplaceAll<After, From, To>}`
   : S
 
+// prettier-ignore
 type Literal<T, Acc extends any[]> = T extends string
   ? ShieldRes<`__telefunc_t.const('${ReplaceAll<T, "'", "\\'">}')`, Acc>
   : T extends boolean
@@ -43,6 +47,7 @@ type Joined<T extends any[], Acc extends any[], List = ShieldList<T>, J = JoinSh
   ? ShieldRes<J, Acc>
   : never
 
+// prettier-ignore
 type ArrayLike<T extends any[], Acc extends any[] = []> = T extends [...infer U]
   ? Equals<U['length'], number> extends true
     ? T extends (infer V)[]
@@ -68,16 +73,19 @@ type ShieldRecord<T extends Record<string, any>> = {
   [K in Extract<keyof T, string> as K]: Shield<T[K]>
 }
 
+// prettier-ignore
 type KeyValueShieldRes<T extends Record<string, any>, Acc extends any[]> = ShieldRecord<T> extends Record<any, any>
   ? JoinRecord<ShieldRecord<T>, Acc>
   : never
 
+// prettier-ignore
 type KeyValueOrObjectShield<T extends Record<string, any>, Acc extends any[]> = T extends Record<infer K, infer V>
   ? Equals<K, string> extends true
     ? Shield<V, ['object', ...Acc]>
     : KeyValueShieldRes<T, Acc>
   : KeyValueShieldRes<T, Acc>
 
+// prettier-ignore
 type Shield<T, Acc extends any[] = []> = SimpleType<T> extends ShieldRes<any>
   ? SimpleType<T, Acc>
   : undefined extends T
@@ -94,12 +102,14 @@ type Shield<T, Acc extends any[] = []> = SimpleType<T> extends ShieldRes<any>
   ? Literal<T, Acc>
   : never
 
+// prettier-ignore
 type ShieldUnion<T, Acc extends any[]> = ShieldList<UnionToTuple<T>> extends ShieldRes<any, any>[]
   ? Joined<UnionToTuple<T>, ['union', ...Acc]>
   : never
 
 type IsUnion<T> = [T] extends [UnionToIntersection<T>] ? false : true
 
+// prettier-ignore
 type Wrap<T extends string, Keyword> = Keyword extends 'nullable'
   ? `__telefunc_t.nullable(${T})`
   : Keyword extends 'optional'
@@ -116,6 +126,7 @@ type Wrap<T extends string, Keyword> = Keyword extends 'nullable'
   ? `__telefunc_t.object(${T})`
   : T
 
+// prettier-ignore
 type WrapShieldRes<T extends ShieldRes<any, any>> = T extends ShieldRes<infer S, infer Acc>
   ? Acc extends [infer Head, ...infer Tail]
     ? Tail extends any[]
