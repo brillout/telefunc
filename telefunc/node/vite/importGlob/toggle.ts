@@ -8,10 +8,7 @@ const telefuncFilesGlobPath = `${dir}/telefuncFilesGlob.js`
 const importGlob = `import.meta.glob("/**/*.telefunc.${scriptFileExtensions}")`
 
 function importGlobOff() {
-  writeFileSync(
-    telefuncFilesGlobPath,
-    ['exports.importGlobOff = true', ''].join('\n')
-  )
+  writeFileSync(telefuncFilesGlobPath, ['exports.importGlobOff = true', ''].join('\n'))
 }
 
 function importGlobOn() {
