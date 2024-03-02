@@ -4,7 +4,7 @@ export type { PageContext }
 
 import type {
   PageContextBuiltIn,
-  PageContextBuiltInClientWithClientRouting as PageContextBuiltInClient
+  PageContextBuiltInClientWithClientRouting as PageContextBuiltInClient,
 } from 'vike/types'
 import type { User } from '#app/db'
 

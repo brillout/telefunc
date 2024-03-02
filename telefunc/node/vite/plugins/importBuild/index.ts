@@ -15,14 +15,14 @@ function importBuild(): Plugin[] {
       enforce: 'post',
       configResolved(config_) {
         config = config_
-      }
+      },
     },
     ...serverEntryPlugin({
       getImporterCode: () => {
         return getImporterCode(config)
       },
-      libraryName: projectInfo.projectName
-    })
+      libraryName: projectInfo.projectName,
+    }),
   ]
 }
 
@@ -39,7 +39,7 @@ function getImporterCode(config: ResolvedConfig) {
     `  loadTelefuncFiles: () => telefuncFiles,`,
     `  loadManifest: () => (${JSON.stringify(telefuncManifest, null, 2)})`,
     '});',
-    ''
+    '',
   ].join('\n')
   return importerCode
 }
@@ -48,7 +48,7 @@ function getImportPath(config: ResolvedConfig) {
   // We resolve filePathAbsolute even if we don't use it: we use require.resolve() as an assertion that the relative path is correct
   const filePathAbsolute = toPosixPath(
     // [RELATIVE_PATH_FROM_DIST] Current file: node_modules/telefunc/dist/cjs/node/vite/plugins/importBuild/index.js
-    require.resolve(`../../../../../../dist/cjs/node/vite/plugins/importBuild/loadBuild.js`)
+    require.resolve(`../../../../../../dist/cjs/node/vite/plugins/importBuild/loadBuild.js`),
   )
   if (
     // Let's implement a new config if a user needs the import to be a relative path instead of 'telefunc/__internal/loadImportBuild' (AFAIK there is no use case for relative paths for Telefunc)

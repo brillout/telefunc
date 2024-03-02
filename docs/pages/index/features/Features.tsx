@@ -24,7 +24,7 @@ function Features() {
                 Your frontend can <b>directly use any SQL/ORM query</b> to retrieve & mutate data.
               </p>
             </>
-          )
+          ),
         },
         {
           title: (
@@ -40,7 +40,7 @@ function Features() {
               </p>
               <p>Telefunc introduces new techniques to define advanced permissions and increase safety.</p>
             </>
-          )
+          ),
         },
         {
           title: (
@@ -55,7 +55,7 @@ function Features() {
                 and other frameworks based on Webpack, Babel, Parcel or Vite.
               </p>
             </>
-          )
+          ),
         },
         {
           title: (
@@ -70,7 +70,7 @@ function Features() {
                 highly performant data retrieval and mutations.
               </p>
             </>
-          )
+          ),
         },
         {
           title: (
@@ -88,7 +88,7 @@ function Features() {
                 <b>Automatic runtime validation</b> for end-to-end type safety.
               </p>
             </>
-          )
+          ),
         },
         {
           title: (
@@ -103,8 +103,8 @@ function Features() {
                 assailed against a heavy suite of <b>automated tests</b>.
               </p>
             </>
-          )
-        }
+          ),
+        },
       ]}
     />
   )

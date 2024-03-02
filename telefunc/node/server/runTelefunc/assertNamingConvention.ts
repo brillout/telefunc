@@ -9,7 +9,7 @@ function assertNamingConvention(
   exportValue: unknown,
   exportName: string,
   telefuncFilePath: string,
-  appRootDir: null | string
+  appRootDir: null | string,
 ): asserts exportValue is Telefunction {
   if (isProduction()) return
   assertStartsWithOn(exportName, telefuncFilePath)
@@ -22,13 +22,13 @@ function assertStartsWithOn(exportName: string, telefuncFilePath: string) {
     assertWarning(
       false,
       `We recommend the name of your telefunction ${exportName}() (${telefuncFilePath}) to start with "on", see https://telefunc.com/event-based#naming-convention'`,
-      { onlyOnce: true }
+      { onlyOnce: true },
     )
   } else {
     assertWarning(
       /on[A-Z]/.test(exportName),
       `The name of your telefunction ${exportName}() (${telefuncFilePath}) starts with "on" but isn't followed by a capital letter, see https://telefunc.com/event-based#naming-convention'`,
-      { onlyOnce: true }
+      { onlyOnce: true },
     )
   }
 }
@@ -83,8 +83,8 @@ function assertCollocation(telefuncFilePath: string, appRootDir: string | null, 
       `      ${telefuncFilePath} (base name: '${telefuncFileBasename}')`,
       '    Its collocated files:',
       ...collocatedFilesMatchNot.map((fileName) => `      ${fileName} (base name: '${getBasename(fileName)}'`),
-      `    None of its collocated files share its base name '${telefuncFileBasename}'.`
+      `    None of its collocated files share its base name '${telefuncFileBasename}'.`,
     ].join('\n'),
-    { onlyOnce: true }
+    { onlyOnce: true },
   )
 }

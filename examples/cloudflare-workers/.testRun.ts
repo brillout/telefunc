@@ -29,7 +29,7 @@ function testRun(cmd: 'npm run dev' | 'npm run preview:miniflare' | 'npm run pre
     expect(process.env['CLOUDFLARE_API_TOKEN']).toBeFalsy()
     if (isWrangler) {
       skip(
-        "SKIPPED: wrangler tests cannot be run. Because missing environment variables `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_API_TOKEN`. (This is expected in Pull Requests and Vite's ecosystem CI.)"
+        "SKIPPED: wrangler tests cannot be run. Because missing environment variables `CLOUDFLARE_ACCOUNT_ID` and `CLOUDFLARE_API_TOKEN`. (This is expected in Pull Requests and Vite's ecosystem CI.)",
       )
       return
     }

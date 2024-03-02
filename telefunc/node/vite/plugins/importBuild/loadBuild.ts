@@ -14,7 +14,7 @@ type LoadManifest = () => Record<string, unknown>
 
 function setTelefuncLoaders({
   loadTelefuncFiles,
-  loadManifest
+  loadManifest,
 }: {
   loadTelefuncFiles: LoadTelefuncFiles
   loadManifest: LoadManifest

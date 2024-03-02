@@ -1,77 +1,77 @@
 export default {
   ci: {
-    jobs: getCiJobs()
+    jobs: getCiJobs(),
   },
-  tolerateError
+  tolerateError,
 }
 
 function getCiJobs() {
   const ubuntu20 = {
     os: 'ubuntu-latest',
-    node_version: '20'
+    node_version: '20',
   }
   const ubuntu18 = {
     os: 'ubuntu-latest',
-    node_version: '18'
+    node_version: '18',
   }
   const ubuntu16 = {
     os: 'ubuntu-latest',
-    node_version: '16'
+    node_version: '16',
   }
   const ubuntu17 = {
     os: 'ubuntu-latest',
-    node_version: '17'
+    node_version: '17',
   }
   const win16 = {
     os: 'windows-latest',
-    node_version: '16'
+    node_version: '16',
   }
   const win18 = {
     os: 'windows-latest',
-    node_version: '18'
+    node_version: '18',
   }
   const win20 = {
     os: 'windows-latest',
-    node_version: '20'
+    node_version: '20',
   }
   const mac17 = {
     os: 'macos-latest',
-    node_version: '17'
+    node_version: '17',
   }
 
   return [
     {
       name: 'Vite',
-      setups: [ubuntu18, win16, mac17]
+      setups: [ubuntu18, win16, mac17],
     },
     {
       name: 'React Native',
-      setups: [ubuntu16, win18]
+      setups: [ubuntu16, win18],
     },
     {
       name: 'Cloudflare Workers',
-      setups: [ubuntu17]
+      setups: [ubuntu17],
     },
     {
       name: 'Next.js',
-      setups: [ubuntu20, win20]
+      setups: [ubuntu20, win20],
     },
     {
       name: 'Nuxt 2',
-      setups: [ubuntu16, win16]
+      setups: [ubuntu16, win16],
     },
     {
       name: 'SvelteKit',
-      setups: [ubuntu16, win18]
+      setups: [ubuntu16, win18],
     },
     {
       name: 'Prisma',
-      setups: [win16, mac17]
+      setups: [win16, mac17],
     },
     {
       name: 'https://telefunc.com',
-      setups: [ubuntu18]
-    }
+      setups: [ubuntu18],
+    },
   ]
 }
 
@@ -107,7 +107,7 @@ function tolerateError({ logSource, logText }) {
     return (
       logSource === 'stderr' &&
       logText.includes(
-        "The CJS build of Vite's Node API is deprecated. See https://vitejs.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details."
+        "The CJS build of Vite's Node API is deprecated. See https://vitejs.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.",
       )
     )
   }
@@ -117,11 +117,11 @@ function tolerateError({ logSource, logText }) {
       logSource === 'stderr' &&
       (logText.includes(
         // Old warning
-        'You are using the old deprecated design, update to the new V1 design, see https://vike.dev/migration/v1-design'
+        'You are using the old deprecated design, update to the new V1 design, see https://vike.dev/migration/v1-design',
       ) ||
         logText.includes(
           // New warning
-          "You are using Vike's deprecated design. Update to the new V1 design, see https://vike.dev/migration/v1-design for how to migrate."
+          "You are using Vike's deprecated design. Update to the new V1 design, see https://vike.dev/migration/v1-design for how to migrate.",
         ))
     )
   }
@@ -130,7 +130,7 @@ function tolerateError({ logSource, logText }) {
     return (
       logSource === 'stderr' &&
       logText.includes(
-        "DeprecationWarning: 'originalKeywordKind' has been deprecated since v5.0.0 and will no longer be usable after v5.2.0. Use 'identifierToKeywordKind(identifier)' instead."
+        "DeprecationWarning: 'originalKeywordKind' has been deprecated since v5.0.0 and will no longer be usable after v5.2.0. Use 'identifierToKeywordKind(identifier)' instead.",
       )
     )
   }

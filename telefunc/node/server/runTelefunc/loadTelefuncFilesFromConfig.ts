@@ -14,8 +14,8 @@ async function loadTelefuncFilesFromConfig(runContext: {
   assertUsage(
     root,
     `You need to set ${pc.cyan('config.root')} to be able to use ${pc.cyan(
-      'config.telefuncFiles'
-    )}, see https://telefunc.com/root`
+      'config.telefuncFiles',
+    )}, see https://telefunc.com/root`,
   )
   assert(telefuncFiles)
   assertPosixPath(root)
@@ -32,7 +32,7 @@ async function loadTelefuncFilesFromConfig(runContext: {
       }
       const telefunctions: any = await import_(telefuncFilePathAbsolute)
       telefuncFilesLoaded[telefuncFilePath] = telefunctions
-    })
+    }),
   )
   return { telefuncFilesLoaded, telefuncFilesAll }
 }
@@ -44,8 +44,8 @@ function resolveTelefuncFilePath(telefuncFilePathAbsolute: string, appRootDir: s
   assertUsage(
     !path.startsWith('../'),
     `The telefunc file ${telefuncFilePathAbsolute} doesn't live inside the root directory ${appRootDir} of your project. Either move your telefunc file inside the root, or change ${pc.cyan(
-      'config.root'
-    )} (https://telefunc.com/root).`
+      'config.root',
+    )} (https://telefunc.com/root).`,
   )
   assert(!path.startsWith('/') && !path.startsWith('.'))
   const telefuncFilePath = '/' + path

@@ -15,5 +15,5 @@ export default {
   tagline: 'Remote Functions. Instead of API.',
   twitterHandle: '@brillout',
   websiteUrl: 'https://telefunc.com',
-  algolia: null
+  algolia: null,
 } satisfies Config

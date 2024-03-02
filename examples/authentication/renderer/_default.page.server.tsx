@@ -47,6 +47,6 @@ async function render(pageContext: PageContextServer) {
     documentHtml,
     pageContext: {
       // We can add some `pageContext` here, which is useful if we want to do page redirection https://vike.dev/page-redirection
-    }
+    },
   }
 }

@@ -10,7 +10,7 @@ const loader = resolve(dir, './loader.js')
 function install<T extends any[]>(config: { module?: { rules?: T }; plugins?: any }, logSuccessPrefix?: string) {
   config.module!.rules!.push({
     test: /\.telefunc\./,
-    use: [{ loader }]
+    use: [{ loader }],
   })
   if (logSuccessPrefix) {
     // Possible altenertive: use `process.on('exit', () => { /*...*/ })`
@@ -27,6 +27,6 @@ function afterEmitPlugin(logSuccessPrefix: string) {
         const root = getRoot(compiler)
         logResult(root, logSuccessPrefix, null)
       })
-    }
+    },
   }
 }

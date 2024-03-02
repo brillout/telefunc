@@ -15,20 +15,20 @@ const shield: {
   <
     A extends unknown[],
     TelefunctionArguments extends [...A],
-    Telefunction extends (...args: TelefunctionArguments) => unknown
+    Telefunction extends (...args: TelefunctionArguments) => unknown,
   >(
     telefunction: Telefunction,
     telefunctionShield: TelefunctionArguments,
-    options?: ShieldOptions
+    options?: ShieldOptions,
   ): Telefunction
   <
     A extends unknown[],
     TelefunctionArguments extends [...A],
-    Telefunction extends (...args: TelefunctionArguments) => unknown
+    Telefunction extends (...args: TelefunctionArguments) => unknown,
   >(
     telefunctionShield: TelefunctionArguments,
     telefunction: Telefunction,
-    options?: ShieldOptions
+    options?: ShieldOptions,
   ): Telefunction
   type: typeof type
 } = function (arg1, arg2, options) {
@@ -53,7 +53,7 @@ type Telefunction = Function
 
 function assertShield(
   telefunctionShield: unknown,
-  shieldInvokation: 'shield(telefunction, telefunctionShield)' | 'shield(telefunctionShield, telefunction)'
+  shieldInvokation: 'shield(telefunction, telefunctionShield)' | 'shield(telefunctionShield, telefunction)',
 ): asserts telefunctionShield is TelefunctionShield {
   assertUsage(
     Array.isArray(telefunctionShield) || isVerifierTuple(telefunctionShield),
@@ -61,8 +61,8 @@ function assertShield(
       `[${shieldInvokation.replace('telefunctionShield', 'args')}]`,
       '`args` should be an array.',
       `Example of correct usage: \`${shieldInvokation.replace('telefunctionShield', '[shield.type.string]')}\`.`,
-      `Example of wrong usage: \`${shieldInvokation.replace('telefunctionShield', 'shield.type.string')}\`.`
-    ].join(' ')
+      `Example of wrong usage: \`${shieldInvokation.replace('telefunctionShield', 'shield.type.string')}\`.`,
+    ].join(' '),
   )
 }
 
@@ -152,13 +152,13 @@ function verifyRecursive(verifier: unknown, arg: unknown, breadcrumbs: string): 
     !Array.isArray(verifier),
     errorPrefix +
       ' is a plain JavaScript array which is forbidden: use `shield.type.tuple()` instead of `[]`. ' +
-      errorSuffix
+      errorSuffix,
   )
   assertUsage(
     false,
     `${errorPrefix} is \`${getTypeName(
-      verifier
-    )}\` which is forbidden. Always use \`shield.type[x]\` or a plain JavaScript Object. ${errorSuffix}`
+      verifier,
+    )}\` which is forbidden. Always use \`shield.type[x]\` or a plain JavaScript Object. ${errorSuffix}`,
   )
 }
 
@@ -198,8 +198,8 @@ const type = (() => {
           verifyRecursive(
             i > elements.length - 1 ? type.const(undefined) : elements[i],
             input[i],
-            `${breadcrumbs} > [tuple: element ${i}]`
-          )
+            `${breadcrumbs} > [tuple: element ${i}]`,
+          ),
         )
         .filter((res) => res !== true)
       if (errorMessages.length === 0) {
@@ -319,7 +319,7 @@ const type = (() => {
     const: const_,
     optional: <T>(param: T): T | undefined => or(param, const_(undefined)),
     nullable: <T>(param: T): T | null => or(param, const_(null)),
-    any
+    any,
   }
 })()
 shield.type = type

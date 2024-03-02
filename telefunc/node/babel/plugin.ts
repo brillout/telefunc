@@ -76,16 +76,16 @@ function BabelPluginTelefunc(babel: { types: typeof BabelTypes }): PluginObj {
         const transformed: string = transformTelefuncFileClientSideSync(
           toPosixPath(filename),
           toPosixPath(root),
-          exportList
+          exportList,
         )
 
         const parsed = parse(transformed, {
-          sourceType: 'module'
+          sourceType: 'module',
         })
 
         path.replaceWith(parsed.program)
-      }
-    }
+      },
+    },
   }
 }
 

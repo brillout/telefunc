@@ -7,7 +7,7 @@ import { getContext } from 'telefunc'
 const database: {
   todoItems: { text: string }[]
 } = {
-  todoItems: []
+  todoItems: [],
 }
 
 async function onLoad() {

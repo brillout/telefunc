@@ -18,7 +18,7 @@ import type { ConfigUser } from '../server/serverConfig'
 // Return as `any` to avoid Plugin type mismatches when there are multiple Vite versions installed
 function plugin(
   /** @deprecated */
-  configUser?: never
+  configUser?: never,
 ): any {
   importGlobOn()
 
@@ -35,7 +35,7 @@ function plugin(
     packageJsonFile(),
     ...importBuild(),
     previewConfig(),
-    printShieldGenResult()
+    printShieldGenResult(),
   ]
   return plugins
 }

@@ -7,11 +7,11 @@ export default {
   plugins: [
     // @ts-expect-error
     telefunc({
-      disableNamingConvention: true
-    })
+      disableNamingConvention: true,
+    }),
   ],
   build: { target: 'esnext' },
   appType: 'mpa',
   server: { port, host: true },
-  preview: { port }
+  preview: { port },
 } as UserConfig

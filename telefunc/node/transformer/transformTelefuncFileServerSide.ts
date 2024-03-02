@@ -9,7 +9,7 @@ async function transformTelefuncFileServerSide(
   id: string,
   appRootDir: string,
   skipRegistration: boolean,
-  isDev: boolean
+  isDev: boolean,
 ) {
   assertPosixPath(id)
   assertPosixPath(appRootDir)
@@ -29,7 +29,7 @@ function decorateTelefunctions(
   src: string,
   filePath: string,
   appRootDir: string,
-  skipRegistration: boolean
+  skipRegistration: boolean,
 ) {
   assertPosixPath(filePath)
 
@@ -42,10 +42,10 @@ function decorateTelefunctions(
       .map(
         (exportName) =>
           `__decorateTelefunction(${exportName}, "${exportName}", "${filePath}", "${appRootDir}", ${String(
-            skipRegistration
-          )});`
+            skipRegistration,
+          )});`,
       )
       .join('\n'),
-    '\n'
+    '\n',
   ].join('')
 }

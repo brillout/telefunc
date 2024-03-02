@@ -7,7 +7,7 @@ import { assertManifest, type Manifest } from './assertManifest'
 function getTelefuncManifest(): Manifest {
   const manifest = {
     version: projectInfo.projectVersion,
-    config
+    config,
   }
   assertManifest(manifest)
   return manifest

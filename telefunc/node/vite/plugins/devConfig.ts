@@ -19,14 +19,14 @@ function devConfig(): Plugin[] {
             // 11:12:30 AM [vite] ✨ optimized dependencies changed. reloading
             // ```
             // (Vite correctly bundles `package.json#exports["."].browser` though.)
-            'telefunc'
-          ]
-        }
+            'telefunc',
+          ],
+        },
       }),
       async configResolved(config) {
         fixOptimizeDeps(config.optimizeDeps)
         await determineFsAllowList(config)
-      }
+      },
     },
     {
       name: 'telefunc:devConfig:serverMiddleware',
@@ -37,8 +37,8 @@ function devConfig(): Plugin[] {
         return () => {
           addTelefuncMiddleware(server.middlewares)
         }
-      }
-    }
+      },
+    },
   ]
 }
 

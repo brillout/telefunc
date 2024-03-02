@@ -12,6 +12,6 @@ function telefuncPlugin(nextConfig: NextConfig = {}) {
         return nextConfig.webpack(config, options)
       }
       return config
-    }
+    },
   } as NextConfig)
 }

@@ -22,8 +22,8 @@ function findTelefunction(runContext: {
     runContext.telefuncFilesAll.length > 0,
     [
       `Telefunction ${runContext.telefunctionName}() (${runContext.telefuncFilePath}) not found.`,
-      "Your app doesn't seem to have any `.telefunc.{js|ts|...}` file."
-    ].join(' ')
+      "Your app doesn't seem to have any `.telefunc.{js|ts|...}` file.",
+    ].join(' '),
   )
 
   const telefuncFile = findTelefuncFile(runContext)
@@ -66,7 +66,7 @@ function findTelefunction(runContext: {
         `the file ${runContext.telefuncFilePath} doesn't exist.`,
         // Hint about config.root
         extraMsg,
-        'Found `.telefunc.js` files:'
+        'Found `.telefunc.js` files:',
       ]
         .filter(Boolean)
         .join(' ')
@@ -75,7 +75,7 @@ function findTelefunction(runContext: {
         .sort()
         .map(
           (filePath) =>
-            `\n  ${filePath} ${runContext.telefuncFilesAll.includes(filePath) ? '[✅ Exists]' : "[❌ Doesn't exist]"}`
+            `\n  ${filePath} ${runContext.telefuncFilesAll.includes(filePath) ? '[✅ Exists]' : "[❌ Doesn't exist]"}`,
         )
         .join('')
     } else {
@@ -96,7 +96,7 @@ function findTelefunction(runContext: {
                 telefuncFileExportNames.includes(exportName)
                   ? `exports telefunction ${exportName}() ✅`
                   : `doesn't have an export "${exportName}" ❌`
-              }`
+              }`,
           )
           .join('')
       }

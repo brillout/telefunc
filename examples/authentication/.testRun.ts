@@ -4,7 +4,7 @@ export { testRun }
 
 function testRun(cmd: 'npm run dev' | 'npm run prod') {
   run(cmd, {
-    additionalTimeout: 10 * 1000
+    additionalTimeout: 10 * 1000,
   })
 
   test('Log-in', async () => {
@@ -41,7 +41,7 @@ function testRun(cmd: 'npm run dev' | 'npm run prod') {
         // It is important to call waitForNavigation before click to set up waiting.
         page.waitForNavigation(),
         // Does a page reload
-        page.click('button >> text=Logout')
+        page.click('button >> text=Logout'),
       ])
       await sleep(3 * 1000) // Blind attempt to remove test flakiness
       expect(await page.$('button >> text=Logout')).toBeFalsy()
@@ -65,7 +65,7 @@ function testRun(cmd: 'npm run dev' | 'npm run prod') {
         // It is important to call waitForNavigation before click to set up waiting.
         page.waitForNavigation(),
         // Does a page reload
-        page.click('button >> text=Login as Seb')
+        page.click('button >> text=Login as Seb'),
       ])
       expect(await page.$('button >> text=Logout')).toBeTruthy()
       expect(await page.$('button >> text=Create Account')).toBeFalsy()

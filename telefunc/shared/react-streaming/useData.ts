@@ -12,7 +12,7 @@ function useData<Telefunction extends (...args: any[]) => any>(
   const fnName = telefunction.name
   assertUsage(
     telefunctionKey,
-    `The function \`${fnName || 'fn'}\` passed to \`useData(${fnName ? '' : 'fn'})\` isn't a telefunction`
+    `The function \`${fnName || 'fn'}\` passed to \`useData(${fnName ? '' : 'fn'})\` isn't a telefunction`,
   )
   const asyncFn: () => ReturnType<Telefunction> = () => {
     return telefunction(...args)

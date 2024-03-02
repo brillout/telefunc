@@ -39,7 +39,7 @@ function CenterHorizontal({ children }: { children: React.ReactNode }) {
       style={{
         display: 'flex',
         alignItems: 'center',
-        flexDirection: 'column'
+        flexDirection: 'column',
       }}
     >
       {children}

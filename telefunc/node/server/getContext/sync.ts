@@ -14,7 +14,7 @@ const globalObject = getGlobalObject<{
   context: null,
   hasRestoreAccess: false,
   neverProvided: true,
-  neverRestored: true
+  neverRestored: true,
 })
 
 function getContext_sync(): Telefunc.Context {
@@ -24,13 +24,13 @@ function getContext_sync(): Telefunc.Context {
     if (globalObject.neverRestored) {
       assertUsage(
         false,
-        'Using Telefunc to fetch the initial data of your page is discouraged, see https://telefunc.com/initial-data'
+        'Using Telefunc to fetch the initial data of your page is discouraged, see https://telefunc.com/initial-data',
       )
     }
     if (globalObject.hasRestoreAccess || globalObject.neverProvided) {
       assertUsage(
         false,
-        '[getContext()] Make sure to provide a context object, see https://telefunc.com/getContext#provide'
+        '[getContext()] Make sure to provide a context object, see https://telefunc.com/getContext#provide',
       )
     } else {
       assertUsage(false, '[getContext()] Cannot access context object, see https://telefunc.com/getContext#access')

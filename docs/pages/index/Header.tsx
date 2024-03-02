@@ -12,7 +12,7 @@ function Header() {
         style={{
           display: 'flex',
           alignItems: 'center',
-          marginTop: 10
+          marginTop: 10,
         }}
       >
         <img src={iconTelefunc} />
@@ -32,7 +32,7 @@ function CenterHorizontal({ children }: { children: React.ReactNode }) {
       style={{
         display: 'flex',
         alignItems: 'center',
-        flexDirection: 'column'
+        flexDirection: 'column',
       }}
     >
       {children}

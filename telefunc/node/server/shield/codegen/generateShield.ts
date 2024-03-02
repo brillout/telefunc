@@ -10,7 +10,7 @@ import {
   assertModuleScope,
   objectAssign,
   unique,
-  assertPosixPath
+  assertPosixPath,
 } from '../../../utils'
 import fs from 'fs'
 import path from 'path'
@@ -46,21 +46,21 @@ function getProject(telefuncFilePath: string, telefuncFileCode: string, appRootD
     if (!tsConfigFilePath) {
       project = projects[key] = new Project({
         compilerOptions: {
-          strict: true
-        }
+          strict: true,
+        },
       })
     } else {
       project = projects[key] = new Project({
         tsConfigFilePath,
         // Add all project files, which is needed for picking up the Telefunc.Context value
         //  - What `Telefunc.Context` is, is explained at https://telefunc.com/getContext#typescript
-        skipAddingFilesFromTsConfig: false
+        skipAddingFilesFromTsConfig: false,
       })
 
       const compilerOptions = getCompilerOptionsFromTsConfig(tsConfigFilePath)
       assertUsage(
         compilerOptions.options.strict === true,
-        `Set \`compilerOptions.strict\` to \`true\` in ${tsConfigFilePath} (needed for shield() generation)`
+        `Set \`compilerOptions.strict\` to \`true\` in ${tsConfigFilePath} (needed for shield() generation)`,
       )
     }
 
@@ -76,18 +76,18 @@ function getProject(telefuncFilePath: string, telefuncFileCode: string, appRootD
       telefuncFilePath,
       telefuncFileCode,
       // We need `overwrite` because `telefuncFilePath` already exists on the filesystem
-      { overwrite: true }
+      { overwrite: true },
     )
   }
 
   const shieldGenFilePath = path.join(
     path.dirname(telefuncFilePath),
-    `__telefunc_shieldGen_${path.basename(telefuncFilePath)}`
+    `__telefunc_shieldGen_${path.basename(telefuncFilePath)}`,
   )
   const shieldGenSource = project.createSourceFile(shieldGenFilePath)
   shieldGenSource.addImportDeclaration({
     moduleSpecifier: getImportPath(shieldGenFilePath, typeToShieldFilePath),
-    namedImports: ['ShieldArrStr']
+    namedImports: ['ShieldArrStr'],
   })
 
   const telefuncFileSource = project.getSourceFile(telefuncFilePath)
@@ -100,7 +100,7 @@ function generate({
   project,
   telefuncFileSource,
   shieldGenSource,
-  telefuncFilePath
+  telefuncFilePath,
 }: {
   project: Project & { tsConfigFilePath: null | string }
   telefuncFileSource: SourceFile
@@ -116,7 +116,7 @@ function generate({
 
   shieldGenSource.addImportDeclaration({
     moduleSpecifier: getTelefuncFileImportPath(telefuncFilePath),
-    namedImports: telefunctionNames
+    namedImports: telefunctionNames,
   })
 
   // assign the template literal type to a string
@@ -124,7 +124,7 @@ function generate({
   for (const telefunctionName of telefunctionNames) {
     shieldGenSource.addTypeAlias({
       name: getShieldName(telefunctionName),
-      type: `ShieldArrStr<Parameters<typeof ${telefunctionName}>>`
+      type: `ShieldArrStr<Parameters<typeof ${telefunctionName}>>`,
     })
   }
 
@@ -134,18 +134,18 @@ function generate({
     namedImports: [
       {
         name: 'shield',
-        alias: shieldAlias
-      }
-    ]
+        alias: shieldAlias,
+      },
+    ],
   })
   telefuncFileSource.addVariableStatement({
     declarationKind: VariableDeclarationKind.Const,
     declarations: [
       {
         name: '__telefunc_t',
-        initializer: `${shieldAlias}.type`
-      }
-    ]
+        initializer: `${shieldAlias}.type`,
+      },
+    ],
   })
 
   // Add the dependent source files to the project
@@ -169,7 +169,7 @@ function generate({
       project,
       telefuncFilePath,
       telefunctionName,
-      failed
+      failed,
     })
 
     if (failed) continue
@@ -184,8 +184,8 @@ function generate({
 function testGenerateShield(telefuncFileCode: string): string {
   const project = new Project({
     compilerOptions: {
-      strict: true
-    }
+      strict: true,
+    },
   })
   objectAssign(project, { tsConfigFilePath: null })
 
@@ -198,14 +198,14 @@ function testGenerateShield(telefuncFileCode: string): string {
   const shieldGenSource = project.createSourceFile('shieldGen.ts')
   shieldGenSource.addImportDeclaration({
     moduleSpecifier: './typeToShield',
-    namedImports: ['ShieldArrStr']
+    namedImports: ['ShieldArrStr'],
   })
 
   return generate({
     project,
     telefuncFileSource,
     shieldGenSource,
-    telefuncFilePath
+    telefuncFilePath,
   })
 }
 
@@ -274,9 +274,9 @@ function printFailures(appRootDir: string) {
       !hasTypeScriptErrors
         ? ''
         : ' TypeScript errors (printed above) can be problematic for shield() generation. Fix your TypeScript errors and try again.',
-      ' See https://telefunc.com/shield#typescript-automatic for more information.'
+      ' See https://telefunc.com/shield#typescript-automatic for more information.',
     ].join(''),
-    { onlyOnce: true }
+    { onlyOnce: true },
   )
 }
 
@@ -287,8 +287,8 @@ function printSuccesses(appRootDir: string, logSuccessPrefix: string) {
       [
         logSuccessPrefix,
         `shield() generated for the telefunction${generatedShields.length === 1 ? '' : 's'}`,
-        formatGeneratedShields(successes, appRootDir)
-      ].join(' ')
+        formatGeneratedShields(successes, appRootDir),
+      ].join(' '),
     )
   }
 }
@@ -298,7 +298,7 @@ function formatGeneratedShields(generatedShields: GeneratedShield[], appRootDir:
     generatedShields.map(({ telefunctionName, telefuncFilePath }) => {
       telefuncFilePath = path.relative(appRootDir, telefuncFilePath)
       return `${telefunctionName}() (${telefuncFilePath})`
-    })
+    }),
   )
 }
 
@@ -363,13 +363,13 @@ function assertTelefuncFilesSource(
     telefuncFilePath,
     project,
     tsConfigFilePath,
-    appRootDir
+    appRootDir,
   }: {
     telefuncFilePath: string
     project: Project
     tsConfigFilePath: string | null
     appRootDir: string
-  }
+  },
 ): asserts telefuncFileSource is SourceFile {
   if (telefuncFileSource) {
     return
@@ -380,13 +380,13 @@ function assertTelefuncFilesSource(
   const sourceFiles: string[] = project.getSourceFiles().map(
     (sourceFile) =>
       // @ts-expect-error
-      sourceFile._compilerNode.fileName
+      sourceFile._compilerNode.fileName,
   )
   if (tsConfigFilePath) {
     const userTsFiles = sourceFiles.filter((filePath) => !filePath.includes('__telefunc_'))
     const msg1 = `The TypeScript configuration ${tsConfigFilePath} doesn't seem to include`
     const msg2 = `Make sure to configure the ${pc.cyan('include')} and ${pc.cyan('exclude')} (or ${pc.cyan(
-      'files'
+      'files',
     )}) options of that tsconfig.json` as const
     if (userTsFiles.length === 0) {
       assertUsage(
@@ -394,8 +394,8 @@ function assertTelefuncFilesSource(
         [
           //
           `${msg1} any file (i.e. it includes 0 files).`,
-          `${msg2} to match at least one file.`
-        ].join(' ')
+          `${msg2} to match at least one file.`,
+        ].join(' '),
       )
     } else {
       assertUsage(
@@ -403,8 +403,8 @@ function assertTelefuncFilesSource(
         [
           `${msg1} the ${telefuncFilePath} file.`,
           `${msg2} to match the ${telefuncFilePath} file.`,
-          `It currently matches the following files:\n${userTsFiles.map((f) => `  ${f}`).join('\n')}`
-        ].join(' ')
+          `It currently matches the following files:\n${userTsFiles.map((f) => `  ${f}`).join('\n')}`,
+        ].join(' '),
       )
     }
   } else {
@@ -418,10 +418,10 @@ function assertTelefuncFilesSource(
         telefuncFilePath,
         sourceFiles,
         tsConfigFilePath,
-        appRootDir
+        appRootDir,
       },
       null,
-      2
+      2,
     )
     assert(false, debugInfo)
   }

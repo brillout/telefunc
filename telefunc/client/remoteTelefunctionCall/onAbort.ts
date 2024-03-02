@@ -11,7 +11,7 @@ type Listener = (err: TelefunctionCallAbort) => void
 function onTelefunctionRemoteCallError(listener: (err: TelefunctionError) => void) {
   assertWarning(false, 'onTelefunctionRemoteCallError() deprecated in favor of onAbort()', {
     onlyOnce: true,
-    showStackTrace: true
+    showStackTrace: true,
   })
   onAbort(listener)
 }

@@ -20,6 +20,6 @@ function printShieldGenResult(): Plugin {
         const logIntro = `${pc.cyan(`telefunc v${projectInfo.projectVersion}`)} ${pc.green('shield() generation')}`
         logResult(config.root, logSuccessPrefix, logIntro)
       }
-    }
+    },
   }
 }

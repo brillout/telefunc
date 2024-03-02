@@ -7,7 +7,7 @@ import { TelefuncFiles, Telefunction } from '../types'
 import { getGlobalObject } from '../../utils'
 
 const g = getGlobalObject<{ telefuncFilesLoaded: null | TelefuncFiles }>('loadTelefuncFilesWithRegistration.ts', {
-  telefuncFilesLoaded: null
+  telefuncFilesLoaded: null,
 })
 
 function loadTelefuncFilesWithRegistration(): null | TelefuncFiles {
@@ -18,6 +18,6 @@ function registerTelefunction(telefunction: Telefunction, exportName: string, te
   g.telefuncFilesLoaded = g.telefuncFilesLoaded ?? {}
   g.telefuncFilesLoaded[telefuncFilePath] = {
     ...g.telefuncFilesLoaded[telefuncFilePath],
-    [exportName]: telefunction
+    [exportName]: telefunction,
   }
 }

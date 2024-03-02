@@ -4,7 +4,7 @@ import { getGlobalObject } from './getGlobalObject'
 import { assert } from './assert'
 
 const globalObject = getGlobalObject<{ loadedModules: string[] }>('./assertModuleScope.ts', {
-  loadedModules: []
+  loadedModules: [],
 })
 
 /** Ensure that the module's variable scope is unique (i.e. not duplicated). Which is equivalent to ensure that the module was loaded only once.

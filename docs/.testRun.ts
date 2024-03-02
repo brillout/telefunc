@@ -30,13 +30,13 @@ function testRun(cmd: 'pnpm run dev' | 'pnpm run preview') {
           body: getWidths(document.body),
           page: getWidths(document.querySelector('#page-view')),
           left: getWidths(document.querySelector('#navigation-wrapper')),
-          right: getWidths(document.querySelector('#page-wrapper'))
+          right: getWidths(document.querySelector('#page-wrapper')),
         }
         function getWidths(elem: Element | null): Widths {
           if (!elem) throw new Error('Elem missing')
           return {
             clientWidth: elem.clientWidth,
-            scrollWidth: elem.scrollWidth
+            scrollWidth: elem.scrollWidth,
           }
         }
       })

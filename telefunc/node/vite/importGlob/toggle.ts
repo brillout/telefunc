@@ -18,7 +18,7 @@ function importGlobOn() {
     [
       `export const telefuncFilesGlob = ${importGlob};`,
       // 'console.log("`.telefunc.js` files", Object.keys(telefuncFilesGlob))',
-      ''
-    ].join('\n')
+      '',
+    ].join('\n'),
   )
 }

@@ -6,7 +6,7 @@ export default {
   plugins: [react(), vike(), telefunc()],
   resolve: {
     alias: {
-      '#app': __dirname
-    }
-  }
+      '#app': __dirname,
+    },
+  },
 }

@@ -10,7 +10,7 @@ function decorateTelefunction(
   exportName: string,
   telefuncFilePath: string,
   appRootDir: string,
-  skipRegistration: boolean
+  skipRegistration: boolean,
 ) {
   assertTelefunction(telefunction, exportName, telefuncFilePath)
 
@@ -18,7 +18,7 @@ function decorateTelefunction(
     const telefunctionKey = getTelefunctionKey(telefuncFilePath, exportName)
     Object.assign(telefunction, {
       _key: telefunctionKey,
-      _appRootDir: appRootDir
+      _appRootDir: appRootDir,
     })
   }
 

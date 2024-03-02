@@ -54,9 +54,9 @@ function assertProd() {
     assertWarning(
       false,
       `This seems to be a production environment yet process.env.NODE_ENV is ${JSON.stringify(
-        env
+        env,
       )}. Set it to a different value such as "production" or "staging".`,
-      { onlyOnce: true }
+      { onlyOnce: true },
     )
   }
 }
@@ -80,8 +80,8 @@ async function loadGlobFiles(telefuncFilesGlob: GlobFiles, runContext: { telefun
           assert(isTelefuncFilePath(runContext.telefuncFilePath))
           return telefuncFilePath === runContext.telefuncFilePath
         })
-        .map(async ([telefuncFilePath, loadModuleExports]) => [telefuncFilePath, await loadModuleExports()])
-    )
+        .map(async ([telefuncFilePath, loadModuleExports]) => [telefuncFilePath, await loadModuleExports()]),
+    ),
   )
   assert(Object.keys(telefuncFilesLoaded).length <= 1)
   return { telefuncFilesAll, telefuncFilesLoaded }

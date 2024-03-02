@@ -38,16 +38,16 @@ async function getTestJobs() {
       jobName: 'Unit Tests',
       jobCmd: 'pnpm run test:units',
       jobTestFiles: specFiles,
-      jobSetups: [{ os: 'ubuntu-latest', node_version: '18' }]
+      jobSetups: [{ os: 'ubuntu-latest', node_version: '18' }],
     },
     // Typecheck `.ts` files
     {
       jobName: 'TypeScript',
       jobCmd: 'pnpm run test:types',
-      jobSetups: [{ os: 'ubuntu-latest', node_version: '18' }]
+      jobSetups: [{ os: 'ubuntu-latest', node_version: '18' }],
     },
     // E2e tests
-    ...(await crawlE2eJobs(testFiles))
+    ...(await crawlE2eJobs(testFiles)),
   ]
 
   assertTestFilesCoverage(testFiles, jobs)
@@ -91,7 +91,7 @@ async function crawlE2eJobs(testFiles) {
         assert(typeof node_version === 'string')
         jobSetups.push({
           os,
-          node_version
+          node_version,
         })
       })
 
@@ -99,7 +99,7 @@ async function crawlE2eJobs(testFiles) {
         jobName,
         jobTestFiles: [],
         jobSetups,
-        jobCmd: 'pnpm run test:e2e'
+        jobCmd: 'pnpm run test:e2e',
       })
     })
   }
@@ -121,7 +121,7 @@ async function crawlE2eJobs(testFiles) {
     const jobTestFiles = testFiles.filter((f) => f.startsWith(dir))
     assert(
       jobTestFiles.length > 0,
-      `No test files found in \`${dir}\` (for \`${testJobFile}\`). Test files: \n${JSON.stringify(testFiles, null, 2)}`
+      `No test files found in \`${dir}\` (for \`${testJobFile}\`). Test files: \n${JSON.stringify(testFiles, null, 2)}`,
     )
 
     const job = jobs.find((job) => job.jobName == jobName)
@@ -146,7 +146,7 @@ async function crawlE2eJobs(testFiles) {
             jobName: 'E2E Tests',
             jobCmd: 'pnpm run test:e2e',
             jobTestFiles: [],
-            jobSetups: [{ os: 'ubuntu-latest', node_version: '18' }]
+            jobSetups: [{ os: 'ubuntu-latest', node_version: '18' }],
           }
           jobs.push(job)
         }
@@ -194,7 +194,7 @@ async function getMatrix() {
         jobName: jobName + getSetupName(setup),
         TEST_FILES: (jobTestFiles ?? []).join(' '),
         TEST_INSPECT,
-        ...setup
+        ...setup,
       })
     })
   })
@@ -208,11 +208,11 @@ function assertTestFilesCoverage(testFiles, jobs) {
     const jobsFound = jobs.filter((job) => job.jobTestFiles?.includes(testFile))
     assert(
       jobsFound.length > 0,
-      `Test file ${testFile} isn't included in any job. Jobs: \n${JSON.stringify(jobs, null, 2)}`
+      `Test file ${testFile} isn't included in any job. Jobs: \n${JSON.stringify(jobs, null, 2)}`,
     )
     assert(
       jobsFound.length <= 1,
-      `Test ${testFile} is multiple categories: ${jobsFound.map((j) => '`' + j.jobName + '`').join(' ')}.`
+      `Test ${testFile} is multiple categories: ${jobsFound.map((j) => '`' + j.jobName + '`').join(' ')}.`,
     )
   })
 }
@@ -254,7 +254,7 @@ function getInspectFile() {
   }
   assert(
     inspectFiles.length === 1,
-    'There cannot be only one `focus` file but found multiple: ' + inspectFiles.join(' ')
+    'There cannot be only one `focus` file but found multiple: ' + inspectFiles.join(' '),
   )
   return inspectFiles[0]
 }

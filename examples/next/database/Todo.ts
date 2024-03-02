@@ -3,7 +3,7 @@ export type { TodoItem }
 
 const Todo = {
   findMany,
-  createNew
+  createNew,
 }
 
 type TodoItem = {
@@ -14,8 +14,8 @@ type TodoItem = {
 const database = (global.database = global.database || {
   todoItems: [
     { text: 'Buy milk', authorId: 0 },
-    { text: 'Buy strawberries', authorId: 0 }
-  ]
+    { text: 'Buy strawberries', authorId: 0 },
+  ],
 })
 
 function findMany({ authorId }: { authorId: number }) {

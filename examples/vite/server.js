@@ -27,7 +27,7 @@ async function installFrontend(app) {
     const vite = await import('vite')
     const viteDevMiddleware = (
       await vite.createServer({
-        server: { middlewareMode: true }
+        server: { middlewareMode: true },
       })
     ).middlewares
     app.use(viteDevMiddleware)

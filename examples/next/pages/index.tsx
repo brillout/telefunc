@@ -28,7 +28,7 @@ const getServerSideProps: GetServerSideProps<Props> = async (context) => {
   return {
     props: {
       user,
-      todoItemsInitial: todoItems
-    }
+      todoItemsInitial: todoItems,
+    },
   }
 }

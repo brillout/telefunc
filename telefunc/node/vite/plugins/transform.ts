@@ -35,11 +35,11 @@ function transform(): Plugin {
         return {
           code,
           // Pass through source map https://rollupjs.org/plugin-development/#source-code-transformations
-          map: null
+          map: null,
         }
       } else {
         return code
       }
-    }
+    },
   }
 }

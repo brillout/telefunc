@@ -4,7 +4,7 @@ export { testRun }
 
 function testRun(
   cmd: 'npm run dev' | 'npm run preview' | 'npm run start' | 'npm run prod',
-  { skipShieldGenerationTest, doNotFailOnWarning }: { skipShieldGenerationTest?: true; doNotFailOnWarning?: true } = {}
+  { skipShieldGenerationTest, doNotFailOnWarning }: { skipShieldGenerationTest?: true; doNotFailOnWarning?: true } = {},
 ) {
   run(cmd, { doNotFailOnWarning })
 
@@ -54,8 +54,8 @@ async function makeTelefuncHttpRequest(name: string | number) {
     body: JSON.stringify({
       file: '/hello.telefunc.ts',
       name: 'hello',
-      args: [{ name }]
-    })
+      args: [{ name }],
+    }),
   })
   return resp
 }

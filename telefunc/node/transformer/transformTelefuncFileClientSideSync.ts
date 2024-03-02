@@ -6,7 +6,7 @@ import { assert, assertPosixPath, assertUsage, getTelefunctionKey } from '../uti
 function transformTelefuncFileClientSideSync(
   id: string,
   appRootDir: string,
-  exportNames: readonly string[] | string[]
+  exportNames: readonly string[] | string[],
 ) {
   assertPosixPath(id)
   assertPosixPath(appRootDir)
@@ -15,7 +15,7 @@ function transformTelefuncFileClientSideSync(
   assertPosixPath(telefuncFilePath)
   assertUsage(
     !telefuncFilePath.startsWith('../'),
-    `The telefunc file ${telefuncFilePath} needs to live inside ${appRootDir} (the client-side root directory, i.e. the root directory of Vite/Vike/Next.js/Nuxt/...)`
+    `The telefunc file ${telefuncFilePath} needs to live inside ${appRootDir} (the client-side root directory, i.e. the root directory of Vite/Vike/Next.js/Nuxt/...)`,
   )
   assert(!telefuncFilePath.startsWith('/') && !telefuncFilePath.startsWith('.'))
   telefuncFilePath = `/${telefuncFilePath}`
@@ -35,7 +35,7 @@ export function getCode(exportNames: readonly string[], telefuncFilePath: string
     const varName = exportName === 'default' ? 'defaultExport' : exportName
 
     lines.push(
-      `const ${varName} =  (...args) => __remoteTelefunctionCall('${telefuncFilePath}', '${exportName}', args);`
+      `const ${varName} =  (...args) => __remoteTelefunctionCall('${telefuncFilePath}', '${exportName}', args);`,
     )
 
     {

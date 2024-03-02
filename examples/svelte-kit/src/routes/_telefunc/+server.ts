@@ -8,12 +8,12 @@ const GET: RequestHandler = async (event) => {
     body: await event.request.text(),
     context: {
       // We pass the `context` object here, see https://telefunc.com/getContext
-      someContext: 'hello'
-    }
+      someContext: 'hello',
+    },
   })
   return new Response(response.body, {
     headers: new Headers({ contentType: response.contentType }),
-    status: response.statusCode
+    status: response.statusCode,
   })
 }
 

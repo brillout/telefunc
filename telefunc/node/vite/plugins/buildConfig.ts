@@ -12,7 +12,7 @@ function buildConfig(): Plugin {
     configResolved(config_) {
       config = config_
       setOutDir(config)
-    }
+    },
   }
 }
 function setOutDir(config: ResolvedConfig) {

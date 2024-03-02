@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 let nextConfig = {
-  reactStrictMode: true
+  reactStrictMode: true,
 }
 
 // Telefunc

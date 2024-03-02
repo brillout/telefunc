@@ -6,7 +6,7 @@ function commonConfig(): Plugin {
   return {
     name: 'telefunc:commonConfig',
     config: () => ({
-      ssr: { external: ['telefunc'] }
-    })
+      ssr: { external: ['telefunc'] },
+    }),
   }
 }

@@ -3,6 +3,6 @@ module.exports = function (api) {
   api.cache(true)
   return {
     plugins: ['telefunc/babel'],
-    presets: ['babel-preset-expo']
+    presets: ['babel-preset-expo'],
   }
 }

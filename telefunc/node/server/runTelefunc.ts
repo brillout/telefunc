@@ -39,7 +39,7 @@ const serverError = {
   statusCode: 500 as const, // "Internal Server Error"
   body: 'Internal Server Error',
   contentType: 'text/plain' as const,
-  etag: null
+  etag: null,
 }
 
 // HTTP Response for:
@@ -49,7 +49,7 @@ const invalidRequest = {
   statusCode: 400 as const, // "Bad Request"
   body: 'Invalid Telefunc Request',
   contentType: 'text/plain' as const,
-  etag: null
+  etag: null,
 }
 
 async function runTelefunc(runContext: Parameters<typeof runTelefunc_>[0]): Promise<HttpResponse> {
@@ -60,7 +60,7 @@ async function runTelefunc(runContext: Parameters<typeof runTelefunc_>[0]): Prom
     handleError(err)
     return {
       err,
-      ...serverError
+      ...serverError,
     }
   }
 }
@@ -79,10 +79,10 @@ async function runTelefunc_(httpRequest: {
       httpRequest,
       serverConfig: {
         disableNamingConvention: serverConfig.disableNamingConvention,
-        telefuncUrl: serverConfig.telefuncUrl
+        telefuncUrl: serverConfig.telefuncUrl,
       },
       appRootDir: serverConfig.root,
-      telefuncFilesManuallyProvidedByUser: serverConfig.telefuncFiles
+      telefuncFilesManuallyProvidedByUser: serverConfig.telefuncFiles,
     })
   }
 
@@ -92,7 +92,7 @@ async function runTelefunc_(httpRequest: {
   }
 
   objectAssign(runContext, {
-    providedContext: httpRequest.context || null
+    providedContext: httpRequest.context || null,
   })
   {
     const parsed = parseHttpRequest(runContext)
@@ -104,7 +104,7 @@ async function runTelefunc_(httpRequest: {
       telefunctionKey,
       telefunctionArgs,
       telefuncFilePath,
-      telefunctionName
+      telefunctionName,
     })
   }
 
@@ -128,14 +128,14 @@ async function runTelefunc_(httpRequest: {
     if (!isValidRequest) {
       objectAssign(runContext, {
         telefunctionAborted: true,
-        telefunctionReturn: undefined
+        telefunctionReturn: undefined,
       })
       const httpResponseBody = serializeTelefunctionResult(runContext)
       return {
         statusCode: abortedRequestStatusCode,
         body: httpResponseBody,
         contentType: 'text/plain' as const,
-        etag: null
+        etag: null,
       }
     }
   }
@@ -148,7 +148,7 @@ async function runTelefunc_(httpRequest: {
       telefunctionReturn,
       telefunctionHasErrored,
       telefunctionAborted,
-      telefunctionError
+      telefunctionError,
     })
   }
 
@@ -171,6 +171,6 @@ async function runTelefunc_(httpRequest: {
     body: runContext.httpResponseBody,
     contentType: 'text/plain',
     // etag: runContext.httpResponseEtag,
-    etag: null
+    etag: null,
   }
 }

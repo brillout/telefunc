@@ -4,7 +4,7 @@ import React from 'react'
 
 function MostlyMutations({
   toolName,
-  builtInMechanism
+  builtInMechanism,
 }: {
   toolName: JSX.Element | string
   builtInMechanism?: string

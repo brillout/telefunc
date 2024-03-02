@@ -18,7 +18,7 @@ function applyShield(runContext: {
     assertWarning(
       hasShield || telefunction.length === 0,
       `The telefunction ${runContext.telefunctionName}() (${runContext.telefuncFilePath}) accepts arguments yet is missing shield(), see https://telefunc.com/shield`,
-      { onlyOnce: true }
+      { onlyOnce: true },
     )
   }
   if (!hasShield) {
@@ -35,8 +35,8 @@ function applyShield(runContext: {
       [
         `The arguments passed to the telefunction ${runContext.telefunctionName}() (${runContext.telefuncFilePath}) have the wrong type.`,
         `Arguments: \`${JSON.stringify(runContext.telefunctionArgs)}\`.`,
-        `Wrong type: ${applyResult}`
-      ].join(' ')
+        `Wrong type: ${applyResult}`,
+      ].join(' '),
     )
     console.error(err)
   }

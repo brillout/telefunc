@@ -22,7 +22,7 @@ const globalObject = getGlobalObject<{
   getContext: getContext_sync,
   restoreContext: restoreContext_sync,
   provideTelefuncContext: provideTelefuncContext_sync,
-  isAsyncMode: false
+  isAsyncMode: false,
 })
 
 function getContext<Context extends object = Telefunc.Context>(): Context {
@@ -47,7 +47,7 @@ function restoreContext(context: null | Telefunc.Context): void {
 function installAsyncMode({
   getContext_async,
   provideTelefuncContext_async,
-  restoreContext_async
+  restoreContext_async,
 }: {
   getContext_async: GetContext
   provideTelefuncContext_async: ProvideTelefuncContext

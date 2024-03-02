@@ -26,7 +26,7 @@ const configUser: ConfigUser = new Proxy({}, { set: validateUserConfig })
 function resolveClientConfig(): ConfigResolved {
   return {
     httpHeaders: configUser.httpHeaders ?? null,
-    telefuncUrl: configUser.telefuncUrl || '/_telefunc'
+    telefuncUrl: configUser.telefuncUrl || '/_telefunc',
   }
 }
 
@@ -36,13 +36,13 @@ function validateUserConfig(configUserUnwrapped: ConfigUser, prop: string, val: 
     const isIpAddress = (value: string) => /^\d/.test(value)
     assertUsage(
       val.startsWith('/') || val.startsWith('http') || isIpAddress(val),
-      `config.telefuncUrl (client-side) is '${val}' but it should be one of the following: a URL pathname (such as '/_telefunc'), a URL with origin (such as 'https://example.org/_telefunc'), or an IP address (such as '192.158.1.38') — see https://telefunc.com/telefuncUrl`
+      `config.telefuncUrl (client-side) is '${val}' but it should be one of the following: a URL pathname (such as '/_telefunc'), a URL with origin (such as 'https://example.org/_telefunc'), or an IP address (such as '192.158.1.38') — see https://telefunc.com/telefuncUrl`,
     )
     configUserUnwrapped[prop] = val
   } else if (prop === 'httpHeaders') {
     assertUsage(
       typeof val === 'object' && val !== null && Object.values(val).every((v) => typeof v === 'string'),
-      '`config.httpHeaders` should be an object of strings'
+      '`config.httpHeaders` should be an object of strings',
     )
     configUserUnwrapped[prop] = val as Record<string, string>
   } else {

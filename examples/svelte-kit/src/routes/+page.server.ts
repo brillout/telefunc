@@ -7,6 +7,6 @@ export { load }
 const load: import('./$types').PageServerLoad = async () => {
   const { value } = database
   return {
-    value
+    value,
   }
 }

@@ -10,7 +10,7 @@ const onNewTodo = shield([{ title: t.string, content: t.string }], async ({ titl
     data: {
       title,
       content,
-      completed: false
-    }
+      completed: false,
+    },
   })
 })

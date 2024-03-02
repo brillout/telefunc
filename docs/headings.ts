@@ -5,213 +5,213 @@ export { headingsDetached }
 const headingsDetached: HeadingDetachedDefinition[] = [
   {
     title: '`Abort()` vs `new Error()`',
-    url: '/abort-vs-error'
+    url: '/abort-vs-error',
   },
   {
     title: 'RPC',
-    url: '/RPC'
+    url: '/RPC',
   },
   {
     title: 'Telefunc Transformer',
-    url: '/transformer'
+    url: '/transformer',
   },
   {
     title: 'RPC vs GraphQL/REST',
-    url: '/RPC-vs-GraphQL-REST'
+    url: '/RPC-vs-GraphQL-REST',
   },
   {
     title: 'Initial Page Data',
-    url: '/initial-page-data'
+    url: '/initial-page-data',
   },
   {
     title: 'Initial Data',
-    url: '/initial-data'
-  }
+    url: '/initial-data',
+  },
 ]
 
 export const headings: HeadingDefinition[] = [
   {
     level: 1,
     title: 'Overview',
-    titleEmoji: 'compass'
+    titleEmoji: 'compass',
   },
   {
     level: 2,
     title: 'Introduction',
     titleDocument: 'Telefunc',
-    url: '/'
+    url: '/',
   },
   {
     level: 1,
     title: 'Get started',
-    titleEmoji: 'seedling'
+    titleEmoji: 'seedling',
   },
   {
     level: 2,
     title: 'Next.js',
-    url: '/next'
+    url: '/next',
   },
   {
     level: 2,
     title: 'SvelteKit',
-    url: '/svelte-kit'
+    url: '/svelte-kit',
   },
   {
     level: 2,
     title: 'Vite',
-    url: '/vite'
+    url: '/vite',
   },
   {
     level: 2,
     title: 'Vike',
-    url: '/vike'
+    url: '/vike',
   },
   {
     level: 2,
     title: 'Nuxt',
-    url: '/nuxt'
+    url: '/nuxt',
   },
   {
     level: 2,
     title: 'React Native',
-    url: '/react-native'
+    url: '/react-native',
   },
   {
     level: 2,
     title: 'Other installations',
     titleInNav: 'Other',
-    url: '/install'
+    url: '/install',
   },
   {
     level: 1,
     title: 'Guides',
-    titleEmoji: 'books'
+    titleEmoji: 'books',
   },
   {
     level: 2,
     title: 'Permissions',
     url: '/permissions',
-    sectionTitles: ['`getContext()` wrapping']
+    sectionTitles: ['`getContext()` wrapping'],
   },
   {
     level: 2,
     title: 'Error handling',
-    url: '/error-handling'
+    url: '/error-handling',
   },
   {
     level: 2,
     title: 'Form validation',
     url: '/form-validation',
-    sectionTitles: ['`throw Abort(someValue)`']
+    sectionTitles: ['`throw Abort(someValue)`'],
   },
   {
     level: 2,
     title: 'Event-based telefunctions',
-    url: '/event-based'
+    url: '/event-based',
   },
   {
     level: 2,
     title: 'File upload',
-    url: '/file-upload'
+    url: '/file-upload',
   },
   {
     level: 1,
     title: 'API',
-    titleEmoji: 'gear'
+    titleEmoji: 'gear',
   },
   {
     level: 4,
-    title: 'Context'
+    title: 'Context',
   },
   {
     level: 2,
     title: '`getContext()`',
-    url: '/getContext'
+    url: '/getContext',
   },
   {
     level: 4,
-    title: 'Protection'
+    title: 'Protection',
   },
   {
     level: 2,
     title: '`throw Abort()`',
-    url: '/Abort'
+    url: '/Abort',
   },
   {
     level: 2,
     title: '`shield()`',
     url: '/shield',
-    sectionTitles: ['TypeScript - Automatic', 'TypeScript - Manual']
+    sectionTitles: ['TypeScript - Automatic', 'TypeScript - Manual'],
   },
   {
     level: 4,
-    title: 'Server Middleware'
+    title: 'Server Middleware',
   },
   {
     level: 2,
     title: '`telefunc()',
-    url: '/telefunc'
+    url: '/telefunc',
   },
   {
     level: 4,
-    title: 'Error Handling'
+    title: 'Error Handling',
   },
   {
     level: 2,
     title: '`onBug()`',
-    url: '/onBug'
+    url: '/onBug',
   },
   {
     level: 2,
     title: '`onAbort()`',
-    url: '/onAbort'
+    url: '/onAbort',
   },
   {
     level: 4,
-    title: 'Config'
+    title: 'Config',
   },
   {
     level: 2,
     title: '`telefuncUrl`',
-    url: '/telefuncUrl'
+    url: '/telefuncUrl',
   },
   {
     level: 2,
     title: '`disableNamingConvention`',
-    url: '/disableNamingConvention'
+    url: '/disableNamingConvention',
   },
   {
     level: 2,
     title: '`httpHeaders',
-    url: '/httpHeaders'
+    url: '/httpHeaders',
   },
   {
     level: 2,
     title: '`telefuncFiles',
-    url: '/telefuncFiles'
+    url: '/telefuncFiles',
   },
   {
     level: 2,
     title: '`root`',
-    url: '/root'
+    url: '/root',
   },
   {
     level: 4,
-    title: 'Plugins'
+    title: 'Plugins',
   },
   {
     level: 2,
     title: 'Vite Plugin',
-    url: '/vite-plugin'
+    url: '/vite-plugin',
   },
   {
     level: 2,
     title: 'Webpack Plugin',
-    url: '/webpack-plugin'
+    url: '/webpack-plugin',
   },
   {
     level: 2,
     title: 'Babel Plugin',
-    url: '/babel-plugin'
-  }
+    url: '/babel-plugin',
+  },
 ]

@@ -51,7 +51,7 @@ function getServerConfig(): ConfigResolved {
       }
       if (typeof process == 'undefined' || !hasProp(process, 'cwd')) return null
       return toPosixPath(process.cwd())
-    })()
+    })(),
   }
 }
 
@@ -64,7 +64,7 @@ function validateUserConfig(configUserUnwrapped: ConfigUser, prop: string, val: 
     assertUsage(typeof val === 'string', 'config.telefuncUrl should be a string')
     assertUsage(
       val.startsWith('/'),
-      `config.telefuncUrl (server-side) is '${val}' but it should start with '/' (it should be a URL pathname such as '/_telefunc'), see https://telefunc.com/telefuncUrl`
+      `config.telefuncUrl (server-side) is '${val}' but it should start with '/' (it should be a URL pathname such as '/_telefunc'), see https://telefunc.com/telefuncUrl`,
     )
     configUserUnwrapped[prop] = val
   } else if (prop === 'telefuncFiles') {

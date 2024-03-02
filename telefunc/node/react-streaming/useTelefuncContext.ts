@@ -10,7 +10,7 @@ const TelefuncReactContext = createContext<null | Telefunc.Context>(null)
 function TelefuncSSR({ context, children }: { context?: Telefunc.Context; children: ReactNode }) {
   assertUsage(
     context === undefined || isObject(context),
-    '[<TelefuncSSR context={context}/>] context should be an object'
+    '[<TelefuncSSR context={context}/>] context should be an object',
   )
   const { Provider } = TelefuncReactContext
   return createElement(Provider, { value: context ?? null, children })

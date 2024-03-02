@@ -22,7 +22,7 @@ function assertServerSide() {
     !isBrowser,
     [
       'You are loading the `telefunc` module in the browser, but',
-      'the `telefunc` module can only be imported in Node.js.'
-    ].join(' ')
+      'the `telefunc` module can only be imported in Node.js.',
+    ].join(' '),
   )
 }

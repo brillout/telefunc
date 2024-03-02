@@ -21,6 +21,6 @@ function previewConfig(): Plugin {
         ;(process.env as Record<string, string>).NODE_ENV = 'production'
         addTelefuncMiddleware(server.middlewares)
       }
-    }
+    },
   }
 }

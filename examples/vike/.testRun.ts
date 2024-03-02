@@ -8,7 +8,7 @@ import {
   fetchHtml,
   isWindows,
   isMac,
-  sleep
+  sleep,
 } from '@brillout/test-e2e'
 
 export { testRun }

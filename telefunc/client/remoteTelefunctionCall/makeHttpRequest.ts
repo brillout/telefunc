@@ -25,8 +25,8 @@ async function makeHttpRequest(callContext: {
       credentials: 'same-origin',
       headers: {
         ...callContext.httpHeaders,
-        'Content-Type': 'text/plain'
-      }
+        'Content-Type': 'text/plain',
+      },
     })
   } catch (_) {
     const telefunctionCallError = new Error('No Server Connection')
@@ -44,7 +44,7 @@ async function makeHttpRequest(callContext: {
     const { ret } = await parseResponseBody(response, callContext)
     const abortValue = ret
     const telefunctionCallError = new Error(
-      `Aborted telefunction call ${callContext.telefunctionName}() (${callContext.telefuncFilePath}).`
+      `Aborted telefunction call ${callContext.telefunctionName}() (${callContext.telefuncFilePath}).`,
     )
     objectAssign(telefunctionCallError, { isAbort: true as const, abortValue })
     callOnAbortListeners(telefunctionCallError)
@@ -57,8 +57,8 @@ async function makeHttpRequest(callContext: {
       installErr({
         reason: 'an HTTP response body that Telefunc never generates',
         method,
-        callContext
-      })
+        callContext,
+      }),
     )
     throw new Error(errMsg)
   } else if (statusCode === STATUS_CODE_INVALID) {
@@ -68,8 +68,8 @@ async function makeHttpRequest(callContext: {
       installErr({
         reason: 'an HTTP response body that Telefunc never generates',
         method,
-        callContext
-      })
+        callContext,
+      }),
     )
     /* With Next.js 12: when renaming a `.telefunc.js` file the client makes a request with the new `.telefunc.js` name while the server is still serving the old `.telefunc.js` name. Seems like a race condition: trying again seems to fix the error.
     // This should never happen as the Telefunc Client shouldn't make invalid requests
@@ -83,16 +83,16 @@ async function makeHttpRequest(callContext: {
         reason: 'a 404 HTTP response',
         method,
         isNotInstalled: true,
-        callContext
-      })
+        callContext,
+      }),
     )
     assertUsage(
       false,
       installErr({
         reason: `a status code \`${statusCode}\` which Telefunc never uses`,
         method,
-        callContext
-      })
+        callContext,
+      }),
     )
   }
 }
@@ -105,8 +105,8 @@ async function parseResponseBody(response: Response, callContext: { telefuncUrl:
     installErr({
       reason: 'an HTTP response body that Telefunc never generates',
       method,
-      callContext
-    })
+      callContext,
+    }),
   )
   assert(response.status !== STATUS_CODE_ABORT || 'abort' in responseBodyParsed)
   const { ret } = responseBodyParsed
@@ -117,7 +117,7 @@ function installErr({
   reason,
   callContext,
   method,
-  isNotInstalled
+  isNotInstalled,
 }: {
   reason?: string
   isNotInstalled?: true
