@@ -23,6 +23,9 @@ importers:
       '@brillout/test-types':
         specifier: ^0.1.10
         version: 0.1.10(typescript@4.9.5)
+      prettier:
+        specifier: ^2.8.7
+        version: 2.8.7
       vitest:
         specifier: ^0.32.2
         version: 0.32.2
