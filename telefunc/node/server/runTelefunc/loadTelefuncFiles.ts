@@ -1,7 +1,7 @@
 export { loadTelefuncFiles }
 
 import type { TelefuncFiles } from '../types'
-import { assertUsage, assert, hasProp, isWebpack, isVitePluginSsr } from '../../utils'
+import { assertUsage, assert, hasProp, isWebpack, isVikeApp } from '../../utils'
 import { loadTelefuncFilesWithVite } from '../../vite/loadTelefuncFilesWithVite'
 import { loadTelefuncFilesWithRegistration } from './loadTelefuncFilesWithRegistration'
 import { loadTelefuncFilesFromConfig } from './loadTelefuncFilesFromConfig'
@@ -37,7 +37,7 @@ async function loadTelefuncFiles(runContext: {
 
   // Handles:
   // - Vite
-  if (!isWebpack() || isVitePluginSsr()) {
+  if (!isWebpack() || isVikeApp()) {
     const { telefuncFilesLoaded, viteProvider, telefuncFilesAll } = await loadTelefuncFilesWithVite(runContext)
     assertUsage(Object.keys(telefuncFilesAll).length > 0, getNothingFoundErr(`Vite [\`${viteProvider}\`]`))
     return { telefuncFilesLoaded, telefuncFilesAll }
