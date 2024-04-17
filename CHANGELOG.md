@@ -1,3 +1,14 @@
+## [0.1.72](https://github.com/brillout/telefunc/compare/v0.1.71...v0.1.72) (2024-04-17)
+
+
+### Bug Fixes
+
+* improve error message upon wrong tsconfig.json configuration (fix [#100](https://github.com/brillout/telefunc/issues/100)) ([18ec0ce](https://github.com/brillout/telefunc/commit/18ec0ced9e09ae6fd5a2fa9e6806be0a1638e017))
+* let user decide stack trace size ([5b299a8](https://github.com/brillout/telefunc/commit/5b299a86abb737589a116c4b907e2cd8e309d6ba))
+* update @brillout/vite-plugin-server-entry ([4581bfa](https://github.com/brillout/telefunc/commit/4581bfa1842d19946508b293778c8323adaa87ab))
+
+
+
 ## [0.1.71](https://github.com/brillout/telefunc/compare/v0.1.70...v0.1.71) (2024-02-07)
 
 
