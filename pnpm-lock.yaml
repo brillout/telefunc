@@ -413,8 +413,8 @@ importers:
         specifier: ^1.5.3
         version: 1.5.3
       '@brillout/release-me':
-        specifier: ^0.1.14
-        version: 0.1.14
+        specifier: ^0.2.2
+        version: 0.2.2
       '@nuxt/types':
         specifier: ^2.15.8
         version: 2.15.8(webpack@4.46.0)
@@ -3118,8 +3118,8 @@ packages:
       '@brillout/assert': 0.1.7
     dev: false
 
-  /@brillout/release-me@0.1.14:
-    resolution: {integrity: sha512-9EmAC+Oe7799CFu01OXHS/vTIpGQ1hfIDr/f8WbvOVnJ3XMmyqcP1u8aGxVrKjgbu69u+16vlx8KT9TUsvm6zw==}
+  /@brillout/release-me@0.2.2:
+    resolution: {integrity: sha512-x6ZQPhAyOdtiF2Pfl4vixrU/C6VlmC4GYzoBcGg/9RCJ2mCY80SMLlNk3l3X/B0lDGnnaJ8+zCY4AiDopD9B1w==}
     hasBin: true
     dependencies:
       commander: 11.1.0
@@ -4551,7 +4551,7 @@ packages:
     deprecated: this version had an improper engines field added, update to 1.1.1
     dependencies:
       '@gar/promisify': 1.1.2
-      semver: 7.3.8
+      semver: 7.6.0
 
   /@npmcli/git@2.1.0:
     resolution: {integrity: sha512-/hBFX/QG1b+N7PZBFs0bi+evgRZcK9nWBxQKZkGoXUT5hJSwl5c4d7y8/hm+NQZRPhQ67RzFaj5UM9YeyKoryw==}
@@ -4562,7 +4562,7 @@ packages:
       npm-pick-manifest: 6.1.1
       promise-inflight: 1.0.1(bluebird@3.7.2)
       promise-retry: 2.0.1
-      semver: 7.3.8
+      semver: 7.6.0
       which: 2.0.2
     transitivePeerDependencies:
       - bluebird
@@ -4732,7 +4732,7 @@ packages:
       minimist: 1.2.7
       opener: 1.5.2
       pretty-bytes: 5.6.0
-      semver: 7.3.8
+      semver: 7.6.0
       serve-static: 1.15.0
       std-env: 2.3.1
       upath: 2.0.1
@@ -4752,7 +4752,7 @@ packages:
       glob: 7.2.0
       globby: 11.1.0
       scule: 0.2.1
-      semver: 7.3.8
+      semver: 7.6.0
       upath: 2.0.1
       vue-template-compiler: 2.6.14
     dev: false
@@ -4932,7 +4932,7 @@ packages:
       jiti: 1.12.15
       lodash: 4.17.21
       proper-lockfile: 4.1.2
-      semver: 7.3.8
+      semver: 7.6.0
       serialize-javascript: 5.0.1
       signal-exit: 3.0.7
       ua-parser-js: 0.7.31
@@ -5003,7 +5003,7 @@ packages:
       postcss-loader: 3.0.0
       postcss-preset-env: 6.7.0
       postcss-url: 8.0.0
-      semver: 7.3.8
+      semver: 7.6.0
       std-env: 2.3.1
       style-resources-loader: 1.5.0(webpack@4.46.0)
       terser-webpack-plugin: 4.2.3(webpack@4.46.0)
@@ -6035,7 +6035,7 @@ packages:
       debug: 4.3.4
       globby: 11.1.0
       is-glob: 4.0.3
-      semver: 7.3.8
+      semver: 7.6.0
       tsutils: 3.21.0(typescript@5.1.6)
       typescript: 5.1.6
     transitivePeerDependencies:
@@ -7237,7 +7237,7 @@ packages:
   /builtins@4.0.0:
     resolution: {integrity: sha512-qC0E2Dxgou1IHhvJSLwGDSTvokbRovU5zZFuDY6oY8Y2lF3nGt5Ad8YZK7GMtqzY84Wu7pXTPeHQeHcXSXsRhw==}
     dependencies:
-      semver: 7.3.8
+      semver: 7.6.0
     dev: false
 
   /busboy@0.3.1:
@@ -7782,7 +7782,7 @@ packages:
       js-string-escape: 1.0.1
       lodash: 4.17.21
       md5-hex: 3.0.1
-      semver: 7.3.8
+      semver: 7.6.0
       well-known-symbols: 2.0.0
     dev: true
 
@@ -8328,7 +8328,7 @@ packages:
       postcss-modules-values: 3.0.0
       postcss-value-parser: 4.2.0
       schema-utils: 2.7.1
-      semver: 7.3.8
+      semver: 7.6.0
       webpack: 4.46.0
     dev: false
 
@@ -11610,12 +11610,6 @@ packages:
       rgba-regex: 1.0.0
     dev: false
 
-  /is-core-module@2.10.0:
-    resolution: {integrity: sha512-Erxj2n/LDAZ7H8WNJXd9tw38GYM3dv8rk8Zcs+jJuxYTW7sozH+SS8NtrSjVL1/vpLvWi1hxy96IzjJ3EHTJJg==}
-    dependencies:
-      has: 1.0.3
-    dev: false
-
   /is-core-module@2.13.1:
     resolution: {integrity: sha512-hHrIjvZsftOsvKSn2TRYl63zvxsgE0K+0mYMoH6gD4omR5IWB2KynivBQczo3+wF1cCkjzvptnI9Q0sPU66ilw==}
     dependencies:
@@ -13537,7 +13531,7 @@ packages:
       npmlog: 4.1.2
       request: 2.88.2
       rimraf: 3.0.2
-      semver: 7.3.8
+      semver: 7.6.0
       tar: 6.1.11
       which: 2.0.2
     dev: true
@@ -13688,7 +13682,7 @@ packages:
       rc-config-loader: 4.0.0
       remote-git-tags: 3.0.0
       rimraf: 3.0.2
-      semver: 7.3.8
+      semver: 7.6.0
       semver-utils: 1.1.4
       spawn-please: 1.0.0
       update-notifier: 5.1.0
@@ -13701,7 +13695,7 @@ packages:
     resolution: {integrity: sha512-09OmyDkNLYwqKPOnbI8exiOZU2GVVmQp7tgez2BPi5OZC8M82elDAps7sxC4l//uSUtotWqoEIDwjRvWH4qz8w==}
     engines: {node: '>=10'}
     dependencies:
-      semver: 7.3.8
+      semver: 7.6.0
     dev: true
 
   /npm-normalize-package-bin@1.0.1:
@@ -13713,7 +13707,7 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       hosted-git-info: 4.1.0
-      semver: 7.3.8
+      semver: 7.6.0
       validate-npm-package-name: 3.0.0
     dev: true
 
@@ -13734,7 +13728,7 @@ packages:
       npm-install-checks: 4.0.0
       npm-normalize-package-bin: 1.0.1
       npm-package-arg: 8.1.5
-      semver: 7.3.8
+      semver: 7.6.0
     dev: true
 
   /npm-registry-fetch@11.0.0:
@@ -15845,7 +15839,7 @@ packages:
     resolution: {integrity: sha512-Hhtrw0nLeSrFQ7phPp4OOcVjLPIeMnRlr5mcnVuMe7M/7eBn98A3hmFRLoFo3DLZkivSYwhRUJTyPyWAk56WLw==}
     hasBin: true
     dependencies:
-      is-core-module: 2.10.0
+      is-core-module: 2.13.1
       path-parse: 1.0.7
       supports-preserve-symlinks-flag: 1.0.0
     dev: false
@@ -16067,7 +16061,7 @@ packages:
       loader-utils: 2.0.2
       neo-async: 2.6.2
       schema-utils: 3.1.1
-      semver: 7.3.8
+      semver: 7.6.0
       webpack: 4.46.0
     dev: true
 
@@ -16157,20 +16151,12 @@ packages:
     hasBin: true
     dev: false
 
-  /semver@7.3.8:
-    resolution: {integrity: sha512-NB1ctGL5rlHrPJtFDVIVzTyQylMLu9N9VICA6HSFJo8MCGVTMW6gfpicwKmmK/dAjTOrqu5l63JJOpDSrAis3A==}
-    engines: {node: '>=10'}
-    hasBin: true
-    dependencies:
-      lru-cache: 6.0.0
-
   /semver@7.6.0:
     resolution: {integrity: sha512-EnwXhrlwXMk9gKu5/flx5sv/an57AkRplG3hTK68W7FRDN+k+OWBj65M7719OkA82XLBxrcX0KSHj+X5COhOVg==}
     engines: {node: '>=10'}
     hasBin: true
     dependencies:
       lru-cache: 6.0.0
-    dev: true
 
   /send@0.17.2:
     resolution: {integrity: sha512-UJYB6wFSJE3G00nEivR5rgWp8c2xXvJ3OPWPhmuteU0IKj8nKbG3DrjiOmLwpnHGYWAVwA69zmTm++YG0Hmwww==}
@@ -17757,7 +17743,7 @@ packages:
       is-yarn-global: 0.3.0
       latest-version: 5.1.0
       pupa: 2.1.1
-      semver: 7.3.8
+      semver: 7.6.0
       semver-diff: 3.1.1
       xdg-basedir: 4.0.0
     dev: true
