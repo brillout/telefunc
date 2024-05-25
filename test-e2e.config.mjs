@@ -10,67 +10,45 @@ function getCiJobs() {
     os: 'ubuntu-latest',
     node_version: '20',
   }
-  const ubuntu18 = {
-    os: 'ubuntu-latest',
-    node_version: '18',
-  }
-  const ubuntu16 = {
-    os: 'ubuntu-latest',
-    node_version: '16',
-  }
-  const ubuntu17 = {
-    os: 'ubuntu-latest',
-    node_version: '17',
-  }
-  const win16 = {
-    os: 'windows-latest',
-    node_version: '16',
-  }
   const win18 = {
     os: 'windows-latest',
     node_version: '18',
   }
-  const win20 = {
-    os: 'windows-latest',
-    node_version: '20',
-  }
-  const mac17 = {
-    os: 'macos-latest',
-    node_version: '17',
-  }
+  const setups = [ubuntu20, win18]
+  const setupModern = [ubuntu20]
 
   return [
     {
       name: 'Vite',
-      setups: [ubuntu18, win16, mac17],
+      setups,
     },
     {
       name: 'React Native',
-      setups: [ubuntu16, win18],
+      setups,
     },
     {
       name: 'Cloudflare Workers',
-      setups: [ubuntu17],
+      setups: setupModern,
     },
     {
       name: 'Next.js',
-      setups: [ubuntu20, win20],
+      setups,
     },
     {
       name: 'Nuxt 2',
-      setups: [ubuntu16, win16],
+      setups,
     },
     {
       name: 'SvelteKit',
-      setups: [ubuntu16, win18],
+      setups,
     },
     {
       name: 'Prisma',
-      setups: [win16, mac17],
+      setups,
     },
     {
       name: 'https://telefunc.com',
-      setups: [ubuntu18],
+      setups: setupModern,
     },
   ]
 }
