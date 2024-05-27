@@ -43,10 +43,6 @@ function getCiJobs() {
       setups,
     },
     {
-      name: 'Prisma',
-      setups,
-    },
-    {
       name: 'https://telefunc.com',
       setups: setupModern,
     },
