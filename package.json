@@ -47,5 +47,10 @@
     "@brillout/test-types": "^0.1.13",
     "prettier": "^2.8.7",
     "vitest": "^0.32.2"
+  },
+  "pnpm": {
+    "overrides": {
+      "telefunc": "link:./telefunc/"
+    }
   }
 }
