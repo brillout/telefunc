@@ -1,3 +1,12 @@
+## [0.1.73](https://github.com/brillout/telefunc/compare/v0.1.72...v0.1.73) (2024-05-27)
+
+
+### Bug Fixes
+
+* avoid @types/react version mismatch ([14008d7](https://github.com/brillout/telefunc/commit/14008d77c6ee6dd58c1c7221e466c4182328c8a4))
+
+
+
 ## [0.1.72](https://github.com/brillout/telefunc/compare/v0.1.71...v0.1.72) (2024-04-17)
 
 
