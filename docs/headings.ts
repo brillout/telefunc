@@ -78,6 +78,11 @@ export const headings: HeadingDefinition[] = [
   },
   {
     level: 2,
+    title: 'Remix',
+    url: '/remix',
+  },
+  {
+    level: 2,
     title: 'Other installations',
     titleInNav: 'Other',
     url: '/install',
