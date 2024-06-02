@@ -5,5 +5,4 @@ export const projectInfo = {
   projectVersion: PROJECT_VERSION,
   npmPackageName: 'telefunc' as const,
   githubRepository: 'https://github.com/brillout/telefunc' as const,
-  discordInviteToolChannel: 'https://discord.com/invite/3DYWwk4xRQ' as const,
 }

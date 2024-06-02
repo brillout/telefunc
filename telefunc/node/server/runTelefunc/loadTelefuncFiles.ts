@@ -43,7 +43,7 @@ async function loadTelefuncFiles(runContext: {
     return { telefuncFilesLoaded, telefuncFilesAll }
   }
 
-  assertUsage(false, "You don't seem to be using Telefunc with a supported stack. Reach out on GitHub or Discord.")
+  assertUsage(false, "You don't seem to be using Telefunc with a supported stack. Reach out on GitHub.")
 }
 
 function getNothingFoundErr(retrievalMethod: string) {
