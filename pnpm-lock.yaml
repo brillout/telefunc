@@ -36,8 +36,8 @@ importers:
   docs:
     dependencies:
       '@brillout/docpress':
-        specifier: ^0.6.10
-        version: 0.6.10(@brillout/vite@5.1.0-commit-3dc7abd(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))(@swc/helpers@0.5.2)(@types/node@20.11.17)(@types/react-dom@17.0.11)(@types/react@17.0.39)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(rollup@4.6.1)(typescript@5.0.3)(vike@0.4.161-commit-b829fee(@brillout/vite@5.1.0-commit-3dc7abd(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))(react-streaming@0.3.22(react-dom@18.2.0(react@18.2.0))(react@18.2.0)))
+        specifier: ^0.6.12
+        version: 0.6.12(@brillout/vite@5.1.0-commit-3dc7abd(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))(@swc/helpers@0.5.2)(@types/node@20.11.17)(@types/react-dom@17.0.11)(@types/react@17.0.39)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(rollup@4.6.1)(typescript@5.0.3)(vike@0.4.161-commit-b829fee(@brillout/vite@5.1.0-commit-3dc7abd(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))(react-streaming@0.3.22(react-dom@18.2.0(react@18.2.0))(react@18.2.0)))
       '@types/node':
         specifier: ^20.11.16
         version: 20.11.17
@@ -1731,8 +1731,8 @@ packages:
     resolution: {integrity: sha512-cvSrvCxnZYzQmiOj0nwIuf298DvaM/2eAAOsBSbBpsdOEpYsnbQGvFxew9oSXEi3HH1TZMmLy8VyvyJJ+LsmCw==}
     hasBin: true
 
-  '@brillout/docpress@0.6.10':
-    resolution: {integrity: sha512-RLs0fbfkasn6hons603N6g0RApg0oIhGUFxyz4UefV1QhPnUEqQmY0gVGGtAspmV+k7fJFS4wF/1QQQGPDWWNw==}
+  '@brillout/docpress@0.6.12':
+    resolution: {integrity: sha512-wN0rkhUsW6sFh2pkgO01oOpCg/WE+D6Gxr84r0rt3wpDCbhxEFIv38AOQOCUMS6KveEmEUOzWaIlAjTq0nn/ug==}
     peerDependencies:
       '@types/node': '*'
       '@types/react': '*'
@@ -12013,9 +12013,9 @@ snapshots:
 
   '@brillout/dev-my-dep@0.0.10': {}
 
-  '@brillout/docpress@0.6.10(@brillout/vite@5.1.0-commit-3dc7abd(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))(@swc/helpers@0.5.2)(@types/node@20.11.17)(@types/react-dom@17.0.11)(@types/react@17.0.39)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(rollup@4.6.1)(typescript@5.0.3)(vike@0.4.161-commit-b829fee(@brillout/vite@5.1.0-commit-3dc7abd(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))(react-streaming@0.3.22(react-dom@18.2.0(react@18.2.0))(react@18.2.0)))':
+  '@brillout/docpress@0.6.12(@brillout/vite@5.1.0-commit-3dc7abd(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))(@swc/helpers@0.5.2)(@types/node@20.11.17)(@types/react-dom@17.0.11)(@types/react@17.0.39)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(rollup@4.6.1)(typescript@5.0.3)(vike@0.4.161-commit-b829fee(@brillout/vite@5.1.0-commit-3dc7abd(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))(react-streaming@0.3.22(react-dom@18.2.0(react@18.2.0))(react@18.2.0)))':
     dependencies:
-      '@brillout/picocolors': 1.0.10
+      '@brillout/picocolors': 1.0.12
       '@mdx-js/mdx': 3.0.1
       '@mdx-js/react': 3.0.1(@types/react@17.0.39)(react@18.2.0)
       '@mdx-js/rollup': 3.0.1(rollup@4.6.1)
@@ -13746,7 +13746,7 @@ snapshots:
 
   '@types/hast@3.0.4':
     dependencies:
-      '@types/unist': 2.0.6
+      '@types/unist': 3.0.2
 
   '@types/html-minifier-terser@5.1.2': {}
 
@@ -13773,7 +13773,7 @@ snapshots:
 
   '@types/mdast@4.0.3':
     dependencies:
-      '@types/unist': 2.0.6
+      '@types/unist': 3.0.2
 
   '@types/mdx@2.0.1': {}
 
