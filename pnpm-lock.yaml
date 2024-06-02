@@ -36,8 +36,8 @@ importers:
   docs:
     dependencies:
       '@brillout/docpress':
-        specifier: ^0.6.12
-        version: 0.6.12(@brillout/vite@5.1.0-commit-3dc7abd(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))(@swc/helpers@0.5.2)(@types/node@20.11.17)(@types/react-dom@17.0.11)(@types/react@17.0.39)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(rollup@4.6.1)(typescript@5.0.3)(vike@0.4.161-commit-b829fee(@brillout/vite@5.1.0-commit-3dc7abd(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))(react-streaming@0.3.22(react-dom@18.2.0(react@18.2.0))(react@18.2.0)))
+        specifier: ^0.6.13
+        version: 0.6.13(@brillout/vite@5.1.0-commit-3dc7abd(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))(@swc/helpers@0.5.2)(@types/node@20.11.17)(@types/react-dom@17.0.11)(@types/react@17.0.39)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(rollup@4.6.1)(typescript@5.0.3)(vike@0.4.161-commit-b829fee(@brillout/vite@5.1.0-commit-3dc7abd(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))(react-streaming@0.3.22(react-dom@18.2.0(react@18.2.0))(react@18.2.0)))
       '@types/node':
         specifier: ^20.11.16
         version: 20.11.17
@@ -1731,8 +1731,8 @@ packages:
     resolution: {integrity: sha512-cvSrvCxnZYzQmiOj0nwIuf298DvaM/2eAAOsBSbBpsdOEpYsnbQGvFxew9oSXEi3HH1TZMmLy8VyvyJJ+LsmCw==}
     hasBin: true
 
-  '@brillout/docpress@0.6.12':
-    resolution: {integrity: sha512-wN0rkhUsW6sFh2pkgO01oOpCg/WE+D6Gxr84r0rt3wpDCbhxEFIv38AOQOCUMS6KveEmEUOzWaIlAjTq0nn/ug==}
+  '@brillout/docpress@0.6.13':
+    resolution: {integrity: sha512-qEa1f35QqF/v9APrTQ7XjIW9aCs1aYAyH7CcwqNFgG1JUmx+YPwDQm5prDku66M/4zoUeq/nYXLjLabtWXPkrg==}
     peerDependencies:
       '@types/node': '*'
       '@types/react': '*'
@@ -12013,7 +12013,7 @@ snapshots:
 
   '@brillout/dev-my-dep@0.0.10': {}
 
-  '@brillout/docpress@0.6.12(@brillout/vite@5.1.0-commit-3dc7abd(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))(@swc/helpers@0.5.2)(@types/node@20.11.17)(@types/react-dom@17.0.11)(@types/react@17.0.39)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(rollup@4.6.1)(typescript@5.0.3)(vike@0.4.161-commit-b829fee(@brillout/vite@5.1.0-commit-3dc7abd(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))(react-streaming@0.3.22(react-dom@18.2.0(react@18.2.0))(react@18.2.0)))':
+  '@brillout/docpress@0.6.13(@brillout/vite@5.1.0-commit-3dc7abd(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))(@swc/helpers@0.5.2)(@types/node@20.11.17)(@types/react-dom@17.0.11)(@types/react@17.0.39)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(rollup@4.6.1)(typescript@5.0.3)(vike@0.4.161-commit-b829fee(@brillout/vite@5.1.0-commit-3dc7abd(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))(react-streaming@0.3.22(react-dom@18.2.0(react@18.2.0))(react@18.2.0)))':
     dependencies:
       '@brillout/picocolors': 1.0.12
       '@mdx-js/mdx': 3.0.1
