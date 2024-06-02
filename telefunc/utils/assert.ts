@@ -9,7 +9,7 @@ import { createErrorWithCleanStackTrace } from './createErrorWithCleanStackTrace
 import { getGlobalObject } from './getGlobalObject'
 import { projectInfo } from './projectInfo'
 
-const errorPrefix = `[${projectInfo.npmPackageName}@${projectInfo.projectVersion}]`
+const errorPrefix = `[telefunc@${projectInfo.projectVersion}]`
 const internalErrorPrefix = `${errorPrefix}[Bug]`
 const usageErrorPrefix = `${errorPrefix}[Wrong Usage]`
 const warningPrefix = `${errorPrefix}[Warning]`
