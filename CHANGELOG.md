@@ -1,3 +1,13 @@
+## [0.1.74](https://github.com/brillout/telefunc/compare/v0.1.73...v0.1.74) (2024-06-04)
+
+
+### Bug Fixes
+
+* close Discord channel ([2b065bd](https://github.com/brillout/telefunc/commit/2b065bda50038f5ee4ba00959490c04021c207b4))
+* improve assert() error message ([11d2833](https://github.com/brillout/telefunc/commit/11d28330b96b1ced00a2a7439a727913c84bb89b))
+
+
+
 ## [0.1.73](https://github.com/brillout/telefunc/compare/v0.1.72...v0.1.73) (2024-05-27)
 
 
