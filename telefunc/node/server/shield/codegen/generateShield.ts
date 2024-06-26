@@ -84,7 +84,7 @@ function getProject(telefuncFilePath: string, telefuncFileCode: string, appRootD
     path.dirname(telefuncFilePath),
     `__telefunc_shieldGen_${path.basename(telefuncFilePath)}`,
   )
-  const shieldGenSource = project.createSourceFile(shieldGenFilePath)
+  const shieldGenSource = project.createSourceFile(shieldGenFilePath, undefined, { overwrite: true })
   shieldGenSource.addImportDeclaration({
     moduleSpecifier: getImportPath(shieldGenFilePath, typeToShieldFilePath),
     namedImports: ['ShieldArrStr'],

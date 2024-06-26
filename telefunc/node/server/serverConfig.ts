@@ -23,6 +23,8 @@ type ConfigUser = {
   root?: string
   /** Wether to disable ETag cache headers */
   disableEtag?: boolean
+  /** Wether to generate shield during development time */
+  generateShieldInDev?: boolean
 }
 type ConfigResolved = {
   telefuncUrl: string
@@ -30,6 +32,7 @@ type ConfigResolved = {
   disableEtag: boolean
   telefuncFiles: string[] | null
   disableNamingConvention: boolean
+  generateShieldInDev: boolean
 }
 
 const configUser: ConfigUser = new Proxy({}, { set: validateUserConfig })
@@ -38,6 +41,7 @@ function getServerConfig(): ConfigResolved {
   return {
     disableEtag: configUser.disableEtag ?? false,
     disableNamingConvention: configUser.disableNamingConvention ?? false,
+    generateShieldInDev: configUser.generateShieldInDev ?? false,
     telefuncUrl: configUser.telefuncUrl || '/_telefunc',
     telefuncFiles: (() => {
       if (configUser.telefuncFiles) {
@@ -81,6 +85,9 @@ function validateUserConfig(configUserUnwrapped: ConfigUser, prop: string, val: 
     configUserUnwrapped[prop] = val
   } else if (prop === 'disableNamingConvention') {
     assertUsage(typeof val === 'boolean', '`config.disableNamingConvention` should be a boolean')
+    configUserUnwrapped[prop] = val
+  } else if (prop === 'generateShieldInDev') {
+    assertUsage(typeof val === 'boolean', '`config.generateShieldInDev` should be a boolean')
     configUserUnwrapped[prop] = val
   } else {
     assertUsage(false, `Unknown config.${prop}`)
