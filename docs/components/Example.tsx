@@ -22,7 +22,7 @@ function Timestamp({ children }: { children: TimestampType }) {
         fontSize: '1.13em',
         fontWeight: 'bold',
         fontFamily: 'monospace',
-        marginRight: 2
+        marginRight: 2,
       }}
     >
       {children}

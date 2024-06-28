@@ -201,6 +201,11 @@ export const headings: HeadingDefinition[] = [
     url: '/root',
   },
   {
+    level: 2,
+    title: '`shield`',
+    url: '/shield-config',
+  },
+  {
     level: 4,
     title: 'Plugins',
   },
