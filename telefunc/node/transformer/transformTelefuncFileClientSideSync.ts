@@ -1,6 +1,6 @@
 export { transformTelefuncFileClientSideSync }
 
-import { posix } from 'path'
+import { posix } from 'node:path'
 import { assert, assertPosixPath, assertUsage, getTelefunctionKey } from '../utils'
 
 function transformTelefuncFileClientSideSync(

@@ -2,8 +2,8 @@ export { assertNamingConvention }
 
 import { assert, assertWarning, isProduction, assertPosixPath } from '../../utils'
 import type { Telefunction } from '../types'
-import type * as fsType from 'fs'
-import type * as pathType from 'path'
+import type * as fsType from 'node:fs'
+import type * as pathType from 'node:path'
 
 function assertNamingConvention(
   exportValue: unknown,
@@ -41,8 +41,8 @@ function assertCollocation(telefuncFilePath: string, appRootDir: string | null, 
   let path: typeof pathType
   const req: NodeRequire = require
   try {
-    fs = req('fs')
-    path = req('path')
+    fs = req('node:fs')
+    path = req('node:path')
   } catch {
     return
   }
