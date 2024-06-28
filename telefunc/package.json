@@ -91,7 +91,7 @@
     "next": "^12.0.8",
     "react-streaming": "^0.3.22",
     "rollup": "^2.67.1",
-    "typescript": "^4.8.4",
+    "typescript": "^5.5.2",
     "vite": "^3.2.2"
   },
   "peerDependencies": {
