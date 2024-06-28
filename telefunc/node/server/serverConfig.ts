@@ -91,7 +91,7 @@ function validateUserConfig(configUserUnwrapped: ConfigUser, prop: string, val: 
   } else if (prop === 'shield') {
     assertUsage(typeof val === 'object' && val !== null, 'config.shield should be a object')
     if ('dev' in val) {
-      assertUsage(typeof val?.dev === 'boolean', 'config.shield.dev should be a boolean')
+      assertUsage(typeof val.dev === 'boolean', 'config.shield.dev should be a boolean')
     }
     configUserUnwrapped[prop] = val
   } else {
