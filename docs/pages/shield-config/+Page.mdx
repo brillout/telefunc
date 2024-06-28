@@ -1,9 +1,10 @@
-import { Link } from '@brillout/docpress'
+import { Link, Warning } from '@brillout/docpress'
 import { ConfigWhereServer } from '../../components'
 
-**Environment**: server.
+**Environment**: server.  
+**Default**: `false`.  
 
-Whether to generate shield in development environment. Default is `false`.
+Whether to generate <Link href="/shield">`shield()`</Link> in development.
 
 ```js
 // Environment: server
@@ -12,5 +13,7 @@ import { config } from 'telefunc'
 
 config.shield.dev = true
 ```
+
+<Warning>This can slow down development speed. Depending on your app and how fast your computer is, the decreased development speed can range from unnoticeable to significant.</Warning>
 
 <ConfigWhereServer />

@@ -37,7 +37,6 @@ type ConfigResolved = {
   shield: { dev: boolean }
 }
 
-
 const configUser: ConfigUser = new Proxy({}, { set: validateUserConfig })
 
 function getServerConfig(): ConfigResolved {
@@ -75,7 +74,7 @@ function validateUserConfig(configUserUnwrapped: ConfigUser, prop: string, val: 
     )
     configUserUnwrapped[prop] = val
   } else if (prop === 'telefuncFiles') {
-    const wrongType = '`config.telefuncFiles` should be a list of paths'
+    const wrongType = 'config.telefuncFiles should be a list of paths'
     assertUsage(Array.isArray(val), wrongType)
     val.forEach((val: unknown) => {
       assertUsage(typeof val === 'string', wrongType)
@@ -87,12 +86,13 @@ function validateUserConfig(configUserUnwrapped: ConfigUser, prop: string, val: 
     assertUsage(typeof val === 'boolean', 'config.disableEtag should be a boolean')
     configUserUnwrapped[prop] = val
   } else if (prop === 'disableNamingConvention') {
-    assertUsage(typeof val === 'boolean', '`config.disableNamingConvention` should be a boolean')
+    assertUsage(typeof val === 'boolean', 'config.disableNamingConvention should be a boolean')
     configUserUnwrapped[prop] = val
-  } else if (prop === 'shield' && val != null) {
-    assertUsage(typeof val === 'object', '`config.shield` should be a object')
-    const shield = val as ConfigResolved['shield']
-    assertUsage(typeof shield?.dev === 'boolean', '`config.shield.dev` should be a boolean')
+  } else if (prop === 'shield') {
+    assertUsage(typeof val === 'object' && val != null, 'config.shield should be a object')
+    if ('dev' in val) {
+      assertUsage(typeof val?.dev === 'boolean', 'config.shield.dev should be a boolean')
+    }
     configUserUnwrapped[prop] = val
   } else {
     assertUsage(false, `Unknown config.${prop}`)
