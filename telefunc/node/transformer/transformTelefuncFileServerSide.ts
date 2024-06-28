@@ -18,9 +18,9 @@ async function transformTelefuncFileServerSide(
   const exportNames = await getExportNames(src)
   let code = decorateTelefunctions(exportNames, src, id.replace(appRootDir, ''), appRootDir, skipRegistration)
 
-  const { generateShieldInDev } = getServerConfig() 
+  const { shield } = getServerConfig()
 
-  if (id.endsWith('.ts') && (!isDev || generateShieldInDev)) {
+  if (id.endsWith('.ts') && (!isDev || shield.dev)) {
     code = generateShield(code, id, appRootDir)
   }
 
