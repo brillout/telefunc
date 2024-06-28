@@ -1,3 +1,12 @@
+## [0.1.75](https://github.com/brillout/telefunc/compare/v0.1.74...v0.1.75) (2024-06-28)
+
+
+### Features
+
+* `config.shield.dev` ([#111](https://github.com/brillout/telefunc/issues/111)) ([2830461](https://github.com/brillout/telefunc/commit/283046149129b99509ab426c9cb42a007c2bb6ac))
+
+
+
 ## [0.1.74](https://github.com/brillout/telefunc/compare/v0.1.73...v0.1.74) (2024-06-04)
 
 
