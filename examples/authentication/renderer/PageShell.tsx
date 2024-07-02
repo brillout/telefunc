@@ -1,7 +1,7 @@
 import React, { Suspense, useEffect, useRef } from 'react'
 import logo from './logo.svg'
-import type { PageContext } from './types'
 import { PageContextProvider } from './usePageContext'
+import type { PageContext } from './types'
 import './PageShell.css'
 import { Link } from './Link'
 

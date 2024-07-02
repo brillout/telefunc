@@ -1,7 +1,7 @@
 export { getEtag }
 
-import type { createHash as createHashType } from 'node:crypto'
 import { assert } from '../../utils'
+import type { createHash as createHashType } from 'node:crypto'
 
 type CreateHash = typeof createHashType
 

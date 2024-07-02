@@ -1,7 +1,7 @@
 export { onLoad }
 
-import { getContext } from 'telefunc'
 import { TodoModel, UserModel } from '#app/db'
+import { getContext } from 'telefunc'
 
 async function onLoad() {
   // await new Promise(r => setTimeout(r, 1000))

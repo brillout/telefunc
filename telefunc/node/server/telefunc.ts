@@ -1,8 +1,8 @@
 export { telefunc }
 
-import { assertUsage, hasProp, isObject } from '../utils'
+import { runTelefunc, HttpResponse } from './runTelefunc'
 import { Telefunc } from './getContext'
-import { HttpResponse, runTelefunc } from './runTelefunc'
+import { assertUsage, hasProp, isObject } from '../utils'
 
 /** Get HTTP Response for a telefunction remote call HTTP Request.
  * @returns HTTP Response

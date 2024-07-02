@@ -1,11 +1,11 @@
 export { importBuild }
 
-import path from 'node:path'
 import { serverEntryPlugin } from '@brillout/vite-plugin-server-entry/plugin'
 import type { Plugin, ResolvedConfig } from 'vite'
-import { telefuncFilesGlobFilePath } from '../../importGlob/telefuncFilesGlobPath'
 import { assert, assertPosixPath, getOutDirAbsolute, projectInfo, toPosixPath } from '../../utils'
+import path from 'node:path'
 import { getTelefuncManifest } from './getTelefuncManifest'
+import { telefuncFilesGlobFilePath } from '../../importGlob/telefuncFilesGlobPath'
 
 function importBuild(): Plugin[] {
   let config: ResolvedConfig

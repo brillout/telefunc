@@ -3,7 +3,7 @@ export { getServerConfig }
 export type { ConfigUser }
 
 import { isAbsolute } from 'node:path'
-import { assertUsage, hasProp, isTelefuncFilePath, toPosixPath } from '../utils'
+import { assertUsage, hasProp, toPosixPath, isTelefuncFilePath } from '../utils'
 
 /** Telefunc Server Configuration */
 type ConfigUser = {

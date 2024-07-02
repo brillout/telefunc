@@ -1,6 +1,6 @@
 <script lang="ts">
-import { onCounterIncrement } from './Counter.telefunc'
-export let count: number
+	import { onCounterIncrement } from './Counter.telefunc';
+	export let count: number;
 </script>
 
 <div class="counter">

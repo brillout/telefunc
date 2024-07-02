@@ -1,7 +1,7 @@
 export { assertModuleScope }
 
-import { assert } from './assert'
 import { getGlobalObject } from './getGlobalObject'
+import { assert } from './assert'
 
 const globalObject = getGlobalObject<{ loadedModules: string[] }>('./assertModuleScope.ts', {
   loadedModules: [],

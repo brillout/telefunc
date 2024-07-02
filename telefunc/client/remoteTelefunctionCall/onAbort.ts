@@ -2,7 +2,7 @@ export { onAbort }
 export { callOnAbortListeners }
 export { onTelefunctionRemoteCallError }
 
-import type { TelefunctionCallAbort, TelefunctionError } from '../TelefunctionError'
+import type { TelefunctionError, TelefunctionCallAbort } from '../TelefunctionError'
 import { assertWarning } from '../utils'
 
 type Listener = (err: TelefunctionCallAbort) => void

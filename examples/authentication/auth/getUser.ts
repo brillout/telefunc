@@ -1,6 +1,6 @@
 export { getUser }
 
-import { Abort, getContext } from 'telefunc'
+import { getContext, Abort } from 'telefunc'
 
 function getUser() {
   const { user } = getContext()

@@ -1,9 +1,9 @@
 export { printShieldGenResult }
 
-import pc from 'picocolors'
 import type { Plugin, ResolvedConfig } from 'vite'
 import { logResult } from '../../server/shield/codegen/generateShield'
 import { projectInfo } from '../utils'
+import pc from 'picocolors'
 
 function printShieldGenResult(): Plugin {
   let config: ResolvedConfig

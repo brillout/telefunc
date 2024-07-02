@@ -1,6 +1,6 @@
 export { testRun }
 
-import { autoRetry, expect, fetchHtml, page, run, test } from '@brillout/test-e2e'
+import { page, test, expect, run, autoRetry, fetchHtml } from '@brillout/test-e2e'
 
 function testRun(cmd: 'pnpm run dev' | 'pnpm run preview') {
   const port = cmd.includes('dev') ? '5173' : '4173'

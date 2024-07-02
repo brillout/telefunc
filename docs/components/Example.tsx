@@ -1,7 +1,7 @@
 export { Example }
 
-import { assert } from '@brillout/docpress'
 import React from 'react'
+import { assert } from '@brillout/docpress'
 
 type Repo = `${string}/${string}`
 type TimestampType = `${number}.${number}`

@@ -1,10 +1,10 @@
 import React from 'react'
-import { renderToStream } from 'react-streaming/server'
-import { TelefuncSSR } from 'telefunc/react-streaming/server'
-import { escapeInject } from 'vike/server'
 import { PageShell } from './PageShell'
+import { escapeInject } from 'vike/server'
+import { renderToStream } from 'react-streaming/server'
 import logoUrl from './logo.svg'
 import type { PageContextServer } from './types'
+import { TelefuncSSR } from 'telefunc/react-streaming/server'
 
 export { render }
 // See https://vike.dev/data-fetching

@@ -1,5 +1,5 @@
-import { handleStaticAssets } from './static-assets'
 import { handleTelefunc } from './telefunc'
+import { handleStaticAssets } from './static-assets'
 
 addEventListener('fetch', (event) => {
   try {

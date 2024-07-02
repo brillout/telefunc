@@ -1,5 +1,5 @@
-import { describe, expect, it } from 'vitest'
 import { testGenerateShield } from './generateShield'
+import { expect, describe, it } from 'vitest'
 
 describe('generateShield', () => {
   it('generateShield, one telefunction', async () => {

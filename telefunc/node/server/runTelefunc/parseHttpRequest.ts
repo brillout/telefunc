@@ -2,12 +2,12 @@ export { parseHttpRequest }
 
 import { parse } from '@brillout/json-serializer/parse'
 import {
-  assert,
   assertUsage,
-  getProjectError,
-  getTelefunctionKey,
-  getUrlPathname,
   hasProp,
+  getProjectError,
+  getUrlPathname,
+  assert,
+  getTelefunctionKey,
   isProduction,
 } from '../../utils'
 

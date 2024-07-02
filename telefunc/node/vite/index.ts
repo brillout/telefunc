@@ -1,19 +1,19 @@
 export { plugin as telefunc }
 export default plugin
 
-import type { Plugin } from 'vite'
-import { config } from '../server/serverConfig'
-import type { ConfigUser } from '../server/serverConfig'
-import { importGlobOn } from './importGlob/toggle'
-import { buildConfig } from './plugins/buildConfig'
+import { transform } from './plugins/transform'
 import { commonConfig } from './plugins/commonConfig'
 import { devConfig } from './plugins/devConfig'
-import { importBuild } from './plugins/importBuild'
+import { buildConfig } from './plugins/buildConfig'
+import { retrieveDevServer } from './plugins/retrieveDevServer'
 import { packageJsonFile } from './plugins/packageJsonFile'
+import { importBuild } from './plugins/importBuild'
 import { previewConfig } from './plugins/previewConfig'
 import { printShieldGenResult } from './plugins/printShieldGenResult'
-import { retrieveDevServer } from './plugins/retrieveDevServer'
-import { transform } from './plugins/transform'
+import { importGlobOn } from './importGlob/toggle'
+import { config } from '../server/serverConfig'
+import type { Plugin } from 'vite'
+import type { ConfigUser } from '../server/serverConfig'
 
 // Return as `any` to avoid Plugin type mismatches when there are multiple Vite versions installed
 function plugin(

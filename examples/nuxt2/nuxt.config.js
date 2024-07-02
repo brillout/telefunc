@@ -1,6 +1,6 @@
-import * as bodyParser from 'body-parser'
-import { provideTelefuncContext, telefunc } from 'telefunc'
 import { SERVER_IS_READY } from './SERVER_IS_READY'
+import * as bodyParser from 'body-parser'
+import { telefunc, provideTelefuncContext } from 'telefunc'
 import 'telefunc/async_hooks'
 
 export default {

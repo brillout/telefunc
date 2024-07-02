@@ -1,7 +1,7 @@
 export { useData }
 
 import { useData as useData_ } from '../../shared/react-streaming'
-import { isAsyncMode, restoreContext } from '../server/getContext'
+import { restoreContext, isAsyncMode } from '../server/getContext'
 
 import { useTelefuncContext } from './useTelefuncContext'
 

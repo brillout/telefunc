@@ -1,10 +1,10 @@
 export default BabelPluginTelefunc
 
-import type { NodePath, PluginObj } from '@babel/core'
 import { parse } from '@babel/parser'
-import type * as BabelTypes from '@babel/types'
 import { transformTelefuncFileClientSideSync } from '../transformer/transformTelefuncFileClientSideSync'
 import { toPosixPath } from '../utils'
+import type { PluginObj, NodePath } from '@babel/core'
+import type * as BabelTypes from '@babel/types'
 
 function getExportsFromBabelAST(programNodePath: NodePath<BabelTypes.Program>, types: typeof BabelTypes) {
   const body = programNodePath.node.body

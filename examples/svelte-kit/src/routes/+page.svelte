@@ -1,7 +1,7 @@
 <script>
-import Counter from './Counter.svelte'
-/** @type {import('./$types').PageData} */
-export let data
+	import Counter from './Counter.svelte';
+	/** @type {import('./$types').PageData} */
+	export let data;
 </script>
 
 <h1>Welcome to SvelteKit</h1>

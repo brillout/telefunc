@@ -1,9 +1,9 @@
 export { remoteTelefunctionCall }
 
-import { resolveClientConfig } from './clientConfig'
 import { makeHttpRequest } from './remoteTelefunctionCall/makeHttpRequest'
 import { serializeTelefunctionArguments } from './remoteTelefunctionCall/serializeTelefunctionArguments'
-import { assertUsage, isBrowser, objectAssign } from './utils'
+import { resolveClientConfig } from './clientConfig'
+import { objectAssign, assertUsage, isBrowser } from './utils'
 
 async function remoteTelefunctionCall(
   telefuncFilePath: string,

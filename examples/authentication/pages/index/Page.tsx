@@ -1,9 +1,9 @@
 import React from 'react'
-import { useData } from 'telefunc/react-streaming'
 import { Auth, UserInfo } from './Auth'
-import { ClearCookies } from './ClearCookies'
-import { onLoad } from './Page.telefunc'
 import { TodoList } from './TodoList'
+import { ClearCookies } from './ClearCookies'
+import { useData } from 'telefunc/react-streaming'
+import { onLoad } from './Page.telefunc'
 
 export { Page }
 

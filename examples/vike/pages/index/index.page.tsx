@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import type { TodoItem } from '../../database/todoItems'
 import { TodoList } from './TodoList'
+import type { TodoItem } from '../../database/todoItems'
 
 export { Page }
 

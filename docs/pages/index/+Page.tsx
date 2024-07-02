@@ -1,10 +1,10 @@
 export { Page }
 
 import React from 'react'
-import { CodePreview } from './CodePreview'
-import { ContactUs } from './ContactUs'
 import { Header } from './Header'
+import { CodePreview } from './CodePreview'
 import { Features } from './features/Features'
+import { ContactUs } from './ContactUs'
 
 function Page() {
   return (

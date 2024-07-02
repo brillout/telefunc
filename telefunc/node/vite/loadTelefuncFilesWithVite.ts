@@ -1,10 +1,10 @@
 export { loadTelefuncFilesWithVite }
 
 import { importServerEntry } from '@brillout/vite-plugin-server-entry/importServerEntry'
-import { getViteDevServer } from '../server/globalContext'
 import { assert, assertWarning, getNodeEnv, hasProp, isObject, isProduction, isTelefuncFilePath } from '../utils'
 import { telefuncFilesGlobFilePath } from './importGlob/telefuncFilesGlobPath'
 import { loadTelefuncFilesWithImportBuild } from './plugins/importBuild/loadBuild'
+import { getViteDevServer } from '../server/globalContext'
 
 async function loadTelefuncFilesWithVite(runContext: { telefuncFilePath: string }): Promise<{
   telefuncFilesLoaded: Record<string, Record<string, unknown>>

@@ -2,8 +2,8 @@ export { render }
 export { passToClient }
 
 import React from 'react'
-import { renderToStream } from 'react-streaming/server'
 import { escapeInject } from 'vike/server'
+import { renderToStream } from 'react-streaming/server'
 import { PageLayout } from './PageLayout'
 
 // See https://vike.dev/data-fetching

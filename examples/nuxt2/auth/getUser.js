@@ -1,4 +1,4 @@
-import { Abort, getContext } from 'telefunc'
+import { getContext, Abort } from 'telefunc'
 
 export { getUser }
 export { getUserOrNull }

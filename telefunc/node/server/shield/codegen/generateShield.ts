@@ -2,19 +2,19 @@ export { generateShield }
 export { logResult }
 export { testGenerateShield }
 
+import { Project, VariableDeclarationKind, SourceFile, getCompilerOptionsFromTsConfig } from 'ts-morph'
+import {
+  assert,
+  assertUsage,
+  assertWarning,
+  assertModuleScope,
+  objectAssign,
+  unique,
+  assertPosixPath,
+} from '../../../utils'
 import fs from 'node:fs'
 import path from 'node:path'
 import pc from 'picocolors'
-import { Project, SourceFile, VariableDeclarationKind, getCompilerOptionsFromTsConfig } from 'ts-morph'
-import {
-  assert,
-  assertModuleScope,
-  assertPosixPath,
-  assertUsage,
-  assertWarning,
-  objectAssign,
-  unique,
-} from '../../../utils'
 
 type GeneratedShield = {
   telefuncFilePath: string

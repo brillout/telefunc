@@ -1,8 +1,8 @@
 export default MyApp
 
+import { config } from 'telefunc/client'
 import type { AppProps } from 'next/app'
 import React from 'react'
-import { config } from 'telefunc/client'
 
 const isBrowser = typeof window !== 'undefined'
 if (isBrowser) {

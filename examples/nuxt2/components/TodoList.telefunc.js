@@ -1,8 +1,8 @@
 export { onLoad }
 export { onNewTodo }
 
-import { getUser } from '../auth/getUser'
 import { Todo } from '../database/Todo'
+import { getUser } from '../auth/getUser'
 
 async function onLoad() {
   const user = getUser()

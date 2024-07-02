@@ -1,6 +1,6 @@
 export { testRun }
 
-import { expect, fetchHtml, getServerUrl, page, partRegex, run, test } from '@brillout/test-e2e'
+import { page, test, expect, run, fetchHtml, partRegex, getServerUrl } from '@brillout/test-e2e'
 
 function testRun(cmd: 'pnpm run dev' | 'pnpm run preview') {
   {
