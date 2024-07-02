@@ -1,4 +1,4 @@
-import { createRequire } from 'module'
+import { createRequire } from 'node:module'
 import cors from 'cors'
 import express from 'express'
 import { config, telefunc } from 'telefunc'
