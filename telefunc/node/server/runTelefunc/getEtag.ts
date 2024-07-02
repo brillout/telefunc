@@ -1,7 +1,7 @@
 export { getEtag }
 
 import { assert } from '../../utils'
-import type { createHash as createHashType } from 'crypto'
+import type { createHash as createHashType } from 'node:crypto'
 
 type CreateHash = typeof createHashType
 
@@ -11,7 +11,7 @@ async function getEtag(runContext: { disableEtag: boolean; httpResponseBody: str
   }
   let createHash: CreateHash
   try {
-    createHash = (await import('crypto')).createHash
+    createHash = (await import('node:crypto')).createHash
   } catch (err) {
     /*
     assertWarning(

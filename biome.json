@@ -12,10 +12,19 @@
       "semicolons": "asNeeded",
       "lineWidth": 120,
       "quoteStyle": "single",
-      "trailingComma": "all"
+      "trailingCommas": "all"
     }
   },
   "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": false,
+      "style": {
+        "useNodejsImportProtocol": "error"
+      }
+    }
+  },
+  "organizeImports": {
     "enabled": false
   },
   "vcs": {

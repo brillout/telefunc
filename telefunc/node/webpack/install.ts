@@ -1,6 +1,6 @@
 export { install }
 
-import { resolve } from 'path'
+import { resolve } from 'node:path'
 import { logResult } from '../server/shield/codegen/generateShield'
 import { getRoot } from './getInfo'
 import type { Compiler } from './types'

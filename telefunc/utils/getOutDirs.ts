@@ -4,7 +4,7 @@ export { getOutDirAbsolute }
 import type { UserConfig, ResolvedConfig } from 'vite'
 import { assert } from './assert'
 import { assertPosixPath, toPosixPath } from './filesystemPathHandling'
-import path from 'path'
+import path from 'node:path'
 
 /** Appends `client/` or `server/` to `config.build.outDir` */
 function determineOutDir(config: ResolvedConfig): string | null {

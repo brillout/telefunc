@@ -2,7 +2,7 @@ export { devConfig }
 
 import type { Plugin, ResolvedConfig } from 'vite'
 import { apply, addTelefuncMiddleware } from '../helpers'
-import path from 'path'
+import path from 'node:path'
 
 function devConfig(): Plugin[] {
   return [

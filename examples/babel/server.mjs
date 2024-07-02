@@ -1,6 +1,6 @@
 import express from 'express'
 import { telefunc, config } from 'telefunc'
-import { createRequire } from 'module'
+import { createRequire } from 'node:module'
 
 startServer()
 
@@ -39,8 +39,8 @@ function start(app) {
 
 // https://stackoverflow.com/questions/46745014/alternative-for-dirname-in-node-js-when-using-es6-modules
 async function getRoot() {
-  const { dirname } = await import('path')
-  const { fileURLToPath } = await import('url')
+  const { dirname } = await import('node:path')
+  const { fileURLToPath } = await import('node:url')
   const __dirname = dirname(fileURLToPath(import.meta.url))
   const root = __dirname
   return root
