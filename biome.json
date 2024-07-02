@@ -17,7 +17,6 @@
   },
   "linter": {
     "enabled": true,
-    "ignore": ["examples/", ".github"],
     "rules": {
       "recommended": false,
       "style": {
