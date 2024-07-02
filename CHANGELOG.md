@@ -1,3 +1,12 @@
+## [0.1.76](https://github.com/brillout/telefunc/compare/v0.1.75...v0.1.76) (2024-07-02)
+
+
+### Bug Fixes
+
+* add `node:` prefix to Node.js imports (fix [#113](https://github.com/brillout/telefunc/issues/113)) ([#115](https://github.com/brillout/telefunc/issues/115)) ([f9a3015](https://github.com/brillout/telefunc/commit/f9a3015bf8a63515d02408a765fd110b52359b43))
+
+
+
 ## [0.1.75](https://github.com/brillout/telefunc/compare/v0.1.74...v0.1.75) (2024-06-28)
 
 
