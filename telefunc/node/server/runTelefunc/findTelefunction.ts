@@ -1,11 +1,11 @@
 export { findTelefunction }
 
+import pc from '@brillout/picocolors'
 import { assert, assertUsage, errorPrefix as projectErrorPrefix } from '../../utils'
+import { getServerConfig } from '../serverConfig'
 import type { TelefuncFiles, Telefunction } from '../types'
 import { assertNamingConvention } from './assertNamingConvention'
 import { assertTelefunction } from './assertTelefunction'
-import { getServerConfig } from '../serverConfig'
-import pc from '@brillout/picocolors'
 
 function findTelefunction(runContext: {
   telefuncFilePath: string

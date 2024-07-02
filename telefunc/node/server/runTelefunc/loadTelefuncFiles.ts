@@ -1,10 +1,10 @@
 export { loadTelefuncFiles }
 
-import type { TelefuncFiles } from '../types'
-import { assertUsage, assert, hasProp, isWebpack, isVikeApp } from '../../utils'
+import { assert, assertUsage, hasProp, isVikeApp, isWebpack } from '../../utils'
 import { loadTelefuncFilesWithVite } from '../../vite/loadTelefuncFilesWithVite'
-import { loadTelefuncFilesWithRegistration } from './loadTelefuncFilesWithRegistration'
+import type { TelefuncFiles } from '../types'
 import { loadTelefuncFilesFromConfig } from './loadTelefuncFilesFromConfig'
+import { loadTelefuncFilesWithRegistration } from './loadTelefuncFilesWithRegistration'
 
 async function loadTelefuncFiles(runContext: {
   appRootDir: string | null

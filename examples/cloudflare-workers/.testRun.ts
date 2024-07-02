@@ -1,5 +1,5 @@
-import { page, test, expect, run, skip, fetchHtml, isCI, getServerUrl, isWindows, autoRetry } from '@brillout/test-e2e'
 import assert from 'assert'
+import { autoRetry, expect, fetchHtml, getServerUrl, isCI, isWindows, page, run, skip, test } from '@brillout/test-e2e'
 
 export { testRun }
 

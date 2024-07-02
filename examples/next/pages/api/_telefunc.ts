@@ -1,7 +1,7 @@
-import { getUser } from '../../auth/getUser'
-import { telefunc, config } from 'telefunc'
-import type { NextApiRequest, NextApiResponse } from 'next'
 import assert from 'assert'
+import type { NextApiRequest, NextApiResponse } from 'next'
+import { config, telefunc } from 'telefunc'
+import { getUser } from '../../auth/getUser'
 
 config.telefuncUrl = '/api/_telefunc'
 

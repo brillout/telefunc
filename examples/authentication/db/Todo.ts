@@ -1,6 +1,6 @@
 import { shield } from 'telefunc'
-import { data } from './data'
 import { UserId } from './User'
+import { data } from './data'
 
 export { TodoModel }
 export { TodoItemShield }

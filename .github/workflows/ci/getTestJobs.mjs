@@ -1,7 +1,7 @@
-import { cmd, isObject } from './utils.mjs'
 import assert from 'node:assert'
-import path from 'node:path'
 import { createRequire } from 'node:module'
+import path from 'node:path'
+import { cmd, isObject } from './utils.mjs'
 const require = createRequire(import.meta.url)
 
 const args = process.argv

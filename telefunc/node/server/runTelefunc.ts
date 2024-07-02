@@ -1,17 +1,17 @@
 export { runTelefunc }
 export type { HttpResponse }
 
-import { assert, objectAssign, isProduction } from '../utils'
+import { assert, isProduction, objectAssign } from '../utils'
 import { Telefunc } from './getContext'
-import { loadTelefuncFiles } from './runTelefunc/loadTelefuncFiles'
-import { parseHttpRequest } from './runTelefunc/parseHttpRequest'
+import { applyShield } from './runTelefunc/applyShield'
 // import { getEtag } from './runTelefunc/getEtag'
 import { executeTelefunction } from './runTelefunc/executeTelefunction'
-import { serializeTelefunctionResult } from './runTelefunc/serializeTelefunctionResult'
-import { handleError } from './runTelefunc/handleError'
-import { callBugListeners } from './runTelefunc/onBug'
-import { applyShield } from './runTelefunc/applyShield'
 import { findTelefunction } from './runTelefunc/findTelefunction'
+import { handleError } from './runTelefunc/handleError'
+import { loadTelefuncFiles } from './runTelefunc/loadTelefuncFiles'
+import { callBugListeners } from './runTelefunc/onBug'
+import { parseHttpRequest } from './runTelefunc/parseHttpRequest'
+import { serializeTelefunctionResult } from './runTelefunc/serializeTelefunctionResult'
 import { getServerConfig } from './serverConfig'
 
 /** The HTTP Response of a telefunction remote call HTTP Request */

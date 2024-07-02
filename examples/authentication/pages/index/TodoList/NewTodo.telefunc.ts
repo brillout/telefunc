@@ -2,8 +2,8 @@ export { onNewTodo }
 export { onClear }
 
 import { shield } from 'telefunc'
-import { TodoModel, TodoItem, TodoItemShield } from '#app/db'
 import { getUser } from '#app/auth/getUser'
+import { TodoItem, TodoItemShield, TodoModel } from '#app/db'
 
 const onNewTodo = shield([TodoItemShield], async function (todoItemNew): Promise<TodoItem[]> {
   const user = getUser()

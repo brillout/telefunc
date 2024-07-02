@@ -1,9 +1,9 @@
 export { UserInfo }
 
 import React from 'react'
-import type { User } from '#app/db/User'
-import { Button } from '#app/components/forms/Button'
 import { logout } from '#app/auth/client'
+import { Button } from '#app/components/forms/Button'
+import type { User } from '#app/db/User'
 
 function UserInfo({ user }: { user: User }) {
   return (

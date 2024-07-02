@@ -1,7 +1,7 @@
 export { applyShield }
 
-import { shieldApply, shieldIsMissing } from '../shield'
 import { assertWarning, isProduction } from '../../utils'
+import { shieldApply, shieldIsMissing } from '../shield'
 import type { Telefunction } from '../types'
 
 function applyShield(runContext: {

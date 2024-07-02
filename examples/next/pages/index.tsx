@@ -1,11 +1,11 @@
 export default Page
 export { getServerSideProps }
 
-import { getUser, type User } from '../auth/getUser'
+import { GetServerSideProps } from 'next'
+import React from 'react'
+import { type User, getUser } from '../auth/getUser'
 import { TodoList } from '../components/TodoList'
 import { Todo, type TodoItem } from '../database/Todo'
-import React from 'react'
-import { GetServerSideProps } from 'next'
 
 type Props = {
   user: User

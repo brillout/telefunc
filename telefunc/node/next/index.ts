@@ -1,8 +1,8 @@
 export default telefuncPlugin
 
 import type { NextConfig } from 'next'
-import { install } from '../webpack/install'
 import pc from 'picocolors'
+import { install } from '../webpack/install'
 
 function telefuncPlugin(nextConfig: NextConfig = {}) {
   return Object.assign({}, nextConfig, {

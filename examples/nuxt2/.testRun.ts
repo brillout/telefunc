@@ -1,4 +1,4 @@
-import { page, test, expect, run, getServerUrl, autoRetry, fetchHtml } from '@brillout/test-e2e'
+import { autoRetry, expect, fetchHtml, getServerUrl, page, run, test } from '@brillout/test-e2e'
 import { SERVER_IS_READY } from './SERVER_IS_READY'
 
 export { testRun }

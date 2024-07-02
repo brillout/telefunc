@@ -1,8 +1,8 @@
 export { getInfo }
 export { getRoot }
 
-import type { Loader, Compiler } from './types'
 import { assert } from '../utils'
+import type { Compiler, Loader } from './types'
 
 function getInfo(loader: Loader): { id: string; root: string; isClientSide: boolean; isDev: boolean } {
   assert(loader._compiler.name === 'client' || loader._compiler.name === 'server')

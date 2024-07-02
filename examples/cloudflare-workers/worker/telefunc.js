@@ -1,4 +1,4 @@
-import { telefunc, config } from 'telefunc'
+import { config, telefunc } from 'telefunc'
 
 export { handleTelefunc }
 

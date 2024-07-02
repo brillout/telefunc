@@ -1,6 +1,6 @@
-import express from 'express'
-import { telefunc, config } from 'telefunc'
 import { createRequire } from 'node:module'
+import express from 'express'
+import { config, telefunc } from 'telefunc'
 
 startServer()
 

@@ -1,7 +1,7 @@
-import express from 'express'
-import cors from 'cors'
-import { telefunc, config } from 'telefunc'
 import { createRequire } from 'module'
+import cors from 'cors'
+import express from 'express'
+import { config, telefunc } from 'telefunc'
 
 startServer()
 

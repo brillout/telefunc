@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
-import { View, Text } from 'react-native'
-import { hello } from './hello.telefunc.mjs'
+import { Text, View } from 'react-native'
 import { config } from 'telefunc/client'
+import { hello } from './hello.telefunc.mjs'
 
 config.telefuncUrl = 'http://localhost:3000/_telefunc'
 

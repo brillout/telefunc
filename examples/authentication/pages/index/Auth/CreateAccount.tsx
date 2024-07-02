@@ -1,7 +1,7 @@
 import React from 'react'
-import { onCreateAccount } from './CreateAccount.telefunc'
 import { TextInputForm } from '#app/components/forms/TextInputForm'
 import { User } from '#app/db/User'
+import { onCreateAccount } from './CreateAccount.telefunc'
 
 export { CreateAccount }
 

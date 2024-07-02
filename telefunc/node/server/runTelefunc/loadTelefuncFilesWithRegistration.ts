@@ -3,8 +3,8 @@
 export { loadTelefuncFilesWithRegistration }
 export { registerTelefunction }
 
-import { TelefuncFiles, Telefunction } from '../types'
 import { getGlobalObject } from '../../utils'
+import { TelefuncFiles, Telefunction } from '../types'
 
 const g = getGlobalObject<{ telefuncFilesLoaded: null | TelefuncFiles }>('loadTelefuncFilesWithRegistration.ts', {
   telefuncFilesLoaded: null,

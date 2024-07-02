@@ -1,9 +1,9 @@
 export { executeTelefunction }
 
-import { isAbort, Abort } from '../Abort'
-import { restoreContext, Telefunc } from '../getContext'
-import type { Telefunction } from '../types'
 import { assertUsage, isPromise } from '../../utils'
+import { Abort, isAbort } from '../Abort'
+import { Telefunc, restoreContext } from '../getContext'
+import type { Telefunction } from '../types'
 
 async function executeTelefunction(runContext: {
   telefunction: Telefunction

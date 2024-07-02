@@ -1,6 +1,6 @@
+import { describe, expect, it } from 'vitest'
 import { checkType } from '../../utils'
 import { shield, shieldApply, shieldToHumandReadable } from '../shield'
-import { expect, describe, it } from 'vitest'
 
 describe('shield', () => {
   it('shield - basic', () => {

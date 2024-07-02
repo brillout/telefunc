@@ -1,7 +1,7 @@
 export { assertManifest }
 export type { Manifest }
 
-import { assertUsage, projectInfo, assert, hasProp, checkType } from '../../utils'
+import { assert, assertUsage, checkType, hasProp, projectInfo } from '../../utils'
 
 type Manifest = { version: string; config: Record<string, unknown> }
 
