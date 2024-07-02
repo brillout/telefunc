@@ -1,4 +1,4 @@
-import assert from 'node:assert'
+import assert from 'assert'
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { config, telefunc } from 'telefunc'
 import { getUser } from '../../auth/getUser'
