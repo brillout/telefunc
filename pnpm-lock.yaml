@@ -383,8 +383,8 @@ importers:
         specifier: ^1.8.3
         version: 1.8.3
       '@brillout/release-me':
-        specifier: ^0.3.8
-        version: 0.3.8
+        specifier: ^0.4.0
+        version: 0.4.0
       '@nuxt/types':
         specifier: ^2.15.8
         version: 2.15.8(webpack@4.47.0)
@@ -1770,8 +1770,8 @@ packages:
   '@brillout/proto-db@0.1.1':
     resolution: {integrity: sha512-vRIB+f19NH3gEyiIBM/GxZvK6AgS2I+DNvCt9abYKJmMmTHIxXaou5grtj6u3i7FsZnD1wSmWWiuaV/3VpLJTQ==}
 
-  '@brillout/release-me@0.3.8':
-    resolution: {integrity: sha512-feo4CLWpMT0LS5l/fI37vv9pbOOEste6/AO9qLT5WtupqDkgK9k6iBuZmzLlef4AthIA2BY20tXlX/VcFWKuSw==}
+  '@brillout/release-me@0.4.0':
+    resolution: {integrity: sha512-V4YwITguHK3zOy9B4606lc9PQiFDp3p3Ifeq4KF7V8o9fs7OmcrfTWBE0EWFtiLhG2JeKb2RzM0t6Y4tLgXd6w==}
     hasBin: true
 
   '@brillout/require-shim@0.1.2':
@@ -12063,7 +12063,7 @@ snapshots:
     dependencies:
       '@brillout/assert': 0.1.7
 
-  '@brillout/release-me@0.3.8':
+  '@brillout/release-me@0.4.0':
     dependencies:
       '@brillout/picocolors': 1.0.12
       commander: 11.1.0

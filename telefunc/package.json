@@ -81,7 +81,7 @@
     "@babel/parser": "7.23.6",
     "@babel/types": "7.23.6",
     "@biomejs/biome": "^1.8.3",
-    "@brillout/release-me": "^0.3.8",
+    "@brillout/release-me": "^0.4.0",
     "@brillout/vite-plugin-server-entry": "^0.4.5",
     "@nuxt/types": "^2.15.8",
     "@types/express": "^4.17.11",

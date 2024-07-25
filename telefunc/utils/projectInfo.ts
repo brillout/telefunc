@@ -1,5 +1,4 @@
-const PROJECT_VERSION = '0.1.76'
-
+import { PROJECT_VERSION } from './PROJECT_VERSION.js'
 export const projectInfo = {
   projectName: 'Telefunc' as const,
   projectVersion: PROJECT_VERSION,
