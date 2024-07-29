@@ -36,8 +36,8 @@ importers:
   docs:
     dependencies:
       '@brillout/docpress':
-        specifier: ^0.6.13
-        version: 0.6.13(@brillout/vite@5.1.0-commit-3dc7abd(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))(@swc/helpers@0.5.2)(@types/node@20.11.17)(@types/react-dom@17.0.11)(@types/react@17.0.39)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(rollup@4.6.1)(typescript@5.0.3)(vike@0.4.161-commit-b829fee(@brillout/vite@5.1.0-commit-3dc7abd(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))(react-streaming@0.3.22(react-dom@18.2.0(react@18.2.0))(react@18.2.0)))
+        specifier: ^0.6.16
+        version: 0.6.16(@brillout/vite@5.1.0-commit-3dc7abd(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))(@swc/helpers@0.5.2)(@types/node@20.11.17)(@types/react-dom@17.0.11)(@types/react@17.0.39)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(rollup@4.6.1)(typescript@5.0.3)(vike@0.4.161-commit-b829fee(@brillout/vite@5.1.0-commit-3dc7abd(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))(react-streaming@0.3.22(react-dom@18.2.0(react@18.2.0))(react@18.2.0)))
       '@types/node':
         specifier: ^20.11.16
         version: 20.11.17
@@ -1731,17 +1731,17 @@ packages:
     resolution: {integrity: sha512-cvSrvCxnZYzQmiOj0nwIuf298DvaM/2eAAOsBSbBpsdOEpYsnbQGvFxew9oSXEi3HH1TZMmLy8VyvyJJ+LsmCw==}
     hasBin: true
 
-  '@brillout/docpress@0.6.13':
-    resolution: {integrity: sha512-qEa1f35QqF/v9APrTQ7XjIW9aCs1aYAyH7CcwqNFgG1JUmx+YPwDQm5prDku66M/4zoUeq/nYXLjLabtWXPkrg==}
+  '@brillout/docpress@0.6.16':
+    resolution: {integrity: sha512-DZ+pzx0gnZ9tkjY3mDPG6RLcgL1VWldCJ6jfpH05IqmSmYXLRTPkc1jywWFT8wBzkyNOEeMNM8UwuGXOH0qFmg==}
     peerDependencies:
       '@types/node': '*'
       '@types/react': '*'
       '@types/react-dom': '*'
-      react: ^18.0.0
-      react-dom: ^18.0.0
+      react: '>=18.0.0'
+      react-dom: '>=18.0.0'
       typescript: '*'
-      vike: ^0.4.162
-      vite: ^5.2.0
+      vike: '>=0.4.167'
+      vite: '>=5.2.0'
 
   '@brillout/format-text@0.1.3':
     resolution: {integrity: sha512-79/JKUOr+POW3XAfRDDxoxCjGBeD5KVwkzBWhK7KPA66HCTwEqb7unqxfVGSJZ9MnL/NiMb0shhzRkydMC/YFg==}
@@ -6561,9 +6561,6 @@ packages:
   jsonfile@4.0.0:
     resolution: {integrity: sha512-m6F1R3z8jjlf2imQHS2Qez5sjKWQzbuuhuJ/FKYFRZvPE3PuHcSMVZzfsLhGVOkfd20obL5SWEBew5ShlquNxg==}
 
-  jsonfile@5.0.0:
-    resolution: {integrity: sha512-NQRZ5CRo74MhMMC3/3r5g2k4fjodJ/wh8MxjFbCViWKFjxrnudWSY5vomh+23ZaXzAS7J3fBZIR2dV6WbmfM0w==}
-
   jsonfile@6.1.0:
     resolution: {integrity: sha512-5dgndWOriYSm5cnYaJNhalLNDKOqFwyDB/rr1E9ZsGciGvKPs8R2xYGCacuf3z6K1YKDz182fd+fY3cn3pMqXQ==}
 
@@ -9498,12 +9495,6 @@ packages:
   tweetnacl@0.14.5:
     resolution: {integrity: sha512-KXXFFdAbFXY4geFIwoyNK+f5Z1b7swfXABfL7HXCmoIWMKU3dmS26672A4EeQtDzLKy7SXmfBu51JolvEKwtGA==}
 
-  twemoji-parser@13.1.0:
-    resolution: {integrity: sha512-AQOzLJpYlpWMy8n+0ATyKKZzWlZBJN+G0C+5lhX7Ftc2PeEVdUU/7ns2Pn2vVje26AIZ/OHwFoUbdv6YYD/wGg==}
-
-  twemoji@13.1.1:
-    resolution: {integrity: sha512-IIIoq+n1lk1M1+evBKZD3DO0ud02fDQ4ssbgAv8rp3YBWUeNmskjlisFUPPDacQ50XS3bhrd4Kq9Q2gqhxb0dg==}
-
   type-check@0.4.0:
     resolution: {integrity: sha512-XleUoc9uwGXqjWwXaUTZAmzMcFZ5858QA2vvx1Ur5xIcixXIP+8LnFDgRplU30us6teqdlskFfu+ae4K79Ooew==}
     engines: {node: '>= 0.8.0'}
@@ -12013,7 +12004,7 @@ snapshots:
 
   '@brillout/dev-my-dep@0.0.10': {}
 
-  '@brillout/docpress@0.6.13(@brillout/vite@5.1.0-commit-3dc7abd(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))(@swc/helpers@0.5.2)(@types/node@20.11.17)(@types/react-dom@17.0.11)(@types/react@17.0.39)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(rollup@4.6.1)(typescript@5.0.3)(vike@0.4.161-commit-b829fee(@brillout/vite@5.1.0-commit-3dc7abd(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))(react-streaming@0.3.22(react-dom@18.2.0(react@18.2.0))(react@18.2.0)))':
+  '@brillout/docpress@0.6.16(@brillout/vite@5.1.0-commit-3dc7abd(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))(@swc/helpers@0.5.2)(@types/node@20.11.17)(@types/react-dom@17.0.11)(@types/react@17.0.39)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(rollup@4.6.1)(typescript@5.0.3)(vike@0.4.161-commit-b829fee(@brillout/vite@5.1.0-commit-3dc7abd(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))(react-streaming@0.3.22(react-dom@18.2.0(react@18.2.0))(react@18.2.0)))':
     dependencies:
       '@brillout/picocolors': 1.0.12
       '@mdx-js/mdx': 3.0.1
@@ -12030,7 +12021,6 @@ snapshots:
       rehype-pretty-code: 0.13.0(shiki@1.2.0)
       remark-gfm: 4.0.0
       shiki: 1.2.0
-      twemoji: 13.1.1
       typescript: 5.0.3
       vike: 0.4.161-commit-b829fee(@brillout/vite@5.1.0-commit-3dc7abd(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))(react-streaming@0.3.22(react-dom@18.2.0(react@18.2.0))(react@18.2.0))
       vike-contributors: 0.0.9
@@ -17588,12 +17578,6 @@ snapshots:
     optionalDependencies:
       graceful-fs: 4.2.11
 
-  jsonfile@5.0.0:
-    dependencies:
-      universalify: 0.1.2
-    optionalDependencies:
-      graceful-fs: 4.2.11
-
   jsonfile@6.1.0:
     dependencies:
       universalify: 2.0.0
@@ -21244,15 +21228,6 @@ snapshots:
       safe-buffer: 5.2.1
 
   tweetnacl@0.14.5: {}
-
-  twemoji-parser@13.1.0: {}
-
-  twemoji@13.1.1:
-    dependencies:
-      fs-extra: 8.1.0
-      jsonfile: 5.0.0
-      twemoji-parser: 13.1.0
-      universalify: 0.1.2
 
   type-check@0.4.0:
     dependencies:
