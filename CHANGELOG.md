@@ -1,3 +1,14 @@
+## [0.1.78](https://github.com/brillout/telefunc/compare/v0.1.77...v0.1.78) (2024-08-25)
+
+
+### Bug Fixes
+
+* remove picocolors dependency ([5295795](https://github.com/brillout/telefunc/commit/529579587d5f9ad8aee633643709fb3ad2516941))
+* update @brillout/vite-plugin-server-entry ([#118](https://github.com/brillout/telefunc/issues/118)) (fix vikejs/vike[#1827](https://github.com/brillout/telefunc/issues/1827)) ([cfa76c6](https://github.com/brillout/telefunc/commit/cfa76c6cf9b17b4b6116f8d29a62372a8077bf1e))
+* update es-module-lexer ([4170fad](https://github.com/brillout/telefunc/commit/4170fadf90d412dc8ae15a80d81c910a597bbaec))
+
+
+
 ## [0.1.77](https://github.com/brillout/telefunc/compare/v0.1.76...v0.1.77) (2024-08-23)
 
 
