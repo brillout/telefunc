@@ -1,12 +1,11 @@
 export { getExportNames }
 
 import { init, parse } from 'es-module-lexer'
-import { assert } from '../utils'
 
-async function getExportNames(src: string) {
+async function getExportNames(src: string): Promise<string[]> {
   await init
   const parseResult = parse(src)
-  const exportNames = parseResult[1]
-  assert(Array.isArray(exportNames as any), { src, exportNamesType: typeof exportNames })
+  const [_imports, exports] = parseResult
+  const exportNames = exports.map((e) => e.n)
   return exportNames
 }
