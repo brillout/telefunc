@@ -355,8 +355,8 @@ importers:
         specifier: ^1.0.12
         version: 1.0.12
       '@brillout/vite-plugin-server-entry':
-        specifier: ^0.4.9
-        version: 0.4.9
+        specifier: ^0.4.12
+        version: 0.4.12
       es-module-lexer:
         specifier: ^0.7.1
         version: 0.7.1
@@ -1786,6 +1786,9 @@ packages:
     hasBin: true
     peerDependencies:
       typescript: ^4.0.0
+
+  '@brillout/vite-plugin-server-entry@0.4.12':
+    resolution: {integrity: sha512-d2GPMPFfKEIjajW6wylIL9QsW4Sp/QyY7yr1FDxpgehgcgiXJUjRSvHBt0Ynyb4PtOyeLbhJECVIKwVMU4+BmQ==}
 
   '@brillout/vite-plugin-server-entry@0.4.9':
     resolution: {integrity: sha512-ETiWJlljweuxXS/0TBk4eLotZ3ZFC26u7s983z2P9lmDGifZzgj7BCJzgopnDihbl8Y8usKZSLq0grrCivtMSA==}
@@ -12082,6 +12085,10 @@ snapshots:
       fast-glob: 3.2.12
       source-map-support: 0.5.21
       typescript: 5.4.4
+
+  '@brillout/vite-plugin-server-entry@0.4.12':
+    dependencies:
+      '@brillout/import': 0.2.3
 
   '@brillout/vite-plugin-server-entry@0.4.9':
     dependencies:
