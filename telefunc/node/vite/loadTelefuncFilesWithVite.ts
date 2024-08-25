@@ -1,6 +1,6 @@
 export { loadTelefuncFilesWithVite }
 
-import { importServerEntry } from '@brillout/vite-plugin-server-entry/importServerEntry'
+import { importServerEntry } from '@brillout/vite-plugin-server-entry/runtime'
 import { assert, assertWarning, getNodeEnv, hasProp, isObject, isProduction, isTelefuncFilePath } from '../utils'
 import { telefuncFilesGlobFilePath } from './importGlob/telefuncFilesGlobPath'
 import { loadTelefuncFilesWithImportBuild } from './plugins/importBuild/loadBuild'
