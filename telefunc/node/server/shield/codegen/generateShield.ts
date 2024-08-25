@@ -14,7 +14,7 @@ import {
 } from '../../../utils'
 import fs from 'node:fs'
 import path from 'node:path'
-import pc from 'picocolors'
+import pc from '@brillout/picocolors'
 
 type GeneratedShield = {
   telefuncFilePath: string

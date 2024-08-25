@@ -360,9 +360,6 @@ importers:
       es-module-lexer:
         specifier: ^0.7.1
         version: 0.7.1
-      picocolors:
-        specifier: ^1.0.0
-        version: 1.0.0
       react:
         specifier: ^18.0.0
         version: 18.2.0

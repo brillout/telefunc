@@ -3,7 +3,7 @@ export { printShieldGenResult }
 import type { Plugin, ResolvedConfig } from 'vite'
 import { logResult } from '../../server/shield/codegen/generateShield'
 import { projectInfo } from '../utils'
-import pc from 'picocolors'
+import pc from '@brillout/picocolors'
 
 function printShieldGenResult(): Plugin {
   let config: ResolvedConfig
