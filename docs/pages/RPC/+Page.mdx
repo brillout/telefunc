@@ -69,6 +69,8 @@ async function onLoad() {
 }
 ```
 
+> `.telefunc.js` files are guaranteed to be loaded only on the server-side. You can therefore save secret information, such as the database passwords, in `.telefunc.js` files.
+
 ```jsx
 // TodoList.jsx
 // Environment: Browser
