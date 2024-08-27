@@ -8,10 +8,6 @@ const headingsDetached: HeadingDetachedDefinition[] = [
     url: '/abort-vs-error',
   },
   {
-    title: 'RPC',
-    url: '/RPC',
-  },
-  {
     title: 'Telefunc Transformer',
     url: '/transformer',
   },
@@ -40,6 +36,11 @@ export const headings: HeadingDefinition[] = [
     title: 'Introduction',
     titleDocument: 'Telefunc',
     url: '/',
+  },
+  {
+    level: 2,
+    title: 'RPC',
+    url: '/RPC',
   },
   {
     level: 1,

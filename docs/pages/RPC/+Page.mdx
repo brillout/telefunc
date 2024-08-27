@@ -2,8 +2,8 @@ import { Link } from '@brillout/docpress'
 
 > This page explains:
 > - What RPC is.
-> - How RPC (and Telefunc) work.
-> - That RPC endpoints (i.e. telefunctions) need protection.
+> - How RPC (e.g. Telefunc) works.
+> - That RPC endpoints (e.g. telefunctions) need protection.
 >
 > You can skip reading this page if you are alreay familiar with RPC.
 
@@ -30,10 +30,10 @@ async function hello({ name }) {
 <html>
   <body>
     <script type="module">
-      // This import doesn't actually load the `hello.telefunc.js` file: Telefunc transforms
-      // `hello.telefunc.js` into a thin HTTP client.
+      // This import doesn't actually load the hello.telefunc.js file: Telefunc transforms
+      // hello.telefunc.js into a thin HTTP client.
       import { hello } from './hello.telefunc.js'
-      // This thin HTTP client makes an HTTP request when we call `hello()`
+      // This thin HTTP client makes an HTTP request when the hello() function is called.
       const { message } = await hello({ name: 'Eva' })
       console.log(message) // Prints 'Welcome Eva'
     </script>
@@ -89,9 +89,9 @@ async function TodoList() {
 
 > Note how we collocate and name `TodoList.telefunc.js` after `TodoList.jsx`; it's a practice we'll talk about later.
 
-> Our examples use JSX but note that Telefunc works with any UI framework (React, Vue, Angular, Svelte, ...).
+> While the examples here use JSX note that Telefunc works with any UI framework (React, Vue, Angular, Svelte, ...).
 
-Our frontend can also use telefunctions to mutate data.
+Telefunctions can also be used to mutate data:
 
 ```js
 // CreateTodo.telefunc.js
@@ -137,11 +137,13 @@ function CreateTodo() {
 }
 ```
 
-This means our frontend can directly tap into the power of our SQL/ORM engine.
-This is both simpler and more powerful than REST/GraphQL.
+This means our frontend can directly tap into the full power of SQL/ORM engines.
+It's both simpler and more powerful than REST/GraphQL.
 
-> We need a GraphQL/RESTful API only if third parties need to be able to access our database,
-> or if we are a very large company with highly complex databases.
+> GraphQL/RESTful API is usually only needed if:
+> - we want to give third parties generic access to our database, or
+> - we are a very large company with highly complex databases.
+>
 > We explain why at <Link href="/RPC-vs-GraphQL-REST" />.
 
 
