@@ -70,6 +70,9 @@ async function onLoad() {
 ```
 
 > `.telefunc.js` files are guaranteed to be loaded only on the server-side. You can therefore save secret information, such as the database passwords, in `.telefunc.js` files.
+>
+> If you save secret information in another file then we recommend using your framework to guarentee that the secret information is never accidentally leaked to the client-side (and thus made public).
+> For example you can add `.server.js` to the filename [when using Vike](https://vike.dev/file-env) as well as [when using SvelteKit](https://kit.svelte.dev/docs/server-only-modules).
 
 ```jsx
 // TodoList.jsx
