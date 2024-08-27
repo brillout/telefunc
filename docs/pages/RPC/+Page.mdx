@@ -1,13 +1,13 @@
 import { Link } from '@brillout/docpress'
 
 > This page explains:
-> - What RPC is.
-> - How RPC (e.g. Telefunc) works.
-> - That RPC endpoints (e.g. telefunctions) need protection.
+> - What RPC is
+> - How RPC (such as Telefunc) works
+> - Why RPC endpoints (such as telefunctions) need protection
 >
-> You can skip reading this page if you are alreay familiar with RPC.
+> You can skip this page if you are already familiar with RPC.
 
-## Hello world
+## Basic example
 
 Telefunc enables functions defined on the server-side to be called remotely from the browser-side.
 
@@ -17,6 +17,7 @@ Telefunc enables functions defined on the server-side to be called remotely from
 
 export { hello }
 
+// hello() always runs on the server-side
 async function hello({ name }) {
   const message = 'Welcome ' + name
   return { message }
@@ -41,17 +42,16 @@ async function hello({ name }) {
 </html>
 ```
 
-Telefunctions such as `hello()` always run on the server-side.
+> We will show later <Link href="#how-it-works">how it works</Link>.
 
-> The practice of remotely calling functions is called *RPC* (Remote Procedure Call).
+> This practice &mdash; calling functions remotely in a seamless fashion &mdash; is known as [_**R**emote **P**rocedure **C**all (RPC)_](https://en.wikipedia.org/wiki/Remote_procedure_call).
+
+The central aspect here is that `hello()` is always executed on the server side, which enables `hello()` (and telefunctions in general) to use server-side utilities such as SQL and ORMs.
 
 
 ## ORM & SQL
 
-Because they are always run on the server-side,
-telefunctions are able to run SQL/ORM queries.
-
-This, in essence, enables our frontend to use SQL/ORM queries.
+As we have seen in the previous section, telefunctions always run on the server-side and can therefore use server utilities such as SQL and ORMs.
 
 ```js
 // TodoList.telefunc.js
@@ -73,11 +73,11 @@ async function onLoad() {
 // TodoList.jsx
 // Environment: Browser
 
+// This doesn't actually load CreateTodo.telefunc.js which we'll explain in the next section
 import { onLoad } from './TodoList.telefunc.js'
 
 async function TodoList() {
-  // Our frontend uses the telefunction `onLoad()` to execute a SQL/ORM query that
-  // retrieves the data it needs.
+  // The frontend uses the telefunction onLoad() to retrieve data by executing a SQL/ORM query
   const todoItems = await onLoad()
   return (
     <ul>{ todoItems.map(item =>
@@ -87,9 +87,9 @@ async function TodoList() {
 }
 ```
 
-> Note how we collocate and name `TodoList.telefunc.js` after `TodoList.jsx`; it's a practice we'll talk about later.
+> We collocate and name the `TodoList.telefunc.js` file after `TodoList.jsx`, which is a practice we recommend and explain at <Link href="/event-based" />.
 
-> While the examples here use JSX note that Telefunc works with any UI framework (React, Vue, Angular, Svelte, ...).
+> While the examples here use JSX, Telefunc works with any UI framework (React, Vue, Svelte, Solid, ...).
 
 Telefunctions can also be used to mutate data:
 
@@ -101,7 +101,7 @@ export { onNewTodo }
 
 import { shield } from 'telefunc'
 
-// We'll talk about `shield()` in a moment
+// We'll talk about shield() later
 shield(onNewTodo, [shield.type.string])
 async function onNewTodo(text) {
   // ORM
@@ -137,21 +137,20 @@ function CreateTodo() {
 }
 ```
 
-This means our frontend can directly tap into the full power of SQL/ORM engines.
-It's both simpler and more powerful than REST/GraphQL.
+RPC enables your frontend to tap directly into the full power of the server such as SQL and ORMs. For most use cases it's simpler, more flexible, and more performant than REST and GraphQL.
 
-> GraphQL/RESTful API is usually only needed if:
-> - we want to give third parties generic access to our database, or
-> - we are a very large company with highly complex databases.
+> GraphQL and RESTful can be better than RPC if:
+> - you want to give third parties generic access to your data, or
+> - you are a very large company with highly complex databases.
 >
-> We explain why at <Link href="/RPC-vs-GraphQL-REST" />.
+> See <Link href="/RPC-vs-GraphQL-REST" />.
 
 
 ## How it works
 
-> Understanding the basic mechanics of Telefunc is paramount in order to proficiently use Telefunc.
+> Understanding the basic mechanics of Telefunc is paramount in order to proficiently use it.
 
-Let's see what happens when we call a telefunction.
+Let's see what happens when a telefunction is called.
 
 ```js
 // hello.telefunc.js
@@ -170,11 +169,10 @@ async function hello({ name }) {
 
 import { hello } from './hello.telefunc.js'
 
-const message = await hello('Eva')
+const { message } = await hello('Eva')
 ```
 
-The `hello.telefunc.js` file is never loaded in the browser:
-Telefunc transforms `hello.telefunc.js` into the following:
+The `hello.telefunc.js` file is never loaded in the browser: instead Telefunc transforms `hello.telefunc.js` into the following:
 
 ```js
 // hello.telefunc.js (after Telefunc transformation)
@@ -183,8 +181,8 @@ import { __internal_makeHttpRequest } 'telefunc/client'
 export const hello = (...args) => __internal_makeHttpRequest('/hello.telefunc.js:hello', args)
 ```
 
-So, when we call `hello('Eva')` in the browser-side, the following happens:
- 1. On the browser-side, the `__internal_makeHttpRequest()` function makes an HTTP request to our server.
+When `hello('Eva')` is called in the browser-side, the following happens:
+ 1. On the browser-side, the `__internal_makeHttpRequest()` function makes an HTTP request to the server.
     ```
     POST /_telefunc HTTP/1.1
     {
@@ -192,11 +190,11 @@ So, when we call `hello('Eva')` in the browser-side, the following happens:
       "args": [{"name": "Eva"}]
     }
     ```
- 2. On the server-side, our Telefunc middleware:
+ 2. On the server-side, the Telefunc middleware:
     ```js
     // server.js
 
-    // Server (Express.js/Fastify/...)
+    // Server (Express.js/Hono/Fastify/...)
 
     import { telefunc } from 'telefunc'
 
@@ -217,18 +215,20 @@ So, when we call `hello('Eva')` in the browser-side, the following happens:
     ```
 
 In other words,
-the `hello()` function is always executed on the server-side,
-and the browser-side remotely calls `hello()` by using an HTTP request.
+the `hello()` function is always executed on the server-side
+while the browser-side can remotely call it in a seamless fashion.
+
+> You can also call telefunctions from the server-side, in which case the telefunction is directly called (without making an HTTP request).
 
 
 ## Telefunctions need protection
 
-Our telefunctions can be remotely called not only by our frontend but really by anyone.
+Your telefunctions can be remotely called not only by your frontend, but by anyone.
 
-Anyone can open a terminal and make an HTTP request:
+For example, anyone can call the `hello()` telefunction we've seen in the previous section by opening a Linux terminal and make this HTTP request:
 
 ```bash
-curl https://our-website.com/_telefunc --data '{
+curl https://your-website.com/_telefunc --data '{
    "path": "/hello.telefunc.js:hello",
    "args": [{"name": "Elisabeth"}]
  }'
@@ -240,6 +240,7 @@ Thus, such telefunction is problematic:
 // sql.telefunc.js
 // Environment: Server
 
+// run() is public: it can be called by anyone
 export { run }
 
 async function run(sql) {
@@ -247,28 +248,29 @@ async function run(sql) {
 }
 ```
 
-This `run()` telefunction essentially exposes our entire database to the world as
-anyone can make an HTTP request like the following.
+This `run()` telefunction essentially exposes the entire database to the world as
+anyone can make this HTTP request:
 
 ```bash
-curl https://our-website.com/_telefunc --data '{
+curl https://your-website.com/_telefunc --data '{
     "path": "/run.telefunc.js:run",
     "args": ["SELECT login, password FROM users;"]
   }'
 ```
 
-We should always keep mind that our telefunctions are public and need protection.
+Always keep in mind that your telefunctions are public and need protection.
 
 
 ## `throw Abort()`
 
 As we've seen in the previous section,
-the following telefunction is not safe.
+the following telefunction isn't safe.
 
 ```js
 // run.telefunc.js
 // Environment: Server
 
+// run() is public: it can be called by anyone
 export { run }
 
 async function run(sql) {
@@ -276,111 +278,84 @@ async function run(sql) {
 }
 ```
 
-But we can `throw Abort()` to protect it:
+But we can use `throw Abort()` to protect it:
 
 ```js
 // run.telefunc.js
 // Environment: Server
 
+// run() is public: it can be called by anyone
 export { run }
 
 import { Abort, getContext } from 'telefunc'
 
 async function run(sql) {
-  // We'll talk about `getContext()` later
   const { user } = getContext()
 
   // Only admins are allowed to run this telefunction
-  if (user.isAdmin !== true) {
-    throw Abort()
-  }
+  if (user.isAdmin !== true) throw Abort()
 
   return await database.execute(sql)
 }
 ```
 
-By using `throw Abort()` we essentially cancel forbidden telefunction calls:
+> Telefunctions can access contextual information by using <Link href="/getContext">`getContext()`</Link>.
+
+We can use `throw Abort()` to avoid any forbidden telefunction call.
 
 ```js
 // TodoList.telefunc.js
 // Environment: Server
 
-// `onLoad()` is a public: it can be called not only by our frontend but really by anyone
 export { onLoad }
 
-import { getContext } from 'telefunc'
+import { Abort, getContext } from 'telefunc'
 
 async function onLoad() {
   const { user } = getContext()
 
-  // We forbid `onLoad()` to be called by a user that is not not logged-in
-  if (!user) {
-    throw Abort()
-  }
+  // We forbid onLoad() to be called by a user that isn't logged-in
+  if (!user) throw Abort()
 
   const todoList = await Todo.findMany({ authorId: user.id })
   return todoList
 }
 ```
 
-> Here, in essence, we use `throw Abort()` to implement a permission: only a logged-in user can fetch its to-do items.
+> We essentially use `throw Abort()` to implement permission: only a logged-in user is allowed to fetch its to-do items.
 > We talk more about permissions at <Link href="/permissions" />.
 
-> In principle, we could also `throw new Error()` instead of `throw Abort()` as it also achieves the job of canceling the telefunction, but `Abort()` comes with many conveniences and we therefore recommend using `throw Abort()`.
+> In principle, we could also `throw new Error()` instead of `throw Abort()` as it also interupts the telefunction call. But we recommend `throw Abort()` as it comes with many conveniences.
 
-If, upon canceling a telefunction call, we want to pass information to the frontend then we use `return someValue` or `throw Abort(someValue)`, which we talk more about at <Link href="/permissions" />.
+> If, upon aborting a telefunction call, you want to pass information to the frontend then use `return someValue` or `throw Abort(someValue)`, see <Link href="/permissions" />.
 
 
 ## `shield()`
 
-Also,
-since telefunctions are public and can be called by anyone,
-we cannot assuming anything about the arguments.
-
-We can use `throw Abort()` again to ensure the type of telefunction arguments:
+Since telefunctions are public and can be called by anyone, we cannot assuming anything about arguments. We can use `throw Abort()` to ensure the type of telefunction arguments:
 
 ```js
 // CreateTodo.telefunc.js
 // Environment: Server
 
 export async function onNewTodo(text) {
-  // While our frontend may always call `onNewTodo(text)` with `typeof text === 'string'`,
-  // `onNewTodo()` is public; anyone can call `onNewTodo(undefined)`.
-
-  // This may throw:
-  //   Uncaught TypeError: Cannot read properties of undefined (reading 'toUpperCase')
+  // ❌ This may throw:
+  // ```
+  // Uncaught TypeError: Cannot read properties of undefined (reading 'toUpperCase')
+  // ```
+  // While the frontend may always call onNewTodo(text) with `typeof text === 'string'`,
+  // because onNewTodo() is public, anyone can call onNewTodo(undefined) instead.
   text = text.toUpperCase()
 
-  // We can use `Abort()` to ensure that `text` is a string
+  // ✅ We ensure `text` is a string
   if (typeof text !== 'string') {
     throw Abort()
   }
-
-  // We can now safely assume `text` to be a string
   text = text.toUpperCase()
 }
 ```
 
-But this quickly becomes cumbersome:
-
-```js
-// CreateTodo.telefunc.js
-// Environment: Server
-
-export async function onNewTodo(args) {
-  if (
-    args?.constructor !== Object ||
-    typeof args.text !== 'string' ||
-    typeof args.isCompleted !== 'boolean'
-  ) {
-    throw Abort()
-  }
-  const { text, isCompleted } = args
-  /* ... */
-}
-```
-
-For more convenience we can use `shield()` instead of `throw Abort()`:
+For more convenience, we can use `shield()` instead:
 
 ```js
 // CreateTodo.telefunc.js
@@ -389,7 +364,7 @@ For more convenience we can use `shield()` instead of `throw Abort()`:
 import { shield } from 'telefunc'
 const t = shield.type
 
-shield(onNewTodo, [text: t.string])
+shield(onNewTodo, [t.string])
 export async function onNewTodo(text) {
   // ...
 }
@@ -408,31 +383,25 @@ export async function onNewTodo({ text, isCompleted }) {
 }
 ```
 
-Not only does `shield()` call `throw Abort()` on our behalf, but it also infers the arguments' type for IntelliSense and TypeScript.
+Not only does `shield()` call `throw Abort()` on our behalf, but it also infers the type of the arguments for TypeScript and IntelliSense.
 
 
 ## Random telefunction calls
 
-Because telefunctions are public,
-any of our telefunction can be called by anyone at any time with any arguments.
+Any of your telefunctions can be called by anyone, at any time, and with any arguments. One way to think about it is that any random telefunction call can happen at any time.
 
-One way to think about this is that any random telefunction call can happen at any time.
-
-This means we should always protect our telefunctions,
-even if know our frontend to call a telefunction only in a certain way. For example:
+You should always protect your telefunctions, even when your frontend calls a telefunction only in a certain way. For example:
 
 ```jsx
 // Comment.jsx
 // Environment: Browser
 
-import { onCommentDelete } from './Comment.telefunc.js'
+import { onDelete } from './Comment.telefunc.js'
 
-function Comment({ id, text, context }) {
+function Comment({ id, text }) {
   const deleteButton =
-    // Note how we only show the delete button to admins
-    context.user.isAdmin ?
-      <button onClick={() => onCommentDelete(id)}>Delete</button> :
-      null
+    // The delete button is only shown to admins
+    !user.isAdmin ? null : <button onClick={() => onDelete(id)}>Delete</button>
   return <>
     <p>{ text }</p>
     { deleteButton }
@@ -440,9 +409,8 @@ function Comment({ id, text, context }) {
 }
 ```
 
-Because our frontend shows the delete button only to admins, we can assume the user to be an admin whenever our frontend calls `onCommentDelete()`.
-
-But we still need to use `throw Abort()` to protect our telefunction against calls not originating from our frontend.
+Because the frontend shows the delete button only to admins, we can assume the user to be an admin whenever the frontend calls `onDelete()`.
+But we still need to use `throw Abort()` in order to protect the telefunction against calls that don't originate from the frontend.
 
 ```js
 // Comment.telefunc.js
@@ -450,15 +418,13 @@ But we still need to use `throw Abort()` to protect our telefunction against cal
 
 import { getContext, Abort, shield } from 'telefunc'
 
-shield(onCommentDelete, [shield.type.number])
-export async function onCommentDelete(id) {
+shield(onDelete, [shield.type.number])
+export async function onDelete(id) {
   const { user } = getContext()
 
-  // `onCommentDelete()` is public and anyone can call it while not being an admin.
-  // If that happens, we make to sure to cancel the telefunction call.
-  if (!user.isAdmin) {
-    throw Abort()
-  }
+  // onDelete() is public and anyone can call it without being an admin.
+  // We must abort if that happens.
+  if (!user.isAdmin) throw Abort()
 
   // ...
 }
