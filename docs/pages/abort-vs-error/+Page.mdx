@@ -6,7 +6,7 @@ You may wonder, why not using `throw new Error()` instead of `throw Abort()`?
 
 ```js
 // TodoList.telefunc.js
-// Environment: Node.js
+// Environment: server
 
 import { getContext } from 'telefunc'
 
@@ -37,7 +37,7 @@ The rule for a correct usage is:
 
 ```js
 // auth/getUser.ts
-// Environment: Node.js
+// Environment: server
 
 // Note that `auth/getUser.ts` is not a `.telefunc.js` file (`getUser()` is
 // not a telefunction but a so-called `getContext()` wrapper).
@@ -77,7 +77,7 @@ function getUser({ permission }) {
 
 ```js
 // components/Comment.telefunc.ts
-// Environment: Node.js
+// Environment: server
 
 import { getUser } from '../auth/getUser'
 
