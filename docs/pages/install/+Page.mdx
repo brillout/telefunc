@@ -11,7 +11,7 @@ Without TypeScript:
 
 ```js
 // TodoList.js
-// Environment: Browser
+// Environment: client
 
 import { defineTelefunction } from 'telefunc/client'
 const onNewTodo = defineTelefunction('TodoList.telefunc.js', 'onNewTodo')
@@ -27,7 +27,7 @@ With TypeScript:
 
 ```ts
 // TodoList.ts
-// Environment: Browser
+// Environment: client
 
 import { defineTelefunction } from 'telefunc/client'
 import type { onNewTodo as onNewTodoType } from './TodoList.telefunc.ts'

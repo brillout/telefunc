@@ -39,7 +39,7 @@ in this example we return `{ notLoggedIn: true }` instead of `throw Abort()` so 
 
 ```tsx
 // TodoItem.tsx
-// Environment: Browser
+// Environment: client
 
 import { onTextChange } from './TodoItem.telefunc'
 
@@ -94,7 +94,7 @@ function getUser() {
 ```
 
 ```js
-// Environment: Browser
+// Environment: client
 
 import { onAbort } from 'telefunc/client'
 

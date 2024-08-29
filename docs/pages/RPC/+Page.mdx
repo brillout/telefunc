@@ -26,7 +26,7 @@ async function hello({ name }) {
 
 ```html
 <!-- index.html -->
-<!-- Environment: Browser -->
+<!-- Environment: client -->
 
 <html>
   <body>
@@ -73,7 +73,7 @@ async function onLoad() {
 
 ```jsx
 // TodoList.jsx
-// Environment: Browser
+// Environment: client
 
 // This doesn't actually load CreateTodo.telefunc.js which we'll explain in the next section
 import { onLoad } from './TodoList.telefunc.js'
@@ -120,7 +120,7 @@ async function onNewTodo(text) {
 
 ```jsx
 // CreateTodo.jsx
-// Environment: Browser
+// Environment: client
 
 import { onNewTodo } from './CreateTodo.telefunc.js'
 
@@ -167,7 +167,7 @@ async function hello({ name }) {
 ```
 
 ```js
-// Environment: Browser
+// Environment: client
 
 import { hello } from './hello.telefunc.js'
 
@@ -396,7 +396,7 @@ You should always protect your telefunctions, even when your frontend calls a te
 
 ```jsx
 // Comment.jsx
-// Environment: Browser
+// Environment: client
 
 import { onDelete } from './Comment.telefunc.js'
 
