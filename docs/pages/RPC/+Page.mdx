@@ -13,7 +13,7 @@ Telefunc enables functions defined on the server-side to be called remotely from
 
 ```js
 // hello.telefunc.js
-// Environment: Server
+// Environment: server
 
 export { hello }
 
@@ -55,7 +55,7 @@ As we have seen in the previous section, telefunctions always run on the server-
 
 ```js
 // TodoList.telefunc.js
-// Environment: Server
+// Environment: server
 
 export { onLoad }
 
@@ -97,7 +97,7 @@ Telefunctions can also be used to mutate data:
 
 ```js
 // CreateTodo.telefunc.js
-// Environment: Server
+// Environment: server
 
 export { onNewTodo }
 
@@ -156,7 +156,7 @@ Let's see what happens when a telefunction is called.
 
 ```js
 // hello.telefunc.js
-// Environment: Server
+// Environment: server
 
 export { hello }
 
@@ -240,7 +240,7 @@ Thus, such telefunction is problematic:
 
 ```js
 // sql.telefunc.js
-// Environment: Server
+// Environment: server
 
 // run() is public: it can be called by anyone
 export { run }
@@ -270,7 +270,7 @@ the following telefunction isn't safe.
 
 ```js
 // run.telefunc.js
-// Environment: Server
+// Environment: server
 
 // run() is public: it can be called by anyone
 export { run }
@@ -284,7 +284,7 @@ But we can use `throw Abort()` to protect it:
 
 ```js
 // run.telefunc.js
-// Environment: Server
+// Environment: server
 
 // run() is public: it can be called by anyone
 export { run }
@@ -307,7 +307,7 @@ We can use `throw Abort()` to avoid any forbidden telefunction call.
 
 ```js
 // TodoList.telefunc.js
-// Environment: Server
+// Environment: server
 
 export { onLoad }
 
@@ -338,7 +338,7 @@ Since telefunctions are public and can be called by anyone, we cannot assuming a
 
 ```js
 // CreateTodo.telefunc.js
-// Environment: Server
+// Environment: server
 
 export async function onNewTodo(text) {
   // ❌ This may throw:
@@ -361,7 +361,7 @@ For more convenience, we can use `shield()` instead:
 
 ```js
 // CreateTodo.telefunc.js
-// Environment: Server
+// Environment: server
 
 import { shield } from 'telefunc'
 const t = shield.type
@@ -374,7 +374,7 @@ export async function onNewTodo(text) {
 
 ```js
 // CreateTodo.telefunc.js
-// Environment: Server
+// Environment: server
 
 import { shield } from 'telefunc'
 const t = shield.type
@@ -416,7 +416,7 @@ But we still need to use `throw Abort()` in order to protect the telefunction ag
 
 ```js
 // Comment.telefunc.js
-// Environment: Server
+// Environment: server
 
 import { getContext, Abort, shield } from 'telefunc'
 
