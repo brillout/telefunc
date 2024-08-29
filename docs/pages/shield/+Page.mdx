@@ -1,13 +1,13 @@
 import { Link } from '@brillout/docpress'
 
-**Environment**: Server.
+**Environment**: server.
 
 We use `shield()` to guarantee the type of telefunction arguments. (As explained in <Link href="/RPC" />,
 telefunctions are public and need protection.)
 
 ```js
 // CreateTodo.telefunc.js
-// Environment: Server
+// Environment: server
 
 export { onNewTodo }
 
@@ -86,7 +86,7 @@ Examples showcasing the most common `shield()` types:
 
 ```js
 // TodoList.telefunc.js
-// Environment: Node.js
+// Environment: server
 
 import { shield } from 'telefunc'
 const t = shield.type

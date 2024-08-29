@@ -6,7 +6,7 @@ Permissions are implemented by using `throw Abort()` and `return`:
 
 ```ts
 // TodoItem.telefunc.ts
-// Environment: Server
+// Environment: server
 
 export { onTextChange }
 
@@ -39,7 +39,7 @@ in this example we return `{ notLoggedIn: true }` instead of `throw Abort()` so 
 
 ```tsx
 // TodoItem.tsx
-// Environment: Browser
+// Environment: client
 
 import { onTextChange } from './TodoItem.telefunc'
 
@@ -63,7 +63,7 @@ To implement permission logic once and re-use it, we can define a `getContext()`
 
 ```ts
 // components/TodoItem.telefunc.ts
-// Environment: Server
+// Environment: server
 
 export { onTextChange }
 
@@ -77,7 +77,7 @@ function onTextChange(id: string, text: string) {
 
 ```ts
 // auth/getUser.ts
-// Environment: Node.js
+// Environment: server
 
 // Note that getUser() isn't a telefunction: it's a wrapper around getContext()
 export { getUser }
@@ -94,7 +94,7 @@ function getUser() {
 ```
 
 ```js
-// Environment: Browser
+// Environment: client
 
 import { onAbort } from 'telefunc/client'
 

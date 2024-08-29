@@ -4,7 +4,7 @@ We can pass information about invalid inputs to the frontend by using `return so
 
 ```js
 // SignUpForm.telefunc.ts
-// Environment: Server
+// Environment: server
 
 export async function onFormSubmit(email: string, password: string) {
   // Form validation
@@ -40,7 +40,7 @@ We can use `throw Abort(someValue)` instead of `return someValue`:
 
 ```js
 // SignUpForm.telefunc.ts
-// Environment: Server
+// Environment: server
 
 import { Abort } from 'telefunc'
 
