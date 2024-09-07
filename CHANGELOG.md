@@ -1,3 +1,12 @@
+## [0.1.79](https://github.com/brillout/telefunc/compare/v0.1.78...v0.1.79) (2024-09-07)
+
+
+### Bug Fixes
+
+* improve isWebpack() test (fix [#121](https://github.com/brillout/telefunc/issues/121)) ([1e6403e](https://github.com/brillout/telefunc/commit/1e6403e4b8437d3da49bc3bbab5747749f0a7e68))
+
+
+
 ## [0.1.78](https://github.com/brillout/telefunc/compare/v0.1.77...v0.1.78) (2024-08-25)
 
 
