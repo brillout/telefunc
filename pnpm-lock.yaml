@@ -36,8 +36,8 @@ importers:
   docs:
     dependencies:
       '@brillout/docpress':
-        specifier: ^0.6.16
-        version: 0.6.16(@swc/helpers@0.5.2)(@types/node@20.11.17)(@types/react-dom@17.0.11)(@types/react@17.0.39)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(rollup@4.22.0)(typescript@5.0.3)(vike@0.4.195(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2))))(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))
+        specifier: ^0.6.20
+        version: 0.6.20(@swc/helpers@0.5.2)(@types/node@20.11.17)(@types/react-dom@17.0.11)(@types/react@17.0.39)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(rollup@4.22.0)(typescript@5.0.3)(vike@0.4.195(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2))))(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))
       '@types/node':
         specifier: ^20.11.16
         version: 20.11.17
@@ -1728,8 +1728,8 @@ packages:
     resolution: {integrity: sha512-cvSrvCxnZYzQmiOj0nwIuf298DvaM/2eAAOsBSbBpsdOEpYsnbQGvFxew9oSXEi3HH1TZMmLy8VyvyJJ+LsmCw==}
     hasBin: true
 
-  '@brillout/docpress@0.6.16':
-    resolution: {integrity: sha512-DZ+pzx0gnZ9tkjY3mDPG6RLcgL1VWldCJ6jfpH05IqmSmYXLRTPkc1jywWFT8wBzkyNOEeMNM8UwuGXOH0qFmg==}
+  '@brillout/docpress@0.6.20':
+    resolution: {integrity: sha512-bdTxBHu7Hap/LDeYArnYA/yIKZ/KkEddTxg5gOflbH9ervObW9yJagxVPiQ1fuNrRmBUCdslaYTPBDroYQ5VyA==}
     peerDependencies:
       '@types/node': '*'
       '@types/react': '*'
@@ -3490,9 +3490,6 @@ packages:
 
   '@types/estree@0.0.39':
     resolution: {integrity: sha512-EYNwp3bU+98cpU4lAWYYL7Zz+2gryWH1qbdDTidVd6hkiR6weksdbMadyXKXNPEkQFhXM+hVO9ZygomHXp+AIw==}
-
-  '@types/estree@1.0.0':
-    resolution: {integrity: sha512-WulqXMDUTYAXCjZnk6JtIHPigp55cVtDgDrO2gHRwhyJto21+1zbVCtOYB2L1F9w4qCQ0rOGWBnBe0FNTiEJIQ==}
 
   '@types/estree@1.0.5':
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
@@ -12249,9 +12246,9 @@ snapshots:
 
   '@brillout/dev-my-dep@0.0.10': {}
 
-  '@brillout/docpress@0.6.16(@swc/helpers@0.5.2)(@types/node@20.11.17)(@types/react-dom@17.0.11)(@types/react@17.0.39)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(rollup@4.22.0)(typescript@5.0.3)(vike@0.4.195(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2))))(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))':
+  '@brillout/docpress@0.6.20(@swc/helpers@0.5.2)(@types/node@20.11.17)(@types/react-dom@17.0.11)(@types/react@17.0.39)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(rollup@4.22.0)(typescript@5.0.3)(vike@0.4.195(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2))))(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))':
     dependencies:
-      '@brillout/picocolors': 1.0.12
+      '@brillout/picocolors': 1.0.15
       '@mdx-js/mdx': 3.0.1
       '@mdx-js/react': 3.0.1(@types/react@17.0.39)(react@18.2.0)
       '@mdx-js/rollup': 3.0.1(rollup@4.22.0)
@@ -13008,7 +13005,7 @@ snapshots:
 
   '@mdx-js/mdx@3.0.1':
     dependencies:
-      '@types/estree': 1.0.0
+      '@types/estree': 1.0.5
       '@types/estree-jsx': 1.0.5
       '@types/hast': 3.0.4
       '@types/mdx': 2.0.1
@@ -13754,7 +13751,7 @@ snapshots:
 
   '@rollup/pluginutils@5.1.0(rollup@4.22.0)':
     dependencies:
-      '@types/estree': 1.0.0
+      '@types/estree': 1.0.5
       estree-walker: 2.0.2
       picomatch: 2.3.1
     optionalDependencies:
@@ -13965,7 +13962,7 @@ snapshots:
 
   '@types/acorn@4.0.6':
     dependencies:
-      '@types/estree': 1.0.0
+      '@types/estree': 1.0.5
 
   '@types/anymatch@3.0.0':
     dependencies:
@@ -14049,11 +14046,9 @@ snapshots:
 
   '@types/estree-jsx@1.0.5':
     dependencies:
-      '@types/estree': 1.0.0
+      '@types/estree': 1.0.5
 
   '@types/estree@0.0.39': {}
-
-  '@types/estree@1.0.0': {}
 
   '@types/estree@1.0.5': {}
 
@@ -16692,7 +16687,7 @@ snapshots:
 
   estree-util-attach-comments@3.0.0:
     dependencies:
-      '@types/estree': 1.0.0
+      '@types/estree': 1.0.5
 
   estree-util-build-jsx@3.0.1:
     dependencies:
@@ -17372,7 +17367,7 @@ snapshots:
 
   hast-util-to-estree@3.1.0:
     dependencies:
-      '@types/estree': 1.0.0
+      '@types/estree': 1.0.5
       '@types/estree-jsx': 1.0.5
       '@types/hast': 3.0.4
       comma-separated-tokens: 2.0.2
@@ -17393,7 +17388,7 @@ snapshots:
 
   hast-util-to-jsx-runtime@2.3.0:
     dependencies:
-      '@types/estree': 1.0.0
+      '@types/estree': 1.0.5
       '@types/hast': 3.0.4
       '@types/unist': 3.0.2
       comma-separated-tokens: 2.0.2
@@ -17805,7 +17800,7 @@ snapshots:
 
   is-reference@3.0.0:
     dependencies:
-      '@types/estree': 1.0.0
+      '@types/estree': 1.0.5
 
   is-regex@1.1.4:
     dependencies:
@@ -18501,7 +18496,7 @@ snapshots:
 
   micromark-extension-mdx-expression@3.0.0:
     dependencies:
-      '@types/estree': 1.0.0
+      '@types/estree': 1.0.5
       devlop: 1.1.0
       micromark-factory-mdx-expression: 2.0.1
       micromark-factory-space: 2.0.0
@@ -18513,7 +18508,7 @@ snapshots:
   micromark-extension-mdx-jsx@3.0.0:
     dependencies:
       '@types/acorn': 4.0.6
-      '@types/estree': 1.0.0
+      '@types/estree': 1.0.5
       devlop: 1.1.0
       estree-util-is-identifier-name: 3.0.0
       micromark-factory-mdx-expression: 2.0.1
@@ -18529,7 +18524,7 @@ snapshots:
 
   micromark-extension-mdxjs-esm@3.0.0:
     dependencies:
-      '@types/estree': 1.0.0
+      '@types/estree': 1.0.5
       devlop: 1.1.0
       micromark-core-commonmark: 2.0.0
       micromark-util-character: 2.1.0
@@ -18565,7 +18560,7 @@ snapshots:
 
   micromark-factory-mdx-expression@2.0.1:
     dependencies:
-      '@types/estree': 1.0.0
+      '@types/estree': 1.0.5
       devlop: 1.1.0
       micromark-util-character: 2.1.0
       micromark-util-events-to-acorn: 2.0.2
@@ -18629,7 +18624,7 @@ snapshots:
   micromark-util-events-to-acorn@2.0.2:
     dependencies:
       '@types/acorn': 4.0.6
-      '@types/estree': 1.0.0
+      '@types/estree': 1.0.5
       '@types/unist': 3.0.2
       devlop: 1.1.0
       estree-util-visit: 2.0.0
