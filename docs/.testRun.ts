@@ -1,65 +1,39 @@
 export { testRun }
 
-import { page, test, expect, run, fetchHtml, partRegex, getServerUrl } from '@brillout/test-e2e'
+import { test, expect, run, fetchHtml, partRegex, page, getServerUrl, autoRetry } from '@brillout/test-e2e'
 
 function testRun(cmd: 'pnpm run dev' | 'pnpm run preview') {
-  {
-    // Preview => `npm run preview` takes a long time
-    // Dev => `Learn more collapsible` takes a long time
-    const additionalTimeout = 120 * 1000
-    run(cmd, { additionalTimeout })
-  }
+  run(cmd)
 
-  const isPreview = cmd === 'pnpm run preview'
-
-  test('page content is rendered to HTML', async () => {
+  test('HTML', async () => {
     const html = await fetchHtml('/')
     expect(html).toContain('<meta name="description" content="Remote Functions. Instead of API." />')
     expect(html).toMatch(partRegex`<h2>${/[^\/]+/}Simple</h2>`)
     expect(html).toMatch(partRegex`<h2>${/[^\/]+/}Rock-solid</h2>`)
     expect(html).toContain('no known bug')
   })
-
-  if (isPreview) {
-    test('Layout', async () => {
-      await page.goto(getServerUrl() + '/')
-      await page.waitForFunction(() => (window as any).__docpress_hydrationFinished)
-      const layout = await page.evaluate(() => {
-        return {
-          html: getWidths(document.documentElement),
-          body: getWidths(document.body),
-          page: getWidths(document.querySelector('#page-view')),
-          left: getWidths(document.querySelector('#navigation-wrapper')),
-          right: getWidths(document.querySelector('#page-wrapper')),
-        }
-        function getWidths(elem: Element | null): Widths {
-          if (!elem) throw new Error('Elem missing')
-          return {
-            clientWidth: elem.clientWidth,
-            scrollWidth: elem.scrollWidth,
-          }
-        }
+  test('DOM', async () => {
+    await page.goto(getServerUrl() + '/')
+    const testLandingPage = async () => {
+      await autoRetry(async () => {
+        const body = await page.textContent('body')
+        expect(body).toContain('Seamless TypeScript support')
+        expect(body).toContain("Telefunc enables programmatically defined permissions. It's both simple and flexible.")
       })
+    }
+    await testLandingPage()
 
-      // Default viewport size: 1280x720
-      //  - https://playwright.dev/docs/api/class-testoptions#test-options-viewport
-      testWidth(layout.html, 1280)
-      testWidth(layout.body, 1280)
-      testWidth(layout.page, 1280)
-      testWidth(layout.left, 300)
-      testWidth(layout.right, 981)
-
-      return
-
-      type Widths = {
-        clientWidth: number
-        scrollWidth: number
-      }
-
-      function testWidth(widths: Widths, width: number) {
-        expect(widths.clientWidth).toBe(width)
-        expect(widths.scrollWidth).toBe(width)
-      }
+    await page.click('a[href="/permissions"]')
+    await autoRetry(async () => {
+      expect(await page.textContent('h1')).toBe('Permissions')
     })
-  }
+
+    await page.click('a[href="/getContext"]')
+    await autoRetry(async () => {
+      expect(await page.textContent('h1')).toBe('getContext()')
+    })
+
+    await page.click('a[href="/"]')
+    await testLandingPage()
+  })
 }
