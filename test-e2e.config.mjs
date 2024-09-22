@@ -57,8 +57,10 @@ function tolerateError({ logSource, logText }) {
     isCJSViteWarning() ||
     isVikeDeprecatedDesignWarning() ||
     isNextJsEslintWarning() ||
+    // TODO: move everything to this array
     [
-      // TODO: move everything to this array
+      // [11:03:16.814][/docs/.test-dev.test.ts][pnpm run dev][stderr] Cannot optimize dependency: @brillout/docpress/renderer/onRenderClient, present in 'optimizeDeps.include'
+      'Cannot optimize dependency: @brillout/docpress/renderer/onRenderClient',
     ].some((t) => logText.includes(t))
   )
 

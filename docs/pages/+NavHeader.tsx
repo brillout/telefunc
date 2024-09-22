@@ -1,8 +1,10 @@
-import React from 'react'
-import logoUrl from './icons/telefunc.svg'
+export default {
+  NavHeader,
+  NavHeaderMobile,
+}
 
-export { NavHeader }
-export { NavHeaderMobile }
+import React from 'react'
+import logoUrl from '../icons/telefunc.svg'
 
 function NavHeaderMobile() {
   const LOGO_SIZE = 40

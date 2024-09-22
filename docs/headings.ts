@@ -29,7 +29,6 @@ export const headings: HeadingDefinition[] = [
   {
     level: 1,
     title: 'Overview',
-    titleEmoji: 'compass',
   },
   {
     level: 2,
@@ -45,7 +44,6 @@ export const headings: HeadingDefinition[] = [
   {
     level: 1,
     title: 'Get started',
-    titleEmoji: 'seedling',
   },
   {
     level: 2,
@@ -91,7 +89,6 @@ export const headings: HeadingDefinition[] = [
   {
     level: 1,
     title: 'Guides',
-    titleEmoji: 'books',
   },
   {
     level: 2,
@@ -123,7 +120,6 @@ export const headings: HeadingDefinition[] = [
   {
     level: 1,
     title: 'API',
-    titleEmoji: 'gear',
   },
   {
     level: 4,
