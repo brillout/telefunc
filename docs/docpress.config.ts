@@ -11,5 +11,9 @@ export default {
   tagline: 'Remote Functions. Instead of API.',
   twitterHandle: '@brillout',
   websiteUrl: 'https://telefunc.com',
-  algolia: null,
+  algolia: {
+    appId: 'NONXS2JSTL',
+    apiKey: '9bf6a6f9bc168ca425e8e19a62cd8ba1',
+    indexName: 'telefunc',
+  },
 } satisfies Config
