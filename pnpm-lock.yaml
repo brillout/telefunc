@@ -36,8 +36,8 @@ importers:
   docs:
     dependencies:
       '@brillout/docpress':
-        specifier: ^0.7.5
-        version: 0.7.5(@algolia/client-search@4.24.0)(@swc/helpers@0.5.2)(@types/node@20.11.17)(@types/react-dom@17.0.11)(@types/react@17.0.39)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(rollup@4.22.0)(search-insights@2.17.2)(typescript@5.0.3)(vike@0.4.198(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2))))(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))
+        specifier: ^0.7.9
+        version: 0.7.9(@algolia/client-search@4.24.0)(@swc/helpers@0.5.2)(@types/node@20.11.17)(@types/react-dom@17.0.11)(@types/react@17.0.39)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(rollup@4.22.0)(search-insights@2.17.2)(typescript@5.0.3)(vike@0.4.198(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2))))(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))
       '@types/node':
         specifier: ^20.11.16
         version: 20.11.17
@@ -1793,8 +1793,8 @@ packages:
     resolution: {integrity: sha512-cvSrvCxnZYzQmiOj0nwIuf298DvaM/2eAAOsBSbBpsdOEpYsnbQGvFxew9oSXEi3HH1TZMmLy8VyvyJJ+LsmCw==}
     hasBin: true
 
-  '@brillout/docpress@0.7.5':
-    resolution: {integrity: sha512-WjxFONUpgYIh5f8QvdrHOMxbpsiWS17WwGOu5/4jDhL2obCrNz8d9h+KhBGQp8FO0HyqlCkg3iKgphg/xMADdw==}
+  '@brillout/docpress@0.7.9':
+    resolution: {integrity: sha512-gDiQVQJimMznHdYD8JDU8wGxf+jaDtcawt7zS2q4WANO4AHGLbBugpDyeqMoRdA7P1AAkPItp0CGHHsa5PBPCA==}
     peerDependencies:
       '@types/node': '*'
       '@types/react': '*'
@@ -12441,7 +12441,7 @@ snapshots:
 
   '@brillout/dev-my-dep@0.0.10': {}
 
-  '@brillout/docpress@0.7.5(@algolia/client-search@4.24.0)(@swc/helpers@0.5.2)(@types/node@20.11.17)(@types/react-dom@17.0.11)(@types/react@17.0.39)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(rollup@4.22.0)(search-insights@2.17.2)(typescript@5.0.3)(vike@0.4.198(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2))))(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))':
+  '@brillout/docpress@0.7.9(@algolia/client-search@4.24.0)(@swc/helpers@0.5.2)(@types/node@20.11.17)(@types/react-dom@17.0.11)(@types/react@17.0.39)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(rollup@4.22.0)(search-insights@2.17.2)(typescript@5.0.3)(vike@0.4.198(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2))))(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))':
     dependencies:
       '@brillout/picocolors': 1.0.15
       '@docsearch/css': 3.6.1
