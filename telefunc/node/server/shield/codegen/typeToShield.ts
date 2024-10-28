@@ -170,11 +170,12 @@ export type Tail<L extends any[]> = L extends readonly [] ? [] : L extends reado
 
 export type Head<L extends any[]> = L['length'] extends 0 ? never : L[0]
 
-type ShieldStrMap<T extends any[]> = Head<T> extends never ? [] : [ShieldStr<Head<T>>, ...ShieldStrMap<Tail<T>>]
+type ShieldStrMap<T extends any[]> = {
+    [K in keyof T]-?: T[K] extends undefined ? never : ShieldStr<T[K]>
+};
 
 export type ShieldArrStr<T extends any[], M = ShieldStrMap<T>> = M extends any[] ? `[${JoinStrings<M>}]` : never
 
-/* Uncomment this to unit test this file
 type _cases = [
   Expect<Equals<ShieldStr<string>, '__telefunc_t.string'>>,
   Expect<Equals<ShieldStr<number>, '__telefunc_t.number'>>,
@@ -276,4 +277,3 @@ type EqualsAnyOf<T, L extends any[]> = L extends [infer Head, ...infer Tail]
     ? true
     : EqualsAnyOf<T, Tail>
   : false
-//*/
