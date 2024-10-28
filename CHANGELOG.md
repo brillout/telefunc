@@ -1,3 +1,12 @@
+## [0.1.80](https://github.com/brillout/telefunc/compare/v0.1.79...v0.1.80) (2024-10-28)
+
+
+### Bug Fixes
+
+* update typescript runtime validation to work with newer TypeScript versions ([#125](https://github.com/brillout/telefunc/issues/125)) ([5c3799b](https://github.com/brillout/telefunc/commit/5c3799b121ad7e0df077a82a5983ed741b46ed68))
+
+
+
 ## [0.1.79](https://github.com/brillout/telefunc/compare/v0.1.78...v0.1.79) (2024-09-07)
 
 
