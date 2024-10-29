@@ -31,7 +31,7 @@ importers:
         version: 2.8.7
       vitest:
         specifier: ^0.32.2
-        version: 0.32.2(terser@5.10.0(acorn@8.11.2))
+        version: 0.32.2(terser@5.10.0)
 
   docs:
     dependencies:
@@ -82,7 +82,7 @@ importers:
         version: 18.2.17
       '@vitejs/plugin-react':
         specifier: ^4.2.1
-        version: 4.2.1(vite@5.0.6(@types/node@20.10.4)(terser@5.10.0(acorn@8.11.2)))
+        version: 4.2.1(vite@5.0.6(@types/node@20.10.4)(terser@5.10.0))
       cookie-parser:
         specifier: ^1.4.6
         version: 1.4.6
@@ -106,16 +106,16 @@ importers:
         version: link:../../telefunc
       ts-node:
         specifier: ^10.9.1
-        version: 10.9.1(@swc/core@1.3.62(@swc/helpers@0.5.2))(@types/node@20.10.4)(typescript@5.3.3)
+        version: 10.9.1(@swc/core@1.3.62)(@types/node@20.10.4)(typescript@5.3.3)
       typescript:
         specifier: ^5.3.3
         version: 5.3.3
       vike:
         specifier: ^0.4.156
-        version: 0.4.156(react-streaming@0.3.22(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(vite@5.0.6(@types/node@20.10.4)(terser@5.10.0(acorn@8.11.2)))
+        version: 0.4.156(react-streaming@0.3.22(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(vite@5.0.6(@types/node@20.10.4)(terser@5.10.0))
       vite:
         specifier: ^5.0.6
-        version: 5.0.6(@types/node@20.10.4)(terser@5.10.0(acorn@8.11.2))
+        version: 5.0.6(@types/node@20.10.4)(terser@5.10.0)
 
   examples/babel:
     dependencies:
@@ -160,7 +160,7 @@ importers:
         version: link:../../telefunc
       vite:
         specifier: ^4.3.9
-        version: 4.3.9(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2))
+        version: 4.3.9(@types/node@20.11.17)(terser@5.10.0)
 
   examples/next:
     dependencies:
@@ -223,7 +223,7 @@ importers:
         version: 18.0.6
       '@vitejs/plugin-react':
         specifier: ^4.0.1
-        version: 4.0.1(vite@4.3.9(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))
+        version: 4.0.1(vite@4.3.9(@types/node@20.11.17)(terser@5.10.0))
       cross-env:
         specifier: ^7.0.3
         version: 7.0.3
@@ -247,10 +247,10 @@ importers:
         version: 4.9.5
       vike:
         specifier: ^0.4.156
-        version: 0.4.156(react-streaming@0.3.22(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(vite@4.3.9(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))
+        version: 0.4.156(react-streaming@0.3.22(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(vite@4.3.9(@types/node@20.11.17)(terser@5.10.0))
       vite:
         specifier: ^4.3.9
-        version: 4.3.9(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2))
+        version: 4.3.9(@types/node@20.11.17)(terser@5.10.0)
 
   examples/svelte-kit:
     dependencies:
@@ -260,10 +260,10 @@ importers:
     devDependencies:
       '@sveltejs/adapter-auto':
         specifier: ^2.0.0
-        version: 2.0.0(@sveltejs/kit@1.15.1(svelte@3.58.0)(vite@4.2.1(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2))))
+        version: 2.0.0(@sveltejs/kit@1.15.1(svelte@3.58.0)(vite@4.2.1(@types/node@20.11.17)(terser@5.10.0)))
       '@sveltejs/kit':
         specifier: ^1.15.1
-        version: 1.15.1(svelte@3.58.0)(vite@4.2.1(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))
+        version: 1.15.1(svelte@3.58.0)(vite@4.2.1(@types/node@20.11.17)(terser@5.10.0))
       prettier:
         specifier: ^2.8.7
         version: 2.8.7
@@ -287,7 +287,7 @@ importers:
         version: 5.0.3
       vite:
         specifier: ^4.2.1
-        version: 4.2.1(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2))
+        version: 4.2.1(@types/node@20.11.17)(terser@5.10.0)
 
   examples/vike:
     dependencies:
@@ -299,7 +299,7 @@ importers:
         version: 18.2.17
       '@vitejs/plugin-react':
         specifier: ^2.0.1
-        version: 2.1.0(vite@4.3.9(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))
+        version: 2.1.0(vite@4.3.9(@types/node@20.11.17)(terser@5.10.0))
       cross-env:
         specifier: ^7.0.3
         version: 7.0.3
@@ -320,10 +320,10 @@ importers:
         version: 4.9.5
       vike:
         specifier: ^0.4.156
-        version: 0.4.156(react-streaming@0.3.22(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(vite@4.3.9(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))
+        version: 0.4.156(react-streaming@0.3.22(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(vite@4.3.9(@types/node@20.11.17)(terser@5.10.0))
       vite:
         specifier: ^4.3.9
-        version: 4.3.9(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2))
+        version: 4.3.9(@types/node@20.11.17)(terser@5.10.0)
 
   examples/vite:
     dependencies:
@@ -341,7 +341,7 @@ importers:
         version: 5.4.4
       vite:
         specifier: ^4.3.9
-        version: 4.3.9(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2))
+        version: 4.3.9(@types/node@20.11.17)(terser@5.10.0)
 
   telefunc:
     dependencies:
@@ -352,8 +352,8 @@ importers:
         specifier: ^0.5.6
         version: 0.5.6
       '@brillout/picocolors':
-        specifier: ^1.0.12
-        version: 1.0.12
+        specifier: ^1.0.15
+        version: 1.0.15
       '@brillout/vite-plugin-server-entry':
         specifier: ^0.4.12
         version: 0.4.12
@@ -411,7 +411,7 @@ importers:
         version: 5.6.3
       vite:
         specifier: ^3.2.2
-        version: 3.2.2(terser@5.10.0(acorn@8.11.2))
+        version: 3.2.2(terser@5.10.0)
 
 packages:
 
@@ -1840,12 +1840,6 @@ packages:
 
   '@brillout/part-regex@0.1.3':
     resolution: {integrity: sha512-ZyqtOYHvQs3Ca0xt9fb2OlGzCrKwXtMcAATDObkFmI4jKuObEORjWrqAslWTelquXlyEYLz7h1nt6jp50LDyJA==}
-
-  '@brillout/picocolors@1.0.10':
-    resolution: {integrity: sha512-dh+JJlsBf3QYX+91Ezma8RLKNOjGDoBBmORv/NzRpQuasdyzwQCMXGGjsDu12ZhGz92TqQbL9pv79rvbheI21A==}
-
-  '@brillout/picocolors@1.0.12':
-    resolution: {integrity: sha512-2gowgbpAqEQz4U1D/dh3tU2fKcRm+yt724d8YTbCsVHxnLTHWP2J5RMO1iTWcoViX7rTmLvPkHHlYtEiKP4gLA==}
 
   '@brillout/picocolors@1.0.15':
     resolution: {integrity: sha512-VrgvPtfnKP/i8kxCAyQVd0DWg6xU8OZJndbLf/lrywd96UdMhnGL/PK42HhHhhwkDSkaiQU+zc+OPWpvqOe4Cg==}
@@ -4090,6 +4084,7 @@ packages:
 
   are-we-there-yet@1.1.7:
     resolution: {integrity: sha512-nxwy40TuMiUGqMyRHgCSWZ9FM4VAoRP4xUYSTv5ImRog+h9yISPbVH7H8fASCIzYn9wlEv4zvFL7uKDMCFQm3g==}
+    deprecated: This package is no longer supported.
 
   arg@4.1.3:
     resolution: {integrity: sha512-58S9QDqG0Xx27YwPSt9fJxivjYl432YCwfDMfZ+71RAqUrZef7LrKQZ3LHLOwCS4FLNBplP533Zx895SeOCHvA==}
@@ -6046,7 +6041,7 @@ packages:
     resolution: {integrity: sha512-oWb1Z6mkHIskLzEJ/XWX0srkpkTQ7vaopMQkyaEIoq0fmtFVxOthb8cCxeT+p3ynTdkk/RZwbgG4brR5BeWECw==}
     engines: {node: '>= 4.0'}
     os: [darwin]
-    deprecated: The v1 package contains DANGEROUS / INSECURE binaries. Upgrade to safe fsevents v2
+    deprecated: Upgrade to fsevents v2 to mitigate potential security issues
 
   fsevents@2.3.3:
     resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
@@ -6065,6 +6060,7 @@ packages:
 
   gauge@2.7.4:
     resolution: {integrity: sha512-14x4kjc6lkD3ltw589k0NrPD6cCNTD6CWoVUNpB85+DrtONoZn+Rug6xZU5RvSC4+TZPxA5AnBibQYAvZn41Hg==}
+    deprecated: This package is no longer supported.
 
   gensync@1.0.0-beta.2:
     resolution: {integrity: sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg==}
@@ -7681,6 +7677,7 @@ packages:
 
   npmlog@4.1.2:
     resolution: {integrity: sha512-2uUqazuKlTaSI/dC8AzicUck7+IrEaOnN/e0jd3Xtt1KcGpwx30v50mL7oPyr/h9bL3E4aZccVwpwP+5W9Vjkg==}
+    deprecated: This package is no longer supported.
 
   nth-check@2.0.1:
     resolution: {integrity: sha512-it1vE95zF6dTT9lBsYbxvqh0Soy4SPowchj0UBGj/V6cTPnXXtQOPUbhZ6CmGzAD/rW22LQK6E96pcdJXk4A4w==}
@@ -8990,10 +8987,12 @@ packages:
 
   rimraf@2.7.1:
     resolution: {integrity: sha512-uWjbaKIK3T1OSVptzX7Nl6PvQ3qAGtKEtVRjRuazjfL3Bx5eI409VZSqgND+4UNnmzLVdPj9FqFJNPqBZFve4w==}
+    deprecated: Rimraf versions prior to v4 are no longer supported
     hasBin: true
 
   rimraf@3.0.2:
     resolution: {integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==}
+    deprecated: Rimraf versions prior to v4 are no longer supported
     hasBin: true
 
   ripemd160@2.0.2:
@@ -12521,10 +12520,6 @@ snapshots:
 
   '@brillout/part-regex@0.1.3': {}
 
-  '@brillout/picocolors@1.0.10': {}
-
-  '@brillout/picocolors@1.0.12': {}
-
   '@brillout/picocolors@1.0.15': {}
 
   '@brillout/proto-db@0.1.1':
@@ -12533,7 +12528,7 @@ snapshots:
 
   '@brillout/release-me@0.4.0':
     dependencies:
-      '@brillout/picocolors': 1.0.12
+      '@brillout/picocolors': 1.0.15
       commander: 11.1.0
       conventional-changelog: 5.1.0
       execa: 5.1.1
@@ -12544,7 +12539,7 @@ snapshots:
   '@brillout/test-e2e@0.5.33(encoding@0.1.13)':
     dependencies:
       '@brillout/part-regex': 0.1.3
-      '@brillout/picocolors': 1.0.12
+      '@brillout/picocolors': 1.0.15
       chai: 4.3.7
       esbuild: 0.16.10
       fast-glob: 3.2.12
@@ -12559,7 +12554,7 @@ snapshots:
 
   '@brillout/test-types@0.1.13(typescript@5.6.3)':
     dependencies:
-      '@brillout/picocolors': 1.0.12
+      '@brillout/picocolors': 1.0.15
       fast-glob: 3.2.12
       source-map-support: 0.5.21
       typescript: 5.6.3
@@ -14099,14 +14094,14 @@ snapshots:
 
   '@sindresorhus/is@0.14.0': {}
 
-  '@sveltejs/adapter-auto@2.0.0(@sveltejs/kit@1.15.1(svelte@3.58.0)(vite@4.2.1(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2))))':
+  '@sveltejs/adapter-auto@2.0.0(@sveltejs/kit@1.15.1(svelte@3.58.0)(vite@4.2.1(@types/node@20.11.17)(terser@5.10.0)))':
     dependencies:
-      '@sveltejs/kit': 1.15.1(svelte@3.58.0)(vite@4.2.1(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))
+      '@sveltejs/kit': 1.15.1(svelte@3.58.0)(vite@4.2.1(@types/node@20.11.17)(terser@5.10.0))
       import-meta-resolve: 2.2.0
 
-  '@sveltejs/kit@1.15.1(svelte@3.58.0)(vite@4.2.1(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))':
+  '@sveltejs/kit@1.15.1(svelte@3.58.0)(vite@4.2.1(@types/node@20.11.17)(terser@5.10.0))':
     dependencies:
-      '@sveltejs/vite-plugin-svelte': 2.0.2(svelte@3.58.0)(vite@4.2.1(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))
+      '@sveltejs/vite-plugin-svelte': 2.0.2(svelte@3.58.0)(vite@4.2.1(@types/node@20.11.17)(terser@5.10.0))
       '@types/cookie': 0.5.1
       cookie: 0.5.0
       devalue: 4.3.0
@@ -14120,11 +14115,11 @@ snapshots:
       svelte: 3.58.0
       tiny-glob: 0.2.9
       undici: 5.20.0
-      vite: 4.2.1(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2))
+      vite: 4.2.1(@types/node@20.11.17)(terser@5.10.0)
     transitivePeerDependencies:
       - supports-color
 
-  '@sveltejs/vite-plugin-svelte@2.0.2(svelte@3.58.0)(vite@4.2.1(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))':
+  '@sveltejs/vite-plugin-svelte@2.0.2(svelte@3.58.0)(vite@4.2.1(@types/node@20.11.17)(terser@5.10.0))':
     dependencies:
       debug: 4.3.4
       deepmerge: 4.2.2
@@ -14132,8 +14127,8 @@ snapshots:
       magic-string: 0.27.0
       svelte: 3.58.0
       svelte-hmr: 0.15.1(svelte@3.58.0)
-      vite: 4.2.1(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2))
-      vitefu: 0.2.4(vite@4.2.1(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))
+      vite: 4.2.1(@types/node@20.11.17)(terser@5.10.0)
+      vitefu: 0.2.4(vite@4.2.1(@types/node@20.11.17)(terser@5.10.0))
     transitivePeerDependencies:
       - supports-color
 
@@ -14577,7 +14572,7 @@ snapshots:
     transitivePeerDependencies:
       - '@swc/helpers'
 
-  '@vitejs/plugin-react@2.1.0(vite@4.3.9(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))':
+  '@vitejs/plugin-react@2.1.0(vite@4.3.9(@types/node@20.11.17)(terser@5.10.0))':
     dependencies:
       '@babel/core': 7.23.5
       '@babel/plugin-transform-react-jsx': 7.19.0(@babel/core@7.23.5)
@@ -14586,28 +14581,28 @@ snapshots:
       '@babel/plugin-transform-react-jsx-source': 7.23.3(@babel/core@7.23.5)
       magic-string: 0.26.2
       react-refresh: 0.14.0
-      vite: 4.3.9(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2))
+      vite: 4.3.9(@types/node@20.11.17)(terser@5.10.0)
     transitivePeerDependencies:
       - supports-color
 
-  '@vitejs/plugin-react@4.0.1(vite@4.3.9(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))':
+  '@vitejs/plugin-react@4.0.1(vite@4.3.9(@types/node@20.11.17)(terser@5.10.0))':
     dependencies:
       '@babel/core': 7.22.5
       '@babel/plugin-transform-react-jsx-self': 7.22.5(@babel/core@7.22.5)
       '@babel/plugin-transform-react-jsx-source': 7.22.5(@babel/core@7.22.5)
       react-refresh: 0.14.0
-      vite: 4.3.9(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2))
+      vite: 4.3.9(@types/node@20.11.17)(terser@5.10.0)
     transitivePeerDependencies:
       - supports-color
 
-  '@vitejs/plugin-react@4.2.1(vite@5.0.6(@types/node@20.10.4)(terser@5.10.0(acorn@8.11.2)))':
+  '@vitejs/plugin-react@4.2.1(vite@5.0.6(@types/node@20.10.4)(terser@5.10.0))':
     dependencies:
       '@babel/core': 7.23.5
       '@babel/plugin-transform-react-jsx-self': 7.23.3(@babel/core@7.23.5)
       '@babel/plugin-transform-react-jsx-source': 7.23.3(@babel/core@7.23.5)
       '@types/babel__core': 7.20.5
       react-refresh: 0.14.0
-      vite: 5.0.6(@types/node@20.10.4)(terser@5.10.0(acorn@8.11.2))
+      vite: 5.0.6(@types/node@20.10.4)(terser@5.10.0)
     transitivePeerDependencies:
       - supports-color
 
@@ -21858,7 +21853,7 @@ snapshots:
       '@ts-morph/common': 0.20.0
       code-block-writer: 12.0.0
 
-  ts-node@10.9.1(@swc/core@1.3.62(@swc/helpers@0.5.2))(@types/node@20.10.4)(typescript@5.3.3):
+  ts-node@10.9.1(@swc/core@1.3.62)(@types/node@20.10.4)(typescript@5.3.3):
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
       '@tsconfig/node10': 1.0.8
@@ -22211,11 +22206,11 @@ snapshots:
 
   vike-contributors@0.0.9: {}
 
-  vike@0.4.156(react-streaming@0.3.22(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(vite@4.3.9(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2))):
+  vike@0.4.156(react-streaming@0.3.22(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(vite@4.3.9(@types/node@20.11.17)(terser@5.10.0)):
     dependencies:
       '@brillout/import': 0.2.3
       '@brillout/json-serializer': 0.5.8
-      '@brillout/picocolors': 1.0.10
+      '@brillout/picocolors': 1.0.15
       '@brillout/require-shim': 0.1.2
       '@brillout/vite-plugin-server-entry': 0.4.9
       acorn: 8.11.2
@@ -22225,15 +22220,15 @@ snapshots:
       fast-glob: 3.2.12
       sirv: 2.0.2
       source-map-support: 0.5.21
-      vite: 4.3.9(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2))
+      vite: 4.3.9(@types/node@20.11.17)(terser@5.10.0)
     optionalDependencies:
       react-streaming: 0.3.22(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
 
-  vike@0.4.156(react-streaming@0.3.22(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(vite@5.0.6(@types/node@20.10.4)(terser@5.10.0(acorn@8.11.2))):
+  vike@0.4.156(react-streaming@0.3.22(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(vite@5.0.6(@types/node@20.10.4)(terser@5.10.0)):
     dependencies:
       '@brillout/import': 0.2.3
       '@brillout/json-serializer': 0.5.8
-      '@brillout/picocolors': 1.0.10
+      '@brillout/picocolors': 1.0.15
       '@brillout/require-shim': 0.1.2
       '@brillout/vite-plugin-server-entry': 0.4.9
       acorn: 8.11.2
@@ -22243,7 +22238,7 @@ snapshots:
       fast-glob: 3.2.12
       sirv: 2.0.2
       source-map-support: 0.5.21
-      vite: 5.0.6(@types/node@20.10.4)(terser@5.10.0(acorn@8.11.2))
+      vite: 5.0.6(@types/node@20.10.4)(terser@5.10.0)
     optionalDependencies:
       react-streaming: 0.3.22(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
 
@@ -22264,14 +22259,14 @@ snapshots:
       source-map-support: 0.5.21
       vite: 5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2))
 
-  vite-node@0.32.2(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)):
+  vite-node@0.32.2(@types/node@20.11.17)(terser@5.10.0):
     dependencies:
       cac: 6.7.14
       debug: 4.3.4
       mlly: 1.3.0
       pathe: 1.1.1
       picocolors: 1.0.0
-      vite: 4.3.9(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2))
+      vite: 4.3.9(@types/node@20.11.17)(terser@5.10.0)
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -22281,7 +22276,7 @@ snapshots:
       - supports-color
       - terser
 
-  vite@3.2.2(terser@5.10.0(acorn@8.11.2)):
+  vite@3.2.2(terser@5.10.0):
     dependencies:
       esbuild: 0.15.9
       postcss: 8.4.18
@@ -22291,7 +22286,7 @@ snapshots:
       fsevents: 2.3.3
       terser: 5.10.0(acorn@8.11.2)
 
-  vite@4.2.1(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)):
+  vite@4.2.1(@types/node@20.11.17)(terser@5.10.0):
     dependencies:
       esbuild: 0.17.10
       postcss: 8.4.21
@@ -22302,7 +22297,7 @@ snapshots:
       fsevents: 2.3.3
       terser: 5.10.0(acorn@8.11.2)
 
-  vite@4.3.9(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)):
+  vite@4.3.9(@types/node@20.11.17)(terser@5.10.0):
     dependencies:
       esbuild: 0.17.19
       postcss: 8.4.24
@@ -22312,7 +22307,7 @@ snapshots:
       fsevents: 2.3.3
       terser: 5.10.0(acorn@8.11.2)
 
-  vite@5.0.6(@types/node@20.10.4)(terser@5.10.0(acorn@8.11.2)):
+  vite@5.0.6(@types/node@20.10.4)(terser@5.10.0):
     dependencies:
       esbuild: 0.19.8
       postcss: 8.4.32
@@ -22332,11 +22327,11 @@ snapshots:
       fsevents: 2.3.3
       terser: 5.10.0(acorn@8.11.2)
 
-  vitefu@0.2.4(vite@4.2.1(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2))):
+  vitefu@0.2.4(vite@4.2.1(@types/node@20.11.17)(terser@5.10.0)):
     optionalDependencies:
-      vite: 4.2.1(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2))
+      vite: 4.2.1(@types/node@20.11.17)(terser@5.10.0)
 
-  vitest@0.32.2(terser@5.10.0(acorn@8.11.2)):
+  vitest@0.32.2(terser@5.10.0):
     dependencies:
       '@types/chai': 4.3.5
       '@types/chai-subset': 1.3.3
@@ -22360,8 +22355,8 @@ snapshots:
       strip-literal: 1.0.1
       tinybench: 2.5.0
       tinypool: 0.5.0
-      vite: 4.3.9(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2))
-      vite-node: 0.32.2(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2))
+      vite: 4.3.9(@types/node@20.11.17)(terser@5.10.0)
+      vite-node: 0.32.2(@types/node@20.11.17)(terser@5.10.0)
       why-is-node-running: 2.2.2
     transitivePeerDependencies:
       - less
