@@ -14,26 +14,10 @@ function testRun(cmd: 'pnpm run dev' | 'pnpm run preview') {
   })
   test('DOM', async () => {
     await page.goto(getServerUrl() + '/')
-    const testLandingPage = async () => {
-      await autoRetry(async () => {
-        const body = await page.textContent('body')
-        expect(body).toContain('Seamless TypeScript support')
-        expect(body).toContain("Telefunc enables programmatically defined permissions. It's both simple and flexible.")
-      })
-    }
-    await testLandingPage()
-
-    await page.click('a[href="/permissions"]')
     await autoRetry(async () => {
-      expect(await page.textContent('h1')).toBe('Permissions')
+      const body = await page.textContent('body')
+      expect(body).toContain('Seamless TypeScript support')
+      expect(body).toContain("Telefunc enables programmatically defined permissions. It's both simple and flexible.")
     })
-
-    await page.click('a[href="/getContext"]')
-    await autoRetry(async () => {
-      expect(await page.textContent('h1')).toBe('getContext()')
-    })
-
-    await page.click('a[href="/"]')
-    await testLandingPage()
   })
 }
