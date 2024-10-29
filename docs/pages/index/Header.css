@@ -14,7 +14,7 @@
 #header-tagline-newline {
   display: none;
 }
-@media screen and (max-width: 550px) {
+@container (max-width: 550px) {
   #header-logo h1 {
     font-size: 4.2em;
   }
@@ -25,7 +25,7 @@
     font-size: 1.9em;
   }
 }
-@media screen and (max-width: 520px) {
+@container (max-width: 520px) {
   #header-logo h1 {
     font-size: 3.8em;
   }
@@ -36,7 +36,7 @@
     font-size: 1.6em;
   }
 }
-@media screen and (max-width: 450px) {
+@container (max-width: 450px) {
   #header-tagline {
     font-size: 1.9em;
   }
@@ -44,7 +44,7 @@
     display: block;
   }
 }
-@media screen and (max-width: 400px) {
+@container (max-width: 400px) {
   #header-logo h1 {
     font-size: 3.3em;
   }
@@ -58,7 +58,7 @@
     display: block;
   }
 }
-@media screen and (max-width: 350px) {
+@container (max-width: 350px) {
   #header-logo h1 {
     font-size: 3em;
   }
