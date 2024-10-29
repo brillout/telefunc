@@ -171,8 +171,8 @@ export type Tail<L extends any[]> = L extends readonly [] ? [] : L extends reado
 export type Head<L extends any[]> = L['length'] extends 0 ? never : L[0]
 
 type ShieldStrMap<T extends any[]> = {
-    [K in keyof T]-?: T[K] extends undefined ? never : ShieldStr<T[K]>
-};
+  [K in keyof T]-?: T[K] extends undefined ? never : ShieldStr<T[K]>
+}
 
 export type ShieldArrStr<T extends any[], M = ShieldStrMap<T>> = M extends any[] ? `[${JoinStrings<M>}]` : never
 
@@ -195,7 +195,7 @@ type _cases = [
       ShieldStr<[number?, boolean?]>,
       [
         '__telefunc_t.tuple(__telefunc_t.optional(__telefunc_t.number), __telefunc_t.optional(__telefunc_t.boolean))',
-        '__telefunc_t.tuple(__telefunc_t.optional(__telefunc_t.boolean), __telefunc_t.optional(__telefunc_t.number))'
+        '__telefunc_t.tuple(__telefunc_t.optional(__telefunc_t.boolean), __telefunc_t.optional(__telefunc_t.number))',
       ]
     >
   >,
@@ -204,7 +204,7 @@ type _cases = [
       ShieldStr<'one' | 'two'>,
       [
         "__telefunc_t.or(__telefunc_t.const('two'), __telefunc_t.const('one'))",
-        "__telefunc_t.or(__telefunc_t.const('one'), __telefunc_t.const('two'))"
+        "__telefunc_t.or(__telefunc_t.const('one'), __telefunc_t.const('two'))",
       ]
     >
   >,
@@ -213,7 +213,7 @@ type _cases = [
       ShieldStr<1 | 2 | undefined>,
       [
         '__telefunc_t.optional(__telefunc_t.or(__telefunc_t.const(2), __telefunc_t.const(1)))',
-        '__telefunc_t.optional(__telefunc_t.or(__telefunc_t.const(1), __telefunc_t.const(2)))'
+        '__telefunc_t.optional(__telefunc_t.or(__telefunc_t.const(1), __telefunc_t.const(2)))',
       ]
     >
   >,
@@ -222,7 +222,7 @@ type _cases = [
       ShieldStr<number | string>,
       [
         '__telefunc_t.or(__telefunc_t.number, __telefunc_t.string)',
-        '__telefunc_t.or(__telefunc_t.string, __telefunc_t.number)'
+        '__telefunc_t.or(__telefunc_t.string, __telefunc_t.number)',
       ]
     >
   >,
@@ -269,7 +269,7 @@ type _cases = [
       ShieldArrStr<[string, number?, string?]>,
       '[__telefunc_t.string, __telefunc_t.optional(__telefunc_t.number), __telefunc_t.optional(__telefunc_t.string)]'
     >
-  >
+  >,
 ]
 type Expect<T extends true> = T
 type EqualsAnyOf<T, L extends any[]> = L extends [infer Head, ...infer Tail]

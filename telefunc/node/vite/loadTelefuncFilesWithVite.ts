@@ -9,7 +9,7 @@ import { getViteDevServer } from '../server/globalContext'
 async function loadTelefuncFilesWithVite(runContext: { telefuncFilePath: string }): Promise<{
   telefuncFilesLoaded: Record<string, Record<string, unknown>>
   telefuncFilesAll: string[]
-  viteProvider: "Vite" | '@brillout/vite-plugin-server-entry'
+  viteProvider: 'Vite' | '@brillout/vite-plugin-server-entry'
 }> {
   const { moduleExports, viteProvider } = await loadGlobImporter()
   assert(isObject(moduleExports), { moduleExports, viteProvider })
