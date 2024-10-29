@@ -9,13 +9,36 @@ import { ContactUs } from './ContactUs'
 function Page() {
   return (
     <>
-      <Header />
-      <CodePreview />
-      <div style={{ height: 30 }} />
-      <Features />
-      <div style={{ height: 30 }} />
-      <ContactUs />
-      <div style={{ height: 70 }} />
+      <div
+        style={{
+          background: 'var(--bg-color)',
+          paddingTop: 50,
+          paddingBottom: 80,
+        }}
+      >
+        <Header />
+        <CodePreview />
+      </div>
+      <div
+        style={{
+          background: 'var(--bg-color)',
+          marginTop: 'var(--block-margin)',
+          paddingTop: 50,
+          paddingBottom: 80,
+        }}
+      >
+        <Features />
+      </div>
+      <div
+        style={{
+          background: 'var(--bg-color)',
+          marginTop: 'var(--block-margin)',
+          paddingTop: 50,
+          paddingBottom: 80,
+        }}
+      >
+        <ContactUs />
+      </div>
     </>
   )
 }

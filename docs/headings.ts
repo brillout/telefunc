@@ -29,6 +29,7 @@ export const headings: HeadingDefinition[] = [
   {
     level: 1,
     title: 'Overview',
+    color: '#d00', // red
   },
   {
     level: 2,
@@ -44,6 +45,7 @@ export const headings: HeadingDefinition[] = [
   {
     level: 1,
     title: 'Get started',
+    color: '#0d0', // green
   },
   {
     level: 2,
@@ -89,6 +91,7 @@ export const headings: HeadingDefinition[] = [
   {
     level: 1,
     title: 'Guides',
+    color: '#00d', // blue
   },
   {
     level: 2,
@@ -120,6 +123,7 @@ export const headings: HeadingDefinition[] = [
   {
     level: 1,
     title: 'API',
+    color: '#49d5ed', // cyan
   },
   {
     level: 4,

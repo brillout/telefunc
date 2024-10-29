@@ -36,8 +36,8 @@ importers:
   docs:
     dependencies:
       '@brillout/docpress':
-        specifier: ^0.7.9
-        version: 0.7.9(@algolia/client-search@4.24.0)(@swc/helpers@0.5.2)(@types/node@20.11.17)(@types/react-dom@17.0.11)(@types/react@17.0.39)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(rollup@4.22.0)(search-insights@2.17.2)(typescript@5.0.3)(vike@0.4.198(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2))))(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))
+        specifier: ^0.8.11
+        version: 0.8.11(@algolia/client-search@4.24.0)(@swc/helpers@0.5.2)(@types/node@20.11.17)(@types/react-dom@17.0.11)(@types/react@17.0.39)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(rollup@4.22.0)(search-insights@2.17.2)(typescript@5.0.3)(vike@0.4.198(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2))))(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))
       '@types/node':
         specifier: ^20.11.16
         version: 20.11.17
@@ -1808,8 +1808,8 @@ packages:
     resolution: {integrity: sha512-cvSrvCxnZYzQmiOj0nwIuf298DvaM/2eAAOsBSbBpsdOEpYsnbQGvFxew9oSXEi3HH1TZMmLy8VyvyJJ+LsmCw==}
     hasBin: true
 
-  '@brillout/docpress@0.7.9':
-    resolution: {integrity: sha512-gDiQVQJimMznHdYD8JDU8wGxf+jaDtcawt7zS2q4WANO4AHGLbBugpDyeqMoRdA7P1AAkPItp0CGHHsa5PBPCA==}
+  '@brillout/docpress@0.8.11':
+    resolution: {integrity: sha512-63WnJGSrZYXMYBNeyDfUX0lfeD3OglESyScph7iJG0IZMduiLGUgviuxLCye5LSsUWM6NMfuy2gyen8CgbqgyQ==}
     peerDependencies:
       '@types/node': '*'
       '@types/react': '*'
@@ -4266,9 +4266,6 @@ packages:
 
   balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
-
-  balloon-css@1.2.0:
-    resolution: {integrity: sha512-urXwkHgwp6GsXVF+it01485Z2Cj4pnW02ICnM0TemOlkKmCNnDLmyy+ZZiRXBpwldUXO+aRNr7Hdia4CBvXJ5A==}
 
   base64-js@1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
@@ -12473,7 +12470,7 @@ snapshots:
 
   '@brillout/dev-my-dep@0.0.10': {}
 
-  '@brillout/docpress@0.7.9(@algolia/client-search@4.24.0)(@swc/helpers@0.5.2)(@types/node@20.11.17)(@types/react-dom@17.0.11)(@types/react@17.0.39)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(rollup@4.22.0)(search-insights@2.17.2)(typescript@5.0.3)(vike@0.4.198(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2))))(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))':
+  '@brillout/docpress@0.8.11(@algolia/client-search@4.24.0)(@swc/helpers@0.5.2)(@types/node@20.11.17)(@types/react-dom@17.0.11)(@types/react@17.0.39)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(rollup@4.22.0)(search-insights@2.17.2)(typescript@5.0.3)(vike@0.4.198(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2))))(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))':
     dependencies:
       '@brillout/picocolors': 1.0.15
       '@docsearch/css': 3.6.1
@@ -12486,7 +12483,6 @@ snapshots:
       '@types/react': 17.0.39
       '@types/react-dom': 17.0.11
       '@vitejs/plugin-react-swc': 3.3.2(@swc/helpers@0.5.2)(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))
-      balloon-css: 1.2.0
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       rehype-pretty-code: 0.13.0(shiki@1.2.0)
@@ -15220,8 +15216,6 @@ snapshots:
 
   balanced-match@1.0.2: {}
 
-  balloon-css@1.2.0: {}
-
   base64-js@1.5.1: {}
 
   base@0.11.2:
@@ -16755,7 +16749,7 @@ snapshots:
       eslint: 8.47.0
       eslint-import-resolver-node: 0.3.9
       eslint-import-resolver-typescript: 3.5.3(eslint-plugin-import@2.29.0(eslint@8.47.0))(eslint@8.47.0)
-      eslint-plugin-import: 2.29.0(@typescript-eslint/parser@5.51.0(eslint@8.47.0)(typescript@5.1.6))(eslint-import-resolver-typescript@3.5.3)(eslint@8.47.0)
+      eslint-plugin-import: 2.29.0(@typescript-eslint/parser@5.51.0(eslint@8.47.0)(typescript@5.1.6))(eslint-import-resolver-typescript@3.5.3(eslint-plugin-import@2.29.0(eslint@8.47.0))(eslint@8.47.0))(eslint@8.47.0)
       eslint-plugin-jsx-a11y: 6.8.0(eslint@8.47.0)
       eslint-plugin-react: 7.33.2(eslint@8.47.0)
       eslint-plugin-react-hooks: 4.6.0(eslint@8.47.0)
@@ -16778,7 +16772,7 @@ snapshots:
       debug: 4.3.4
       enhanced-resolve: 5.12.0
       eslint: 8.47.0
-      eslint-plugin-import: 2.29.0(@typescript-eslint/parser@5.51.0(eslint@8.47.0)(typescript@5.1.6))(eslint-import-resolver-typescript@3.5.3)(eslint@8.47.0)
+      eslint-plugin-import: 2.29.0(@typescript-eslint/parser@5.51.0(eslint@8.47.0)(typescript@5.1.6))(eslint-import-resolver-typescript@3.5.3(eslint-plugin-import@2.29.0(eslint@8.47.0))(eslint@8.47.0))(eslint@8.47.0)
       get-tsconfig: 4.4.0
       globby: 13.1.3
       is-core-module: 2.13.1
@@ -16798,7 +16792,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-import@2.29.0(@typescript-eslint/parser@5.51.0(eslint@8.47.0)(typescript@5.1.6))(eslint-import-resolver-typescript@3.5.3)(eslint@8.47.0):
+  eslint-plugin-import@2.29.0(@typescript-eslint/parser@5.51.0(eslint@8.47.0)(typescript@5.1.6))(eslint-import-resolver-typescript@3.5.3(eslint-plugin-import@2.29.0(eslint@8.47.0))(eslint@8.47.0))(eslint@8.47.0):
     dependencies:
       array-includes: 3.1.7
       array.prototype.findlastindex: 1.2.3
