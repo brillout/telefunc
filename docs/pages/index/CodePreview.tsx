@@ -12,8 +12,8 @@ function CodePreview() {
         id="code-preview-wrapper"
         className={[
           /*
-        'debug-layout',
-        //*/
+          'debug-layout',
+          //*/
         ].join(' ')}
       >
         <div className="code-preview_code-block">
