@@ -5,6 +5,7 @@ import { assertUsage, assert, hasProp, isWebpack, isVikeApp } from '../../utils'
 import { loadTelefuncFilesWithVite } from '../../vite/loadTelefuncFilesWithVite'
 import { loadTelefuncFilesWithRegistration } from './loadTelefuncFilesWithRegistration'
 import { loadTelefuncFilesFromConfig } from './loadTelefuncFilesFromConfig'
+import pc from '@brillout/picocolors'
 
 async function loadTelefuncFiles(runContext: {
   appRootDir: string | null
@@ -39,7 +40,7 @@ async function loadTelefuncFiles(runContext: {
   // - Vite
   if (!isWebpack() || isVikeApp()) {
     const { telefuncFilesLoaded, viteProvider, telefuncFilesAll } = await loadTelefuncFilesWithVite(runContext)
-    assertUsage(Object.keys(telefuncFilesAll).length > 0, getNothingFoundErr(`Vite [\`${viteProvider}\`]`))
+    assertUsage(Object.keys(telefuncFilesAll).length > 0, getNothingFoundErr(viteProvider))
     return { telefuncFilesLoaded, telefuncFilesAll }
   }
 
@@ -47,9 +48,5 @@ async function loadTelefuncFiles(runContext: {
 }
 
 function getNothingFoundErr(retrievalMethod: string) {
-  return (
-    'No `.telefunc.{js|ts|...}` file found. Did you create one? (Telefunc files retrieval method: ' +
-    retrievalMethod +
-    '.)'
-  )
+  return `No ${pc.code('.telefunc.{js|ts|...}')} file found. Did you create one? (Retrieval method: ${retrievalMethod}.)`
 }

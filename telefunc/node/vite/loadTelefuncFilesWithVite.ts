@@ -9,7 +9,7 @@ import { getViteDevServer } from '../server/globalContext'
 async function loadTelefuncFilesWithVite(runContext: { telefuncFilePath: string }): Promise<{
   telefuncFilesLoaded: Record<string, Record<string, unknown>>
   telefuncFilesAll: string[]
-  viteProvider: 'viteDevServer' | 'importBuild.cjs'
+  viteProvider: "Vite" | '@brillout/vite-plugin-server-entry'
 }> {
   const { moduleExports, viteProvider } = await loadGlobImporter()
   assert(isObject(moduleExports), { moduleExports, viteProvider })
@@ -31,7 +31,7 @@ async function loadGlobImporter() {
       viteDevServer.ssrFixStacktrace(err as Error)
       throw err
     }
-    return { moduleExports, viteProvider: 'viteDevServer' as const }
+    return { moduleExports, viteProvider: 'Vite' as const }
   } else {
     let moduleExports: unknown
     moduleExports = await loadTelefuncFilesWithImportBuild()
@@ -43,7 +43,7 @@ async function loadGlobImporter() {
       assert(moduleExports)
     }
     assertProd()
-    return { moduleExports, viteProvider: 'importBuild.cjs' as const }
+    return { moduleExports, viteProvider: '@brillout/vite-plugin-server-entry' as const }
   }
 }
 
