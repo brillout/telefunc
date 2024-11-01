@@ -13,7 +13,7 @@ async function loadTelefuncFiles(runContext: {
   telefuncFilePath: string
 }): Promise<{ telefuncFilesLoaded: TelefuncFiles; telefuncFilesAll: string[] }> {
   // Handles:
-  // - When the user provides the telefunc file paths with `config.telefuncFiles`
+  // - The user manually provides the list of `.telefunc.js` files with `config.telefuncFiles`
   {
     if (runContext.telefuncFilesManuallyProvidedByUser) {
       assert(hasProp(runContext, 'telefuncFilesManuallyProvidedByUser', 'string[]')) // Help TS narrow `runContext`
@@ -26,7 +26,7 @@ async function loadTelefuncFiles(runContext: {
   // Handles:
   // - Next.js
   // - Nuxt 2
-  // - Vite with `importBuild.js`
+  // - In production, `.telefunc.js` files crawled by Vite together with @brillout/vite-plugin-server-entry
   {
     const telefuncFilesLoaded = loadTelefuncFilesWithRegistration()
     if (telefuncFilesLoaded) {
@@ -37,7 +37,7 @@ async function loadTelefuncFiles(runContext: {
   }
 
   // Handles:
-  // - Vite
+  // - In development, `.telefunc.js` files crawled by Vite
   if (!isWebpack() || isVikeApp()) {
     const { telefuncFilesLoaded, viteProvider, telefuncFilesAll } = await loadTelefuncFilesWithVite(runContext)
     assertUsage(Object.keys(telefuncFilesAll).length > 0, getNothingFoundErr(viteProvider))
