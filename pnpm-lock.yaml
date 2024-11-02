@@ -36,17 +36,17 @@ importers:
   docs:
     dependencies:
       '@brillout/docpress':
-        specifier: ^0.8.12
-        version: 0.8.12(@algolia/client-search@4.24.0)(@swc/helpers@0.5.2)(@types/node@20.11.17)(@types/react-dom@17.0.11)(@types/react@17.0.39)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(rollup@4.22.0)(search-insights@2.17.2)(typescript@5.0.3)(vike@0.4.198(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2))))(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))
+        specifier: ^0.8.13
+        version: 0.8.13(@algolia/client-search@4.24.0)(@swc/helpers@0.5.2)(@types/node@20.11.17)(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(rollup@4.22.0)(search-insights@2.17.2)(typescript@5.6.3)(vike@0.4.199(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2))))(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))
       '@types/node':
         specifier: ^20.11.16
         version: 20.11.17
       '@types/react':
-        specifier: ^17.0.9
-        version: 17.0.39
+        specifier: ^18.2.55
+        version: 18.3.12
       '@types/react-dom':
-        specifier: ^17.0.6
-        version: 17.0.11
+        specifier: ^18.2.19
+        version: 18.3.1
       react:
         specifier: ^18.2.0
         version: 18.2.0
@@ -54,13 +54,13 @@ importers:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
       typescript:
-        specifier: ^5.0.3
-        version: 5.0.3
+        specifier: ^5.6.2
+        version: 5.6.3
       vike:
-        specifier: ^0.4.198
-        version: 0.4.198(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))
+        specifier: ^0.4.199
+        version: 0.4.199(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))
       vite:
-        specifier: ^5.4.6
+        specifier: ^5.4.0
         version: 5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2))
 
   examples/authentication:
@@ -1808,8 +1808,8 @@ packages:
     resolution: {integrity: sha512-cvSrvCxnZYzQmiOj0nwIuf298DvaM/2eAAOsBSbBpsdOEpYsnbQGvFxew9oSXEi3HH1TZMmLy8VyvyJJ+LsmCw==}
     hasBin: true
 
-  '@brillout/docpress@0.8.12':
-    resolution: {integrity: sha512-PDPueYE7jCIy9byk/BK3+ebvXQBmLwwcN2pb8CH9Ryb4EIylPLJr+lB8XWmwgJ/d0NbK5MpDvR9SYB3OPBb4qw==}
+  '@brillout/docpress@0.8.13':
+    resolution: {integrity: sha512-449KoQL3yUa1dMF08P/p0lnSs5OtvVeVLEywhueB/g7Oo0Dzk2cFPBYy0QMVcRSsCG2EGuwsD/XShszp4Chxpg==}
     peerDependencies:
       '@types/node': '*'
       '@types/react': '*'
@@ -3685,23 +3685,23 @@ packages:
   '@types/range-parser@1.2.4':
     resolution: {integrity: sha512-EEhsLsD6UsDM1yFhAvy0Cjr6VwmpMWqFBCb9w07wVugF7w9nfajxLuVmngTIpgS6svCnm6Vaw+MZhoDCKnOfsw==}
 
-  '@types/react-dom@17.0.11':
-    resolution: {integrity: sha512-f96K3k+24RaLGVu/Y2Ng3e1EbZ8/cVJvypZWd7cy0ofCBaf2lcM46xNhycMZ2xGwbBjRql7hOlZ+e2WlJ5MH3Q==}
-
   '@types/react-dom@18.0.6':
     resolution: {integrity: sha512-/5OFZgfIPSwy+YuIBP/FgJnQnsxhZhjjrnxudMddeblOouIodEQ75X14Rr4wGSG/bknL+Omy9iWlLo1u/9GzAA==}
 
   '@types/react-dom@18.2.17':
     resolution: {integrity: sha512-rvrT/M7Df5eykWFxn6MYt5Pem/Dbyc1N8Y0S9Mrkw2WFCRiqUgw9P7ul2NpwsXCSM1DVdENzdG9J5SreqfAIWg==}
 
-  '@types/react@17.0.39':
-    resolution: {integrity: sha512-UVavlfAxDd/AgAacMa60Azl7ygyQNRwC/DsHZmKgNvPmRR5p70AJ5Q9EAmL2NWOJmeV+vVUI4IAP7GZrN8h8Ug==}
+  '@types/react-dom@18.3.1':
+    resolution: {integrity: sha512-qW1Mfv8taImTthu4KoXgDfLuk4bydU6Q/TkADnDWWHwi4NX4BR+LWfTp2sVmTqRrsHvyDDTelgelxJ+SsejKKQ==}
 
   '@types/react@18.0.18':
     resolution: {integrity: sha512-6hI08umYs6NaiHFEEGioXnxJ+oEhY3eRz8VCUaudZmGdtvPviCJB8mgaMxaDWAdPSYd4eFavrPk2QIolwbLYrg==}
 
   '@types/react@18.2.42':
     resolution: {integrity: sha512-c1zEr96MjakLYus/wPnuWDo1/zErfdU9rNsIGmE+NV71nx88FG9Ttgo5dqorXTu/LImX2f63WBP986gJkMPNbA==}
+
+  '@types/react@18.3.12':
+    resolution: {integrity: sha512-D2wOSq/d6Agt28q7rSI3jhU7G6aiuzljDGZ2hTZHIkrTLUI+AF3WMeKkEZ9nN2fkBAlcktT6vcZjDFiIhMYEQw==}
 
   '@types/relateurl@0.2.29':
     resolution: {integrity: sha512-QSvevZ+IRww2ldtfv1QskYsqVVVwCKQf1XbwtcyyoRvLIQzfyPhj/C+3+PKzSDRdiyejaiLgnq//XTkleorpLg==}
@@ -10128,8 +10128,8 @@ packages:
       react-streaming:
         optional: true
 
-  vike@0.4.198:
-    resolution: {integrity: sha512-+81aEkVL9Ruroxl5X1UcYAoGX0yiPx+8b9tgvuGbyNduvufF6FLDFxxRqd1G0+eaofit6xsbChG9uid4plMpog==}
+  vike@0.4.199:
+    resolution: {integrity: sha512-SOLv0cqThcH9Fux1j7Bfw/AsrUsUw9obB2EMIbWeA+HoChUC6dI0QK/t8ZU4V3ARDVo7qBnLxZCqkFnYeA4Hrg==}
     engines: {node: '>=18.0.0'}
     hasBin: true
     peerDependencies:
@@ -12470,26 +12470,26 @@ snapshots:
 
   '@brillout/dev-my-dep@0.0.10': {}
 
-  '@brillout/docpress@0.8.12(@algolia/client-search@4.24.0)(@swc/helpers@0.5.2)(@types/node@20.11.17)(@types/react-dom@17.0.11)(@types/react@17.0.39)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(rollup@4.22.0)(search-insights@2.17.2)(typescript@5.0.3)(vike@0.4.198(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2))))(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))':
+  '@brillout/docpress@0.8.13(@algolia/client-search@4.24.0)(@swc/helpers@0.5.2)(@types/node@20.11.17)(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(rollup@4.22.0)(search-insights@2.17.2)(typescript@5.6.3)(vike@0.4.199(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2))))(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))':
     dependencies:
       '@brillout/picocolors': 1.0.15
       '@docsearch/css': 3.6.1
-      '@docsearch/react': 3.6.1(@algolia/client-search@4.24.0)(@types/react@17.0.39)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(search-insights@2.17.2)
+      '@docsearch/react': 3.6.1(@algolia/client-search@4.24.0)(@types/react@18.3.12)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(search-insights@2.17.2)
       '@mdx-js/mdx': 3.0.1
-      '@mdx-js/react': 3.0.1(@types/react@17.0.39)(react@18.2.0)
+      '@mdx-js/react': 3.0.1(@types/react@18.3.12)(react@18.2.0)
       '@mdx-js/rollup': 3.0.1(rollup@4.22.0)
       '@shikijs/transformers': 1.2.0
       '@types/node': 20.11.17
-      '@types/react': 17.0.39
-      '@types/react-dom': 17.0.11
+      '@types/react': 18.3.12
+      '@types/react-dom': 18.3.1
       '@vitejs/plugin-react-swc': 3.3.2(@swc/helpers@0.5.2)(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       rehype-pretty-code: 0.13.0(shiki@1.2.0)
       remark-gfm: 4.0.0
       shiki: 1.2.0
-      typescript: 5.0.3
-      vike: 0.4.198(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))
+      typescript: 5.6.3
+      vike: 0.4.199(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))
       vike-contributors: 0.0.9
       vite: 5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2))
     transitivePeerDependencies:
@@ -12813,14 +12813,14 @@ snapshots:
 
   '@docsearch/css@3.6.1': {}
 
-  '@docsearch/react@3.6.1(@algolia/client-search@4.24.0)(@types/react@17.0.39)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(search-insights@2.17.2)':
+  '@docsearch/react@3.6.1(@algolia/client-search@4.24.0)(@types/react@18.3.12)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(search-insights@2.17.2)':
     dependencies:
       '@algolia/autocomplete-core': 1.9.3(@algolia/client-search@4.24.0)(algoliasearch@4.24.0)(search-insights@2.17.2)
       '@algolia/autocomplete-preset-algolia': 1.9.3(@algolia/client-search@4.24.0)(algoliasearch@4.24.0)
       '@docsearch/css': 3.6.1
       algoliasearch: 4.24.0
     optionalDependencies:
-      '@types/react': 17.0.39
+      '@types/react': 18.3.12
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
       search-insights: 2.17.2
@@ -13270,10 +13270,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@mdx-js/react@3.0.1(@types/react@17.0.39)(react@18.2.0)':
+  '@mdx-js/react@3.0.1(@types/react@18.3.12)(react@18.2.0)':
     dependencies:
       '@types/mdx': 2.0.1
-      '@types/react': 17.0.39
+      '@types/react': 18.3.12
       react: 18.2.0
 
   '@mdx-js/rollup@3.0.1(rollup@4.22.0)':
@@ -14397,23 +14397,17 @@ snapshots:
 
   '@types/range-parser@1.2.4': {}
 
-  '@types/react-dom@17.0.11':
-    dependencies:
-      '@types/react': 17.0.39
-
   '@types/react-dom@18.0.6':
     dependencies:
-      '@types/react': 17.0.39
+      '@types/react': 18.3.12
 
   '@types/react-dom@18.2.17':
     dependencies:
-      '@types/react': 18.2.42
+      '@types/react': 18.3.12
 
-  '@types/react@17.0.39':
+  '@types/react-dom@18.3.1':
     dependencies:
-      '@types/prop-types': 15.7.4
-      '@types/scheduler': 0.16.2
-      csstype: 3.0.10
+      '@types/react': 18.3.12
 
   '@types/react@18.0.18':
     dependencies:
@@ -14426,6 +14420,11 @@ snapshots:
       '@types/prop-types': 15.7.4
       '@types/scheduler': 0.16.2
       csstype: 3.0.10
+
+  '@types/react@18.3.12':
+    dependencies:
+      '@types/prop-types': 15.7.4
+      csstype: 3.1.3
 
   '@types/relateurl@0.2.29': {}
 
@@ -22236,7 +22235,7 @@ snapshots:
     optionalDependencies:
       react-streaming: 0.3.22(react-dom@18.2.0(react@18.2.0))(react@18.2.0)
 
-  vike@0.4.198(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2))):
+  vike@0.4.199(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2))):
     dependencies:
       '@brillout/import': 0.2.3
       '@brillout/json-serializer': 0.5.13
