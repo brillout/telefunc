@@ -6,12 +6,17 @@ import { telefuncFilesGlobFilePath } from './importGlob/telefuncFilesGlobPath'
 import { loadTelefuncFilesWithImportBuild } from './plugins/importBuild/loadBuild'
 import { getViteDevServer } from '../server/globalContext'
 
-async function loadTelefuncFilesWithVite(runContext: { telefuncFilePath: string }): Promise<{
+async function loadTelefuncFilesWithVite(
+  runContext: { telefuncFilePath: string },
+  failOnFailure?: true,
+): Promise<null | {
   telefuncFilesLoaded: Record<string, Record<string, unknown>>
   telefuncFilesAll: string[]
   viteProvider: 'Vite' | '@brillout/vite-plugin-server-entry'
 }> {
-  const { moduleExports, viteProvider } = await loadGlobImporter()
+  const res = await loadGlobImporter(failOnFailure)
+  if (!res) return null
+  const { moduleExports, viteProvider } = res
   assert(isObject(moduleExports), { moduleExports, viteProvider })
   assert(hasProp(moduleExports, 'telefuncFilesGlob'), { moduleExports, viteProvider })
   const telefuncFilesGlob = moduleExports.telefuncFilesGlob as GlobFiles
@@ -20,7 +25,7 @@ async function loadTelefuncFilesWithVite(runContext: { telefuncFilePath: string 
   return { telefuncFilesLoaded, viteProvider, telefuncFilesAll }
 }
 
-async function loadGlobImporter() {
+async function loadGlobImporter(failOnFailure?: true) {
   const viteDevServer = getViteDevServer()
   if (viteDevServer) {
     const devPath = telefuncFilesGlobFilePath
@@ -36,8 +41,14 @@ async function loadGlobImporter() {
     let moduleExports: unknown
     moduleExports = await loadTelefuncFilesWithImportBuild()
     if (moduleExports === null) {
-      await importServerProductionEntry()
+      const tolerateNotFound = !failOnFailure
+      const success = await importServerProductionEntry({ tolerateNotFound })
       moduleExports = await loadTelefuncFilesWithImportBuild()
+      if (success === false) {
+        assert(tolerateNotFound)
+        assert(!moduleExports)
+        return null
+      }
       assert(moduleExports)
     } else {
       assert(moduleExports)

@@ -37,13 +37,28 @@ async function loadTelefuncFiles(runContext: {
   // Vite:
   // - In development, `.telefunc.js` files provided with Vite's development server
   // - In production, `.telefunc.js` files provided with @brillout/vite-plugin-server-entry
-  if (!isWebpack() || isVikeApp()) {
-    const { telefuncFilesLoaded, viteProvider, telefuncFilesAll } = await loadTelefuncFilesWithVite(runContext)
-    assertUsage(Object.keys(telefuncFilesAll).length > 0, getNothingFoundErr(viteProvider))
-    return { telefuncFilesLoaded, telefuncFilesAll }
+  {
+    const res = await loadTelefuncFilesWithVite(runContext)
+    if (res) {
+      const { telefuncFilesLoaded, viteProvider, telefuncFilesAll } = res
+      assertUsage(Object.keys(telefuncFilesAll).length > 0, getNothingFoundErr(viteProvider))
+      return { telefuncFilesLoaded, telefuncFilesAll }
+    } else if (isVikeApp() || !isWebpack()) {
+      // Show [manual import error](https://github.com/brillout/vite-plugin-server-entry#manual-import):
+      // ```
+      // [@brillout/vite-plugin-server-entry][Wrong Usage] The server production entry is missing.
+      // (Re-)build your app and try again. If you still get this error, then you need to manually
+      // import the server production entry.
+      // ```
+      //
+      const res2 = await loadTelefuncFilesWithVite(runContext, true)
+      assert(res2 === null)
+      assert(false) // loadTelefuncFilesWithVite() should have called assertUsage()
+    }
   }
 
-  assertUsage(false, "You don't seem to be using Telefunc with a supported stack. Reach out on GitHub.")
+  // No retrieval method found
+  assertUsage(false, `Couldn't find method for retrieving ${pc.cyan('.telefunc.js')} files. Is your stack supported?`)
 }
 
 function getNothingFoundErr(retrievalMethod: string) {
