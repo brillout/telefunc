@@ -19,14 +19,14 @@ function importBuild(): Plugin[] {
     },
     ...serverProductionEntryPlugin({
       getServerProductionEntry: () => {
-        return getImporterCode(config)
+        return getServerProductionEntryCode(config)
       },
       libraryName: projectInfo.projectName,
     }),
   ]
 }
 
-function getImporterCode(config: ResolvedConfig) {
+function getServerProductionEntryCode(config: ResolvedConfig) {
   const importPath = getImportPath(config)
 
   const telefuncManifest = getTelefuncManifest()
