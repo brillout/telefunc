@@ -355,8 +355,8 @@ importers:
         specifier: ^1.0.15
         version: 1.0.15
       '@brillout/vite-plugin-server-entry':
-        specifier: ^0.4.12
-        version: 0.4.12
+        specifier: ^0.5.0
+        version: 0.5.0
       es-module-lexer:
         specifier: ^1.0.0
         version: 1.4.1
@@ -1869,6 +1869,9 @@ packages:
 
   '@brillout/vite-plugin-server-entry@0.4.9':
     resolution: {integrity: sha512-ETiWJlljweuxXS/0TBk4eLotZ3ZFC26u7s983z2P9lmDGifZzgj7BCJzgopnDihbl8Y8usKZSLq0grrCivtMSA==}
+
+  '@brillout/vite-plugin-server-entry@0.5.0':
+    resolution: {integrity: sha512-dqlgTgVCkZ4TWhMypWQGBEf/YQc3Ul7D6Eyacel6/ov4pRlHimwUEEWFmA6PifwVYnXWUXQIKpWnkyey0jMVog==}
 
   '@cloudflare/kv-asset-handler@0.2.0':
     resolution: {integrity: sha512-MVbXLbTcAotOPUj0pAMhVtJ+3/kFkwJqc5qNOleOZTv6QkZZABDMS21dSrSlVswEHwrpWC03e4fWytjqKvuE2A==}
@@ -12560,6 +12563,10 @@ snapshots:
       '@brillout/import': 0.2.3
 
   '@brillout/vite-plugin-server-entry@0.4.9':
+    dependencies:
+      '@brillout/import': 0.2.3
+
+  '@brillout/vite-plugin-server-entry@0.5.0':
     dependencies:
       '@brillout/import': 0.2.3
 
