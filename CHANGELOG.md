@@ -1,3 +1,14 @@
+## [0.1.81](https://github.com/brillout/telefunc/compare/v0.1.80...v0.1.81) (2024-11-02)
+
+
+### Bug Fixes
+
+* eagerly try Vite telefunc file retrieval (fix [#121](https://github.com/brillout/telefunc/issues/121)) ([44a6653](https://github.com/brillout/telefunc/commit/44a6653074d989c32d64e3f0e5fc0cda1864cedb))
+* improve error message ([3445e13](https://github.com/brillout/telefunc/commit/3445e13e6535717bf8b3ffd493924fb7e9593ece))
+* update picocolors ([453b43c](https://github.com/brillout/telefunc/commit/453b43c93af6bdf021f0a40a1d6d3c89115615c8))
+
+
+
 ## [0.1.80](https://github.com/brillout/telefunc/compare/v0.1.79...v0.1.80) (2024-10-28)
 
 
