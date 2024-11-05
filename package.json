@@ -14,7 +14,7 @@
     "test:e2e": "test-e2e",
     "test:types": "test-types",
     "// Run `$ pnpm test:setup` before running `$ pnpm test`": "",
-    "test:setup": "pnpm run clean && pnpm install && pnpm run build",
+    "test:setup": "pnpm install && pnpm run build",
     "========= Dev": "",
     "// Develop telefunc": "",
     "dev": "cd telefunc/ && pnpm run dev",
@@ -50,5 +50,8 @@
     "overrides": {
       "telefunc": "link:./telefunc/"
     }
+  },
+  "dependencies": {
+    "pathe": "^1.1.2"
   }
 }

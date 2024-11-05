@@ -1,7 +1,7 @@
 export { loadTelefuncFilesFromConfig }
 
 import { assert, assertPosixPath, assertUsage, isTelefuncFilePath } from '../../utils'
-import { posix } from 'node:path'
+import { relative } from 'pathe'
 import type { TelefuncFiles } from '../types'
 import { import_ } from '@brillout/import'
 import pc from '@brillout/picocolors'
@@ -39,7 +39,7 @@ async function loadTelefuncFilesFromConfig(runContext: {
 
 function resolveTelefuncFilePath(telefuncFilePathAbsolute: string, appRootDir: string): string {
   assertPosixPath(telefuncFilePathAbsolute)
-  const path = posix.relative(appRootDir, telefuncFilePathAbsolute)
+  const path = relative(appRootDir, telefuncFilePathAbsolute)
   assertPosixPath(path)
   assertUsage(
     !path.startsWith('../'),
