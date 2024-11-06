@@ -44,6 +44,8 @@ function assertCollocation(telefuncFilePath: string, appRootDir: string | null, 
     fs = req('node:fs')
     path = req('node:path')
   } catch {
+    // The environment doesn't seem to have a filesystem API => skip `assertCollocation()`.
+    // - For example, Cloudflare Workers doesn't have a filesystem API.
     return
   }
 
