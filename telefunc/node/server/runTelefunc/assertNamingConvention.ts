@@ -74,7 +74,6 @@ function assertCollocation(telefuncFilePath: string, appRootDir: string | null, 
   /* There seem to be a race condition: https://github.com/brillout/telefunc/issues/61
   assert(collocatedFilesMatchYes.length >= 1, { telefuncFilePathAbsolute, collocatedFiles })
   */
-  assert(!isProduction()) // New lines in production logs are a no-go
   assertWarning(
     collocatedFilesMatchYes.length >= 2,
     [
