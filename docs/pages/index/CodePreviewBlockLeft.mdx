@@ -9,7 +9,7 @@ export { onNewTodo }
 import { getContext } from 'telefunc'
 
 // Telefunction arguments are automatically validated
-// at runtime: `text` is guaranteed to be a string.
+// at runtime, so `text` is guaranteed to be a string.
 async function onNewTodo(text: string) {
   const { user } = getContext()
 
