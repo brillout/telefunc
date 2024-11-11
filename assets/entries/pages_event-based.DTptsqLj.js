@@ -91,7 +91,7 @@ POST            https://api.todo.com/task/7                   { "completed": tru
 `,e.jsx(n.span,{"data-line":"",children:e.jsx(n.span,{style:{color:"#6A737D"},children:"    # Telefunction"})}),`
 `,e.jsxs(n.span,{"data-line":"",children:[e.jsx(n.span,{style:{color:"#6F42C1"},children:"✅"}),e.jsx(n.span,{style:{color:"#032F62"},children:"  pages/edit/Page.telefunc.js"})]}),`
 `,e.jsxs(n.span,{"data-line":"",children:[e.jsx(n.span,{style:{color:"#6F42C1"},children:"❌"}),e.jsx(n.span,{style:{color:"#032F62"},children:"  pages/edit/all.telefunc.js"})]})]})})}),`
-`,e.jsx(n.p,{children:"First time Telefunc users often create generic telefunctions out of the habit of using REST/GraphQL, but defining tailored telefunctions instead is usually the better appraoch as explained above."}),`
+`,e.jsx(n.p,{children:"First-time Telefunc users often create generic telefunctions out of the habit of using REST/GraphQL, but defining tailored telefunctions instead is usually the better approach as explained above."}),`
 `,e.jsxs(n.p,{children:["Telefunc displays a warning whenever the naming convention isn't followed. You can remove the warning with ",e.jsx(o,{text:e.jsx(n.code,{children:"config.disableNamingConvention"}),href:"/disableNamingConvention"}),"."]}),`
 `,e.jsx("h2",{id:"exceptions",children:"Exceptions"}),`
 `,e.jsx(n.p,{children:"While we generally recommend implementing telefunctions that are tailored instead of generic, there are exceptions."}),`

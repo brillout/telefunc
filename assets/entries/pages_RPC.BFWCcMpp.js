@@ -1,4 +1,4 @@
-import{j as e,L as a,o,i as t}from"../chunks/chunk-Dv1ZjtYO.js";import{L as l}from"../chunks/chunk-DVZLub_1.js";/* empty css                      *//* empty css                      *//* empty css                      *//* empty css                      *//* empty css                      */import"../chunks/chunk-COORwwlf.js";/* empty css                      *//* empty css                      */const c=[{pageSectionId:"basic-example",pageSectionLevel:2,pageSectionTitle:"Basic example"},{pageSectionId:"orm-sql",pageSectionLevel:2,pageSectionTitle:"ORM & SQL"},{pageSectionId:"how-it-works",pageSectionLevel:2,pageSectionTitle:"How it works"},{pageSectionId:"telefunctions-need-protection",pageSectionLevel:2,pageSectionTitle:"Telefunctions need protection"},{pageSectionId:"throw-abort",pageSectionLevel:2,pageSectionTitle:"`throw Abort()`"},{pageSectionId:"shield",pageSectionLevel:2,pageSectionTitle:"`shield()`"},{pageSectionId:"random-telefunction-calls",pageSectionLevel:2,pageSectionTitle:"Random telefunction calls"}];function r(s){const n={a:"a",blockquote:"blockquote",code:"code",em:"em",figure:"figure",li:"li",ol:"ol",p:"p",pre:"pre",span:"span",strong:"strong",ul:"ul",...s.components};return e.jsxs(e.Fragment,{children:[e.jsxs(n.blockquote,{children:[`
+import{j as e,L as a,o,i as t}from"../chunks/chunk-Dv1ZjtYO.js";import{L as s}from"../chunks/chunk-DVZLub_1.js";/* empty css                      *//* empty css                      *//* empty css                      *//* empty css                      *//* empty css                      */import"../chunks/chunk-COORwwlf.js";/* empty css                      *//* empty css                      */const c=[{pageSectionId:"basic-example",pageSectionLevel:2,pageSectionTitle:"Basic example"},{pageSectionId:"orm-sql",pageSectionLevel:2,pageSectionTitle:"ORM & SQL"},{pageSectionId:"how-it-works",pageSectionLevel:2,pageSectionTitle:"How it works"},{pageSectionId:"telefunctions-need-protection",pageSectionLevel:2,pageSectionTitle:"Telefunctions need protection"},{pageSectionId:"throw-abort",pageSectionLevel:2,pageSectionTitle:"`throw Abort()`"},{pageSectionId:"shield",pageSectionLevel:2,pageSectionTitle:"`shield()`"},{pageSectionId:"random-telefunction-calls",pageSectionLevel:2,pageSectionTitle:"Random telefunction calls"}];function r(l){const n={a:"a",blockquote:"blockquote",code:"code",em:"em",figure:"figure",li:"li",ol:"ol",p:"p",pre:"pre",span:"span",strong:"strong",ul:"ul",...l.components};return e.jsxs(e.Fragment,{children:[e.jsxs(n.blockquote,{children:[`
 `,e.jsx(n.p,{children:"This page explains:"}),`
 `,e.jsxs(n.ul,{children:[`
 `,e.jsx(n.li,{children:"What RPC is"}),`
@@ -35,7 +35,7 @@ import{j as e,L as a,o,i as t}from"../chunks/chunk-Dv1ZjtYO.js";import{L as l}fr
 `,e.jsxs(n.span,{"data-line":"",children:[e.jsx(n.span,{style:{color:"#24292E"},children:"  </"}),e.jsx(n.span,{style:{color:"#22863A"},children:"body"}),e.jsx(n.span,{style:{color:"#24292E"},children:">"})]}),`
 `,e.jsxs(n.span,{"data-line":"",children:[e.jsx(n.span,{style:{color:"#24292E"},children:"</"}),e.jsx(n.span,{style:{color:"#22863A"},children:"html"}),e.jsx(n.span,{style:{color:"#24292E"},children:">"})]})]})})}),`
 `,e.jsxs(n.blockquote,{children:[`
-`,e.jsxs(n.p,{children:["We will show later ",e.jsx(l,{href:"#how-it-works",children:"how it works"}),"."]}),`
+`,e.jsxs(n.p,{children:["We will show later ",e.jsx(s,{href:"#how-it-works",children:"how it works"}),"."]}),`
 `]}),`
 `,e.jsxs(n.blockquote,{children:[`
 `,e.jsxs(n.p,{children:["This practice — calling functions remotely in a seamless fashion — is known as ",e.jsx(n.a,{href:"https://en.wikipedia.org/wiki/Remote_procedure_call",children:e.jsxs(n.em,{children:[e.jsx(n.strong,{children:"R"}),"emote ",e.jsx(n.strong,{children:"P"}),"rocedure ",e.jsx(n.strong,{children:"C"}),"all (RPC)"]})}),"."]}),`
@@ -75,7 +75,7 @@ import{j as e,L as a,o,i as t}from"../chunks/chunk-Dv1ZjtYO.js";import{L as l}fr
 `,e.jsx(n.span,{"data-line":"",children:e.jsx(n.span,{style:{color:"#24292E"},children:"  )"})}),`
 `,e.jsx(n.span,{"data-line":"",children:e.jsx(n.span,{style:{color:"#24292E"},children:"}"})})]})})}),`
 `,e.jsxs(n.blockquote,{children:[`
-`,e.jsxs(n.p,{children:["We collocate and name the ",e.jsx(n.code,{children:"TodoList.telefunc.js"})," file after ",e.jsx(n.code,{children:"TodoList.jsx"}),", which is a practice we recommend and explain at ",e.jsx(l,{href:"/event-based"}),"."]}),`
+`,e.jsxs(n.p,{children:["We collocate and name the ",e.jsx(n.code,{children:"TodoList.telefunc.js"})," file after ",e.jsx(n.code,{children:"TodoList.jsx"}),", which is a practice we recommend and explain at ",e.jsx(s,{href:"/event-based"}),"."]}),`
 `]}),`
 `,e.jsxs(n.blockquote,{children:[`
 `,e.jsx(n.p,{children:"While the examples here use JSX, Telefunc works with any UI framework (React, Vue, Svelte, Solid, ...)."}),`
@@ -126,7 +126,7 @@ import{j as e,L as a,o,i as t}from"../chunks/chunk-Dv1ZjtYO.js";import{L as l}fr
 `,e.jsx(n.li,{children:"you want to give third parties generic access to your data, or"}),`
 `,e.jsx(n.li,{children:"you are a very large company with highly complex databases."}),`
 `]}),`
-`,e.jsxs(n.p,{children:["See ",e.jsx(l,{href:"/RPC-vs-GraphQL-REST"}),"."]}),`
+`,e.jsxs(n.p,{children:["See ",e.jsx(s,{href:"/RPC-vs-GraphQL-REST"}),"."]}),`
 `]}),`
 `,e.jsx("h2",{id:"how-it-works",children:"How it works"}),`
 `,e.jsxs(n.blockquote,{children:[`
@@ -192,7 +192,7 @@ while the browser-side can remotely call it in a seamless fashion.`]}),`
 `]}),`
 `,e.jsx("h2",{id:"telefunctions-need-protection",children:"Telefunctions need protection"}),`
 `,e.jsx(n.p,{children:"Your telefunctions can be remotely called not only by your frontend, but by anyone."}),`
-`,e.jsxs(n.p,{children:["For example, anyone can call the ",e.jsx(n.code,{children:"hello()"})," telefunction we've seen in the previous section by opening a Linux terminal and make this HTTP request:"]}),`
+`,e.jsxs(n.p,{children:["For example, anyone can call the ",e.jsx(n.code,{children:"hello()"})," telefunction we've seen in the previous section by opening a Linux terminal and making this HTTP request:"]}),`
 `,e.jsx(n.figure,{"data-rehype-pretty-code-figure":"",children:e.jsx(n.pre,{style:{backgroundColor:"#fff",color:"#24292e"},tabIndex:"0","data-language":"bash","data-theme":"github-light",children:e.jsxs(n.code,{"data-language":"bash","data-theme":"github-light",style:{display:"grid"},children:[e.jsxs(n.span,{"data-line":"",children:[e.jsx(n.span,{style:{color:"#6F42C1"},children:"curl"}),e.jsx(n.span,{style:{color:"#032F62"},children:" https://your-website.com/_telefunc"}),e.jsx(n.span,{style:{color:"#005CC5"},children:" --data"}),e.jsx(n.span,{style:{color:"#032F62"},children:" '{"})]}),`
 `,e.jsx(n.span,{"data-line":"",children:e.jsx(n.span,{style:{color:"#032F62"},children:'   "path": "/hello.telefunc.js:hello",'})}),`
 `,e.jsx(n.span,{"data-line":"",children:e.jsx(n.span,{style:{color:"#032F62"},children:'   "args": [{"name": "Elisabeth"}]'})}),`
@@ -244,7 +244,7 @@ the following telefunction isn't safe.`}),`
 `,e.jsxs(n.span,{"data-line":"",children:[e.jsx(n.span,{style:{color:"#D73A49"},children:"  return"}),e.jsx(n.span,{style:{color:"#D73A49"},children:" await"}),e.jsx(n.span,{style:{color:"#24292E"},children:" database."}),e.jsx(n.span,{style:{color:"#6F42C1"},children:"execute"}),e.jsx(n.span,{style:{color:"#24292E"},children:"(sql)"})]}),`
 `,e.jsx(n.span,{"data-line":"",children:e.jsx(n.span,{style:{color:"#24292E"},children:"}"})})]})})}),`
 `,e.jsxs(n.blockquote,{children:[`
-`,e.jsxs(n.p,{children:["Telefunctions can access contextual information by using ",e.jsx(l,{href:"/getContext",children:e.jsx(n.code,{children:"getContext()"})}),"."]}),`
+`,e.jsxs(n.p,{children:["Telefunctions can access contextual information by using ",e.jsx(s,{href:"/getContext",children:e.jsx(n.code,{children:"getContext()"})}),"."]}),`
 `]}),`
 `,e.jsxs(n.p,{children:["We can use ",e.jsx(n.code,{children:"throw Abort()"})," to avoid any forbidden telefunction call."]}),`
 `,e.jsx(n.figure,{"data-rehype-pretty-code-figure":"",children:e.jsx(n.pre,{style:{backgroundColor:"#fff",color:"#24292e"},tabIndex:"0","data-language":"js","data-theme":"github-light",children:e.jsxs(n.code,{"data-language":"js","data-theme":"github-light",style:{display:"grid"},children:[e.jsx(n.span,{"data-line":"",children:e.jsx(n.span,{style:{color:"#6A737D"},children:"// TodoList.telefunc.js"})}),`
@@ -265,13 +265,13 @@ the following telefunction isn't safe.`}),`
 `,e.jsx(n.span,{"data-line":"",children:e.jsx(n.span,{style:{color:"#24292E"},children:"}"})})]})})}),`
 `,e.jsxs(n.blockquote,{children:[`
 `,e.jsxs(n.p,{children:["We essentially use ",e.jsx(n.code,{children:"throw Abort()"}),` to implement permission: only a logged-in user is allowed to fetch its to-do items.
-We talk more about permissions at `,e.jsx(l,{href:"/permissions"}),"."]}),`
+We talk more about permissions at `,e.jsx(s,{href:"/permissions"}),"."]}),`
 `]}),`
 `,e.jsxs(n.blockquote,{children:[`
 `,e.jsxs(n.p,{children:["In principle, we could also ",e.jsx(n.code,{children:"throw new Error()"})," instead of ",e.jsx(n.code,{children:"throw Abort()"})," as it also interupts the telefunction call. But we recommend ",e.jsx(n.code,{children:"throw Abort()"})," as it comes with many conveniences."]}),`
 `]}),`
 `,e.jsxs(n.blockquote,{children:[`
-`,e.jsxs(n.p,{children:["If, upon aborting a telefunction call, you want to pass information to the frontend then use ",e.jsx(n.code,{children:"return someValue"})," or ",e.jsx(n.code,{children:"throw Abort(someValue)"}),", see ",e.jsx(l,{href:"/permissions"}),"."]}),`
+`,e.jsxs(n.p,{children:["If, upon aborting a telefunction call, you want to pass information to the frontend then use ",e.jsx(n.code,{children:"return someValue"})," or ",e.jsx(n.code,{children:"throw Abort(someValue)"}),", see ",e.jsx(s,{href:"/permissions"}),"."]}),`
 `]}),`
 `,e.jsx("h2",{id:"shield",children:e.jsx("code",{children:"shield()"})}),`
 `,e.jsxs(n.p,{children:["Since telefunctions are public and can be called by anyone, we cannot assuming anything about arguments. We can use ",e.jsx(n.code,{children:"throw Abort()"})," to ensure the type of telefunction arguments:"]}),`
@@ -315,6 +315,7 @@ We talk more about permissions at `,e.jsx(l,{href:"/permissions"}),"."]}),`
 `,e.jsx(n.span,{"data-line":"",children:e.jsx(n.span,{style:{color:"#6A737D"},children:"  // ..."})}),`
 `,e.jsx(n.span,{"data-line":"",children:e.jsx(n.span,{style:{color:"#24292E"},children:"}"})})]})})}),`
 `,e.jsxs(n.p,{children:["Not only does ",e.jsx(n.code,{children:"shield()"})," call ",e.jsx(n.code,{children:"throw Abort()"})," on our behalf, but it also infers the type of the arguments for TypeScript and IntelliSense."]}),`
+`,e.jsxs(s,{href:"/shield#typescript-automatic",children:["When using TypeScript, Telefunc can automatically generate ",e.jsx(n.code,{children:"shield()"})," for each telefunction."]}),`
 `,e.jsx("h2",{id:"random-telefunction-calls",children:"Random telefunction calls"}),`
 `,e.jsx(n.p,{children:"Any of your telefunctions can be called by anyone, at any time, and with any arguments. One way to think about it is that any random telefunction call can happen at any time."}),`
 `,e.jsx(n.p,{children:"You should always protect your telefunctions, even when your frontend calls a telefunction only in a certain way. For example:"}),`
@@ -348,4 +349,4 @@ But we still need to use `,e.jsx(n.code,{children:"throw Abort()"})," in order t
 `,e.jsxs(n.span,{"data-line":"",children:[e.jsx(n.span,{style:{color:"#D73A49"},children:"  if"}),e.jsx(n.span,{style:{color:"#24292E"},children:" ("}),e.jsx(n.span,{style:{color:"#D73A49"},children:"!"}),e.jsx(n.span,{style:{color:"#24292E"},children:"user.isAdmin) "}),e.jsx(n.span,{style:{color:"#D73A49"},children:"throw"}),e.jsx(n.span,{style:{color:"#6F42C1"},children:" Abort"}),e.jsx(n.span,{style:{color:"#24292E"},children:"()"})]}),`
 `,e.jsx(n.span,{"data-line":"",children:" "}),`
 `,e.jsx(n.span,{"data-line":"",children:e.jsx(n.span,{style:{color:"#6A737D"},children:"  // ..."})}),`
-`,e.jsx(n.span,{"data-line":"",children:e.jsx(n.span,{style:{color:"#24292E"},children:"}"})})]})})})]})}function i(s={}){const{wrapper:n}=s.components||{};return n?e.jsx(n,{...s,children:e.jsx(r,{...s})}):r(s)}const d=Object.freeze(Object.defineProperty({__proto__:null,default:i,pageSectionsExport:c},Symbol.toStringTag,{value:"Module"})),E={isClientRuntimeLoaded:{type:"computed",definedAtData:null,valueSerialized:{type:"js-serialized",value:!0}},onBeforeRenderEnv:{type:"computed",definedAtData:null,valueSerialized:{type:"js-serialized",value:{server:!0}}},dataEnv:{type:"computed",definedAtData:null,valueSerialized:{type:"js-serialized",value:null}},Layout:{type:"standard",definedAtData:{filePathToShowToUser:"@brillout/docpress/Layout",fileExportPathToShowToUser:[]},valueSerialized:{type:"pointer-import",value:a}},hydrationCanBeAborted:{type:"standard",definedAtData:{filePathToShowToUser:"@brillout/docpress/config",fileExportPathToShowToUser:["default","hydrationCanBeAborted"]},valueSerialized:{type:"js-serialized",value:!0}},onRenderClient:{type:"standard",definedAtData:{filePathToShowToUser:"@brillout/docpress/renderer/onRenderClient",fileExportPathToShowToUser:[]},valueSerialized:{type:"pointer-import",value:o}},TopNavigation:{type:"standard",definedAtData:{filePathToShowToUser:"/pages/+TopNavigation.tsx",fileExportPathToShowToUser:[]},valueSerialized:{type:"plus-file",exportValues:t}},Page:{type:"standard",definedAtData:{filePathToShowToUser:"/pages/RPC/+Page.mdx",fileExportPathToShowToUser:[]},valueSerialized:{type:"plus-file",exportValues:d}}};export{E as configValuesSerialized};
+`,e.jsx(n.span,{"data-line":"",children:e.jsx(n.span,{style:{color:"#24292E"},children:"}"})})]})})})]})}function i(l={}){const{wrapper:n}=l.components||{};return n?e.jsx(n,{...l,children:e.jsx(r,{...l})}):r(l)}const d=Object.freeze(Object.defineProperty({__proto__:null,default:i,pageSectionsExport:c},Symbol.toStringTag,{value:"Module"})),E={isClientRuntimeLoaded:{type:"computed",definedAtData:null,valueSerialized:{type:"js-serialized",value:!0}},onBeforeRenderEnv:{type:"computed",definedAtData:null,valueSerialized:{type:"js-serialized",value:{server:!0}}},dataEnv:{type:"computed",definedAtData:null,valueSerialized:{type:"js-serialized",value:null}},Layout:{type:"standard",definedAtData:{filePathToShowToUser:"@brillout/docpress/Layout",fileExportPathToShowToUser:[]},valueSerialized:{type:"pointer-import",value:a}},hydrationCanBeAborted:{type:"standard",definedAtData:{filePathToShowToUser:"@brillout/docpress/config",fileExportPathToShowToUser:["default","hydrationCanBeAborted"]},valueSerialized:{type:"js-serialized",value:!0}},onRenderClient:{type:"standard",definedAtData:{filePathToShowToUser:"@brillout/docpress/renderer/onRenderClient",fileExportPathToShowToUser:[]},valueSerialized:{type:"pointer-import",value:o}},TopNavigation:{type:"standard",definedAtData:{filePathToShowToUser:"/pages/+TopNavigation.tsx",fileExportPathToShowToUser:[]},valueSerialized:{type:"plus-file",exportValues:t}},Page:{type:"standard",definedAtData:{filePathToShowToUser:"/pages/RPC/+Page.mdx",fileExportPathToShowToUser:[]},valueSerialized:{type:"plus-file",exportValues:d}}};export{E as configValuesSerialized};

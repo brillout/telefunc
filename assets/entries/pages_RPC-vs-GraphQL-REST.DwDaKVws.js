@@ -63,7 +63,7 @@ then we need to change the SQL query of our `,e.jsx(n.code,{children:"getInitial
 `,e.jsx(n.p,{children:"This means that the frontend developers need to make changes to the Node.js server and re-deploy it."}),`
 `,e.jsx(n.p,{children:`If we are a small team of full-stack developers, then such frontend-backend coupling is not a problem.
 But, as we grow, we may want to have a frontend team that develops independently of a backend team.`}),`
-`,e.jsx(n.p,{children:"We can achieve a decoupling by using a Telefunc Server: a dedicated Node.js server with sole purpose of serving telefunctions."}),`
+`,e.jsx(n.p,{children:"We can achieve a decoupling by using a Telefunc Server: a dedicated Node.js server with the sole purpose of serving telefunctions."}),`
 `,e.jsx(n.p,{children:`The frontend and the Telefunc server are developed & deployed hand-in-hand,
 while the backend (another Node.js server, Ruby on Rails, ...) can be developed & deployed independently.`}),`
 `,e.jsx("h2",{id:"multiple-frontends",children:"Multiple Frontends"}),`
@@ -91,7 +91,7 @@ We can then even use GraphQL to simplify the life of
 not only the frontend developers but also the backend developers:
 the backend developers then also use the GraphQL API instead of directly accessing our databases.`}),`
 `,e.jsx(n.p,{children:`A GraphQL API enables an independent database development
-which can become crucial strategy at scale.`}),`
+which can become a crucial strategy at scale.`}),`
 `,e.jsxs(n.blockquote,{children:[`
 `,e.jsx(n.p,{children:`GraphQL is the state-of-the-art for this use case;
 a RESTful API would be too limiting.`}),`
@@ -103,5 +103,5 @@ So we should use RPC whenever we can for a significant increase in development s
 `,e.jsx(n.p,{children:"Also, RPC is a natural fit for the increasingly ubiquitous practice of full-stack development with frameworks such as Next.js."}),`
 `,e.jsx(n.p,{children:`On the other hand, we need GraphQL/REST if we need to
 give third parties access to our database.`}),`
-`,e.jsx(n.p,{children:"Also, using a GraphQL API can be crucial strategy for very large companies with highly complex databases."}),`
+`,e.jsx(n.p,{children:"Also, using a GraphQL API can be a crucial strategy for very large companies with highly complex databases."}),`
 `,e.jsx(n.p,{children:"In general, a sensible default is to start with RPC and use GraphQL/REST only when the need arises."})]})}function h(s={}){const{wrapper:n}=s.components||{};return n?e.jsx(n,{...s,children:e.jsx(a,{...s})}):a(s)}const p=Object.freeze(Object.defineProperty({__proto__:null,default:h,pageSectionsExport:c},Symbol.toStringTag,{value:"Module"})),S={isClientRuntimeLoaded:{type:"computed",definedAtData:null,valueSerialized:{type:"js-serialized",value:!0}},onBeforeRenderEnv:{type:"computed",definedAtData:null,valueSerialized:{type:"js-serialized",value:{server:!0}}},dataEnv:{type:"computed",definedAtData:null,valueSerialized:{type:"js-serialized",value:null}},Layout:{type:"standard",definedAtData:{filePathToShowToUser:"@brillout/docpress/Layout",fileExportPathToShowToUser:[]},valueSerialized:{type:"pointer-import",value:o}},hydrationCanBeAborted:{type:"standard",definedAtData:{filePathToShowToUser:"@brillout/docpress/config",fileExportPathToShowToUser:["default","hydrationCanBeAborted"]},valueSerialized:{type:"js-serialized",value:!0}},onRenderClient:{type:"standard",definedAtData:{filePathToShowToUser:"@brillout/docpress/renderer/onRenderClient",fileExportPathToShowToUser:[]},valueSerialized:{type:"pointer-import",value:r}},TopNavigation:{type:"standard",definedAtData:{filePathToShowToUser:"/pages/+TopNavigation.tsx",fileExportPathToShowToUser:[]},valueSerialized:{type:"plus-file",exportValues:l}},Page:{type:"standard",definedAtData:{filePathToShowToUser:"/pages/RPC-vs-GraphQL-REST/+Page.mdx",fileExportPathToShowToUser:[]},valueSerialized:{type:"plus-file",exportValues:p}}};export{S as configValuesSerialized};

@@ -16,7 +16,7 @@ import{a,j as e,L as o,o as c,i}from"../chunks/chunk-Dv1ZjtYO.js";import{L as l}
 `,e.jsx(s.span,{"data-line":"",children:e.jsx(s.span,{style:{color:"#24292E"},children:"}"})})]})})}),`
 `,e.jsxs(s.p,{children:["It's most commonly used for implementing permissions, see ",e.jsx(l,{href:"/permissions"}),"."]}),`
 `,e.jsx("h2",{id:"provide",children:"Provide"}),`
-`,e.jsxs(s.p,{children:["Before we can use ",e.jsx(s.code,{children:"getContext()"}),", we need to provide the ",e.jsx(s.code,{children:"contex"})," object to ",e.jsx(l,{text:"Telefunc's Server Middleware",href:"/telefunc"}),":"]}),`
+`,e.jsxs(s.p,{children:["Before we can use ",e.jsx(s.code,{children:"getContext()"}),", we need to provide the ",e.jsx(s.code,{children:"context"})," object to ",e.jsx(l,{text:"Telefunc's Server Middleware",href:"/telefunc"}),":"]}),`
 `,e.jsx(s.figure,{"data-rehype-pretty-code-figure":"",children:e.jsx(s.pre,{style:{backgroundColor:"#fff",color:"#24292e"},tabIndex:"0","data-language":"js","data-theme":"github-light",children:e.jsxs(s.code,{"data-language":"js","data-theme":"github-light",style:{display:"grid"},children:[e.jsx(s.span,{"data-line":"",children:e.jsx(s.span,{style:{color:"#6A737D"},children:"// server.js"})}),`
 `,e.jsx(s.span,{"data-line":"",children:" "}),`
 `,e.jsx(s.span,{"data-line":"",children:e.jsx(s.span,{style:{color:"#6A737D"},children:"// Server (Express.js/Fastify/...)"})}),`
@@ -26,15 +26,15 @@ import{a,j as e,L as o,o as c,i}from"../chunks/chunk-Dv1ZjtYO.js";import{L as l}
 `,e.jsx(s.span,{"data-line":"",children:e.jsx(s.span,{style:{color:"#6A737D"},children:"// Telefunc middleware"})}),`
 `,e.jsxs(s.span,{"data-line":"",children:[e.jsx(s.span,{style:{color:"#24292E"},children:"app."}),e.jsx(s.span,{style:{color:"#6F42C1"},children:"all"}),e.jsx(s.span,{style:{color:"#24292E"},children:"("}),e.jsx(s.span,{style:{color:"#032F62"},children:"'/_telefunc'"}),e.jsx(s.span,{style:{color:"#24292E"},children:", "}),e.jsx(s.span,{style:{color:"#D73A49"},children:"async"}),e.jsx(s.span,{style:{color:"#24292E"},children:" ("}),e.jsx(s.span,{style:{color:"#E36209"},children:"req"}),e.jsx(s.span,{style:{color:"#24292E"},children:", "}),e.jsx(s.span,{style:{color:"#E36209"},children:"res"}),e.jsx(s.span,{style:{color:"#24292E"},children:") "}),e.jsx(s.span,{style:{color:"#D73A49"},children:"=>"}),e.jsx(s.span,{style:{color:"#24292E"},children:" {"})]}),`
 `,e.jsx(s.span,{"data-line":"",children:e.jsx(s.span,{style:{color:"#6A737D"},children:"  // Authentication middlewares (e.g. Passport.js or Grant) usually provide information"})}),`
-`,e.jsx(s.span,{"data-line":"",children:e.jsx(s.span,{style:{color:"#6A737D"},children:"  // about the logged-in user on the `req` object."})}),`
+`,e.jsx(s.span,{"data-line":"",children:e.jsx(s.span,{style:{color:"#6A737D"},children:"  // about the logged-in user on the `req` object:"})}),`
 `,e.jsxs(s.span,{"data-line":"",children:[e.jsx(s.span,{style:{color:"#D73A49"},children:"  const"}),e.jsx(s.span,{style:{color:"#005CC5"},children:" user"}),e.jsx(s.span,{style:{color:"#D73A49"},children:" ="}),e.jsx(s.span,{style:{color:"#24292E"},children:" req.user"})]}),`
 `,e.jsx(s.span,{"data-line":"",children:e.jsx(s.span,{style:{color:"#6A737D"},children:"  // Or when using a third-party authentication provider (e.g. Auth0):"})}),`
 `,e.jsxs(s.span,{"data-line":"",children:[e.jsx(s.span,{style:{color:"#D73A49"},children:"  const"}),e.jsx(s.span,{style:{color:"#005CC5"},children:" user"}),e.jsx(s.span,{style:{color:"#D73A49"},children:" ="}),e.jsx(s.span,{style:{color:"#D73A49"},children:" await"}),e.jsx(s.span,{style:{color:"#24292E"},children:" authProviderApi."}),e.jsx(s.span,{style:{color:"#6F42C1"},children:"getUser"}),e.jsx(s.span,{style:{color:"#24292E"},children:"(req.headers)"})]}),`
 `,e.jsx(s.span,{"data-line":"",children:" "}),`
 `,e.jsxs(s.span,{"data-line":"",children:[e.jsx(s.span,{style:{color:"#D73A49"},children:"  const"}),e.jsx(s.span,{style:{color:"#005CC5"},children:" httpResponse"}),e.jsx(s.span,{style:{color:"#D73A49"},children:" ="}),e.jsx(s.span,{style:{color:"#D73A49"},children:" await"}),e.jsx(s.span,{style:{color:"#6F42C1"},children:" telefunc"}),e.jsx(s.span,{style:{color:"#24292E"},children:"({"})]}),`
-`,e.jsx(s.span,{"data-line":"",children:e.jsx(s.span,{style:{color:"#6A737D"},children:"    // We provide the context object here"})}),`
+`,e.jsx(s.span,{"data-line":"",children:e.jsx(s.span,{style:{color:"#6A737D"},children:"    // We provide the context object here:"})}),`
 `,e.jsx(s.span,{"data-line":"",children:e.jsx(s.span,{style:{color:"#24292E"},children:"    context: {"})}),`
-`,e.jsx(s.span,{"data-line":"",children:e.jsx(s.span,{style:{color:"#24292E"},children:"      user"})}),`
+`,e.jsx(s.span,{"data-line":"",children:e.jsx(s.span,{style:{color:"#24292E"},children:"      user,"})}),`
 `,e.jsx(s.span,{"data-line":"",children:e.jsx(s.span,{style:{color:"#24292E"},children:"    },"})}),`
 `,e.jsx(s.span,{"data-line":"",children:e.jsx(s.span,{style:{color:"#24292E"},children:"    url: req.url,"})}),`
 `,e.jsx(s.span,{"data-line":"",children:e.jsx(s.span,{style:{color:"#24292E"},children:"    method: req.method,"})}),`
@@ -48,21 +48,21 @@ import{a,j as e,L as o,o as c,i}from"../chunks/chunk-Dv1ZjtYO.js";import{L as l}
 `,e.jsx(s.p,{children:"If you get this error:"}),`
 `,e.jsx(d,{lineBreak:"break-word",children:e.jsx(s.pre,{children:e.jsx(s.code,{children:`[telefunc][Wrong Usage][getContext()] Cannot access context object, see https://telefunc.com/getContext#access
 `})})}),`
-`,e.jsxs(s.p,{children:["Then this means called ",e.jsx(s.code,{children:"getContext()"})," after an ",e.jsx(s.code,{children:"await"})," operator:"]}),`
+`,e.jsxs(s.p,{children:["Then this means that ",e.jsx(s.code,{children:"getContext()"})," was called after an ",e.jsx(s.code,{children:"await"})," operator:"]}),`
 `,e.jsx(s.figure,{"data-rehype-pretty-code-figure":"",children:e.jsx(s.pre,{style:{backgroundColor:"#fff",color:"#24292e"},tabIndex:"0","data-language":"js","data-theme":"github-light",children:e.jsxs(s.code,{"data-language":"js","data-theme":"github-light",style:{display:"grid"},children:[e.jsx(s.span,{"data-line":"",children:e.jsx(s.span,{style:{color:"#6A737D"},children:"// TodoList.telefunc.js"})}),`
 `,e.jsx(s.span,{"data-line":"",children:" "}),`
 `,e.jsxs(s.span,{"data-line":"",children:[e.jsx(s.span,{style:{color:"#D73A49"},children:"export"}),e.jsx(s.span,{style:{color:"#D73A49"},children:" async"}),e.jsx(s.span,{style:{color:"#D73A49"},children:" function"}),e.jsx(s.span,{style:{color:"#6F42C1"},children:" myTelefunction"}),e.jsx(s.span,{style:{color:"#24292E"},children:"() {"})]}),`
-`,e.jsxs(s.span,{"data-line":"",children:[e.jsx(s.span,{style:{color:"#D73A49"},children:"  await"}),e.jsx(s.span,{style:{color:"#6F42C1"},children:" someting"}),e.jsx(s.span,{style:{color:"#24292E"},children:"()"})]}),`
+`,e.jsxs(s.span,{"data-line":"",children:[e.jsx(s.span,{style:{color:"#D73A49"},children:"  await"}),e.jsx(s.span,{style:{color:"#6F42C1"},children:" something"}),e.jsx(s.span,{style:{color:"#24292E"},children:"()"})]}),`
 `,e.jsx(s.span,{"data-line":"",children:e.jsx(s.span,{style:{color:"#6A737D"},children:"  // ❌ Bad: we should call getContext() before `await something()`"})}),`
 `,e.jsxs(s.span,{"data-line":"",children:[e.jsx(s.span,{style:{color:"#D73A49"},children:"  const"}),e.jsx(s.span,{style:{color:"#005CC5"},children:" context"}),e.jsx(s.span,{style:{color:"#D73A49"},children:" ="}),e.jsx(s.span,{style:{color:"#6F42C1"},children:" getContext"}),e.jsx(s.span,{style:{color:"#24292E"},children:"()"})]}),`
 `,e.jsx(s.span,{"data-line":"",children:e.jsx(s.span,{style:{color:"#24292E"},children:"}"})})]})})}),`
-`,e.jsxs(s.p,{children:["Make sure to call getContext() before any ",e.jsx(s.code,{children:"await"})," operator:"]}),`
+`,e.jsxs(s.p,{children:["Make sure to call ",e.jsx(s.code,{children:"getContext()"})," before any ",e.jsx(s.code,{children:"await"})," operators:"]}),`
 `,e.jsx(s.figure,{"data-rehype-pretty-code-figure":"",children:e.jsx(s.pre,{style:{backgroundColor:"#fff",color:"#24292e"},tabIndex:"0","data-language":"js","data-theme":"github-light",children:e.jsxs(s.code,{"data-language":"js","data-theme":"github-light",style:{display:"grid"},children:[e.jsx(s.span,{"data-line":"",children:e.jsx(s.span,{style:{color:"#6A737D"},children:"// TodoList.telefunc.js"})}),`
 `,e.jsx(s.span,{"data-line":"",children:" "}),`
 `,e.jsxs(s.span,{"data-line":"",children:[e.jsx(s.span,{style:{color:"#D73A49"},children:"export"}),e.jsx(s.span,{style:{color:"#D73A49"},children:" async"}),e.jsx(s.span,{style:{color:"#D73A49"},children:" function"}),e.jsx(s.span,{style:{color:"#6F42C1"},children:" myTelefunction"}),e.jsx(s.span,{style:{color:"#24292E"},children:"() {"})]}),`
 `,e.jsx(s.span,{"data-line":"",children:e.jsx(s.span,{style:{color:"#6A737D"},children:"  // ✅ Good: we call getContext() before `await`"})}),`
 `,e.jsxs(s.span,{"data-line":"",children:[e.jsx(s.span,{style:{color:"#D73A49"},children:"  const"}),e.jsx(s.span,{style:{color:"#005CC5"},children:" context"}),e.jsx(s.span,{style:{color:"#D73A49"},children:" ="}),e.jsx(s.span,{style:{color:"#6F42C1"},children:" getContext"}),e.jsx(s.span,{style:{color:"#24292E"},children:"()"})]}),`
-`,e.jsxs(s.span,{"data-line":"",children:[e.jsx(s.span,{style:{color:"#D73A49"},children:"  await"}),e.jsx(s.span,{style:{color:"#6F42C1"},children:" someting"}),e.jsx(s.span,{style:{color:"#24292E"},children:"()"})]}),`
+`,e.jsxs(s.span,{"data-line":"",children:[e.jsx(s.span,{style:{color:"#D73A49"},children:"  await"}),e.jsx(s.span,{style:{color:"#6F42C1"},children:" something"}),e.jsx(s.span,{style:{color:"#24292E"},children:"()"})]}),`
 `,e.jsx(s.span,{"data-line":"",children:e.jsx(s.span,{style:{color:"#24292E"},children:"}"})})]})})}),`
 `,e.jsx("h2",{id:"typescript",children:"TypeScript"}),`
 `,e.jsxs(s.p,{children:["We can use ",e.jsx(s.code,{children:"Telefunc.Context"})," to globally set the type of ",e.jsx(s.code,{children:"const context = getContext()"}),":"]}),`
