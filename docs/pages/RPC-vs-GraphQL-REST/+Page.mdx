@@ -96,7 +96,7 @@ This means that the frontend developers need to make changes to the Node.js serv
 If we are a small team of full-stack developers, then such frontend-backend coupling is not a problem.
 But, as we grow, we may want to have a frontend team that develops independently of a backend team.
 
-We can achieve a decoupling by using a Telefunc Server: a dedicated Node.js server with sole purpose of serving telefunctions.
+We can achieve a decoupling by using a Telefunc Server: a dedicated Node.js server with the sole purpose of serving telefunctions.
 
 The frontend and the Telefunc server are developed & deployed hand-in-hand,
 while the backend (another Node.js server, Ruby on Rails, ...) can be developed & deployed independently.
@@ -135,7 +135,7 @@ not only the frontend developers but also the backend developers:
 the backend developers then also use the GraphQL API instead of directly accessing our databases.
 
 A GraphQL API enables an independent database development
-which can become crucial strategy at scale.
+which can become a crucial strategy at scale.
 
 > GraphQL is the state-of-the-art for this use case;
 > a RESTful API would be too limiting.
@@ -152,6 +152,6 @@ Also, RPC is a natural fit for the increasingly ubiquitous practice of full-stac
 On the other hand, we need GraphQL/REST if we need to
 give third parties access to our database.
 
-Also, using a GraphQL API can be crucial strategy for very large companies with highly complex databases.
+Also, using a GraphQL API can be a crucial strategy for very large companies with highly complex databases.
 
 In general, a sensible default is to start with RPC and use GraphQL/REST only when the need arises.
