@@ -26,7 +26,7 @@ It's most commonly used for implementing permissions, see <Link href="/permissio
 
 ## Provide
 
-Before we can use `getContext()`, we need to provide the `contex` object to <Link text="Telefunc's Server Middleware" href="/telefunc" />:
+Before we can use `getContext()`, we need to provide the `context` object to <Link text="Telefunc's Server Middleware" href="/telefunc" />:
 
 ```js
 // server.js
@@ -69,19 +69,19 @@ If you get this error:
 ```
 </CodeBlockTransformer>
 
-Then this means called `getContext()` after an `await` operator:
+Then this means that `getContext()` was called after an `await` operator:
 
 ```js
 // TodoList.telefunc.js
 
 export async function myTelefunction() {
-  await someting()
+  await something()
   // ❌ Bad: we should call getContext() before `await something()`
   const context = getContext()
 }
 ```
 
-Make sure to call getContext() before any `await` operator:
+Make sure to call `getContext()` before any `await` operators:
 
 ```js
 // TodoList.telefunc.js
@@ -89,7 +89,7 @@ Make sure to call getContext() before any `await` operator:
 export async function myTelefunction() {
   // ✅ Good: we call getContext() before `await`
   const context = getContext()
-  await someting()
+  await something()
 }
 ```
 
