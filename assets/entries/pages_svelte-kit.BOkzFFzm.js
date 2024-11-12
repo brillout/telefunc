@@ -13,7 +13,7 @@ import{j as e,L as n,o,i as a}from"../chunks/chunk-Dv1ZjtYO.js";import{L as d}fr
 `,e.jsxs(t.li,{children:["Add Telefunc's server middleware (",e.jsxs(t.a,{href:"https://github.com/brillout/telefunc/commit/7178fecec8e08c55b1f9057d8c9fb1563698be27#diff-90d1561bb0ebcba840e0f56681c3583bc775311dac1e4489983ce3d961ac4a0c",children:["example ",e.jsx(t.code,{children:"src/routes/_telefunc/+server.ts"})]}),")"]}),`
 `,e.jsxs(t.li,{children:["Define your first ",e.jsx(t.code,{children:".telefunc.js"})," file (",e.jsxs(t.a,{href:"https://github.com/brillout/telefunc/commit/7178fecec8e08c55b1f9057d8c9fb1563698be27#diff-175c619bea5e129b791fa88edbdb23eb0db7630bde74b99661c363972db39b25",children:["example ",e.jsx(t.code,{children:"src/routes/Counter.telefunc.ts"})]}),")",`
 `,e.jsxs(t.blockquote,{children:[`
-`,e.jsxs(t.p,{children:["All ",e.jsx(t.code,{children:".telefunc"})," files are always server-only regardless of where they are located. In other words: you don't need to place them in ",e.jsx(t.code,{children:"$lib/server"})," nor add ",e.jsx(t.code,{children:".server"}),"."]}),`
+`,e.jsxs(t.p,{children:[e.jsx(t.code,{children:".telefunc.js"})," files are always server-only, regardless of where they are located. You don't need to place them in ",e.jsx(t.code,{children:"$lib/server"})," nor add ",e.jsx(t.code,{children:".server"}),"."]}),`
 `]}),`
 `]}),`
 `,e.jsxs(t.li,{children:["Optionally: globally define the type your ",e.jsx(t.code,{children:"context"})," object (",e.jsxs(t.a,{href:"https://github.com/brillout/telefunc/commit/7178fecec8e08c55b1f9057d8c9fb1563698be27#diff-3105d009403392ee3729824908f17d97f6c8e046e1b77e060555e9c26f39d099",children:["example ",e.jsx(t.code,{children:"src/telefunc.d.ts"})]}),")"]}),`
