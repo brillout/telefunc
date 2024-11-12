@@ -11,12 +11,11 @@ import{j as e,L as n,o,i as a}from"../chunks/chunk-Dv1ZjtYO.js";import{L as d}fr
 `,e.jsxs(t.li,{children:[e.jsx(t.code,{children:"npm install telefunc"})," (or ",e.jsx(t.code,{children:"pnpm"}),"/",e.jsx(t.code,{children:"yarn"}),") (",e.jsxs(t.a,{href:"https://github.com/brillout/telefunc/commit/7178fecec8e08c55b1f9057d8c9fb1563698be27#diff-1847b47607c93049b1546e5e665738300a81d03b46a303236e4b0d5c6a47678a",children:["example ",e.jsx(t.code,{children:"package.json"})]}),")"]}),`
 `,e.jsxs(t.li,{children:["Add Telefunc's Vite plugin (",e.jsxs(t.a,{href:"https://github.com/brillout/telefunc/commit/7178fecec8e08c55b1f9057d8c9fb1563698be27#diff-47944bdcd0c53cfef019b731e51d5de7f52adc433ee42e23d70d2786df2ccb86",children:["example ",e.jsx(t.code,{children:"vite.config.ts"})]}),")"]}),`
 `,e.jsxs(t.li,{children:["Add Telefunc's server middleware (",e.jsxs(t.a,{href:"https://github.com/brillout/telefunc/commit/7178fecec8e08c55b1f9057d8c9fb1563698be27#diff-90d1561bb0ebcba840e0f56681c3583bc775311dac1e4489983ce3d961ac4a0c",children:["example ",e.jsx(t.code,{children:"src/routes/_telefunc/+server.ts"})]}),")"]}),`
-`,e.jsxs(t.li,{children:["Define your first ",e.jsx(t.code,{children:".telefunc.js"})," file (",e.jsxs(t.a,{href:"https://github.com/brillout/telefunc/commit/7178fecec8e08c55b1f9057d8c9fb1563698be27#diff-175c619bea5e129b791fa88edbdb23eb0db7630bde74b99661c363972db39b25",children:["example ",e.jsx(t.code,{children:"src/routes/Counter.telefunc.ts"})]}),")"]}),`
-`]}),`
+`,e.jsxs(t.li,{children:["Define your first ",e.jsx(t.code,{children:".telefunc.js"})," file (",e.jsxs(t.a,{href:"https://github.com/brillout/telefunc/commit/7178fecec8e08c55b1f9057d8c9fb1563698be27#diff-175c619bea5e129b791fa88edbdb23eb0db7630bde74b99661c363972db39b25",children:["example ",e.jsx(t.code,{children:"src/routes/Counter.telefunc.ts"})]}),")",`
 `,e.jsxs(t.blockquote,{children:[`
 `,e.jsxs(t.p,{children:["All ",e.jsx(t.code,{children:".telefunc"})," files are always server-only regardless of where they are located. In other words: you don't need to place them in ",e.jsx(t.code,{children:"$lib/server"})," nor add ",e.jsx(t.code,{children:".server"}),"."]}),`
 `]}),`
-`,e.jsxs(t.ol,{children:[`
+`]}),`
 `,e.jsxs(t.li,{children:["Optionally: globally define the type your ",e.jsx(t.code,{children:"context"})," object (",e.jsxs(t.a,{href:"https://github.com/brillout/telefunc/commit/7178fecec8e08c55b1f9057d8c9fb1563698be27#diff-3105d009403392ee3729824908f17d97f6c8e046e1b77e060555e9c26f39d099",children:["example ",e.jsx(t.code,{children:"src/telefunc.d.ts"})]}),")"]}),`
 `]}),`
 `,e.jsx(t.p,{children:"That's it. Enjoy end-to-end typesafety with automatic runtime validation."}),`
