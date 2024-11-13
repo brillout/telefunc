@@ -36,8 +36,8 @@ importers:
   docs:
     dependencies:
       '@brillout/docpress':
-        specifier: ^0.8.16
-        version: 0.8.16(@algolia/client-search@4.24.0)(@swc/helpers@0.5.2)(@types/node@20.11.17)(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(rollup@4.22.0)(search-insights@2.17.2)(typescript@5.6.3)(vike@0.4.199(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2))))(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))
+        specifier: ^0.9.0
+        version: 0.9.0(@algolia/client-search@4.24.0)(@swc/helpers@0.5.2)(@types/node@20.11.17)(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(rollup@4.22.0)(search-insights@2.17.2)(typescript@5.6.3)(vike@0.4.199(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2))))(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))
       '@types/node':
         specifier: ^20.11.16
         version: 20.11.17
@@ -1808,8 +1808,8 @@ packages:
     resolution: {integrity: sha512-cvSrvCxnZYzQmiOj0nwIuf298DvaM/2eAAOsBSbBpsdOEpYsnbQGvFxew9oSXEi3HH1TZMmLy8VyvyJJ+LsmCw==}
     hasBin: true
 
-  '@brillout/docpress@0.8.16':
-    resolution: {integrity: sha512-3V7gIwqMcdLDC7e8fl+uJHngwM0Zva1Hq+y+rzpyekAtubZCEsRjS4hP5USUosVChv7xoWTSKUV8qDLL6q8O/w==}
+  '@brillout/docpress@0.9.0':
+    resolution: {integrity: sha512-cIhm7Zvjho3rKSPeZSPWLSErfoUPb4mgDL8yItj+8BtikAMyvJcaqPAB6FpDriPuPk/lruuWqvsRP9jXX8VxvA==}
     peerDependencies:
       '@types/node': '*'
       '@types/react': '*'
@@ -10129,9 +10129,6 @@ packages:
   vfile@6.0.1:
     resolution: {integrity: sha512-1bYqc7pt6NIADBJ98UiG0Bn/CHIVOoZ/IyEkqIruLg0mE1BKzkOXY2D6CSqQIcKqgadppE5lrxgWXJmXd7zZJw==}
 
-  vike-contributors@0.0.9:
-    resolution: {integrity: sha512-uOvGIv5XZZ7Gm9BdQty/K2f22641+ZTBH1Ccq7Qh/uvH2gI+SA8npSSS6zwdVlSWFsvecZqSn45AYKrAYSIMNg==}
-
   vike@0.4.156:
     resolution: {integrity: sha512-CaeG+clu+oLDKSv4B+6aOYoWNUb/URF6dK3/AeC9NJD0XvsfW8at1yQO5hA3M1SVWpe7c/tUGw1uYVgceT4JMw==}
     engines: {node: '>=16.0.0'}
@@ -12485,7 +12482,7 @@ snapshots:
 
   '@brillout/dev-my-dep@0.0.10': {}
 
-  '@brillout/docpress@0.8.16(@algolia/client-search@4.24.0)(@swc/helpers@0.5.2)(@types/node@20.11.17)(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(rollup@4.22.0)(search-insights@2.17.2)(typescript@5.6.3)(vike@0.4.199(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2))))(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))':
+  '@brillout/docpress@0.9.0(@algolia/client-search@4.24.0)(@swc/helpers@0.5.2)(@types/node@20.11.17)(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.2.0(react@18.2.0))(react@18.2.0)(rollup@4.22.0)(search-insights@2.17.2)(typescript@5.6.3)(vike@0.4.199(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2))))(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))':
     dependencies:
       '@brillout/picocolors': 1.0.15
       '@docsearch/css': 3.6.1
@@ -12505,7 +12502,6 @@ snapshots:
       shiki: 1.2.0
       typescript: 5.6.3
       vike: 0.4.199(vite@5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2)))
-      vike-contributors: 0.0.9
       vite: 5.4.6(@types/node@20.11.17)(terser@5.10.0(acorn@8.11.2))
     transitivePeerDependencies:
       - '@algolia/client-search'
@@ -22223,8 +22219,6 @@ snapshots:
       '@types/unist': 3.0.2
       unist-util-stringify-position: 4.0.0
       vfile-message: 4.0.2
-
-  vike-contributors@0.0.9: {}
 
   vike@0.4.156(react-streaming@0.3.22(react-dom@18.2.0(react@18.2.0))(react@18.2.0))(vite@4.3.9(@types/node@20.11.17)(terser@5.10.0)):
     dependencies:
