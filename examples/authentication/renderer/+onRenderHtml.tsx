@@ -20,7 +20,7 @@ async function onRenderHtml(pageContext: PageContextServer) {
     </TelefuncSSR>
   )
 
-  const stream = await renderToStream(page, { disable: false })
+  const stream = await renderToStream(page, { disable: false, webStream: true })
 
   // See https://vike.dev/html-head
   const { documentProps } = pageContext.exports

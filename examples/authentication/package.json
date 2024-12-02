@@ -3,8 +3,8 @@
     "dev": "npm run server",
     "prod": "npm run build && npm run server:prod",
     "build": "vite build",
-    "server": "node --loader ts-node/esm ./server/index.ts",
-    "server:prod": "cross-env NODE_ENV=production npm run server"
+    "server": "vite",
+    "server:prod": "cross-env NODE_ENV=production node ./dist/server/index.mjs"
   },
   "dependencies": {
     "@types/cookie-parser": "^1.4.8",
@@ -23,7 +23,8 @@
     "ts-node": "^10.9.2",
     "typescript": "^5.7.2",
     "vike": "^0.4.206",
-    "vite": "^6.0.2"
+    "vike-node": "^0.2.1",
+    "vite": "^5.4.6"
   },
   "type": "module",
   "imports": {
