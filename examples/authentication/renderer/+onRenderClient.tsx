@@ -1,16 +1,13 @@
-export { render }
-export const clientRouting = true
-export const hydrationCanBeAborted = true
+export { onRenderClient }
 
 import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { PageShell } from './PageShell'
 import type { PageContextClient } from './types'
-
 import { onAbort } from 'telefunc/client'
 
 let root: ReactDOM.Root
-async function render(pageContext: PageContextClient) {
+async function onRenderClient(pageContext: PageContextClient) {
   const { Page } = pageContext
   const page = (
     <PageShell pageContext={pageContext}>

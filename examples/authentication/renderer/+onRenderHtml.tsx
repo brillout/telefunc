@@ -1,3 +1,5 @@
+export { onRenderHtml }
+
 import React from 'react'
 import { PageShell } from './PageShell'
 import { escapeInject } from 'vike/server'
@@ -6,11 +8,7 @@ import logoUrl from './logo.svg'
 import type { PageContextServer } from './types'
 import { TelefuncSSR } from 'telefunc/react-streaming/server'
 
-export { render }
-// See https://vike.dev/data-fetching
-export const passToClient = ['pageProps']
-
-async function render(pageContext: PageContextServer) {
+async function onRenderHtml(pageContext: PageContextServer) {
   const { Page, user } = pageContext
   const telefuncContext = { user }
 
@@ -22,7 +20,7 @@ async function render(pageContext: PageContextServer) {
     </TelefuncSSR>
   )
 
-  const stream = await renderToStream(page, { disable: false })
+  const stream = await renderToStream(page, { disable: false, webStream: true })
 
   // See https://vike.dev/html-head
   const { documentProps } = pageContext.exports
