@@ -3,7 +3,7 @@ import { telefunc } from 'telefunc'
 import cookieParser from 'cookie-parser'
 import { retrieveUser } from '#app/auth'
 import vike from 'vike-node/express'
-import { createMiddleware } from "@universal-middleware/express";
+import { createMiddleware } from '@universal-middleware/express'
 
 startServer()
 
@@ -21,15 +21,17 @@ async function startServer() {
 
   // Set pageContext.user
   // https://github.com/vikejs/vike-node#custom-pagecontext
-  app.use(createMiddleware((() => (_request, ctx, runtime) => {
-    // @ts-ignore
-    const { req } = runtime
-    const user = retrieveUser(req)
-    return {
-      ...ctx,
-      user,
-    };
-  }))())
+  app.use(
+    createMiddleware(() => (_request, ctx, runtime) => {
+      // @ts-ignore
+      const { req } = runtime
+      const user = retrieveUser(req)
+      return {
+        ...ctx,
+        user,
+      }
+    })(),
+  )
   app.use(vike())
 
   const port = process.env.PORT || 3000
