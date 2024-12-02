@@ -28,6 +28,7 @@
       "default": "./dist/cjs/node/server/index.js"
     },
     "./async_hooks": {
+      "browser": "./dist/esm/client/poisen-pills/async_hooks.js",
       "types": "./dist/cjs/node/server/async_hooks.d.ts",
       "default": "./dist/cjs/node/server/async_hooks.js"
     },
@@ -42,30 +43,37 @@
       "default": "./dist/cjs/node/react-streaming/index.js"
     },
     "./react-streaming/server": {
+      "browser": "./dist/esm/client/poisen-pills/react-streaming/server.js",
       "types": "./dist/cjs/node/react-streaming/server.d.ts",
       "default": "./dist/cjs/node/react-streaming/server.js"
     },
     "./vite": {
+      "browser": "./dist/esm/client/poisen-pills/vite.js",
       "types": "./dist/cjs/node/vite/index.d.ts",
       "default": "./dist/cjs/node/vite/index.js"
     },
     "./webpack/loader": {
+      "browser": "./dist/esm/client/poisen-pills/webpack/loader.js",
       "types": "./dist/cjs/node/webpack/loader.d.ts",
       "default": "./dist/cjs/node/webpack/loader.js"
     },
     "./next": {
+      "browser": "./dist/esm/client/poisen-pills/next.js",
       "types": "./dist/cjs/node/next/index.d.ts",
       "default": "./dist/cjs/node/next/index.js"
     },
     "./nuxt": {
+      "browser": "./dist/esm/client/poisen-pills/nuxt.js",
       "types": "./dist/cjs/node/nuxt/index.d.ts",
       "default": "./dist/cjs/node/nuxt/index.js"
     },
     "./babel": {
+      "browser": "./dist/esm/client/poisen-pills/babel.js",
       "types": "./dist/cjs/node/babel/plugin.d.ts",
       "default": "./dist/cjs/node/babel/plugin.js"
     },
     "./__internal/loadBuild": {
+      "browser": "./dist/esm/client/poisen-pills/__internal/loadBuild.js",
       "types": "./dist/cjs/node/vite/plugins/importBuild/loadBuild.d.ts",
       "default": "./dist/cjs/node/vite/plugins/importBuild/loadBuild.js"
     }
