@@ -80,6 +80,12 @@ importers:
       '@types/react-dom':
         specifier: ^18.3.1
         version: 18.3.1
+      '@universal-middleware/core':
+        specifier: ^0.3.0
+        version: 0.3.0
+      '@universal-middleware/express':
+        specifier: ^0.3.0
+        version: 0.3.0
       '@vitejs/plugin-react':
         specifier: ^4.3.4
         version: 4.3.4(vite@5.4.6(@types/node@22.10.1)(terser@5.10.0(acorn@8.11.2)))
@@ -4102,6 +4108,12 @@ packages:
 
   '@universal-middleware/core@0.2.14':
     resolution: {integrity: sha512-HrbFL8vafL3WK1EHOAWjaqCXW4bfsvx2mbouSwenLjA2rGmgLcxspBCYzIuDDHdqSCU9vJdqMyswcB3l935RcA==}
+
+  '@universal-middleware/core@0.3.0':
+    resolution: {integrity: sha512-s29PZin5GWiRGyp8BSJhwrJQXwHaYPT6Sg5NKHbfvv6ezngVXMlt4bsbuDQnMOA+HyMu76cSj2WwY917JSvXtw==}
+
+  '@universal-middleware/express@0.3.0':
+    resolution: {integrity: sha512-kwZ1Go/Z3eOh/8rknTCLL4VzrA3heO6fhFKauQBoTZB3UnWwH3AxLUf2QYhQhWNzDPESCLITUc9yJltf5S0QDQ==}
 
   '@vercel/nft@0.26.5':
     resolution: {integrity: sha512-NHxohEqad6Ra/r4lGknO52uc/GrWILXAMs1BB4401GTqww0fw1bAqzpG1XHuDO+dprg4GvsD9ZLLSsdo78p9hQ==}
@@ -15320,6 +15332,15 @@ snapshots:
     dependencies:
       regexparam: 3.0.0
       tough-cookie: 5.0.0
+
+  '@universal-middleware/core@0.3.0':
+    dependencies:
+      regexparam: 3.0.0
+      tough-cookie: 5.0.0
+
+  '@universal-middleware/express@0.3.0':
+    dependencies:
+      '@universal-middleware/core': 0.3.0
 
   '@vercel/nft@0.26.5(encoding@0.1.13)':
     dependencies:
