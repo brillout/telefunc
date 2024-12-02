@@ -11,8 +11,6 @@ import { TelefuncSSR } from 'telefunc/react-streaming/server'
 async function onRenderHtml(pageContext: PageContextServer) {
   const { Page, user } = pageContext
   const telefuncContext = { user }
-  // @ts-ignore
-  console.log('pageContext.hello', pageContext.hello)
 
   const page = (
     <TelefuncSSR context={telefuncContext}>
