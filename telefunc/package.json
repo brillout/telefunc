@@ -23,56 +23,51 @@
   "main": "./dist/cjs/node/server/index.js",
   "exports": {
     ".": {
-      "worker": "./dist/cjs/node/server/index.js",
-      "node": "./dist/cjs/node/server/index.js",
       "browser": "./dist/esm/client/server.js",
-      "types": "./dist/cjs/node/server/index.d.ts"
+      "types": "./dist/cjs/node/server/index.d.ts",
+      "default": "./dist/cjs/node/server/index.js"
     },
     "./async_hooks": {
-      "node": "./dist/cjs/node/server/async_hooks.js",
-      "types": "./dist/cjs/node/server/async_hooks.d.ts"
+      "types": "./dist/cjs/node/server/async_hooks.d.ts",
+      "default": "./dist/cjs/node/server/async_hooks.js"
     },
     "./client": {
       "browser": "./dist/esm/client/index.js",
-      "node": "./dist/cjs/node/client.js",
-      "worker": "./dist/cjs/node/client.js",
-      "types": "./dist/esm/client/index.d.ts"
+      "types": "./dist/esm/client/index.d.ts",
+      "default": "./dist/cjs/node/client.js"
     },
     "./react-streaming": {
-      "worker": "./dist/cjs/node/react-streaming/index.js",
-      "node": "./dist/cjs/node/react-streaming/index.js",
       "browser": "./dist/esm/client/react-streaming/index.js",
-      "types": "./dist/cjs/node/react-streaming/index.d.ts"
+      "types": "./dist/cjs/node/react-streaming/index.d.ts",
+      "default": "./dist/cjs/node/react-streaming/index.js"
     },
     "./react-streaming/server": {
-      "worker": "./dist/cjs/node/react-streaming/server.js",
-      "node": "./dist/cjs/node/react-streaming/server.js",
-      "types": "./dist/cjs/node/react-streaming/server.d.ts"
+      "types": "./dist/cjs/node/react-streaming/server.d.ts",
+      "default": "./dist/cjs/node/react-streaming/server.js"
     },
     "./vite": {
-      "node": "./dist/cjs/node/vite/index.js",
-      "types": "./dist/cjs/node/vite/index.d.ts"
+      "types": "./dist/cjs/node/vite/index.d.ts",
+      "default": "./dist/cjs/node/vite/index.js"
     },
     "./webpack/loader": {
-      "node": "./dist/cjs/node/webpack/loader.js",
-      "types": "./dist/cjs/node/webpack/loader.d.ts"
+      "types": "./dist/cjs/node/webpack/loader.d.ts",
+      "default": "./dist/cjs/node/webpack/loader.js"
     },
     "./next": {
-      "node": "./dist/cjs/node/next/index.js",
-      "types": "./dist/cjs/node/next/index.d.ts"
+      "types": "./dist/cjs/node/next/index.d.ts",
+      "default": "./dist/cjs/node/next/index.js"
     },
     "./nuxt": {
-      "node": "./dist/cjs/node/nuxt/index.js",
-      "types": "./dist/cjs/node/nuxt/index.d.ts"
+      "types": "./dist/cjs/node/nuxt/index.d.ts",
+      "default": "./dist/cjs/node/nuxt/index.js"
     },
     "./babel": {
-      "node": "./dist/cjs/node/babel/plugin.js",
-      "types": "./dist/cjs/node/babel/plugin.d.ts"
+      "types": "./dist/cjs/node/babel/plugin.d.ts",
+      "default": "./dist/cjs/node/babel/plugin.js"
     },
     "./__internal/loadBuild": {
-      "worker": "./dist/cjs/node/vite/plugins/importBuild/loadBuild.js",
-      "node": "./dist/cjs/node/vite/plugins/importBuild/loadBuild.js",
-      "types": "./dist/cjs/node/vite/plugins/importBuild/loadBuild.d.ts"
+      "types": "./dist/cjs/node/vite/plugins/importBuild/loadBuild.d.ts",
+      "default": "./dist/cjs/node/vite/plugins/importBuild/loadBuild.js"
     }
   },
   "devDependencies": {
