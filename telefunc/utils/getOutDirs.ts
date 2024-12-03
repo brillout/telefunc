@@ -5,7 +5,6 @@ import type { UserConfig, ResolvedConfig } from 'vite'
 import { assert } from './assert'
 import { pathJoin } from './path-shim.js'
 import { assertPosixPath, toPosixPath } from './filesystemPathHandling'
-import path from 'pathe'
 
 /** Appends `client/` or `server/` to `config.build.outDir` */
 function determineOutDir(config: ResolvedConfig): string | null {
@@ -72,7 +71,7 @@ function getOutDirAbsolute(config: ResolvedConfig): string {
   if (!outDirIsAbsolutePath(outDir)) {
     const { root } = config
     assertPosixPath(root)
-    outDir = path.join(root, outDir)
+    outDir = pathJoin(root, outDir)
   }
   return outDir
 }

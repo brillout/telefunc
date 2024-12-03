@@ -50,8 +50,5 @@
     "overrides": {
       "telefunc": "link:./telefunc/"
     }
-  },
-  "dependencies": {
-    "pathe": "^1.1.2"
   }
 }
