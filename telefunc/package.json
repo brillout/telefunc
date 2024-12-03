@@ -23,26 +23,31 @@
   "main": "./dist/cjs/node/server/index.js",
   "exports": {
     ".": {
+      "worker": "./dist/esm/node/server/index.js",
       "browser": "./dist/esm/client/server.js",
       "types": "./dist/cjs/node/server/index.d.ts",
       "default": "./dist/cjs/node/server/index.js"
     },
     "./async_hooks": {
+      "worker": "./dist/esm/node/server/async_hooks.js",
       "browser": "./dist/esm/client/poisen-pills/async_hooks.js",
       "types": "./dist/cjs/node/server/async_hooks.d.ts",
       "default": "./dist/cjs/node/server/async_hooks.js"
     },
     "./client": {
+      "worker": "./dist/esm/node/client.js",
       "browser": "./dist/esm/client/index.js",
       "types": "./dist/esm/client/index.d.ts",
       "default": "./dist/cjs/node/client.js"
     },
     "./react-streaming": {
+      "worker": "./dist/esm/node/react-streaming/index.js",
       "browser": "./dist/esm/client/react-streaming/index.js",
       "types": "./dist/cjs/node/react-streaming/index.d.ts",
       "default": "./dist/cjs/node/react-streaming/index.js"
     },
     "./react-streaming/server": {
+      "worker": "./dist/esm/node/react-streaming/server.js",
       "browser": "./dist/esm/client/poisen-pills/react-streaming/server.js",
       "types": "./dist/cjs/node/react-streaming/server.d.ts",
       "default": "./dist/cjs/node/react-streaming/server.js"
@@ -73,6 +78,7 @@
       "default": "./dist/cjs/node/babel/plugin.js"
     },
     "./__internal/loadBuild": {
+      "worker": "./dist/esm/node/vite/plugins/importBuild/loadBuild.js",
       "browser": "./dist/esm/client/poisen-pills/__internal/loadBuild.js",
       "types": "./dist/cjs/node/vite/plugins/importBuild/loadBuild.d.ts",
       "default": "./dist/cjs/node/vite/plugins/importBuild/loadBuild.js"
