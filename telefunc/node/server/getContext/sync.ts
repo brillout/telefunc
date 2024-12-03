@@ -57,8 +57,9 @@ function provide(context: null | Telefunc.Context) {
     globalObject.context = context
   }
   globalObject.hasRestoreAccess = true
-  process.nextTick(() => {
+  // We don't use process.nextTick() to avoid dependency on Node.js
+  setTimeout(() => {
     globalObject.context = null
     globalObject.hasRestoreAccess = false
-  })
+  }, 0)
 }
