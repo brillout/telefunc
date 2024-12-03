@@ -7952,8 +7952,8 @@ packages:
     resolution: {integrity: sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==}
     engines: {node: '>=8'}
 
-  pathe@1.1.2:
-    resolution: {integrity: sha512-whLdWMYL2TwI08hn8/ZqAbrVemu0LNaNNJZX73O6qaIdCTfXutsLhMkjdENX0qhsQ9uIimo4/aQOmXkoon2nDQ==}
+  pathe@1.1.1:
+    resolution: {integrity: sha512-d+RQGp0MAYTIaDBIMmOfMwz3E+LOZnxx1HZd5R18mmCZY0QBlK0LDZfPc8FW8Ed2DlvsuE6PRjroDY+wg4+j/Q==}
 
   pathval@1.1.1:
     resolution: {integrity: sha512-Dp6zGqpTdETdR63lehJYPeIOqpiNBNtc7BpWSLrOje7UaIsE5aY92r/AunQA7rsXvet3lrJ3JnZX29UPTKXyKQ==}
@@ -14637,12 +14637,12 @@ snapshots:
       '@vitest/utils': 0.32.2
       concordance: 5.0.4
       p-limit: 4.0.0
-      pathe: 1.1.2
+      pathe: 1.1.1
 
   '@vitest/snapshot@0.32.2':
     dependencies:
       magic-string: 0.30.0
-      pathe: 1.1.2
+      pathe: 1.1.1
       pretty-format: 27.5.1
 
   '@vitest/spy@0.32.2':
@@ -19125,7 +19125,7 @@ snapshots:
   mlly@1.3.0:
     dependencies:
       acorn: 8.11.2
-      pathe: 1.1.2
+      pathe: 1.1.1
       pkg-types: 1.0.3
       ufo: 1.1.2
 
@@ -19809,7 +19809,7 @@ snapshots:
 
   path-type@4.0.0: {}
 
-  pathe@1.1.2: {}
+  pathe@1.1.1: {}
 
   pathval@1.1.1: {}
 
@@ -19860,7 +19860,7 @@ snapshots:
     dependencies:
       jsonc-parser: 3.2.0
       mlly: 1.3.0
-      pathe: 1.1.2
+      pathe: 1.1.1
 
   playwright-chromium@1.25.1:
     dependencies:
@@ -22284,7 +22284,7 @@ snapshots:
       cac: 6.7.14
       debug: 4.3.4
       mlly: 1.3.0
-      pathe: 1.1.2
+      pathe: 1.1.1
       picocolors: 1.0.0
       vite: 4.3.9(@types/node@20.11.17)(terser@5.10.0)
     transitivePeerDependencies:
@@ -22369,7 +22369,7 @@ snapshots:
       debug: 4.3.4
       local-pkg: 0.4.3
       magic-string: 0.30.0
-      pathe: 1.1.2
+      pathe: 1.1.1
       picocolors: 1.0.0
       std-env: 3.3.3
       strip-literal: 1.0.1
