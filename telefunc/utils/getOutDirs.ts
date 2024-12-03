@@ -3,6 +3,7 @@ export { getOutDirAbsolute }
 
 import type { UserConfig, ResolvedConfig } from 'vite'
 import { assert } from './assert'
+import { pathJoin } from './path-shim.js'
 import { assertPosixPath, toPosixPath } from './filesystemPathHandling'
 import path from 'pathe'
 
@@ -34,8 +35,8 @@ function determineOutDir(config: ResolvedConfig): string | null {
 function declineOutDirs(outDirRoot: string) {
   assertIsOutDirRoot(outDirRoot)
   assertPosixPath(outDirRoot)
-  const outDirClient = path.join(outDirRoot, 'client')
-  const outDirServer = path.join(outDirRoot, 'server')
+  const outDirClient = pathJoin(outDirRoot, 'client')
+  const outDirServer = pathJoin(outDirRoot, 'server')
   assertIsNotOutDirRoot(outDirClient)
   assertIsNotOutDirRoot(outDirServer)
   return { outDirClient, outDirServer }
