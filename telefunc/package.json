@@ -6,9 +6,9 @@
     "dev": "pnpm run dev:fast",
     "// `dev:fast` and `dev:slow` achieve the same, but `dev:fast` is much faster": "",
     "dev:slow": "tsc --build --watch",
-    "dev:fast": "pnpm run tsc:watch:node & pnpm run tsc:watch:client",
-    "tsc:watch:node": "tsc --incremental --watch --project ./node/tsconfig.json",
-    "tsc:watch:client": "tsc --incremental --watch --project ./client/tsconfig.json",
+    "dev:fast": "pnpm run tsc:watch:cjs & pnpm run tsc:watch:esm",
+    "tsc:watch:cjs": "tsc --incremental --watch --project ./tsconfig.cjs.json",
+    "tsc:watch:esm": "tsc --incremental --watch --project ./tsconfig.esm.json",
     "release": "release-me patch",
     "release:commit": "release-me commit"
   },
