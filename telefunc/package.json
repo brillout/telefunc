@@ -21,6 +21,7 @@
     "ts-morph": "^19.0.0"
   },
   "main": "./dist/cjs/node/server/index.js",
+  "// Explanation: https://gist.github.com/brillout/553253e27a43ccfc01ec6c38880d1360": "",
   "exports": {
     ".": {
       "worker": "./dist/esm/node/server/index.js",
