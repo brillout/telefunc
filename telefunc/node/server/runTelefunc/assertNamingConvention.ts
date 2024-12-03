@@ -3,7 +3,7 @@ export { assertNamingConvention }
 import { assert, assertWarning, isProduction, assertPosixPath } from '../../utils'
 import type { Telefunction } from '../types'
 import type * as fsType from 'node:fs'
-import type * as pathType from 'pathe'
+import type * as pathType from 'node:path'
 
 function assertNamingConvention(
   exportValue: unknown,
@@ -42,29 +42,29 @@ function assertCollocation(telefuncFilePath: string, appRootDir: string | null, 
   const req: NodeRequire = require
   try {
     fs = req('node:fs')
-    path = req('pathe')
+    path = req('node:path')
   } catch {
     return
   }
 
   const getBasename = (fileNameOrPath: string): string => {
     assertPosixPath(fileNameOrPath)
-    let basename = path.basename(fileNameOrPath).split('.')[0]!
+    let basename = path.posix.basename(fileNameOrPath).split('.')[0]!
     if (basename.startsWith('+')) basename = basename.slice(1)
     return basename
   }
 
   assertPosixPath(telefuncFilePath)
   const telefuncFileBasename = getBasename(telefuncFilePath)
-  const telefuncFileDir = path.dirname(telefuncFilePath)
-  const telefuncFileDirAbsolute = path.join(appRootDir, telefuncFileDir)
+  const telefuncFileDir = path.posix.dirname(telefuncFilePath)
+  const telefuncFileDirAbsolute = path.posix.join(appRootDir, telefuncFileDir)
   const collocatedFiles = fs.readdirSync(telefuncFileDirAbsolute)
   const collocatedFilesMatchYes: string[] = []
   const collocatedFilesMatchNot: string[] = []
   collocatedFiles.forEach((fileName) => {
     assertPosixPath(fileName) // fileName isn't a path so it shouldn't contain any backslash windows path separator
     const fileBasename = getBasename(fileName)
-    fileName = path.join(telefuncFileDir, fileName)
+    fileName = path.posix.join(telefuncFileDir, fileName)
     if (fileBasename === telefuncFileBasename) {
       collocatedFilesMatchYes.push(fileName)
     } else {
