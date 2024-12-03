@@ -1,3 +1,21 @@
+## [0.1.82](https://github.com/brillout/telefunc/compare/v0.1.81...v0.1.82) (2024-12-03)
+
+
+### Bug Fixes
+
+* [revert] make default condition last again ([28d4275](https://github.com/brillout/telefunc/commit/28d4275ecabdc6a24afd5d7395ce6c311b365dbf))
+* add node condition ([91ff12e](https://github.com/brillout/telefunc/commit/91ff12ec75dcf0a76000ca3b4e359f65e73e7629))
+* add poisen pills ([dbc83a3](https://github.com/brillout/telefunc/commit/dbc83a3054c5a8e63140c5a4d6278cdf20648e68))
+* add worker condition ([85a8d4d](https://github.com/brillout/telefunc/commit/85a8d4dea89bcc90bfd5aabc997ba23ded6f2f18))
+* ensure default export works ([8e4e61d](https://github.com/brillout/telefunc/commit/8e4e61d3f0690102a9d9ea0e6ece0c6cd472d0a1))
+* improve exports mapping ([b58bb3f](https://github.com/brillout/telefunc/commit/b58bb3f2d790d128924774a7cfd5003ebee42d48))
+* make condition `types` last ([7d21ebf](https://github.com/brillout/telefunc/commit/7d21ebf2b787c7c15d9582b2e4f6bb1a1c9911f6))
+* use cjs build only for node condition ([8aa29e4](https://github.com/brillout/telefunc/commit/8aa29e451b394c16cbb29799d3701ebc6a818317))
+* use setTimeout() instead of process.nextTick() in runtime ([#117](https://github.com/brillout/telefunc/issues/117)) ([0fd4432](https://github.com/brillout/telefunc/commit/0fd44322acbd07857ae29361ba7c998607f17dd5))
+* use shim instead of node:path in runtime code ([#117](https://github.com/brillout/telefunc/issues/117)) ([#126](https://github.com/brillout/telefunc/issues/126)) ([6a47ec2](https://github.com/brillout/telefunc/commit/6a47ec25e9234fa8ce07026feaf0e5f1d2722aaa))
+
+
+
 ## [0.1.81](https://github.com/brillout/telefunc/compare/v0.1.80...v0.1.81) (2024-11-02)
 
 
