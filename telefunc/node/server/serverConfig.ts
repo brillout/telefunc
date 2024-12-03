@@ -2,8 +2,7 @@ export { configUser as config }
 export { getServerConfig }
 export type { ConfigUser }
 
-import { isAbsolute } from 'node:path'
-import { assertUsage, hasProp, toPosixPath, isTelefuncFilePath } from '../utils'
+import { assertUsage, hasProp, toPosixPath, isTelefuncFilePath, pathIsAbsolute } from '../utils'
 
 /** Telefunc Server Configuration */
 type ConfigUser = {
@@ -64,7 +63,7 @@ function getServerConfig(): ConfigResolved {
 function validateUserConfig(configUserUnwrapped: ConfigUser, prop: string, val: unknown) {
   if (prop === 'root') {
     assertUsage(typeof val === 'string', 'config.root should be a string')
-    assertUsage(isAbsolute(val), 'config.root should be an absolute path')
+    assertUsage(pathIsAbsolute(val), 'config.root should be an absolute path')
     configUserUnwrapped[prop] = val
   } else if (prop === 'telefuncUrl') {
     assertUsage(typeof val === 'string', 'config.telefuncUrl should be a string')
@@ -78,7 +77,7 @@ function validateUserConfig(configUserUnwrapped: ConfigUser, prop: string, val: 
     assertUsage(Array.isArray(val), wrongType)
     val.forEach((val: unknown) => {
       assertUsage(typeof val === 'string', wrongType)
-      assertUsage(isAbsolute(val), `[config.telefuncFiles] ${val} should be an absolute path`)
+      assertUsage(pathIsAbsolute(val), `[config.telefuncFiles] ${val} should be an absolute path`)
       assertUsage(isTelefuncFilePath(toPosixPath(val)), `[config.telefuncFiles] ${val} doesn't contain \`.telefunc.\``)
     })
     configUserUnwrapped[prop] = val

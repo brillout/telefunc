@@ -1,7 +1,6 @@
 export { loadTelefuncFilesFromConfig }
 
 import { assert, assertPosixPath, assertUsage, isTelefuncFilePath } from '../../utils'
-import { posix } from 'node:path'
 import type { TelefuncFiles } from '../types'
 import { import_ } from '@brillout/import'
 import pc from '@brillout/picocolors'
@@ -39,15 +38,16 @@ async function loadTelefuncFilesFromConfig(runContext: {
 
 function resolveTelefuncFilePath(telefuncFilePathAbsolute: string, appRootDir: string): string {
   assertPosixPath(telefuncFilePathAbsolute)
-  const path = posix.relative(appRootDir, telefuncFilePathAbsolute)
-  assertPosixPath(path)
   assertUsage(
-    !path.startsWith('../'),
-    `The telefunc file ${telefuncFilePathAbsolute} doesn't live inside the root directory ${appRootDir} of your project. Either move your telefunc file inside the root, or change ${pc.cyan(
+    telefuncFilePathAbsolute.startsWith(appRootDir),
+    `The telefunc file ${telefuncFilePathAbsolute} doesn't live inside the root directory ${appRootDir} of your project. Either move the telefunc file inside the root directory, or change ${pc.cyan(
       'config.root',
     )} (https://telefunc.com/root).`,
   )
+  let path = telefuncFilePathAbsolute.slice(appRootDir.length)
+  if (path.startsWith('/')) path = path.slice(1)
   assert(!path.startsWith('/') && !path.startsWith('.'))
+  assertPosixPath(path)
   const telefuncFilePath = '/' + path
   assert(isTelefuncFilePath(telefuncFilePathAbsolute))
   return telefuncFilePath
