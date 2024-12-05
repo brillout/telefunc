@@ -21,7 +21,7 @@ function TopNavigation() {
         padding: '0 var(--padding-side)'
       }}
     >
-      <img className="decolorize-7" src={iconSeedling} style={{ height: 23, marginRight: 10 }} /> Get Started
+      <img className="decolorize-7 desktop-fade" src={iconSeedling} style={{ height: 23, marginRight: 10 }} /> Get Started
     </a>
   )
 }
