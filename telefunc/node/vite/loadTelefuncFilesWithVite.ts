@@ -29,13 +29,7 @@ async function loadGlobImporter(failOnFailure?: true) {
   const viteDevServer = getViteDevServer()
   if (viteDevServer) {
     const devPath = telefuncFilesGlobFilePath
-    let moduleExports: unknown
-    try {
-      moduleExports = await viteDevServer.ssrLoadModule(devPath)
-    } catch (err: unknown) {
-      viteDevServer.ssrFixStacktrace(err as Error)
-      throw err
-    }
+    const moduleExports = await viteDevServer.ssrLoadModule(devPath, { fixStacktrace: true })
     return { moduleExports, viteProvider: 'Vite' as const }
   } else {
     let moduleExports: unknown
