@@ -53,7 +53,7 @@ async function loadTelefuncFiles(runContext: {
       //
       const res2 = await loadTelefuncFilesWithVite(runContext, true)
       assert(res2 === null)
-      assert(false) // loadTelefuncFilesWithVite() should have called assertUsage()
+      assert(false) // loadTelefuncFilesWithVite() should have thrown an assertUsage() error
     }
   }
 
