@@ -43,10 +43,8 @@ async function loadGlobImporter(failOnFailure?: true) {
         assert(!moduleExports)
         return null
       }
-      assert(moduleExports)
-    } else {
-      assert(moduleExports)
     }
+    assert(moduleExports)
     assertProd()
     return { moduleExports, viteProvider: '@brillout/vite-plugin-server-entry' as const }
   }
