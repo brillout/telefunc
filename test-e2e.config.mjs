@@ -53,6 +53,8 @@ function tolerateError({ logSource, logText }) {
   return (
     // TODO: move everything to this array
     [
+      // Error: [DocPress][Warning] prop `text` is deprecated
+      'prop `text` is deprecated',
       // [11:03:16.814][/docs/.test-dev.test.ts][pnpm run dev][stderr] Cannot optimize dependency: @brillout/docpress/renderer/onRenderClient, present in 'optimizeDeps.include'
       'Cannot optimize dependency: @brillout/docpress/renderer/onRenderClient',
       // [21:29:57.330][/docs/.test-dev.test.ts][pnpm run dev][stderr] Cannot optimize dependency: @brillout/docpress/Layout, present in 'optimizeDeps.include'
