@@ -6,7 +6,7 @@ function MostlyMutations({
   toolName,
   builtInMechanism,
 }: {
-  toolName: JSX.Element | string
+  toolName: React.JSX.Element | string
   builtInMechanism?: string
 }) {
   return (
