@@ -55,11 +55,14 @@ function tolerateError({ logSource, logText }) {
     [
       // Error: [DocPress][Warning] prop `text` is deprecated
       'prop `text` is deprecated',
+
       // [18:54:59.547][/docs/.test-preview.test.ts][pnpm run preview][stderr] warnings when minifying css:
       // Warning: G] Transforming this CSS nesting syntax is not supported in the configured target environment ("chrome87", "edge88", "es2020", "firefox78", "safari14") [unsupported-css-nesting]
       'CSS nesting syntax is not supported in the configured target environment',
+
       // [11:03:16.814][/docs/.test-dev.test.ts][pnpm run dev][stderr] Cannot optimize dependency: @brillout/docpress/renderer/onRenderClient, present in 'optimizeDeps.include'
       'Cannot optimize dependency: @brillout/docpress/renderer/onRenderClient',
+
       // [21:29:57.330][/docs/.test-dev.test.ts][pnpm run dev][stderr] Cannot optimize dependency: @brillout/docpress/Layout, present in 'optimizeDeps.include'
       'Cannot optimize dependency: @brillout/docpress/Layout',
     ].some((t) => logText.includes(t)) ||
