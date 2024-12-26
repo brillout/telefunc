@@ -51,19 +51,19 @@ function getCiJobs() {
 
 function tolerateError({ logSource, logText }) {
   return (
-    isRollupEmptyChunkWarning() ||
-    isSveltekitTypesGenWarning() ||
-    isCJSVikeWarning() ||
-    isCJSViteWarning() ||
-    isVikeDeprecatedDesignWarning() ||
-    isNextJsEslintWarning() ||
     // TODO: move everything to this array
     [
       // [11:03:16.814][/docs/.test-dev.test.ts][pnpm run dev][stderr] Cannot optimize dependency: @brillout/docpress/renderer/onRenderClient, present in 'optimizeDeps.include'
       'Cannot optimize dependency: @brillout/docpress/renderer/onRenderClient',
       // [21:29:57.330][/docs/.test-dev.test.ts][pnpm run dev][stderr] Cannot optimize dependency: @brillout/docpress/Layout, present in 'optimizeDeps.include'
       'Cannot optimize dependency: @brillout/docpress/Layout',
-    ].some((t) => logText.includes(t))
+    ].some((t) => logText.includes(t)) ||
+    isRollupEmptyChunkWarning() ||
+    isSveltekitTypesGenWarning() ||
+    isCJSVikeWarning() ||
+    isCJSViteWarning() ||
+    isVikeDeprecatedDesignWarning() ||
+    isNextJsEslintWarning()
   )
 
   function isRollupEmptyChunkWarning() {
