@@ -1,3 +1,13 @@
+## [0.1.83](https://github.com/brillout/telefunc/compare/v0.1.82...v0.1.83) (2025-01-09)
+
+
+### Bug Fixes
+
+* support arrow functions (fix [#134](https://github.com/brillout/telefunc/issues/134)) ([da662ef](https://github.com/brillout/telefunc/commit/da662ef9023ccf49af7c2cd15ff9d0217924b3f7))
+* update error message ([981b6a2](https://github.com/brillout/telefunc/commit/981b6a2d5406ce5d797d2ecf014a11a697d799b1))
+
+
+
 ## [0.1.82](https://github.com/brillout/telefunc/compare/v0.1.81...v0.1.82) (2024-12-03)
 
 
