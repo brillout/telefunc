@@ -107,21 +107,16 @@ function generate({
   shieldGenSource: SourceFile
   telefuncFilePath: string
 }): string {
-  const telefunctions = telefuncFileSource.getFunctions().filter((f) => f.isExported())
-  const telefunctionNames = telefunctions.flatMap((telefunction) => {
-    const name = telefunction.getName()
-    if (!name) return []
-    return [name]
-  })
+  const exportedFunctionNames = getExportedFunctionNames(telefuncFileSource)
 
   shieldGenSource.addImportDeclaration({
     moduleSpecifier: getTelefuncFileImportPath(telefuncFilePath),
-    namedImports: telefunctionNames,
+    namedImports: exportedFunctionNames,
   })
 
   // assign the template literal type to a string
   // then diagnostics are used to get the value of the template literal type
-  for (const telefunctionName of telefunctionNames) {
+  for (const telefunctionName of exportedFunctionNames) {
     shieldGenSource.addTypeAlias({
       name: getShieldName(telefunctionName),
       type: `ShieldArrStr<Parameters<typeof ${telefunctionName}>>`,
@@ -154,7 +149,7 @@ function generate({
   // We need `compilerOptions.strict` to avoid `TS2589: Type instantiation is excessively deep and possibly infinite.`
   assert(project.compilerOptions.get().strict === true)
 
-  for (const telefunctionName of telefunctionNames) {
+  for (const telefunctionName of exportedFunctionNames) {
     const typeAliasName = getShieldName(telefunctionName)
     const typeAlias = shieldGenSource.getTypeAlias(typeAliasName)
     assert(typeAlias, `Failed to get type alias \`${typeAliasName}\`.`)
@@ -425,4 +420,16 @@ function assertTelefuncFilesSource(
     )
     assert(false, debugInfo)
   }
+}
+
+function getExportedFunctionNames(telefuncFileSource: SourceFile) {
+  const exportedFunctionNames = telefuncFileSource
+    .getFunctions()
+    .filter((f) => f.isExported())
+    .flatMap((telefunction) => {
+      const name = telefunction.getName()
+      if (!name) return []
+      return [name]
+    })
+  return exportedFunctionNames
 }
