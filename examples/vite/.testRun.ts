@@ -9,7 +9,7 @@ function testRun(
   run(cmd, { doNotFailOnWarning })
 
   {
-    const isDev = cmd !== 'npm run preview'
+    const isDev = cmd === 'npm run dev' || cmd === 'npm run start'
     if (isDev) {
       skipShieldGenerationTest = true
     }
