@@ -2,7 +2,7 @@ export { generateShield }
 export { logResult }
 export { testGenerateShield }
 
-import { Project, VariableDeclarationKind, SourceFile, getCompilerOptionsFromTsConfig } from 'ts-morph'
+import { Project, VariableDeclarationKind, SourceFile, getCompilerOptionsFromTsConfig, SyntaxKind } from 'ts-morph'
 import {
   assert,
   assertUsage,
@@ -423,13 +423,25 @@ function assertTelefuncFilesSource(
 }
 
 function getExportedFunctionNames(telefuncFileSource: SourceFile) {
-  const exportedFunctionNames = telefuncFileSource
+  const exportedFunctionNames = Array.from(telefuncFileSource.getExportedDeclarations())
+    .filter(([_, declarations]) =>
+      declarations.some(
+        (decl) =>
+          // Regular function
+          decl.isKind(SyntaxKind.FunctionDeclaration) ||
+          // Arrow function
+          (decl.isKind(SyntaxKind.VariableDeclaration) && decl.getInitializer()?.isKind(SyntaxKind.ArrowFunction)),
+      ),
+    )
+    .map(([exportName]) => exportName)
+  // Double check regular functions (doesn't catch arrow functions)
+  telefuncFileSource
     .getFunctions()
     .filter((f) => f.isExported())
     .flatMap((telefunction) => {
       const name = telefunction.getName()
-      if (!name) return []
-      return [name]
+      if (!name) return
+      assert(exportedFunctionNames.includes(name))
     })
   return exportedFunctionNames
 }
