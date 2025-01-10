@@ -38,9 +38,6 @@ importers:
       '@brillout/docpress':
         specifier: ^0.10.18
         version: 0.10.18(@algolia/client-search@4.24.0)(@types/react@19.0.2)(@vitejs/plugin-react-swc@3.7.2(vite@6.0.6(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0)))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(rollup@4.28.0)(search-insights@2.17.2)(typescript@5.7.2)(vike@0.4.213(react-streaming@0.3.46(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.0.6(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0)))(vite@6.0.6(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0))
-      '@types/node':
-        specifier: ^22.10.2
-        version: 22.10.2
       '@types/react':
         specifier: ^19.0.2
         version: 19.0.2
