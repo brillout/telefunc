@@ -36,8 +36,8 @@ importers:
   docs:
     dependencies:
       '@brillout/docpress':
-        specifier: ^0.10.17
-        version: 0.10.17(@algolia/client-search@4.24.0)(@swc/helpers@0.5.2)(@types/node@22.10.2)(@types/react-dom@19.0.2(@types/react@19.0.2))(@types/react@19.0.2)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(rollup@4.28.0)(search-insights@2.17.2)(typescript@5.7.2)(vike@0.4.210(react-streaming@0.3.46(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.0.6(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0)))(vite@6.0.6(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0))
+        specifier: ^0.10.18
+        version: 0.10.18(@algolia/client-search@4.24.0)(@types/react@19.0.2)(@vitejs/plugin-react-swc@3.7.2(vite@6.0.6(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0)))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(rollup@4.28.0)(search-insights@2.17.2)(typescript@5.7.2)(vike@0.4.213(react-streaming@0.3.46(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.0.6(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0)))(vite@6.0.6(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0))
       '@types/node':
         specifier: ^22.10.2
         version: 22.10.2
@@ -57,11 +57,8 @@ importers:
         specifier: ^5.7.2
         version: 5.7.2
       vike:
-        specifier: ^0.4.210
-        version: 0.4.210(react-streaming@0.3.46(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.0.6(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0))
-      vite:
-        specifier: ^6.0.6
-        version: 6.0.6(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0)
+        specifier: ^0.4.213
+        version: 0.4.213(react-streaming@0.3.46(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.0.6(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0))
 
   examples/authentication:
     dependencies:
@@ -1896,17 +1893,20 @@ packages:
     resolution: {integrity: sha512-cvSrvCxnZYzQmiOj0nwIuf298DvaM/2eAAOsBSbBpsdOEpYsnbQGvFxew9oSXEi3HH1TZMmLy8VyvyJJ+LsmCw==}
     hasBin: true
 
-  '@brillout/docpress@0.10.17':
-    resolution: {integrity: sha512-tYja0uXW54eNrBnN+OTivaaSAPQpyFUp5JpX+4kmTaVOPuyiXx7uaRqsLrk35BoW8vfv6aI3HgDVN2bZDOq8aw==}
+  '@brillout/docpress@0.10.18':
+    resolution: {integrity: sha512-yRjwB5+IneDt6Upq7dVccHkMYV0TrqohtytMXDqRBNIGeq4UjSNup7Z5kk+CqW4NnR11zn8D8cGQpkULI2UDPg==}
     peerDependencies:
-      '@types/node': '*'
-      '@types/react': '*'
-      '@types/react-dom': '*'
+      '@vitejs/plugin-react-swc': '>=3.0.0'
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
-      typescript: '*'
-      vike: '>=0.4.198'
+      typescript: '>=5.0.0'
+      vike: '>=0.4.213'
       vite: '>=5.2.0'
+    peerDependenciesMeta:
+      '@vitejs/plugin-react-swc':
+        optional: true
+      vite:
+        optional: true
 
   '@brillout/format-text@0.1.3':
     resolution: {integrity: sha512-79/JKUOr+POW3XAfRDDxoxCjGBeD5KVwkzBWhK7KPA66HCTwEqb7unqxfVGSJZ9MnL/NiMb0shhzRkydMC/YFg==}
@@ -10609,8 +10609,8 @@ packages:
       react-streaming:
         optional: true
 
-  vike@0.4.210:
-    resolution: {integrity: sha512-+X2Gl1OJz0L6GIDSk+1wlkFSDY/BCqLihbTsO76HukxOq6JIHLC0wYb9UgNek3ruU4jSUtwSe4nOdchyiy8+kw==}
+  vike@0.4.213:
+    resolution: {integrity: sha512-FRpDUIFrPZTwfJK3nMmL044XFOHxDc10BKQbgQnQZbvs+CM5FUbtM74oM6MA6FnOHLcTZxpoBAFhMq2hU1AAIQ==}
     engines: {node: '>=18.0.0'}
     hasBin: true
     peerDependencies:
@@ -13082,7 +13082,7 @@ snapshots:
 
   '@brillout/dev-my-dep@0.0.10': {}
 
-  '@brillout/docpress@0.10.17(@algolia/client-search@4.24.0)(@swc/helpers@0.5.2)(@types/node@22.10.2)(@types/react-dom@19.0.2(@types/react@19.0.2))(@types/react@19.0.2)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(rollup@4.28.0)(search-insights@2.17.2)(typescript@5.7.2)(vike@0.4.210(react-streaming@0.3.46(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.0.6(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0)))(vite@6.0.6(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0))':
+  '@brillout/docpress@0.10.18(@algolia/client-search@4.24.0)(@types/react@19.0.2)(@vitejs/plugin-react-swc@3.7.2(vite@6.0.6(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0)))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(rollup@4.28.0)(search-insights@2.17.2)(typescript@5.7.2)(vike@0.4.213(react-streaming@0.3.46(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.0.6(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0)))(vite@6.0.6(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0))':
     dependencies:
       '@brillout/picocolors': 1.0.15
       '@docsearch/css': 3.6.1
@@ -13091,21 +13091,19 @@ snapshots:
       '@mdx-js/react': 3.0.1(@types/react@19.0.2)(react@19.0.0)
       '@mdx-js/rollup': 3.0.1(rollup@4.28.0)
       '@shikijs/transformers': 1.2.0
-      '@types/node': 22.10.2
-      '@types/react': 19.0.2
-      '@types/react-dom': 19.0.2(@types/react@19.0.2)
-      '@vitejs/plugin-react-swc': 3.7.2(@swc/helpers@0.5.2)(vite@6.0.6(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0))
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
       rehype-pretty-code: 0.13.0(shiki@1.2.0)
       remark-gfm: 4.0.0
       shiki: 1.2.0
       typescript: 5.7.2
-      vike: 0.4.210(react-streaming@0.3.46(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.0.6(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0))
+      vike: 0.4.213(react-streaming@0.3.46(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.0.6(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0))
+    optionalDependencies:
+      '@vitejs/plugin-react-swc': 3.7.2(vite@6.0.6(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0))
       vite: 6.0.6(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0)
     transitivePeerDependencies:
       - '@algolia/client-search'
-      - '@swc/helpers'
+      - '@types/react'
       - rollup
       - search-insights
       - supports-color
@@ -14864,7 +14862,7 @@ snapshots:
   '@swc/core-win32-x64-msvc@1.10.2':
     optional: true
 
-  '@swc/core@1.10.2(@swc/helpers@0.5.2)':
+  '@swc/core@1.10.2':
     dependencies:
       '@swc/counter': 0.1.3
       '@swc/types': 0.1.17
@@ -14879,9 +14877,10 @@ snapshots:
       '@swc/core-win32-arm64-msvc': 1.10.2
       '@swc/core-win32-ia32-msvc': 1.10.2
       '@swc/core-win32-x64-msvc': 1.10.2
-      '@swc/helpers': 0.5.2
+    optional: true
 
-  '@swc/counter@0.1.3': {}
+  '@swc/counter@0.1.3':
+    optional: true
 
   '@swc/helpers@0.5.2':
     dependencies:
@@ -14890,6 +14889,7 @@ snapshots:
   '@swc/types@0.1.17':
     dependencies:
       '@swc/counter': 0.1.3
+    optional: true
 
   '@szmarczak/http-timer@1.1.2':
     dependencies:
@@ -15331,12 +15331,13 @@ snapshots:
       - encoding
       - supports-color
 
-  '@vitejs/plugin-react-swc@3.7.2(@swc/helpers@0.5.2)(vite@6.0.6(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0))':
+  '@vitejs/plugin-react-swc@3.7.2(vite@6.0.6(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0))':
     dependencies:
-      '@swc/core': 1.10.2(@swc/helpers@0.5.2)
+      '@swc/core': 1.10.2
       vite: 6.0.6(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0)
     transitivePeerDependencies:
       - '@swc/helpers'
+    optional: true
 
   '@vitejs/plugin-react@2.1.0(vite@4.3.9(@types/node@22.10.2)(terser@5.10.0))':
     dependencies:
@@ -22929,7 +22930,7 @@ snapshots:
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
     optionalDependencies:
-      '@swc/core': 1.10.2(@swc/helpers@0.5.2)
+      '@swc/core': 1.10.2
 
   ts-pnp@1.2.0(typescript@5.7.2):
     optionalDependencies:
@@ -23330,7 +23331,7 @@ snapshots:
     optionalDependencies:
       react-streaming: 0.3.46(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
-  vike@0.4.210(react-streaming@0.3.46(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.0.6(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0)):
+  vike@0.4.213(react-streaming@0.3.46(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.0.6(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0)):
     dependencies:
       '@brillout/import': 0.2.3
       '@brillout/json-serializer': 0.5.15
@@ -23340,8 +23341,9 @@ snapshots:
       acorn: 8.11.2
       cac: 6.7.14
       es-module-lexer: 1.4.1
-      esbuild: 0.24.0
+      esbuild: 0.24.2
       fast-glob: 3.2.12
+      json5: 2.2.3
       semver: 7.6.0
       source-map-support: 0.5.21
       vite: 6.0.6(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0)

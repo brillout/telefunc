@@ -1,20 +1,19 @@
 {
   "scripts": {
-    "dev": "vite dev",
-    "build": "vite build",
-    "preview": "vite build && vite preview",
+    "dev": "vike dev",
+    "build": "vike build",
+    "preview": "vike build && vike preview",
     "typecheck": "tsc --noEmit --watch"
   },
   "dependencies": {
-    "@brillout/docpress": "^0.10.17",
+    "@brillout/docpress": "^0.10.18",
     "@types/node": "^22.10.2",
     "@types/react": "^19.0.2",
     "@types/react-dom": "^19.0.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "typescript": "^5.7.2",
-    "vike": "^0.4.210",
-    "vite": "^6.0.6"
+    "vike": "^0.4.213"
   },
   "type": "module"
 }
