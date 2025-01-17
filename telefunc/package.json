@@ -26,72 +26,83 @@
     ".": {
       "worker": "./dist/esm/node/server/index.js",
       "browser": "./dist/esm/client/server.js",
-      "node": "./dist/cjs/node/server/index.js",
+      "require": "./dist/cjs/node/server/index.js",
+      "node": "./dist/esm/node/server/index.js",
       "types": "./dist/esm/node/server/index.d.ts",
       "default": "./dist/esm/node/server/index.js"
     },
     "./async_hooks": {
       "worker": "./dist/esm/node/server/async_hooks.js",
       "browser": "./dist/esm/client/poisen-pills/async_hooks.js",
-      "node": "./dist/cjs/node/server/async_hooks.js",
+      "require": "./dist/cjs/node/server/async_hooks.js",
+      "node": "./dist/esm/node/server/async_hooks.js",
       "types": "./dist/esm/node/server/async_hooks.d.ts",
       "default": "./dist/esm/node/server/async_hooks.js"
     },
     "./client": {
       "worker": "./dist/esm/node/client.js",
       "browser": "./dist/esm/client/index.js",
-      "node": "./dist/cjs/node/client.js",
+      "require": "./dist/cjs/node/client.js",
+      "node": "./dist/esm/node/client.js",
       "types": "./dist/esm/client/index.d.ts",
       "default": "./dist/esm/node/client.js"
     },
     "./react-streaming": {
       "worker": "./dist/esm/node/react-streaming/index.js",
       "browser": "./dist/esm/client/react-streaming/index.js",
-      "node": "./dist/cjs/node/react-streaming/index.js",
+      "require": "./dist/cjs/node/react-streaming/index.js",
+      "node": "./dist/esm/node/react-streaming/index.js",
       "types": "./dist/esm/node/react-streaming/index.d.ts",
       "default": "./dist/esm/node/react-streaming/index.js"
     },
     "./react-streaming/server": {
       "worker": "./dist/esm/node/react-streaming/server.js",
       "browser": "./dist/esm/client/poisen-pills/react-streaming/server.js",
-      "node": "./dist/cjs/node/react-streaming/server.js",
+      "require": "./dist/cjs/node/react-streaming/server.js",
+      "node": "./dist/esm/node/react-streaming/server.js",
       "types": "./dist/esm/node/react-streaming/server.d.ts",
       "default": "./dist/esm/node/react-streaming/server.js"
     },
     "./vite": {
       "browser": "./dist/esm/client/poisen-pills/vite.js",
-      "node": "./dist/cjs/node/vite/index.js",
+      "require": "./dist/cjs/node/vite/index.js",
+      "node": "./dist/esm/node/vite/index.js",
       "types": "./dist/esm/node/vite/index.d.ts",
       "default": "./dist/esm/node/vite/index.js"
     },
     "./webpack/loader": {
       "browser": "./dist/esm/client/poisen-pills/webpack/loader.js",
-      "node": "./dist/cjs/node/webpack/loader.js",
+      "require": "./dist/cjs/node/webpack/loader.js",
+      "node": "./dist/esm/node/webpack/loader.js",
       "types": "./dist/esm/node/webpack/loader.d.ts",
       "default": "./dist/esm/node/webpack/loader.js"
     },
     "./next": {
       "browser": "./dist/esm/client/poisen-pills/next.js",
-      "node": "./dist/cjs/node/next/index.js",
+      "require": "./dist/cjs/node/next/index.js",
+      "node": "./dist/esm/node/next/index.js",
       "types": "./dist/esm/node/next/index.d.ts",
       "default": "./dist/esm/node/next/index.js"
     },
     "./nuxt": {
       "browser": "./dist/esm/client/poisen-pills/nuxt.js",
-      "node": "./dist/cjs/node/nuxt/index.js",
+      "require": "./dist/cjs/node/nuxt/index.js",
+      "node": "./dist/esm/node/nuxt/index.js",
       "types": "./dist/esm/node/nuxt/index.d.ts",
       "default": "./dist/esm/node/nuxt/index.js"
     },
     "./babel": {
       "browser": "./dist/esm/client/poisen-pills/babel.js",
-      "node": "./dist/cjs/node/babel/plugin.js",
+      "require": "./dist/cjs/node/babel/plugin.js",
+      "node": "./dist/esm/node/babel/plugin.js",
       "types": "./dist/esm/node/babel/plugin.d.ts",
       "default": "./dist/esm/node/babel/plugin.js"
     },
     "./__internal/loadBuild": {
       "worker": "./dist/esm/node/vite/plugins/importBuild/loadBuild.js",
       "browser": "./dist/esm/client/poisen-pills/__internal/loadBuild.js",
-      "node": "./dist/cjs/node/vite/plugins/importBuild/loadBuild.js",
+      "require": "./dist/cjs/node/vite/plugins/importBuild/loadBuild.js",
+      "node": "./dist/esm/node/vite/plugins/importBuild/loadBuild.js",
       "types": "./dist/esm/node/vite/plugins/importBuild/loadBuild.d.ts",
       "default": "./dist/esm/node/vite/plugins/importBuild/loadBuild.js"
     }
