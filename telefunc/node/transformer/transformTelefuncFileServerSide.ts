@@ -27,7 +27,7 @@ async function transformTelefuncFileServerSide(
 }
 
 function decorateTelefunctions(
-  exportNames: readonly string[],
+  exportNames: string[],
   src: string,
   filePath: string,
   appRootDir: string,
