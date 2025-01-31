@@ -1,3 +1,15 @@
+## [0.1.85](https://github.com/brillout/telefunc/compare/v0.1.84...v0.1.85) (2025-01-31)
+
+
+### Bug Fixes
+
+* apply shield() to all exports ([#141](https://github.com/brillout/telefunc/issues/141)) ([04a287a](https://github.com/brillout/telefunc/commit/04a287a2be55380eaaf7892d14b74bd670085edc))
+* colorize error message ([20ec17b](https://github.com/brillout/telefunc/commit/20ec17b31ce6795e23fee793901f4d2454cd85d4))
+* support export renaming (fix [#138](https://github.com/brillout/telefunc/issues/138)) ([#139](https://github.com/brillout/telefunc/issues/139)) ([9dc86a4](https://github.com/brillout/telefunc/commit/9dc86a4fef29b180b60dc6996ac70e207027e3f5))
+* update es-module-lexer ([3b9944e](https://github.com/brillout/telefunc/commit/3b9944e5e9ad4514cff028524e40404b9113babe))
+
+
+
 ## [0.1.84](https://github.com/brillout/telefunc/compare/v0.1.83...v0.1.84) (2025-01-31)
 
 
