@@ -4,7 +4,7 @@ export { logResult }
 // For ./generateShield.spec.ts
 export { testGenerateShield }
 
-import { Project, VariableDeclarationKind, SourceFile, getCompilerOptionsFromTsConfig, SyntaxKind } from 'ts-morph'
+import { Project, VariableDeclarationKind, SourceFile, getCompilerOptionsFromTsConfig } from 'ts-morph'
 import {
   assert,
   assertUsage,
@@ -123,16 +123,14 @@ function generate({
   telefuncFilePath: string
   exportList: ExportList
 }): string {
-  const exportedFunctions = getExportedFunctions(telefuncFileSource, exportList)
-
   shieldGenSource.addImportDeclaration({
     moduleSpecifier: getTelefuncFileImportPath(telefuncFilePath),
-    namedImports: exportedFunctions.map((e) => e.exportName),
+    namedImports: exportList.map((e) => e.exportName),
   })
 
   // assign the template literal type to a string
   // then diagnostics are used to get the value of the template literal type
-  for (const exportedFunction of exportedFunctions) {
+  for (const exportedFunction of exportList) {
     shieldGenSource.addTypeAlias({
       name: getShieldName(exportedFunction.exportName),
       type: `ShieldArrStr<Parameters<typeof ${exportedFunction.exportName}>>`,
@@ -165,7 +163,7 @@ function generate({
   // We need `compilerOptions.strict` to avoid `TS2589: Type instantiation is excessively deep and possibly infinite.`
   assert(project.compilerOptions.get().strict === true)
 
-  for (const exportedFunction of exportedFunctions) {
+  for (const exportedFunction of exportList) {
     const typeAliasName = getShieldName(exportedFunction.exportName)
     const typeAlias = shieldGenSource.getTypeAlias(typeAliasName)
     assert(typeAlias, `Failed to get type alias \`${typeAliasName}\`.`)
@@ -441,36 +439,4 @@ function assertTelefuncFilesSource(
     )
     assert(false, debugInfo)
   }
-}
-
-function getExportedFunctions(telefuncFileSource: SourceFile, exportList: ExportList) {
-  const exportNames: string[] = Array.from(telefuncFileSource.getExportedDeclarations())
-    .filter(([_, declarations]) =>
-      declarations.some(
-        (decl) =>
-          // Regular function
-          decl.isKind(SyntaxKind.FunctionDeclaration) ||
-          // Arrow function
-          (decl.isKind(SyntaxKind.VariableDeclaration) && decl.getInitializer()?.isKind(SyntaxKind.ArrowFunction)),
-      ),
-    )
-    .map(([exportName]) => exportName)
-
-  // Double check for regular functions (the following doesn't catch arrow functions)
-  telefuncFileSource
-    .getFunctions()
-    .filter((f) => f.isExported())
-    .flatMap((telefunction) => {
-      const name = telefunction.getName()
-      if (!name) return
-      assert(exportNames.includes(name))
-    })
-
-  const exportedFunctions = exportNames.map((exportName) => {
-    const e = exportList.find((e) => e.exportName === exportName)
-    assert(e)
-    return e
-  })
-
-  return exportedFunctions
 }
