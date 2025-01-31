@@ -1,42 +1,19 @@
-import { assert } from './assert'
-
 export { toPosixPath }
 export { assertPosixPath }
-export { toSystemPath }
 
-const sepPosix = '/'
-const sepWin32 = '\\'
+import { assert } from './assert.js'
 
-function toPosixPath(path: string) {
-  if (isPosix()) {
-    assertPosixPath(path)
-    return path
-  }
-  if (isWin32()) {
-    const pathPosix = path.split(sepWin32).join(sepPosix)
-    assertPosixPath(pathPosix)
-    return pathPosix
-  }
-  assert(false)
+function toPosixPath(path: string): string {
+  const pathPosix = path.split('\\').join('/')
+  assertPosixPath(pathPosix)
+  return pathPosix
 }
 
-function assertPosixPath(path: string) {
-  assert(path && !path.includes(sepWin32), `Wrongly formatted path: ${path}`)
-}
-
-function toSystemPath(path: string) {
-  if (isPosix()) {
-    return toPosixPath(path)
-  }
-  if (isWin32()) {
-    return path.split(sepPosix).join(sepWin32)
-  }
-  assert(false)
-}
-
-function isWin32() {
-  return process.platform === 'win32'
-}
-function isPosix() {
-  return !isWin32()
+function assertPosixPath(path: string): void {
+  const errMsg = (msg: string) => `Not a posix path: ${msg}`
+  assert(path !== null, errMsg('null'))
+  assert(typeof path === 'string', errMsg(`typeof path === ${JSON.stringify(typeof path)}`))
+  assert(path !== '', errMsg('(empty string)'))
+  assert(path)
+  assert(!path.includes('\\'), errMsg(path))
 }
