@@ -1,8 +1,8 @@
 export { previewConfig }
 
 import type { Plugin, ResolvedConfig } from 'vite'
-import { determineOutDir } from '../utils'
 import { apply, addTelefuncMiddleware } from '../helpers'
+import { determineOutDir } from '../getOutDirs'
 
 function previewConfig(): Plugin {
   let config: ResolvedConfig

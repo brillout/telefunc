@@ -1,7 +1,6 @@
 export * from '../../utils/assert'
 export * from '../../utils/projectInfo'
 export * from '../../utils/toPosixPath'
-export * from './getOutDirs'
 export * from '../../utils/isScriptFile'
 export * from '../../utils/isObject'
 export * from '../../utils/getGlobalObject'
