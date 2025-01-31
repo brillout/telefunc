@@ -2,7 +2,7 @@ export { transformTelefuncFileServerSide }
 
 import { ExportList, getExportList } from './getExportList'
 import { assertPosixPath } from './utils'
-import { generateShield } from '../server/shield/codegen/generateShield'
+import { generateShield } from './generateShield/generateShield'
 import { getServerConfig } from '../server/serverConfig'
 
 async function transformTelefuncFileServerSide(

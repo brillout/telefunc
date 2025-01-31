@@ -13,8 +13,8 @@ import {
   objectAssign,
   unique,
   assertPosixPath,
-} from '../../../utils'
-import { type ExportList, getExportList } from '../../../transformer/getExportList'
+} from '../../utils'
+import { type ExportList, getExportList } from '../getExportList'
 import fs from 'node:fs'
 import path from 'node:path'
 import pc from '@brillout/picocolors'
@@ -26,7 +26,7 @@ type GeneratedShield = {
   project: Project & { tsConfigFilePath: null | string }
 }
 
-assertModuleScope('codegen/generateShield.ts')
+assertModuleScope('generateShield/generateShield.ts')
 const generatedShields: GeneratedShield[] = []
 let resutlAlreayLogged = false
 const projects: Record<string, Project> = {}
