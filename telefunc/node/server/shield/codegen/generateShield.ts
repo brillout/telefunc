@@ -14,7 +14,7 @@ import {
   unique,
   assertPosixPath,
 } from '../../../utils'
-import { type ExportNames, getExportList } from '../../../transformer/getExportList'
+import { type ExportList, getExportList } from '../../../transformer/getExportList'
 import fs from 'node:fs'
 import path from 'node:path'
 import pc from '@brillout/picocolors'
@@ -35,7 +35,7 @@ function generateShield(
   telefuncFileCode: string,
   telefuncFilePath: string,
   appRootDir: string,
-  exportNames: ExportNames,
+  exportNames: ExportList,
 ): string {
   const { project, telefuncFileSource, shieldGenSource } = getProject(telefuncFilePath, telefuncFileCode, appRootDir)
   // We should preserve prior `telefuncFileCode` transformations
@@ -121,7 +121,7 @@ function generate({
   telefuncFileSource: SourceFile
   shieldGenSource: SourceFile
   telefuncFilePath: string
-  exportNames: ExportNames
+  exportNames: ExportList
 }): string {
   const exportedFunctions = getExportedFunctions(telefuncFileSource, exportNames)
 
@@ -443,7 +443,7 @@ function assertTelefuncFilesSource(
   }
 }
 
-function getExportedFunctions(telefuncFileSource: SourceFile, exportNames: ExportNames) {
+function getExportedFunctions(telefuncFileSource: SourceFile, exportNames: ExportList) {
   const exportNameList: string[] = Array.from(telefuncFileSource.getExportedDeclarations())
     .filter(([_, declarations]) =>
       declarations.some(

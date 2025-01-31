@@ -1,6 +1,6 @@
 export { transformTelefuncFileServerSide }
 
-import { ExportNames, getExportList } from './getExportList'
+import { ExportList, getExportList } from './getExportList'
 import { assertPosixPath } from './utils'
 import { generateShield } from '../server/shield/codegen/generateShield'
 import { getServerConfig } from '../server/serverConfig'
@@ -27,7 +27,7 @@ async function transformTelefuncFileServerSide(
 }
 
 function decorateTelefunctions(
-  exportNames: ExportNames,
+  exportNames: ExportList,
   src: string,
   filePath: string,
   appRootDir: string,

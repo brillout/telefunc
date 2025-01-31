@@ -1,11 +1,11 @@
 export { getExportList }
-export type { ExportNames }
+export type { ExportList }
 
 import { init, parse } from 'es-module-lexer'
 
-type ExportNames = { exportName: string; localName: string | null }[]
+type ExportList = { exportName: string; localName: string | null }[]
 
-async function getExportList(src: string): Promise<ExportNames> {
+async function getExportList(src: string): Promise<ExportList> {
   await init
   const parseResult = parse(src)
   const exports = parseResult[1]
