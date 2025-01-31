@@ -130,10 +130,10 @@ function generate({
 
   // assign the template literal type to a string
   // then diagnostics are used to get the value of the template literal type
-  for (const exportedFunction of exportList) {
+  for (const e of exportList) {
     shieldGenSource.addTypeAlias({
-      name: getShieldName(exportedFunction.exportName),
-      type: `ShieldArrStr<Parameters<typeof ${exportedFunction.exportName}>>`,
+      name: getShieldName(e.exportName),
+      type: `ShieldArrStr<Parameters<typeof ${e.exportName}>>`,
     })
   }
 
