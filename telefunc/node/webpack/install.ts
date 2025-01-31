@@ -1,7 +1,7 @@
 export { install }
 
 import { resolve } from 'node:path'
-import { logResult } from '../server/shield/codegen/generateShield'
+import { logResult } from '../transformer/generateShield/generateShield'
 import { getRoot } from './getInfo'
 import type { Compiler } from './types'
 const dir = __dirname + (() => '')() // trick to avoid `@vercel/ncc` to glob import

@@ -13,8 +13,8 @@ import {
   objectAssign,
   unique,
   assertPosixPath,
-} from '../../../utils'
-import { type ExportList, getExportList } from '../../../transformer/getExportList'
+} from '../../utils'
+import { type ExportList, getExportList } from '../getExportList'
 import fs from 'node:fs'
 import path from 'node:path'
 import pc from '@brillout/picocolors'
@@ -26,7 +26,7 @@ type GeneratedShield = {
   project: Project & { tsConfigFilePath: null | string }
 }
 
-assertModuleScope('codegen/generateShield.ts')
+assertModuleScope('generateShield/generateShield.ts')
 const generatedShields: GeneratedShield[] = []
 let resutlAlreayLogged = false
 const projects: Record<string, Project> = {}
@@ -121,6 +121,8 @@ function generate({
   telefuncFileSource: SourceFile
   shieldGenSource: SourceFile
   telefuncFilePath: string
+  // All exports of `.telefunc.js` files must be functions, thus we generate a shield() for each export.
+  // If an export isn't a function then the error message is a bit ugly: https://github.com/brillout/telefunc/issues/142
   exportList: ExportList
 }): string {
   shieldGenSource.addImportDeclaration({
@@ -128,12 +130,11 @@ function generate({
     namedImports: exportList.map((e) => e.exportName),
   })
 
-  // assign the template literal type to a string
-  // then diagnostics are used to get the value of the template literal type
-  for (const exportedFunction of exportList) {
+  // Assign the template literal type to a string, then diagnostics are used to get the value of the template literal type.
+  for (const e of exportList) {
     shieldGenSource.addTypeAlias({
-      name: getShieldName(exportedFunction.exportName),
-      type: `ShieldArrStr<Parameters<typeof ${exportedFunction.exportName}>>`,
+      name: getShieldName(e.exportName),
+      type: `ShieldArrStr<Parameters<typeof ${e.exportName}>>`,
     })
   }
 
