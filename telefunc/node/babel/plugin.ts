@@ -70,13 +70,13 @@ function BabelPluginTelefunc(babel: { types: typeof BabelTypes }): PluginObj {
         if (!filename.includes('.telefunc.')) return
         if (isFileAlreadyTransformed(path, babel.types)) return
 
-        const exportList = getExportsFromBabelAST(path, babel.types)
+        const exportNames = getExportsFromBabelAST(path, babel.types)
 
         const root: string = context.file.opts.root!
         const transformed: string = transformTelefuncFileClientSideSync(
           toPosixPath(filename),
           toPosixPath(root),
-          exportList,
+          exportNames,
         )
 
         const parsed = parse(transformed, {

@@ -14,7 +14,7 @@ import {
   unique,
   assertPosixPath,
 } from '../../../utils'
-import { type ExportNames, getExportNames } from '../../../transformer/getExportNames'
+import { type ExportList, getExportList } from '../../../transformer/getExportList'
 import fs from 'node:fs'
 import path from 'node:path'
 import pc from '@brillout/picocolors'
@@ -35,7 +35,7 @@ function generateShield(
   telefuncFileCode: string,
   telefuncFilePath: string,
   appRootDir: string,
-  exportNames: ExportNames,
+  exportList: ExportList,
 ): string {
   const { project, telefuncFileSource, shieldGenSource } = getProject(telefuncFilePath, telefuncFileCode, appRootDir)
   // We should preserve prior `telefuncFileCode` transformations
@@ -45,7 +45,7 @@ function generateShield(
     telefuncFileSource,
     shieldGenSource,
     telefuncFilePath,
-    exportNames,
+    exportList,
   })
   return telefuncFileCodeWithShield
 }
@@ -115,15 +115,15 @@ function generate({
   telefuncFileSource,
   shieldGenSource,
   telefuncFilePath,
-  exportNames,
+  exportList,
 }: {
   project: Project & { tsConfigFilePath: null | string }
   telefuncFileSource: SourceFile
   shieldGenSource: SourceFile
   telefuncFilePath: string
-  exportNames: ExportNames
+  exportList: ExportList
 }): string {
-  const exportedFunctions = getExportedFunctions(telefuncFileSource, exportNames)
+  const exportedFunctions = getExportedFunctions(telefuncFileSource, exportList)
 
   shieldGenSource.addImportDeclaration({
     moduleSpecifier: getTelefuncFileImportPath(telefuncFilePath),
@@ -214,14 +214,14 @@ async function testGenerateShield(telefuncFileCode: string): Promise<string> {
     namedImports: ['ShieldArrStr'],
   })
 
-  const exportNames = await getExportNames(telefuncFileCode)
+  const exportList = await getExportList(telefuncFileCode)
 
   return generate({
     project,
     telefuncFileSource,
     shieldGenSource,
     telefuncFilePath,
-    exportNames,
+    exportList,
   })
 }
 
@@ -443,8 +443,8 @@ function assertTelefuncFilesSource(
   }
 }
 
-function getExportedFunctions(telefuncFileSource: SourceFile, exportNames: ExportNames) {
-  const exportNameList: string[] = Array.from(telefuncFileSource.getExportedDeclarations())
+function getExportedFunctions(telefuncFileSource: SourceFile, exportList: ExportList) {
+  const exportNames: string[] = Array.from(telefuncFileSource.getExportedDeclarations())
     .filter(([_, declarations]) =>
       declarations.some(
         (decl) =>
@@ -456,18 +456,18 @@ function getExportedFunctions(telefuncFileSource: SourceFile, exportNames: Expor
     )
     .map(([exportName]) => exportName)
 
-  // Double check regular functions (doesn't catch arrow functions)
+  // Double check for regular functions (the following doesn't catch arrow functions)
   telefuncFileSource
     .getFunctions()
     .filter((f) => f.isExported())
     .flatMap((telefunction) => {
       const name = telefunction.getName()
       if (!name) return
-      assert(exportNameList.includes(name))
+      assert(exportNames.includes(name))
     })
 
-  const exportedFunctions = exportNameList.map((exportName) => {
-    const e = exportNames.find((e) => e.exportName === exportName)
+  const exportedFunctions = exportNames.map((exportName) => {
+    const e = exportList.find((e) => e.exportName === exportName)
     assert(e)
     return e
   })

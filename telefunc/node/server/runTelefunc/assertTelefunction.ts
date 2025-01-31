@@ -1,7 +1,9 @@
+export { assertTelefunction }
+
 import { assertUsage, isCallable } from '../../utils'
 import type { Telefunction } from '../types'
 
-export function assertTelefunction(
+function assertTelefunction(
   exportValue: unknown,
   exportName: string,
   telefuncFilePath: string,
