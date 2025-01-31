@@ -456,7 +456,7 @@ function getExportedFunctions(telefuncFileSource: SourceFile, exportList: Export
     )
     .map(([exportName]) => exportName)
 
-  // Double check regular functions (doesn't catch arrow functions)
+  // Double check for regular functions (the following doesn't catch arrow functions)
   telefuncFileSource
     .getFunctions()
     .filter((f) => f.isExported())
