@@ -35,7 +35,7 @@ function generateShield(
   telefuncFileCode: string,
   telefuncFilePath: string,
   appRootDir: string,
-  exportNames: ExportList,
+  exportList: ExportList,
 ): string {
   const { project, telefuncFileSource, shieldGenSource } = getProject(telefuncFilePath, telefuncFileCode, appRootDir)
   // We should preserve prior `telefuncFileCode` transformations
@@ -45,7 +45,7 @@ function generateShield(
     telefuncFileSource,
     shieldGenSource,
     telefuncFilePath,
-    exportNames,
+    exportList,
   })
   return telefuncFileCodeWithShield
 }
@@ -115,15 +115,15 @@ function generate({
   telefuncFileSource,
   shieldGenSource,
   telefuncFilePath,
-  exportNames,
+  exportList,
 }: {
   project: Project & { tsConfigFilePath: null | string }
   telefuncFileSource: SourceFile
   shieldGenSource: SourceFile
   telefuncFilePath: string
-  exportNames: ExportList
+  exportList: ExportList
 }): string {
-  const exportedFunctions = getExportedFunctions(telefuncFileSource, exportNames)
+  const exportedFunctions = getExportedFunctions(telefuncFileSource, exportList)
 
   shieldGenSource.addImportDeclaration({
     moduleSpecifier: getTelefuncFileImportPath(telefuncFilePath),
@@ -214,14 +214,14 @@ async function testGenerateShield(telefuncFileCode: string): Promise<string> {
     namedImports: ['ShieldArrStr'],
   })
 
-  const exportNames = await getExportList(telefuncFileCode)
+  const exportList = await getExportList(telefuncFileCode)
 
   return generate({
     project,
     telefuncFileSource,
     shieldGenSource,
     telefuncFilePath,
-    exportNames,
+    exportList,
   })
 }
 
@@ -443,7 +443,7 @@ function assertTelefuncFilesSource(
   }
 }
 
-function getExportedFunctions(telefuncFileSource: SourceFile, exportNames: ExportList) {
+function getExportedFunctions(telefuncFileSource: SourceFile, exportList: ExportList) {
   const exportNameList: string[] = Array.from(telefuncFileSource.getExportedDeclarations())
     .filter(([_, declarations]) =>
       declarations.some(
@@ -467,7 +467,7 @@ function getExportedFunctions(telefuncFileSource: SourceFile, exportNames: Expor
     })
 
   const exportedFunctions = exportNameList.map((exportName) => {
-    const e = exportNames.find((e) => e.exportName === exportName)
+    const e = exportList.find((e) => e.exportName === exportName)
     assert(e)
     return e
   })

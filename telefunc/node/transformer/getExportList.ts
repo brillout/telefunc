@@ -9,10 +9,10 @@ async function getExportList(src: string): Promise<ExportList> {
   await init
   const parseResult = parse(src)
   const exports = parseResult[1]
-  const exportNames = exports.map((e) => {
+  const exportList = exports.map((e) => {
     const exportName = e.n
     const localName = e.ln ?? null
     return { exportName, localName }
   })
-  return exportNames
+  return exportList
 }

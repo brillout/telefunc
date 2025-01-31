@@ -3,7 +3,7 @@ export { transformTelefuncFileClientSideSync }
 import { posix } from 'node:path'
 import { assert, assertPosixPath, assertUsage, getTelefunctionKey } from '../utils'
 
-function transformTelefuncFileClientSideSync(id: string, appRootDir: string, exportNames: string[]) {
+function transformTelefuncFileClientSideSync(id: string, appRootDir: string, exportList: string[]) {
   assertPosixPath(id)
   assertPosixPath(appRootDir)
 
@@ -16,18 +16,18 @@ function transformTelefuncFileClientSideSync(id: string, appRootDir: string, exp
   assert(!telefuncFilePath.startsWith('/') && !telefuncFilePath.startsWith('.'))
   telefuncFilePath = `/${telefuncFilePath}`
 
-  const code = getCode(exportNames, telefuncFilePath)
+  const code = getCode(exportList, telefuncFilePath)
   return code
 }
 
-export function getCode(exportNames: readonly string[], telefuncFilePath: string) {
+export function getCode(exportList: readonly string[], telefuncFilePath: string) {
   const lines: string[] = []
 
   lines.push('// @ts-nocheck')
 
   lines.push(`import { __remoteTelefunctionCall } from 'telefunc/client';`)
 
-  exportNames.forEach((exportName) => {
+  exportList.forEach((exportName) => {
     const varName = exportName === 'default' ? 'defaultExport' : exportName
 
     lines.push(
