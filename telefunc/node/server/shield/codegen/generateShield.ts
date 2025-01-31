@@ -14,7 +14,7 @@ import {
   unique,
   assertPosixPath,
 } from '../../../utils'
-import { type ExportNames, getExportNames } from '../../../transformer/getExportNames'
+import { type ExportNames, getExportList } from '../../../transformer/getExportList'
 import fs from 'node:fs'
 import path from 'node:path'
 import pc from '@brillout/picocolors'
@@ -214,7 +214,7 @@ async function testGenerateShield(telefuncFileCode: string): Promise<string> {
     namedImports: ['ShieldArrStr'],
   })
 
-  const exportNames = await getExportNames(telefuncFileCode)
+  const exportNames = await getExportList(telefuncFileCode)
 
   return generate({
     project,

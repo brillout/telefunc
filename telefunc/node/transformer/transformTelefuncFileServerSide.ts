@@ -1,6 +1,6 @@
 export { transformTelefuncFileServerSide }
 
-import { ExportNames, getExportNames } from './getExportNames'
+import { ExportNames, getExportList } from './getExportList'
 import { assertPosixPath } from './utils'
 import { generateShield } from '../server/shield/codegen/generateShield'
 import { getServerConfig } from '../server/serverConfig'
@@ -15,7 +15,7 @@ async function transformTelefuncFileServerSide(
   assertPosixPath(id)
   assertPosixPath(appRootDir)
 
-  const exportNames = await getExportNames(src)
+  const exportNames = await getExportList(src)
   let code = decorateTelefunctions(exportNames, src, id.replace(appRootDir, ''), appRootDir, skipRegistration)
 
   const config = getServerConfig()
