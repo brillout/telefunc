@@ -1,3 +1,12 @@
+## [0.1.84](https://github.com/brillout/telefunc/compare/v0.1.83...v0.1.84) (2025-01-31)
+
+
+### Bug Fixes
+
+* simplify path handling + remove Node.js dependency (fix [#137](https://github.com/brillout/telefunc/issues/137)) ([ddb5796](https://github.com/brillout/telefunc/commit/ddb5796eda7e6824ec1d9bce5bdf4b0bcbb39d57))
+
+
+
 ## [0.1.83](https://github.com/brillout/telefunc/compare/v0.1.82...v0.1.83) (2025-01-09)
 
 
