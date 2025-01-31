@@ -1,4 +1,6 @@
-export const hello = async ({ name }: { name: string }) => {
+export { someFunc as hello }
+
+const someFunc = async ({ name }: { name: string }) => {
   const message = 'Welcome ' + name
   return { message }
 }

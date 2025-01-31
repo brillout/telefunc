@@ -1,6 +1,6 @@
 export { transformTelefuncFileServerSide }
 
-import { getExportNames } from './getExportNames'
+import { ExportNames, getExportNames } from './getExportNames'
 import { assertPosixPath } from './utils'
 import { generateShield } from '../server/shield/codegen/generateShield'
 import { getServerConfig } from '../server/serverConfig'
@@ -20,14 +20,14 @@ async function transformTelefuncFileServerSide(
 
   const config = getServerConfig()
   if (id.endsWith('.ts') && (!isDev || config.shield.dev)) {
-    code = generateShield(code, id, appRootDir)
+    code = generateShield(code, id, appRootDir, exportNames)
   }
 
   return code
 }
 
 function decorateTelefunctions(
-  exportNames: string[],
+  exportNames: ExportNames,
   src: string,
   filePath: string,
   appRootDir: string,
@@ -42,8 +42,8 @@ function decorateTelefunctions(
     '\n\n',
     exportNames
       .map(
-        (exportName) =>
-          `__decorateTelefunction(${exportName}, "${exportName}", "${filePath}", "${appRootDir}", ${String(
+        ({ exportName, localName }) =>
+          `__decorateTelefunction(${localName || exportName}, "${exportName}", "${filePath}", "${appRootDir}", ${String(
             skipRegistration,
           )});`,
       )
