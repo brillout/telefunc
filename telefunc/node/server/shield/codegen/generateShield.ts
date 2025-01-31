@@ -128,8 +128,7 @@ function generate({
     namedImports: exportList.map((e) => e.exportName),
   })
 
-  // assign the template literal type to a string
-  // then diagnostics are used to get the value of the template literal type
+  // Assign the template literal type to a string, then diagnostics are used to get the value of the template literal type.
   for (const e of exportList) {
     shieldGenSource.addTypeAlias({
       name: getShieldName(e.exportName),
