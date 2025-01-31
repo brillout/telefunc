@@ -1,5 +1,6 @@
 export * from '../../utils/assert'
 export * from '../../utils/projectInfo'
+export * from '../../utils/path-shim'
 export * from '../../utils/toPosixPath'
 export * from '../../utils/isScriptFile'
 export * from '../../utils/isObject'
