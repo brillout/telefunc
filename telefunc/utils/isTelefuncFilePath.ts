@@ -1,6 +1,6 @@
 export { isTelefuncFilePath }
 
-import { assertPosixPath } from './filesystemPathHandling'
+import { assertPosixPath } from './toPosixPath'
 
 function isTelefuncFilePath(filePath: string): boolean {
   assertPosixPath(filePath)
