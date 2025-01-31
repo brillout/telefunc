@@ -121,6 +121,8 @@ function generate({
   telefuncFileSource: SourceFile
   shieldGenSource: SourceFile
   telefuncFilePath: string
+  // All exports of `.telefunc.js` files must be functions, thus we generate a shield() for each export.
+  // If an export isn't a function then the error message is a bit ugly: https://github.com/brillout/telefunc/issues/142
   exportList: ExportList
 }): string {
   shieldGenSource.addImportDeclaration({
