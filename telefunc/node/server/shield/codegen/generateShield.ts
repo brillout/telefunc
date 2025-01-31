@@ -444,7 +444,7 @@ function assertTelefuncFilesSource(
 }
 
 function getExportedFunctions(telefuncFileSource: SourceFile, exportList: ExportList) {
-  const exportNameList: string[] = Array.from(telefuncFileSource.getExportedDeclarations())
+  const exportNames: string[] = Array.from(telefuncFileSource.getExportedDeclarations())
     .filter(([_, declarations]) =>
       declarations.some(
         (decl) =>
@@ -463,10 +463,10 @@ function getExportedFunctions(telefuncFileSource: SourceFile, exportList: Export
     .flatMap((telefunction) => {
       const name = telefunction.getName()
       if (!name) return
-      assert(exportNameList.includes(name))
+      assert(exportNames.includes(name))
     })
 
-  const exportedFunctions = exportNameList.map((exportName) => {
+  const exportedFunctions = exportNames.map((exportName) => {
     const e = exportList.find((e) => e.exportName === exportName)
     assert(e)
     return e
