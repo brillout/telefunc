@@ -18,7 +18,6 @@ import { type ExportList, getExportList } from '../../../transformer/getExportLi
 import fs from 'node:fs'
 import path from 'node:path'
 import pc from '@brillout/picocolors'
-import { getAssertTelefunctionErrMsg } from '../../runTelefunc/assertTelefunction'
 
 type GeneratedShield = {
   telefuncFilePath: string
@@ -124,7 +123,7 @@ function generate({
   telefuncFilePath: string
   exportList: ExportList
 }): string {
-  const exportedFunctions = getExportedFunctions(telefuncFileSource, exportList, telefuncFilePath)
+  const exportedFunctions = getExportedFunctions(telefuncFileSource, exportList)
 
   shieldGenSource.addImportDeclaration({
     moduleSpecifier: getTelefuncFileImportPath(telefuncFilePath),
@@ -444,7 +443,7 @@ function assertTelefuncFilesSource(
   }
 }
 
-function getExportedFunctions(telefuncFileSource: SourceFile, exportList: ExportList, telefuncFilePath: string) {
+function getExportedFunctions(telefuncFileSource: SourceFile, exportList: ExportList) {
   const exportNames: string[] = Array.from(telefuncFileSource.getExportedDeclarations())
     .filter(([_, declarations]) =>
       declarations.some(
@@ -471,10 +470,6 @@ function getExportedFunctions(telefuncFileSource: SourceFile, exportList: Export
     const e = exportList.find((e) => e.exportName === exportName)
     assert(e)
     return e
-  })
-
-  exportList.forEach((e) => {
-    assertUsage(exportNames.includes(e.exportName), getAssertTelefunctionErrMsg(e.exportName, telefuncFilePath))
   })
 
   return exportedFunctions
