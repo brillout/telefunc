@@ -35,11 +35,11 @@ async function loadGlobImporter(failOnFailure?: true) {
     let moduleExports: unknown
     moduleExports = await loadTelefuncFilesWithImportBuild()
     if (moduleExports === null) {
-      const tolerateNotFound = !failOnFailure
-      const success = await importServerProductionEntry({ tolerateNotFound })
+      const tolerateDoesNotExist = !failOnFailure
+      const success = await importServerProductionEntry({ tolerateDoesNotExist })
       moduleExports = await loadTelefuncFilesWithImportBuild()
       if (success === false) {
-        assert(tolerateNotFound)
+        assert(tolerateDoesNotExist)
         assert(!moduleExports)
         return null
       }
