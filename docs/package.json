@@ -6,13 +6,13 @@
     "typecheck": "tsc --noEmit --watch"
   },
   "dependencies": {
-    "@brillout/docpress": "^0.10.18",
+    "@brillout/docpress": "^0.11.1",
     "@types/react": "^19.0.2",
     "@types/react-dom": "^19.0.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "typescript": "^5.7.2",
-    "vike": "^0.4.213"
+    "vike": "^0.4.222"
   },
   "type": "module"
 }
