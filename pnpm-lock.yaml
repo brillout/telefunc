@@ -36,8 +36,8 @@ importers:
   docs:
     dependencies:
       '@brillout/docpress':
-        specifier: ^0.10.18
-        version: 0.10.18(@algolia/client-search@4.24.0)(@types/react@19.0.2)(@vitejs/plugin-react-swc@3.7.2(vite@6.0.6(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0)))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(rollup@4.28.0)(search-insights@2.17.2)(typescript@5.7.2)(vike@0.4.213(react-streaming@0.3.46(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.0.6(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0)))(vite@6.0.6(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0))
+        specifier: ^0.11.0
+        version: 0.11.0(@algolia/client-search@4.24.0)(@types/react@19.0.2)(@vitejs/plugin-react-swc@3.7.2(vite@6.0.6(@types/node@22.10.2)(terser@5.10.0)))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(rollup@4.28.0)(search-insights@2.17.2)(typescript@5.7.2)(vike@0.4.222(react-streaming@0.3.46(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.0.6(@types/node@22.10.2)(terser@5.10.0)))(vite@6.0.6(@types/node@22.10.2)(terser@5.10.0))
       '@types/react':
         specifier: ^19.0.2
         version: 19.0.2
@@ -54,8 +54,8 @@ importers:
         specifier: ^5.7.2
         version: 5.7.2
       vike:
-        specifier: ^0.4.213
-        version: 0.4.213(react-streaming@0.3.46(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.0.6(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0))
+        specifier: ^0.4.222
+        version: 0.4.222(react-streaming@0.3.46(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.0.6(@types/node@22.10.2)(terser@5.10.0))
 
   examples/authentication:
     dependencies:
@@ -1890,14 +1890,14 @@ packages:
     resolution: {integrity: sha512-cvSrvCxnZYzQmiOj0nwIuf298DvaM/2eAAOsBSbBpsdOEpYsnbQGvFxew9oSXEi3HH1TZMmLy8VyvyJJ+LsmCw==}
     hasBin: true
 
-  '@brillout/docpress@0.10.18':
-    resolution: {integrity: sha512-yRjwB5+IneDt6Upq7dVccHkMYV0TrqohtytMXDqRBNIGeq4UjSNup7Z5kk+CqW4NnR11zn8D8cGQpkULI2UDPg==}
+  '@brillout/docpress@0.11.0':
+    resolution: {integrity: sha512-ZMDVvUWdB66FeGFVRTphSlbDX82wr30LixI1f19XJU9pDtWgwlUtoF+oAeDNY+Li81nNNcIERseaeMTM6LVHMA==}
     peerDependencies:
       '@vitejs/plugin-react-swc': '>=3.0.0'
       react: '>=18.0.0'
       react-dom: '>=18.0.0'
       typescript: '>=5.0.0'
-      vike: '>=0.4.213'
+      vike: '>=0.4.222'
       vite: '>=5.2.0'
     peerDependenciesMeta:
       '@vitejs/plugin-react-swc':
@@ -1957,9 +1957,6 @@ packages:
 
   '@brillout/vite-plugin-server-entry@0.5.1':
     resolution: {integrity: sha512-ZoXt8D/Z1E6e8ylKm5z8VzuxtIqPfLoWvsKkeK08LIpfCnRMxRJQLBZ1i3s9gGxE5+PvzY2dU5pBr7dL9aM8bg==}
-
-  '@brillout/vite-plugin-server-entry@0.5.6':
-    resolution: {integrity: sha512-lxgvTQhQBucZehhkvq9x2C7IUfrkAhp+YkW8S0MVR5EYkf6EWBg+bYZWB0//mDfbmUcc8aAEe3uRto7pOg35Ig==}
 
   '@brillout/vite-plugin-server-entry@0.6.0':
     resolution: {integrity: sha512-ELqCpB3l4dCZviobZKcHcNvuSPG86ZfBAHUYQWnf3K28PToBrXEagwPBEU/63ITcdpK9m7DOamQPcShtitTx5g==}
@@ -10612,8 +10609,8 @@ packages:
       react-streaming:
         optional: true
 
-  vike@0.4.213:
-    resolution: {integrity: sha512-FRpDUIFrPZTwfJK3nMmL044XFOHxDc10BKQbgQnQZbvs+CM5FUbtM74oM6MA6FnOHLcTZxpoBAFhMq2hU1AAIQ==}
+  vike@0.4.222:
+    resolution: {integrity: sha512-SeUvh/hDMUW0T0kAJIPmqfW3ijJwMa4KPJhB5sInOq5QjZQI4y0D67kYGm8kUE349NPsfw4hD7kV9TyYz7TT7w==}
     engines: {node: '>=18.0.0'}
     hasBin: true
     peerDependencies:
@@ -10621,6 +10618,8 @@ packages:
       vite: '>=5.1.0'
     peerDependenciesMeta:
       react-streaming:
+        optional: true
+      vite:
         optional: true
 
   vite-node@0.32.2:
@@ -13085,7 +13084,7 @@ snapshots:
 
   '@brillout/dev-my-dep@0.0.10': {}
 
-  '@brillout/docpress@0.10.18(@algolia/client-search@4.24.0)(@types/react@19.0.2)(@vitejs/plugin-react-swc@3.7.2(vite@6.0.6(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0)))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(rollup@4.28.0)(search-insights@2.17.2)(typescript@5.7.2)(vike@0.4.213(react-streaming@0.3.46(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.0.6(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0)))(vite@6.0.6(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0))':
+  '@brillout/docpress@0.11.0(@algolia/client-search@4.24.0)(@types/react@19.0.2)(@vitejs/plugin-react-swc@3.7.2(vite@6.0.6(@types/node@22.10.2)(terser@5.10.0)))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(rollup@4.28.0)(search-insights@2.17.2)(typescript@5.7.2)(vike@0.4.222(react-streaming@0.3.46(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.0.6(@types/node@22.10.2)(terser@5.10.0)))(vite@6.0.6(@types/node@22.10.2)(terser@5.10.0))':
     dependencies:
       '@brillout/picocolors': 1.0.15
       '@docsearch/css': 3.6.1
@@ -13100,10 +13099,10 @@ snapshots:
       remark-gfm: 4.0.0
       shiki: 1.2.0
       typescript: 5.7.2
-      vike: 0.4.213(react-streaming@0.3.46(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.0.6(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0))
+      vike: 0.4.222(react-streaming@0.3.46(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.0.6(@types/node@22.10.2)(terser@5.10.0))
     optionalDependencies:
-      '@vitejs/plugin-react-swc': 3.7.2(vite@6.0.6(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0))
-      vite: 6.0.6(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0)
+      '@vitejs/plugin-react-swc': 3.7.2(vite@6.0.6(@types/node@22.10.2)(terser@5.10.0))
+      vite: 6.0.6(@types/node@22.10.2)(terser@5.10.0)
     transitivePeerDependencies:
       - '@algolia/client-search'
       - '@types/react'
@@ -13176,11 +13175,6 @@ snapshots:
   '@brillout/vite-plugin-server-entry@0.5.1':
     dependencies:
       '@brillout/import': 0.2.3
-
-  '@brillout/vite-plugin-server-entry@0.5.6':
-    dependencies:
-      '@brillout/import': 0.2.3
-      '@brillout/picocolors': 1.0.15
 
   '@brillout/vite-plugin-server-entry@0.6.0':
     dependencies:
@@ -15339,10 +15333,10 @@ snapshots:
       - encoding
       - supports-color
 
-  '@vitejs/plugin-react-swc@3.7.2(vite@6.0.6(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0))':
+  '@vitejs/plugin-react-swc@3.7.2(vite@6.0.6(@types/node@22.10.2)(terser@5.10.0))':
     dependencies:
       '@swc/core': 1.10.2
-      vite: 6.0.6(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0)
+      vite: 6.0.6(@types/node@22.10.2)(terser@5.10.0)
     transitivePeerDependencies:
       - '@swc/helpers'
     optional: true
@@ -17637,7 +17631,7 @@ snapshots:
       eslint: 8.47.0
       eslint-import-resolver-node: 0.3.9
       eslint-import-resolver-typescript: 3.5.3(eslint-plugin-import@2.29.0(eslint@8.47.0))(eslint@8.47.0)
-      eslint-plugin-import: 2.29.0(@typescript-eslint/parser@5.51.0(eslint@8.47.0)(typescript@5.1.6))(eslint-import-resolver-typescript@3.5.3(eslint-plugin-import@2.29.0(eslint@8.47.0))(eslint@8.47.0))(eslint@8.47.0)
+      eslint-plugin-import: 2.29.0(@typescript-eslint/parser@5.51.0(eslint@8.47.0)(typescript@5.1.6))(eslint-import-resolver-typescript@3.5.3)(eslint@8.47.0)
       eslint-plugin-jsx-a11y: 6.8.0(eslint@8.47.0)
       eslint-plugin-react: 7.33.2(eslint@8.47.0)
       eslint-plugin-react-hooks: 4.6.0(eslint@8.47.0)
@@ -17660,7 +17654,7 @@ snapshots:
       debug: 4.3.4
       enhanced-resolve: 5.12.0
       eslint: 8.47.0
-      eslint-plugin-import: 2.29.0(@typescript-eslint/parser@5.51.0(eslint@8.47.0)(typescript@5.1.6))(eslint-import-resolver-typescript@3.5.3(eslint-plugin-import@2.29.0(eslint@8.47.0))(eslint@8.47.0))(eslint@8.47.0)
+      eslint-plugin-import: 2.29.0(@typescript-eslint/parser@5.51.0(eslint@8.47.0)(typescript@5.1.6))(eslint-import-resolver-typescript@3.5.3)(eslint@8.47.0)
       get-tsconfig: 4.4.0
       globby: 13.1.3
       is-core-module: 2.13.1
@@ -17680,7 +17674,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-import@2.29.0(@typescript-eslint/parser@5.51.0(eslint@8.47.0)(typescript@5.1.6))(eslint-import-resolver-typescript@3.5.3(eslint-plugin-import@2.29.0(eslint@8.47.0))(eslint@8.47.0))(eslint@8.47.0):
+  eslint-plugin-import@2.29.0(@typescript-eslint/parser@5.51.0(eslint@8.47.0)(typescript@5.1.6))(eslint-import-resolver-typescript@3.5.3)(eslint@8.47.0):
     dependencies:
       array-includes: 3.1.7
       array.prototype.findlastindex: 1.2.3
@@ -23341,24 +23335,24 @@ snapshots:
     optionalDependencies:
       react-streaming: 0.3.46(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
-  vike@0.4.213(react-streaming@0.3.46(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.0.6(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0)):
+  vike@0.4.222(react-streaming@0.3.46(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.0.6(@types/node@22.10.2)(terser@5.10.0)):
     dependencies:
       '@brillout/import': 0.2.3
       '@brillout/json-serializer': 0.5.15
       '@brillout/picocolors': 1.0.15
       '@brillout/require-shim': 0.1.2
-      '@brillout/vite-plugin-server-entry': 0.5.6
+      '@brillout/vite-plugin-server-entry': 0.6.0
       acorn: 8.11.2
       cac: 6.7.14
-      es-module-lexer: 1.4.1
+      es-module-lexer: 1.6.0
       esbuild: 0.24.2
       fast-glob: 3.2.12
       json5: 2.2.3
       semver: 7.6.0
       source-map-support: 0.5.21
-      vite: 6.0.6(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0)
     optionalDependencies:
       react-streaming: 0.3.46(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+      vite: 6.0.6(@types/node@22.10.2)(terser@5.10.0)
 
   vite-node@0.32.2(@types/node@22.10.2)(terser@5.10.0):
     dependencies:
@@ -23419,7 +23413,7 @@ snapshots:
       jiti: 1.21.0
       terser: 5.10.0(acorn@8.11.2)
 
-  vite@6.0.6(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0):
+  vite@6.0.6(@types/node@22.10.2)(terser@5.10.0):
     dependencies:
       esbuild: 0.24.2
       postcss: 8.4.49
@@ -23427,8 +23421,8 @@ snapshots:
     optionalDependencies:
       '@types/node': 22.10.2
       fsevents: 2.3.3
-      jiti: 1.21.0
       terser: 5.10.0(acorn@8.11.2)
+    optional: true
 
   vitefu@0.2.4(vite@4.2.1(@types/node@22.10.2)(terser@5.10.0)):
     optionalDependencies:
