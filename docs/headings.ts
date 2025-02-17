@@ -128,6 +128,7 @@ const headings: HeadingDefinition[] = [
   {
     level: 1,
     title: 'API',
+    titleIcon: iconGear,
     color: '#80c1db',
     menuModalFullWidth: true,
   },
