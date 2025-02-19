@@ -13,7 +13,7 @@
     "release:commit": "release-me commit"
   },
   "dependencies": {
-    "@brillout/import": "^0.2.3",
+    "@brillout/import": "^0.2.6",
     "@brillout/json-serializer": "^0.5.6",
     "@brillout/picocolors": "^1.0.15",
     "@brillout/vite-plugin-server-entry": "^0.6.0",
