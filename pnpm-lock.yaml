@@ -355,8 +355,8 @@ importers:
         specifier: ^0.5.6
         version: 0.5.6
       '@brillout/picocolors':
-        specifier: ^1.0.15
-        version: 1.0.15
+        specifier: ^1.0.26
+        version: 1.0.26
       '@brillout/vite-plugin-server-entry':
         specifier: ^0.6.0
         version: 0.6.0
@@ -1934,6 +1934,9 @@ packages:
 
   '@brillout/picocolors@1.0.15':
     resolution: {integrity: sha512-VrgvPtfnKP/i8kxCAyQVd0DWg6xU8OZJndbLf/lrywd96UdMhnGL/PK42HhHhhwkDSkaiQU+zc+OPWpvqOe4Cg==}
+
+  '@brillout/picocolors@1.0.26':
+    resolution: {integrity: sha512-oJF92OEpzunaJyaEWXuS4PWY0k8JsqNO18kMf5hIwvsh+tyhbv+UwAnPPauSlO2eyvMSciui+YFKV9DEzTpmGA==}
 
   '@brillout/proto-db@0.1.1':
     resolution: {integrity: sha512-vRIB+f19NH3gEyiIBM/GxZvK6AgS2I+DNvCt9abYKJmMmTHIxXaou5grtj6u3i7FsZnD1wSmWWiuaV/3VpLJTQ==}
@@ -13136,13 +13139,15 @@ snapshots:
 
   '@brillout/picocolors@1.0.15': {}
 
+  '@brillout/picocolors@1.0.26': {}
+
   '@brillout/proto-db@0.1.1':
     dependencies:
       '@brillout/assert': 0.1.7
 
   '@brillout/release-me@0.4.0':
     dependencies:
-      '@brillout/picocolors': 1.0.15
+      '@brillout/picocolors': 1.0.26
       commander: 11.1.0
       conventional-changelog: 5.1.0
       execa: 5.1.1
@@ -13153,7 +13158,7 @@ snapshots:
   '@brillout/test-e2e@0.5.36(encoding@0.1.13)':
     dependencies:
       '@brillout/part-regex': 0.1.4
-      '@brillout/picocolors': 1.0.15
+      '@brillout/picocolors': 1.0.26
       chai: 4.3.7
       esbuild: 0.23.1
       fast-glob: 3.2.12
@@ -13168,7 +13173,7 @@ snapshots:
 
   '@brillout/test-types@0.1.13(typescript@5.7.2)':
     dependencies:
-      '@brillout/picocolors': 1.0.15
+      '@brillout/picocolors': 1.0.26
       fast-glob: 3.2.12
       source-map-support: 0.5.21
       typescript: 5.7.2
@@ -13184,7 +13189,7 @@ snapshots:
   '@brillout/vite-plugin-server-entry@0.6.0':
     dependencies:
       '@brillout/import': 0.2.6
-      '@brillout/picocolors': 1.0.15
+      '@brillout/picocolors': 1.0.26
 
   '@cloudflare/kv-asset-handler@0.2.0':
     dependencies:
