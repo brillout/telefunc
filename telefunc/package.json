@@ -115,11 +115,11 @@
     "vite": "^3.2.2"
   },
   "peerDependencies": {
-    "@babel/core": "^7.0.0",
-    "@babel/parser": "^7.0.0",
-    "@babel/types": "^7.0.0",
-    "react": "^18.0.0",
-    "react-streaming": "^0.3.3"
+    "@babel/core": ">=7.0.0",
+    "@babel/parser": ">=7.0.0",
+    "@babel/types": ">=7.0.0",
+    "react": ">=18.0.0",
+    "react-streaming": ">=0.3.3"
   },
   "peerDependenciesMeta": {
     "@babel/core": {
