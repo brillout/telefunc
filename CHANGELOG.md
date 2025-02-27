@@ -1,3 +1,16 @@
+## [0.1.86](https://github.com/brillout/telefunc/compare/v0.1.85...v0.1.86) (2025-02-27)
+
+
+### Bug Fixes
+
+* optimistic peer dep semver (fix [#147](https://github.com/brillout/telefunc/issues/147)) ([38080ee](https://github.com/brillout/telefunc/commit/38080ee3c1f2f15964f2f1547f431436fa386411))
+* update @brillout/import ([078bd1e](https://github.com/brillout/telefunc/commit/078bd1e42df3debc6c75d423bf2de967dd08ee55))
+* update @brillout/picocolors ([0d71799](https://github.com/brillout/telefunc/commit/0d71799d862ca57cfbcd23a8bc05250b5745a8b7))
+* update @brillout/vite-plugin-server-entry ([ba1891f](https://github.com/brillout/telefunc/commit/ba1891f9e632c3205e0be561ab5590fa8648b79e))
+* update @brillout/vite-plugin-server-entry ([8cd2203](https://github.com/brillout/telefunc/commit/8cd22033ba5558be82d2c547755e3ce9c3bcaad3))
+
+
+
 ## [0.1.85](https://github.com/brillout/telefunc/compare/v0.1.84...v0.1.85) (2025-01-31)
 
 
