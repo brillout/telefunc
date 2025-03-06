@@ -28,12 +28,14 @@ type ConfigUser = {
   }
   log?: {
     /** Whether to log shield errors */
-    shieldErrors?: boolean | {
-      /** Whether to log shield errors in production */
-      prod?: boolean,
-      /** Whether to log shield errors in development */
-      dev?: boolean
-    }
+    shieldErrors?:
+      | boolean
+      | {
+          /** Whether to log shield errors in production */
+          prod?: boolean
+          /** Whether to log shield errors in development */
+          dev?: boolean
+        }
   }
 }
 type ConfigResolved = {
@@ -44,7 +46,7 @@ type ConfigResolved = {
   disableNamingConvention: boolean
   shield: { dev: boolean }
   log: {
-    shieldErrors: boolean | { dev: boolean, prod: boolean }
+    shieldErrors: boolean | { dev: boolean; prod: boolean }
   }
 }
 
@@ -54,16 +56,14 @@ function getServerConfig(): ConfigResolved {
   return {
     disableEtag: configUser.disableEtag ?? false,
     disableNamingConvention: configUser.disableNamingConvention ?? false,
-    shield: {
-      dev: configUser.shield?.dev ?? false,
-    },
+    shield: { dev: configUser.shield?.dev ?? false },
     log: {
       shieldErrors: (() => {
         const shieldErrors = configUser.log?.shieldErrors ?? {}
         if (typeof shieldErrors === 'boolean') return shieldErrors
         return {
           dev: shieldErrors.dev ?? true,
-          prod: shieldErrors.prod ?? false
+          prod: shieldErrors.prod ?? false,
         }
       })(),
     },
@@ -127,19 +127,19 @@ function validateUserConfig(configUserUnwrapped: ConfigUser, prop: string, val: 
         if ('dev' in shieldErrors) {
           assertUsage(
             typeof (shieldErrors as { dev: unknown }).dev === 'boolean',
-            'config.log.shieldErrors.dev should be a boolean'
+            'config.log.shieldErrors.dev should be a boolean',
           )
         }
         if ('prod' in shieldErrors) {
           assertUsage(
             typeof (shieldErrors as { prod: unknown }).prod === 'boolean',
-            'config.log.shieldErrors.prod should be a boolean'
+            'config.log.shieldErrors.prod should be a boolean',
           )
         }
       } else {
         assertUsage(
           false,
-          'config.log.shieldErrors should be either a boolean or an object with dev and prod boolean properties'
+          'config.log.shieldErrors should be either a boolean or an object with dev and prod boolean properties',
         )
       }
     }

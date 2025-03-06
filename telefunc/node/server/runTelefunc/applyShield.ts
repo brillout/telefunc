@@ -11,7 +11,7 @@ function applyShield(runContext: {
   telefunctionArgs: unknown[]
   serverConfig: {
     log: {
-      shieldErrors: boolean | { prod?: boolean, dev?: boolean }
+      shieldErrors: boolean | { prod?: boolean; dev?: boolean }
     }
   }
 }): { isValidRequest: boolean } {
@@ -34,13 +34,11 @@ function applyShield(runContext: {
     return { isValidRequest: true }
   }
 
-  let logShieldErrors = runContext.serverConfig.log?.shieldErrors;
+  let logShieldErrors = runContext.serverConfig.log?.shieldErrors
   if (
     logShieldErrors === true ||
-    (typeof logShieldErrors === 'object' && (
-      (logShieldErrors?.dev && !isProduction()) ||
-      (logShieldErrors?.prod && isProduction())
-    ))
+    (typeof logShieldErrors === 'object' &&
+      ((logShieldErrors?.dev && !isProduction()) || (logShieldErrors?.prod && isProduction())))
   ) {
     const err = new Error(
       [
