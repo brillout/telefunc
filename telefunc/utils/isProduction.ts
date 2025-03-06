@@ -8,10 +8,25 @@ function isProduction(): boolean {
   // We consider production if `val` is 'production', 'staging', 'test', etc.
   return true
 }
+
+// Caching calls to process.env because it's expensive
+let nodeEnv: undefined | { value: ReturnType<typeof getNodeEnv> }
 function getNodeEnv(): null | undefined | string {
-  if (isNotNode()) return null
-  return process.env.NODE_ENV
+  if (!nodeEnv) {
+    if (isNotNode()) {
+      nodeEnv = { value: null }
+    } else {
+      nodeEnv = { value: process.env.NODE_ENV }
+    }
+  }
+  return nodeEnv.value
 }
-function isNotNode() {
-  return typeof process == 'undefined' || !('env' in process)
+let isNotNode_: undefined | { value: ReturnType<typeof isNotNode> }
+function isNotNode(): boolean {
+  if (!isNotNode_) {
+    isNotNode_ = {
+      value: typeof process == 'undefined' || !('env' in process),
+    }
+  }
+  return isNotNode_.value
 }

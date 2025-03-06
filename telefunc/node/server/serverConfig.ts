@@ -1,8 +1,9 @@
 export { configUser as config }
 export { getServerConfig }
 export type { ConfigUser }
+export type { ConfigResolved }
 
-import { assertUsage, hasProp, toPosixPath, isTelefuncFilePath, pathIsAbsolute } from '../utils'
+import { assertUsage, hasProp, toPosixPath, isTelefuncFilePath, pathIsAbsolute, isObject } from '../utils'
 
 /** Telefunc Server Configuration */
 type ConfigUser = {
@@ -26,6 +27,17 @@ type ConfigUser = {
     /** Whether to generate shield during development */
     dev?: boolean
   }
+  log?: {
+    /** Whether to log shield errors */
+    shieldErrors?:
+      | boolean
+      | {
+          /** Whether to log shield errors in production */
+          prod?: boolean
+          /** Whether to log shield errors in development */
+          dev?: boolean
+        }
+  }
 }
 type ConfigResolved = {
   telefuncUrl: string
@@ -34,6 +46,9 @@ type ConfigResolved = {
   telefuncFiles: string[] | null
   disableNamingConvention: boolean
   shield: { dev: boolean }
+  log: {
+    shieldErrors: { dev: boolean; prod: boolean }
+  }
 }
 
 const configUser: ConfigUser = new Proxy({}, { set: validateUserConfig })
@@ -43,6 +58,16 @@ function getServerConfig(): ConfigResolved {
     disableEtag: configUser.disableEtag ?? false,
     disableNamingConvention: configUser.disableNamingConvention ?? false,
     shield: { dev: configUser.shield?.dev ?? false },
+    log: {
+      shieldErrors: (() => {
+        const shieldErrors = configUser.log?.shieldErrors ?? {}
+        if (typeof shieldErrors === 'boolean') return { dev: true, prod: true }
+        return {
+          dev: shieldErrors.dev ?? true,
+          prod: shieldErrors.prod ?? false,
+        }
+      })(),
+    },
     telefuncUrl: configUser.telefuncUrl || '/_telefunc',
     telefuncFiles: (() => {
       if (configUser.telefuncFiles) {
@@ -91,6 +116,33 @@ function validateUserConfig(configUserUnwrapped: ConfigUser, prop: string, val: 
     assertUsage(typeof val === 'object' && val !== null, 'config.shield should be a object')
     if ('dev' in val) {
       assertUsage(typeof (val as { dev: unknown }).dev === 'boolean', 'config.shield.dev should be a boolean')
+    }
+    configUserUnwrapped[prop] = val
+  } else if (prop === 'log') {
+    assertUsage(typeof val === 'object' && val !== null, 'config.log should be an object')
+    if ('shieldErrors' in val) {
+      const shieldErrors = (val as { shieldErrors: unknown }).shieldErrors
+      if (typeof shieldErrors === 'boolean') {
+        // Boolean is valid
+      } else if (isObject(shieldErrors)) {
+        if ('dev' in shieldErrors) {
+          assertUsage(
+            typeof (shieldErrors as { dev: unknown }).dev === 'boolean',
+            'config.log.shieldErrors.dev should be a boolean',
+          )
+        }
+        if ('prod' in shieldErrors) {
+          assertUsage(
+            typeof (shieldErrors as { prod: unknown }).prod === 'boolean',
+            'config.log.shieldErrors.prod should be a boolean',
+          )
+        }
+      } else {
+        assertUsage(
+          false,
+          'config.log.shieldErrors should be either a boolean or an object with dev and prod boolean properties',
+        )
+      }
     }
     configUserUnwrapped[prop] = val
   } else {

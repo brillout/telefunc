@@ -1,0 +1,19 @@
+import { Link, Warning } from '@brillout/docpress'
+import { ConfigWhereServer } from '../../components'
+
+**Environment**: server.  
+**Default**: `{ shieldErrors: { dev: true, prod: false } }`.
+
+Whether to log shield errors.
+
+```js
+// Environment: server
+
+import { config } from 'telefunc'
+
+config.log.shieldErrors = true
+// Or
+config.log.shieldErrors = { dev: true, prod: true }
+```
+
+<ConfigWhereServer />

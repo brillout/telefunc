@@ -214,6 +214,11 @@ const headings: HeadingDefinition[] = [
     url: '/shield-config',
   },
   {
+    level: 2,
+    title: '`log`',
+    url: '/log',
+  },
+  {
     level: 4,
     title: 'Plugins',
   },
