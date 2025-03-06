@@ -1,3 +1,12 @@
+## [0.1.87](https://github.com/brillout/telefunc/compare/v0.1.86...v0.1.87) (2025-03-06)
+
+
+### Features
+
+* [`config.log.shieldErrors`](http://telefunc.com/log) (closes [#149](https://github.com/brillout/telefunc/issues/149)) ([#150](https://github.com/brillout/telefunc/issues/150)) ([f7ef230](https://github.com/brillout/telefunc/commit/f7ef2306f78ab555c0c3e72afa32ee7068c9a1cf))
+
+
+
 ## [0.1.86](https://github.com/brillout/telefunc/compare/v0.1.85...v0.1.86) (2025-02-27)
 
 
