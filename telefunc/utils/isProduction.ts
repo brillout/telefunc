@@ -10,9 +10,9 @@ function isProduction(): boolean {
 }
 
 // Caching calls to process.env because it's expensive
-let nodeEnv: undefined | { value: null | undefined | string }
+let nodeEnv: undefined | { value: ReturnType<typeof getNodeEnv> }
 function getNodeEnv(): null | undefined | string {
-  if (nodeEnv === undefined) {
+  if (!nodeEnv) {
     if (isNotNode()) {
       nodeEnv = { value: null }
     } else {
@@ -21,10 +21,12 @@ function getNodeEnv(): null | undefined | string {
   }
   return nodeEnv.value
 }
-let isNotNode_: undefined | boolean
+let isNotNode_: undefined | { value: ReturnType<typeof isNotNode> }
 function isNotNode(): boolean {
-  if (isNotNode_ === undefined) {
-    isNotNode_ = typeof process == 'undefined' || !('env' in process)
+  if (!isNotNode_) {
+    isNotNode_ = {
+      value: typeof process == 'undefined' || !('env' in process),
+    }
   }
-  return isNotNode_
+  return isNotNode_.value
 }
