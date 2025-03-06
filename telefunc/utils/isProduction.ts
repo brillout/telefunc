@@ -13,8 +13,11 @@ function isProduction(): boolean {
 let _nodeEnv: null | undefined | string
 function getNodeEnv(): null | undefined | string {
   if (_nodeEnv === undefined) {
-    if (isNotNode()) return null
-    _nodeEnv = process.env.NODE_ENV
+    if (isNotNode()) {
+      _nodeEnv = null
+    } else {
+      _nodeEnv = process.env.NODE_ENV
+    }
   }
   return _nodeEnv
 }
