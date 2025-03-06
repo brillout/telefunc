@@ -59,13 +59,8 @@ function getServerConfig(): ConfigResolved {
     },
     log: {
       shieldErrors: (() => {
-        const shieldErrors = configUser.log?.shieldErrors
-        if (shieldErrors === undefined) {
-          return { dev: true, prod: false }
-        }
-        if (typeof shieldErrors === 'boolean') {
-          return shieldErrors
-        }
+        const shieldErrors = configUser.log?.shieldErrors ?? {}
+        if (typeof shieldErrors === 'boolean') return shieldErrors
         return {
           dev: shieldErrors.dev ?? true,
           prod: shieldErrors.prod ?? false
