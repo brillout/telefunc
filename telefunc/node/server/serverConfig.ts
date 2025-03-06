@@ -27,7 +27,13 @@ type ConfigUser = {
     dev?: boolean
   }
   log?: {
-    shieldErrors?: boolean | { prod?: boolean, dev?: boolean }
+    /** Whether to log shield errors */
+    shieldErrors?: boolean | {
+      /** Whether to log shield errors in production */
+      prod?: boolean,
+      /** Whether to log shield errors in development */
+      dev?: boolean
+    }
   }
 }
 type ConfigResolved = {
