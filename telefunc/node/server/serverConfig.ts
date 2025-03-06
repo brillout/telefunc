@@ -2,7 +2,7 @@ export { configUser as config }
 export { getServerConfig }
 export type { ConfigUser }
 
-import { assertUsage, hasProp, toPosixPath, isTelefuncFilePath, pathIsAbsolute } from '../utils'
+import { assertUsage, hasProp, toPosixPath, isTelefuncFilePath, pathIsAbsolute, isObject } from '../utils'
 
 /** Telefunc Server Configuration */
 type ConfigUser = {
@@ -123,7 +123,7 @@ function validateUserConfig(configUserUnwrapped: ConfigUser, prop: string, val: 
       const shieldErrors = (val as { shieldErrors: unknown }).shieldErrors
       if (typeof shieldErrors === 'boolean') {
         // Boolean is valid
-      } else if (typeof shieldErrors === 'object' && shieldErrors !== null) {
+      } else if (isObject(shieldErrors)) {
         if ('dev' in shieldErrors) {
           assertUsage(
             typeof (shieldErrors as { dev: unknown }).dev === 'boolean',
