@@ -1,6 +1,7 @@
 export { configUser as config }
 export { getServerConfig }
 export type { ConfigUser }
+export type { ConfigResolved }
 
 import { assertUsage, hasProp, toPosixPath, isTelefuncFilePath, pathIsAbsolute, isObject } from '../utils'
 
@@ -46,7 +47,7 @@ type ConfigResolved = {
   disableNamingConvention: boolean
   shield: { dev: boolean }
   log: {
-    shieldErrors: boolean | { dev: boolean; prod: boolean }
+    shieldErrors: { dev: boolean; prod: boolean }
   }
 }
 
@@ -60,7 +61,7 @@ function getServerConfig(): ConfigResolved {
     log: {
       shieldErrors: (() => {
         const shieldErrors = configUser.log?.shieldErrors ?? {}
-        if (typeof shieldErrors === 'boolean') return shieldErrors
+        if (typeof shieldErrors === 'boolean') return { dev: true, prod: true }
         return {
           dev: shieldErrors.dev ?? true,
           prod: shieldErrors.prod ?? false,

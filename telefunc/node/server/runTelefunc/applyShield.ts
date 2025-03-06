@@ -3,17 +3,14 @@ export { applyShield }
 import { shieldApply, shieldIsMissing } from '../shield'
 import { assertWarning, isProduction } from '../../utils'
 import type { Telefunction } from '../types'
+import type { ConfigResolved } from '../serverConfig'
 
 function applyShield(runContext: {
   telefunction: Telefunction
   telefunctionName: string
   telefuncFilePath: string
   telefunctionArgs: unknown[]
-  serverConfig: {
-    log: {
-      shieldErrors: boolean | { prod?: boolean; dev?: boolean }
-    }
-  }
+  serverConfig: Pick<ConfigResolved, 'log'>
 }): { isValidRequest: boolean } {
   const { telefunction } = runContext
 
@@ -34,12 +31,8 @@ function applyShield(runContext: {
     return { isValidRequest: true }
   }
 
-  let logShieldErrors = runContext.serverConfig.log?.shieldErrors
-  if (
-    logShieldErrors === true ||
-    (typeof logShieldErrors === 'object' &&
-      ((logShieldErrors?.dev && !isProduction()) || (logShieldErrors?.prod && isProduction())))
-  ) {
+  let logShieldErrors = runContext.serverConfig.log.shieldErrors
+  if ((logShieldErrors.dev && !isProduction()) || (logShieldErrors.prod && isProduction())) {
     const err = new Error(
       [
         `The arguments passed to the telefunction ${runContext.telefunctionName}() (${runContext.telefuncFilePath}) have the wrong type.`,
