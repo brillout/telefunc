@@ -12,7 +12,7 @@ function isProduction(): boolean {
 // Caching calls to process.env because it's expensive
 let nodeEnv: undefined | { value: null | undefined | string }
 function getNodeEnv(): null | undefined | string {
-  if (nodeEnv?.value === undefined) {
+  if (nodeEnv === undefined) {
     if (isNotNode()) {
       nodeEnv = { value: null }
     } else {
