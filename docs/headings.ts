@@ -216,7 +216,7 @@ const headings: HeadingDefinition[] = [
   {
     level: 2,
     title: '`log`',
-    url: '/log-config',
+    url: '/log',
   },
   {
     level: 4,
