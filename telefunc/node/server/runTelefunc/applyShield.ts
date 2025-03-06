@@ -9,7 +9,11 @@ function applyShield(runContext: {
   telefunctionName: string
   telefuncFilePath: string
   telefunctionArgs: unknown[]
-  logInvalidRequests: boolean
+  serverConfig: {
+    log: {
+      shieldErrors: boolean | { prod?: boolean, dev?: boolean }
+    }
+  }
 }): { isValidRequest: boolean } {
   const { telefunction } = runContext
 
@@ -30,7 +34,14 @@ function applyShield(runContext: {
     return { isValidRequest: true }
   }
 
-  if (runContext.logInvalidRequests) {
+  let logShieldErrors = runContext.serverConfig.log?.shieldErrors;
+  if (
+    logShieldErrors === true ||
+    (typeof logShieldErrors === 'object' && (
+      (logShieldErrors?.dev && !isProduction()) ||
+      (logShieldErrors?.prod && isProduction())
+    ))
+  ) {
     const err = new Error(
       [
         `The arguments passed to the telefunction ${runContext.telefunctionName}() (${runContext.telefuncFilePath}) have the wrong type.`,

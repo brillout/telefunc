@@ -80,6 +80,7 @@ async function runTelefunc_(httpRequest: {
       serverConfig: {
         disableNamingConvention: serverConfig.disableNamingConvention,
         telefuncUrl: serverConfig.telefuncUrl,
+        log: serverConfig.log,
       },
       appRootDir: serverConfig.root,
       telefuncFilesManuallyProvidedByUser: serverConfig.telefuncFiles,
