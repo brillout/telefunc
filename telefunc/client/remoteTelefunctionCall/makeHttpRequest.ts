@@ -53,7 +53,7 @@ async function makeHttpRequest(callContext: {
     const responseBody = await response.text()
     const errMsg = 'Internal Server Error'
     assertUsage(responseBody === errMsg, wrongInstallation({ method, callContext }))
-    throw new Error(errMsg)
+    throw new Error(`${errMsg}. See server logs.`)
   } else if (statusCode === STATUS_CODE_INVALID) {
     const responseBody = await response.text()
     assertUsage(responseBody === 'Invalid Telefunc Request', wrongInstallation({ method, callContext }))

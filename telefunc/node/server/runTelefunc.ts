@@ -34,6 +34,7 @@ const abortedRequestStatusCode = 403 // "Forbidden"
 
 // HTTP Response for:
 // - User's telefunction threw an error that isn't `Abort()` (i.e. the telefunction has a bug).
+// - The `.telefunc.js` file exports a non-function value.
 // - The Telefunc code threw an error (i.e. Telefunc has a bug).
 const serverError = {
   statusCode: 500 as const, // "Internal Server Error"
