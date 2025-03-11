@@ -52,25 +52,11 @@ async function makeHttpRequest(callContext: {
   } else if (statusCode === STATUS_CODE_BUG) {
     const responseBody = await response.text()
     const errMsg = 'Internal Server Error'
-    assertUsage(
-      responseBody === errMsg,
-      installErr({
-        reason: 'an HTTP response body that Telefunc never generates',
-        method,
-        callContext,
-      }),
-    )
+    assertUsage(responseBody === errMsg, wrongInstallation({ method, callContext }))
     throw new Error(errMsg)
   } else if (statusCode === STATUS_CODE_INVALID) {
     const responseBody = await response.text()
-    assertUsage(
-      responseBody === 'Invalid Telefunc Request',
-      installErr({
-        reason: 'an HTTP response body that Telefunc never generates',
-        method,
-        callContext,
-      }),
-    )
+    assertUsage(responseBody === 'Invalid Telefunc Request', wrongInstallation({ method, callContext }))
     /* With Next.js 12: when renaming a `.telefunc.js` file the client makes a request with the new `.telefunc.js` name while the server is still serving the old `.telefunc.js` name. Seems like a race condition: trying again seems to fix the error.
     // This should never happen as the Telefunc Client shouldn't make invalid requests
     assert(false)
@@ -79,7 +65,7 @@ async function makeHttpRequest(callContext: {
   } else {
     assertUsage(
       statusCode !== 404,
-      installErr({
+      wrongInstallation({
         reason: 'a 404 HTTP response',
         method,
         isNotInstalled: true,
@@ -88,8 +74,8 @@ async function makeHttpRequest(callContext: {
     )
     assertUsage(
       false,
-      installErr({
-        reason: `a status code \`${statusCode}\` which Telefunc never uses`,
+      wrongInstallation({
+        reason: `a status code \`${statusCode}\` which Telefunc never returns`,
         method,
         callContext,
       }),
@@ -100,21 +86,14 @@ async function makeHttpRequest(callContext: {
 async function parseResponseBody(response: Response, callContext: { telefuncUrl: string }): Promise<{ ret: unknown }> {
   const responseBody = await response.text()
   const responseBodyParsed = parse(responseBody)
-  assertUsage(
-    isObject(responseBodyParsed) && 'ret' in responseBodyParsed,
-    installErr({
-      reason: 'an HTTP response body that Telefunc never generates',
-      method,
-      callContext,
-    }),
-  )
+  assertUsage(isObject(responseBodyParsed) && 'ret' in responseBodyParsed, wrongInstallation({ method, callContext }))
   assert(response.status !== STATUS_CODE_ABORT || 'abort' in responseBodyParsed)
   const { ret } = responseBodyParsed
   return { ret }
 }
 
-function installErr({
-  reason,
+function wrongInstallation({
+  reason = 'an HTTP response body that Telefunc never generates',
   callContext,
   method,
   isNotInstalled,
@@ -125,13 +104,9 @@ function installErr({
   callContext: { telefuncUrl: string }
 }) {
   let msg = [`Telefunc doesn't seem to be `]
-  if (!isNotInstalled) {
-    msg.push('(properly) ')
-  }
+  if (!isNotInstalled) msg.push('(properly) ')
   msg.push('installed on your server')
-  if (reason) {
-    msg.push(...[`: the HTTP ${method} \`${callContext.telefuncUrl}\` request returned `, reason])
-  }
+  msg.push(...[`: the HTTP ${method} \`${callContext.telefuncUrl}\` request returned `, reason])
   msg.push(`, see https://telefunc.com/install`)
   return msg.join('')
 }
