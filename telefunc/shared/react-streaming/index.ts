@@ -1,1 +1,1 @@
-export { useData } from './useData'
+export { useData } from './useData.js'

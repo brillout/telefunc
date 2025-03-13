@@ -1,1 +1,1 @@
-export { TelefuncSSR } from './useTelefuncContext'
+export { TelefuncSSR } from './useTelefuncContext.js'

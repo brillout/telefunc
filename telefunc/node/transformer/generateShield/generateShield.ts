@@ -13,7 +13,7 @@ import {
   objectAssign,
   unique,
   assertPosixPath,
-} from '../../utils'
+} from '../../utils.js'
 import { type ExportList, getExportList } from '../getExportList.js'
 import fs from 'node:fs'
 import path from 'node:path'

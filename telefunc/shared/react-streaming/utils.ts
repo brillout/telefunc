@@ -1,2 +1,2 @@
-export * from '../../utils/assert'
-export * from '../../utils/isCallable'
+export * from '../../utils/assert.js'
+export * from '../../utils/isCallable.js'

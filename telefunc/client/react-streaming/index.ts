@@ -1,1 +1,1 @@
-export { useData } from '../../shared/react-streaming'
+export { useData } from '../../shared/react-streaming.js'
