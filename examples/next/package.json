@@ -1,18 +1,23 @@
 {
+  "type": "module",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "prod": "next build && next start",
     "start": "next start"
   },
-  "// Pinned eslint and typescript because of https://stackoverflow.com/questions/76996326/parsing-error-deprecationerror-originalkeywordkind-has-been-deprecated-since": "",
   "dependencies": {
-    "eslint": "8.47.0",
-    "eslint-config-next": "^14.0.4",
-    "next": "^14.0.4",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
-    "telefunc": "0.1.87",
-    "typescript": "5.1.6"
+    "next": "^15.2.2",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "telefunc": "0.1.87"
+  },
+  "devDependencies": {
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9.22.0",
+    "eslint-config-next": "^15.2.2",
+    "typescript": "^5"
   }
 }
