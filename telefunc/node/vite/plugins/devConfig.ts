@@ -3,6 +3,8 @@ export { devConfig }
 import type { Plugin, ResolvedConfig } from 'vite'
 import { apply, addTelefuncMiddleware } from '../helpers.js'
 import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+const __dirname_ = path.dirname(fileURLToPath(import.meta.url))
 
 function devConfig(): Plugin[] {
   return [
@@ -60,7 +62,7 @@ async function determineFsAllowList(config: ResolvedConfig) {
   const fsAllow = config.server.fs.allow
 
   // [RELATIVE_PATH_FROM_DIST] Current file: node_modules/telefunc/dist/esm/node/vite/plugins/devConfig.js
-  const telefuncRoot = path.join(__dirname, '../../../../../')
+  const telefuncRoot = path.join(__dirname_, '../../../../../')
   // Assert that `telefuncRoot` is indeed pointing to `node_modules/vike/`
   require.resolve(`${telefuncRoot}/dist/esm/node/vite/plugins/devConfig.js`)
   fsAllow.push(telefuncRoot)

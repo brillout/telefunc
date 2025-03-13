@@ -1,11 +1,12 @@
 export { install }
 
-import { resolve } from 'node:path'
+import path, { resolve } from 'node:path'
 import { logResult } from '../transformer/generateShield/generateShield.js'
 import { getRoot } from './getInfo.js'
 import type { Compiler } from './types.js'
-const dir = __dirname + (() => '')() // trick to avoid `@vercel/ncc` to glob import
-const loader = resolve(dir, './loader.js')
+import { fileURLToPath } from 'node:url'
+const __dirname_ = path.dirname(fileURLToPath(import.meta.url))
+const loader = resolve(__dirname_, './loader.js')
 
 function install<T extends any[]>(config: { module?: { rules?: T }; plugins?: any }, logSuccessPrefix?: string) {
   config.module!.rules!.push({

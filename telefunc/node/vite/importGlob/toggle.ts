@@ -3,8 +3,10 @@ export { importGlobOn }
 
 import { writeFileSync } from 'node:fs'
 import { scriptFileExtensions } from '../utils.js'
-const dir = __dirname + (() => '')() // trick to avoid `@vercel/ncc` to glob import
-const telefuncFilesGlobPath = `${dir}/telefuncFilesGlob.js`
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
+const __dirname_ = path.dirname(fileURLToPath(import.meta.url))
+const telefuncFilesGlobPath = `${__dirname_}/telefuncFilesGlob.js`
 const importGlob = `import.meta.glob("/**/*.telefunc.${scriptFileExtensions}")`
 
 function importGlobOff() {
