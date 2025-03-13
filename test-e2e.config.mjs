@@ -35,10 +35,6 @@ function getCiJobs() {
       setups,
     },
     {
-      name: 'Nuxt 2',
-      setups,
-    },
-    {
       name: 'SvelteKit',
       setups,
     },
