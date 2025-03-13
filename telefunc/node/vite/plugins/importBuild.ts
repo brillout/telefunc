@@ -2,11 +2,12 @@ export { importBuild }
 
 import { serverProductionEntryPlugin } from '@brillout/vite-plugin-server-entry/plugin'
 import type { Plugin, ResolvedConfig } from 'vite'
-import { assert, assertPosixPath, projectInfo, toPosixPath } from '../../utils'
+import { assert, assertPosixPath, projectInfo, toPosixPath } from '../../utils.js'
 import path from 'node:path'
-import { getTelefuncManifest } from './getTelefuncManifest'
-import { telefuncFilesGlobFilePath } from '../../importGlob/telefuncFilesGlobPath'
-import { getOutDirAbsolute } from '../../getOutDirs'
+import { getTelefuncManifest } from './importBuild/getTelefuncManifest.js'
+import { getOutDirAbsolute } from '../getOutDirs.js'
+import { createRequire } from 'node:module'
+const require_ = createRequire(import.meta.url)
 
 function importBuild(): Plugin[] {
   let config: ResolvedConfig
@@ -32,6 +33,9 @@ function getServerProductionEntryCode(config: ResolvedConfig) {
 
   const telefuncManifest = getTelefuncManifest()
 
+  const { telefuncFilesGlobFilePath } = globalThis._telefunc!
+  assert(telefuncFilesGlobFilePath)
+
   // console.log(`\n  importPath: ${importPath}\n  outDirServer: ${outDirServer}\n  importPathAbsolute: ${importPathAbsolute}\n  config.build.outDir: ${config.build.outDir}`)
   const importerCode = [
     `import { setTelefuncLoaders } from '${importPath}';`,
@@ -48,8 +52,8 @@ function getServerProductionEntryCode(config: ResolvedConfig) {
 function getImportPath(config: ResolvedConfig) {
   // We resolve filePathAbsolute even if we don't use it: we use require.resolve() as an assertion that the relative path is correct
   const filePathAbsolute = toPosixPath(
-    // [RELATIVE_PATH_FROM_DIST] Current file: node_modules/telefunc/dist/cjs/node/vite/plugins/importBuild/index.js
-    require.resolve(`../../../../../../dist/cjs/node/vite/plugins/importBuild/loadBuild.js`),
+    // [RELATIVE_PATH_FROM_DIST] Current file: node_modules/telefunc/dist/node/vite/plugins/importBuild.js
+    require_.resolve(`../../../../dist/node/vite/plugins/importBuild/loadBuild.js`),
   )
   if (
     // Let's implement a new config if a user needs the import to be a relative path instead of 'telefunc/__internal/loadImportBuild' (AFAIK there is no use case for relative paths for Telefunc)

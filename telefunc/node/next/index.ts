@@ -1,7 +1,7 @@
 export default telefuncPlugin
 
 import type { NextConfig } from 'next'
-import { install } from '../webpack/install'
+import { install } from '../webpack/install.js'
 import pc from '@brillout/picocolors'
 
 function telefuncPlugin(nextConfig: NextConfig = {}) {

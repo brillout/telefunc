@@ -2,18 +2,24 @@ export { importGlobOff }
 export { importGlobOn }
 
 import { writeFileSync } from 'node:fs'
-import { scriptFileExtensions } from '../utils'
-const dir = __dirname + (() => '')() // trick to avoid `@vercel/ncc` to glob import
-const telefuncFilesGlobPath = `${dir}/telefuncFilesGlob.js`
+import { scriptFileExtensions, toPosixPath } from '../utils.js'
+import { createRequire } from 'node:module'
+const require_ = createRequire(import.meta.url)
+const telefuncFilesGlobFilePath = toPosixPath(require_.resolve('./telefuncFilesGlob.js'))
+globalThis._telefunc ??= {}
+globalThis._telefunc.telefuncFilesGlobFilePath = telefuncFilesGlobFilePath
+declare global {
+  var _telefunc: undefined | { telefuncFilesGlobFilePath?: string }
+}
 const importGlob = `import.meta.glob("/**/*.telefunc.${scriptFileExtensions}")`
 
 function importGlobOff() {
-  writeFileSync(telefuncFilesGlobPath, ['exports.importGlobOff = true', ''].join('\n'))
+  writeFileSync(telefuncFilesGlobFilePath, ['exports.importGlobOff = true', ''].join('\n'))
 }
 
 function importGlobOn() {
   writeFileSync(
-    telefuncFilesGlobPath,
+    telefuncFilesGlobFilePath,
     // prettier-ignore
     [
       `export const telefuncFilesGlob = ${importGlob};`,

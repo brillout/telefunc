@@ -1,5 +1,5 @@
-import { checkType } from '../../utils'
-import { shield, shieldApply, shieldToHumandReadable } from '../shield'
+import { checkType } from '../../utils.js'
+import { shield, shieldApply, shieldToHumandReadable } from '../shield.js'
 import { expect, describe, it } from 'vitest'
 
 describe('shield', () => {

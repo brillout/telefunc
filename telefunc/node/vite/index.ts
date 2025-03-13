@@ -1,19 +1,19 @@
 export { plugin as telefunc }
 export default plugin
 
-import { transform } from './plugins/transform'
-import { commonConfig } from './plugins/commonConfig'
-import { devConfig } from './plugins/devConfig'
-import { buildConfig } from './plugins/buildConfig'
-import { retrieveDevServer } from './plugins/retrieveDevServer'
-import { packageJsonFile } from './plugins/packageJsonFile'
-import { importBuild } from './plugins/importBuild'
-import { previewConfig } from './plugins/previewConfig'
-import { printShieldGenResult } from './plugins/printShieldGenResult'
-import { importGlobOn } from './importGlob/toggle'
-import { config } from '../server/serverConfig'
+import { transform } from './plugins/transform.js'
+import { commonConfig } from './plugins/commonConfig.js'
+import { devConfig } from './plugins/devConfig.js'
+import { buildConfig } from './plugins/buildConfig.js'
+import { retrieveDevServer } from './plugins/retrieveDevServer.js'
+import { packageJsonFile } from './plugins/packageJsonFile.js'
+import { importBuild } from './plugins/importBuild.js'
+import { previewConfig } from './plugins/previewConfig.js'
+import { printShieldGenResult } from './plugins/printShieldGenResult.js'
+import { importGlobOn } from './importGlob/toggle.js'
+import { config } from '../server/serverConfig.js'
 import type { Plugin } from 'vite'
-import type { ConfigUser } from '../server/serverConfig'
+import type { ConfigUser } from '../server/serverConfig.js'
 
 // Return as `any` to avoid Plugin type mismatches when there are multiple Vite versions installed
 function plugin(
@@ -39,9 +39,3 @@ function plugin(
   ]
   return plugins
 }
-
-// Ensures following works: `const telefunc = require('telefunc/vite')` / `import telefunc from 'telefunc/vite'`
-//  - It needs to live at the end of this file, in order to ensure we do it after all assignments to `exports`.
-try {
-  module.exports = Object.assign(exports.default, exports)
-} catch {}

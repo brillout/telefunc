@@ -1,9 +1,9 @@
 export { applyShield }
 
-import { shieldApply, shieldIsMissing } from '../shield'
-import { assertWarning, isProduction } from '../../utils'
-import type { Telefunction } from '../types'
-import type { ConfigResolved } from '../serverConfig'
+import { shieldApply, shieldIsMissing } from '../shield.js'
+import { assertWarning, isProduction } from '../../utils.js'
+import type { Telefunction } from '../types.js'
+import type { ConfigResolved } from '../serverConfig.js'
 
 function applyShield(runContext: {
   telefunction: Telefunction

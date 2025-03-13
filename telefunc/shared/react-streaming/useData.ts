@@ -1,7 +1,7 @@
 export { useData }
 
 import { useAsync } from 'react-streaming'
-import { assertUsage, isCallable } from './utils'
+import { assertUsage, isCallable } from './utils.js'
 
 function useData<Telefunction extends (...args: any[]) => any>(
   telefunction: Telefunction,

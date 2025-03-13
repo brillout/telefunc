@@ -1,10 +1,10 @@
 export { loadTelefuncFiles }
 
-import type { TelefuncFiles } from '../types'
-import { assertUsage, assert, hasProp, isWebpack, isVikeApp } from '../../utils'
-import { loadTelefuncFilesWithVite } from '../../vite/loadTelefuncFilesWithVite'
-import { loadTelefuncFilesWithRegistration } from './loadTelefuncFilesWithRegistration'
-import { loadTelefuncFilesFromConfig } from './loadTelefuncFilesFromConfig'
+import type { TelefuncFiles } from '../types.js'
+import { assertUsage, assert, hasProp, isWebpack, isVikeApp } from '../../utils.js'
+import { loadTelefuncFilesWithVite } from '../../vite/loadTelefuncFilesWithVite.js'
+import { loadTelefuncFilesWithRegistration } from './loadTelefuncFilesWithRegistration.js'
+import { loadTelefuncFilesFromConfig } from './loadTelefuncFilesFromConfig.js'
 import pc from '@brillout/picocolors'
 
 async function loadTelefuncFiles(runContext: {

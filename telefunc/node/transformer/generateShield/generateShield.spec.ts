@@ -1,4 +1,4 @@
-import { testGenerateShield } from './generateShield'
+import { testGenerateShield } from './generateShield.js'
 import { expect, describe, it } from 'vitest'
 
 describe('generateShield', () => {

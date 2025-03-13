@@ -1,7 +1,17 @@
 {
-  "files": [],
-  "references": [
-    { "path": "./tsconfig.cjs.json" },
-    { "path": "./tsconfig.esm.json" }
-  ]
+  "compilerOptions": {
+    "outDir": "./dist/",
+    "target": "ES2019",
+    "module": "Node16",
+    "moduleResolution": "Node16",
+    "skipLibCheck": true,
+    "declaration": true,
+    "strict": true,
+    "noUnusedParameters": true,
+    "esModuleInterop": true,
+    "noUncheckedIndexedAccess": true,
+    "lib": ["DOM", "ESNext"]
+  },
+  "include": ["client/**/*", "node/**/*"],
+  "exclude": ["**/*.spec.ts"]
 }

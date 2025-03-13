@@ -1,8 +1,8 @@
 export { printShieldGenResult }
 
 import type { Plugin, ResolvedConfig } from 'vite'
-import { logResult } from '../../transformer/generateShield/generateShield'
-import { projectInfo } from '../utils'
+import { logResult } from '../../transformer/generateShield/generateShield.js'
+import { projectInfo } from '../utils.js'
 import pc from '@brillout/picocolors'
 
 function printShieldGenResult(): Plugin {

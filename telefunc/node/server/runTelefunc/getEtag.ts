@@ -1,6 +1,6 @@
 export { getEtag }
 
-import { assert } from '../../utils'
+import { assert } from '../../utils.js'
 import type { createHash as createHashType } from 'node:crypto'
 
 type CreateHash = typeof createHashType

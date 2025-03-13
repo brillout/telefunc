@@ -1,6 +1,6 @@
 export { hasProp }
 
-import { isCallable } from './isCallable'
+import { isCallable } from './isCallable.js'
 
 // prettier-ignore
 // biome-ignore format:

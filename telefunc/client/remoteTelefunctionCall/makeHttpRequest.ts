@@ -1,8 +1,8 @@
 export { makeHttpRequest }
 
 import { parse } from '@brillout/json-serializer/parse'
-import { assert, assertUsage, isObject, objectAssign } from '../utils'
-import { callOnAbortListeners } from './onAbort'
+import { assert, assertUsage, isObject, objectAssign } from '../utils.js'
+import { callOnAbortListeners } from './onAbort.js'
 
 const method = 'POST'
 const STATUS_CODE_SUCCESS = 200

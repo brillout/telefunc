@@ -1,18 +1,18 @@
 export { runTelefunc }
 export type { HttpResponse }
 
-import { assert, objectAssign, isProduction } from '../utils'
-import { Telefunc } from './getContext'
-import { loadTelefuncFiles } from './runTelefunc/loadTelefuncFiles'
-import { parseHttpRequest } from './runTelefunc/parseHttpRequest'
-// import { getEtag } from './runTelefunc/getEtag'
-import { executeTelefunction } from './runTelefunc/executeTelefunction'
-import { serializeTelefunctionResult } from './runTelefunc/serializeTelefunctionResult'
-import { handleError } from './runTelefunc/handleError'
-import { callBugListeners } from './runTelefunc/onBug'
-import { applyShield } from './runTelefunc/applyShield'
-import { findTelefunction } from './runTelefunc/findTelefunction'
-import { getServerConfig } from './serverConfig'
+import { assert, objectAssign, isProduction } from '../utils.js'
+import { Telefunc } from './getContext.js'
+import { loadTelefuncFiles } from './runTelefunc/loadTelefuncFiles.js'
+import { parseHttpRequest } from './runTelefunc/parseHttpRequest.js'
+// import { getEtag } from './runTelefunc/getEtag.js'
+import { executeTelefunction } from './runTelefunc/executeTelefunction.js'
+import { serializeTelefunctionResult } from './runTelefunc/serializeTelefunctionResult.js'
+import { handleError } from './runTelefunc/handleError.js'
+import { callBugListeners } from './runTelefunc/onBug.js'
+import { applyShield } from './runTelefunc/applyShield.js'
+import { findTelefunction } from './runTelefunc/findTelefunction.js'
+import { getServerConfig } from './serverConfig.js'
 
 /** The HTTP Response of a telefunction remote call HTTP Request */
 type HttpResponse = {
@@ -117,7 +117,7 @@ async function runTelefunc_(httpRequest: {
   }
 
   {
-    const telefunction = findTelefunction(runContext)
+    const telefunction = await findTelefunction(runContext)
     if (!telefunction) {
       return invalidRequest
     }

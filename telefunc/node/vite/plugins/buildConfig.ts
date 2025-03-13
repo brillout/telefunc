@@ -1,7 +1,7 @@
 export { buildConfig }
 
 import type { Plugin, ResolvedConfig } from 'vite'
-import { determineOutDir } from '../getOutDirs'
+import { determineOutDir } from '../getOutDirs.js'
 
 function buildConfig(): Plugin {
   let config: ResolvedConfig

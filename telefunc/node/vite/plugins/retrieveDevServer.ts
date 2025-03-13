@@ -1,7 +1,7 @@
 export { retrieveDevServer }
 
 import type { Plugin } from 'vite'
-import { setViteDevServer } from '../../server/globalContext'
+import { setViteDevServer } from '../../server/globalContext.js'
 
 function retrieveDevServer(): Plugin {
   return {

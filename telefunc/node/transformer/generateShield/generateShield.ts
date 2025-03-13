@@ -13,11 +13,13 @@ import {
   objectAssign,
   unique,
   assertPosixPath,
-} from '../../utils'
-import { type ExportList, getExportList } from '../getExportList'
+} from '../../utils.js'
+import { type ExportList, getExportList } from '../getExportList.js'
 import fs from 'node:fs'
 import path from 'node:path'
 import pc from '@brillout/picocolors'
+import { fileURLToPath } from 'node:url'
+const __dirname_ = path.dirname(fileURLToPath(import.meta.url))
 
 type GeneratedShield = {
   telefuncFilePath: string
@@ -330,10 +332,10 @@ function getTypeToShieldSrc() {
   if (!typeToShieldSrc) {
     try {
       // For build `dist/`
-      typeToShieldSrc = fs.readFileSync(`${__dirname}/typeToShield.d.ts`).toString()
+      typeToShieldSrc = fs.readFileSync(`${__dirname_}/typeToShield.d.ts`).toString()
     } catch {
       // For Vitest
-      typeToShieldSrc = fs.readFileSync(`${__dirname}/typeToShield.ts`).toString()
+      typeToShieldSrc = fs.readFileSync(`${__dirname_}/typeToShield.ts`).toString()
     }
   }
   assert(typeToShieldSrc)
