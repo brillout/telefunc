@@ -2,8 +2,8 @@
   "compilerOptions": {
     "outDir": "./dist/esm/",
     "target": "ES2019",
-    "module": "ES2020",
-    "moduleResolution": "Node",
+    "module": "Node16",
+    "moduleResolution": "Node16",
     "skipLibCheck": true,
     "declaration": true,
     "strict": true,
