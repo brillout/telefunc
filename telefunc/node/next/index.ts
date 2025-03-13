@@ -4,12 +4,14 @@ import type { NextConfig } from 'next'
 import { install } from '../webpack/install.js'
 import pc from '@brillout/picocolors'
 
-function telefuncPlugin(nextConfig: NextConfig = {}) {
+// We don't use the type `NextConfig` to avoid version mismatches
+function telefuncPlugin<T>(nextConfig: T): T {
   return Object.assign({}, nextConfig, {
     webpack: (config, options) => {
       install(config, `${pc.green(pc.bold(' ✓'))}`)
-      if (typeof nextConfig.webpack === 'function') {
-        return nextConfig.webpack(config, options)
+      const nextConfig_ = nextConfig as NextConfig
+      if (typeof nextConfig_.webpack === 'function') {
+        return nextConfig_.webpack(config, options)
       }
       return config
     },
