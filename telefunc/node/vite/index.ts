@@ -39,9 +39,3 @@ function plugin(
   ]
   return plugins
 }
-
-// Ensures following works: `const telefunc = require('telefunc/vite')` / `import telefunc from 'telefunc/vite'`
-//  - It needs to live at the end of this file, in order to ensure we do it after all assignments to `exports`.
-try {
-  module.exports = Object.assign(exports.default, exports)
-} catch {}
