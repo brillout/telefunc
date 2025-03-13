@@ -2,13 +2,31 @@ import fs from 'fs';
 import path from 'path';
 
 const DIRECTORY = './telefunc'; // Updated directory
-const IMPORT_REGEX = /(import .*? from ['"])(\.\.?\/[^'";]+)(['"])/g;
+
+// Regex for static imports and re-exports with "from"
+const IMPORT_EXPORT_REGEX = /((?:import|export)(?:[\s\w{},*]+)?\s+from\s+['"])(\.\.?\/[^'";]+)(['"])/g;
+// Regex for side-effect imports (e.g., import './module')
+const SIDE_EFFECT_IMPORT_REGEX = /(import\s+['"])(\.\.?\/[^'";]+)(['"])/g;
+// Regex for dynamic imports (e.g., import('./module'))
+const DYNAMIC_IMPORT_REGEX = /(import\(\s*['"])(\.\.?\/[^'";]+)(['"]\s*\))/g;
 
 function processFile(filePath) {
-  let content = fs.readFileSync(filePath, 'utf8');
-  const updatedContent = content.replace(IMPORT_REGEX, (match, start, modulePath, end) => {
-    // Append .js if there is no extension on the module path
-    return path.extname(modulePath) ? match : `${start}${modulePath}.js${end}`;
+  const content = fs.readFileSync(filePath, 'utf8');
+  let updatedContent = content;
+
+  // Handle static imports and re-exports
+  updatedContent = updatedContent.replace(IMPORT_EXPORT_REGEX, (match, prefix, modulePath, suffix) => {
+    return path.extname(modulePath) ? match : `${prefix}${modulePath}.js${suffix}`;
+  });
+
+  // Handle side-effect imports
+  updatedContent = updatedContent.replace(SIDE_EFFECT_IMPORT_REGEX, (match, prefix, modulePath, suffix) => {
+    return path.extname(modulePath) ? match : `${prefix}${modulePath}.js${suffix}`;
+  });
+
+  // Handle dynamic imports
+  updatedContent = updatedContent.replace(DYNAMIC_IMPORT_REGEX, (match, prefix, modulePath, suffix) => {
+    return path.extname(modulePath) ? match : `${prefix}${modulePath}.js${suffix}`;
   });
 
   if (content !== updatedContent) {
