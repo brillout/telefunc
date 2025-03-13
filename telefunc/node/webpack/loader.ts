@@ -5,7 +5,7 @@ import '../vite/helpers/clear.js' // When running Telefunc's test suite, a previ
 import type { Loader } from './types.js'
 import { getInfo } from './getInfo.js'
 
-module.exports = async function (this: Loader, input: string): Promise<string> {
+export default async function (this: Loader, input: string): Promise<string> {
   const { id, root, isClientSide, isDev } = getInfo(this)
   if (isClientSide) {
     const code = await transformTelefuncFileClientSide(input, toPosixPath(id), toPosixPath(root))
