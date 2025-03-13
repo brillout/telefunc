@@ -1,3 +1,12 @@
+## [0.2.1](https://github.com/brillout/telefunc/compare/v0.2.0...v0.2.1) (2025-03-13)
+
+
+### Bug Fixes
+
+* avoid NextConfig version mismatch ([f9ff014](https://github.com/brillout/telefunc/commit/f9ff014f6f78a44ccd240c4dffdef184016f85a1))
+
+
+
 # [0.2.0](https://github.com/brillout/telefunc/compare/v0.1.87...v0.2.0) (2025-03-13)
 
 
