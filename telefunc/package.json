@@ -18,10 +18,10 @@
   "// Explanation: https://gist.github.com/brillout/553253e27a43ccfc01ec6c38880d1360": "",
   "exports": {
     ".": {
-      "worker": "./dist/esm/node/server/index.js",
+      "worker": "./dist/esm/node/server.js",
       "browser": "./dist/esm/client/server.js",
-      "types": "./dist/esm/node/server/index.d.ts",
-      "default": "./dist/esm/node/server/index.js"
+      "types": "./dist/esm/node/server.d.ts",
+      "default": "./dist/esm/node/server.js"
     },
     "./async_hooks": {
       "worker": "./dist/esm/node/server/async_hooks.js",
