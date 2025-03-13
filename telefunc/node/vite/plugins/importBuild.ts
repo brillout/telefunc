@@ -4,9 +4,9 @@ import { serverProductionEntryPlugin } from '@brillout/vite-plugin-server-entry/
 import type { Plugin, ResolvedConfig } from 'vite'
 import { assert, assertPosixPath, projectInfo, toPosixPath } from '../../utils.js'
 import path from 'node:path'
-import { getTelefuncManifest } from './getTelefuncManifest.js'
-import { telefuncFilesGlobFilePath } from '../../importGlob/telefuncFilesGlobPath.js'
-import { getOutDirAbsolute } from '../../getOutDirs.js'
+import { getTelefuncManifest } from './importBuild/getTelefuncManifest.js'
+import { telefuncFilesGlobFilePath } from '../importGlob/telefuncFilesGlobPath.js'
+import { getOutDirAbsolute } from '../getOutDirs.js'
 
 function importBuild(): Plugin[] {
   let config: ResolvedConfig
