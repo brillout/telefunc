@@ -15,70 +15,70 @@
     "es-module-lexer": "^1.6.0",
     "ts-morph": "^19.0.0"
   },
-  "modules": "./dist/esm/node/server.js",
-  "types": "./dist/esm/node/server.d.ts",
+  "modules": "./dist/node/server.js",
+  "types": "./dist/node/server.d.ts",
   "// Explanation: https://gist.github.com/brillout/553253e27a43ccfc01ec6c38880d1360": "",
   "exports": {
     ".": {
-      "worker": "./dist/esm/node/server.js",
-      "browser": "./dist/esm/client/server.js",
-      "types": "./dist/esm/node/server.d.ts",
-      "default": "./dist/esm/node/server.js"
+      "worker": "./dist/node/server.js",
+      "browser": "./dist/client/server.js",
+      "types": "./dist/node/server.d.ts",
+      "default": "./dist/node/server.js"
     },
     "./async_hooks": {
-      "worker": "./dist/esm/node/server/async_hooks.js",
-      "browser": "./dist/esm/client/poisen-pills/async_hooks.js",
-      "types": "./dist/esm/node/server/async_hooks.d.ts",
-      "default": "./dist/esm/node/server/async_hooks.js"
+      "worker": "./dist/node/server/async_hooks.js",
+      "browser": "./dist/client/poisen-pills/async_hooks.js",
+      "types": "./dist/node/server/async_hooks.d.ts",
+      "default": "./dist/node/server/async_hooks.js"
     },
     "./client": {
-      "worker": "./dist/esm/node/client.js",
-      "browser": "./dist/esm/client/index.js",
-      "types": "./dist/esm/client/index.d.ts",
-      "default": "./dist/esm/node/client.js"
+      "worker": "./dist/node/client.js",
+      "browser": "./dist/client/index.js",
+      "types": "./dist/client/index.d.ts",
+      "default": "./dist/node/client.js"
     },
     "./react-streaming": {
-      "worker": "./dist/esm/node/react-streaming/index.js",
-      "browser": "./dist/esm/client/react-streaming/index.js",
-      "types": "./dist/esm/node/react-streaming/index.d.ts",
-      "default": "./dist/esm/node/react-streaming/index.js"
+      "worker": "./dist/node/react-streaming/index.js",
+      "browser": "./dist/client/react-streaming/index.js",
+      "types": "./dist/node/react-streaming/index.d.ts",
+      "default": "./dist/node/react-streaming/index.js"
     },
     "./react-streaming/server": {
-      "worker": "./dist/esm/node/react-streaming/server.js",
-      "browser": "./dist/esm/client/poisen-pills/react-streaming/server.js",
-      "types": "./dist/esm/node/react-streaming/server.d.ts",
-      "default": "./dist/esm/node/react-streaming/server.js"
+      "worker": "./dist/node/react-streaming/server.js",
+      "browser": "./dist/client/poisen-pills/react-streaming/server.js",
+      "types": "./dist/node/react-streaming/server.d.ts",
+      "default": "./dist/node/react-streaming/server.js"
     },
     "./vite": {
-      "browser": "./dist/esm/client/poisen-pills/vite.js",
-      "types": "./dist/esm/node/vite/index.d.ts",
-      "default": "./dist/esm/node/vite/index.js"
+      "browser": "./dist/client/poisen-pills/vite.js",
+      "types": "./dist/node/vite/index.d.ts",
+      "default": "./dist/node/vite/index.js"
     },
     "./webpack/loader": {
-      "browser": "./dist/esm/client/poisen-pills/webpack/loader.js",
-      "types": "./dist/esm/node/webpack/loader.d.ts",
-      "default": "./dist/esm/node/webpack/loader.js"
+      "browser": "./dist/client/poisen-pills/webpack/loader.js",
+      "types": "./dist/node/webpack/loader.d.ts",
+      "default": "./dist/node/webpack/loader.js"
     },
     "./next": {
-      "browser": "./dist/esm/client/poisen-pills/next.js",
-      "types": "./dist/esm/node/next/index.d.ts",
-      "default": "./dist/esm/node/next/index.js"
+      "browser": "./dist/client/poisen-pills/next.js",
+      "types": "./dist/node/next/index.d.ts",
+      "default": "./dist/node/next/index.js"
     },
     "./nuxt": {
-      "browser": "./dist/esm/client/poisen-pills/nuxt.js",
-      "types": "./dist/esm/node/nuxt/index.d.ts",
-      "default": "./dist/esm/node/nuxt/index.js"
+      "browser": "./dist/client/poisen-pills/nuxt.js",
+      "types": "./dist/node/nuxt/index.d.ts",
+      "default": "./dist/node/nuxt/index.js"
     },
     "./babel": {
-      "browser": "./dist/esm/client/poisen-pills/babel.js",
-      "types": "./dist/esm/node/babel/plugin.d.ts",
-      "default": "./dist/esm/node/babel/plugin.js"
+      "browser": "./dist/client/poisen-pills/babel.js",
+      "types": "./dist/node/babel/plugin.d.ts",
+      "default": "./dist/node/babel/plugin.js"
     },
     "./__internal/loadBuild": {
-      "worker": "./dist/esm/node/vite/plugins/importBuild/loadBuild.js",
-      "browser": "./dist/esm/client/poisen-pills/__internal/loadBuild.js",
-      "types": "./dist/esm/node/vite/plugins/importBuild/loadBuild.d.ts",
-      "default": "./dist/esm/node/vite/plugins/importBuild/loadBuild.js"
+      "worker": "./dist/node/vite/plugins/importBuild/loadBuild.js",
+      "browser": "./dist/client/poisen-pills/__internal/loadBuild.js",
+      "types": "./dist/node/vite/plugins/importBuild/loadBuild.d.ts",
+      "default": "./dist/node/vite/plugins/importBuild/loadBuild.js"
     }
   },
   "type": "module",
@@ -128,7 +128,7 @@
     "node": ">=12.19.0"
   },
   "files": [
-    "dist/esm/",
+    "dist/",
     "*.d.ts",
     "react-streaming/*.d.ts",
     "*.js"

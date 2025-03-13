@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "./dist/esm/",
+    "outDir": "./dist/",
     "target": "ES2019",
     "module": "Node16",
     "moduleResolution": "Node16",

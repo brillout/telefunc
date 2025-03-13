@@ -63,9 +63,9 @@ function fixOptimizeDeps(optimizeDeps: { exclude?: string[] }) {
 async function determineFsAllowList(config: ResolvedConfig) {
   const fsAllow = config.server.fs.allow
 
-  // [RELATIVE_PATH_FROM_DIST] Current file: node_modules/telefunc/dist/esm/node/vite/plugins/devConfig.js
-  const telefuncRoot = path.join(__dirname_, '../../../../../')
+  // [RELATIVE_PATH_FROM_DIST] Current file: node_modules/telefunc/dist/node/vite/plugins/devConfig.js
+  const telefuncRoot = path.join(__dirname_, '../../../../')
   // Assert that `telefuncRoot` is indeed pointing to `node_modules/vike/`
-  require_.resolve(`${telefuncRoot}/dist/esm/node/vite/plugins/devConfig.js`)
+  require_.resolve(`${telefuncRoot}/dist/node/vite/plugins/devConfig.js`)
   fsAllow.push(telefuncRoot)
 }
