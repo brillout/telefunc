@@ -14,7 +14,7 @@ import {
   unique,
   assertPosixPath,
 } from '../../utils'
-import { type ExportList, getExportList } from '../getExportList'
+import { type ExportList, getExportList } from '../getExportList.js'
 import fs from 'node:fs'
 import path from 'node:path'
 import pc from '@brillout/picocolors'

@@ -1,7 +1,7 @@
 export { serializeTelefunctionResult }
 
 import { stringify } from '@brillout/json-serializer/stringify'
-import { assert, assertUsage, hasProp, lowercaseFirstLetter } from '../../utils'
+import { assert, assertUsage, hasProp, lowercaseFirstLetter } from '../../utils.js'
 
 function serializeTelefunctionResult(runContext: {
   telefunctionReturn: unknown

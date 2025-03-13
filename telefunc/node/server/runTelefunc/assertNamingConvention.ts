@@ -1,7 +1,7 @@
 export { assertNamingConvention }
 
-import { assert, assertWarning, isProduction, assertPosixPath } from '../../utils'
-import type { Telefunction } from '../types'
+import { assert, assertWarning, isProduction, assertPosixPath } from '../../utils.js'
+import type { Telefunction } from '../types.js'
 import type * as fsType from 'node:fs'
 import type * as pathType from 'node:path'
 

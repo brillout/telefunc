@@ -1,9 +1,9 @@
 export { loadTelefuncFilesWithImportBuild }
 export { setTelefuncLoaders }
 
-import { config } from '../../../server/serverConfig'
-import { getGlobalObject } from '../../utils'
-import { assertManifest } from './assertManifest'
+import { config } from '../../../server/serverConfig.js'
+import { getGlobalObject } from '../../utils.js'
+import { assertManifest } from './assertManifest.js'
 
 const globalObject = getGlobalObject<{
   loadTelefuncFiles?: LoadTelefuncFiles

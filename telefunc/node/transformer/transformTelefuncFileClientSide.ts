@@ -1,7 +1,7 @@
 export { transformTelefuncFileClientSide }
 
-import { getExportList } from './getExportList'
-import { transformTelefuncFileClientSideSync } from './transformTelefuncFileClientSideSync'
+import { getExportList } from './getExportList.js'
+import { transformTelefuncFileClientSideSync } from './transformTelefuncFileClientSideSync.js'
 
 async function transformTelefuncFileClientSide(src: string, id: string, appRootDir: string) {
   const exportList = await getExportList(src)

@@ -1,4 +1,4 @@
-import { assert } from '../utils'
+import { assert } from '../utils.js'
 export function rollupIsEsm(rollupOptions: { format: string }) {
   const { format } = rollupOptions
   assert(typeof format === 'string')

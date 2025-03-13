@@ -2,7 +2,7 @@ export { getViteDevServer }
 export { setViteDevServer }
 
 import type { ViteDevServer } from 'vite'
-import { getGlobalObject } from '../utils'
+import { getGlobalObject } from '../utils.js'
 
 const globalObject = getGlobalObject<{ viteDevServer: null | ViteDevServer }>('globalContext.ts', {
   viteDevServer: null,

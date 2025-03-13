@@ -1,5 +1,5 @@
 import type { Module } from '@nuxt/types'
-import { install } from '../webpack/install'
+import { install } from '../webpack/install.js'
 
 const telefuncModule: Module = function () {
   this.extendBuild((config) => {

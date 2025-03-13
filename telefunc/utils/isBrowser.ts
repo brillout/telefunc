@@ -1,6 +1,6 @@
 export { isBrowser }
 
-import { assert } from './assert'
+import { assert } from './assert.js'
 
 function isBrowser() {
   const itIs = __browserTest()

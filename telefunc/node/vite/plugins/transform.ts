@@ -1,9 +1,9 @@
 export { transform }
 
 import type { Plugin } from 'vite'
-import { transformTelefuncFileClientSide } from '../../transformer/transformTelefuncFileClientSide'
-import { transformTelefuncFileServerSide } from '../../transformer/transformTelefuncFileServerSide'
-import { assert, toPosixPath } from '../utils'
+import { transformTelefuncFileClientSide } from '../../transformer/transformTelefuncFileClientSide.js'
+import { transformTelefuncFileServerSide } from '../../transformer/transformTelefuncFileServerSide.js'
+import { assert, toPosixPath } from '../utils.js'
 
 function transform(): Plugin {
   let root: string

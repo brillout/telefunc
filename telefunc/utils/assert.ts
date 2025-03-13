@@ -5,9 +5,9 @@ export { assertInfo }
 export { getProjectError }
 export { errorPrefix }
 
-import { createErrorWithCleanStackTrace } from './createErrorWithCleanStackTrace'
-import { getGlobalObject } from './getGlobalObject'
-import { projectInfo } from './projectInfo'
+import { createErrorWithCleanStackTrace } from './createErrorWithCleanStackTrace.js'
+import { getGlobalObject } from './getGlobalObject.js'
+import { projectInfo } from './projectInfo.js'
 
 const errorPrefix = `[telefunc@${projectInfo.projectVersion}]`
 const internalErrorPrefix = `${errorPrefix}[Bug]`

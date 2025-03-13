@@ -1,8 +1,8 @@
 export { getTelefuncManifest }
 
-import { config } from '../../../server/serverConfig'
-import { projectInfo } from '../../utils'
-import { assertManifest, type Manifest } from './assertManifest'
+import { config } from '../../../server/serverConfig.js'
+import { projectInfo } from '../../utils.js'
+import { assertManifest, type Manifest } from './assertManifest.js'
 
 function getTelefuncManifest(): Manifest {
   const manifest = {

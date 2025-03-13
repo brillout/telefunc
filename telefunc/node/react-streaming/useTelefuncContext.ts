@@ -2,8 +2,8 @@ export { useTelefuncContext }
 export { TelefuncSSR }
 
 import { createContext, useContext, createElement, type ReactNode } from 'react'
-import type { Telefunc } from '../../node/server/getContext/TelefuncNamespace'
-import { assertUsage, isObject } from '../utils'
+import type { Telefunc } from '../../node/server/getContext/TelefuncNamespace.js'
+import { assertUsage, isObject } from '../utils.js'
 
 const TelefuncReactContext = createContext<null | Telefunc.Context>(null)
 

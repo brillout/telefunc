@@ -1,9 +1,9 @@
 export { useData }
 
-import { useData as useData_ } from '../../shared/react-streaming'
-import { restoreContext, isAsyncMode } from '../server/getContext'
+import { useData as useData_ } from '../../shared/react-streaming.js'
+import { restoreContext, isAsyncMode } from '../server/getContext.js'
 
-import { useTelefuncContext } from './useTelefuncContext'
+import { useTelefuncContext } from './useTelefuncContext.js'
 
 const useData: typeof useData_ = (...args) => {
   if (!isAsyncMode()) {

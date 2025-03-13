@@ -10,7 +10,7 @@
 export { packageJsonFile }
 
 import type { Plugin, ResolvedConfig } from 'vite'
-import { rollupIsEsm } from '../helpers'
+import { rollupIsEsm } from '../helpers.js'
 
 function packageJsonFile(): Plugin {
   let config: ResolvedConfig

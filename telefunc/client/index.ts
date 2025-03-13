@@ -1,4 +1,4 @@
-import { config } from './clientConfig'
+import { config } from './clientConfig.js'
 export { config }
 export { config as telefuncConfig }
 export { onAbort, onTelefunctionRemoteCallError } from './remoteTelefunctionCall/onAbort'

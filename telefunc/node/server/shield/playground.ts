@@ -1,6 +1,6 @@
 // Run this with `tsm` (https://www.npmjs.com/package/tsm)
 
-import { shield, shieldApply, shieldToHumandReadable } from '../shield'
+import { shield, shieldApply, shieldToHumandReadable } from '../shield.js'
 
 const t = shield.type
 

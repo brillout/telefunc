@@ -1,8 +1,8 @@
 export { handleError }
 
 import type { ViteDevServer } from 'vite'
-import { hasProp } from '../../utils'
-import { getViteDevServer } from '../globalContext'
+import { hasProp } from '../../utils.js'
+import { getViteDevServer } from '../globalContext.js'
 
 function handleError(err: unknown) {
   // We ensure we print a string; Cloudflare Workers doesn't seem to properly stringify `Error` objects.

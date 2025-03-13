@@ -1,9 +1,9 @@
 export { install }
 
 import { resolve } from 'node:path'
-import { logResult } from '../transformer/generateShield/generateShield'
-import { getRoot } from './getInfo'
-import type { Compiler } from './types'
+import { logResult } from '../transformer/generateShield/generateShield.js'
+import { getRoot } from './getInfo.js'
+import type { Compiler } from './types.js'
 const dir = __dirname + (() => '')() // trick to avoid `@vercel/ncc` to glob import
 const loader = resolve(dir, './loader.js')
 

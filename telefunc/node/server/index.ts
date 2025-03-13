@@ -1,5 +1,5 @@
 export { telefunc } from './telefunc'
-import { config } from './serverConfig'
+import { config } from './serverConfig.js'
 export { config }
 export { config as telefuncConfig }
 export { getContext, provideTelefuncContext } from './getContext'
@@ -12,7 +12,7 @@ export type { Telefunc } from './getContext/TelefuncNamespace'
 
 export { decorateTelefunction as __decorateTelefunction } from './runTelefunc/decorateTelefunction'
 
-import { assertUsage } from '../utils'
+import { assertUsage } from '../utils.js'
 
 assertServerSide()
 
