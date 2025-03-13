@@ -7,7 +7,7 @@ import { assertTelefunction } from './assertTelefunction.js'
 import { getServerConfig } from '../serverConfig.js'
 import pc from '@brillout/picocolors'
 
-function findTelefunction(runContext: {
+async function findTelefunction(runContext: {
   telefuncFilePath: string
   telefuncFilesLoaded: TelefuncFiles
   telefuncFilesAll: string[]
@@ -17,7 +17,7 @@ function findTelefunction(runContext: {
   serverConfig: {
     disableNamingConvention: boolean
   }
-}): null | Telefunction {
+}): Promise<null | Telefunction> {
   assertUsage(
     runContext.telefuncFilesAll.length > 0,
     [
@@ -27,7 +27,7 @@ function findTelefunction(runContext: {
   )
 
   const telefuncFile = findTelefuncFile(runContext)
-  const telefunction = (() => {
+  const telefunction = await (async () => {
     if (!telefuncFile) {
       return null
     }
@@ -37,7 +37,12 @@ function findTelefunction(runContext: {
     const telefunction = telefuncFile.fileExports[runContext.telefunctionName]
     assertTelefunction(telefunction, runContext.telefunctionName, telefuncFile.filePath)
     if (!runContext.serverConfig.disableNamingConvention) {
-      assertNamingConvention(telefunction, runContext.telefunctionName, telefuncFile.filePath, runContext.appRootDir)
+      await assertNamingConvention(
+        telefunction,
+        runContext.telefunctionName,
+        telefuncFile.filePath,
+        runContext.appRootDir,
+      )
     }
     return telefunction
   })()

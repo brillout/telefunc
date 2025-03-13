@@ -117,7 +117,7 @@ async function runTelefunc_(httpRequest: {
   }
 
   {
-    const telefunction = findTelefunction(runContext)
+    const telefunction = await findTelefunction(runContext)
     if (!telefunction) {
       return invalidRequest
     }

@@ -1,19 +1,18 @@
 export { assertNamingConvention }
 
-import { assert, assertWarning, isProduction, assertPosixPath } from '../../utils.js'
-import type { Telefunction } from '../types.js'
+import { assertWarning, isProduction, assertPosixPath } from '../../utils.js'
 import type * as fsType from 'node:fs'
 import type * as pathType from 'node:path'
 
-function assertNamingConvention(
+async function assertNamingConvention(
   exportValue: unknown,
   exportName: string,
   telefuncFilePath: string,
   appRootDir: null | string,
-): asserts exportValue is Telefunction {
+): Promise<void> {
   if (isProduction()) return
   assertStartsWithOn(exportName, telefuncFilePath)
-  assertCollocation(telefuncFilePath, appRootDir, exportValue)
+  await assertCollocation(telefuncFilePath, appRootDir, exportValue)
 }
 
 function assertStartsWithOn(exportName: string, telefuncFilePath: string) {
@@ -33,16 +32,15 @@ function assertStartsWithOn(exportName: string, telefuncFilePath: string) {
   }
 }
 
-function assertCollocation(telefuncFilePath: string, appRootDir: string | null, exportValue: unknown) {
+async function assertCollocation(telefuncFilePath: string, appRootDir: string | null, exportValue: unknown) {
   appRootDir = appRootDir || ((exportValue as any)._appRootDir as undefined | string) || null
   if (!appRootDir) return
 
   let fs: typeof fsType
   let path: typeof pathType
-  const req: NodeRequire = require
   try {
-    fs = req('node:fs')
-    path = req('node:path')
+    fs = await import('node:fs')
+    path = await import('node:path')
   } catch {
     // The environment doesn't seem to have a filesystem API => skip `assertCollocation()`.
     // - For example, Cloudflare Workers doesn't have a filesystem API.
