@@ -6,16 +6,21 @@ import { scriptFileExtensions } from '../utils.js'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 const __dirname_ = path.dirname(fileURLToPath(import.meta.url))
-const telefuncFilesGlobPath = `${__dirname_}/telefuncFilesGlob.js`
+const telefuncFilesGlobFilePath = `${__dirname_}/telefuncFilesGlob.js`
+globalThis._telefunc ??= {}
+globalThis._telefunc.telefuncFilesGlobFilePath = telefuncFilesGlobFilePath
+declare global {
+  var _telefunc: undefined | { telefuncFilesGlobFilePath?: string }
+}
 const importGlob = `import.meta.glob("/**/*.telefunc.${scriptFileExtensions}")`
 
 function importGlobOff() {
-  writeFileSync(telefuncFilesGlobPath, ['exports.importGlobOff = true', ''].join('\n'))
+  writeFileSync(telefuncFilesGlobFilePath, ['exports.importGlobOff = true', ''].join('\n'))
 }
 
 function importGlobOn() {
   writeFileSync(
-    telefuncFilesGlobPath,
+    telefuncFilesGlobFilePath,
     // prettier-ignore
     [
       `export const telefuncFilesGlob = ${importGlob};`,

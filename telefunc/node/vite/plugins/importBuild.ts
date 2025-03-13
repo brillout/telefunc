@@ -5,7 +5,6 @@ import type { Plugin, ResolvedConfig } from 'vite'
 import { assert, assertPosixPath, projectInfo, toPosixPath } from '../../utils.js'
 import path from 'node:path'
 import { getTelefuncManifest } from './importBuild/getTelefuncManifest.js'
-import { telefuncFilesGlobFilePath } from '../importGlob/telefuncFilesGlobPath.js'
 import { getOutDirAbsolute } from '../getOutDirs.js'
 
 function importBuild(): Plugin[] {
@@ -31,6 +30,9 @@ function getServerProductionEntryCode(config: ResolvedConfig) {
   const importPath = getImportPath(config)
 
   const telefuncManifest = getTelefuncManifest()
+
+  const { telefuncFilesGlobFilePath } = globalThis._telefunc!
+  assert(telefuncFilesGlobFilePath)
 
   // console.log(`\n  importPath: ${importPath}\n  outDirServer: ${outDirServer}\n  importPathAbsolute: ${importPathAbsolute}\n  config.build.outDir: ${config.build.outDir}`)
   const importerCode = [

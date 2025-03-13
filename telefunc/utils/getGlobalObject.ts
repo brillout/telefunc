@@ -3,8 +3,7 @@ export function getGlobalObject<T extends Record<string, unknown> = never>(
   key: `${string}.ts`,
   defaultValue: T,
 ): T {
-  // @ts-ignore
-  const globalObjectsAll = (globalThis[projectKey] = globalThis[projectKey] || {})
+  const globalObjectsAll = ((globalThis as any)[projectKey] = (globalThis as any)[projectKey] || {})
   const globalObject = (globalObjectsAll[key] = globalObjectsAll[key] || defaultValue)
   return globalObject
 }
