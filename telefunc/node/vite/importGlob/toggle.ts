@@ -3,10 +3,9 @@ export { importGlobOn }
 
 import { writeFileSync } from 'node:fs'
 import { scriptFileExtensions } from '../utils.js'
-import path from 'node:path'
-import { fileURLToPath } from 'node:url'
-const __dirname_ = path.dirname(fileURLToPath(import.meta.url))
-const telefuncFilesGlobFilePath = `${__dirname_}/telefuncFilesGlob.js`
+import { createRequire } from 'node:module'
+const require_ = createRequire(import.meta.url)
+const telefuncFilesGlobFilePath = require_.resolve('./telefuncFilesGlob.js')
 globalThis._telefunc ??= {}
 globalThis._telefunc.telefuncFilesGlobFilePath = telefuncFilesGlobFilePath
 declare global {
