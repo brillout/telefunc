@@ -1,3 +1,18 @@
+# [0.2.0](https://github.com/brillout/telefunc/compare/v0.1.87...v0.2.0) (2025-03-13)
+
+
+### Bug Fixes
+
+* improve client-side error upon wrong usage ([#152](https://github.com/brillout/telefunc/issues/152)) ([487969a](https://github.com/brillout/telefunc/commit/487969af8486ae206fa7a996472a27db37b3c911))
+* publish as ESM only ([#154](https://github.com/brillout/telefunc/issues/154)) ([4ace609](https://github.com/brillout/telefunc/commit/4ace60983c8989beeb904c99c62ff979ed92f8e4))
+
+
+### BREAKING CHANGES
+
+* If your app is CJS then update Node.js to v23 or above (or v22 with the `--experimental-require-module` flag) in order to [be able to `require(esm)`](https://nodejs.org/en/blog/announcements/v22-release-announce#support-requireing-synchronous-esm-graphs) . If your app is ESM then you can keep using older Node.js versions.
+
+
+
 ## [0.1.87](https://github.com/brillout/telefunc/compare/v0.1.86...v0.1.87) (2025-03-06)
 
 
