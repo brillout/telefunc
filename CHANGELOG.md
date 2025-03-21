@@ -1,3 +1,12 @@
+## [0.2.2](https://github.com/brillout/telefunc/compare/v0.2.1...v0.2.2) (2025-03-21)
+
+
+### Bug Fixes
+
+* update @brillout/vite-plugin-server-entry@^0.7.1 ([#156](https://github.com/brillout/telefunc/issues/156)) ([d0464bd](https://github.com/brillout/telefunc/commit/d0464bd8e9fa11838d23f4ad4775d905cf0722de))
+
+
+
 ## [0.2.1](https://github.com/brillout/telefunc/compare/v0.2.0...v0.2.1) (2025-03-13)
 
 
