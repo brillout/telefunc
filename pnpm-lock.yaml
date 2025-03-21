@@ -311,24 +311,6 @@ importers:
         specifier: ^4.3.9
         version: 4.3.9(@types/node@22.10.2)(terser@5.10.0)
 
-  examples/vite:
-    dependencies:
-      cross-env:
-        specifier: ^7.0.3
-        version: 7.0.3
-      express:
-        specifier: ^4.18.2
-        version: 4.18.2
-      telefunc:
-        specifier: link:../../telefunc
-        version: link:../../telefunc
-      typescript:
-        specifier: ^5.4.4
-        version: 5.4.4
-      vite:
-        specifier: ^4.3.9
-        version: 4.3.9(@types/node@22.10.2)(terser@5.10.0)
-
   telefunc:
     dependencies:
       '@brillout/import':
@@ -341,8 +323,8 @@ importers:
         specifier: ^1.0.26
         version: 1.0.26
       '@brillout/vite-plugin-server-entry':
-        specifier: ^0.6.3
-        version: 0.6.3
+        specifier: ^0.7.1
+        version: 0.7.1
       es-module-lexer:
         specifier: ^1.6.0
         version: 1.6.0
@@ -1390,8 +1372,8 @@ packages:
   '@brillout/vite-plugin-server-entry@0.6.0':
     resolution: {integrity: sha512-ELqCpB3l4dCZviobZKcHcNvuSPG86ZfBAHUYQWnf3K28PToBrXEagwPBEU/63ITcdpK9m7DOamQPcShtitTx5g==}
 
-  '@brillout/vite-plugin-server-entry@0.6.3':
-    resolution: {integrity: sha512-uSbzC4d0xIBxnt8JbrZiUb0iylHsHXyDNIi1sYf7bnr4HY6FcNMnSTE2C5FLIH1pc0qQXnvZzdw6tn/jEGM/6A==}
+  '@brillout/vite-plugin-server-entry@0.7.1':
+    resolution: {integrity: sha512-f4Mf4/5Lc8ScQwx15EkVfp34Zmt0o4pDG6zvNWxMNyCToUTs31RDCiXtIGTWck2AOIAiBkEeuM6vK0cA7cuU1Q==}
 
   '@cloudflare/kv-asset-handler@0.2.0':
     resolution: {integrity: sha512-MVbXLbTcAotOPUj0pAMhVtJ+3/kFkwJqc5qNOleOZTv6QkZZABDMS21dSrSlVswEHwrpWC03e4fWytjqKvuE2A==}
@@ -8241,11 +8223,6 @@ packages:
     engines: {node: '>=12.20'}
     hasBin: true
 
-  typescript@5.4.4:
-    resolution: {integrity: sha512-dGE2Vv8cpVvw28v8HCPqyb08EzbBURxDpuhJvTrusShUfGnhHBafDsLdS1EhhxyL6BJQE+2cT3dDPAv+MQ6oLw==}
-    engines: {node: '>=14.17'}
-    hasBin: true
-
   typescript@5.6.3:
     resolution: {integrity: sha512-hjcS1mhfuyi4WW8IWtjP7brDrG2cuDZukyrYrSauoXGNgx0S7zceP07adYkJycEr56BOUTNPzbInooiN3fn1qw==}
     engines: {node: '>=14.17'}
@@ -10158,7 +10135,7 @@ snapshots:
       '@brillout/import': 0.2.6
       '@brillout/picocolors': 1.0.26
 
-  '@brillout/vite-plugin-server-entry@0.6.3':
+  '@brillout/vite-plugin-server-entry@0.7.1':
     dependencies:
       '@brillout/import': 0.2.6
       '@brillout/picocolors': 1.0.26
@@ -18112,8 +18089,6 @@ snapshots:
   typescript@4.9.5: {}
 
   typescript@5.0.3: {}
-
-  typescript@5.4.4: {}
 
   typescript@5.6.3: {}
 
