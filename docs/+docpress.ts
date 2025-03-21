@@ -1,6 +1,6 @@
 import type { Config } from '@brillout/docpress'
 import faviconUrl from './icons/telefunc.svg'
-import { headings, headingsDetached } from './headings'
+import { categories, headings, headingsDetached } from './headings'
 import { projectInfo } from './utils'
 
 export default {
@@ -8,6 +8,7 @@ export default {
   faviconUrl,
   headings,
   headingsDetached,
+  categories,
   tagline: 'Remote Functions. Instead of API.',
   twitterHandle: '@brillout',
   websiteUrl: 'https://telefunc.com',
