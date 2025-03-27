@@ -9,10 +9,10 @@ export default async function (this: Loader, input: string) {
   this.async()
   const { id, root, isClientSide, isDev } = getInfo(this)
   if (isClientSide) {
-    const { code } = await transformTelefuncFileClientSide(input, toPosixPath(id), toPosixPath(root))
-    this.callback(null, code)
+    const { code, map } = await transformTelefuncFileClientSide(input, toPosixPath(id), toPosixPath(root))
+    this.callback(null, code, map)
   } else {
-    const { code } = await transformTelefuncFileServerSide(input, toPosixPath(id), toPosixPath(root), false, isDev)
-    this.callback(null, code)
+    const { code, map } = await transformTelefuncFileServerSide(input, toPosixPath(id), toPosixPath(root), false, isDev)
+    this.callback(null, code, map)
   }
 }

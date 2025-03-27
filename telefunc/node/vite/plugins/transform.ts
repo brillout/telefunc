@@ -3,7 +3,7 @@ export { transform }
 import type { Plugin } from 'vite'
 import { transformTelefuncFileClientSide } from '../../transformer/transformTelefuncFileClientSide.js'
 import { transformTelefuncFileServerSide } from '../../transformer/transformTelefuncFileServerSide.js'
-import { assert, rollupSourceMapRemove, toPosixPath } from '../utils.js'
+import { assert, toPosixPath } from '../utils.js'
 
 function transform(): Plugin {
   let root: string
@@ -22,21 +22,11 @@ function transform(): Plugin {
       if (!id.includes('.telefunc.')) {
         return
       }
-
       const isClientSide = !options?.ssr
-
-      let res: { code: string }
       if (isClientSide) {
-        res = await transformTelefuncFileClientSide(code, id, root)
+        return await transformTelefuncFileClientSide(code, id, root)
       } else {
-        res = await transformTelefuncFileServerSide(code, id, root, true, isDev)
-      }
-      code = res.code
-
-      if (isClientSide) {
-        return rollupSourceMapRemove(code)
-      } else {
-        return code
+        return await transformTelefuncFileServerSide(code, id, root, true, isDev)
       }
     },
   }
