@@ -3,7 +3,7 @@ export { transform }
 import type { Plugin } from 'vite'
 import { transformTelefuncFileClientSide } from '../../transformer/transformTelefuncFileClientSide.js'
 import { transformTelefuncFileServerSide } from '../../transformer/transformTelefuncFileServerSide.js'
-import { assert, toPosixPath } from '../utils.js'
+import { assert, rollupSourceMapPassthrough, toPosixPath } from '../utils.js'
 
 function transform(): Plugin {
   let root: string
@@ -34,11 +34,7 @@ function transform(): Plugin {
       code = res.code
 
       if (isClientSide) {
-        return {
-          code,
-          // Pass through source map https://rollupjs.org/plugin-development/#source-code-transformations
-          map: null,
-        }
+        return rollupSourceMapPassthrough(code)
       } else {
         return code
       }
