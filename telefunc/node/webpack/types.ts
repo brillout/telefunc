@@ -6,6 +6,7 @@ type Loader = {
   _compiler: Compiler
   resource: string
   mode: 'production' | 'development'
+  sourceMap: boolean
 }
 
 type Compiler = {
