@@ -8,10 +8,10 @@ import { getInfo } from './getInfo.js'
 export default async function (this: Loader, input: string): Promise<string> {
   const { id, root, isClientSide, isDev } = getInfo(this)
   if (isClientSide) {
-    const code = await transformTelefuncFileClientSide(input, toPosixPath(id), toPosixPath(root))
+    const { code } = await transformTelefuncFileClientSide(input, toPosixPath(id), toPosixPath(root))
     return code
   } else {
-    const code = await transformTelefuncFileServerSide(input, toPosixPath(id), toPosixPath(root), false, isDev)
+    const { code } = await transformTelefuncFileServerSide(input, toPosixPath(id), toPosixPath(root), false, isDev)
     return code
   }
 }

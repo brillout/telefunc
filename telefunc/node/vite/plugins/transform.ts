@@ -25,11 +25,13 @@ function transform(): Plugin {
 
       const isClientSide = !options?.ssr
 
+      let res: { code: string }
       if (isClientSide) {
-        code = await transformTelefuncFileClientSide(code, id, root)
+        res = await transformTelefuncFileClientSide(code, id, root)
       } else {
-        code = await transformTelefuncFileServerSide(code, id, root, true, isDev)
+        res = await transformTelefuncFileServerSide(code, id, root, true, isDev)
       }
+      code = res.code
 
       if (isClientSide) {
         return {

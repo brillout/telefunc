@@ -17,7 +17,7 @@ function transformTelefuncFileClientSideSync(id: string, appRootDir: string, exp
   telefuncFilePath = `/${telefuncFilePath}`
 
   const code = getCode(exportNames, telefuncFilePath)
-  return code
+  return { code }
 }
 
 export function getCode(exportNames: readonly string[], telefuncFilePath: string) {

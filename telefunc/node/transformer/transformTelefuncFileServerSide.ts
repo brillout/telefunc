@@ -23,7 +23,7 @@ async function transformTelefuncFileServerSide(
     code = generateShield(code, id, appRootDir, exportList)
   }
 
-  return code
+  return { code }
 }
 
 function decorateTelefunctions(
