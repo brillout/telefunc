@@ -6,6 +6,7 @@ import type { Loader } from './types.js'
 import { getInfo } from './getInfo.js'
 
 export default async function (this: Loader, input: string) {
+  this.async()
   const { id, root, isClientSide, isDev } = getInfo(this)
   if (isClientSide) {
     const { code } = await transformTelefuncFileClientSide(input, toPosixPath(id), toPosixPath(root))
