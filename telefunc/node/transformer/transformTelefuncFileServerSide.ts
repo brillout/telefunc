@@ -37,7 +37,7 @@ function decorateTelefunctions(
 
   return [
     'import { __decorateTelefunction } from "telefunc";',
-    // No break line before `src` to avoid breaking source map lines
+    // No break line before `src` to avoid breaking source map lines for environments that don't support source maps
     src,
     '\n\n',
     exportList
