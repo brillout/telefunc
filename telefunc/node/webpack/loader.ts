@@ -9,9 +9,9 @@ export default async function (this: Loader, input: string) {
   const { id, root, isClientSide, isDev } = getInfo(this)
   if (isClientSide) {
     const { code } = await transformTelefuncFileClientSide(input, toPosixPath(id), toPosixPath(root))
-    this.sourceMap ? { code } : code
+    this.callback(null, code)
   } else {
     const { code } = await transformTelefuncFileServerSide(input, toPosixPath(id), toPosixPath(root), false, isDev)
-    this.sourceMap ? { code } : code
+    this.callback(null, code)
   }
 }
