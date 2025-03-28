@@ -36,10 +36,10 @@ function decorateTelefunctions(
   assertPosixPath(filePath)
 
   return [
-    'import { __decorateTelefunction } from "telefunc";',
-    // No break line before `src` to avoid breaking source map lines for environments that don't support source maps
+    // We append everything in order to avoid breaking source map lines for environments that don't support source maps
     src,
     '\n\n',
+    'import { __decorateTelefunction } from "telefunc";',
     exportList
       .map(
         ({ exportName, localName }) =>
