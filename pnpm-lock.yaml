@@ -31,13 +31,13 @@ importers:
         version: 2.8.7
       vitest:
         specifier: ^0.32.2
-        version: 0.32.2(terser@5.10.0)
+        version: 0.32.2(terser@5.10.0(acorn@8.14.1))
 
   docs:
     dependencies:
       '@brillout/docpress':
         specifier: ^0.12.2
-        version: 0.12.2(@algolia/client-search@5.21.0)(@types/react@19.0.2)(@vitejs/plugin-react-swc@3.7.2(vite@6.2.4(@types/node@22.10.2)(terser@5.10.0)))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(rollup@4.38.0)(search-insights@2.17.2)(typescript@5.7.2)(vike@0.4.222(react-streaming@0.4.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.2.4(@types/node@22.10.2)(terser@5.10.0)))(vite@6.2.4(@types/node@22.10.2)(terser@5.10.0))
+        version: 0.12.2(@algolia/client-search@5.21.0)(@types/react@19.0.2)(@vitejs/plugin-react-swc@3.7.2(@swc/helpers@0.5.15)(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1))))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(rollup@4.38.0)(search-insights@2.17.2)(typescript@5.7.2)(vike@0.4.222(react-streaming@0.4.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1))))(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1)))
       '@types/react':
         specifier: ^19.0.2
         version: 19.0.2
@@ -55,7 +55,7 @@ importers:
         version: 5.7.2
       vike:
         specifier: ^0.4.222
-        version: 0.4.222(react-streaming@0.4.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.2.4(@types/node@22.10.2)(terser@5.10.0))
+        version: 0.4.222(react-streaming@0.4.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1)))
 
   examples/authentication:
     dependencies:
@@ -82,7 +82,7 @@ importers:
         version: 0.3.0
       '@vitejs/plugin-react':
         specifier: ^4.3.4
-        version: 4.3.4(vite@6.0.2(@types/node@22.10.1)(jiti@1.21.0)(terser@5.10.0))
+        version: 4.3.4(vite@6.0.2(@types/node@22.10.1)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1)))
       cookie-parser:
         specifier: ^1.4.7
         version: 1.4.7
@@ -106,19 +106,19 @@ importers:
         version: link:../../telefunc
       ts-node:
         specifier: ^10.9.2
-        version: 10.9.2(@swc/core@1.10.2)(@types/node@22.10.1)(typescript@5.7.2)
+        version: 10.9.2(@swc/core@1.10.2(@swc/helpers@0.5.15))(@types/node@22.10.1)(typescript@5.7.2)
       typescript:
         specifier: ^5.7.2
         version: 5.7.2
       vike:
         specifier: ^0.4.206
-        version: 0.4.206(react-streaming@0.3.46(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(vite@6.0.2(@types/node@22.10.1)(jiti@1.21.0)(terser@5.10.0))
+        version: 0.4.206(react-streaming@0.3.46(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(vite@6.0.2(@types/node@22.10.1)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1)))
       vike-node:
         specifier: ^0.2.2
-        version: 0.2.2(encoding@0.1.13)(vike@0.4.206(react-streaming@0.3.46(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(vite@6.0.2(@types/node@22.10.1)(jiti@1.21.0)(terser@5.10.0)))(vite@6.0.2(@types/node@22.10.1)(jiti@1.21.0)(terser@5.10.0))
+        version: 0.2.2(encoding@0.1.13)(vike@0.4.206(react-streaming@0.3.46(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(vite@6.0.2(@types/node@22.10.1)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1))))(vite@6.0.2(@types/node@22.10.1)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1)))
       vite:
         specifier: ^6.0.2
-        version: 6.0.2(@types/node@22.10.1)(jiti@1.21.0)(terser@5.10.0)
+        version: 6.0.2(@types/node@22.10.1)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1))
 
   examples/babel:
     dependencies:
@@ -163,7 +163,7 @@ importers:
         version: link:../../telefunc
       vite:
         specifier: ^4.3.9
-        version: 4.3.9(@types/node@22.10.2)(terser@5.10.0)
+        version: 4.3.9(@types/node@22.10.2)(terser@5.10.0(acorn@8.14.1))
 
   examples/next:
     dependencies:
@@ -209,7 +209,7 @@ importers:
         version: 18.0.6
       '@vitejs/plugin-react':
         specifier: ^4.0.1
-        version: 4.0.1(vite@4.3.9(@types/node@22.10.2)(terser@5.10.0))
+        version: 4.0.1(vite@4.3.9(@types/node@22.10.2)(terser@5.10.0(acorn@8.14.1)))
       cross-env:
         specifier: ^7.0.3
         version: 7.0.3
@@ -233,10 +233,10 @@ importers:
         version: 4.9.5
       vike:
         specifier: ^0.4.156
-        version: 0.4.156(react-streaming@0.3.46(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(vite@4.3.9(@types/node@22.10.2)(terser@5.10.0))
+        version: 0.4.156(react-streaming@0.3.46(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(vite@4.3.9(@types/node@22.10.2)(terser@5.10.0(acorn@8.14.1)))
       vite:
         specifier: ^4.3.9
-        version: 4.3.9(@types/node@22.10.2)(terser@5.10.0)
+        version: 4.3.9(@types/node@22.10.2)(terser@5.10.0(acorn@8.14.1))
 
   examples/svelte-kit:
     dependencies:
@@ -246,10 +246,10 @@ importers:
     devDependencies:
       '@sveltejs/adapter-auto':
         specifier: ^2.0.0
-        version: 2.0.0(@sveltejs/kit@1.15.1(svelte@3.58.0)(vite@4.2.1(@types/node@22.10.2)(terser@5.10.0)))
+        version: 2.0.0(@sveltejs/kit@1.15.1(svelte@3.58.0)(vite@4.2.1(@types/node@22.10.2)(terser@5.10.0(acorn@8.14.1))))
       '@sveltejs/kit':
         specifier: ^1.15.1
-        version: 1.15.1(svelte@3.58.0)(vite@4.2.1(@types/node@22.10.2)(terser@5.10.0))
+        version: 1.15.1(svelte@3.58.0)(vite@4.2.1(@types/node@22.10.2)(terser@5.10.0(acorn@8.14.1)))
       prettier:
         specifier: ^2.8.7
         version: 2.8.7
@@ -273,7 +273,7 @@ importers:
         version: 5.0.3
       vite:
         specifier: ^4.2.1
-        version: 4.2.1(@types/node@22.10.2)(terser@5.10.0)
+        version: 4.2.1(@types/node@22.10.2)(terser@5.10.0(acorn@8.14.1))
 
   examples/vike:
     dependencies:
@@ -288,7 +288,7 @@ importers:
         version: 0.4.6(hono@4.7.5)
       '@vitejs/plugin-react':
         specifier: ^4.3.4
-        version: 4.3.4(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0))
+        version: 4.3.4(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1)))
       cross-env:
         specifier: ^7.0.3
         version: 7.0.3
@@ -309,16 +309,16 @@ importers:
         version: 5.8.2
       vike:
         specifier: ^0.4.227
-        version: 0.4.227(react-streaming@0.4.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0))
+        version: 0.4.227(react-streaming@0.4.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1)))
       vike-react:
         specifier: ^0.6.1
-        version: 0.6.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(vike@0.4.227(react-streaming@0.4.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0)))
+        version: 0.6.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(vike@0.4.227(react-streaming@0.4.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1))))
       vike-server:
         specifier: ^1.0.11
-        version: 1.0.11(hono@4.7.5)(vike@0.4.227(react-streaming@0.4.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0)))(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0))
+        version: 1.0.11(hono@4.7.5)(vike@0.4.227(react-streaming@0.4.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1))))(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1)))
       vite:
         specifier: ^6.2.4
-        version: 6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0)
+        version: 6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1))
 
   telefunc:
     dependencies:
@@ -388,7 +388,52 @@ importers:
         version: 5.6.3
       vite:
         specifier: ^3.2.2
-        version: 3.2.2(terser@5.10.0)
+        version: 3.2.2(terser@5.10.0(acorn@8.14.1))
+
+  test/playground:
+    dependencies:
+      '@types/react':
+        specifier: ^19.0.12
+        version: 19.0.12
+      '@types/react-dom':
+        specifier: ^19.0.4
+        version: 19.0.4(@types/react@19.0.12)
+      '@universal-middleware/core':
+        specifier: ^0.4.6
+        version: 0.4.6(hono@4.7.5)
+      '@vitejs/plugin-react':
+        specifier: ^4.3.4
+        version: 4.3.4(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1)))
+      cross-env:
+        specifier: ^7.0.3
+        version: 7.0.3
+      hono:
+        specifier: ^4.7.5
+        version: 4.7.5
+      react:
+        specifier: ^19.1.0
+        version: 19.1.0
+      react-dom:
+        specifier: ^19.1.0
+        version: 19.1.0(react@19.1.0)
+      telefunc:
+        specifier: link:../../telefunc
+        version: link:../../telefunc
+      typescript:
+        specifier: ^5.8.2
+        version: 5.8.2
+      vike:
+        specifier: ^0.4.227
+        version: 0.4.227(react-streaming@0.4.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1)))
+      vike-react:
+        specifier: ^0.6.1
+        version: 0.6.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(vike@0.4.227(react-streaming@0.4.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1))))
+      vike-server:
+        specifier: ^1.0.11
+        version: 1.0.11(hono@4.7.5)(vike@0.4.227(react-streaming@0.4.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1))))(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1)))
+      vite:
+        specifier: ^6.2.4
+        version: 6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1))
 
 packages:
 
@@ -10340,7 +10385,7 @@ snapshots:
 
   '@brillout/dev-my-dep@0.0.10': {}
 
-  '@brillout/docpress@0.12.2(@algolia/client-search@5.21.0)(@types/react@19.0.2)(@vitejs/plugin-react-swc@3.7.2(vite@6.2.4(@types/node@22.10.2)(terser@5.10.0)))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(rollup@4.38.0)(search-insights@2.17.2)(typescript@5.7.2)(vike@0.4.222(react-streaming@0.4.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.2.4(@types/node@22.10.2)(terser@5.10.0)))(vite@6.2.4(@types/node@22.10.2)(terser@5.10.0))':
+  '@brillout/docpress@0.12.2(@algolia/client-search@5.21.0)(@types/react@19.0.2)(@vitejs/plugin-react-swc@3.7.2(@swc/helpers@0.5.15)(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1))))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(rollup@4.38.0)(search-insights@2.17.2)(typescript@5.7.2)(vike@0.4.222(react-streaming@0.4.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1))))(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1)))':
     dependencies:
       '@brillout/picocolors': 1.0.26
       '@docsearch/css': 3.9.0
@@ -10355,10 +10400,10 @@ snapshots:
       remark-gfm: 4.0.0
       shiki: 1.2.0
       typescript: 5.7.2
-      vike: 0.4.222(react-streaming@0.4.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.2.4(@types/node@22.10.2)(terser@5.10.0))
+      vike: 0.4.222(react-streaming@0.4.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1)))
     optionalDependencies:
-      '@vitejs/plugin-react-swc': 3.7.2(vite@6.2.4(@types/node@22.10.2)(terser@5.10.0))
-      vite: 6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0)
+      '@vitejs/plugin-react-swc': 3.7.2(@swc/helpers@0.5.15)(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1)))
+      vite: 6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1))
     transitivePeerDependencies:
       - '@algolia/client-search'
       - '@types/react'
@@ -11631,14 +11676,14 @@ snapshots:
 
   '@sindresorhus/is@0.14.0': {}
 
-  '@sveltejs/adapter-auto@2.0.0(@sveltejs/kit@1.15.1(svelte@3.58.0)(vite@4.2.1(@types/node@22.10.2)(terser@5.10.0)))':
+  '@sveltejs/adapter-auto@2.0.0(@sveltejs/kit@1.15.1(svelte@3.58.0)(vite@4.2.1(@types/node@22.10.2)(terser@5.10.0(acorn@8.14.1))))':
     dependencies:
-      '@sveltejs/kit': 1.15.1(svelte@3.58.0)(vite@4.2.1(@types/node@22.10.2)(terser@5.10.0))
+      '@sveltejs/kit': 1.15.1(svelte@3.58.0)(vite@4.2.1(@types/node@22.10.2)(terser@5.10.0(acorn@8.14.1)))
       import-meta-resolve: 2.2.0
 
-  '@sveltejs/kit@1.15.1(svelte@3.58.0)(vite@4.2.1(@types/node@22.10.2)(terser@5.10.0))':
+  '@sveltejs/kit@1.15.1(svelte@3.58.0)(vite@4.2.1(@types/node@22.10.2)(terser@5.10.0(acorn@8.14.1)))':
     dependencies:
-      '@sveltejs/vite-plugin-svelte': 2.0.2(svelte@3.58.0)(vite@4.2.1(@types/node@22.10.2)(terser@5.10.0))
+      '@sveltejs/vite-plugin-svelte': 2.0.2(svelte@3.58.0)(vite@4.2.1(@types/node@22.10.2)(terser@5.10.0(acorn@8.14.1)))
       '@types/cookie': 0.5.1
       cookie: 0.5.0
       devalue: 4.3.0
@@ -11652,11 +11697,11 @@ snapshots:
       svelte: 3.58.0
       tiny-glob: 0.2.9
       undici: 5.20.0
-      vite: 4.2.1(@types/node@22.10.2)(terser@5.10.0)
+      vite: 4.2.1(@types/node@22.10.2)(terser@5.10.0(acorn@8.14.1))
     transitivePeerDependencies:
       - supports-color
 
-  '@sveltejs/vite-plugin-svelte@2.0.2(svelte@3.58.0)(vite@4.2.1(@types/node@22.10.2)(terser@5.10.0))':
+  '@sveltejs/vite-plugin-svelte@2.0.2(svelte@3.58.0)(vite@4.2.1(@types/node@22.10.2)(terser@5.10.0(acorn@8.14.1)))':
     dependencies:
       debug: 4.4.0
       deepmerge: 4.2.2
@@ -11664,8 +11709,8 @@ snapshots:
       magic-string: 0.27.0
       svelte: 3.58.0
       svelte-hmr: 0.15.1(svelte@3.58.0)
-      vite: 4.2.1(@types/node@22.10.2)(terser@5.10.0)
-      vitefu: 0.2.4(vite@4.2.1(@types/node@22.10.2)(terser@5.10.0))
+      vite: 4.2.1(@types/node@22.10.2)(terser@5.10.0(acorn@8.14.1))
+      vitefu: 0.2.4(vite@4.2.1(@types/node@22.10.2)(terser@5.10.0(acorn@8.14.1)))
     transitivePeerDependencies:
       - supports-color
 
@@ -11699,7 +11744,7 @@ snapshots:
   '@swc/core-win32-x64-msvc@1.10.2':
     optional: true
 
-  '@swc/core@1.10.2':
+  '@swc/core@1.10.2(@swc/helpers@0.5.15)':
     dependencies:
       '@swc/counter': 0.1.3
       '@swc/types': 0.1.17
@@ -11714,6 +11759,7 @@ snapshots:
       '@swc/core-win32-arm64-msvc': 1.10.2
       '@swc/core-win32-ia32-msvc': 1.10.2
       '@swc/core-win32-x64-msvc': 1.10.2
+      '@swc/helpers': 0.5.15
     optional: true
 
   '@swc/counter@0.1.3': {}
@@ -12291,43 +12337,43 @@ snapshots:
       - encoding
       - supports-color
 
-  '@vitejs/plugin-react-swc@3.7.2(vite@6.2.4(@types/node@22.10.2)(terser@5.10.0))':
+  '@vitejs/plugin-react-swc@3.7.2(@swc/helpers@0.5.15)(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1)))':
     dependencies:
-      '@swc/core': 1.10.2
-      vite: 6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0)
+      '@swc/core': 1.10.2(@swc/helpers@0.5.15)
+      vite: 6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1))
     transitivePeerDependencies:
       - '@swc/helpers'
     optional: true
 
-  '@vitejs/plugin-react@4.0.1(vite@4.3.9(@types/node@22.10.2)(terser@5.10.0))':
+  '@vitejs/plugin-react@4.0.1(vite@4.3.9(@types/node@22.10.2)(terser@5.10.0(acorn@8.14.1)))':
     dependencies:
       '@babel/core': 7.22.5
       '@babel/plugin-transform-react-jsx-self': 7.22.5(@babel/core@7.22.5)
       '@babel/plugin-transform-react-jsx-source': 7.22.5(@babel/core@7.22.5)
       react-refresh: 0.14.0
-      vite: 4.3.9(@types/node@22.10.2)(terser@5.10.0)
+      vite: 4.3.9(@types/node@22.10.2)(terser@5.10.0(acorn@8.14.1))
     transitivePeerDependencies:
       - supports-color
 
-  '@vitejs/plugin-react@4.3.4(vite@6.0.2(@types/node@22.10.1)(jiti@1.21.0)(terser@5.10.0))':
+  '@vitejs/plugin-react@4.3.4(vite@6.0.2(@types/node@22.10.1)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1)))':
     dependencies:
       '@babel/core': 7.26.0
       '@babel/plugin-transform-react-jsx-self': 7.25.9(@babel/core@7.26.0)
       '@babel/plugin-transform-react-jsx-source': 7.25.9(@babel/core@7.26.0)
       '@types/babel__core': 7.20.5
       react-refresh: 0.14.2
-      vite: 6.0.2(@types/node@22.10.1)(jiti@1.21.0)(terser@5.10.0)
+      vite: 6.0.2(@types/node@22.10.1)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1))
     transitivePeerDependencies:
       - supports-color
 
-  '@vitejs/plugin-react@4.3.4(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0))':
+  '@vitejs/plugin-react@4.3.4(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1)))':
     dependencies:
       '@babel/core': 7.26.0
       '@babel/plugin-transform-react-jsx-self': 7.25.9(@babel/core@7.26.0)
       '@babel/plugin-transform-react-jsx-source': 7.25.9(@babel/core@7.26.0)
       '@types/babel__core': 7.20.5
       react-refresh: 0.14.2
-      vite: 6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0)
+      vite: 6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1))
     transitivePeerDependencies:
       - supports-color
 
@@ -14224,7 +14270,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-module-utils@2.12.0(@typescript-eslint/parser@8.26.1(eslint@9.22.0(jiti@1.21.0))(typescript@5.7.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.8.7(eslint-plugin-import@2.31.0)(eslint@9.22.0(jiti@1.21.0)))(eslint@9.22.0(jiti@1.21.0)):
+  eslint-module-utils@2.12.0(@typescript-eslint/parser@8.26.1(eslint@9.22.0(jiti@1.21.0))(typescript@5.7.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.8.7)(eslint@9.22.0(jiti@1.21.0)):
     dependencies:
       debug: 3.2.7
     optionalDependencies:
@@ -14246,7 +14292,7 @@ snapshots:
       doctrine: 2.1.0
       eslint: 9.22.0(jiti@1.21.0)
       eslint-import-resolver-node: 0.3.9
-      eslint-module-utils: 2.12.0(@typescript-eslint/parser@8.26.1(eslint@9.22.0(jiti@1.21.0))(typescript@5.7.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.8.7(eslint-plugin-import@2.31.0)(eslint@9.22.0(jiti@1.21.0)))(eslint@9.22.0(jiti@1.21.0))
+      eslint-module-utils: 2.12.0(@typescript-eslint/parser@8.26.1(eslint@9.22.0(jiti@1.21.0))(typescript@5.7.2))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.8.7)(eslint@9.22.0(jiti@1.21.0))
       hasown: 2.0.2
       is-core-module: 2.16.1
       is-glob: 4.0.3
@@ -18293,8 +18339,8 @@ snapshots:
       picocolors: 1.0.0
       sade: 1.8.1
       svelte: 3.58.0
-      svelte-preprocess: 5.0.3(@babel/core@7.26.0)(postcss-load-config@2.1.2)(postcss@8.5.3)(svelte@3.58.0)(typescript@5.7.2)
-      typescript: 5.7.2
+      svelte-preprocess: 5.0.3(@babel/core@7.26.0)(postcss-load-config@2.1.2)(postcss@8.5.3)(svelte@3.58.0)(typescript@5.8.2)
+      typescript: 5.8.2
     transitivePeerDependencies:
       - '@babel/core'
       - coffeescript
@@ -18324,7 +18370,7 @@ snapshots:
       postcss-load-config: 2.1.2
       typescript: 5.0.3
 
-  svelte-preprocess@5.0.3(@babel/core@7.26.0)(postcss-load-config@2.1.2)(postcss@8.5.3)(svelte@3.58.0)(typescript@5.7.2):
+  svelte-preprocess@5.0.3(@babel/core@7.26.0)(postcss-load-config@2.1.2)(postcss@8.5.3)(svelte@3.58.0)(typescript@5.8.2):
     dependencies:
       '@types/pug': 2.0.6
       detect-indent: 6.1.0
@@ -18336,7 +18382,7 @@ snapshots:
       '@babel/core': 7.26.0
       postcss: 8.5.3
       postcss-load-config: 2.1.2
-      typescript: 5.7.2
+      typescript: 5.8.2
 
   svelte@3.58.0: {}
 
@@ -18373,11 +18419,13 @@ snapshots:
       source-map: 0.6.1
       source-map-support: 0.5.21
 
-  terser@5.10.0:
+  terser@5.10.0(acorn@8.14.1):
     dependencies:
       commander: 2.20.3
       source-map: 0.7.3
       source-map-support: 0.5.21
+    optionalDependencies:
+      acorn: 8.14.1
     optional: true
 
   text-extensions@2.4.0: {}
@@ -18477,7 +18525,7 @@ snapshots:
       '@ts-morph/common': 0.20.0
       code-block-writer: 12.0.0
 
-  ts-node@10.9.2(@swc/core@1.10.2)(@types/node@22.10.1)(typescript@5.7.2):
+  ts-node@10.9.2(@swc/core@1.10.2(@swc/helpers@0.5.15))(@types/node@22.10.1)(typescript@5.7.2):
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
       '@tsconfig/node10': 1.0.8
@@ -18495,7 +18543,7 @@ snapshots:
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
     optionalDependencies:
-      '@swc/core': 1.10.2
+      '@swc/core': 1.10.2(@swc/helpers@0.5.15)
 
   tsconfig-paths@3.15.0:
     dependencies:
@@ -18835,7 +18883,7 @@ snapshots:
       unist-util-stringify-position: 4.0.0
       vfile-message: 4.0.2
 
-  vike-node@0.2.2(encoding@0.1.13)(vike@0.4.206(react-streaming@0.3.46(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(vite@6.0.2(@types/node@22.10.1)(jiti@1.21.0)(terser@5.10.0)))(vite@6.0.2(@types/node@22.10.1)(jiti@1.21.0)(terser@5.10.0)):
+  vike-node@0.2.2(encoding@0.1.13)(vike@0.4.206(react-streaming@0.3.46(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(vite@6.0.2(@types/node@22.10.1)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1))))(vite@6.0.2(@types/node@22.10.1)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1))):
     dependencies:
       '@brillout/picocolors': 1.0.15
       '@nitedani/shrink-ray-current': 4.3.0
@@ -18846,20 +18894,20 @@ snapshots:
       resolve-from: 5.0.0
       sirv: 2.0.4
       unenv-nightly: 2.0.0-20241015-162228-03257ee
-      vike: 0.4.206(react-streaming@0.3.46(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(vite@6.0.2(@types/node@22.10.1)(jiti@1.21.0)(terser@5.10.0))
-      vite: 6.0.2(@types/node@22.10.1)(jiti@1.21.0)(terser@5.10.0)
+      vike: 0.4.206(react-streaming@0.3.46(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(vite@6.0.2(@types/node@22.10.1)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1)))
+      vite: 6.0.2(@types/node@22.10.1)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1))
     transitivePeerDependencies:
       - encoding
       - supports-color
 
-  vike-react@0.6.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(vike@0.4.227(react-streaming@0.4.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0))):
+  vike-react@0.6.1(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(vike@0.4.227(react-streaming@0.4.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1)))):
     dependencies:
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
       react-streaming: 0.4.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      vike: 0.4.227(react-streaming@0.4.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0))
+      vike: 0.4.227(react-streaming@0.4.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1)))
 
-  vike-server@1.0.11(hono@4.7.5)(vike@0.4.227(react-streaming@0.4.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0)))(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0)):
+  vike-server@1.0.11(hono@4.7.5)(vike@0.4.227(react-streaming@0.4.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1))))(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1))):
     dependencies:
       '@brillout/picocolors': 1.0.26
       '@brillout/vite-plugin-server-entry': 0.7.1
@@ -18873,9 +18921,9 @@ snapshots:
       '@universal-middleware/hono': 0.4.8(hono@4.7.5)
       '@universal-middleware/sirv': 0.1.15
       esbuild: 0.25.2
-      vike: 0.4.227(react-streaming@0.4.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0))
+      vike: 0.4.227(react-streaming@0.4.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1)))
     optionalDependencies:
-      vite: 6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0)
+      vite: 6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1))
     transitivePeerDependencies:
       - '@cloudflare/workers-types'
       - '@hattip/core'
@@ -18885,7 +18933,7 @@ snapshots:
       - h3
       - hono
 
-  vike@0.4.156(react-streaming@0.3.46(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(vite@4.3.9(@types/node@22.10.2)(terser@5.10.0)):
+  vike@0.4.156(react-streaming@0.3.46(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(vite@4.3.9(@types/node@22.10.2)(terser@5.10.0(acorn@8.14.1))):
     dependencies:
       '@brillout/import': 0.2.3
       '@brillout/json-serializer': 0.5.8
@@ -18899,11 +18947,11 @@ snapshots:
       fast-glob: 3.2.12
       sirv: 2.0.2
       source-map-support: 0.5.21
-      vite: 4.3.9(@types/node@22.10.2)(terser@5.10.0)
+      vite: 4.3.9(@types/node@22.10.2)(terser@5.10.0(acorn@8.14.1))
     optionalDependencies:
       react-streaming: 0.3.46(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
-  vike@0.4.206(react-streaming@0.3.46(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(vite@6.0.2(@types/node@22.10.1)(jiti@1.21.0)(terser@5.10.0)):
+  vike@0.4.206(react-streaming@0.3.46(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(vite@6.0.2(@types/node@22.10.1)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1))):
     dependencies:
       '@brillout/import': 0.2.3
       '@brillout/json-serializer': 0.5.13
@@ -18917,11 +18965,11 @@ snapshots:
       fast-glob: 3.2.12
       semver: 7.6.0
       source-map-support: 0.5.21
-      vite: 6.0.2(@types/node@22.10.1)(jiti@1.21.0)(terser@5.10.0)
+      vite: 6.0.2(@types/node@22.10.1)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1))
     optionalDependencies:
       react-streaming: 0.3.46(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
 
-  vike@0.4.222(react-streaming@0.4.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.2.4(@types/node@22.10.2)(terser@5.10.0)):
+  vike@0.4.222(react-streaming@0.4.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1))):
     dependencies:
       '@brillout/import': 0.2.3
       '@brillout/json-serializer': 0.5.15
@@ -18938,9 +18986,9 @@ snapshots:
       source-map-support: 0.5.21
     optionalDependencies:
       react-streaming: 0.4.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      vite: 6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0)
+      vite: 6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1))
 
-  vike@0.4.227(react-streaming@0.4.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0)):
+  vike@0.4.227(react-streaming@0.4.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1))):
     dependencies:
       '@brillout/import': 0.2.6
       '@brillout/json-serializer': 0.5.15
@@ -18959,16 +19007,16 @@ snapshots:
       tinyglobby: 0.2.12
     optionalDependencies:
       react-streaming: 0.4.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
-      vite: 6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0)
+      vite: 6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1))
 
-  vite-node@0.32.2(@types/node@22.10.2)(terser@5.10.0):
+  vite-node@0.32.2(@types/node@22.10.2)(terser@5.10.0(acorn@8.14.1)):
     dependencies:
       cac: 6.7.14
       debug: 4.4.0
       mlly: 1.3.0
       pathe: 1.1.1
       picocolors: 1.0.0
-      vite: 4.3.9(@types/node@22.10.2)(terser@5.10.0)
+      vite: 4.3.9(@types/node@22.10.2)(terser@5.10.0(acorn@8.14.1))
     transitivePeerDependencies:
       - '@types/node'
       - less
@@ -18978,7 +19026,7 @@ snapshots:
       - supports-color
       - terser
 
-  vite@3.2.2(terser@5.10.0):
+  vite@3.2.2(terser@5.10.0(acorn@8.14.1)):
     dependencies:
       esbuild: 0.15.9
       postcss: 8.4.18
@@ -18986,9 +19034,9 @@ snapshots:
       rollup: 2.79.1
     optionalDependencies:
       fsevents: 2.3.3
-      terser: 5.10.0
+      terser: 5.10.0(acorn@8.14.1)
 
-  vite@4.2.1(@types/node@22.10.2)(terser@5.10.0):
+  vite@4.2.1(@types/node@22.10.2)(terser@5.10.0(acorn@8.14.1)):
     dependencies:
       esbuild: 0.17.10
       postcss: 8.4.21
@@ -18997,9 +19045,9 @@ snapshots:
     optionalDependencies:
       '@types/node': 22.10.2
       fsevents: 2.3.3
-      terser: 5.10.0
+      terser: 5.10.0(acorn@8.14.1)
 
-  vite@4.3.9(@types/node@22.10.2)(terser@5.10.0):
+  vite@4.3.9(@types/node@22.10.2)(terser@5.10.0(acorn@8.14.1)):
     dependencies:
       esbuild: 0.17.19
       postcss: 8.4.24
@@ -19007,9 +19055,9 @@ snapshots:
     optionalDependencies:
       '@types/node': 22.10.2
       fsevents: 2.3.3
-      terser: 5.10.0
+      terser: 5.10.0(acorn@8.14.1)
 
-  vite@6.0.2(@types/node@22.10.1)(jiti@1.21.0)(terser@5.10.0):
+  vite@6.0.2(@types/node@22.10.1)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1)):
     dependencies:
       esbuild: 0.24.0
       postcss: 8.4.49
@@ -19018,9 +19066,9 @@ snapshots:
       '@types/node': 22.10.1
       fsevents: 2.3.3
       jiti: 1.21.0
-      terser: 5.10.0
+      terser: 5.10.0(acorn@8.14.1)
 
-  vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0):
+  vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1)):
     dependencies:
       esbuild: 0.25.2
       postcss: 8.5.3
@@ -19029,13 +19077,13 @@ snapshots:
       '@types/node': 22.10.2
       fsevents: 2.3.3
       jiti: 1.21.0
-      terser: 5.10.0
+      terser: 5.10.0(acorn@8.14.1)
 
-  vitefu@0.2.4(vite@4.2.1(@types/node@22.10.2)(terser@5.10.0)):
+  vitefu@0.2.4(vite@4.2.1(@types/node@22.10.2)(terser@5.10.0(acorn@8.14.1))):
     optionalDependencies:
-      vite: 4.2.1(@types/node@22.10.2)(terser@5.10.0)
+      vite: 4.2.1(@types/node@22.10.2)(terser@5.10.0(acorn@8.14.1))
 
-  vitest@0.32.2(terser@5.10.0):
+  vitest@0.32.2(terser@5.10.0(acorn@8.14.1)):
     dependencies:
       '@types/chai': 4.3.5
       '@types/chai-subset': 1.3.3
@@ -19059,8 +19107,8 @@ snapshots:
       strip-literal: 1.0.1
       tinybench: 2.5.0
       tinypool: 0.5.0
-      vite: 4.3.9(@types/node@22.10.2)(terser@5.10.0)
-      vite-node: 0.32.2(@types/node@22.10.2)(terser@5.10.0)
+      vite: 4.3.9(@types/node@22.10.2)(terser@5.10.0(acorn@8.14.1))
+      vite-node: 0.32.2(@types/node@22.10.2)(terser@5.10.0(acorn@8.14.1))
       why-is-node-running: 2.2.2
     transitivePeerDependencies:
       - less

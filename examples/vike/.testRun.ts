@@ -5,8 +5,6 @@ import { page, test, expect, run, getServerUrl, autoRetry, fetchHtml } from '@br
 function testRun(cmd: 'npm run dev' | 'npm run preview') {
   run(cmd)
 
-  const isDev = cmd === 'npm run dev'
-
   test('HTML', async () => {
     const html = await fetchHtml('/')
     expect(html).toContain('<h1>To-do List</h1>')
