@@ -1,12 +1,12 @@
-export { PageLayout }
+export { Layout }
 
 import React from 'react'
-import './PageLayout.css'
+import './Layout.css'
 
-function PageLayout({ children }) {
+function Layout({ children }: { children: React.ReactNode }) {
   return (
     <React.StrictMode>
-      <Layout>
+      <PageLayout>
         <Sidebar>
           <a className="navitem" href="/">
             Home
@@ -16,12 +16,12 @@ function PageLayout({ children }) {
           </a>
         </Sidebar>
         <Content>{children}</Content>
-      </Layout>
+      </PageLayout>
     </React.StrictMode>
   )
 }
 
-function Layout({ children }) {
+function PageLayout({ children }: { children: React.ReactNode }) {
   return (
     <div
       style={{
@@ -35,7 +35,7 @@ function Layout({ children }) {
   )
 }
 
-function Sidebar({ children }) {
+function Sidebar({ children }: { children: React.ReactNode }) {
   return (
     <div
       style={{
@@ -53,7 +53,7 @@ function Sidebar({ children }) {
   )
 }
 
-function Content({ children }) {
+function Content({ children }: { children: React.ReactNode }) {
   return (
     <div
       style={{

@@ -1,14 +1,13 @@
-import React, { useState } from 'react'
-import { TodoList } from './TodoList'
-import type { TodoItem } from '../../database/todoItems'
-
 export { Page }
 
-function Page({ todoItemsInitial }: { todoItemsInitial: TodoItem[] }) {
+import React, { useState } from 'react'
+import { TodoList } from './TodoList'
+
+function Page() {
   return (
     <>
       <h1>To-do List</h1>
-      <TodoList todoItemsInitial={todoItemsInitial} />
+      <TodoList />
       <Counter />
     </>
   )

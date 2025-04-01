@@ -1,9 +1,11 @@
-import { page, test, expect, run, getServerUrl, autoRetry, fetchHtml } from '@brillout/test-e2e'
-
 export { testRun }
 
-function testRun(cmd: 'npm run dev' | 'npm run prod') {
+import { page, test, expect, run, getServerUrl, autoRetry, fetchHtml } from '@brillout/test-e2e'
+
+function testRun(cmd: 'npm run dev' | 'npm run preview') {
   run(cmd)
+
+  const isDev = cmd === 'npm run dev'
 
   test('HTML', async () => {
     const html = await fetchHtml('/')
