@@ -20,7 +20,7 @@ async function transformTelefuncFileServerSide(
 
   const config = getServerConfig()
   if (id.endsWith('.ts') && (!isDev || config.shield.dev)) {
-    code = generateShield(code, id, appRootDir, exportList)
+    code += '\n\n' + generateShield(code, id, appRootDir, exportList)
   }
 
   return { code, map: undefined }
