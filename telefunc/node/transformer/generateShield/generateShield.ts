@@ -192,10 +192,10 @@ function generate({
   return shieldFile.getText()
 }
 
-function getShieldFilePath(originalPath: string): string {
-  const ext = path.extname(originalPath)
-  const base = originalPath.slice(0, -ext.length)
-  return `${base}.shield-gen${ext}`
+function getShieldFilePath(p: string): string {
+  const parts = p.split('.')
+  parts.splice(-1, 0, 'generated-shield')
+  return parts.join('.')
 }
 
 async function testGenerateShield(telefuncFileCode: string): Promise<string> {
