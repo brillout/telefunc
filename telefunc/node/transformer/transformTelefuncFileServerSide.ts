@@ -1,7 +1,7 @@
 export { transformTelefuncFileServerSide }
 
 import { ExportList, getExportList } from './getExportList.js'
-import { assertPosixPath } from './utils.js'
+import { assert, assertPosixPath } from './utils.js'
 import { generateShield } from './generateShield/generateShield.js'
 import { getServerConfig } from '../server/serverConfig.js'
 
@@ -20,7 +20,18 @@ async function transformTelefuncFileServerSide(
 
   const config = getServerConfig()
   if (id.endsWith('.ts') && (!isDev || config.shield.dev)) {
-    code = generateShield(code, id, appRootDir, exportList)
+    console.log(1)
+    console.log(code)
+    console.log()
+    const codeMod = generateShield(code, id, appRootDir, exportList)
+    console.log(2)
+    console.log(codeMod)
+    console.log()
+    const codeNew = moveNewContent(code, codeMod)
+    code = codeNew
+    console.log(3)
+    console.log(code)
+    console.log()
   }
 
   return { code, map: undefined }
@@ -50,4 +61,20 @@ function decorateTelefunctions(
       .join('\n'),
     '\n',
   ].join('')
+}
+
+function moveNewContent(codeOld: string, codeMod: string) {
+  const linesOld = codeOld.split('\n')
+  const linesNew: string[] = []
+  const linesMod = codeMod.split('\n')
+  linesOld.forEach((line) => {
+    assert(linesMod.includes(line), { line })
+  })
+  linesMod.forEach((line) => {
+    if (!linesOld.includes(line)) {
+      linesNew.push(line)
+    }
+  })
+  const codeNew = (codeOld += '\n\n' + linesNew.join('\n'))
+  return codeNew
 }
