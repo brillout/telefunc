@@ -44,7 +44,6 @@ function generateShield(
   telefuncFileSource.replaceWithText(telefuncFileCode)
   const shieldCode = generate({
     project,
-    telefuncFileSource,
     shieldGenSource,
     telefuncFilePath,
     exportList,
@@ -114,13 +113,11 @@ function getProject(telefuncFilePath: string, telefuncFileCode: string, appRootD
 
 function generate({
   project,
-  telefuncFileSource,
   shieldGenSource,
   telefuncFilePath,
   exportList,
 }: {
   project: Project & { tsConfigFilePath: null | string }
-  telefuncFileSource: SourceFile
   shieldGenSource: SourceFile
   telefuncFilePath: string
   // All exports of `.telefunc.js` files must be functions, thus we generate a shield() for each export.
@@ -211,8 +208,6 @@ async function testGenerateShield(telefuncFileCode: string): Promise<string> {
 
   const telefuncFilePath = 'virtual.telefunc.ts'
 
-  const telefuncFileSource = project.createSourceFile(telefuncFilePath, telefuncFileCode)
-
   project.createSourceFile('typeToShield.ts', getTypeToShieldSrc())
 
   const shieldGenSource = project.createSourceFile('shieldGen.ts')
@@ -225,7 +220,6 @@ async function testGenerateShield(telefuncFileCode: string): Promise<string> {
 
   return generate({
     project,
-    telefuncFileSource,
     shieldGenSource,
     telefuncFilePath,
     exportList,
