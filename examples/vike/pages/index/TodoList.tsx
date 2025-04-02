@@ -1,11 +1,13 @@
 export { TodoList }
 
 import React, { useState } from 'react'
+import { useData } from 'vike-react/useData'
 import { onNewTodo } from './TodoList.telefunc.js'
-import type { TodoItem } from '../../database/todoItems.js'
+import type { Data } from './+data.js'
 
-function TodoList({ todoItemsInitial }: { todoItemsInitial: TodoItem[] }) {
-  const [todoItems, setTodoItems] = useState(todoItemsInitial)
+function TodoList() {
+  const data = useData<Data>()
+  const [todoItems, setTodoItems] = useState(data.todoItemsInitial)
   const [draft, setDraft] = useState('')
   return (
     <>

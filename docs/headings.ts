@@ -1,8 +1,11 @@
+export { categories }
 export { headings }
 export { headingsDetached }
 
-import type { HeadingDefinition, HeadingDetachedDefinition } from '@brillout/docpress'
+import type { Config, HeadingDefinition, HeadingDetachedDefinition } from '@brillout/docpress'
 import { iconScroll, iconCompass, iconGear, iconSeedling } from '@brillout/docpress'
+
+const categories: Config['categories'] = ['Guides', 'API', 'Get Started', 'Overview']
 
 const headingsDetached: HeadingDetachedDefinition[] = [
   {
@@ -47,7 +50,7 @@ const headings: HeadingDefinition[] = [
   },
   {
     level: 1,
-    title: 'Get started',
+    title: 'Get Started',
     titleIcon: iconSeedling,
     color: '#74d717',
   },
