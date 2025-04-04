@@ -1,3 +1,12 @@
+## [0.2.3](https://github.com/brillout/telefunc/compare/v0.2.2...v0.2.3) (2025-04-04)
+
+
+### Bug Fixes
+
+* fix source map ([#161](https://github.com/brillout/telefunc/issues/161)) ([8452eb0](https://github.com/brillout/telefunc/commit/8452eb0fb858af869203c07f8ed53ec99ea9351f))
+
+
+
 ## [0.2.2](https://github.com/brillout/telefunc/compare/v0.2.1...v0.2.2) (2025-03-21)
 
 
