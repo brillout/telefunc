@@ -16,6 +16,7 @@
     "@brillout/picocolors": "^1.0.26",
     "@brillout/vite-plugin-server-entry": "^0.7.5",
     "es-module-lexer": "^1.6.0",
+    "magic-string": "^0.30.17",
     "ts-morph": "^19.0.0"
   },
   "modules": "./dist/node/server.js",

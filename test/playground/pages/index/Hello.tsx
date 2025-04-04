@@ -10,6 +10,6 @@ function Hello() {
       const { message } = await onLoad({ name: 'Eva' })
       setMsg(message)
     })()
-  })
+  }, [])
   return <p>{!msg ? <>Loading...</> : <>{msg}</>}</p>
 }

@@ -77,7 +77,7 @@ function BabelPluginTelefunc(babel: { types: typeof BabelTypes }): PluginObj {
           toPosixPath(filename),
           toPosixPath(root),
           exportNames,
-        )
+        ).code
 
         const parsed = parse(transformed, {
           sourceType: 'module',

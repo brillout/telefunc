@@ -2,6 +2,7 @@ export { transformTelefuncFileClientSideSync }
 
 import { posix } from 'node:path'
 import { assert, assertPosixPath, assertUsage, getTelefunctionKey } from '../utils.js'
+import { rollupSourceMapRemove } from '../vite/utils.js'
 
 function transformTelefuncFileClientSideSync(id: string, appRootDir: string, exportNames: string[]) {
   assertPosixPath(id)
@@ -17,7 +18,7 @@ function transformTelefuncFileClientSideSync(id: string, appRootDir: string, exp
   telefuncFilePath = `/${telefuncFilePath}`
 
   const code = getCode(exportNames, telefuncFilePath)
-  return code
+  return rollupSourceMapRemove(code)
 }
 
 export function getCode(exportNames: readonly string[], telefuncFilePath: string) {
