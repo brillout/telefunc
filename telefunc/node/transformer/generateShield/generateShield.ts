@@ -192,12 +192,6 @@ function generate({
   return shieldFile.getText()
 }
 
-function getShieldFilePath(p: string): string {
-  const parts = p.split('.')
-  parts.splice(-1, 0, 'generated-shield')
-  return parts.join('.')
-}
-
 async function testGenerateShield(telefuncFileCode: string): Promise<string> {
   const project = new Project({
     compilerOptions: {
@@ -224,6 +218,12 @@ async function testGenerateShield(telefuncFileCode: string): Promise<string> {
     telefuncFilePath,
     exportList,
   })
+}
+
+function getShieldFilePath(p: string): string {
+  const parts = p.split('.')
+  parts.splice(-1, 0, 'generated-shield')
+  return parts.join('.')
 }
 
 function getImportPath(importer: string, importedFile: string) {
