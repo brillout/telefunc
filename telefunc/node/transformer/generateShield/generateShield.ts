@@ -13,6 +13,7 @@ import {
   objectAssign,
   unique,
   assertPosixPath,
+  getRandomId,
 } from '../../utils.js'
 import { type ExportList, getExportList } from '../getExportList.js'
 import fs from 'node:fs'
@@ -51,8 +52,8 @@ function generateShield(
   return shieldCode
 }
 
-function getProject(telefuncFilePath: string, telefuncFileCode: string, appRootDir: string) {
-  const tsConfigFilePath = findTsConfig(telefuncFilePath, appRootDir)
+function getProject(telefuncFilePath: string, telefuncFileCode: string, appRootDir: string, isTest?: true) {
+  const tsConfigFilePath = isTest ? null : findTsConfig(telefuncFilePath, appRootDir)
   const key = tsConfigFilePath ?? '__no_tsconfig'
   const typeToShieldFilePath = path.join(getFilsystemRoot(), '__telefunc_typeToShield.ts')
 
@@ -193,25 +194,10 @@ function generate({
 }
 
 async function testGenerateShield(telefuncFileCode: string): Promise<string> {
-  const project = new Project({
-    compilerOptions: {
-      strict: true,
-    },
-  })
+  const telefuncFilePath = `virtual-${getRandomId()}.telefunc.ts`
+  const { project, shieldGenSource } = getProject(telefuncFilePath, telefuncFileCode, '/fake-user-root-dir/', true)
   objectAssign(project, { tsConfigFilePath: null })
-
-  const telefuncFilePath = 'virtual.telefunc.ts'
-
-  project.createSourceFile('typeToShield.ts', getTypeToShieldSrc())
-
-  const shieldGenSource = project.createSourceFile('shieldGen.ts')
-  shieldGenSource.addImportDeclaration({
-    moduleSpecifier: './typeToShield',
-    namedImports: ['ShieldArrStr'],
-  })
-
   const exportList = await getExportList(telefuncFileCode)
-
   return generate({
     project,
     shieldGenSource,
