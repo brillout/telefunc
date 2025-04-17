@@ -36,8 +36,8 @@ importers:
   docs:
     dependencies:
       '@brillout/docpress':
-        specifier: ^0.12.2
-        version: 0.12.2(@algolia/client-search@5.21.0)(@types/react@19.0.2)(@vitejs/plugin-react-swc@3.7.2(@swc/helpers@0.5.15)(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1))))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(rollup@4.38.0)(search-insights@2.17.2)(typescript@5.7.2)(vike@0.4.222(react-streaming@0.4.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1))))(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1)))
+        specifier: ^0.12.5
+        version: 0.12.5(@algolia/client-search@5.21.0)(@types/react@19.0.2)(@vitejs/plugin-react-swc@3.7.2(@swc/helpers@0.5.15)(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1))))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(rollup@4.38.0)(search-insights@2.17.2)(typescript@5.7.2)(vike@0.4.222(react-streaming@0.4.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1))))(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1)))
       '@types/react':
         specifier: ^19.0.2
         version: 19.0.2
@@ -1334,8 +1334,8 @@ packages:
     resolution: {integrity: sha512-cvSrvCxnZYzQmiOj0nwIuf298DvaM/2eAAOsBSbBpsdOEpYsnbQGvFxew9oSXEi3HH1TZMmLy8VyvyJJ+LsmCw==}
     hasBin: true
 
-  '@brillout/docpress@0.12.2':
-    resolution: {integrity: sha512-uOsk/WJOI2ceRXuIgv+DCsCcetWWedLU2o49npE6H481TQzTk/PrssfD4BRQHVXjY+ZKxkz0UlUYspHPAwru8Q==}
+  '@brillout/docpress@0.12.5':
+    resolution: {integrity: sha512-2x0wyL4EFVcf+HDR91Lt5IwcD2RJta6eWazSM1I5x9i8zKF3YnAcuWt/s3D4gknRMAH6GL0Sjy0OUv2oUfuhGg==}
     peerDependencies:
       '@vitejs/plugin-react-swc': '>=3.0.0'
       react: '>=18.0.0'
@@ -10397,7 +10397,7 @@ snapshots:
 
   '@brillout/dev-my-dep@0.0.10': {}
 
-  '@brillout/docpress@0.12.2(@algolia/client-search@5.21.0)(@types/react@19.0.2)(@vitejs/plugin-react-swc@3.7.2(@swc/helpers@0.5.15)(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1))))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(rollup@4.38.0)(search-insights@2.17.2)(typescript@5.7.2)(vike@0.4.222(react-streaming@0.4.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1))))(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1)))':
+  '@brillout/docpress@0.12.5(@algolia/client-search@5.21.0)(@types/react@19.0.2)(@vitejs/plugin-react-swc@3.7.2(@swc/helpers@0.5.15)(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1))))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(rollup@4.38.0)(search-insights@2.17.2)(typescript@5.7.2)(vike@0.4.222(react-streaming@0.4.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1))))(vite@6.2.4(@types/node@22.10.2)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1)))':
     dependencies:
       '@brillout/picocolors': 1.0.26
       '@docsearch/css': 3.9.0
