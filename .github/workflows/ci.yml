@@ -46,7 +46,7 @@ jobs:
           version: 9.1.3
 
       - name: Set node version to ${{ matrix.node_version }}
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node_version }}
           cache: "pnpm"
