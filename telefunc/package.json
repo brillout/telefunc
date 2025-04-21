@@ -14,7 +14,7 @@
     "@brillout/import": "^0.2.6",
     "@brillout/json-serializer": "^0.5.6",
     "@brillout/picocolors": "^1.0.26",
-    "@brillout/vite-plugin-server-entry": "^0.7.6",
+    "@brillout/vite-plugin-server-entry": "^0.7.7",
     "es-module-lexer": "^1.6.0",
     "magic-string": "^0.30.17",
     "ts-morph": "^19.0.0"
