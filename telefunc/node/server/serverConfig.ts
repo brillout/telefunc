@@ -26,6 +26,8 @@ type ConfigUser = {
   shield?: {
     /** Whether to generate shield during development */
     dev?: boolean
+    /** Whether to generate shield during product. Default is set to true */
+    prod?: boolean
   }
   log?: {
     /** Whether to log shield errors */
@@ -45,7 +47,7 @@ type ConfigResolved = {
   disableEtag: boolean
   telefuncFiles: string[] | null
   disableNamingConvention: boolean
-  shield: { dev: boolean }
+  shield: { dev: boolean, prod: boolean }
   log: {
     shieldErrors: { dev: boolean; prod: boolean }
   }
@@ -57,7 +59,7 @@ function getServerConfig(): ConfigResolved {
   return {
     disableEtag: configUser.disableEtag ?? false,
     disableNamingConvention: configUser.disableNamingConvention ?? false,
-    shield: { dev: configUser.shield?.dev ?? false },
+    shield: { dev: configUser.shield?.dev ?? false, prod: configUser.shield?.prod ?? true },
     log: {
       shieldErrors: (() => {
         const shieldErrors = configUser.log?.shieldErrors ?? {}
