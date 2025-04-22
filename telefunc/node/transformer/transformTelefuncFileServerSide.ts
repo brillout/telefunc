@@ -21,10 +21,10 @@ async function transformTelefuncFileServerSide(
 
   let codeShield: string | undefined
   const config = getServerConfig()
-  const shieldEnabled = typeof config.shield === 'boolean' 
+  const isShieldEnabled = typeof config.shield === 'boolean' 
     ? config.shield 
     : isDev ? config.shield.dev : config.shield.prod
-  if (id.endsWith('.ts') && shieldEnabled) {
+  if (id.endsWith('.ts') && isShieldEnabled) {
     codeShield = generateShield(src, id, appRootDir, exportList)
   }
 
