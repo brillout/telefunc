@@ -24,14 +24,19 @@ type ConfigUser = {
   /** Whether to disable ETag cache headers */
   disableEtag?: boolean
   /**
-   * Config object to control shield generation during development/production
-   * or a simple boolean to it on/off completely. By default, it will be an
-   * object set to false for development and true for production.
+   * Whether to generate shield.
+   *
+   * https://telefunc.com/shield-config
+   * https://telefunc.com/shield
+   *
+   * @default { dev: false, prod: true }
    */
-  shield?: {
-    dev?: boolean
-    prod?: boolean
-  } | boolean
+  shield?:
+    | {
+        dev?: boolean
+        prod?: boolean
+      }
+    | boolean
   log?: {
     /** Whether to log shield errors */
     shieldErrors?:
@@ -50,7 +55,7 @@ type ConfigResolved = {
   disableEtag: boolean
   telefuncFiles: string[] | null
   disableNamingConvention: boolean
-  shield: { dev: boolean, prod: boolean } | boolean
+  shield: { dev: boolean; prod: boolean }
   log: {
     shieldErrors: { dev: boolean; prod: boolean }
   }
@@ -62,7 +67,10 @@ function getServerConfig(): ConfigResolved {
   return {
     disableEtag: configUser.disableEtag ?? false,
     disableNamingConvention: configUser.disableNamingConvention ?? false,
-    shield: typeof configUser.shield === 'boolean' ? configUser.shield : { dev: configUser.shield?.dev ?? false, prod: configUser.shield?.prod ?? true },
+    shield:
+      typeof configUser.shield === 'boolean'
+        ? { dev: configUser.shield, prod: configUser.shield }
+        : { dev: configUser.shield?.dev ?? false, prod: configUser.shield?.prod ?? true },
     log: {
       shieldErrors: (() => {
         const shieldErrors = configUser.log?.shieldErrors ?? {}
