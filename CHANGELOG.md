@@ -1,3 +1,17 @@
+## [0.2.4](https://github.com/brillout/telefunc/compare/v0.2.3...v0.2.4) (2025-04-22)
+
+
+### Bug Fixes
+
+* @brillout/vite-plugin-server-entry@^0.7.6 ([92bc8a2](https://github.com/brillout/telefunc/commit/92bc8a224632d4f2f954b662472c0b99d34cb164))
+
+
+### Features
+
+* add option for turning off shield in prod (closes [#116](https://github.com/brillout/telefunc/issues/116)) ([#164](https://github.com/brillout/telefunc/issues/164)) ([383dbe1](https://github.com/brillout/telefunc/commit/383dbe1cd2147f6f7fa4995ab4de4c16d7b8b40d))
+
+
+
 ## [0.2.3](https://github.com/brillout/telefunc/compare/v0.2.2...v0.2.3) (2025-04-04)
 
 
