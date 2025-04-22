@@ -2,18 +2,20 @@ import { Link, Warning } from '@brillout/docpress'
 import { ConfigWhereServer } from '../../components'
 
 **Environment**: server.  
-**Default**: `false`.  
+**Type**: `boolean | { dev?: boolean; prod?: boolean }`.  
+**Default**: `{ dev: false, prod: true }`.  
 
-Whether to generate <Link href="/shield">`shield()`</Link> in development.
+Whether to generate <Link href="/shield">`shield()`</Link> in development and/or when building for production.
 
 ```js
 // Environment: server
 
 import { config } from 'telefunc'
 
+// Enable shield() generation during development
 config.shield.dev = true
 ```
 
-<Warning>This can slow down development speed. Depending on your app and how fast your computer is, the decreased development speed can range from unnoticeable to significant.</Warning>
+<Warning>Enabling `shield()` generation during development can significantly slow down development speed. Depending on how large your app and how fast your computer is, the decreased development speed can range from unnoticeable to significant.</Warning>
 
 <ConfigWhereServer />

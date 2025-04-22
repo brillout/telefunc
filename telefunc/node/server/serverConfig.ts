@@ -23,10 +23,20 @@ type ConfigUser = {
   root?: string
   /** Whether to disable ETag cache headers */
   disableEtag?: boolean
-  shield?: {
-    /** Whether to generate shield during development */
-    dev?: boolean
-  }
+  /**
+   * Whether to generate shield.
+   *
+   * https://telefunc.com/shield-config
+   * https://telefunc.com/shield
+   *
+   * @default { dev: false, prod: true }
+   */
+  shield?:
+    | {
+        dev?: boolean
+        prod?: boolean
+      }
+    | boolean
   log?: {
     /** Whether to log shield errors */
     shieldErrors?:
@@ -45,7 +55,7 @@ type ConfigResolved = {
   disableEtag: boolean
   telefuncFiles: string[] | null
   disableNamingConvention: boolean
-  shield: { dev: boolean }
+  shield: { dev: boolean; prod: boolean }
   log: {
     shieldErrors: { dev: boolean; prod: boolean }
   }
@@ -57,7 +67,10 @@ function getServerConfig(): ConfigResolved {
   return {
     disableEtag: configUser.disableEtag ?? false,
     disableNamingConvention: configUser.disableNamingConvention ?? false,
-    shield: { dev: configUser.shield?.dev ?? false },
+    shield:
+      typeof configUser.shield === 'boolean'
+        ? { dev: configUser.shield, prod: configUser.shield }
+        : { dev: configUser.shield?.dev ?? false, prod: configUser.shield?.prod ?? true },
     log: {
       shieldErrors: (() => {
         const shieldErrors = configUser.log?.shieldErrors ?? {}
