@@ -1,3 +1,12 @@
+## [0.2.5](https://github.com/brillout/telefunc/compare/v0.2.4...v0.2.5) (2025-04-23)
+
+
+### Bug Fixes
+
+* fix HMR + shield.dev (fix [#165](https://github.com/brillout/telefunc/issues/165)) ([deaffcc](https://github.com/brillout/telefunc/commit/deaffccb8e4fd8290325c0f87c109323d6ef4b23))
+
+
+
 ## [0.2.4](https://github.com/brillout/telefunc/compare/v0.2.3...v0.2.4) (2025-04-22)
 
 
