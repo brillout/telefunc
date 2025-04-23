@@ -40,9 +40,7 @@ function generateShield(
   appRootDir: string,
   exportList: ExportList,
 ): string {
-  const { project, telefuncFileSource, shieldGenSource } = getProject(telefuncFilePath, telefuncFileCode, appRootDir)
-  // We should preserve prior `telefuncFileCode` transformations
-  telefuncFileSource.replaceWithText(telefuncFileCode)
+  const { project, shieldGenSource } = getProject(telefuncFilePath, telefuncFileCode, appRootDir)
   const shieldCode = generate({
     project,
     shieldGenSource,
@@ -55,7 +53,7 @@ function generateShield(
 function getProject(telefuncFilePath: string, telefuncFileCode: string, appRootDir: string, isTest?: true) {
   const tsConfigFilePath = isTest ? null : findTsConfig(telefuncFilePath, appRootDir)
   const key = tsConfigFilePath ?? '__no_tsconfig'
-  const typeToShieldFilePath = path.join(getFilsystemRoot(), '__telefunc_typeToShield.ts')
+  const typeToShieldFilePath = path.join(getFilesystemRoot(), '__telefunc_typeToShield.ts')
 
   if (!projects[key]) {
     let project: Project
@@ -108,8 +106,10 @@ function getProject(telefuncFilePath: string, telefuncFileCode: string, appRootD
 
   const telefuncFileSource = project.getSourceFile(telefuncFilePath)
   assertTelefuncFilesSource(telefuncFileSource, { project, telefuncFilePath, tsConfigFilePath, appRootDir })
+  // The code written in the file at `telefuncFilePath` isn't equal `telefuncFileCode` because of transfomers
+  telefuncFileSource.replaceWithText(telefuncFileCode)
 
-  return { project, telefuncFileSource, shieldGenSource }
+  return { project, shieldGenSource }
 }
 
 function generate({
@@ -140,7 +140,6 @@ function generate({
 
   const shieldAlias = '__telefunc_shield' // alias for shield
 
-  // Generate everything in a new file while preserving original
   const shieldFile = project.createSourceFile(getShieldFilePath(telefuncFilePath))
   shieldFile.addImportDeclaration({
     moduleSpecifier: 'telefunc',
@@ -348,7 +347,7 @@ function findTsConfig(telefuncFilePath: string, appRootDir: string): string | nu
   } while (true)
 }
 
-function getFilsystemRoot(): string {
+function getFilesystemRoot(): string {
   if (process.platform !== 'win32') {
     return '/'
   }
