@@ -140,7 +140,7 @@ function generate({
 
   const shieldAlias = '__telefunc_shield' // alias for shield
 
-  const shieldFile = project.createSourceFile(getShieldFilePath(telefuncFilePath))
+  const shieldFile = project.createSourceFile(getShieldFilePath(telefuncFilePath), undefined, { overwrite: true })
   shieldFile.addImportDeclaration({
     moduleSpecifier: 'telefunc',
     namedImports: [
