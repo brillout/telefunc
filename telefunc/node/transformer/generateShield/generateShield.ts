@@ -55,7 +55,7 @@ function generateShield(
 function getProject(telefuncFilePath: string, telefuncFileCode: string, appRootDir: string, isTest?: true) {
   const tsConfigFilePath = isTest ? null : findTsConfig(telefuncFilePath, appRootDir)
   const key = tsConfigFilePath ?? '__no_tsconfig'
-  const typeToShieldFilePath = path.join(getFilsystemRoot(), '__telefunc_typeToShield.ts')
+  const typeToShieldFilePath = path.join(getFilesystemRoot(), '__telefunc_typeToShield.ts')
 
   if (!projects[key]) {
     let project: Project
@@ -348,7 +348,7 @@ function findTsConfig(telefuncFilePath: string, appRootDir: string): string | nu
   } while (true)
 }
 
-function getFilsystemRoot(): string {
+function getFilesystemRoot(): string {
   if (process.platform !== 'win32') {
     return '/'
   }
