@@ -40,7 +40,7 @@ function generateShield(
   appRootDir: string,
   exportList: ExportList,
 ): string {
-  const { project, telefuncFileSource, shieldGenSource } = getProject(telefuncFilePath, telefuncFileCode, appRootDir)
+  const { project, shieldGenSource } = getProject(telefuncFilePath, telefuncFileCode, appRootDir)
   const shieldCode = generate({
     project,
     shieldGenSource,
@@ -109,7 +109,7 @@ function getProject(telefuncFilePath: string, telefuncFileCode: string, appRootD
   // The code written in the file at `telefuncFilePath` isn't equal `telefuncFileCode` because of transfomers
   telefuncFileSource.replaceWithText(telefuncFileCode)
 
-  return { project, telefuncFileSource, shieldGenSource }
+  return { project, shieldGenSource }
 }
 
 function generate({
@@ -140,7 +140,6 @@ function generate({
 
   const shieldAlias = '__telefunc_shield' // alias for shield
 
-  // Generate everything in a new file while preserving original
   const shieldFile = project.createSourceFile(getShieldFilePath(telefuncFilePath))
   shieldFile.addImportDeclaration({
     moduleSpecifier: 'telefunc',
