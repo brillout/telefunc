@@ -41,8 +41,6 @@ function generateShield(
   exportList: ExportList,
 ): string {
   const { project, telefuncFileSource, shieldGenSource } = getProject(telefuncFilePath, telefuncFileCode, appRootDir)
-  // We should preserve prior `telefuncFileCode` transformations
-  telefuncFileSource.replaceWithText(telefuncFileCode)
   const shieldCode = generate({
     project,
     shieldGenSource,
@@ -108,6 +106,8 @@ function getProject(telefuncFilePath: string, telefuncFileCode: string, appRootD
 
   const telefuncFileSource = project.getSourceFile(telefuncFilePath)
   assertTelefuncFilesSource(telefuncFileSource, { project, telefuncFilePath, tsConfigFilePath, appRootDir })
+  // The code written in the file at `telefuncFilePath` isn't equal `telefuncFileCode` because of transfomers
+  telefuncFileSource.replaceWithText(telefuncFileCode)
 
   return { project, telefuncFileSource, shieldGenSource }
 }
