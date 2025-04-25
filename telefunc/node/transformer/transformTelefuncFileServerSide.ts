@@ -26,11 +26,11 @@ async function transformTelefuncFileServerSide(
     codeShield = generateShield(src, id, appRootDir, exportList)
   }
 
-  const s = new MagicString(src)
+  const magicString = new MagicString(src)
   // We append everything in order to avoid breaking source map lines for environments that don't support source maps
-  s.append(['', codeDecoration, codeShield].filter(isNotNullish).join('\n\n'))
-  const code = s.toString()
-  const map = s.generateMap({ hires: true, source: id })
+  magicString.append(['', codeDecoration, codeShield].filter(isNotNullish).join('\n\n'))
+  const code = magicString.toString()
+  const map = magicString.generateMap({ hires: true, source: id })
   return { code, map }
 }
 
