@@ -1,3 +1,12 @@
+## [0.2.6](https://github.com/brillout/telefunc/compare/v0.2.5...v0.2.6) (2025-05-15)
+
+
+### Features
+
+* add custom fetch option in client side (closes [#60](https://github.com/brillout/telefunc/issues/60)) ([#168](https://github.com/brillout/telefunc/issues/168)) ([e1443b5](https://github.com/brillout/telefunc/commit/e1443b50f63949863f78e1b9f24408b3a8bcfc37))
+
+
+
 ## [0.2.5](https://github.com/brillout/telefunc/compare/v0.2.4...v0.2.5) (2025-04-23)
 
 
