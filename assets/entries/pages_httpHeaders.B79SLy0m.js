@@ -1,0 +1,21 @@
+import{j as e,i as o,L as i,o as l}from"../chunks/chunk-D5eSSFNV.js";import{L as a}from"../chunks/chunk-Buyq0nSS.js";/* empty css                      *//* empty css                      *//* empty css                      *//* empty css                      *//* empty css                      *//* empty css                      *//* empty css                      */import"../chunks/chunk-C_lkzVb0.js";import{M as s}from"../chunks/chunk--Z2rSK2G.js";/* empty css                      */const d=[{pageSectionId:"see-also",pageSectionLevel:2,pageSectionTitle:"See also"}];function r(n){const t={a:"a",code:"code",figure:"figure",li:"li",p:"p",pre:"pre",span:"span",strong:"strong",ul:"ul",...n.components};return e.jsxs(e.Fragment,{children:[e.jsxs(t.p,{children:[e.jsx(t.strong,{children:"Environment"}),": client."]}),`
+`,e.jsx(t.p,{children:"Send additional HTTP headers to be sent along Telefunc HTTP requests."}),`
+`,e.jsx(t.p,{children:"Usually used for sending authentication headers."}),`
+`,e.jsx(t.figure,{"data-rehype-pretty-code-figure":"",children:e.jsx(t.pre,{style:{backgroundColor:"#fff",color:"#24292e"},tabIndex:"0","data-language":"js","data-theme":"github-light",children:e.jsxs(t.code,{"data-language":"js","data-theme":"github-light",style:{display:"grid"},children:[e.jsx(t.span,{"data-line":"",children:e.jsx(t.span,{style:{color:"#6A737D"},children:"// Environment: client"})}),`
+`,e.jsx(t.span,{"data-line":"",children:" "}),`
+`,e.jsxs(t.span,{"data-line":"",children:[e.jsx(t.span,{style:{color:"#D73A49"},children:"import"}),e.jsx(t.span,{style:{color:"#24292E"},children:" { config } "}),e.jsx(t.span,{style:{color:"#D73A49"},children:"from"}),e.jsx(t.span,{style:{color:"#032F62"},children:" 'telefunc/client'"})]}),`
+`,e.jsx(t.span,{"data-line":"",children:" "}),`
+`,e.jsxs(t.span,{"data-line":"",children:[e.jsx(t.span,{style:{color:"#24292E"},children:"config.httpHeaders "}),e.jsx(t.span,{style:{color:"#D73A49"},children:"="}),e.jsx(t.span,{style:{color:"#24292E"},children:" {"})]}),`
+`,e.jsxs(t.span,{"data-line":"",children:[e.jsx(t.span,{style:{color:"#24292E"},children:"  Authorization: "}),e.jsx(t.span,{style:{color:"#032F62"},children:"`Bearer ${"}),e.jsx(t.span,{style:{color:"#24292E"},children:"token"}),e.jsx(t.span,{style:{color:"#032F62"},children:"}`"})]}),`
+`,e.jsx(t.span,{"data-line":"",children:e.jsx(t.span,{style:{color:"#24292E"},children:"}"})})]})})}),`
+`,e.jsx(s,{}),`
+`,e.jsx("h2",{id:"see-also",children:"See also"}),`
+`,e.jsxs(t.ul,{children:[`
+`,e.jsxs(t.li,{children:[`
+`,e.jsx(a,{href:"/fetch"}),`
+`]}),`
+`,e.jsxs(t.li,{children:[`
+`,e.jsx(a,{href:"/permissions"}),`
+`]}),`
+`,e.jsx(t.li,{children:e.jsxs(t.a,{href:"https://github.com/brillout/telefunc/issues/167",children:["#167 - Dynamic ",e.jsx(t.code,{children:"httpHeaders"}),"?"]})}),`
+`]})]})}function p(n={}){const{wrapper:t}=n.components||{};return t?e.jsx(t,{...n,children:e.jsx(r,{...n})}):r(n)}const c=Object.freeze(Object.defineProperty({__proto__:null,default:p,pageSectionsExport:d},Symbol.toStringTag,{value:"Module"})),D={isClientRuntimeLoaded:{type:"computed",definedAtData:null,valueSerialized:{type:"js-serialized",value:!0}},onBeforeRenderEnv:{type:"computed",definedAtData:null,valueSerialized:{type:"js-serialized",value:{server:!0}}},dataEnv:{type:"computed",definedAtData:null,valueSerialized:{type:"js-serialized",value:null}},onRenderClient:{type:"standard",definedAtData:{filePathToShowToUser:"@brillout/docpress/renderer/onRenderClient",fileExportPathToShowToUser:[]},valueSerialized:{type:"pointer-import",value:l}},Page:{type:"standard",definedAtData:{filePathToShowToUser:"/pages/httpHeaders/+Page.mdx",fileExportPathToShowToUser:[]},valueSerialized:{type:"plus-file",exportValues:c}},hydrationCanBeAborted:{type:"standard",definedAtData:{filePathToShowToUser:"@brillout/docpress/config",fileExportPathToShowToUser:["default","hydrationCanBeAborted"]},valueSerialized:{type:"js-serialized",value:!0}},Layout:{type:"standard",definedAtData:{filePathToShowToUser:"@brillout/docpress/Layout",fileExportPathToShowToUser:[]},valueSerialized:{type:"pointer-import",value:i}},TopNavigation:{type:"standard",definedAtData:{filePathToShowToUser:"/pages/+TopNavigation.tsx",fileExportPathToShowToUser:[]},valueSerialized:{type:"plus-file",exportValues:o}}};export{D as configValuesSerialized};
