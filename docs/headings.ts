@@ -193,8 +193,13 @@ const headings: HeadingDefinition[] = [
   },
   {
     level: 2,
-    title: '`httpHeaders',
+    title: '`httpHeaders`',
     url: '/httpHeaders',
+  },
+  {
+    level: 2,
+    title: '`fetch`',
+    url: '/fetch',
   },
   {
     level: 2,

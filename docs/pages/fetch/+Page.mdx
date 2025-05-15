@@ -1,0 +1,23 @@
+import { Link } from '@brillout/docpress'
+import { ConfigWhereClient } from '../../components'
+
+**Environment**: client.
+
+You can specify the fetch function that Telefunc uses for making HTTP requests on the client side.
+
+This is useful for customizing the request and response behavior.
+
+```js
+// Environment: client
+
+import { config } from 'telefunc/client'
+import { customFetch } from '../path/to/custom-fetch'
+
+config.fetch = customFetch
+```
+
+<ConfigWhereClient />
+
+## See also
+
+- <Link href="/httpHeaders" />

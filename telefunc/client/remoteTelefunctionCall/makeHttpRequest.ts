@@ -16,9 +16,11 @@ async function makeHttpRequest(callContext: {
   telefunctionName: string
   telefuncFilePath: string
   httpHeaders: Record<string, string> | null
+  fetch: typeof globalThis.fetch | null
 }): Promise<{ telefunctionReturn: unknown }> {
   let response: Response
   try {
+    const fetch = callContext.fetch ?? window.fetch
     response = await fetch(callContext.telefuncUrl, {
       method,
       body: callContext.httpRequestBody,
