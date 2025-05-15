@@ -15,10 +15,13 @@ type ConfigUser = {
   telefuncUrl?: string
   /** Additional headers sent along Telefunc HTTP requests */
   httpHeaders?: Record<string, string>
+  /** Custom fetch implementations */
+  fetch?: typeof globalThis.fetch
 }
 type ConfigResolved = {
   telefuncUrl: string
   httpHeaders: Record<string, string> | null
+  fetch: typeof globalThis.fetch | null
 }
 
 const configUser: ConfigUser = new Proxy({}, { set: validateUserConfig })
@@ -27,6 +30,7 @@ function resolveClientConfig(): ConfigResolved {
   return {
     httpHeaders: configUser.httpHeaders ?? null,
     telefuncUrl: configUser.telefuncUrl || '/_telefunc',
+    fetch: configUser.fetch ?? null,
   }
 }
 
@@ -45,6 +49,9 @@ function validateUserConfig(configUserUnwrapped: ConfigUser, prop: string, val: 
       '`config.httpHeaders` should be an object of strings',
     )
     configUserUnwrapped[prop] = val as Record<string, string>
+  } else if (prop === 'fetch') {
+    assertUsage(typeof val === 'function', '`config.fetch` should be a function')
+    configUserUnwrapped[prop] = val as typeof globalThis.fetch
   } else {
     assertUsage(false, `Unknown config.${prop}`)
   }
