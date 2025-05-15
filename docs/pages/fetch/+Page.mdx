@@ -1,0 +1,19 @@
+import { ConfigWhereClient } from '../../components'
+
+**Environment**: client.
+
+You can specify the fetch function that Telefunc uses for HTTP requests on the client side.
+
+This is useful for customizing the request and response behavior, or for using httpHeaders under more dynamic conditions.
+
+```js
+// Environment: client
+
+import { config } from 'telefunc/client'
+import { customFetch } from '../path/to/custom-fetch'
+
+config.fetch = customFetch 
+```
+
+<ConfigWhereClient />
+
