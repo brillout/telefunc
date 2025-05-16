@@ -21,8 +21,8 @@ importers:
         specifier: ^0.0.10
         version: 0.0.10
       '@brillout/test-e2e':
-        specifier: ^0.5.36
-        version: 0.5.36(encoding@0.1.13)
+        specifier: ^0.6.10
+        version: 0.6.10(encoding@0.1.13)
       '@brillout/test-types':
         specifier: ^0.1.13
         version: 0.1.13(typescript@5.8.2)
@@ -1383,8 +1383,8 @@ packages:
   '@brillout/require-shim@0.1.2':
     resolution: {integrity: sha512-3I4LRHnVZXoSAsEoni5mosq9l6eiJED58d9V954W4CIZ88AUfYBanWGBGbJG3NztaRTpFHEA6wB3Hn93BmmJdg==}
 
-  '@brillout/test-e2e@0.5.36':
-    resolution: {integrity: sha512-9iPeBOSbhh7jNFNLUcnzKsdDOwsYW71rw2atB/FRU8j6u8bsvyVJkcSKz6jp54jFefXyUzvgah1xZsDqqSA8IA==}
+  '@brillout/test-e2e@0.6.10':
+    resolution: {integrity: sha512-eVXMzIXiw7M5TMMAmWmSry5DGWjioXFOkU8J74sjaTNLQjC8qkNp8Mi3/wI0KUlZLMmfo5QWV3z2ToCRAE5TGA==}
     hasBin: true
 
   '@brillout/test-types@0.1.13':
@@ -10451,13 +10451,13 @@ snapshots:
 
   '@brillout/require-shim@0.1.2': {}
 
-  '@brillout/test-e2e@0.5.36(encoding@0.1.13)':
+  '@brillout/test-e2e@0.6.10(encoding@0.1.13)':
     dependencies:
       '@brillout/part-regex': 0.1.4
       '@brillout/picocolors': 1.0.26
       chai: 4.3.7
       esbuild: 0.23.1
-      fast-glob: 3.2.12
+      fast-glob: 3.3.3
       node-fetch: 2.6.7(encoding@0.1.13)
       pixelmatch: 5.3.0
       playwright-chromium: 1.25.1
