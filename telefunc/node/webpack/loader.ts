@@ -12,7 +12,7 @@ export default async function (this: Loader, input: string): Promise<void> {
     const { code, map } = await transformTelefuncFileClientSide(input, toPosixPath(id), toPosixPath(root))
     this.callback(null, code, map)
   } else {
-    const { code, map } = await transformTelefuncFileServerSide(input, toPosixPath(id), toPosixPath(root), false, isDev)
+    const { code, map } = await transformTelefuncFileServerSide(input, toPosixPath(id), toPosixPath(root), isDev)
     this.callback(null, code, map)
   }
 }

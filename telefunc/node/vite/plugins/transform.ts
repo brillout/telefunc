@@ -26,7 +26,7 @@ function transform(): Plugin {
       if (isClientSide) {
         return await transformTelefuncFileClientSide(code, id, root)
       } else {
-        return await transformTelefuncFileServerSide(code, id, root, false, isDev)
+        return await transformTelefuncFileServerSide(code, id, root, isDev)
       }
     },
   }
