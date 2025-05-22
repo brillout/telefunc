@@ -1,4 +1,4 @@
-Example of using Telefunc with [SvelteKit](https://kit.svelte.dev/).
+Example of using Telefunc with [SvelteKit](https://svelte.dev/docs/kit).
 
 To run it:
 
