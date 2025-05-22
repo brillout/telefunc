@@ -1,16 +1,16 @@
 // Mechanism used by Vite/Next/Nuxt plugins for automatically loading `.telefunc.js` files.
 
-export { loadTelefuncFilesWithRegistration }
+export { loadTelefuncFilesUsingRegistration }
 export { registerTelefunction }
 
 import { TelefuncFiles, Telefunction } from '../types.js'
 import { getGlobalObject } from '../../utils.js'
 
-const g = getGlobalObject<{ telefuncFilesLoaded: null | TelefuncFiles }>('loadTelefuncFilesWithRegistration.ts', {
+const g = getGlobalObject<{ telefuncFilesLoaded: null | TelefuncFiles }>('loadTelefuncFilesUsingRegistration.ts', {
   telefuncFilesLoaded: null,
 })
 
-function loadTelefuncFilesWithRegistration(): null | TelefuncFiles {
+function loadTelefuncFilesUsingRegistration(): null | TelefuncFiles {
   return g.telefuncFilesLoaded
 }
 

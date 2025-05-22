@@ -2,8 +2,8 @@ export { loadTelefuncFiles }
 
 import type { TelefuncFiles } from '../types.js'
 import { assertUsage, assert, hasProp, isWebpack, isVikeApp } from '../../utils.js'
-import { loadTelefuncFilesWithVite } from '../../vite/loadTelefuncFilesWithVite.js'
-import { loadTelefuncFilesWithRegistration } from './loadTelefuncFilesWithRegistration.js'
+import { loadTelefuncFilesUsingVite } from '../../vite/loadTelefuncFilesUsingVite.js'
+import { loadTelefuncFilesUsingRegistration } from './loadTelefuncFilesUsingRegistration.js'
 import { loadTelefuncFilesFromConfig } from './loadTelefuncFilesFromConfig.js'
 import pc from '@brillout/picocolors'
 
@@ -24,9 +24,8 @@ async function loadTelefuncFiles(runContext: {
 
   // - Next.js
   // - Nuxt 2
-  // - Vite: when the user manually imports the server production entry (https://github.com/brillout/vite-plugin-server-entry#manual-import)
   {
-    const telefuncFilesLoaded = loadTelefuncFilesWithRegistration()
+    const telefuncFilesLoaded = loadTelefuncFilesUsingRegistration()
     if (telefuncFilesLoaded) {
       const telefuncFilesAll = Object.keys(telefuncFilesLoaded)
       assertUsage(Object.keys(telefuncFilesAll).length > 0, getNothingFoundErr('automatic registration'))
@@ -38,7 +37,7 @@ async function loadTelefuncFiles(runContext: {
   // - In development, `.telefunc.js` files provided with Vite's development server
   // - In production, `.telefunc.js` files provided with @brillout/vite-plugin-server-entry
   {
-    const res = await loadTelefuncFilesWithVite(runContext)
+    const res = await loadTelefuncFilesUsingVite(runContext, false)
     if (res) {
       const { telefuncFilesLoaded, viteProvider, telefuncFilesAll } = res
       assertUsage(Object.keys(telefuncFilesAll).length > 0, getNothingFoundErr(viteProvider))
@@ -51,9 +50,9 @@ async function loadTelefuncFiles(runContext: {
       // import the server production entry.
       // ```
       //
-      const res2 = await loadTelefuncFilesWithVite(runContext, true)
+      const res2 = await loadTelefuncFilesUsingVite(runContext, true)
       assert(res2 === null)
-      assert(false) // loadTelefuncFilesWithVite() should have thrown an assertUsage() error
+      assert(false) // loadTelefuncFilesUsingVite() should have thrown an assertUsage() error
     }
   }
 

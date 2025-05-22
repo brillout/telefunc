@@ -1,30 +1,30 @@
-export { loadTelefuncFilesWithVite }
+export { loadTelefuncFilesUsingVite }
 
 import { importServerProductionEntry } from '@brillout/vite-plugin-server-entry/runtime'
 import { assert, assertWarning, getNodeEnv, hasProp, isObject, isProduction, isTelefuncFilePath } from '../utils.js'
 import { loadTelefuncFilesWithImportBuild } from './plugins/importBuild/loadBuild.js'
 import { getViteDevServer } from '../server/globalContext.js'
 
-async function loadTelefuncFilesWithVite(
+async function loadTelefuncFilesUsingVite(
   runContext: { telefuncFilePath: string },
-  failOnFailure?: true,
+  failOnFailure: boolean,
 ): Promise<null | {
   telefuncFilesLoaded: Record<string, Record<string, unknown>>
   telefuncFilesAll: string[]
   viteProvider: 'Vite' | '@brillout/vite-plugin-server-entry'
 }> {
-  const res = await loadGlobImporter(failOnFailure)
+  const res = await loadGlobEntryFile(failOnFailure)
   if (!res) return null
   const { moduleExports, viteProvider } = res
   assert(isObject(moduleExports), { moduleExports, viteProvider })
   assert(hasProp(moduleExports, 'telefuncFilesGlob'), { moduleExports, viteProvider })
   const telefuncFilesGlob = moduleExports.telefuncFilesGlob as GlobFiles
-  const { telefuncFilesLoaded, telefuncFilesAll } = await loadGlobFiles(telefuncFilesGlob, runContext)
+  const { telefuncFilesLoaded, telefuncFilesAll } = await loadViteGlobbedFiles(telefuncFilesGlob, runContext)
   assert(isObjectOfObjects(telefuncFilesLoaded))
   return { telefuncFilesLoaded, viteProvider, telefuncFilesAll }
 }
 
-async function loadGlobImporter(failOnFailure?: true) {
+async function loadGlobEntryFile(failOnFailure: boolean) {
   const viteDevServer = getViteDevServer()
   if (viteDevServer) {
     const devPath = globalThis._telefunc?.telefuncFilesGlobFilePath
@@ -75,7 +75,8 @@ type FilePath = string
 type ExportName = string
 type ExportValue = unknown
 
-async function loadGlobFiles(telefuncFilesGlob: GlobFiles, runContext: { telefuncFilePath: string }) {
+// Vite's import.meta.glob() returns promises
+async function loadViteGlobbedFiles(telefuncFilesGlob: GlobFiles, runContext: { telefuncFilePath: string }) {
   const telefuncFilesAll = Object.keys(telefuncFilesGlob)
   const telefuncFilesLoaded = Object.fromEntries(
     await Promise.all(
