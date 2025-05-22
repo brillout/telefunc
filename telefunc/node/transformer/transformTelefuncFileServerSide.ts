@@ -10,7 +10,7 @@ async function transformTelefuncFileServerSide(
   src: string,
   id: string,
   appRootDir: string,
-  skipRegistration: boolean,
+  skipRegistration: false,
   isDev: boolean,
 ) {
   assertPosixPath(id)
