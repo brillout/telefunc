@@ -47,8 +47,8 @@ function Features() {
         </h2>
         <>
           <p>
-            Telefunc supports <b>Next.js</b>, <b>CRA</b>, <b>Nuxt</b>, <b>Vite</b>, <b>Vike</b>, <b>React Native</b> and
-            other frameworks based on Webpack, Babel, Parcel or Vite.
+            Telefunc supports <b>Next.js</b>, <b>Nuxt</b>, <b>Vite</b>, <b>Vike</b>, <b>React Native</b>,{' '}
+            <b>SvelteKit</b> and other frameworks based on Webpack, Babel, Parcel or Vite.
           </p>
         </>
       </div>
