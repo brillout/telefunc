@@ -12,7 +12,7 @@ async function loadTelefuncFiles(runContext: {
   telefuncFilesManuallyProvidedByUser: string[] | null
   telefuncFilePath: string
 }): Promise<{ telefuncFilesLoaded: TelefuncFiles; telefuncFilesAll: string[] }> {
-  // - The user manually provides the list of `.telefunc.js` files with `config.telefuncFiles`
+  // - The user can manually provide the list of `.telefunc.js` files using `config.telefuncFiles`
   {
     if (runContext.telefuncFilesManuallyProvidedByUser) {
       assert(hasProp(runContext, 'telefuncFilesManuallyProvidedByUser', 'string[]')) // Help TS narrow `runContext`
@@ -23,8 +23,12 @@ async function loadTelefuncFiles(runContext: {
   }
 
   // Vite:
-  // - In development, `.telefunc.js` files provided with Vite's development server
-  // - In production, `.telefunc.js` files provided with @brillout/vite-plugin-server-entry
+  // - In development, `.telefunc.js` files are provided using Vite's development server
+  // - In production, `.telefunc.js` files are provided using @brillout/vite-plugin-server-entry
+  //   - It's guaranteed to work when using Vike with vike-server (as `$ node dist/server/index.js` always includes Telefunc's entry)
+  //   - It may fail with the following setups as described at https://github.com/brillout/vite-plugin-server-entry#manual-import => we fallback down below with the registration method
+  //     - With Vike + fully custom server integration
+  //     - SvelteKit
   {
     const res = await loadTelefuncFilesUsingVite(runContext, false)
     if (res) {
@@ -36,6 +40,7 @@ async function loadTelefuncFiles(runContext: {
 
   // - Next.js
   // - Nuxt 2
+  // - Vite in production if @brillout/vite-plugin-server-entry fails (see comment above)
   {
     const telefuncFilesLoaded = loadTelefuncFilesUsingRegistration()
     if (telefuncFilesLoaded) {
