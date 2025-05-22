@@ -7,7 +7,7 @@ import { getViteDevServer } from '../server/globalContext.js'
 
 async function loadTelefuncFilesWithVite(
   runContext: { telefuncFilePath: string },
-  failOnFailure?: true,
+  failOnFailure: boolean,
 ): Promise<null | {
   telefuncFilesLoaded: Record<string, Record<string, unknown>>
   telefuncFilesAll: string[]
@@ -24,7 +24,7 @@ async function loadTelefuncFilesWithVite(
   return { telefuncFilesLoaded, viteProvider, telefuncFilesAll }
 }
 
-async function loadGlobImporter(failOnFailure?: true) {
+async function loadGlobImporter(failOnFailure: boolean) {
   const viteDevServer = getViteDevServer()
   if (viteDevServer) {
     const devPath = globalThis._telefunc?.telefuncFilesGlobFilePath

@@ -38,7 +38,7 @@ async function loadTelefuncFiles(runContext: {
   // - In development, `.telefunc.js` files provided with Vite's development server
   // - In production, `.telefunc.js` files provided with @brillout/vite-plugin-server-entry
   {
-    const res = await loadTelefuncFilesWithVite(runContext)
+    const res = await loadTelefuncFilesWithVite(runContext, false)
     if (res) {
       const { telefuncFilesLoaded, viteProvider, telefuncFilesAll } = res
       assertUsage(Object.keys(telefuncFilesAll).length > 0, getNothingFoundErr(viteProvider))
