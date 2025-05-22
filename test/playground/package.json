@@ -2,7 +2,8 @@
   "scripts": {
     "dev": "vike dev",
     "build": "vike build",
-    "preview": "vike build && cross-env NODE_ENV='production' node dist/server/index.js"
+    "prod": "cross-env NODE_ENV='production' node build/server/index.js",
+    "preview": "pnpm run build && pnpm run prod"
   },
   "dependencies": {
     "@types/react": "^19.1.5",
