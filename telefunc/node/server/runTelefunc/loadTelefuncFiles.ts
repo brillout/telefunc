@@ -3,7 +3,7 @@ export { loadTelefuncFiles }
 import type { TelefuncFiles } from '../types.js'
 import { assertUsage, assert, hasProp, isWebpack, isVikeApp } from '../../utils.js'
 import { loadTelefuncFilesWithVite } from '../../vite/loadTelefuncFilesWithVite.js'
-import { loadTelefuncFilesWithRegistration } from './loadTelefuncFilesWithRegistration.js'
+import { loadTelefuncFilesUsingRegistration } from './loadTelefuncFilesUsingRegistration.js'
 import { loadTelefuncFilesFromConfig } from './loadTelefuncFilesFromConfig.js'
 import pc from '@brillout/picocolors'
 
@@ -25,7 +25,7 @@ async function loadTelefuncFiles(runContext: {
   // - Next.js
   // - Nuxt 2
   {
-    const telefuncFilesLoaded = loadTelefuncFilesWithRegistration()
+    const telefuncFilesLoaded = loadTelefuncFilesUsingRegistration()
     if (telefuncFilesLoaded) {
       const telefuncFilesAll = Object.keys(telefuncFilesLoaded)
       assertUsage(Object.keys(telefuncFilesAll).length > 0, getNothingFoundErr('automatic registration'))
