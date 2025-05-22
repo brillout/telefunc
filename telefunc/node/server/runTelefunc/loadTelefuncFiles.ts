@@ -24,7 +24,6 @@ async function loadTelefuncFiles(runContext: {
 
   // - Next.js
   // - Nuxt 2
-  // - Vite: when the user manually imports the server production entry (https://github.com/brillout/vite-plugin-server-entry#manual-import)
   {
     const telefuncFilesLoaded = loadTelefuncFilesWithRegistration()
     if (telefuncFilesLoaded) {
