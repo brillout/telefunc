@@ -1,3 +1,12 @@
+## [0.2.7](https://github.com/brillout/telefunc/compare/v0.2.6...v0.2.7) (2025-05-22)
+
+
+### Bug Fixes
+
+* use registration method as fallback (brillout/vite-plugin-server-entry[#21](https://github.com/brillout/telefunc/issues/21)) ([#172](https://github.com/brillout/telefunc/issues/172)) ([1bb7aea](https://github.com/brillout/telefunc/commit/1bb7aea46112b40cdea69f795f11ccb306ae05eb))
+
+
+
 ## [0.2.6](https://github.com/brillout/telefunc/compare/v0.2.5...v0.2.6) (2025-05-15)
 
 
