@@ -6,18 +6,12 @@ import { generateShield } from './generateShield/generateShield.js'
 import { getServerConfig } from '../server/serverConfig.js'
 import MagicString from 'magic-string'
 
-async function transformTelefuncFileServerSide(
-  src: string,
-  id: string,
-  appRootDir: string,
-  skipRegistration: boolean,
-  isDev: boolean,
-) {
+async function transformTelefuncFileServerSide(src: string, id: string, appRootDir: string, isDev: boolean) {
   assertPosixPath(id)
   assertPosixPath(appRootDir)
 
   const exportList = await getExportList(src)
-  const codeDecoration = decorateTelefunctions(exportList, id.replace(appRootDir, ''), appRootDir, skipRegistration)
+  const codeDecoration = decorateTelefunctions(exportList, id.replace(appRootDir, ''), appRootDir)
 
   let codeShield: string | undefined
   const config = getServerConfig()
@@ -34,21 +28,14 @@ async function transformTelefuncFileServerSide(
   return { code, map }
 }
 
-function decorateTelefunctions(
-  exportList: ExportList,
-  filePath: string,
-  appRootDir: string,
-  skipRegistration: boolean,
-) {
+function decorateTelefunctions(exportList: ExportList, filePath: string, appRootDir: string) {
   assertPosixPath(filePath)
 
   return [
     'import { __decorateTelefunction } from "telefunc";',
     ...exportList.map(
       ({ exportName, localName }) =>
-        `__decorateTelefunction(${localName || exportName}, "${exportName}", "${filePath}", "${appRootDir}", ${String(
-          skipRegistration,
-        )});`,
+        `__decorateTelefunction(${localName || exportName}, "${exportName}", "${filePath}", "${appRootDir}");`,
     ),
   ].join('\n')
 }

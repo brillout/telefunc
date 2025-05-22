@@ -10,7 +10,6 @@ function decorateTelefunction(
   exportName: string,
   telefuncFilePath: string,
   appRootDir: string,
-  skipRegistration: boolean,
 ) {
   assertTelefunction(telefunction, exportName, telefuncFilePath)
 
@@ -22,7 +21,5 @@ function decorateTelefunction(
     })
   }
 
-  if (!skipRegistration) {
-    registerTelefunction(telefunction, exportName, telefuncFilePath)
-  }
+  registerTelefunction(telefunction, exportName, telefuncFilePath)
 }

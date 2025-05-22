@@ -4,6 +4,13 @@ import { telefunc } from 'telefunc/vite'
 
 export default defineConfig({
   plugins: [sveltekit(), telefunc()],
-  // Avoid page reload which breaks the CI
+
+  // [Telefunc CI] Avoid hard page reload upon Vite discovering new dependencies to optimize: hard reloads cause random browser errors breaking the CI.
   optimizeDeps: { include: ['clsx', 'devalue'] },
+
+  // [Telefunc CI] Test robust loading of telefunctions.
+  // @ts-expect-error
+  vitePluginServerEntry: {
+    disableAutoImport: true,
+  },
 })
