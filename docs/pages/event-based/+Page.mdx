@@ -71,7 +71,7 @@ export async function onMarkAllAsCompleted() {
 
 > The telefunction `onMarkAllAsCompleted()` is tailored: it's created specifically to serve the needs of the `<TodoList>` component, whereas a RESTful API is generic (it's a set of endpoints that are agnostic to your frontend).
 
-We recommend naming telefunctions `onSomeEvent()` (see <Link href="#naming-convention"/>), since a telefunction call is always triggered by some kind of event (typically a user action).
+We recommend naming telefunctions `onSomeEvent()` (see <Link href="#naming-convention"/>), since a telefunction call is always triggered by some kind of event — typically a user action such as the [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model)'s [click event](https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event) (e.g. the user clicks on a button) or [load event](https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event) (e.g. the user opens the page).
 
 ```shell
 # Co-locating the component's telefunctions
