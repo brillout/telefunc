@@ -1,11 +1,12 @@
-import { Link } from '@brillout/docpress'
+import { Link, Warning } from '@brillout/docpress'
 
-> This page explains:
-> - What RPC is
-> - How RPC (such as Telefunc) works
-> - Why RPC endpoints (such as telefunctions) need protection
->
-> You can skip this page if you are already familiar with RPC.
+Telefunc's approach — seamlessly calling remote functions — is known as [RPC (**R**emote **P**rocedure **C**all)](https://en.wikipedia.org/wiki/Remote_procedure_call).
+
+This page explains:
+- What is RPC?
+- How does RPC work?
+- How to ensure RPC security?
+- How to maximize RPC speed?
 
 ## Basic example
 
@@ -42,11 +43,7 @@ async function hello({ name }) {
 </html>
 ```
 
-> We will show later <Link href="#how-it-works">how it works</Link>.
-
-> This practice &mdash; calling functions remotely in a seamless fashion &mdash; is known as [_**R**emote **P**rocedure **C**all (RPC)_](https://en.wikipedia.org/wiki/Remote_procedure_call).
-
-The central aspect here is that `hello()` is always executed on the server side, which enables `hello()` (and telefunctions in general) to use server-side utilities such as SQL and ORMs.
+The central aspect here is that `hello()` is always executed on the server side, which enables `hello()` to use server-side utilities such as SQL and ORMs.
 
 
 ## ORM & SQL
@@ -61,7 +58,7 @@ export { onLoad }
 
 async function onLoad() {
   // ORM
-  const todoItems = await Todo.findMany({ select: 'text' })
+  const todoItems = await Task.findMany({ select: 'text' })
   // SQL
   const todoItems = await execute("SELECT text FROM todo_items;")
 
@@ -89,7 +86,7 @@ async function TodoList() {
 }
 ```
 
-> We collocate and name the `TodoList.telefunc.js` file after `TodoList.jsx`, which is a practice we recommend and explain at <Link href="/event-based" />.
+> We name and co-locate `TodoList.telefunc.js` next to `TodoList.jsx` — a practice explained at <Link href="/event-based" />.
 
 > While the examples here use JSX, Telefunc works with any UI framework (React, Vue, Svelte, Solid, ...).
 
@@ -107,7 +104,7 @@ import { shield } from 'telefunc'
 shield(onNewTodo, [shield.type.string])
 async function onNewTodo(text) {
   // ORM
-  const todoItem = new Todo({ text })
+  const todoItem = new Task({ text })
   await todoItem.save()
 
   // SQL
@@ -223,9 +220,9 @@ while the browser-side can remotely call it in a seamless fashion.
 > You can also call telefunctions from the server-side, in which case the telefunction is directly called (without making an HTTP request).
 
 
-## Telefunctions need protection
+## RPC security
 
-Your telefunctions can be remotely called not only by your frontend, but by anyone.
+Anyone — not just your frontend — can remotely call your telefunctions.
 
 For example, anyone can call the `hello()` telefunction we've seen in the previous section by opening a Linux terminal and making this HTTP request:
 
@@ -260,7 +257,9 @@ curl https://your-website.com/_telefunc --data '{
   }'
 ```
 
-Always keep in mind that your telefunctions are public and need protection.
+Always keep in mind that your **telefunctions are public** and you must **always protect your telefunctions**.
+
+In the sections below <Link href="#throw-abort"/> and <Link href="#shield" /> we explain how to achieve that.
 
 
 ## `throw Abort()`
@@ -319,7 +318,7 @@ async function onLoad() {
   // We forbid onLoad() to be called by a user that isn't logged-in
   if (!user) throw Abort()
 
-  const todoList = await Todo.findMany({ authorId: user.id })
+  const todoList = await Task.findMany({ authorId: user.id })
   return todoList
 }
 ```
@@ -433,3 +432,32 @@ export async function onDelete(id) {
   // ...
 }
 ```
+
+## RPC speed
+
+When used correctly, RPC is highly efficient.
+
+Since telefunctions are tailored to your frontend, you can make them send only the strict minimum amount of data.
+
+For example, the following doesn't send a single byte of superfluous information:
+
+```js
+// TodoList.telefunc.ts
+// Environment: server
+
+import { getContext } from 'telefunc'
+
+export async function onTodoComplete(id: number) {
+  const { user } = getContext()
+  await Task.update({ completed: true }).where({ id, author: user.id })
+  // No data is returned: the HTTP response status code 200 is enough information for the client
+}
+```
+
+> With REST, because API endpoints are generic you often end up returning superfluous data.
+
+> Even with GraphQL, the client must specify and send the list of fields that the server needs to return. This isn't needed with RPC — that information is implicity defined by the telefunction name (i.e. the information is compressed).
+
+For efficient telefunctions, we recommend creating tailored telefunctions instead of generic ones — see <Link href="/event-based" />.
+
+> Telefunc newcomers often make the mistake of creating generic telefunctions — a habit that comes from using REST or GraphQL.

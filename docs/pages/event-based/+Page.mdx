@@ -2,22 +2,26 @@ import { Link } from '@brillout/docpress'
 
 With REST or GraphQL, API endpoints are:
 
-- Generic
+- Generic (agnostic to your frontend)
 - Backend-owned (defined and implemented by the backend team)
 
 With Telefunc, it's usually the opposite — telefunctions are typically:
 
-- Tailored
+- Tailored (bespoke to your frontend)
 - Frontend-owned (defined and implemented by the frontend team)
 
 This inversion leads to a significantly faster development speed.
 
-You may be tempted to create generic telefunctions out of habit from working with REST or GraphQL, but this is usually an anti-pattern as shown in the example below. Instead, we recommend implementing what we call *event-based* telefunctions.
+You may be tempted to create generic telefunctions out of habit from REST or GraphQL, but this is usually an anti-pattern. Instead, we recommend implementing what we call *event-based* telefunctions.
+
+In the example below, we explain why it leads to better <Link href="/RPC#rpc-security">RPC security</Link> and increased <Link href="/RPC#rpc-speed">RPC speed</Link>.
+
+
 
 
 ## Example
 
-Imagine an existing to-do list app, and the product team requests a new feature: add a new button `Mark all tasks as completed`.
+Imagine an existing to-do list app, and the product manager requests a new feature: add a new button `Mark all tasks as completed`.
 
 With a RESTful API, the app would typically do this:
 
@@ -36,12 +40,12 @@ POST            https://api.todo.com/task/7                   { "completed": tru
 
 {/*
 Couldn't find a reference to link to:
-- Wikipedia doens't have an article about the N+1 problem
+- Wikipedia doesn't have an article about the N+1 problem
 - https://stackoverflow.com/questions/97197/what-is-the-n1-selects-problem-in-orm-object-relational-mapping
   - But it refers to ORMs and not REST
 - https://www.prisma.io/docs/orm/prisma-client/queries/query-optimization-performance
   - Convoluted
-- Drizze doens't have any docs about the N+1 problem
+- Drizze doesn't have any docs about the N+1 problem
 - Anyways, I feel like uses nowadays don't care much about these theoretical concepts anymore
 */}
 This is inefficient as it makes a lot of HTTP requests (the infamous `N+1` problem).
@@ -52,31 +56,27 @@ With Telefunc, you can do this instead:
 // components/TodoList.telefunc.ts
 // Environment: server
 
-import { Tasks } from '../data/Tasks'
+import { Tasks } from '../database/Tasks'
 
 export async function onMarkAllAsCompleted() {
-  // With an ORM
-  await Tasks.update({ completed: true  }).where({ completed: false })
+  // With an ORM:
+  await Tasks.update({ completed: true }).where({ completed: false })
 
-  // Or with SQL
+  // Or with SQL:
   await sql('UPDATE tasks SET completed = true WHERE completed = false')
 }
 ```
 
 > With Telefunc, it's usually the frontend team that is responsible for defining and implementing telefunctions.
 
-The telefunction `onMarkAllAsCompleted()` is created specifically to serve the needs of the component `TodoList.tsx`, whereas a RESTful API is a set of generic endpoints agnostic to your frontend.
+> The telefunction `onMarkAllAsCompleted()` is tailored: it's created specifically to serve the needs of the `<TodoList>` component, whereas a RESTful API is generic (it's a set of endpoints that are agnostic to your frontend).
 
-Not only is it more performant, but it's also faster to implement. You can implement telefunctions hand-in-hand with your frontend development, instead of having to implement an entire RESTful API before even getting started with your frontend development.
-
-Thus, in general, we recommend implementing telefunctions that are tailored instead of generic.
-
-We recommend naming telefunctions `onSomeEvent()` since they are typically triggered by some kind of event.
+We recommend naming telefunctions `onSomeEvent()` (see <Link href="#naming-convention"/>), since a telefunction call is always triggered by some kind of event (typically a user action).
 
 ```shell
-components/TodoList.tsx
 # Co-locating the component's telefunctions
 components/TodoList.telefunc.ts
+components/TodoList.tsx
 ```
 
 ```tsx
@@ -95,12 +95,88 @@ function TodoList() {
 }
 ```
 
+> With Telefunc, you think in terms of what the frontend needs, instead of thinking in terms of the backend publicly exposing data.
+>
+> From that perspective, it's a lot more natural to co-locate telefunctions next to UI components, rather than next to where data comes from.
+
+You might find the naming convention annoyingly restrictive, but it offers important advantages — which we now explain.
+
+To keep things [DRY](https://softwareengineering.stackexchange.com/questions/400183/what-should-i-consider-when-the-dry-and-kiss-principles-are-incompatible) you may be tempted to define a single telefunction that is re-used by many UI components, for example:
+
+```ts
+// database/actions/tasks.telefunc.ts
+// Environment: server
+
+import { Task } from '../models/Task'
+import { getContext } from 'telefunc'
+
+// One telefunction used by multiple UI components
+export async function udpateTask(id: number, mods: Partial<typeof Task>) {
+  const { user } = getContext()
+  const task = await Task.update(mods).where({ id, author: user.id })
+  // Returns the updated value task.modifiedAt
+  return task
+}
+```
+
+But this has issues:
+- It makes reasoning about <Link href="/RPC#rpc-security">RPC security</Link> harder, leading to subtle bugs and security issues.
+  > As explained at <Link href="/RPC" />, telefunctions are public: the user can call `updateTask({ author: Math.floor(Math.random()*100000) })` which is obviously an issue.
+  >
+  > A cornerstone of security is giving only the permissions that are strictly required.
+- It decreases <Link href="/RPC#rpc-speed">RPC speed</Link>.
+  > Because `updateTask()` is generic, it must `return task` in case a component requires `task.modifiedAt` — but if some components don't need it, this results in wasted network bandwidth.
+
+We recommend the following instead:
+
+```js
+// database/actions/task.ts
+
+import { getContext } from 'telefunc'
+
+// This isn't a telefunction: it's a normal server-side function
+export async function udpateTask(id: number, mods: Partial<Task>) {
+  const { user } = getContext() // Can also be used in normal functions
+  const task = await Task.update(mods).where({ id, author: user.id })
+  // Returns the updated value task.modifiedAt
+  return task
+}
+```
+
+```js
+// components/TodoList.telefunc.ts
+
+import { updateTask } from '../database/actions/task'
+
+// Returns task.modifiedAt
+export const onTodoTextUpdate = (id: number, text: string) => updateTask(id, { text })
+// Doesn't return task.modifiedAt
+export const onTodoCompleted = (id: number) => { await updateTask(id, { completed: false }) }
+```
+
+This is slightly less DRY but, in exchange, you get a much clearer DX around RPC security and RPC speed.
+
+> If there are two UI components that could use the exact same telefunction — wouldn't it be nice to create a single telefunction instead of two?
+> - It's a rare situation (UI components usually have slightly different requirements).
+> - Consider creating a new shared UI component used by these two UI components.
+> - Using the deduplication approach show above, only one line of duplicated code remains:
+>   ```js
+>   // TodoItem.telefunc.js
+>   // Defined once for <TodoItem>
+>   export const onTodoTextUpdate = (id: number, text: string) => updateTask(id, { text })
+>   ```
+>   ```js
+>   // TodoList.telefunc.js
+>   // Defined again for <TodoList> — the code duplication is only one line of code
+>   export const onTodoTextUpdate = (id: number, text: string) => updateTask(id, { text })
+>   ```
+
+All in all, event-based telefunctions and the naming convention lead to a more effective use of Telefunc.
+
 
 ## Naming convention
 
-As explained above, we recommend creating tailored telefunctions (instead of generic ones).
-
-For a crystal-clear structure, we recommend naming telefunctions `onSomeEvent()`.
+For a crystal-clear structure and more effective use of Telefunc, we recommend naming telefunctions `onSomeEvent()`.
 
 ```bash
     TELEFUNCTIONS
@@ -115,7 +191,7 @@ For a crystal-clear structure, we recommend naming telefunctions `onSomeEvent()`
 ✅  onInfiniteScroll()
 ```
 
-We also recommend to co-locate `.telefunc.js` files next to UI component files.
+We also recommend co-locating `.telefunc.js` files next to your UI component files.
 
 ```shell
     FILES
@@ -129,9 +205,15 @@ We also recommend to co-locate `.telefunc.js` files next to UI component files.
 ❌  db/user/getLoggedInUser.telefunc.js
 ```
 
-Telefunc displays a warning when the naming convention isn't followed. You can remove the warning with <Link text={<code>config.disableNamingConvention</code>} href="/disableNamingConvention" />.
+Telefunc shows a warning when the naming convention isn't followed — you can remove the warning with <Link text={<code>config.disableNamingConvention</code>} href="/disableNamingConvention" />.
 
-> Not following the naming convention is perfectly fine, though we recommend having a clear reason for breaking the rule. [Feel free to reach out](https://github.com/brillout/telefunc/issues/new) if you have quesions.
+> Not following the naming convention is perfectly fine, though we recommend having a clear reason for breaking the rule.
+>
+> We recommend carefully reading the <Link href="#example">example above</Link> before opting out of the convention. It explains why event-based telefunctions lead to:
+> - Better <Link href="/RPC#rpc-security">RPC security</Link>
+> - Increased <Link href="/RPC#rpc-speed">RPC speed</Link>
+>
+> [Feel free to reach out](https://github.com/brillout/telefunc/issues/new) if you have quesions.
 
 
 ## Exception: several clients
