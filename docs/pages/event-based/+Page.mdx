@@ -7,14 +7,14 @@ With REST or GraphQL, API endpoints are:
 
 With Telefunc, it's usually the opposite — telefunctions are typically:
 
-- Tailored (bespoke to your frontend)
+- Tailored (specific to your frontend)
 - Frontend-owned (defined and implemented by the frontend team)
 
-This inversion leads to a significantly faster development speed.
+This inversion leads to significantly faster development.
 
-You may be tempted to create generic telefunctions out of habit from REST or GraphQL, but this is usually an anti-pattern. Instead, we recommend implementing what we call *event-based* telefunctions.
+You may be tempted to create generic telefunctions out of habit from REST or GraphQL, but this is usually an anti-pattern when using Telefunc. Instead, we recommend implementing what we call *event-based* telefunctions.
 
-In the example below, we explain why it leads to better <Link href="/RPC#security">RPC security</Link> and increased <Link href="/RPC#speed">RPC speed</Link>.
+In the example below, we explain why it leads to better <Link href="/RPC#security">RPC security</Link> and improved <Link href="/RPC#speed">RPC speed</Link>.
 
 
 
@@ -69,9 +69,12 @@ export async function onMarkAllAsCompleted() {
 
 > With Telefunc, it's usually the frontend team that is responsible for defining and implementing telefunctions.
 
-> The telefunction `onMarkAllAsCompleted()` is tailored: it's created specifically to serve the needs of the `<TodoList>` component, whereas a RESTful API is generic (it's a set of endpoints that are agnostic to your frontend).
+The telefunction `onMarkAllAsCompleted()` is tailored: it's created specifically to serve the needs of the `<TodoList>` component. It's simpler and more efficient.
 
-We recommend naming telefunctions `onSomeEvent()` (see <Link href="#naming-convention"/>), since a telefunction call is always triggered by some kind of event — typically a user action such as the [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model)'s [click event](https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event) (e.g. the user clicks on a button) or [load event](https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event) (e.g. the user opens the page).
+
+#### Convention
+
+We recommend naming telefunctions `onSomeEvent()` (see <Link href="#naming-convention"/>), since telefunction calls are always triggered by some kind of event — typically a user action (such as the [DOM](https://developer.mozilla.org/en-US/docs/Web/API/Document_Object_Model/Introduction)'s [click event](https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event) when the user clicks on a button, or the [load event](https://developer.mozilla.org/en-US/docs/Web/API/Window/load_event) when the user opens the page).
 
 ```shell
 # Co-locating the component's telefunctions
@@ -95,11 +98,13 @@ function TodoList() {
 }
 ```
 
-> With Telefunc, you think in terms of what the frontend needs, instead of thinking in terms of the backend publicly exposing data.
->
-> From that perspective, it's a lot more natural to co-locate telefunctions next to UI components, rather than next to where data comes from.
+The purpose of the naming convention is to tightly couple telefunctions with components.
 
-You might find the naming convention annoyingly restrictive, but it offers important advantages — which we now explain.
+> With Telefunc, you think in terms of what the frontend needs, instead of thinking in terms of the backend publicly exposing data. From that perspective, it's a lot more natural to co-locate telefunctions next to UI components instead of where the data comes from.
+
+#### Too restrictive convention?
+
+You might find the naming convention annoyingly restrictive, but it brings important advantages — which we now explain.
 
 To keep things [DRY](https://softwareengineering.stackexchange.com/questions/400183/what-should-i-consider-when-the-dry-and-kiss-principles-are-incompatible) you may be tempted to define a single telefunction that is re-used by many UI components, for example:
 
@@ -154,7 +159,13 @@ export const onTodoTextUpdate = (id: number, text: string) => updateTask(id, { t
 export const onTodoCompleted = (id: number) => { await updateTask(id, { completed: false }) }
 ```
 
-It's slightly less DRY but, in exchange, you get an improved structure around security and speed.
+It's slightly less DRY but, in exchange, you get a much clearer structure around security and speed.
+
+When a telefunction is tightly coupled with a component:
+ - The telefunction's arguments can be minimal (exactly and only what is needed) leading to better security.
+ - The telefunction's return value can be minimal (exactly and only what is needed) leading to improved speed.
+
+That's why we recommend event-based telefunctions using the naming convention.
 
 > If there are two UI components that could use the exact same telefunction — wouldn't it be nice to create a single telefunction instead of two?
 > - It's a rare situation (UI components usually have slightly different requirements).
@@ -171,19 +182,20 @@ It's slightly less DRY but, in exchange, you get an improved structure around se
 >   export const onTodoTextUpdate = (id: number, text: string) => updateTask(id, { text })
 >   ```
 
-All in all, event-based telefunctions and the naming convention lead to a more effective use of Telefunc.
-
 
 ## Naming convention
 
-For a crystal-clear structure and more effective use of Telefunc, we recommend naming telefunctions `onSomeEvent()`.
+As explained in <Link href="#example">the example above</Link>, for a crystal-clear structure and more effective use of Telefunc, we recommend the following convention.
+
+
+Name telefunctions `onSomeEvent()` (prefix them with `on[A-Z]`).
 
 ```bash
     TELEFUNCTIONS
     =============
-❌  updateTodo() # generic telefunction
-✅  onTodoTextUpdate() # tailored telefunction
-✅  onTodoComplete() # tailored telefunction
+❌  updateTodo()
+✅  onTodoTextUpdate()
+✅  onTodoComplete()
 
 ❌  loadData()
 ✅  onLoad()
@@ -191,27 +203,27 @@ For a crystal-clear structure and more effective use of Telefunc, we recommend n
 ✅  onInfiniteScroll()
 ```
 
-We also recommend co-locating `.telefunc.js` files next to your UI component files.
+Co-locate `.telefunc.js` files next to UI component files.
 
 ```shell
     FILES
     =====
     components/TodoItem.tsx
 ✅  components/TodoItem.telefunc.ts
-❌  db/todo.telefunc.ts
+❌  database/todo.telefunc.ts
 
     components/User.vue
 ✅  components/User.telefunc.js
-❌  db/user/getLoggedInUser.telefunc.js
+❌  database/user/getLoggedInUser.telefunc.js
 ```
 
-Telefunc shows a warning when the naming convention isn't followed — you can remove the warning with <Link text={<code>config.disableNamingConvention</code>} href="/disableNamingConvention" />.
+Telefunc shows a warning if you don't follow the naming convention — you can remove the warning with <Link text={<code>config.disableNamingConvention</code>} href="/disableNamingConvention" />.
 
 > Not following the naming convention is perfectly fine, though we recommend having a clear reason for breaking the rule.
 >
-> We recommend carefully reading the <Link href="#example">example above</Link> before opting out of the convention. It explains why event-based telefunctions lead to:
+> We recommend carefully reading <Link href="#example">the example above</Link> before opting out of the convention. It explains why event-based telefunctions lead to:
 > - Better <Link href="/RPC#security">RPC security</Link>
-> - Increased <Link href="/RPC#speed">RPC speed</Link>
+> - Improved <Link href="/RPC#speed">RPC speed</Link>
 >
 > [Feel free to reach out](https://github.com/brillout/telefunc/issues/new) if you have quesions.
 
