@@ -154,7 +154,7 @@ export const onTodoTextUpdate = (id: number, text: string) => updateTask(id, { t
 export const onTodoCompleted = (id: number) => { await updateTask(id, { completed: false }) }
 ```
 
-This is slightly less DRY but, in exchange, you get a much clearer DX around RPC security and RPC speed.
+It's slightly less DRY but, in exchange, you get an improved structure around security and speed.
 
 > If there are two UI components that could use the exact same telefunction — wouldn't it be nice to create a single telefunction instead of two?
 > - It's a rare situation (UI components usually have slightly different requirements).
