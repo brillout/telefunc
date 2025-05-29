@@ -14,7 +14,7 @@ This inversion leads to a significantly faster development speed.
 
 You may be tempted to create generic telefunctions out of habit from REST or GraphQL, but this is usually an anti-pattern. Instead, we recommend implementing what we call *event-based* telefunctions.
 
-In the example below, we explain why it leads to better <Link href="/RPC#rpc-security">RPC security</Link> and increased <Link href="/RPC#rpc-speed">RPC speed</Link>.
+In the example below, we explain why it leads to better <Link href="/RPC#security">RPC security</Link> and increased <Link href="/RPC#speed">RPC speed</Link>.
 
 
 
@@ -120,11 +120,11 @@ export async function udpateTask(id: number, mods: Partial<typeof Task>) {
 ```
 
 But this has issues:
-- It makes reasoning about <Link href="/RPC#rpc-security">RPC security</Link> harder, leading to subtle bugs and security issues.
+- It makes reasoning about <Link href="/RPC#security">RPC security</Link> harder, leading to subtle bugs and security issues.
   > As explained at <Link href="/RPC" />, telefunctions are public: the user can call `updateTask({ author: Math.floor(Math.random()*100000) })` which is obviously an issue.
   >
   > A cornerstone of security is giving only the permissions that are strictly required.
-- It decreases <Link href="/RPC#rpc-speed">RPC speed</Link>.
+- It decreases <Link href="/RPC#speed">RPC speed</Link>.
   > Because `updateTask()` is generic, it must `return task` in case a component requires `task.modifiedAt` — but if some components don't need it, this results in wasted network bandwidth.
 
 We recommend the following instead:
@@ -210,8 +210,8 @@ Telefunc shows a warning when the naming convention isn't followed — you can r
 > Not following the naming convention is perfectly fine, though we recommend having a clear reason for breaking the rule.
 >
 > We recommend carefully reading the <Link href="#example">example above</Link> before opting out of the convention. It explains why event-based telefunctions lead to:
-> - Better <Link href="/RPC#rpc-security">RPC security</Link>
-> - Increased <Link href="/RPC#rpc-speed">RPC speed</Link>
+> - Better <Link href="/RPC#security">RPC security</Link>
+> - Increased <Link href="/RPC#speed">RPC speed</Link>
 >
 > [Feel free to reach out](https://github.com/brillout/telefunc/issues/new) if you have quesions.
 
