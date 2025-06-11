@@ -90,7 +90,7 @@
     "@babel/core": "7.23.6",
     "@babel/parser": "7.23.6",
     "@babel/types": "7.23.6",
-    "@biomejs/biome": "^1.8.3",
+    "@biomejs/biome": "^1.9.4",
     "@brillout/release-me": "^0.4.0",
     "@nuxt/types": "^2.15.8",
     "@types/express": "^4.17.11",

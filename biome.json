@@ -1,7 +1,7 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "files": {
-    "ignore": ["dist/", "build/", "package.json"]
+    "ignore": ["package.json", "dist/", "build/"]
   },
   "formatter": {
     "indentWidth": 2,
@@ -30,5 +30,10 @@
   "vcs": {
     "enabled": true,
     "clientKind": "git"
+  },
+  "css": {
+    "formatter": {
+      "quoteStyle": "single"
+    }
   }
 }
