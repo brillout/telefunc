@@ -52,5 +52,6 @@
     "overrides": {
       "telefunc": "link:./packages/telefunc/"
     }
-  }
+  },
+  "packageManager": "pnpm@9.15.9"
 }
