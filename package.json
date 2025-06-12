@@ -2,11 +2,11 @@
   "scripts": {
     "========= Docs": "",
     "// Develop website https://telefunc.com": "",
-    "docs": "cd docs/ && pnpm run dev",
+    "docs": "cd packages/telefunc.com/ && pnpm run dev",
     "// Build https://telefunc.com for production": "",
-    "docs:build": "cd docs/ && pnpm run build",
+    "docs:build": "cd packages/telefunc.com/ && pnpm run build",
     "// Simulate https://telefunc.com for production": "",
-    "docs:preview": "cd docs/ && pnpm run preview",
+    "docs:preview": "cd packages/telefunc.com/ && pnpm run preview",
     "========= Test": "",
     "// Run tests": "",
     "test": "pnpm run test:units && pnpm run test:e2e && pnpm run test:types",
@@ -17,18 +17,18 @@
     "test:setup": "pnpm install && pnpm run build",
     "========= Dev": "",
     "// Develop telefunc": "",
-    "dev": "cd telefunc/ && pnpm run dev",
+    "dev": "cd packages/telefunc/ && pnpm run dev",
     "========= Build": "",
     "// Build Telefunc": "",
-    "build": "cd telefunc/ && pnpm run build",
+    "build": "cd packages/telefunc/ && pnpm run build",
     "========= Upgrade deps": "",
     "// Upgrade all dependencies of all package.json to @latest": "",
     "bump": "bump-dependencies",
     "========= Release": "",
-    "release": "cd ./telefunc/ && pnpm run release",
-    "release:minor": "cd ./telefunc/ && pnpm run release:minor",
-    "release:major": "cd ./telefunc/ && pnpm run release:major",
-    "release:commit": "cd ./telefunc/ && pnpm run release:commit",
+    "release": "cd ./packages/telefunc/ && pnpm run release",
+    "release:minor": "cd ./packages/telefunc/ && pnpm run release:minor",
+    "release:major": "cd ./packages/telefunc/ && pnpm run release:major",
+    "release:commit": "cd ./packages/telefunc/ && pnpm run release:commit",
     "========= Formatting": "",
     "format": "pnpm run format:biome",
     "format:prettier": "git ls-files | egrep '\\.(json|js|jsx|css|ts|tsx|vue|mjs|cjs)$' | grep --invert-match package.json | xargs pnpm exec prettier --write",
@@ -50,7 +50,7 @@
   },
   "pnpm": {
     "overrides": {
-      "telefunc": "link:./telefunc/"
+      "telefunc": "link:./packages/telefunc/"
     }
   }
 }
