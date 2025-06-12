@@ -116,7 +116,7 @@ import { Task } from '../models/Task'
 import { getContext } from 'telefunc'
 
 // One telefunction used by multiple UI components
-export async function udpateTask(id: number, mods: Partial<typeof Task>) {
+export async function updateTask(id: number, mods: Partial<typeof Task>) {
   const { user } = getContext()
   const task = await Task.update(mods).where({ id, author: user.id })
   // Returns the updated value task.modifiedAt
@@ -140,7 +140,7 @@ We recommend the following instead:
 import { getContext } from 'telefunc'
 
 // This isn't a telefunction: it's a normal server-side function
-export async function udpateTask(id: number, mods: Partial<Task>) {
+export async function updateTask(id: number, mods: Partial<Task>) {
   const { user } = getContext() // Can also be used in normal functions
   const task = await Task.update(mods).where({ id, author: user.id })
   // Returns the updated value task.modifiedAt
@@ -225,7 +225,7 @@ Telefunc shows a warning if you don't follow the naming convention — you can r
 > - Better <Link href="/RPC#security">RPC security</Link>
 > - Improved <Link href="/RPC#speed">RPC speed</Link>
 >
-> [Feel free to reach out](https://github.com/brillout/telefunc/issues/new) if you have quesions.
+> [Feel free to reach out](https://github.com/brillout/telefunc/issues/new) if you have questions.
 
 
 ## Exception: several clients
