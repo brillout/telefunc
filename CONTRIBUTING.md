@@ -135,4 +135,4 @@ pnpm run dev
 > (Or see [pnpm Docs > Installation](https://pnpm.io/installation) for alternative methods.)
 
 > [!NOTE]
-> These requirements are only needed for developing the source code of Telefunc. The npm package `telefunc` itself can be used with Windows and with any package manager.
+> These requirements are only needed for developing the source code of Telefunc. The npm package `telefunc` itself can be used with any package manager.
