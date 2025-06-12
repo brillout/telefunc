@@ -1,6 +1,5 @@
 packages:
-  - 'telefunc/'
-  - 'docs/'
-  - 'examples/*'
+  - 'packages/*'
   - 'test/*'
+  - 'examples/*'
   - '!examples/react-native/'
