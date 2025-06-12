@@ -124,10 +124,7 @@ pnpm run dev
 
 ## System requirements
 
-> [!NOTE]
-> These requirements are only needed for developing the source code of Telefunc. The npm package `telefunc` itself can be used with Windows and with any package manager.
-
-- Node.js `>=v15.0.0`
+- Node.js `>=20.0.0`
 - [pnpm](https://pnpm.io)
 
 > [!NOTE]
@@ -136,3 +133,6 @@ pnpm run dev
 > npm install -g pnpm
 > ```
 > (Or see [pnpm Docs > Installation](https://pnpm.io/installation) for alternative methods.)
+
+> [!NOTE]
+> These requirements are only needed for developing the source code of Telefunc. The npm package `telefunc` itself can be used with Windows and with any package manager.
