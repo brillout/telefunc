@@ -39,19 +39,17 @@ Or, if you want to watch & re-build upon modifications:
 pnpm run dev # At the monorepo root
 ```
 
-**3. Test**
+> [!NOTE]
+> When switching Git branches, you may need to run `$ pnpm reset` (at the monorepo root): it will re-install and re-build everything. It's required when switching to a branch that, for example, changes the `dependencies` list of `package.json`.
 
-You can now test your modifications.
+**3. Try**
 
-In a second shell:
+To try your modifications, open a second shell and run:
 
 ```shell
 cd examples/some-example/
 pnpm run dev
 ```
-
-> [!NOTE]
-> When switching Git branches, you may need to run `$ pnpm reset` (at the monorepo root): it will re-install and re-build everything. It's required when switching to a branch that, for example, changes the `dependencies` list of `package.json`.
 
 <br/>
 
