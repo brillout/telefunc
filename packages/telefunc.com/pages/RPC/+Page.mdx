@@ -175,7 +175,7 @@ The `hello.telefunc.js` file is never loaded in the browser: instead Telefunc tr
 
 ```js
 // hello.telefunc.js (after Telefunc transformation)
-// Environement: Browser
+// Environment: Browser
 import { __internal_makeHttpRequest } 'telefunc/client'
 export const hello = (...args) => __internal_makeHttpRequest('/hello.telefunc.js:hello', args)
 ```
@@ -326,7 +326,7 @@ async function onLoad() {
 > We essentially use `throw Abort()` to implement permission: only a logged-in user is allowed to fetch its to-do items.
 > We talk more about permissions at <Link href="/permissions" />.
 
-> In principle, we could also `throw new Error()` instead of `throw Abort()` as it also interupts the telefunction call. But we recommend `throw Abort()` as it comes with many conveniences.
+> In principle, we could also `throw new Error()` instead of `throw Abort()` as it also interrupts the telefunction call. But we recommend `throw Abort()` as it comes with many conveniences.
 
 > If, upon aborting a telefunction call, you want to pass information to the frontend then use `return someValue` or `throw Abort(someValue)`, see <Link href="/permissions" />.
 
@@ -456,7 +456,7 @@ export async function onTodoComplete(id: number) {
 
 > With REST, because API endpoints are generic you often end up returning superfluous data.
 
-> Even with GraphQL, the client must specify and send the list of fields that the server needs to return. This isn't needed with RPC — that information is implicity defined by the telefunction name (i.e. the information is compressed).
+> Even with GraphQL, the client must specify and send the list of fields that the server needs to return. This isn't needed with RPC — that information is implicitly defined by the telefunction name (i.e. the information is compressed).
 
 For efficient telefunctions, we recommend creating tailored telefunctions instead of generic ones — see <Link href="/event-based" />.
 
