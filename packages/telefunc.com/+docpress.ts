@@ -5,6 +5,7 @@ import { projectInfo } from './utils'
 
 export default {
   projectInfo,
+  docsDir: 'packages/telefunc.com',
   faviconUrl,
   headings,
   headingsDetached,
