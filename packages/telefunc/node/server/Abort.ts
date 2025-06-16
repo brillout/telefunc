@@ -5,7 +5,7 @@ import { assert, assertUsage, objectAssign } from '../utils.js'
 const stamp = '__telefunc_isAbort'
 
 function isAbort(thing: unknown): thing is ReturnType<typeof Abort> {
-  assert(thing !== Abort) // Caught earlier in `executeTelefunction()`
+  assert(thing !== Abort) // Catched earlier in `executeTelefunction()`
   return typeof thing === 'object' && thing !== null && stamp in thing
 }
 
