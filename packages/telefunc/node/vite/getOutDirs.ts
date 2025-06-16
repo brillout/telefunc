@@ -75,8 +75,8 @@ function getOutDirAbsolute(config: ResolvedConfig): string {
 }
 
 function outDirIsAbsolutePath(outDir: string) {
-  // There doesn't seem to be a better alternative to determine whether `outDir` is an aboslute path
-  //  - Very unlikely that `outDir`'s first dir macthes the filesystem's first dir
+  // There doesn't seem to be a better alternative to determine whether `outDir` is an absolute path
+  //  - Very unlikely that `outDir`'s first dir matches the filesystem's first dir
   return getFirstDir(outDir) === getFirstDir(process.cwd())
 }
 function getFirstDir(p: string) {

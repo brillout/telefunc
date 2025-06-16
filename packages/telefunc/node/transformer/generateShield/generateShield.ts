@@ -31,7 +31,7 @@ type GeneratedShield = {
 
 assertModuleScope('generateShield/generateShield.ts')
 const generatedShields: GeneratedShield[] = []
-let resutlAlreayLogged = false
+let resultAlreadyLogged = false
 const projects: Record<string, Project> = {}
 
 function generateShield(
@@ -106,7 +106,7 @@ function getProject(telefuncFilePath: string, telefuncFileCode: string, appRootD
 
   const telefuncFileSource = project.getSourceFile(telefuncFilePath)
   assertTelefuncFilesSource(telefuncFileSource, { project, telefuncFilePath, tsConfigFilePath, appRootDir })
-  // The code written in the file at `telefuncFilePath` isn't equal `telefuncFileCode` because of transfomers
+  // The code written in the file at `telefuncFilePath` isn't equal `telefuncFileCode` because of transforms
   telefuncFileSource.replaceWithText(telefuncFileCode)
 
   return { project, shieldGenSource }
@@ -235,14 +235,14 @@ function toImport(importPath: string) {
 function logResult(appRootDir: string, logSuccessPrefix: string, logIntro: null | string) {
   // `generatedShields` is empty for JavaScript users
   if (generatedShields.length === 0) return
-  if (resutlAlreayLogged) {
+  if (resultAlreadyLogged) {
     assert(generatedShields.length === 0)
     return
   }
   if (logIntro) console.log(logIntro)
   printSuccesses(appRootDir, logSuccessPrefix)
   printFailures(appRootDir)
-  resutlAlreayLogged = true
+  resultAlreadyLogged = true
   generatedShields.length = 0
 }
 
