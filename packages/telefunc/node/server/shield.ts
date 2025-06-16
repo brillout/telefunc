@@ -53,15 +53,15 @@ type Telefunction = Function
 
 function assertShield(
   telefunctionShield: unknown,
-  shieldInvokation: 'shield(telefunction, telefunctionShield)' | 'shield(telefunctionShield, telefunction)',
+  shieldInvocation: 'shield(telefunction, telefunctionShield)' | 'shield(telefunctionShield, telefunction)',
 ): asserts telefunctionShield is TelefunctionShield {
   assertUsage(
     Array.isArray(telefunctionShield) || isVerifierTuple(telefunctionShield),
     [
-      `[${shieldInvokation.replace('telefunctionShield', 'args')}]`,
+      `[${shieldInvocation.replace('telefunctionShield', 'args')}]`,
       '`args` should be an array.',
-      `Example of correct usage: \`${shieldInvokation.replace('telefunctionShield', '[shield.type.string]')}\`.`,
-      `Example of wrong usage: \`${shieldInvokation.replace('telefunctionShield', 'shield.type.string')}\`.`,
+      `Example of correct usage: \`${shieldInvocation.replace('telefunctionShield', '[shield.type.string]')}\`.`,
+      `Example of wrong usage: \`${shieldInvocation.replace('telefunctionShield', 'shield.type.string')}\`.`,
     ].join(' '),
   )
 }

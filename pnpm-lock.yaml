@@ -20,6 +20,9 @@ importers:
       '@brillout/dev-my-dep':
         specifier: ^0.0.10
         version: 0.0.10
+      '@brillout/spellcheck':
+        specifier: ^0.1.1
+        version: 0.1.1
       '@brillout/test-e2e':
         specifier: ^0.6.12
         version: 0.6.12(encoding@0.1.13)
@@ -1385,12 +1388,22 @@ packages:
   '@brillout/picocolors@1.0.26':
     resolution: {integrity: sha512-oJF92OEpzunaJyaEWXuS4PWY0k8JsqNO18kMf5hIwvsh+tyhbv+UwAnPPauSlO2eyvMSciui+YFKV9DEzTpmGA==}
 
+  '@brillout/picocolors@1.0.28':
+    resolution: {integrity: sha512-FBsirUdUlmjmeUlEuqfnUoKAZUt+d0VfMVBYUsFQrDFEV9Rm/QDyG69PSQtQbI6SZQNiZuAWuyhE5USflzx6iQ==}
+
   '@brillout/release-me@0.4.0':
     resolution: {integrity: sha512-V4YwITguHK3zOy9B4606lc9PQiFDp3p3Ifeq4KF7V8o9fs7OmcrfTWBE0EWFtiLhG2JeKb2RzM0t6Y4tLgXd6w==}
     hasBin: true
 
   '@brillout/require-shim@0.1.2':
     resolution: {integrity: sha512-3I4LRHnVZXoSAsEoni5mosq9l6eiJED58d9V954W4CIZ88AUfYBanWGBGbJG3NztaRTpFHEA6wB3Hn93BmmJdg==}
+
+  '@brillout/shell@0.2.0':
+    resolution: {integrity: sha512-PAUZOIePE9zdkYVUE1Ybpx5Q2ydNbTluTzQ4w5x4WuWMn+zQF3+DG4gRuQy76ZM1ScdiCK5gldgGJQrVx4w5lg==}
+
+  '@brillout/spellcheck@0.1.1':
+    resolution: {integrity: sha512-Jf3+7bsPV+mJ6l2rRBAiIys7dDnkrlafTmBucBcUd0auJsEY2L/EzgmY4/AUteg02AEfIh6sNojqgSc8SGYmwg==}
+    hasBin: true
 
   '@brillout/test-e2e@0.6.12':
     resolution: {integrity: sha512-R3TsmxFn6/jlpsDVVn5Gids+phSh8PcV9Sz7xCDoqyhrDfBTPGOngtuozyK198QBG3Rv4ZuIWJQh01hp6rUBaw==}
@@ -2404,62 +2417,77 @@ packages:
   '@miniflare/cache@2.3.0':
     resolution: {integrity: sha512-lOf3WVtrs0ac7KOtsQ+JOGHWR90zsqqJbolE+Wt4hIZuvM2U3t1RD2Ms7U20J301msVIsBAd02IL57H95LXQtQ==}
     engines: {node: '>=16.7'}
+    deprecated: Miniflare v2 is no longer supported. Please upgrade to Miniflare v4
 
   '@miniflare/cli-parser@2.3.0':
     resolution: {integrity: sha512-yQzU+OBBvWshr9qVxAe6bWXJLNfpmLYrfkfR3u+rPOo2LYnccWg0f/8jtxrXM1TIyu+tCOJGqCODpO//XtrwWw==}
     engines: {node: '>=16.7'}
+    deprecated: Miniflare v2 is no longer supported. Please upgrade to Miniflare v4
 
   '@miniflare/core@2.3.0':
     resolution: {integrity: sha512-Dltb3p+Uq5Lx53DuInckHYaDoMrBq49HE/p/oUDXmzHmQy7EAM6v+nJGKmiM9Uen4OqyqsmlmPWqntSMjaX7Jg==}
     engines: {node: '>=16.7'}
+    deprecated: Miniflare v2 is no longer supported. Please upgrade to Miniflare v4
 
   '@miniflare/durable-objects@2.3.0':
     resolution: {integrity: sha512-YuzxBBu9xBU3xxD4TzGdeVVMXrE76AWJE4MIqkJR5UmASqayyv//cApGw3+C01NHe07cpbrTM1QTgFo2eBncwQ==}
     engines: {node: '>=16.7'}
+    deprecated: Miniflare v2 is no longer supported. Please upgrade to Miniflare v4
 
   '@miniflare/html-rewriter@2.3.0':
     resolution: {integrity: sha512-cyWhmQgzhtRlBeg0mxP5FmAq/75ChuLwWQlhokx88XkGnteuh0/DOk3OxIMaveF2oDHKmIlLFgSlzv4NbT1Mng==}
     engines: {node: '>=16.7'}
+    deprecated: Miniflare v2 is no longer supported. Please upgrade to Miniflare v4
 
   '@miniflare/http-server@2.3.0':
     resolution: {integrity: sha512-jTzsRuro3yWVb4T85znBGw1w+ydimgi2PJvHrTuGFKDjFam+R037fGH+HZCAjAgPiBHTroXfkeSXypJLXbQBEg==}
     engines: {node: '>=16.7'}
+    deprecated: Miniflare v2 is no longer supported. Please upgrade to Miniflare v4
 
   '@miniflare/kv@2.3.0':
     resolution: {integrity: sha512-m0zu5sRoaFDm+WVTnLRrz8+77b6eVxQN7cLN6ZQiKP3Nd8cAggPdaIIef8dVksWbPvOW9DztoUVZTB1v9EOaLA==}
     engines: {node: '>=16.7'}
+    deprecated: Miniflare v2 is no longer supported. Please upgrade to Miniflare v4
 
   '@miniflare/runner-vm@2.3.0':
     resolution: {integrity: sha512-/aB997YodNcRFxtlnvEn4BJSIqKXRw29FexOqCWwWv+b7XQkTTxd4IfSocIFi6du3265gp85icqP/hxsLAQBVg==}
     engines: {node: '>=16.7'}
+    deprecated: Miniflare v2 is no longer supported. Please upgrade to Miniflare v4
 
   '@miniflare/scheduler@2.3.0':
     resolution: {integrity: sha512-Er80srMNXbxqGbYXtiZkD8UlveHsw4cpwcytQgsEJCHG7/48vC/rpmtN0zKOWFEHifaOUvHhURZRJu+S2E4Stg==}
     engines: {node: '>=16.7'}
+    deprecated: Miniflare v2 is no longer supported. Please upgrade to Miniflare v4
 
   '@miniflare/shared@2.3.0':
     resolution: {integrity: sha512-TvCSUe1op5AKINx3zHSSdfAbdoV3eSF3MzeVQA4+1NmtuefY8cjujQCdILeAxg3oPbHXaZkc7j1zZ13rYdvwGQ==}
     engines: {node: '>=16.7'}
+    deprecated: Miniflare v2 is no longer supported. Please upgrade to Miniflare v4
 
   '@miniflare/sites@2.3.0':
     resolution: {integrity: sha512-WkRBxQbf6k/eS1D/D1mw30Zs253TFeIkWFh8HQ8Z36Kdt79rNVezT9YmRpahUfvYXmubTquV5JftNOAhvbOJXA==}
     engines: {node: '>=16.7'}
+    deprecated: Miniflare v2 is no longer supported. Please upgrade to Miniflare v4
 
   '@miniflare/storage-file@2.3.0':
     resolution: {integrity: sha512-1rda/MC0R8wVC6N7Na2EdSGNAZv6o/yugp7Z+GikJ1vbgi1+9soAczDzFtaq4jrBzAkCFOMT79DgkSKSl59vxg==}
     engines: {node: '>=16.7'}
+    deprecated: Miniflare v2 is no longer supported. Please upgrade to Miniflare v4
 
   '@miniflare/storage-memory@2.3.0':
     resolution: {integrity: sha512-cMqQK9neRySchoNUVhQYOmLFrYkAjT5V113Wfxmsz93dladQ1/mXOsndqPrlb+5hhnwbw4Ns67nyzkHUe9sX/g==}
     engines: {node: '>=16.7'}
+    deprecated: Miniflare v2 is no longer supported. Please upgrade to Miniflare v4
 
   '@miniflare/watcher@2.3.0':
     resolution: {integrity: sha512-G0ZE9WHIcdR2TlPXwwQabULDIMZ9LujfC0tn+yXmPXKxgWoJWcWFmUbkhVDcOJzkIz2TAhRlLbW11n8nChUHFQ==}
     engines: {node: '>=16.7'}
+    deprecated: Miniflare v2 is no longer supported. Please upgrade to Miniflare v4
 
   '@miniflare/web-sockets@2.3.0':
     resolution: {integrity: sha512-3xcPG1vfiMb2obVC4jNtS5VzUxzM1rdUrWPCG86gpZaHky0xC1U7Tp+eFdxQFTty99HPYrrVKXl1ww2h1LGWRA==}
     engines: {node: '>=16.7'}
+    deprecated: Miniflare v2 is no longer supported. Please upgrade to Miniflare v4
 
   '@next/env@12.0.10':
     resolution: {integrity: sha512-mQVj0K6wQ5WEk/sL9SZ+mJXJUaG7el8CpZ6io1uFe9GgNTSC7EgUyNGqM6IQovIFc5ukF4O/hqsdh3S/DCgT2g==}
@@ -8242,6 +8270,7 @@ packages:
 
   vike-node@0.2.2:
     resolution: {integrity: sha512-tLSYnDzrWoR8MKu7xuDn51c11UlwlxQrX88rnYJWV7hQ77KNT3OBOl3ITJlTBnlfgqN8vvMez6SvfM1biLpHlg==}
+    deprecated: This package has been superseded by vike-server. Please check https://github.com/vikejs/vike-server/blob/main/MIGRATION.md#migration-from-vike-node.
     peerDependencies:
       vike: ^0.4.198
       vite: '>=5.0.10'
@@ -9907,6 +9936,8 @@ snapshots:
 
   '@brillout/picocolors@1.0.26': {}
 
+  '@brillout/picocolors@1.0.28': {}
+
   '@brillout/release-me@0.4.0':
     dependencies:
       '@brillout/picocolors': 1.0.26
@@ -9916,6 +9947,15 @@ snapshots:
       semver: 7.7.1
 
   '@brillout/require-shim@0.1.2': {}
+
+  '@brillout/shell@0.2.0':
+    dependencies:
+      '@brillout/picocolors': 1.0.28
+
+  '@brillout/spellcheck@0.1.1':
+    dependencies:
+      '@brillout/picocolors': 1.0.28
+      '@brillout/shell': 0.2.0
 
   '@brillout/test-e2e@0.6.12(encoding@0.1.13)':
     dependencies:
@@ -13417,7 +13457,7 @@ snapshots:
       '@typescript-eslint/parser': 8.26.1(eslint@9.28.0(jiti@1.21.0))(typescript@5.8.3)
       eslint: 9.28.0(jiti@1.21.0)
       eslint-import-resolver-node: 0.3.9
-      eslint-import-resolver-typescript: 3.8.7(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.26.1(eslint@9.28.0(jiti@1.21.0))(typescript@5.8.3))(eslint@9.28.0(jiti@1.21.0)))(eslint@9.28.0(jiti@1.21.0))
+      eslint-import-resolver-typescript: 3.8.7(eslint-plugin-import@2.31.0)(eslint@9.28.0(jiti@1.21.0))
       eslint-plugin-import: 2.31.0(@typescript-eslint/parser@8.26.1(eslint@9.28.0(jiti@1.21.0))(typescript@5.8.3))(eslint-import-resolver-typescript@3.8.7)(eslint@9.28.0(jiti@1.21.0))
       eslint-plugin-jsx-a11y: 6.10.2(eslint@9.28.0(jiti@1.21.0))
       eslint-plugin-react: 7.37.4(eslint@9.28.0(jiti@1.21.0))
@@ -13437,7 +13477,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-import-resolver-typescript@3.8.7(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.26.1(eslint@9.28.0(jiti@1.21.0))(typescript@5.8.3))(eslint@9.28.0(jiti@1.21.0)))(eslint@9.28.0(jiti@1.21.0)):
+  eslint-import-resolver-typescript@3.8.7(eslint-plugin-import@2.31.0)(eslint@9.28.0(jiti@1.21.0)):
     dependencies:
       '@nolyfill/is-core-module': 1.0.39
       debug: 4.4.0
@@ -13452,14 +13492,14 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-module-utils@2.12.0(@typescript-eslint/parser@8.26.1(eslint@9.28.0(jiti@1.21.0))(typescript@5.8.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.8.7(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.26.1(eslint@9.28.0(jiti@1.21.0))(typescript@5.8.3))(eslint@9.28.0(jiti@1.21.0)))(eslint@9.28.0(jiti@1.21.0)))(eslint@9.28.0(jiti@1.21.0)):
+  eslint-module-utils@2.12.0(@typescript-eslint/parser@8.26.1(eslint@9.28.0(jiti@1.21.0))(typescript@5.8.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.8.7)(eslint@9.28.0(jiti@1.21.0)):
     dependencies:
       debug: 3.2.7
     optionalDependencies:
       '@typescript-eslint/parser': 8.26.1(eslint@9.28.0(jiti@1.21.0))(typescript@5.8.3)
       eslint: 9.28.0(jiti@1.21.0)
       eslint-import-resolver-node: 0.3.9
-      eslint-import-resolver-typescript: 3.8.7(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.26.1(eslint@9.28.0(jiti@1.21.0))(typescript@5.8.3))(eslint@9.28.0(jiti@1.21.0)))(eslint@9.28.0(jiti@1.21.0))
+      eslint-import-resolver-typescript: 3.8.7(eslint-plugin-import@2.31.0)(eslint@9.28.0(jiti@1.21.0))
     transitivePeerDependencies:
       - supports-color
 
@@ -13474,7 +13514,7 @@ snapshots:
       doctrine: 2.1.0
       eslint: 9.28.0(jiti@1.21.0)
       eslint-import-resolver-node: 0.3.9
-      eslint-module-utils: 2.12.0(@typescript-eslint/parser@8.26.1(eslint@9.28.0(jiti@1.21.0))(typescript@5.8.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.8.7(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.26.1(eslint@9.28.0(jiti@1.21.0))(typescript@5.8.3))(eslint@9.28.0(jiti@1.21.0)))(eslint@9.28.0(jiti@1.21.0)))(eslint@9.28.0(jiti@1.21.0))
+      eslint-module-utils: 2.12.0(@typescript-eslint/parser@8.26.1(eslint@9.28.0(jiti@1.21.0))(typescript@5.8.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.8.7)(eslint@9.28.0(jiti@1.21.0))
       hasown: 2.0.2
       is-core-module: 2.16.1
       is-glob: 4.0.3
