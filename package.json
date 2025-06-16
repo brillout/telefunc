@@ -32,9 +32,7 @@
     "release:major": "cd ./packages/telefunc/ && pnpm run release:major",
     "release:commit": "cd ./packages/telefunc/ && pnpm run release:commit",
     "========= Formatting": "",
-    "format": "pnpm run format:biome",
-    "format:prettier": "git ls-files | egrep '\\.(json|js|jsx|css|ts|tsx|vue|mjs|cjs)$' | grep --invert-match package.json | xargs pnpm exec prettier --write",
-    "format:biome": "biome check --write --unsafe",
+    "format": "biome check --write --unsafe",
     "format:check": "biome ci || (echo '\\033[1;34mFix formatting by running `$ pnpm run format`.\\033[0m' && exit 1)",
     "========= Spellchecking ": "",
     "spellcheck": "spellcheck fix --version 1.33.1",
@@ -51,7 +49,6 @@
     "@brillout/spellcheck": "^0.1.1",
     "@brillout/test-e2e": "^0.6.12",
     "@brillout/test-types": "^0.1.13",
-    "prettier": "^2.8.7",
     "vitest": "^0.32.2"
   },
   "pnpm": {
