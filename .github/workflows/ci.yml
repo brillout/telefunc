@@ -1,26 +1,20 @@
 name: CI
-
-env:
-  # 7 GiB by default on GitHub, setting to 6 GiB
-  # https://docs.github.com/en/actions/using-github-hosted-runners/about-github-hosted-runners#supported-runners-and-hardware-resources
-  NODE_OPTIONS: --max-old-space-size=6144
-
-on:
-  push:
-  pull_request:
+on: [ push, pull_request ]
 
 jobs:
   prepare:
+    # Prevent workflow being run twice, https://github.com/orgs/community/discussions/57827#discussioncomment-6579237
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.event.pull_request.base.repo.full_name
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - uses: actions/setup-node@v3
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
       with:
-        node-version: 18
+        node-version: 20
     - id: getMatrix
       run: |
         matrix=`node ./.github/workflows/ci/getTestJobs.mjs --ci`
-        echo "::set-output name=matrix::$matrix"
+        echo "matrix=$matrix" >> $GITHUB_OUTPUT
     - run: echo ${{ steps.getMatrix.outputs.matrix }}
     outputs:
       matrix: ${{ steps.getMatrix.outputs.matrix }}
@@ -46,7 +40,7 @@ jobs:
           cache: "pnpm"
 
       - run: pnpm install
-      - run: pnpm exec playwright install chromium # Needed for Windows/MacOS
+      - run: pnpm exec playwright install chromium
       - run: pnpm run build
 
       - name: Run tests
