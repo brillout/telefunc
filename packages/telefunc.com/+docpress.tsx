@@ -2,6 +2,8 @@ import type { Config } from '@brillout/docpress'
 import faviconUrl from './icons/telefunc.svg'
 import { categories, headings, headingsDetached } from './headings'
 import { PROJECT_VERSION } from './PROJECT_VERSION.js'
+import { TopNavigation } from './TopNavigation'
+import React from 'react'
 
 export default {
   projectInfo: {
@@ -16,6 +18,7 @@ export default {
   headings,
   headingsDetached,
   categories,
+  topNavigation: <TopNavigation />,
   tagline: 'Remote Functions. Instead of API.',
   twitterHandle: '@brillout',
   websiteUrl: 'https://telefunc.com',
