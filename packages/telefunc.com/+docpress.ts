@@ -1,10 +1,16 @@
 import type { Config } from '@brillout/docpress'
 import faviconUrl from './icons/telefunc.svg'
 import { categories, headings, headingsDetached } from './headings'
-import { projectInfo } from './utils'
+import { PROJECT_VERSION } from './PROJECT_VERSION.js'
 
 export default {
-  projectInfo,
+  projectInfo: {
+    projectName: 'Telefunc',
+    projectVersion: PROJECT_VERSION,
+    githubRepository: 'https://github.com/brillout/telefunc',
+    githubIssues: 'https://github.com/brillout/telefunc/issues/new',
+    twitterProfile: 'https://twitter.com/brillout',
+  },
   docsDir: 'packages/telefunc.com',
   faviconUrl,
   headings,
