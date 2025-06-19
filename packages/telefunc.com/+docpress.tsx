@@ -1,5 +1,5 @@
 import type { Config } from '@brillout/docpress'
-import faviconUrl from './icons/telefunc.svg'
+import logoUrl from './icons/telefunc.svg'
 import { categories, headings, headingsDetached } from './headings'
 import { PROJECT_VERSION } from './PROJECT_VERSION.js'
 import { TopNavigation } from './TopNavigation'
@@ -14,7 +14,7 @@ export default {
     twitterProfile: 'https://twitter.com/brillout',
   },
   docsDir: 'packages/telefunc.com',
-  faviconUrl,
+  logoUrl,
   headings,
   headingsDetached,
   categories,
