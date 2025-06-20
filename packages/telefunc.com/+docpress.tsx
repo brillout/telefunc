@@ -1,3 +1,5 @@
+export { config as default }
+
 import type { Config } from '@brillout/docpress'
 import logoUrl from './icons/telefunc.svg'
 import { categories, headings, headingsDetached } from './headings'
@@ -5,7 +7,7 @@ import { PROJECT_VERSION } from './PROJECT_VERSION.js'
 import { TopNavigation } from './TopNavigation'
 import React from 'react'
 
-export default {
+const config: Config = {
   projectInfo: {
     projectName: 'Telefunc',
     projectVersion: PROJECT_VERSION,
