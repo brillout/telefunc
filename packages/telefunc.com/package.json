@@ -6,7 +6,7 @@
     "typecheck": "tsc --noEmit --watch"
   },
   "dependencies": {
-    "@brillout/docpress": "^0.14.0",
+    "@brillout/docpress": "^0.15.0",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "react": "^19.1.0",
