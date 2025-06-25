@@ -17,7 +17,7 @@
     "@brillout/vite-plugin-server-entry": "^0.7.8",
     "es-module-lexer": "^1.6.0",
     "magic-string": "^0.30.17",
-    "ts-morph": "^19.0.0"
+    "ts-morph": "^26.0.0"
   },
   "modules": "./dist/node/server.js",
   "types": "./dist/node/server.d.ts",
