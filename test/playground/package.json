@@ -14,7 +14,7 @@
     "hono": "^4.7.10",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
-    "telefunc": "0.2.7",
+    "telefunc": "0.2.8",
     "typescript": "^5.8.3",
     "vike": "^0.4.230",
     "vike-react": "^0.6.3",
