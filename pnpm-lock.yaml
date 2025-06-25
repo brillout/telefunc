@@ -172,11 +172,11 @@ importers:
   examples/react-streaming:
     dependencies:
       '@types/react':
-        specifier: ^18.0.18
-        version: 18.0.18
+        specifier: ^19.1.8
+        version: 19.1.8
       '@types/react-dom':
-        specifier: ^18.0.6
-        version: 18.0.6
+        specifier: ^19.1.6
+        version: 19.1.6(@types/react@19.1.8)
       '@vitejs/plugin-react':
         specifier: ^4.0.1
         version: 4.0.1(vite@4.3.9(@types/node@24.0.4)(terser@5.10.0(acorn@8.14.1)))
@@ -187,14 +187,14 @@ importers:
         specifier: ^4.17.1
         version: 4.17.2
       react:
-        specifier: ^18.3.1
-        version: 18.3.1
+        specifier: ^19.1.0
+        version: 19.1.0
       react-dom:
-        specifier: ^18.3.1
-        version: 18.3.1(react@18.3.1)
+        specifier: ^19.1.0
+        version: 19.1.0(react@19.1.0)
       react-streaming:
-        specifier: ^0.3.46
-        version: 0.3.46(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ^0.4.2
+        version: 0.4.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       telefunc:
         specifier: link:../../packages/telefunc
         version: link:../../packages/telefunc
@@ -203,7 +203,7 @@ importers:
         version: 4.9.5
       vike:
         specifier: ^0.4.156
-        version: 0.4.156(react-streaming@0.3.46(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(vite@4.3.9(@types/node@24.0.4)(terser@5.10.0(acorn@8.14.1)))
+        version: 0.4.156(react-streaming@0.4.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(vite@4.3.9(@types/node@24.0.4)(terser@5.10.0(acorn@8.14.1)))
       vite:
         specifier: ^4.3.9
         version: 4.3.9(@types/node@24.0.4)(terser@5.10.0(acorn@8.14.1))
@@ -3307,9 +3307,6 @@ packages:
   '@types/optimize-css-assets-webpack-plugin@5.0.8':
     resolution: {integrity: sha512-n134DdmRVXTy0KKbgg3A/G02r2XJKJicYzbJYhdIO8rdYdzoMv6GNHjog2Oq1ttaCOhsYcPIA6Sn7eFxEGCM1A==}
 
-  '@types/prop-types@15.7.4':
-    resolution: {integrity: sha512-rZ5drC/jWjrArrS8BR6SIr4cWpW09RNTYt9AMZo3Jwwif+iacXAqgVjm0B0Bv/S1jhDXKHqRVNCbACkJ89RAnQ==}
-
   '@types/pug@2.0.10':
     resolution: {integrity: sha512-Sk/uYFOBAB7mb74XcpizmH0KOR2Pv3D2Hmrh1Dmy5BmK3MpdSa5kqZcg6EKBdklU0bFXX9gCfzvpnyUehrPIuA==}
 
@@ -3318,9 +3315,6 @@ packages:
 
   '@types/range-parser@1.2.4':
     resolution: {integrity: sha512-EEhsLsD6UsDM1yFhAvy0Cjr6VwmpMWqFBCb9w07wVugF7w9nfajxLuVmngTIpgS6svCnm6Vaw+MZhoDCKnOfsw==}
-
-  '@types/react-dom@18.0.6':
-    resolution: {integrity: sha512-/5OFZgfIPSwy+YuIBP/FgJnQnsxhZhjjrnxudMddeblOouIodEQ75X14Rr4wGSG/bknL+Omy9iWlLo1u/9GzAA==}
 
   '@types/react-dom@19.1.5':
     resolution: {integrity: sha512-CMCjrWucUBZvohgZxkjd6S9h0nZxXjzus6yDfUb+xLxYM7VvjKNH1tQrE9GWLql1XoOP4/Ds3bwFqShHUYraGg==}
@@ -3332,9 +3326,6 @@ packages:
     peerDependencies:
       '@types/react': ^19.0.0
 
-  '@types/react@18.0.18':
-    resolution: {integrity: sha512-6hI08umYs6NaiHFEEGioXnxJ+oEhY3eRz8VCUaudZmGdtvPviCJB8mgaMxaDWAdPSYd4eFavrPk2QIolwbLYrg==}
-
   '@types/react@19.1.5':
     resolution: {integrity: sha512-piErsCVVbpMMT2r7wbawdZsq4xMvIAhQuac2gedQHysu1TZYEigE6pnFfgZT+/jQnrRuF5r+SHzuehFjfRjr4g==}
 
@@ -3343,9 +3334,6 @@ packages:
 
   '@types/resolve@1.17.1':
     resolution: {integrity: sha512-yy7HuzQhj0dhGpD8RLXSZWEkLsV9ibvxvi6EiJ3bkqLAO1RGo0WbkWQiwpRlSFymTJRz0d3k5LM3kkx8ArDbLw==}
-
-  '@types/scheduler@0.16.2':
-    resolution: {integrity: sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==}
 
   '@types/send@0.17.4':
     resolution: {integrity: sha512-x2EM6TJOybec7c52BX0ZspPodMsQUd5L6PRwOunVyVUhXiBSKf3AezDL8Dgvgt5o0UfKNfuA0eMLr2wLT4AiBA==}
@@ -4026,9 +4014,6 @@ packages:
   cross-spawn@7.0.6:
     resolution: {integrity: sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==}
     engines: {node: '>= 8'}
-
-  csstype@3.0.10:
-    resolution: {integrity: sha512-2u44ZG2OcNUO9HDp/Jl8C07x6pU/eTR3ncV91SiK3dhG9TWvRVsCoJw14Ckx5DgWkzGA3waZWO3d7pgqpUI/XA==}
 
   csstype@3.1.3:
     resolution: {integrity: sha512-M1uQkMl8rQK/szD0LNhtqxIPLpimGm8sOBwU7lLnCpSbTyY3yeU1Vc7l4KT5zT4s/yOxHH5O7tIuuLOCnLADRw==}
@@ -5815,11 +5800,6 @@ packages:
     resolution: {integrity: sha512-RmkhL8CAyCRPXCE28MMH0z2PNWQBNk2Q09ZdxM9IOOXwxwZbN+qbWaatPkdkWIKL2ZVDImrN/pK5HTRz2PcS4g==}
     engines: {node: '>= 0.8'}
 
-  react-dom@18.3.1:
-    resolution: {integrity: sha512-5m4nQKp+rZRb09LNH59GM4BxTh9251/ylbKIbpe7TpGxfJ+9kv6BLkLBXIjjspbgbnIBNqlI23tRnTWT0snUIw==}
-    peerDependencies:
-      react: ^18.3.1
-
   react-dom@19.1.0:
     resolution: {integrity: sha512-Xs1hdnE+DyKgeHJeJznQmYMIBG3TKIHJJT95Q58nHLSrElKlGQqDTR2HQ9fx5CN/Gk6Vh/kupBTDLU11/nDk/g==}
     peerDependencies:
@@ -5846,21 +5826,11 @@ packages:
     resolution: {integrity: sha512-z6F7K9bV85EfseRCp2bzrpyQ0Gkw1uLoCel9XBVWPg/TjRj94SkJzUTGfOa4bs7iJvBWtQG0Wq7wnI0syw3EBQ==}
     engines: {node: '>=0.10.0'}
 
-  react-streaming@0.3.46:
-    resolution: {integrity: sha512-Apk0mkMQb7+bJ3jRWsgr3+VNa6h0SLIIK6GIJMa/ZFlmJYn19k/hvLAC9EKcV1pYe5xt4Bq9emNIRiRyxYLC+g==}
-    peerDependencies:
-      react: '>=18'
-      react-dom: '>=18'
-
   react-streaming@0.4.2:
     resolution: {integrity: sha512-b192E9E0TnE9wWdc8uZg00MMY36btQmFV25cDOGcWQwl5qF8vzNcQPVJwWkljLOec5qIJWumH9cvEvAL1JlAGg==}
     peerDependencies:
       react: '>=19'
       react-dom: '>=19'
-
-  react@18.3.1:
-    resolution: {integrity: sha512-wS+hAgJShR0KhEvPJArfuPVN1+Hz1t0Y6n5jLrGQbkb4urgPE/0Rve+1kMB1v/oWgHgm4WIcV+i7F2pTVj+2iQ==}
-    engines: {node: '>=0.10.0'}
 
   react@19.1.0:
     resolution: {integrity: sha512-FS+XFBNvn3GTAWq26joslQgWNoFu08F4kl0J4CgdNKADkdSGXQyTCnKteIAJy96Br6YbpEU1LSzV5dYtjMkMDg==}
@@ -6021,9 +5991,6 @@ packages:
 
   safer-buffer@2.1.2:
     resolution: {integrity: sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==}
-
-  scheduler@0.23.2:
-    resolution: {integrity: sha512-UOShsPwz7NrMUqhR6t0hWjFduvOzbtv7toDH1/hIrfRNIDBnnBWd0CwJTGvTpngVlmwGCdP9/Zl/tVrDqcuYzQ==}
 
   scheduler@0.26.0:
     resolution: {integrity: sha512-NlHwttCI/l5gCPR3D1nNXtWABUmBwvZpEQiD4IXSbIDq8BzLIK/7Ir5gTFSGZDUu37K5cMNp0hFtzO38sC7gWA==}
@@ -9749,17 +9716,11 @@ snapshots:
     dependencies:
       '@types/webpack': 4.41.40
 
-  '@types/prop-types@15.7.4': {}
-
   '@types/pug@2.0.10': {}
 
   '@types/qs@6.9.7': {}
 
   '@types/range-parser@1.2.4': {}
-
-  '@types/react-dom@18.0.6':
-    dependencies:
-      '@types/react': 19.1.8
 
   '@types/react-dom@19.1.5(@types/react@19.1.5)':
     dependencies:
@@ -9768,12 +9729,6 @@ snapshots:
   '@types/react-dom@19.1.6(@types/react@19.1.8)':
     dependencies:
       '@types/react': 19.1.8
-
-  '@types/react@18.0.18':
-    dependencies:
-      '@types/prop-types': 15.7.4
-      '@types/scheduler': 0.16.2
-      csstype: 3.0.10
 
   '@types/react@19.1.5':
     dependencies:
@@ -9786,8 +9741,6 @@ snapshots:
   '@types/resolve@1.17.1':
     dependencies:
       '@types/node': 24.0.4
-
-  '@types/scheduler@0.16.2': {}
 
   '@types/send@0.17.4':
     dependencies:
@@ -10653,8 +10606,6 @@ snapshots:
       path-key: 3.1.1
       shebang-command: 2.0.0
       which: 2.0.2
-
-  csstype@3.0.10: {}
 
   csstype@3.1.3: {}
 
@@ -13046,12 +12997,6 @@ snapshots:
       iconv-lite: 0.6.3
       unpipe: 1.0.0
 
-  react-dom@18.3.1(react@18.3.1):
-    dependencies:
-      loose-envify: 1.4.0
-      react: 18.3.1
-      scheduler: 0.23.2
-
   react-dom@19.1.0(react@19.1.0):
     dependencies:
       react: 19.1.0
@@ -13069,15 +13014,6 @@ snapshots:
 
   react-refresh@0.17.0: {}
 
-  react-streaming@0.3.46(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
-    dependencies:
-      '@brillout/import': 0.2.3
-      '@brillout/json-serializer': 0.5.15
-      '@brillout/picocolors': 1.0.15
-      isbot-fast: 1.2.0
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-
   react-streaming@0.4.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
     dependencies:
       '@brillout/import': 0.2.6
@@ -13086,10 +13022,6 @@ snapshots:
       isbot-fast: 1.2.0
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
-
-  react@18.3.1:
-    dependencies:
-      loose-envify: 1.4.0
 
   react@19.1.0: {}
 
@@ -13363,10 +13295,6 @@ snapshots:
       is-regex: 1.2.1
 
   safer-buffer@2.1.2: {}
-
-  scheduler@0.23.2:
-    dependencies:
-      loose-envify: 1.4.0
 
   scheduler@0.26.0: {}
 
@@ -14126,7 +14054,7 @@ snapshots:
       - h3
       - hono
 
-  vike@0.4.156(react-streaming@0.3.46(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(vite@4.3.9(@types/node@24.0.4)(terser@5.10.0(acorn@8.14.1))):
+  vike@0.4.156(react-streaming@0.4.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(vite@4.3.9(@types/node@24.0.4)(terser@5.10.0(acorn@8.14.1))):
     dependencies:
       '@brillout/import': 0.2.3
       '@brillout/json-serializer': 0.5.8
@@ -14142,7 +14070,7 @@ snapshots:
       source-map-support: 0.5.21
       vite: 4.3.9(@types/node@24.0.4)(terser@5.10.0(acorn@8.14.1))
     optionalDependencies:
-      react-streaming: 0.3.46(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      react-streaming: 0.4.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
 
   vike@0.4.206(react-streaming@0.4.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(vite@6.0.2(@types/node@22.10.1)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1))):
     dependencies:
