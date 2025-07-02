@@ -3,7 +3,7 @@ export { config as default }
 import type { Config } from '@brillout/docpress'
 import logo from './icons/telefunc.svg'
 import { categories, headings, headingsDetached } from './headings'
-import { PROJECT_VERSION } from './PROJECT_VERSION.js'
+import { PROJECT_VERSION } from './utils/PROJECT_VERSION.js'
 import { TopNavigation } from './TopNavigation'
 import React from 'react'
 
