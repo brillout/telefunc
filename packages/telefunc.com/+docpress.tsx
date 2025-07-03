@@ -13,6 +13,11 @@ const config: Config = {
   url: 'https://telefunc.com',
   tagline: 'Remote Functions. Instead of API.',
   logo,
+  navLogoSize: 36,
+  navLogoStyle: {
+    position: 'relative',
+    top: -1,
+  },
 
   github: 'https://github.com/brillout/telefunc',
   twitter: '@brillout',
