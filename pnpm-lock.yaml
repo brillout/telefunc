@@ -347,8 +347,8 @@ importers:
   packages/telefunc.com:
     dependencies:
       '@brillout/docpress':
-        specifier: ^0.15.0
-        version: 0.15.0(@algolia/client-search@5.21.0)(@types/react@19.1.8)(@vitejs/plugin-react-swc@3.7.2(@swc/helpers@0.5.15)(vite@7.0.0(@types/node@24.0.4)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1))))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(rollup@4.44.0)(search-insights@2.17.2)(typescript@5.8.3)(vike@0.4.234(react-streaming@0.4.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(vite@7.0.0(@types/node@24.0.4)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1))))(vite@7.0.0(@types/node@24.0.4)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1)))
+        specifier: ^0.15.6
+        version: 0.15.6(@algolia/client-search@5.21.0)(@types/react@19.1.8)(@vitejs/plugin-react-swc@3.7.2(@swc/helpers@0.5.15)(vite@7.0.0(@types/node@24.0.4)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1))))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(rollup@4.44.0)(search-insights@2.17.2)(typescript@5.8.3)(vike@0.4.234(react-streaming@0.4.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(vite@7.0.0(@types/node@24.0.4)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1))))(vite@7.0.0(@types/node@24.0.4)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1)))
       '@types/react':
         specifier: ^19.1.8
         version: 19.1.8
@@ -1332,8 +1332,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@brillout/docpress@0.15.0':
-    resolution: {integrity: sha512-vO2YEaaw/tWJBIwRfMJv/gkUKHaPuDkQAoOY7tGgZfuTamyv5psQQSKLxU+LCAQyqlswJU8v8UH7WD5bY0qqXA==}
+  '@brillout/docpress@0.15.6':
+    resolution: {integrity: sha512-fDq+pTXsAMDlr40SR6+O1SGxrsryhHDEFwLMnEBha3kL+ywwZT39Lscea5wKT9COmiAPHqdLBcmhJfC218XY2g==}
     peerDependencies:
       '@vitejs/plugin-react-swc': '>=3.0.0'
       react: '>=18.0.0'
@@ -8026,7 +8026,7 @@ snapshots:
   '@biomejs/cli-win32-x64@1.9.4':
     optional: true
 
-  '@brillout/docpress@0.15.0(@algolia/client-search@5.21.0)(@types/react@19.1.8)(@vitejs/plugin-react-swc@3.7.2(@swc/helpers@0.5.15)(vite@7.0.0(@types/node@24.0.4)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1))))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(rollup@4.44.0)(search-insights@2.17.2)(typescript@5.8.3)(vike@0.4.234(react-streaming@0.4.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(vite@7.0.0(@types/node@24.0.4)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1))))(vite@7.0.0(@types/node@24.0.4)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1)))':
+  '@brillout/docpress@0.15.6(@algolia/client-search@5.21.0)(@types/react@19.1.8)(@vitejs/plugin-react-swc@3.7.2(@swc/helpers@0.5.15)(vite@7.0.0(@types/node@24.0.4)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1))))(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(rollup@4.44.0)(search-insights@2.17.2)(typescript@5.8.3)(vike@0.4.234(react-streaming@0.4.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(vite@7.0.0(@types/node@24.0.4)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1))))(vite@7.0.0(@types/node@24.0.4)(jiti@1.21.0)(terser@5.10.0(acorn@8.14.1)))':
     dependencies:
       '@brillout/picocolors': 1.0.28
       '@docsearch/css': 3.9.0
@@ -8734,7 +8734,7 @@ snapshots:
 
   '@mdx-js/mdx@3.0.1':
     dependencies:
-      '@types/estree': 1.0.7
+      '@types/estree': 1.0.8
       '@types/estree-jsx': 1.0.5
       '@types/hast': 3.0.4
       '@types/mdx': 2.0.1
@@ -9014,7 +9014,7 @@ snapshots:
 
   '@rollup/pluginutils@5.1.0(rollup@4.44.0)':
     dependencies:
-      '@types/estree': 1.0.7
+      '@types/estree': 1.0.8
       estree-walker: 2.0.2
       picomatch: 2.3.1
     optionalDependencies:
@@ -9336,7 +9336,7 @@ snapshots:
 
   '@types/acorn@4.0.6':
     dependencies:
-      '@types/estree': 1.0.7
+      '@types/estree': 1.0.8
 
   '@types/babel__core@7.20.5':
     dependencies:
@@ -9394,7 +9394,7 @@ snapshots:
 
   '@types/estree-jsx@1.0.5':
     dependencies:
-      '@types/estree': 1.0.7
+      '@types/estree': 1.0.8
 
   '@types/estree@0.0.39': {}
 
@@ -10965,7 +10965,7 @@ snapshots:
 
   estree-util-attach-comments@3.0.0:
     dependencies:
-      '@types/estree': 1.0.7
+      '@types/estree': 1.0.8
 
   estree-util-build-jsx@3.0.1:
     dependencies:
@@ -11390,7 +11390,7 @@ snapshots:
 
   hast-util-to-estree@3.1.0:
     dependencies:
-      '@types/estree': 1.0.7
+      '@types/estree': 1.0.8
       '@types/estree-jsx': 1.0.5
       '@types/hast': 3.0.4
       comma-separated-tokens: 2.0.2
@@ -11411,7 +11411,7 @@ snapshots:
 
   hast-util-to-jsx-runtime@2.3.0:
     dependencies:
-      '@types/estree': 1.0.7
+      '@types/estree': 1.0.8
       '@types/hast': 3.0.4
       '@types/unist': 3.0.2
       comma-separated-tokens: 2.0.2
@@ -12043,7 +12043,7 @@ snapshots:
 
   micromark-extension-mdx-expression@3.0.0:
     dependencies:
-      '@types/estree': 1.0.7
+      '@types/estree': 1.0.8
       devlop: 1.1.0
       micromark-factory-mdx-expression: 2.0.1
       micromark-factory-space: 2.0.0
@@ -12055,7 +12055,7 @@ snapshots:
   micromark-extension-mdx-jsx@3.0.0:
     dependencies:
       '@types/acorn': 4.0.6
-      '@types/estree': 1.0.7
+      '@types/estree': 1.0.8
       devlop: 1.1.0
       estree-util-is-identifier-name: 3.0.0
       micromark-factory-mdx-expression: 2.0.1
@@ -12071,7 +12071,7 @@ snapshots:
 
   micromark-extension-mdxjs-esm@3.0.0:
     dependencies:
-      '@types/estree': 1.0.7
+      '@types/estree': 1.0.8
       devlop: 1.1.0
       micromark-core-commonmark: 2.0.0
       micromark-util-character: 2.1.0
@@ -12107,7 +12107,7 @@ snapshots:
 
   micromark-factory-mdx-expression@2.0.1:
     dependencies:
-      '@types/estree': 1.0.7
+      '@types/estree': 1.0.8
       devlop: 1.1.0
       micromark-util-character: 2.1.0
       micromark-util-events-to-acorn: 2.0.2
@@ -12171,7 +12171,7 @@ snapshots:
   micromark-util-events-to-acorn@2.0.2:
     dependencies:
       '@types/acorn': 4.0.6
-      '@types/estree': 1.0.7
+      '@types/estree': 1.0.8
       '@types/unist': 3.0.2
       devlop: 1.1.0
       estree-util-visit: 2.0.0
