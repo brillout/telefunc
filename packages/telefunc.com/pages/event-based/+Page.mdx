@@ -2,7 +2,7 @@ import { Link } from '@brillout/docpress'
 
 > **What is this page about?**
 >
-> This page explains how to use Telefunc in a way that significantly increases development speed. We recommend reading it thoroughly — it's worth it!
+> This page explains how to use Telefunc in a way that significantly increases development speed. We recommend reading it — it's worth it!
 >
 > See <Link href="/RPC" /> if you aren't familiar with RPC.
 
@@ -20,10 +20,10 @@ This inversion is at the cornerstone of using Telefunc efficiently.
 
 You may be tempted to create generic telefunctions out of habit from REST/GraphQL (or to keep things [DRY](https://softwareengineering.stackexchange.com/questions/400183/what-should-i-consider-when-the-dry-and-kiss-principles-are-incompatible)) but we recommend against it. Instead, we recommend implementing what we call *event-based telefunctions*.
 
-In the example below, we explain why event-based telefunctions lead to:
- - Increased development speed. (And we explain how to keep things DRY.)
- - Better security.
- - Improved speed.
+In the example below, we explain why event-based telefunctions lead to increased:
+ - Development speed (and we explain how to keep things DRY)
+ - Security
+ - Performance
 
 
 ## Example
@@ -66,9 +66,9 @@ import { Tasks } from '../database/Tasks'
 export async function onMarkAllAsCompleted() {
   // With an ORM:
   await Tasks.update({ completed: true }).where({ completed: false })
-
-  // Or with SQL:
+  /* Or with SQL:
   await sql('UPDATE tasks SET completed = true WHERE completed = false')
+  */
 }
 ```
 
@@ -82,7 +82,7 @@ We recommend naming telefunctions `onSomeEvent()` (see <Link href="#naming-conve
 ```shell
 # Also: we recommend co-locating .telefunc.js files
 components/TodoList.telefunc.ts # telefunctions for <TodoList>
-components/TodoList.tsx # <TodoList>
+components/TodoList.tsx # <TodoList> implementation
 ```
 
 ```tsx
@@ -101,15 +101,15 @@ function TodoList() {
 }
 ```
 
-The purpose of the naming convention is to tightly couple telefunctions with components.
+This naming convention ensures telefunctions are tightly coupled to UI components.
 
-> With Telefunc, you think in terms of what the frontend needs, instead of thinking of the backend exposing data. From that perspective, it's a lot more natural to co-locate telefunctions next to UI components.
+> With Telefunc, you think in terms of what the frontend needs (instead of thinking of the backend as a generic data provider). From that perspective, it makes more sense to co-locate telefunctions next to UI components (instead of next to where data comes from).
 
 #### Too restrictive convention?
 
-You might find the naming convention annoyingly restrictive, but it brings important advantages — which we now explain.
+The naming convention is slightly restrictive, but it's worth it.
 
-To keep things [DRY](https://softwareengineering.stackexchange.com/questions/400183/what-should-i-consider-when-the-dry-and-kiss-principles-are-incompatible) you may be tempted to define a single telefunction that is re-used by many UI components, for example:
+To keep things [DRY](https://softwareengineering.stackexchange.com/questions/400183/what-should-i-consider-when-the-dry-and-kiss-principles-are-incompatible) you may be tempted to define a single telefunction that is re-used by many UI components. For example:
 
 ```ts
 // database/actions/tasks.telefunc.ts
@@ -129,7 +129,7 @@ export async function updateTask(id: number, mods: Partial<typeof Task>) {
 
 But this generic telefunction has two issues:
 1. It isn't safe.
-   > As explained at <Link href="/RPC" />, telefunctions are public. This means the user can call `updateTask({ author: Math.floor(Math.random()*100000) })` which is a big security issue.
+   > As explained at <Link href="/RPC" />, telefunctions are public. This means any user can call `updateTask({ author: Math.floor(Math.random()*100000) })` which is a big security issue.
 2. It isn't efficient.
    > Because `updateTask()` is generic, it must `return task` in case a component requires `task.modifiedAt` — but if some components don't need it, this results in wasted network bandwidth.
 
@@ -137,9 +137,9 @@ This shows how easy it is to introduce security issues and inefficiencies with g
 
 Generic telefunctions typically:
 - Make reasoning about <Link href="/RPC#security">RPC security</Link> harder, leading to subtle bugs and security issues.
-- Decrease <Link href="/RPC#speed">RPC speed</Link>.
+- Decrease <Link href="/RPC#performance">RPC performance</Link>.
 
-Instead, we recommend implementing a tailored telefunction:
+We recommend the following instead:
 
 ```js
 // database/actions/task.ts
@@ -166,11 +166,11 @@ export const onTodoTextUpdate = (id: number, text: string) => updateTask(id, { t
 export const onTodoCompleted = (id: number) => { await updateTask(id, { completed: false }) }
 ```
 
-It's slightly less DRY but, in exchange, you get a much clearer structure around security and speed.
+It's slightly less DRY but, in exchange, you get a much clearer structure around security and performance.
 
 When a telefunction is tightly coupled with a component:
- - The telefunction's return value can be minimal (exactly and only what is needed by the component) leading to improved speed.
- - The telefunction's arguments can be minimal (exactly and only what is needed by the component) leading to better security.
+ - The telefunction's return value can be minimal (exactly and only what is needed by the component), which leads to increased performance.
+ - The telefunction's arguments can be minimal (exactly and only what is needed by the component), which leads to increased security.
  - The telefunction can allow only what is strictly required by the component.
    > A cornerstone of security is to grant only the permissions that are strictly required.
 
@@ -234,10 +234,10 @@ Telefunc shows a warning if you don't follow the naming convention — you can r
 
 > Not following the naming convention is perfectly fine, though we recommend having a clear reason for breaking the rule.
 >
-> We recommend carefully reading <Link href="#example">the example above</Link> before opting out of the convention. It explains why event-based telefunctions lead to:
-> - Increased development speed.
-> - Better security.
-> - Improved speed.
+> We recommend reading <Link href="#example">the example above</Link> before opting out of the convention. It explains why event-based telefunctions lead to increased:
+> - Development speed
+> - Security
+> - Performance
 >
 > [Feel free to reach out](https://github.com/brillout/telefunc/issues/new) if you have questions.
 
