@@ -28,6 +28,10 @@ const headingsDetached: HeadingDetachedDefinition[] = [
     title: 'Initial Data',
     url: '/initial-data',
   },
+  {
+    title: 'Multiple Clients',
+    url: '/multiple-clients',
+  },
 ]
 
 const headings: HeadingDefinition[] = [
