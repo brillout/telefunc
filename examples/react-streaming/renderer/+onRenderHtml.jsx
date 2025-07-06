@@ -1,15 +1,11 @@
-export { render }
-export { passToClient }
+export { onRenderHtml }
 
 import React from 'react'
 import { escapeInject } from 'vike/server'
 import { renderToStream } from 'react-streaming/server'
 import { PageLayout } from './PageLayout'
 
-// See https://vike.dev/data-fetching
-const passToClient = ['pageProps']
-
-async function render(pageContext) {
+async function onRenderHtml(pageContext) {
   const { Page, pageProps } = pageContext
   const page = (
     <PageLayout>
