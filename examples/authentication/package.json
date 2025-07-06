@@ -1,9 +1,8 @@
 {
   "scripts": {
-    "dev": "npm run server",
+    "dev": "vike dev",
     "prod": "npm run build && npm run server:prod",
-    "build": "vite build",
-    "server": "vite",
+    "build": "vike build",
     "server:prod": "cross-env NODE_ENV=production node ./dist/server/index.mjs"
   },
   "dependencies": {
