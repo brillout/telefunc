@@ -1,6 +1,6 @@
 import { Link } from '@brillout/docpress'
 
-> **What is this page about?**
+> **What is this about?**
 >
 > This page explains how to most efficiently use Telefunc (and RPC in general) to significantly increase development speed.
 >
@@ -18,13 +18,13 @@ With Telefunc, it's usually the opposite — telefunctions are:
 
 This inversion is at the cornerstone of using Telefunc efficiently.
 
-You may be tempted to create generic telefunctions out of habit from REST/GraphQL (or to keep things [DRY](https://softwareengineering.stackexchange.com/questions/400183/what-should-i-consider-when-the-dry-and-kiss-principles-are-incompatible)) but we recommend against it. Instead, we recommend implementing what we call *event-based telefunctions*.
+You may be tempted to create generic telefunctions but we recommend against it. Instead, we recommend implementing what we call *event-based telefunctions*.
 
 ```ts
 // database/todo.telefunc.ts
 
-// ❌ Generic telefunction
-export async function updateTask(id: number, modifications: Partial<typeof Task>) {
+// ❌ Generic telefunction: one telefunction re-used for multiple use case
+export async function updateTask(id: number, modifications: Partial<TodoItem>) {
   // ...
 }
 ```
@@ -32,7 +32,7 @@ export async function updateTask(id: number, modifications: Partial<typeof Task>
 ```ts
 // components/TodoList.telefunc.ts
 
-// ✅ Event-based telefunctions
+// ✅ Event-based telefunctions: one telefunction per use case
 export async function onTodoTextUpdate(id: number, text: string) {
   // ...
 }
