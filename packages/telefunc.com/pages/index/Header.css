@@ -22,6 +22,7 @@
     margin-top: -20px;
     margin-bottom: 20px;
     font-size: 2.5em;
+    font-weight: 800;
   }
 }
 @container (max-width: 699px) {
@@ -41,7 +42,7 @@
 }
 @container (max-width: 450px) {
   #header-tagline {
-    font-size: 1.9em;
+    font-size: 2.4em;
   }
   #header-tagline-newline {
     display: block;
@@ -49,6 +50,6 @@
 }
 @container (max-width: 400px) {
   #header-tagline {
-    font-size: 1.8em;
+    font-size: 2.1em;
   }
 }
