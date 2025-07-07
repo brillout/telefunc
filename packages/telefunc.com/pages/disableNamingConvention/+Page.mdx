@@ -1,9 +1,9 @@
 import { Link } from '@brillout/docpress'
-import { ConfigWhereServer } from '../../components'
+import { ConfigWhereServer, EventBasedRecommendation } from '../../components'
 
 **Environment**: server.
 
-Disable the telefunction naming convention. See <Link href="/event-based#naming-convention" />.
+Opt out of the <Link href="/event-based#naming-convention">naming convention for event-based telefunctions</Link> (removes all related warnings).
 
 ```js
 // Environment: server
@@ -13,4 +13,12 @@ import { config } from 'telefunc'
 config.disableNamingConvention = true
 ```
 
+<EventBasedRecommendation />
+
 <ConfigWhereServer />
+
+
+## See also
+
+- <Link href="/event-based" />
+- <Link href="/event-based#opt-out" />

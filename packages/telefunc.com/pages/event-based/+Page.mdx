@@ -1,4 +1,5 @@
 import { Link } from '@brillout/docpress'
+import { EventBasedRecommendation } from '../../components'
 
 > **What is this about?**
 >
@@ -128,8 +129,6 @@ This naming convention ensures telefunctions are tightly coupled to UI component
 
 #### Too restrictive convention?
 
-The naming convention is slightly restrictive, but it's worth it.
-
 To keep things [DRY](https://softwareengineering.stackexchange.com/questions/400183/what-should-i-consider-when-the-dry-and-kiss-principles-are-incompatible) you may be tempted to define a single telefunction that is re-used by many UI components. For example:
 
 ```ts
@@ -195,11 +194,11 @@ When a telefunction is tightly coupled with a component:
  - The telefunction can allow only what is strictly required by the component.
    > A cornerstone of security is to grant only the permissions that are strictly required.
 
-Thus, we recommend creating event-based telefunctions while following the naming convention.
+That's why we recommend event-based telefunctions, along with the naming convention to ensure telefunctions are tightly coupled to components.
 
-> If there are two UI components that could use the exact same telefunction — wouldn't it be nice to create a single telefunction instead of two?
+> If there are two UI components that could use the exact same telefunction — wouldn't it be nice to create a single telefunction instead of duplicating the same telefunction?
 > - It's a rare situation (UI components usually have slightly different requirements).
-> - Consider creating a new shared UI component used by these two components instead.
+> - Consider creating a new shared UI component used by these two components.
 > - Using the deduplication approach shown above, only one line of duplicated code remains:
 >   ```js
 >   // TodoItem.telefunc.js
@@ -249,20 +248,14 @@ Co-locate `.telefunc.js` files next to UI component files:
 
 This convention is optional and you can opt-out.
 
-### Opt-out
+### Opt out
 
-Telefunc shows a warning if you don't follow the naming convention — you can remove the warning with <Link text={<code>config.disableNamingConvention</code>} href="/disableNamingConvention" />.
+Telefunc shows a warning if you don't follow the naming convention — you can opt-out of the convention and remove the warning by setting <Link text={<code>config.disableNamingConvention</code>} href="/disableNamingConvention" />.
 
-> Not following the naming convention is perfectly fine, though we recommend having a clear reason for breaking the rule.
->
-> We recommend reading <Link href="#example">the example above</Link> before opting out of the convention. It explains why event-based telefunctions lead to increased:
-> - Development speed
-> - Security
-> - Performance
->
-> [Feel free to reach out](https://github.com/brillout/telefunc/issues/new) if you have questions.
+<EventBasedRecommendation samePage />
 
 
 ## See also
 
 - <Link href="/multiple-clients" />
+- <Link href="/disableNamingConvention" />
