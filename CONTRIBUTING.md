@@ -115,7 +115,7 @@ pnpm install
 **2. Develop**
 
 ```shell
-cd packages/telefunc.com/ # From the monorepo root
+cd docs/ # From the monorepo root
 pnpm run dev
 ```
 

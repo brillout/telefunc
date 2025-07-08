@@ -1,0 +1,1 @@
+../../packages/telefunc/utils/PROJECT_VERSION.ts

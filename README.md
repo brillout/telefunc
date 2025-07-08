@@ -5,7 +5,7 @@
 ## Monorepo
 
 [packages/telefunc](packages/telefunc/) - source code of package [`telefunc`](https://npmjs.com/package/telefunc)  
-[packages/telefunc.com](packages/telefunc.com/) - source code of website [telefunc.com](http://telefunc.com)  
+[docs](docs/) - source code of website [telefunc.com](http://telefunc.com)  
 
 ## Links
 

@@ -1,5 +1,6 @@
 packages:
   - 'packages/*'
+  - 'docs/'
   - 'test/*'
   - 'examples/*'
   - '!examples/react-native/'
