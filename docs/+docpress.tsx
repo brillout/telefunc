@@ -27,8 +27,6 @@ const config: Config = {
     indexName: 'telefunc',
   },
 
-  docsDir: 'docs',
-
   topNavigation: <TopNavigation />,
   navLogoSize: 36,
   navLogoStyle: {
