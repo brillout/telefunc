@@ -1,5 +1,6 @@
 TODO/soon:
 - Soft-deprecate `telefunc()` in favor of `serve()` ?
+- Docs: `we can` => `you can`
 
 TODO/next-major-release:
 - rename `telefunc()` into `serve()`
