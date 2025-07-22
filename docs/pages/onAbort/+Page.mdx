@@ -2,6 +2,25 @@ import { Link } from '@brillout/docpress'
 
 **Environment**: client.
 
-The `onAbort()` hook is usually used for implementing `getContext()` wrappers, see <Link href="/permissions#getcontext-wrapping" doNotInferSectionTitle={true} />.
-
 The `onAbort()` hook is called whenever the browser makes a telefunction call that fails because the telefunction ran <Link text={<code>throw Abort()</code>} href="/Abort" />.
+
+```js
+// Environment: client
+
+import { onAbort } from 'telefunc/client'
+
+onAbort(err => {
+  if (err.abortValue.notLoggedIn) {
+    // Redirect user to login page
+    window.location.href = '/login'
+  }
+})
+```
+
+> The `onAbort()` hook is usually used for implementing `getContext()` wrappers, see <Link href="/permissions#getcontext-wrapping" doNotInferSectionTitle={true} />.
+
+
+## See also
+
+ - <Link href="/permissions" />
+ - <Link href="/Abort" />
