@@ -1,0 +1,24 @@
+import{o as l,a as s}from"../chunks/chunk-DpuV42H3.js";import{j as e}from"../chunks/chunk-BRpbQDxY.js";import{L as o}from"../chunks/chunk-BgULXPoE.js";/* empty css                      *//* empty css                      *//* empty css                      *//* empty css                      *//* empty css                      *//* empty css                      *//* empty css                      *//* empty css                      */const i=[{pageSectionId:"see-also",pageSectionLevel:2,pageSectionTitle:"See also"}];function r(t){const n={blockquote:"blockquote",code:"code",figure:"figure",li:"li",p:"p",pre:"pre",span:"span",strong:"strong",ul:"ul",...t.components};return e.jsxs(e.Fragment,{children:[e.jsxs(n.p,{children:[e.jsx(n.strong,{children:"Environment"}),": client."]}),`
+`,e.jsxs(n.p,{children:["The ",e.jsx(n.code,{children:"onAbort()"})," hook is called whenever the browser makes a telefunction call that fails because the telefunction ran ",e.jsx(o,{text:e.jsx(n.code,{children:"throw Abort()"}),href:"/Abort"}),"."]}),`
+`,e.jsx(n.figure,{"data-rehype-pretty-code-figure":"",children:e.jsx(n.pre,{style:{backgroundColor:"#fff",color:"#24292e"},tabIndex:"0","data-language":"js","data-theme":"github-light",children:e.jsxs(n.code,{"data-language":"js","data-theme":"github-light",style:{display:"grid"},children:[e.jsx(n.span,{"data-line":"",children:e.jsx(n.span,{style:{color:"#6A737D"},children:"// Environment: client"})}),`
+`,e.jsx(n.span,{"data-line":"",children:" "}),`
+`,e.jsxs(n.span,{"data-line":"",children:[e.jsx(n.span,{style:{color:"#D73A49"},children:"import"}),e.jsx(n.span,{style:{color:"#24292E"},children:" { onAbort } "}),e.jsx(n.span,{style:{color:"#D73A49"},children:"from"}),e.jsx(n.span,{style:{color:"#032F62"},children:" 'telefunc/client'"})]}),`
+`,e.jsx(n.span,{"data-line":"",children:" "}),`
+`,e.jsxs(n.span,{"data-line":"",children:[e.jsx(n.span,{style:{color:"#6F42C1"},children:"onAbort"}),e.jsx(n.span,{style:{color:"#24292E"},children:"("}),e.jsx(n.span,{style:{color:"#E36209"},children:"err"}),e.jsx(n.span,{style:{color:"#D73A49"},children:" =>"}),e.jsx(n.span,{style:{color:"#24292E"},children:" {"})]}),`
+`,e.jsxs(n.span,{"data-line":"",children:[e.jsx(n.span,{style:{color:"#D73A49"},children:"  if"}),e.jsx(n.span,{style:{color:"#24292E"},children:" (err.abortValue.notLoggedIn) {"})]}),`
+`,e.jsx(n.span,{"data-line":"",children:e.jsx(n.span,{style:{color:"#6A737D"},children:"    // Redirect user to login page"})}),`
+`,e.jsxs(n.span,{"data-line":"",children:[e.jsx(n.span,{style:{color:"#24292E"},children:"    window.location.href "}),e.jsx(n.span,{style:{color:"#D73A49"},children:"="}),e.jsx(n.span,{style:{color:"#032F62"},children:" '/login'"})]}),`
+`,e.jsx(n.span,{"data-line":"",children:e.jsx(n.span,{style:{color:"#24292E"},children:"  }"})}),`
+`,e.jsx(n.span,{"data-line":"",children:e.jsx(n.span,{style:{color:"#24292E"},children:"})"})})]})})}),`
+`,e.jsxs(n.blockquote,{children:[`
+`,e.jsxs(n.p,{children:["The ",e.jsx(n.code,{children:"onAbort()"})," hook is usually used for implementing ",e.jsx(n.code,{children:"getContext()"})," wrappers, see ",e.jsx(o,{href:"/permissions#getcontext-wrapping",doNotInferSectionTitle:!0}),"."]}),`
+`]}),`
+`,e.jsx("h2",{id:"see-also",children:"See also"}),`
+`,e.jsxs(n.ul,{children:[`
+`,e.jsxs(n.li,{children:[`
+`,e.jsx(o,{href:"/permissions"}),`
+`]}),`
+`,e.jsxs(n.li,{children:[`
+`,e.jsx(o,{href:"/Abort"}),`
+`]}),`
+`]})]})}function a(t={}){const{wrapper:n}=t.components||{};return n?e.jsx(n,{...t,children:e.jsx(r,{...t})}):r(t)}const d=Object.freeze(Object.defineProperty({__proto__:null,default:a,pageSectionsExport:i},Symbol.toStringTag,{value:"Module"})),S={isClientRuntimeLoaded:{type:"computed",definedAtData:null,valueSerialized:{type:"js-serialized",value:!0}},onBeforeRenderEnv:{type:"computed",definedAtData:null,valueSerialized:{type:"js-serialized",value:null}},dataEnv:{type:"computed",definedAtData:null,valueSerialized:{type:"js-serialized",value:null}},onRenderClient:{type:"standard",definedAtData:{filePathToShowToUser:"@brillout/docpress/renderer/onRenderClient",fileExportPathToShowToUser:[]},valueSerialized:{type:"pointer-import",value:s}},onCreatePageContext:{type:"cumulative",definedAtData:[{filePathToShowToUser:"@brillout/docpress/renderer/onCreatePageContext",fileExportPathToShowToUser:[]}],valueSerialized:[{type:"pointer-import",value:l}]},Page:{type:"standard",definedAtData:{filePathToShowToUser:"/pages/onAbort/+Page.mdx",fileExportPathToShowToUser:[]},valueSerialized:{type:"plus-file",exportValues:d}},hydrationCanBeAborted:{type:"standard",definedAtData:{filePathToShowToUser:"@brillout/docpress/config",fileExportPathToShowToUser:["default","hydrationCanBeAborted"]},valueSerialized:{type:"js-serialized",value:!0}}};export{S as configValuesSerialized};
