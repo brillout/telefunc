@@ -8,7 +8,7 @@ function testRun(cmd: 'pnpm run dev' | 'pnpm run preview') {
   run(cmd, {
     serverIsReadyMessage: (log) => log.includes('Local:') && log.includes(port),
     serverUrl,
-    doNotFailOnWarning: true,
+    tolerateError: true,
   })
 
   test('Home page', async () => {
