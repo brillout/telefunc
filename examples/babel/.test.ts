@@ -3,14 +3,14 @@ import { page, test, expect, run, getServerUrl, autoRetry, fetchHtml, fetch } fr
 testRun('npm run start', {
   skipShieldGenerationTest: true,
   // Babel prints build result `created dist in 693ms` on stderr
-  doNotFailOnWarning: true,
+  tolerateError: true,
 })
 
 function testRun(
   cmd: 'npm run dev' | 'npm run preview' | 'npm run start' | 'npm run prod',
-  { skipShieldGenerationTest, doNotFailOnWarning }: { skipShieldGenerationTest?: true; doNotFailOnWarning?: true } = {},
+  { skipShieldGenerationTest, tolerateError }: { skipShieldGenerationTest?: true; tolerateError?: true } = {},
 ) {
-  run(cmd, { doNotFailOnWarning })
+  run(cmd, { tolerateError })
 
   {
     const isDev = cmd === 'npm run dev' || cmd === 'npm run start'
