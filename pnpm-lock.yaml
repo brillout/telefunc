@@ -319,8 +319,8 @@ importers:
         specifier: ^1.0.28
         version: 1.0.28
       '@brillout/vite-plugin-server-entry':
-        specifier: 0.7.11-commit-8c9d55b
-        version: 0.7.11-commit-8c9d55b
+        specifier: 0.7.11-commit-9853e8c
+        version: 0.7.11-commit-9853e8c
       es-module-lexer:
         specifier: ^1.7.0
         version: 1.7.0
@@ -1147,8 +1147,8 @@ packages:
     peerDependencies:
       typescript: ^4.0.0
 
-  '@brillout/vite-plugin-server-entry@0.7.11-commit-8c9d55b':
-    resolution: {integrity: sha512-vMzbtdAe0dWOurgsEk0Lh2nZafahYc855MUsCe7yZd8VKyNc+lYbDWX/wuYuvMzdpspfNnvf/vWOKpCAfyP7nA==}
+  '@brillout/vite-plugin-server-entry@0.7.11-commit-9853e8c':
+    resolution: {integrity: sha512-v2yLHbABtOQGvwUkHuLdkdxcMxDMz6B4xdRKJABYdt1EPpfRF4HOI7UORgcVpKKWYMvj8Z72FPt7dHab5aEEdg==}
 
   '@brillout/vite-plugin-server-entry@0.7.9':
     resolution: {integrity: sha512-mJrUakPTj8Zf3Pm4beKmHowfozHOLS/deMqheYYIlqK8FSR4Hd3vMeFQBL/rxLLd+svIlW/j2K3M2SVPDmvX7A==}
@@ -6645,7 +6645,7 @@ snapshots:
       source-map-support: 0.5.21
       typescript: 5.8.3
 
-  '@brillout/vite-plugin-server-entry@0.7.11-commit-8c9d55b':
+  '@brillout/vite-plugin-server-entry@0.7.11-commit-9853e8c':
     dependencies:
       '@brillout/import': 0.2.6
       '@brillout/picocolors': 1.0.28
