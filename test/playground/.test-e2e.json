@@ -1,1 +1,2 @@
-{ "name": "Vite" }
+{ "ci": { "job": "Vite" }
+}

@@ -1,1 +1,2 @@
-{ "name": "Next.js" }
+{ "ci": { "job": "Next.js" }
+}

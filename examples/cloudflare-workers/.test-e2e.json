@@ -1,1 +1,2 @@
-{ "name": "Cloudflare Workers" }
+{ "ci": { "job": "Cloudflare Workers" }
+}

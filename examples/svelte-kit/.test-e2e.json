@@ -1,1 +1,2 @@
-{ "name": "SvelteKit" }
+{ "ci": { "job": "SvelteKit" }
+}

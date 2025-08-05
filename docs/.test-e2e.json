@@ -1,1 +1,2 @@
-{ "name": "https://telefunc.com" }
+{ "ci": { "job": "https://telefunc.com" }
+}
