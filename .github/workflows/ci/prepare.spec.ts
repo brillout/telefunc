@@ -1,24 +1,266 @@
 import { prepare } from './prepare'
 import { expect, describe, it } from 'vitest'
 
-//*/
-// We only use this `prepare()` test for developing the prepare() function. (Because, otherwise, the fixture down below would need to be updated everytime there is a new/(re)moved test file.)
-const SKIP = true
-/*/
-const SKIP = false
-//*/
-
 describe('prepare()', () => {
-  if (SKIP) {
-    const msg = 'SKIPPED prepare() test'
-    it(msg, () => {})
-    return
-  }
-
-  it('basics', async () => {
+  it('fixture', async () => {
     const jobs = await prepare()
     expect(jobs).toMatchInlineSnapshot(`
-      Redacted. Update this snapshot before using this test file.
+      [
+        {
+          "jobCmd": "pnpm run test:units",
+          "jobName": "Vitest",
+          "jobSetups": [
+            {
+              "node_version": "23",
+              "os": "ubuntu-latest",
+            },
+          ],
+          "jobTests": null,
+        },
+        {
+          "jobCmd": "pnpm run test:types",
+          "jobName": "TypeScript",
+          "jobSetups": [
+            {
+              "node_version": "23",
+              "os": "ubuntu-latest",
+            },
+          ],
+          "jobTests": null,
+        },
+        {
+          "jobCmd": "pnpm exec test-e2e",
+          "jobName": "Vite",
+          "jobSetups": [
+            {
+              "node_version": "23",
+              "os": "ubuntu-latest",
+            },
+            {
+              "node_version": "23",
+              "os": "windows-latest",
+            },
+          ],
+          "jobTests": [
+            {
+              "localConfig": {
+                "ci": {
+                  "job": "Vite",
+                },
+              },
+              "testFilePath": "examples/authentication/.dev.test.ts",
+            },
+            {
+              "localConfig": {
+                "ci": {
+                  "job": "Vite",
+                },
+              },
+              "testFilePath": "examples/authentication/.prod.test.ts",
+            },
+            {
+              "localConfig": {
+                "ci": {
+                  "job": "Vite",
+                },
+              },
+              "testFilePath": "examples/react-streaming/.test-dev.test.ts",
+            },
+            {
+              "localConfig": {
+                "ci": {
+                  "job": "Vite",
+                },
+              },
+              "testFilePath": "examples/react-streaming/.test-prod.test.ts",
+            },
+            {
+              "localConfig": {
+                "ci": {
+                  "job": "Vite",
+                },
+              },
+              "testFilePath": "examples/vike/.test-dev.test.ts",
+            },
+            {
+              "localConfig": {
+                "ci": {
+                  "job": "Vite",
+                },
+              },
+              "testFilePath": "examples/vike/.test-preview.test.ts",
+            },
+            {
+              "localConfig": {
+                "ci": {
+                  "job": "Vite",
+                },
+              },
+              "testFilePath": "test/playground/.test-dev.test.ts",
+            },
+            {
+              "localConfig": {
+                "ci": {
+                  "job": "Vite",
+                },
+              },
+              "testFilePath": "test/playground/.test-preview.test.ts",
+            },
+          ],
+        },
+        {
+          "jobCmd": "pnpm exec test-e2e",
+          "jobName": "React Native",
+          "jobSetups": [
+            {
+              "node_version": "23",
+              "os": "ubuntu-latest",
+            },
+            {
+              "node_version": "23",
+              "os": "windows-latest",
+            },
+          ],
+          "jobTests": [
+            {
+              "localConfig": {
+                "ci": {
+                  "job": "React Native",
+                },
+              },
+              "testFilePath": "examples/babel/.test.ts",
+            },
+          ],
+        },
+        {
+          "jobCmd": "pnpm exec test-e2e",
+          "jobName": "Cloudflare Workers",
+          "jobSetups": [
+            {
+              "node_version": "23",
+              "os": "ubuntu-latest",
+            },
+          ],
+          "jobTests": [
+            {
+              "localConfig": {
+                "ci": {
+                  "job": "Cloudflare Workers",
+                },
+              },
+              "testFilePath": "examples/cloudflare-workers/.dev.test.ts",
+            },
+            {
+              "localConfig": {
+                "ci": {
+                  "job": "Cloudflare Workers",
+                },
+              },
+              "testFilePath": "examples/cloudflare-workers/.test-miniflare.test.ts",
+            },
+            {
+              "localConfig": {
+                "ci": {
+                  "job": "Cloudflare Workers",
+                },
+              },
+              "testFilePath": "examples/cloudflare-workers/.test-wrangler.test.ts",
+            },
+          ],
+        },
+        {
+          "jobCmd": "pnpm exec test-e2e",
+          "jobName": "Next.js",
+          "jobSetups": [
+            {
+              "node_version": "23",
+              "os": "ubuntu-latest",
+            },
+            {
+              "node_version": "23",
+              "os": "windows-latest",
+            },
+          ],
+          "jobTests": [
+            {
+              "localConfig": {
+                "ci": {
+                  "job": "Next.js",
+                },
+              },
+              "testFilePath": "examples/next/.dev.test.ts",
+            },
+            {
+              "localConfig": {
+                "ci": {
+                  "job": "Next.js",
+                },
+              },
+              "testFilePath": "examples/next/.prod.test.ts",
+            },
+          ],
+        },
+        {
+          "jobCmd": "pnpm exec test-e2e",
+          "jobName": "SvelteKit",
+          "jobSetups": [
+            {
+              "node_version": "23",
+              "os": "ubuntu-latest",
+            },
+            {
+              "node_version": "23",
+              "os": "windows-latest",
+            },
+          ],
+          "jobTests": [
+            {
+              "localConfig": {
+                "ci": {
+                  "job": "SvelteKit",
+                },
+              },
+              "testFilePath": "examples/svelte-kit/.test-dev.test.ts",
+            },
+            {
+              "localConfig": {
+                "ci": {
+                  "job": "SvelteKit",
+                },
+              },
+              "testFilePath": "examples/svelte-kit/.test-preview.test.ts",
+            },
+          ],
+        },
+        {
+          "jobCmd": "pnpm exec test-e2e",
+          "jobName": "https://telefunc.com",
+          "jobSetups": [
+            {
+              "node_version": "23",
+              "os": "ubuntu-latest",
+            },
+          ],
+          "jobTests": [
+            {
+              "localConfig": {
+                "ci": {
+                  "job": "https://telefunc.com",
+                },
+              },
+              "testFilePath": "docs/.test-dev.test.ts",
+            },
+            {
+              "localConfig": {
+                "ci": {
+                  "job": "https://telefunc.com",
+                },
+              },
+              "testFilePath": "docs/.test-preview.test.ts",
+            },
+          ],
+        },
+      ]
     `)
   })
 })
