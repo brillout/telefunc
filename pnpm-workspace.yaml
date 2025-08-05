@@ -4,3 +4,4 @@ packages:
   - 'test/*'
   - 'examples/*'
   - '!examples/react-native/'
+  - '.github/workflows/ci'
