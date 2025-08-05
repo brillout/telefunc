@@ -18,6 +18,21 @@ function getCiJobs() {
   const setupModern = [ubuntu]
 
   return [
+    // Vitest
+    {
+      name: 'Vitest',
+      command: 'pnpm run test:units',
+      setups: [ubuntu],
+    },
+
+    // TypeScript
+    {
+      name: 'TypeScript',
+      command: 'pnpm run test:types',
+      setups: [ubuntu],
+    },
+
+    // @brillout/test-e2e
     {
       name: 'Vite',
       setups,
