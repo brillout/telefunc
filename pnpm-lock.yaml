@@ -14,6 +14,9 @@ importers:
       '@biomejs/biome':
         specifier: ^1.9.4
         version: 1.9.4
+      '@brillout/replace':
+        specifier: ^0.1.4
+        version: 0.1.4
       '@brillout/spellcheck':
         specifier: ^0.1.2
         version: 0.1.2
@@ -22,10 +25,16 @@ importers:
         version: 0.6.17
       '@brillout/test-types':
         specifier: ^0.1.13
-        version: 0.1.13(typescript@5.8.3)
+        version: 0.1.13(typescript@5.9.2)
       vitest:
         specifier: ^0.32.2
         version: 0.32.2(terser@5.10.0(acorn@8.14.1))
+
+  .github/workflows/ci:
+    dependencies:
+      typescript:
+        specifier: ^5.9.2
+        version: 5.9.2
 
   docs:
     dependencies:
@@ -1125,6 +1134,10 @@ packages:
 
   '@brillout/release-me@0.4.5':
     resolution: {integrity: sha512-U5SdlYZjl5bVWFzYiPgy6Sm+nq4OkNdLdpycl0NbICtScNwnejX2WYdXZ96gRYrchHpKxEmFSyspTQhzYETvzA==}
+    hasBin: true
+
+  '@brillout/replace@0.1.4':
+    resolution: {integrity: sha512-t1J030/UpCi0ylX46uH9hjfXAw3oln7biYiFoaT1RPi9+3BsFOnJ/P7onefJJ/5Tt1L831iHESA+ZZiZRfvalg==}
     hasBin: true
 
   '@brillout/require-shim@0.1.2':
@@ -5342,6 +5355,11 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
+  typescript@5.9.2:
+    resolution: {integrity: sha512-CWBzXQrc/qOkhidw1OzBTQuYRbfyxDXJMVJ1XNwUHGROVmuaeiEm3OslpZ1RV96d7SKKjZKrSJu3+t/xlw3R9A==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+
   ufo@1.5.4:
     resolution: {integrity: sha512-UsUk3byDzKd04EyoZ7U4DOlxQaD14JUKQl6/P7wiX4FNvUfm3XL246n9W5AmqwW5RSFJ27NAuM0iLscAOYUiGQ==}
 
@@ -6614,6 +6632,11 @@ snapshots:
     transitivePeerDependencies:
       - conventional-commits-filter
 
+  '@brillout/replace@0.1.4':
+    dependencies:
+      '@brillout/picocolors': 1.0.28
+      '@brillout/shell': 0.2.1
+
   '@brillout/require-shim@0.1.2': {}
 
   '@brillout/shell@0.2.1':
@@ -6638,12 +6661,12 @@ snapshots:
       source-map-support: 0.5.21
       strip-ansi: 6.0.1
 
-  '@brillout/test-types@0.1.13(typescript@5.8.3)':
+  '@brillout/test-types@0.1.13(typescript@5.9.2)':
     dependencies:
       '@brillout/picocolors': 1.0.28
       fast-glob: 3.3.3
       source-map-support: 0.5.21
-      typescript: 5.8.3
+      typescript: 5.9.2
 
   '@brillout/vite-plugin-server-entry@0.7.12':
     dependencies:
@@ -11446,6 +11469,8 @@ snapshots:
       reflect.getprototypeof: 1.0.10
 
   typescript@5.8.3: {}
+
+  typescript@5.9.2: {}
 
   ufo@1.5.4: {}
 
