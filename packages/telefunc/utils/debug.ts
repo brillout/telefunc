@@ -2,7 +2,6 @@ export { createDebugger }
 export { isDebugActivated }
 export type { Debug }
 
-import { isBrowser } from './isBrowser.js'
 import { isCallable } from './isCallable.js'
 import { objectAssign } from './objectAssign.js'
 import { assert, assertUsage } from './assert.js'
@@ -11,8 +10,9 @@ import { getTerminalWidth } from './getTerminalWidth.js'
 import pc from '@brillout/picocolors'
 import { isArray } from './isArray.js'
 import { isObject } from './isObject.js'
+import { assertIsNotBrowser } from './assertIsNotBrowser.js'
 
-assert(!isBrowser())
+assertIsNotBrowser()
 
 const flags = [
   //
