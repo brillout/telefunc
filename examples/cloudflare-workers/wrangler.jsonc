@@ -7,7 +7,6 @@
     // Workaround https://github.com/cloudflare/workers-sdk/issues/7886
     "process.env.NODE_ENV": "'production'"
   },
-  "compatibility_flags": ["nodejs_compat"],
   "main": "./worker/index.js",
   "assets": { "directory": "./dist/" }
 }

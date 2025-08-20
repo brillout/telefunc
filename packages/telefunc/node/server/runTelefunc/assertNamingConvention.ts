@@ -1,5 +1,6 @@
 export { assertNamingConvention }
 
+import { import_ } from '@brillout/import'
 import { assertWarning, isProduction, assertPosixPath } from '../utils.js'
 import type * as fsType from 'node:fs'
 import type * as pathType from 'node:path'
@@ -39,8 +40,8 @@ async function assertCollocation(telefuncFilePath: string, appRootDir: string | 
   let fs: typeof fsType
   let path: typeof pathType
   try {
-    fs = await import('node:fs')
-    path = await import('node:path')
+    fs = await import_('node:fs')
+    path = await import_('node:path')
   } catch {
     // The environment doesn't seem to have a filesystem API => skip `assertCollocation()`.
     // - For example, Cloudflare Workers doesn't have a filesystem API.
