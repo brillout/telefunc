@@ -1,6 +1,6 @@
 export { assertTelefunction }
 
-import { assertUsage, isCallable } from '../../utils.js'
+import { assertUsage, isCallable } from '../utils.js'
 import type { Telefunction } from '../types.js'
 import pc from '@brillout/picocolors'
 

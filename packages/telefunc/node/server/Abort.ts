@@ -1,7 +1,7 @@
 export { Abort }
 export { isAbort }
 
-import { assert, assertUsage, objectAssign } from '../utils.js'
+import { assert, assertUsage, objectAssign } from './utils.js'
 const stamp = '__telefunc_isAbort'
 
 function isAbort(thing: unknown): thing is ReturnType<typeof Abort> {

@@ -3,7 +3,7 @@ export { executeTelefunction }
 import { isAbort, Abort } from '../Abort.js'
 import { restoreContext, Telefunc } from '../getContext.js'
 import type { Telefunction } from '../types.js'
-import { assertUsage, isPromise } from '../../utils.js'
+import { assertUsage, isPromise } from '../utils.js'
 
 async function executeTelefunction(runContext: {
   telefunction: Telefunction

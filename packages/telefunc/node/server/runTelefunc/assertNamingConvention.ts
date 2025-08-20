@@ -1,6 +1,6 @@
 export { assertNamingConvention }
 
-import { assertWarning, isProduction, assertPosixPath } from '../../utils.js'
+import { assertWarning, isProduction, assertPosixPath } from '../utils.js'
 import type * as fsType from 'node:fs'
 import type * as pathType from 'node:path'
 

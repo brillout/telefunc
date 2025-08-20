@@ -2,7 +2,7 @@ export { importBuild }
 
 import { serverProductionEntryPlugin } from '@brillout/vite-plugin-server-entry/plugin'
 import type { Plugin, ResolvedConfig } from 'vite'
-import { assert, assertPosixPath, projectInfo, toPosixPath } from '../../utils.js'
+import { assert, assertPosixPath, projectInfo, toPosixPath } from '../utils.js'
 import path from 'node:path'
 import { getTelefuncManifest } from './importBuild/getTelefuncManifest.js'
 import { getOutDirAbsolute } from '../getOutDirs.js'
@@ -53,13 +53,13 @@ function getImportPath(config: ResolvedConfig) {
   // We resolve filePathAbsolute even if we don't use it: we use require.resolve() as an assertion that the relative path is correct
   const filePathAbsolute = toPosixPath(
     // [RELATIVE_PATH_FROM_DIST] Current file: node_modules/telefunc/dist/node/vite/plugins/importBuild.js
-    require_.resolve(`../../../../dist/node/vite/plugins/importBuild/loadBuild.js`),
+    require_.resolve(`../../../../dist/node/server/runTelefunc/loadTelefuncFilesUsingVite/loadBuildEntry.js`),
   )
   if (
     // Let's implement a new config if a user needs the import to be a relative path instead of 'telefunc/__internal/loadImportBuild' (AFAIK there is no use case for relative paths for Telefunc)
     true as boolean
   ) {
-    return 'telefunc/__internal/loadBuild'
+    return 'telefunc/__internal/loadBuildEntry'
   } else {
     assert(config.build.ssr) // outDir needs to be the outDir of the server-side
     const outDir = getOutDirAbsolute(config)

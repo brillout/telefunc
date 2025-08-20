@@ -3,7 +3,7 @@ export { shieldIsMissing }
 export { shieldApply }
 export { shieldToHumandReadable }
 
-import { isPlainObject, unique, isCallable, assert, assertUsage } from '../utils.js'
+import { isPlainObject, unique, isCallable, assert, assertUsage } from './utils.js'
 
 const shieldKey = '__telefunc_shield'
 const isVerifierKey = '__telefunc_isVerifier'

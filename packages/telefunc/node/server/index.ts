@@ -1,16 +1,16 @@
-export { telefunc } from './server/telefunc.js'
-import { config } from './server/serverConfig.js'
+export { telefunc } from './telefunc.js'
+import { config } from './serverConfig.js'
 export { config }
 export { config as telefuncConfig }
-export { getContext, provideTelefuncContext } from './server/getContext.js'
-export { Abort } from './server/Abort.js'
-export { shield } from './server/shield.js'
-export { onBug } from './server/runTelefunc/onBug.js'
+export { getContext, provideTelefuncContext } from './getContext.js'
+export { Abort } from './Abort.js'
+export { shield } from './shield.js'
+export { onBug } from './runTelefunc/onBug.js'
 
 // In order to allow users to override `Telefunc.Context`, we need to export `Telefunc` (even if the user never imports `Telefunc`)
-export type { Telefunc } from './server/getContext/TelefuncNamespace.js'
+export type { Telefunc } from './getContext/TelefuncNamespace.js'
 
-export { decorateTelefunction as __decorateTelefunction } from './server/runTelefunc/decorateTelefunction.js'
+export { decorateTelefunction as __decorateTelefunction } from './runTelefunc/decorateTelefunction.js'
 
 import { assertUsage } from './utils.js'
 

@@ -1,13 +1,13 @@
 export { loadTelefuncFilesWithImportBuild }
 export { setTelefuncLoaders }
 
-import { config } from '../../../server/serverConfig.js'
+import { config } from '../../serverConfig.js'
 import { getGlobalObject } from '../../utils.js'
 import { assertManifest } from './assertManifest.js'
 
 const globalObject = getGlobalObject<{
   loadTelefuncFiles?: LoadTelefuncFiles
-}>('loadBuild.ts', {})
+}>('loadBuildEntry.ts', {})
 
 type LoadTelefuncFiles = () => Promise<unknown>
 type LoadManifest = () => Record<string, unknown>
