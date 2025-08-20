@@ -25,7 +25,7 @@
   "exports": {
     ".": {
       "worker": "./dist/node/server/index.js",
-      "browser": "./dist/client/server/index.js",
+      "browser": "./dist/client/server.js",
       "types": "./dist/node/server/index.d.ts",
       "default": "./dist/node/server/index.js"
     },
