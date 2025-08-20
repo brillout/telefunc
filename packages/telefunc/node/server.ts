@@ -12,7 +12,7 @@ export type { Telefunc } from './server/getContext/TelefuncNamespace.js'
 
 export { decorateTelefunction as __decorateTelefunction } from './server/runTelefunc/decorateTelefunction.js'
 
-import { assertUsage } from './utils.js'
+import { assertUsage } from './server/utils.js'
 
 assertServerSide()
 

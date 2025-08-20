@@ -1,6 +1,6 @@
 export { loadTelefuncFilesFromConfig }
 
-import { assert, assertPosixPath, assertUsage, isTelefuncFilePath } from '../../utils.js'
+import { assert, assertPosixPath, assertUsage, isTelefuncFilePath } from '../utils.js'
 import type { TelefuncFiles } from '../types.js'
 import { import_ } from '@brillout/import'
 import pc from '@brillout/picocolors'

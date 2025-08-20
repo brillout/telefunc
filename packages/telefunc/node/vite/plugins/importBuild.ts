@@ -2,7 +2,7 @@ export { importBuild }
 
 import { serverProductionEntryPlugin } from '@brillout/vite-plugin-server-entry/plugin'
 import type { Plugin, ResolvedConfig } from 'vite'
-import { assert, assertPosixPath, projectInfo, toPosixPath } from '../../utils.js'
+import { assert, assertPosixPath, projectInfo, toPosixPath } from '../../server/utils.js'
 import path from 'node:path'
 import { getTelefuncManifest } from './importBuild/getTelefuncManifest.js'
 import { getOutDirAbsolute } from '../getOutDirs.js'

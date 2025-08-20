@@ -9,7 +9,7 @@ import {
   assert,
   getTelefunctionKey,
   isProduction,
-} from '../../utils.js'
+} from '../utils.js'
 
 function parseHttpRequest(runContext: {
   httpRequest: { body: unknown; url: string; method: string }

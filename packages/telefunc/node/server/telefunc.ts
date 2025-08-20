@@ -2,7 +2,7 @@ export { telefunc }
 
 import { runTelefunc, HttpResponse } from './runTelefunc.js'
 import { Telefunc } from './getContext.js'
-import { assertUsage, hasProp, isObject } from '../utils.js'
+import { assertUsage, hasProp, isObject } from './utils.js'
 
 /** Get HTTP Response for a telefunction remote call HTTP Request.
  * @returns HTTP Response
