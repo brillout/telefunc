@@ -1,6 +1,8 @@
 export { loadTelefuncFilesWithImportBuild }
 export { setTelefuncLoaders }
 
+// TODO/now: rename_full loadBuild loadBuildEntry
+
 import { config } from '../../../server/serverConfig.js'
 import { getGlobalObject } from '../../utils.js'
 import { assertManifest } from './assertManifest.js'
