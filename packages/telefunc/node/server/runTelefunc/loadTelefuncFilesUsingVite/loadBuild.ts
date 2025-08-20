@@ -1,8 +1,6 @@
 export { loadTelefuncFilesWithImportBuild }
 export { setTelefuncLoaders }
 
-// TODO/now: rename_full loadBuild loadBuildEntry
-
 import { config } from '../../serverConfig.js'
 import { getGlobalObject } from '../../../vite/utils.js'
 import { assertManifest } from './assertManifest.js'
