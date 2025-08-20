@@ -11,7 +11,7 @@ function buildConfig(): Plugin {
     enforce: 'post',
     configResolved(config_) {
       config = config_
-      setOutDir(config)
+      // setOutDir(config)
     },
   }
 }
