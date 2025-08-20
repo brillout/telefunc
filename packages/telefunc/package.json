@@ -19,15 +19,15 @@
     "magic-string": "^0.30.17",
     "ts-morph": "^26.0.0"
   },
-  "modules": "./dist/node/server.js",
-  "types": "./dist/node/server.d.ts",
+  "modules": "./dist/node/server/index.js",
+  "types": "./dist/node/server/index.d.ts",
   "// Explanation: https://gist.github.com/brillout/553253e27a43ccfc01ec6c38880d1360": "",
   "exports": {
     ".": {
-      "worker": "./dist/node/server.js",
+      "worker": "./dist/node/server/index.js",
       "browser": "./dist/client/server.js",
-      "types": "./dist/node/server.d.ts",
-      "default": "./dist/node/server.js"
+      "types": "./dist/node/server/index.d.ts",
+      "default": "./dist/node/server/index.js"
     },
     "./async_hooks": {
       "worker": "./dist/node/server/async_hooks.js",
@@ -78,11 +78,11 @@
       "types": "./dist/node/babel/plugin.d.ts",
       "default": "./dist/node/babel/plugin.js"
     },
-    "./__internal/loadBuild": {
-      "worker": "./dist/node/vite/plugins/importBuild/loadBuild.js",
-      "browser": "./dist/client/poisen-pills/__internal/loadBuild.js",
-      "types": "./dist/node/vite/plugins/importBuild/loadBuild.d.ts",
-      "default": "./dist/node/vite/plugins/importBuild/loadBuild.js"
+    "./__internal/loadBuildEntry": {
+      "worker": "./dist/node/server/runTelefunc/loadTelefuncFilesUsingVite/loadBuildEntry.js",
+      "browser": "./dist/client/poisen-pills/__internal/loadBuildEntry.js",
+      "types": "./dist/node/server/runTelefunc/loadTelefuncFilesUsingVite/loadBuildEntry.d.ts",
+      "default": "./dist/node/server/runTelefunc/loadTelefuncFilesUsingVite/loadBuildEntry.js"
     }
   },
   "type": "module",

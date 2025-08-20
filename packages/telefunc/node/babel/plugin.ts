@@ -2,7 +2,7 @@ export default BabelPluginTelefunc
 
 import { parse } from '@babel/parser'
 import { transformTelefuncFileClientSideSync } from '../transformer/transformTelefuncFileClientSideSync.js'
-import { toPosixPath } from '../utils.js'
+import { toPosixPath } from '../server/utils.js'
 import type { PluginObj, NodePath } from '@babel/core'
 import type * as BabelTypes from '@babel/types'
 
