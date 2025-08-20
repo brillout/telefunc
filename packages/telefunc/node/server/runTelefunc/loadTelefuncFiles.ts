@@ -1,49 +1,17 @@
 export { loadTelefuncFiles }
-export { setViteLoaderDependencies }
-export { getViteLoaderDependencies }
-export type { ViteLoaderDependencies }
 
 import type { TelefuncFiles } from '../types.js'
-import { assertUsage, assert, hasProp, isWebpack, isVikeApp, getGlobalObject } from '../../utils.js'
-import { loadTelefuncFilesUsingVite } from './loadTelefuncFilesUsingVite.js'
+import { assertUsage, assert, hasProp, isWebpack, isVikeApp } from '../../utils.js'
+import { loadTelefuncFilesUsingVite } from '../../vite/loadTelefuncFilesUsingVite.js'
 import { loadTelefuncFilesUsingRegistration } from './loadTelefuncFilesUsingRegistration.js'
 import { loadTelefuncFilesFromConfig } from './loadTelefuncFilesFromConfig.js'
 import pc from '@brillout/picocolors'
 
-// Dependency injection interface for Vite-specific functionality
-export interface ViteLoaderDependencies {
-  getViteDevServer(): null | { ssrLoadModule(path: string, options?: { fixStacktrace?: boolean }): Promise<any> }
-  loadTelefuncFilesWithImportBuild(): Promise<unknown>
-  importServerProductionEntry(options: { tolerateDoesNotExist: boolean }): Promise<boolean>
-  getGlobalTelefuncFilesGlobFilePath(): string | undefined
-}
-
-// Global registry for vite dependencies
-const globalObject = getGlobalObject<{ viteLoaderDependencies: ViteLoaderDependencies | null }>(
-  'loadTelefuncFiles.ts',
-  {
-    viteLoaderDependencies: null,
-  },
-)
-
-function setViteLoaderDependencies(dependencies: ViteLoaderDependencies): void {
-  globalObject.viteLoaderDependencies = dependencies
-}
-
-function getViteLoaderDependencies(): ViteLoaderDependencies | null {
-  return globalObject.viteLoaderDependencies
-}
-
-async function loadTelefuncFiles(
-  runContext: {
-    appRootDir: string | null
-    telefuncFilesManuallyProvidedByUser: string[] | null
-    telefuncFilePath: string
-  },
-  viteLoaderDependencies?: ViteLoaderDependencies,
-): Promise<{ telefuncFilesLoaded: TelefuncFiles; telefuncFilesAll: string[] }> {
-  // Use provided dependencies or fall back to global registry
-  const viteDeps = viteLoaderDependencies || getViteLoaderDependencies()
+async function loadTelefuncFiles(runContext: {
+  appRootDir: string | null
+  telefuncFilesManuallyProvidedByUser: string[] | null
+  telefuncFilePath: string
+}): Promise<{ telefuncFilesLoaded: TelefuncFiles; telefuncFilesAll: string[] }> {
   // - The user can manually provide the list of `.telefunc.js` files using `config.telefuncFiles`
   {
     if (runContext.telefuncFilesManuallyProvidedByUser) {
@@ -61,8 +29,8 @@ async function loadTelefuncFiles(
   //   - It may fail with the following setups as described at https://github.com/brillout/vite-plugin-server-entry#manual-import => we fallback down below with the registration method
   //     - With Vike + fully custom server integration
   //     - SvelteKit
-  if (viteDeps) {
-    const res = await loadTelefuncFilesUsingVite(runContext, false, viteDeps)
+  {
+    const res = await loadTelefuncFilesUsingVite(runContext, false)
     if (res) {
       const { telefuncFilesLoaded, viteProvider, telefuncFilesAll } = res
       assertUsage(Object.keys(telefuncFilesAll).length > 0, getNothingFoundErr(viteProvider))
@@ -90,16 +58,9 @@ async function loadTelefuncFiles(
     // import the server production entry.
     // ```
     //
-    if (viteDeps) {
-      const res2 = await loadTelefuncFilesUsingVite(runContext, true, viteDeps)
-      assert(res2 === null)
-      assert(false) // loadTelefuncFilesUsingVite() should have thrown the assertUsage() error above
-    } else {
-      assertUsage(
-        false,
-        `Couldn't find method for retrieving ${pc.cyan('.telefunc.js')} files. Vite dependencies not available.`,
-      )
-    }
+    const res2 = await loadTelefuncFilesUsingVite(runContext, true)
+    assert(res2 === null)
+    assert(false) // loadTelefuncFilesUsingVite() should have thrown the assertUsage() error above
   } else {
     // Generic message
     assertUsage(false, `Couldn't find method for retrieving ${pc.cyan('.telefunc.js')} files. Is your stack supported?`)
