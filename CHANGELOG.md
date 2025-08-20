@@ -12,7 +12,10 @@
 * update @brillout/vite-plugin-server-entry ([#193](https://github.com/brillout/telefunc/issues/193)) ([152c30b](https://github.com/brillout/telefunc/commit/152c30bcbafcca6330961a11287c2f724c035ada))
 
 
-### BREAKING CHANGES
+### MINOR BREAKING CHANGES
+
+> [!NOTE]
+> We recommend ignoring `MINOR BREAKING CHANGES` unless this version breaks your app, see [Vike Versioning](https://vike.dev/versioning).
 
 * If you use Vite, then update to Vite 6 or above.
 
