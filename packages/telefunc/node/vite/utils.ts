@@ -6,11 +6,11 @@ onLoad()
 
 export * from '../../utils/assert.js'
 export * from '../../utils/projectInfo.js'
-export * from '../../utils/path-shim.js'
-export * from '../../utils/toPosixPath.js'
+export * from '../../utils/path.js'
 export * from '../../utils/isScriptFile.js'
 export * from '../../utils/isObject.js'
 export * from '../../utils/getGlobalObject.js'
 export * from '../../utils/hasProp.js'
 export * from '../../utils/checkType.js'
 export * from '../../utils/rollupSourceMap.js'
+export * from '../../utils/requireResolve.js'
