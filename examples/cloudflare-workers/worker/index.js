@@ -1,32 +1,22 @@
 import { handleTelefunc } from './telefunc'
-import { handleStaticAssets } from './static-assets'
 
-addEventListener('fetch', (event) => {
-  try {
-    event.respondWith(
-      handleFetchEvent(event).catch((err) => {
-        console.error(err.stack)
-      }),
-    )
-  } catch (err) {
-    console.error(err.stack)
-    event.respondWith(new Response('Internal Server Error (Worker)', { status: 500 }))
-  }
-})
+export default {
+  async fetch(request) {
+    const url = new URL(request.url)
+    const { pathname } = new URL(url)
 
-async function handleFetchEvent(event) {
-  const { url } = event.request
-  const { pathname } = new URL(url)
+    // Serve Telefunc
+    if (pathname.startsWith('/_telefunc')) {
+      const body = await request.text()
+      const { method } = request
+      const response = await handleTelefunc({ url: pathname, method, body })
+      return response
+    }
 
-  // Serve Telefunc
-  if (pathname.startsWith('/_telefunc')) {
-    const body = await event.request.text()
-    const { method } = event.request
-    const response = await handleTelefunc({ url, method, body })
-    return response
-  }
-
-  // Serve Frontend
-  const response = await handleStaticAssets(event)
-  return response
+    // 404
+    return new Response('404 Not Found', {
+      status: 404,
+      headers: { 'content-type': 'text/plain; charset=UTF-8' },
+    })
+  },
 }

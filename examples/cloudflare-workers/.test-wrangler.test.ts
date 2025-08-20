@@ -1,2 +1,2 @@
 import { testRun } from './.testRun'
-testRun('npm run preview:wrangler')
+testRun('npm run preview')

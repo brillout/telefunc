@@ -1,6 +1,6 @@
-import { telefunc, config } from 'telefunc'
-
 export { handleTelefunc }
+
+import { telefunc, config } from 'telefunc'
 
 config.disableNamingConvention = true
 
