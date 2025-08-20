@@ -1,3 +1,23 @@
+## [0.2.9](https://github.com/brillout/telefunc/compare/v0.2.8...v0.2.9) (2025-08-20)
+
+
+### Bug Fixes
+
+* avoid Cloudflare false warning about Node.js API usage ([66f2a5f](https://github.com/brillout/telefunc/commit/66f2a5f186f5e46b5ca25efb36e8a7f09f00451d))
+* avoid loading modules only needed for Vite in production ([#199](https://github.com/brillout/telefunc/issues/199)) ([10ee58d](https://github.com/brillout/telefunc/commit/10ee58d99cf15a174a93261f1e591e49b55869c5))
+* improve browser test ([a234369](https://github.com/brillout/telefunc/commit/a2343695f9eb7e0f456cab76b5a5e1c83aed7a0b))
+* improve Vite server/client check ([#202](https://github.com/brillout/telefunc/issues/202)) ([37762cd](https://github.com/brillout/telefunc/commit/37762cd76ebab4722fbed9f875100d383076ef12))
+* let frameworks handle build.outDir ([#201](https://github.com/brillout/telefunc/issues/201)) ([f0fd1fc](https://github.com/brillout/telefunc/commit/f0fd1fc845d3bc4068ce50ffb752c8f5005782ac))
+* require Vite 6 ([#198](https://github.com/brillout/telefunc/issues/198)) ([f2eeb75](https://github.com/brillout/telefunc/commit/f2eeb75a08bbf1c59b1a6ab580cd067804ae6ea0))
+* update @brillout/vite-plugin-server-entry ([#193](https://github.com/brillout/telefunc/issues/193)) ([152c30b](https://github.com/brillout/telefunc/commit/152c30bcbafcca6330961a11287c2f724c035ada))
+
+
+### BREAKING CHANGES
+
+* If you use Vite, then update to Vite 6 or above.
+
+
+
 ## [0.2.8](https://github.com/brillout/telefunc/compare/v0.2.7...v0.2.8) (2025-06-25)
 
 
