@@ -1,7 +1,7 @@
 export { assertManifest }
 export type { Manifest }
 
-import { assertUsage, projectInfo, assert, hasProp, checkType } from '../../utils.js'
+import { assertUsage, projectInfo, assert, hasProp, checkType } from '../../../vite/utils.js'
 
 type Manifest = { version: string; config: Record<string, unknown> }
 

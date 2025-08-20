@@ -5,7 +5,7 @@ export { setTelefuncLoaders }
 
 import { config } from '../../serverConfig.js'
 import { getGlobalObject } from '../../../vite/utils.js'
-import { assertManifest } from '../../../vite/plugins/importBuild/assertManifest.js'
+import { assertManifest } from './assertManifest.js'
 
 const globalObject = getGlobalObject<{
   loadTelefuncFiles?: LoadTelefuncFiles

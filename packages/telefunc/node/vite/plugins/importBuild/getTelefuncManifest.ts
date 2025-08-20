@@ -2,7 +2,7 @@ export { getTelefuncManifest }
 
 import { config } from '../../../server/serverConfig.js'
 import { projectInfo } from '../../utils.js'
-import { assertManifest, type Manifest } from './assertManifest.js'
+import { assertManifest, type Manifest } from '../../../server/runTelefunc/loadTelefuncFilesUsingVite/assertManifest.js'
 
 function getTelefuncManifest(): Manifest {
   const manifest = {
