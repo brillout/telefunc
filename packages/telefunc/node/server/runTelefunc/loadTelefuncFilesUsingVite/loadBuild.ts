@@ -3,9 +3,9 @@ export { setTelefuncLoaders }
 
 // TODO/now: rename_full loadBuild loadBuildEntry
 
-import { config } from '../../../server/serverConfig.js'
-import { getGlobalObject } from '../../utils.js'
-import { assertManifest } from './assertManifest.js'
+import { config } from '../../serverConfig.js'
+import { getGlobalObject } from '../../../vite/utils.js'
+import { assertManifest } from '../../../vite/plugins/importBuild/assertManifest.js'
 
 const globalObject = getGlobalObject<{
   loadTelefuncFiles?: LoadTelefuncFiles
