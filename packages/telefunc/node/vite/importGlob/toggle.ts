@@ -2,7 +2,8 @@ export { importGlobOff }
 export { importGlobOn }
 
 import { writeFileSync } from 'node:fs'
-import { scriptFileExtensions, toPosixPath } from '../utils.js'
+// We import node/server/utils.js instead of node/vite/utils.js because importGlobOff() is imported by webpack/loader.ts
+import { scriptFileExtensions, toPosixPath } from '../../server/utils.js'
 import { createRequire } from 'node:module'
 const require_ = createRequire(import.meta.url)
 const telefuncFilesGlobFilePath = toPosixPath(require_.resolve('./telefuncFilesGlob.js'))
