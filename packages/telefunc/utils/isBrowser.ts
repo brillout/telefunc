@@ -1,18 +1,5 @@
-export { isBrowser }
-
-import { assert } from './assert.js'
-
-function isBrowser() {
-  const itIs = __browserTest()
-  assert(itIs === !__nodeTest())
-  return itIs
-}
-
-function __nodeTest() {
-  const nodeVersion = typeof process !== 'undefined' && process && process.versions && process.versions.node
-  return !!nodeVersion
-}
-
-function __browserTest() {
-  return typeof window !== 'undefined'
+export function isBrowser() {
+  // Using `typeof window !== 'undefined'` alone is not enough because some users use https://www.npmjs.com/package/ssr-window
+  return typeof window !== 'undefined' && typeof window.scrollY === 'number'
+  // Alternatively, test whether environment is a *real* browser: https://github.com/brillout/picocolors/blob/d59a33a0fd52a8a33e4158884069192a89ce0113/picocolors.js#L87-L89
 }
