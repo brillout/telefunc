@@ -4,6 +4,7 @@ import type { Plugin, ResolvedConfig } from 'vite'
 import { logResult } from '../../transformer/generateShield/generateShield.js'
 import { projectInfo } from '../utils.js'
 import pc from '@brillout/picocolors'
+import { isViteServerSide_onlySsrEnv } from '../shared/isViteServerSide.js'
 
 function printShieldGenResult(): Plugin {
   let config: ResolvedConfig
@@ -14,7 +15,7 @@ function printShieldGenResult(): Plugin {
       config = config_
     },
     async writeBundle() {
-      if (config.build.ssr) {
+      if (isViteServerSide_onlySsrEnv(config, this.environment)) {
         await new Promise((r) => process.nextTick(r)) // Ensuring we log to the console after Vite
         const logSuccessPrefix = pc.green('✓')
         const logIntro = `${pc.cyan(`telefunc v${projectInfo.projectVersion}`)} ${pc.green('shield() generation')}`
