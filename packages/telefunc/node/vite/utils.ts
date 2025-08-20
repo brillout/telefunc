@@ -1,3 +1,9 @@
+// Utils needed by Telefunc's Vite plugin
+
+// We call onLoad() here so that it's called even when only a subset of the plugin is loaded. (Making the assert() calls inside onLoad() a lot stronger.)
+import { onLoad } from './onLoad.js'
+onLoad()
+
 export * from '../../utils/assert.js'
 export * from '../../utils/projectInfo.js'
 export * from '../../utils/path-shim.js'

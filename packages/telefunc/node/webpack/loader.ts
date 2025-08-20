@@ -1,9 +1,11 @@
 import { toPosixPath } from '../server/utils.js'
 import { transformTelefuncFileClientSide } from '../transformer/transformTelefuncFileClientSide.js'
 import { transformTelefuncFileServerSide } from '../transformer/transformTelefuncFileServerSide.js'
-import '../vite/helpers/clear.js' // When running Telefunc's test suite, a previous Vite test may have generated files that need to be removed.
 import type { Loader } from './types.js'
 import { getInfo } from './getInfo.js'
+// When running Telefunc's test suite, a previous Vite test may have generated files that need to be removed.
+import { importGlobOff } from '../vite/importGlob/toggle.js'
+importGlobOff()
 
 export default async function (this: Loader, input: string): Promise<void> {
   this.async()
