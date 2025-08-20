@@ -1,6 +1,6 @@
 export { addTelefuncMiddleware }
 
-import { telefunc } from '../../server.js'
+import { telefunc } from '../../server/index.js'
 import type { ViteDevServer } from 'vite'
 
 type ConnectServer = ViteDevServer['middlewares']
