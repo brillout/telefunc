@@ -16,6 +16,7 @@ assertIsNotBrowser()
 
 const flags = [
   //
+  'telefunc:outDir',
   'telefunc:resolve',
 ] as const
 const flagsSkipWildcard = ['telefunc:log']
