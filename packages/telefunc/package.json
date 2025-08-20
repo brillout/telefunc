@@ -78,11 +78,11 @@
       "types": "./dist/node/babel/plugin.d.ts",
       "default": "./dist/node/babel/plugin.js"
     },
-    "./__internal/loadBuild": {
-      "worker": "./dist/node/vite/plugins/importBuild/loadBuild.js",
-      "browser": "./dist/client/poisen-pills/__internal/loadBuild.js",
-      "types": "./dist/node/vite/plugins/importBuild/loadBuild.d.ts",
-      "default": "./dist/node/vite/plugins/importBuild/loadBuild.js"
+    "./__internal/loadBuildEntry": {
+      "worker": "./dist/node/vite/plugins/importBuild/loadBuildEntry.js",
+      "browser": "./dist/client/poisen-pills/__internal/loadBuildEntry.js",
+      "types": "./dist/node/vite/plugins/importBuild/loadBuildEntry.d.ts",
+      "default": "./dist/node/vite/plugins/importBuild/loadBuildEntry.js"
     }
   },
   "type": "module",

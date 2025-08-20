@@ -7,7 +7,7 @@ import { assertManifest } from './assertManifest.js'
 
 const globalObject = getGlobalObject<{
   loadTelefuncFiles?: LoadTelefuncFiles
-}>('loadBuild.ts', {})
+}>('loadBuildEntry.ts', {})
 
 type LoadTelefuncFiles = () => Promise<unknown>
 type LoadManifest = () => Record<string, unknown>
