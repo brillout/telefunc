@@ -14,7 +14,7 @@ import {
   unique,
   assertPosixPath,
   getRandomId,
-} from '../../server/utils.js'
+} from '../utils.js'
 import { type ExportList, getExportList } from '../getExportList.js'
 import fs from 'node:fs'
 import path from 'node:path'
