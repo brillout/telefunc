@@ -10,6 +10,7 @@ import { packageJsonFile } from './plugins/packageJsonFile.js'
 import { importBuild } from './plugins/importBuild.js'
 import { previewConfig } from './plugins/previewConfig.js'
 import { printShieldGenResult } from './plugins/printShieldGenResult.js'
+import { registerDependencies } from './plugins/registerDependencies.js'
 import { importGlobOn } from './importGlob/toggle.js'
 import { config } from '../server/serverConfig.js'
 import type { Plugin } from 'vite'
@@ -27,6 +28,7 @@ function plugin(
   Object.assign(config, configUser as undefined | ConfigUser)
 
   const plugins: Plugin[] = [
+    registerDependencies(),
     transform(),
     commonConfig(),
     ...devConfig(),

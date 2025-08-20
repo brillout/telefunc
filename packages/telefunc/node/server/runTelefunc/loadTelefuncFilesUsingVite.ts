@@ -1,19 +1,18 @@
 export { loadTelefuncFilesUsingVite }
 
-import { importServerProductionEntry } from '@brillout/vite-plugin-server-entry/runtime'
-import { assert, assertWarning, getNodeEnv, hasProp, isObject, isProduction, isTelefuncFilePath } from '../utils.js'
-import { loadTelefuncFilesWithImportBuild } from './plugins/importBuild/loadBuild.js'
-import { getViteDevServer } from '../server/globalContext.js'
+import { assert, assertWarning, getNodeEnv, hasProp, isObject, isProduction, isTelefuncFilePath } from '../../utils.js'
+import type { ViteLoaderDependencies } from './loadTelefuncFiles.js'
 
 async function loadTelefuncFilesUsingVite(
   runContext: { telefuncFilePath: string },
   failOnFailure: boolean,
+  dependencies: ViteLoaderDependencies,
 ): Promise<null | {
   telefuncFilesLoaded: Record<string, Record<string, unknown>>
   telefuncFilesAll: string[]
   viteProvider: 'Vite' | '@brillout/vite-plugin-server-entry'
 }> {
-  const res = await loadGlobEntryFile(failOnFailure)
+  const res = await loadGlobEntryFile(failOnFailure, dependencies)
   if (!res) return null
   const { moduleExports, viteProvider } = res
   assert(isObject(moduleExports), { moduleExports, viteProvider })
@@ -24,20 +23,20 @@ async function loadTelefuncFilesUsingVite(
   return { telefuncFilesLoaded, viteProvider, telefuncFilesAll }
 }
 
-async function loadGlobEntryFile(failOnFailure: boolean) {
-  const viteDevServer = getViteDevServer()
+async function loadGlobEntryFile(failOnFailure: boolean, dependencies: ViteLoaderDependencies) {
+  const viteDevServer = dependencies.getViteDevServer()
   if (viteDevServer) {
-    const devPath = globalThis._telefunc?.telefuncFilesGlobFilePath
+    const devPath = dependencies.getGlobalTelefuncFilesGlobFilePath()
     assert(devPath)
     const moduleExports = await viteDevServer.ssrLoadModule(devPath, { fixStacktrace: true })
     return { moduleExports, viteProvider: 'Vite' as const }
   } else {
     let moduleExports: unknown
-    moduleExports = await loadTelefuncFilesWithImportBuild()
+    moduleExports = await dependencies.loadTelefuncFilesWithImportBuild()
     if (moduleExports === null) {
       const tolerateDoesNotExist = !failOnFailure
-      const success = await importServerProductionEntry({ tolerateDoesNotExist })
-      moduleExports = await loadTelefuncFilesWithImportBuild()
+      const success = await dependencies.importServerProductionEntry({ tolerateDoesNotExist })
+      moduleExports = await dependencies.loadTelefuncFilesWithImportBuild()
       if (success === false) {
         assert(tolerateDoesNotExist)
         assert(!moduleExports)
