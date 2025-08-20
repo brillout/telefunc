@@ -4,7 +4,6 @@ export default plugin
 import { transform } from './plugins/transform.js'
 import { commonConfig } from './plugins/commonConfig.js'
 import { devConfig } from './plugins/devConfig.js'
-import { buildConfig } from './plugins/buildConfig.js'
 import { retrieveDevServer } from './plugins/retrieveDevServer.js'
 import { packageJsonFile } from './plugins/packageJsonFile.js'
 import { importBuild } from './plugins/importBuild.js'
@@ -30,7 +29,6 @@ function plugin(
     transform(),
     commonConfig(),
     ...devConfig(),
-    buildConfig(),
     retrieveDevServer(),
     packageJsonFile(),
     ...importBuild(),
