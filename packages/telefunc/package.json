@@ -79,10 +79,10 @@
       "default": "./dist/node/babel/plugin.js"
     },
     "./__internal/loadBuildEntry": {
-      "worker": "./dist/node/vite/plugins/importBuild/loadBuildEntry.js",
+      "worker": "./dist/node/server/runTelefunc/loadTelefuncFilesUsingVite/loadBuild.js",
       "browser": "./dist/client/poisen-pills/__internal/loadBuildEntry.js",
-      "types": "./dist/node/vite/plugins/importBuild/loadBuildEntry.d.ts",
-      "default": "./dist/node/vite/plugins/importBuild/loadBuildEntry.js"
+      "types": "./dist/node/server/runTelefunc/loadTelefuncFilesUsingVite/loadBuild.d.ts",
+      "default": "./dist/node/server/runTelefunc/loadTelefuncFilesUsingVite/loadBuild.js"
     }
   },
   "type": "module",
