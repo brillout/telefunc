@@ -195,9 +195,9 @@ function addFileExtensionsToRequireResolve(require_: NodeJS.Require) {
 }
 
 function getPackageNodeModulesDirectory() {
-  // [RELATIVE_PATH_FROM_DIST] Current file: node_modules/${packageName}/dist/esm/utils/requireResolve.js
-  assert(importMetaUrl.includes('/dist/esm/') || importMetaUrl.includes('/dist/cjs/'))
-  const packageNodeModulesDirectory = path.posix.join(removeFilePrefix(path.dirname(importMetaUrl)), '../../../')
+  // [RELATIVE_PATH_FROM_DIST] Current file: node_modules/${packageName}/dist/utils/requireResolve.js
+  assert(importMetaUrl.includes('/dist/utils/'))
+  const packageNodeModulesDirectory = path.posix.join(removeFilePrefix(path.dirname(importMetaUrl)), '../../')
   // Return `node_modules/${packageName}/`
   return packageNodeModulesDirectory
 }
