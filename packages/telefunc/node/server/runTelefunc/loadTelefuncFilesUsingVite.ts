@@ -4,7 +4,7 @@ import { importServerProductionEntry } from '@brillout/vite-plugin-server-entry/
 import { assert, assertWarning, getNodeEnv, hasProp, isObject, isProduction, isTelefuncFilePath } from '../utils.js'
 import { loadTelefuncFilesWithImportBuild } from './loadTelefuncFilesUsingVite/loadBuildEntry.js'
 import { getViteDevServer } from '../globalContext.js'
-import { VIRTUAL_FILE_ID } from '../../vite/plugins/virtualFile/VIRTUAL_FILE_ID.js'
+import { VIRTUAL_FILE_ID } from '../../vite/plugins/virtualFileEntry/VIRTUAL_FILE_ID.js'
 
 async function loadTelefuncFilesUsingVite(
   runContext: { telefuncFilePath: string },
