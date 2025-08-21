@@ -4,7 +4,7 @@ import { serverProductionEntryPlugin } from '@brillout/vite-plugin-server-entry/
 import type { Plugin } from 'vite'
 import { assert, projectInfo } from '../utils.js'
 import { getTelefuncManifest } from './importBuild/getTelefuncManifest.js'
-import { VIRTUAL_FILE_ENTRY_ID } from './virtualFileEntry/VIRTUAL_FILE_ENTRY_ID.js'
+import { VIRTUAL_FILE_ENTRY_ID } from './pluginVirtualFileEntry/VIRTUAL_FILE_ENTRY_ID.js'
 
 function pluginImportBuild(): Plugin[] {
   return [
