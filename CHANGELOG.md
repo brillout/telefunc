@@ -1,3 +1,19 @@
+## [0.2.10](https://github.com/brillout/telefunc/compare/v0.2.9...v0.2.10) (2025-08-21)
+
+
+### Bug Fixes
+
+* @brillout/json-serializer@^0.5.19 ([49fe95f](https://github.com/brillout/telefunc/commit/49fe95f0254454346bd5e1c56a69a859b3c2a95b))
+* @brillout/json-serializer@^0.5.20 ([fe52288](https://github.com/brillout/telefunc/commit/fe522881d4083bca56b76c3c608d0da9222a7f1e))
+* use virtual file instead of physical file ([#204](https://github.com/brillout/telefunc/issues/204)) ([a9e8807](https://github.com/brillout/telefunc/commit/a9e880738bc4cec88e6ff4e4898b0811ff23046b))
+
+
+### BREAKING CHANGES
+
+* Update to Node.js 20 or above (or use Bun/Deno).
+
+
+
 ## [0.2.9](https://github.com/brillout/telefunc/compare/v0.2.8...v0.2.9) (2025-08-20)
 
 
