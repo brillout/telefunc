@@ -1,7 +1,7 @@
 export { virtualModule }
 
 import type { Plugin } from 'vite'
-import { javaScriptFileExtensionPattern } from '../../server/utils.js'
+import { javaScriptFileExtensionPattern } from '../utils.js'
 
 const VIRTUAL_MODULE_ID = 'virtual:telefunc-files-glob'
 
