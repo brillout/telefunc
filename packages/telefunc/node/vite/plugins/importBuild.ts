@@ -19,12 +19,9 @@ function importBuild(): Plugin[] {
 function getServerProductionEntryCode() {
   const telefuncManifest = getTelefuncManifest()
 
-  const { telefuncFilesGlobFilePath } = globalThis._telefunc!
-  assert(telefuncFilesGlobFilePath)
-
   const importerCode = [
     `import { setTelefuncLoaders } from 'telefunc/__internal/loadBuildEntry';`,
-    `import * as telefuncFiles from '${telefuncFilesGlobFilePath}';`,
+    `import * as telefuncFiles from 'virtual:telefunc-files-glob';`,
     'setTelefuncLoaders({',
     `  loadTelefuncFiles: () => telefuncFiles,`,
     `  loadManifest: () => (${JSON.stringify(telefuncManifest, null, 2)})`,

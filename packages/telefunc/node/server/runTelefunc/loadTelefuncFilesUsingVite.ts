@@ -27,10 +27,17 @@ async function loadTelefuncFilesUsingVite(
 async function loadGlobEntryFile(failOnFailure: boolean) {
   const viteDevServer = getViteDevServer()
   if (viteDevServer) {
-    const devPath = globalThis._telefunc?.telefuncFilesGlobFilePath
-    assert(devPath)
-    const moduleExports = await viteDevServer.ssrLoadModule(devPath, { fixStacktrace: true })
-    return { moduleExports, viteProvider: 'Vite' as const }
+    // Try to load from virtual module first, fallback to physical file for compatibility
+    try {
+      const moduleExports = await viteDevServer.ssrLoadModule('virtual:telefunc-files-glob', { fixStacktrace: true })
+      return { moduleExports, viteProvider: 'Vite' as const }
+    } catch (error) {
+      // Fallback to physical file for backward compatibility
+      const devPath = globalThis._telefunc?.telefuncFilesGlobFilePath
+      assert(devPath)
+      const moduleExports = await viteDevServer.ssrLoadModule(devPath, { fixStacktrace: true })
+      return { moduleExports, viteProvider: 'Vite' as const }
+    }
   } else {
     let moduleExports: unknown
     moduleExports = await loadTelefuncFilesWithImportBuild()
