@@ -13,9 +13,11 @@ globalThis._telefunc ??= {}
 globalThis._telefunc.virtualModuleContent = '// Removed by importGlob/toggle.ts'
 
 declare global {
-  var _telefunc: undefined | {
-    virtualModuleContent?: string
-  }
+  var _telefunc:
+    | undefined
+    | {
+        virtualModuleContent?: string
+      }
 }
 
 const importGlob = `import.meta.glob("/**/*.telefunc.${javaScriptFileExtensionPattern}")`
