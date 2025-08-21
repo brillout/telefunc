@@ -4,7 +4,7 @@ import { serverProductionEntryPlugin } from '@brillout/vite-plugin-server-entry/
 import type { Plugin } from 'vite'
 import { assert, projectInfo } from '../utils.js'
 import { getTelefuncManifest } from './importBuild/getTelefuncManifest.js'
-import { VIRTUAL_MODULE_ID } from './virtualFile.js'
+import { VIRTUAL_FILE_ID } from './virtualFile.js'
 
 function importBuild(): Plugin[] {
   return [
@@ -22,7 +22,7 @@ function getServerProductionEntryCode() {
 
   const importerCode = [
     `import { setTelefuncLoaders } from 'telefunc/__internal/loadBuildEntry';`,
-    `import * as telefuncFiles from '${VIRTUAL_MODULE_ID}';`,
+    `import * as telefuncFiles from '${VIRTUAL_FILE_ID}';`,
     'setTelefuncLoaders({',
     `  loadTelefuncFiles: () => telefuncFiles,`,
     `  loadManifest: () => (${JSON.stringify(telefuncManifest, null, 2)})`,
