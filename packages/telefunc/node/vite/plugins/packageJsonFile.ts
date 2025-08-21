@@ -10,7 +10,7 @@
 export { packageJsonFile }
 
 import type { Plugin, ResolvedConfig } from 'vite'
-import { rollupIsEsm } from '../helpers.js'
+import { rollupIsEsm } from '../shared/rollupIsEsm.js'
 import { isViteServerSide } from '../shared/isViteServerSide.js'
 
 function packageJsonFile(): Plugin {
