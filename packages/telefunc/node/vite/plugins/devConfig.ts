@@ -1,7 +1,7 @@
 export { devConfig }
 
 import type { Plugin, ResolvedConfig } from 'vite'
-import { apply, addTelefuncMiddleware } from '../helpers.js'
+import { apply, addTelefuncMiddleware } from '../shared.js'
 import { getPackageNodeModulesDirectory } from '../utils.js'
 
 function devConfig(): Plugin[] {
