@@ -6,7 +6,7 @@ import { writeFileSync } from 'node:fs'
 import { javaScriptFileExtensionPattern, toPosixPath } from '../../server/utils.js'
 import { createRequire } from 'node:module'
 const require_ = createRequire(import.meta.url)
-const telefuncFilesGlobFilePath = toPosixPath(require_.resolve('./telefuncFilesGlob.js'))
+const telefuncFilesGlobFilePath = toPosixPath(require_.resolve('./telefuncFilesGlobFile.js'))
 globalThis._telefunc ??= {}
 globalThis._telefunc.telefuncFilesGlobFilePath = telefuncFilesGlobFilePath
 declare global {
