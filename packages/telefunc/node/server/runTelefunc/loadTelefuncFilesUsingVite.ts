@@ -4,6 +4,7 @@ import { importServerProductionEntry } from '@brillout/vite-plugin-server-entry/
 import { assert, assertWarning, getNodeEnv, hasProp, isObject, isProduction, isTelefuncFilePath } from '../utils.js'
 import { loadTelefuncFilesWithImportBuild } from './loadTelefuncFilesUsingVite/loadBuildEntry.js'
 import { getViteDevServer } from '../globalContext.js'
+import { VIRTUAL_FILE_ENTRY_ID } from '../../vite/plugins/virtualFileEntry/VIRTUAL_FILE_ENTRY_ID.js'
 
 async function loadTelefuncFilesUsingVite(
   runContext: { telefuncFilePath: string },
@@ -27,9 +28,7 @@ async function loadTelefuncFilesUsingVite(
 async function loadGlobEntryFile(failOnFailure: boolean) {
   const viteDevServer = getViteDevServer()
   if (viteDevServer) {
-    const devPath = globalThis._telefunc?.telefuncFilesGlobFilePath
-    assert(devPath)
-    const moduleExports = await viteDevServer.ssrLoadModule(devPath, { fixStacktrace: true })
+    const moduleExports = await viteDevServer.ssrLoadModule(VIRTUAL_FILE_ENTRY_ID, { fixStacktrace: true })
     return { moduleExports, viteProvider: 'Vite' as const }
   } else {
     let moduleExports: unknown
