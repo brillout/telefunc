@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@brillout/import": "^0.2.6",
-    "@brillout/json-serializer": "^0.5.15",
+    "@brillout/json-serializer": "^0.5.19",
     "@brillout/picocolors": "^1.0.28",
     "@brillout/vite-plugin-server-entry": "^0.7.12",
     "es-module-lexer": "^1.7.0",
