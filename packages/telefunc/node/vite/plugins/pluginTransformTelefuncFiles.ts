@@ -1,15 +1,15 @@
-export { pluginTransform }
+export { pluginTransformTelefuncFiles }
 
 import type { Plugin } from 'vite'
 import { transformTelefuncFileClientSide } from '../../transformer/transformTelefuncFileClientSide.js'
 import { transformTelefuncFileServerSide } from '../../transformer/transformTelefuncFileServerSide.js'
 import { assert, toPosixPath } from '../utils.js'
 
-function pluginTransform(): Plugin {
+function pluginTransformTelefuncFiles(): Plugin {
   let root: string
   let isDev: boolean = false
   return {
-    name: 'telefunc:pluginTransform',
+    name: 'telefunc:pluginTransformTelefuncFiles',
     enforce: 'pre',
     configResolved: (config) => {
       root = toPosixPath(config.root)
