@@ -1,4 +1,5 @@
 export { virtualModule }
+export { VIRTUAL_MODULE_ID }
 
 import type { Plugin } from 'vite'
 import { javaScriptFileExtensionPattern } from '../utils.js'
