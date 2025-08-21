@@ -5,7 +5,7 @@ import { pluginTransformTelefuncFiles } from './plugins/pluginTransformTelefuncF
 import { pluginCommon } from './plugins/pluginCommon.js'
 import { pluginDev } from './plugins/pluginDev.js'
 import { pluginRetrieveDevServer } from './plugins/pluginRetrieveDevServer.js'
-import { pluginPackageJsonFile } from './plugins/pluginPackageJsonFile.js'
+import { pluginDistPackageJsonFile } from './plugins/pluginDistPackageJsonFile.js'
 import { pluginImportBuild } from './plugins/pluginImportBuild.js'
 import { pluginPreview } from './plugins/pluginPreview.js'
 import { pluginPrintShieldResult } from './plugins/pluginPrintShieldResult.js'
@@ -29,7 +29,7 @@ function plugin(
     pluginCommon(),
     ...pluginDev(),
     pluginRetrieveDevServer(),
-    pluginPackageJsonFile(),
+    pluginDistPackageJsonFile(),
     ...pluginImportBuild(),
     pluginPreview(),
     pluginPrintShieldResult(),

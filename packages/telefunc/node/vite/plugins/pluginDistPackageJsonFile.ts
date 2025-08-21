@@ -1,4 +1,4 @@
-export { pluginPackageJsonFile }
+export { pluginDistPackageJsonFile }
 
 // We create a file `dist/server/package.json` to support ESM users.
 // Otherwise, following error is thrown:
@@ -11,10 +11,10 @@ import type { Plugin, ResolvedConfig } from 'vite'
 import { rollupIsEsm } from '../shared/rollupIsEsm.js'
 import { isViteServerSide } from '../shared/isViteServerSide.js'
 
-function pluginPackageJsonFile(): Plugin {
+function pluginDistPackageJsonFile(): Plugin {
   let config: ResolvedConfig
   return {
-    name: 'telefunc:pluginPackageJsonFile',
+    name: 'telefunc:pluginDistPackageJsonFile',
     apply: 'build',
     configResolved(config_) {
       config = config_
