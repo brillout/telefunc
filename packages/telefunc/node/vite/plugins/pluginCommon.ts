@@ -1,10 +1,10 @@
-export { pluginCommonConfig }
+export { pluginCommon }
 
 import type { Plugin } from 'vite'
 
-function pluginCommonConfig(): Plugin {
+function pluginCommon(): Plugin {
   return {
-    name: 'telefunc:pluginCommonConfig',
+    name: 'telefunc:pluginCommon',
     config: () => ({
       ssr: { external: ['telefunc'] },
     }),

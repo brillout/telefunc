@@ -2,7 +2,7 @@ export { plugin as telefunc }
 export default plugin
 
 import { pluginTransformTelefuncFiles } from './plugins/pluginTransformTelefuncFiles.js'
-import { pluginCommonConfig } from './plugins/pluginCommonConfig.js'
+import { pluginCommon } from './plugins/pluginCommon.js'
 import { pluginDevConfig } from './plugins/pluginDevConfig.js'
 import { pluginRetrieveDevServer } from './plugins/pluginRetrieveDevServer.js'
 import { pluginPackageJsonFile } from './plugins/pluginPackageJsonFile.js'
@@ -26,7 +26,7 @@ function plugin(
   const plugins: Plugin[] = [
     pluginVirtualFileEntry(),
     pluginTransformTelefuncFiles(),
-    pluginCommonConfig(),
+    pluginCommon(),
     ...pluginDevConfig(),
     pluginRetrieveDevServer(),
     pluginPackageJsonFile(),
