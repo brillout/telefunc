@@ -10,7 +10,6 @@ import { importBuild } from './plugins/importBuild.js'
 import { previewConfig } from './plugins/previewConfig.js'
 import { printShieldGenResult } from './plugins/printShieldGenResult.js'
 import { virtualModule } from './plugins/virtualModule.js'
-import { importGlobOn } from './importGlob/toggle.js'
 import { config } from '../server/serverConfig.js'
 import type { Plugin } from 'vite'
 import type { ConfigUser } from '../server/serverConfig.js'
@@ -20,8 +19,6 @@ function plugin(
   /** @deprecated */
   configUser?: never,
 ): any {
-  importGlobOn()
-
   // We use this for minimal /examples/* that don't have any server code.
   // Telefunc users aren't expected to use this. (We expect users to always have server code.)
   Object.assign(config, configUser as undefined | ConfigUser)
