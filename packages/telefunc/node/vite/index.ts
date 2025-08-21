@@ -3,7 +3,7 @@ export default plugin
 
 import { pluginTransformTelefuncFiles } from './plugins/pluginTransformTelefuncFiles.js'
 import { pluginCommon } from './plugins/pluginCommon.js'
-import { pluginDevConfig } from './plugins/pluginDevConfig.js'
+import { pluginDev } from './plugins/pluginDev.js'
 import { pluginRetrieveDevServer } from './plugins/pluginRetrieveDevServer.js'
 import { pluginPackageJsonFile } from './plugins/pluginPackageJsonFile.js'
 import { pluginImportBuild } from './plugins/pluginImportBuild.js'
@@ -27,7 +27,7 @@ function plugin(
     pluginVirtualFileEntry(),
     pluginTransformTelefuncFiles(),
     pluginCommon(),
-    ...pluginDevConfig(),
+    ...pluginDev(),
     pluginRetrieveDevServer(),
     pluginPackageJsonFile(),
     ...pluginImportBuild(),

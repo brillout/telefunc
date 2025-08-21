@@ -1,14 +1,14 @@
-export { pluginDevConfig }
+export { pluginDev }
 
 import type { Plugin, ResolvedConfig } from 'vite'
 import { apply } from '../shared/apply.js'
 import { addTelefuncMiddleware } from '../shared/addTelefuncMiddleware.js'
 import { getPackageNodeModulesDirectory } from '../utils.js'
 
-function pluginDevConfig(): Plugin[] {
+function pluginDev(): Plugin[] {
   return [
     {
-      name: 'telefunc:pluginDevConfig',
+      name: 'telefunc:pluginDev',
       apply: apply('dev'),
       config: () => ({
         optimizeDeps: {
@@ -30,7 +30,7 @@ function pluginDevConfig(): Plugin[] {
       },
     },
     {
-      name: 'telefunc:pluginDevConfig:serverMiddleware',
+      name: 'telefunc:pluginDev:serverMiddleware',
       apply: apply('dev', { skipMiddlewareMode: true, onlyViteCli: true }),
       // Ensure that SvelteKit's configureServer() has precedence, see https://github.com/brillout/telefunc/pull/54
       enforce: 'post',
