@@ -11,7 +11,7 @@ export { packageJsonFile }
 
 import type { Plugin, ResolvedConfig } from 'vite'
 import { rollupIsEsm } from '../helpers.js'
-import { isViteServerSide } from '../shared/isViteServerSide.js'
+import { isViteServerSide } from '../shared_tmp/isViteServerSide.js'
 
 function packageJsonFile(): Plugin {
   let config: ResolvedConfig

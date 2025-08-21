@@ -4,7 +4,7 @@ import type { Plugin, ResolvedConfig } from 'vite'
 import { logResult } from '../../transformer/generateShield/generateShield.js'
 import { projectInfo } from '../utils.js'
 import pc from '@brillout/picocolors'
-import { isViteServerSide_onlySsrEnv } from '../shared/isViteServerSide.js'
+import { isViteServerSide_onlySsrEnv } from '../shared_tmp/isViteServerSide.js'
 
 function printShieldGenResult(): Plugin {
   let config: ResolvedConfig
