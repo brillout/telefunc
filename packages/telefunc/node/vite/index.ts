@@ -7,7 +7,7 @@ import { pluginDev } from './plugins/pluginDev.js'
 import { pluginRetrieveDevServer } from './plugins/pluginRetrieveDevServer.js'
 import { pluginPackageJsonFile } from './plugins/pluginPackageJsonFile.js'
 import { pluginImportBuild } from './plugins/pluginImportBuild.js'
-import { pluginPreviewConfig } from './plugins/pluginPreviewConfig.js'
+import { pluginPreview } from './plugins/pluginPreview.js'
 import { pluginPrintShieldResult } from './plugins/pluginPrintShieldResult.js'
 import { pluginVirtualFileEntry } from './plugins/pluginVirtualFileEntry.js'
 import { config } from '../server/serverConfig.js'
@@ -31,7 +31,7 @@ function plugin(
     pluginRetrieveDevServer(),
     pluginPackageJsonFile(),
     ...pluginImportBuild(),
-    pluginPreviewConfig(),
+    pluginPreview(),
     pluginPrintShieldResult(),
   ]
   return plugins
