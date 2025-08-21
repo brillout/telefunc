@@ -1,43 +1,36 @@
-export { importGlobOff }
-export { importGlobOn }
-export { getVirtualModuleContent }
+export { importGlobOff, importGlobOn, getVirtualModuleContent }
 
-// We import node/server/utils.js instead of node/vite/utils.js because importGlobOff() is imported by webpack/loader.ts
 import { javaScriptFileExtensionPattern } from '../../server/utils.js'
 
-// Virtual module ID for Vite
 export const VIRTUAL_MODULE_ID = 'virtual:telefunc-files-glob'
 
-// Global state for virtual module content
-globalThis._telefunc ??= {}
-globalThis._telefunc.virtualModuleContent = '// Removed by importGlob/toggle.ts'
+const DISABLED_CONTENT = '// Virtual module disabled'
+const importGlobPattern = `import.meta.glob("/**/*.telefunc.${javaScriptFileExtensionPattern}")`
 
 declare global {
-  var _telefunc:
-    | undefined
-    | {
-        virtualModuleContent?: string
-      }
+  var _telefunc: undefined | {
+    virtualModuleContent?: string
+  }
 }
 
-const importGlob = `import.meta.glob("/**/*.telefunc.${javaScriptFileExtensionPattern}")`
+// Initialize global state
+globalThis._telefunc ??= {}
+globalThis._telefunc.virtualModuleContent ??= DISABLED_CONTENT
 
-function importGlobOff() {
-  // Update virtual module content
-  globalThis._telefunc!.virtualModuleContent = '// Removed by importGlob/toggle.ts'
+function importGlobOff(): void {
+  ensureGlobalState()
+  globalThis._telefunc!.virtualModuleContent = DISABLED_CONTENT
 }
 
-function importGlobOn() {
-  const content = [
-    `export const telefuncFilesGlob = ${importGlob};`,
-    // 'console.log("`.telefunc.js` files", Object.keys(telefuncFilesGlob))',
-    '',
-  ].join('\n')
-
-  // Update virtual module content
-  globalThis._telefunc!.virtualModuleContent = content
+function importGlobOn(): void {
+  ensureGlobalState()
+  globalThis._telefunc!.virtualModuleContent = `export const telefuncFilesGlob = ${importGlobPattern};`
 }
 
 function getVirtualModuleContent(): string {
-  return globalThis._telefunc?.virtualModuleContent || '// Removed by importGlob/toggle.ts'
+  return globalThis._telefunc?.virtualModuleContent ?? DISABLED_CONTENT
+}
+
+function ensureGlobalState(): void {
+  globalThis._telefunc ??= {}
 }

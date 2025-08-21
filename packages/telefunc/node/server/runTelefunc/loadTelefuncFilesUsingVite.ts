@@ -27,7 +27,6 @@ async function loadTelefuncFilesUsingVite(
 async function loadGlobEntryFile(failOnFailure: boolean) {
   const viteDevServer = getViteDevServer()
   if (viteDevServer) {
-    // Load from virtual module
     const moduleExports = await viteDevServer.ssrLoadModule('virtual:telefunc-files-glob', { fixStacktrace: true })
     return { moduleExports, viteProvider: 'Vite' as const }
   } else {
