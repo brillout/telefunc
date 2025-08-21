@@ -15,7 +15,7 @@ declare global {
 const importGlob = `import.meta.glob("/**/*.telefunc.${javaScriptFileExtensionPattern}")`
 
 function importGlobOff() {
-  writeFileSync(telefuncFilesGlobFilePath, ['exports.importGlobOff = true', ''].join('\n'))
+  writeFileSync(telefuncFilesGlobFilePath, '// Removed by importGlob/toggle.ts')
 }
 
 function importGlobOn() {
