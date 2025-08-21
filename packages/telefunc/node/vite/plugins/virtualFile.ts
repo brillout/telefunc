@@ -1,10 +1,8 @@
 export { virtualFile }
-export { VIRTUAL_FILE_ID }
 
 import type { Plugin } from 'vite'
 import { javaScriptFileExtensionPattern } from '../utils.js'
-
-const VIRTUAL_FILE_ID = 'virtual:telefunc-files-glob'
+import { VIRTUAL_FILE_ID } from './virtualFile/VIRTUAL_FILE_ID.js'
 const moduleContent = `export const telefuncFilesGlob = import.meta.glob("/**/*.telefunc.${javaScriptFileExtensionPattern}");`
 
 function virtualFile(): Plugin {
