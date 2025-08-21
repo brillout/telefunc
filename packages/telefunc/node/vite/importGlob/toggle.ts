@@ -8,9 +8,11 @@ const DISABLED_CONTENT = '// Virtual module disabled'
 const importGlobPattern = `import.meta.glob("/**/*.telefunc.${javaScriptFileExtensionPattern}")`
 
 declare global {
-  var _telefunc: undefined | {
-    virtualModuleContent?: string
-  }
+  var _telefunc:
+    | undefined
+    | {
+        virtualModuleContent?: string
+      }
 }
 
 // Initialize global state
