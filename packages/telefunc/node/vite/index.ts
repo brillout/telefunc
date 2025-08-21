@@ -1,15 +1,15 @@
 export { plugin as telefunc }
 export default plugin
 
-import { transform } from './plugins/transform.js'
-import { commonConfig } from './plugins/commonConfig.js'
-import { devConfig } from './plugins/devConfig.js'
-import { retrieveDevServer } from './plugins/retrieveDevServer.js'
-import { packageJsonFile } from './plugins/packageJsonFile.js'
-import { importBuild } from './plugins/importBuild.js'
-import { previewConfig } from './plugins/previewConfig.js'
-import { printShieldGenResult } from './plugins/printShieldGenResult.js'
-import { virtualFileEntry } from './plugins/virtualFileEntry.js'
+import { pluginTransform } from './plugins/pluginTransform.js'
+import { pluginCommonConfig } from './plugins/pluginCommonConfig.js'
+import { pluginDevConfig } from './plugins/pluginDevConfig.js'
+import { pluginRetrieveDevServer } from './plugins/pluginRetrieveDevServer.js'
+import { pluginPackageJsonFile } from './plugins/pluginPackageJsonFile.js'
+import { pluginImportBuild } from './plugins/pluginImportBuild.js'
+import { pluginPreviewConfig } from './plugins/pluginPreviewConfig.js'
+import { pluginPrintShieldGenResult } from './plugins/pluginPrintShieldGenResult.js'
+import { pluginVirtualFileEntry } from './plugins/pluginVirtualFileEntry.js'
 import { config } from '../server/serverConfig.js'
 import type { Plugin } from 'vite'
 import type { ConfigUser } from '../server/serverConfig.js'
@@ -24,15 +24,15 @@ function plugin(
   Object.assign(config, configUser as undefined | ConfigUser)
 
   const plugins: Plugin[] = [
-    virtualFileEntry(),
-    transform(),
-    commonConfig(),
-    ...devConfig(),
-    retrieveDevServer(),
-    packageJsonFile(),
-    ...importBuild(),
-    previewConfig(),
-    printShieldGenResult(),
+    pluginVirtualFileEntry(),
+    pluginTransform(),
+    pluginCommonConfig(),
+    ...pluginDevConfig(),
+    pluginRetrieveDevServer(),
+    pluginPackageJsonFile(),
+    ...pluginImportBuild(),
+    pluginPreviewConfig(),
+    pluginPrintShieldGenResult(),
   ]
   return plugins
 }

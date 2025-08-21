@@ -1,4 +1,4 @@
-export { importBuild }
+export { pluginImportBuild }
 
 import { serverProductionEntryPlugin } from '@brillout/vite-plugin-server-entry/plugin'
 import type { Plugin } from 'vite'
@@ -6,7 +6,7 @@ import { assert, projectInfo } from '../utils.js'
 import { getTelefuncManifest } from './importBuild/getTelefuncManifest.js'
 import { VIRTUAL_FILE_ENTRY_ID } from './virtualFileEntry/VIRTUAL_FILE_ENTRY_ID.js'
 
-function importBuild(): Plugin[] {
+function pluginImportBuild(): Plugin[] {
   return [
     ...serverProductionEntryPlugin({
       getServerProductionEntry: () => {
