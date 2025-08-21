@@ -8,7 +8,10 @@
 * use virtual file instead of physical file ([#204](https://github.com/brillout/telefunc/issues/204)) ([a9e8807](https://github.com/brillout/telefunc/commit/a9e880738bc4cec88e6ff4e4898b0811ff23046b))
 
 
-### BREAKING CHANGES
+### MINOR BREAKING CHANGES
+
+> [!NOTE]
+> We recommend ignoring `MINOR BREAKING CHANGES` unless this version breaks your app, see [Vike Versioning](https://vike.dev/versioning).
 
 * Update to Node.js 20 or above (or use Bun/Deno).
 
