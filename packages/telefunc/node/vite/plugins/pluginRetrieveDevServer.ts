@@ -1,11 +1,11 @@
-export { retrieveDevServer }
+export { pluginRetrieveDevServer }
 
 import type { Plugin } from 'vite'
 import { setViteDevServer } from '../../server/globalContext.js'
 
-function retrieveDevServer(): Plugin {
+function pluginRetrieveDevServer(): Plugin {
   return {
-    name: 'telefunc:retrieveDevServer',
+    name: 'telefunc:pluginRetrieveDevServer',
     configureServer(viteDevServer) {
       setViteDevServer(viteDevServer)
     },
