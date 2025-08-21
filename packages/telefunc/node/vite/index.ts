@@ -9,7 +9,7 @@ import { packageJsonFile } from './plugins/packageJsonFile.js'
 import { importBuild } from './plugins/importBuild.js'
 import { previewConfig } from './plugins/previewConfig.js'
 import { printShieldGenResult } from './plugins/printShieldGenResult.js'
-import { virtualModule } from './plugins/virtualModule.js'
+import { virtualFile } from './plugins/virtualFile.js'
 import { config } from '../server/serverConfig.js'
 import type { Plugin } from 'vite'
 import type { ConfigUser } from '../server/serverConfig.js'
@@ -24,7 +24,7 @@ function plugin(
   Object.assign(config, configUser as undefined | ConfigUser)
 
   const plugins: Plugin[] = [
-    virtualModule(),
+    virtualFile(),
     transform(),
     commonConfig(),
     ...devConfig(),
