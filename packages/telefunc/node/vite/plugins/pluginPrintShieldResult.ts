@@ -1,4 +1,4 @@
-export { pluginPrintShieldGenResult }
+export { pluginPrintShieldResult }
 
 import type { Plugin, ResolvedConfig } from 'vite'
 import { logResult } from '../../transformer/generateShield/generateShield.js'
@@ -6,10 +6,10 @@ import { projectInfo } from '../utils.js'
 import pc from '@brillout/picocolors'
 import { isViteServerSide_onlySsrEnv } from '../shared/isViteServerSide.js'
 
-function pluginPrintShieldGenResult(): Plugin {
+function pluginPrintShieldResult(): Plugin {
   let config: ResolvedConfig
   return {
-    name: 'telefunc:pluginPrintShieldGenResult',
+    name: 'telefunc:pluginPrintShieldResult',
     apply: 'build',
     configResolved(config_) {
       config = config_
