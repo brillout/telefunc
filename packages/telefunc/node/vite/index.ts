@@ -6,7 +6,7 @@ import { pluginCommon } from './plugins/pluginCommon.js'
 import { pluginDev } from './plugins/pluginDev.js'
 import { pluginRetrieveDevServer } from './plugins/pluginRetrieveDevServer.js'
 import { pluginDistPackageJsonFile } from './plugins/pluginDistPackageJsonFile.js'
-import { pluginImportBuild } from './plugins/pluginImportBuild.js'
+import { pluginBuildEntry } from './plugins/pluginBuildEntry.js'
 import { pluginPreview } from './plugins/pluginPreview.js'
 import { pluginPrintShieldResult } from './plugins/pluginPrintShieldResult.js'
 import { pluginVirtualFileEntry } from './plugins/pluginVirtualFileEntry.js'
@@ -30,7 +30,7 @@ function plugin(
     ...pluginDev(),
     pluginRetrieveDevServer(),
     pluginDistPackageJsonFile(),
-    ...pluginImportBuild(),
+    ...pluginBuildEntry(),
     pluginPreview(),
     pluginPrintShieldResult(),
   ]
