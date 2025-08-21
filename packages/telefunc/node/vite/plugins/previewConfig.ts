@@ -1,7 +1,8 @@
 export { previewConfig }
 
 import type { Plugin } from 'vite'
-import { apply, addTelefuncMiddleware } from '../shared.js'
+import { apply } from '../shared/apply.js'
+import { addTelefuncMiddleware } from '../shared/addTelefuncMiddleware.js'
 
 function previewConfig(): Plugin {
   return {
