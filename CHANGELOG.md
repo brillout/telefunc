@@ -22,7 +22,7 @@
 > [!NOTE]
 > We recommend ignoring `MINOR BREAKING CHANGES` unless this version breaks your app, see [Vike Versioning](https://vike.dev/versioning).
 
-* Update to Node.js 20 or above (or use Bun/Deno).
+* Update to Node.js 20 or above (or use Bun/Deno). See also: [`require(esm)`](https://gist.github.com/brillout/8e0133716e169b981b6c4e8a938b0134).
 
 
 
