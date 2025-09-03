@@ -11,8 +11,6 @@ function pluginTransformTelefuncFiles(): Plugin {
   return {
     name: 'telefunc:pluginTransformTelefuncFiles',
     enforce: 'pre',
-    // Note: configResolved and configureServer hooks don't benefit from filters
-    // since they're called once per build/dev session and don't process files
     configResolved: {
       handler(config) {
         root = toPosixPath(config.root)

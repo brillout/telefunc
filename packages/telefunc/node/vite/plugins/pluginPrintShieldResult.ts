@@ -11,15 +11,12 @@ function pluginPrintShieldResult(): Plugin {
   return {
     name: 'telefunc:pluginPrintShieldResult',
     apply: 'build',
-    // Note: configResolved hook doesn't benefit from filters since it's called once per build session
     configResolved: {
       handler(config_) {
         config = config_
       },
     },
     writeBundle: {
-      // Note: We can't easily filter by server-side vs client-side at the filter level
-      // since it depends on runtime environment context, so we keep the runtime check
       async handler() {
         if (isViteServerSide_onlySsrEnv(config, this.environment)) {
           await new Promise((r) => process.nextTick(r)) // Ensuring we log to the console after Vite

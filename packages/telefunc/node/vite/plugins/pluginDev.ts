@@ -10,8 +10,6 @@ function pluginDev(): Plugin[] {
     {
       name: 'telefunc:pluginDev',
       apply: apply('dev'),
-      // Note: config, configResolved, and configureServer hooks don't benefit from filters
-      // since they're called once per build/dev session and don't process files
       config: {
         handler() {
           return {
