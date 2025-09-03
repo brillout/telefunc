@@ -1,3 +1,17 @@
+## [0.2.12](https://github.com/brillout/telefunc/compare/v0.2.11...v0.2.12) (2025-09-03)
+
+
+### Bug Fixes
+
+* update @brillout/vite-plugin-server-entry ([91721f4](https://github.com/brillout/telefunc/commit/91721f45c3233dd1d3b261c07c4c2b46a3d8d7bb))
+
+
+### Performance Improvements
+
+* use Vite hook filters ([#208](https://github.com/brillout/telefunc/issues/208)) ([28c6498](https://github.com/brillout/telefunc/commit/28c649808e6046440bb5a24bbffdda6194440f51))
+
+
+
 ## [0.2.11](https://github.com/brillout/telefunc/compare/v0.2.10...v0.2.11) (2025-08-25)
 
 
