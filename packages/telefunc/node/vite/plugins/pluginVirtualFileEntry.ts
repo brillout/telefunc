@@ -20,11 +20,10 @@ function pluginVirtualFileEntry(): Plugin {
     },
     load: {
       filter: {
-        id: resolvedId,
+        // id: [resolvedId, VIRTUAL_FILE_ENTRY_ID],
       },
       handler(id) {
-        assert(id === resolvedId)
-        return moduleContent
+        return id === resolvedId ? moduleContent : undefined
       },
     },
   }
