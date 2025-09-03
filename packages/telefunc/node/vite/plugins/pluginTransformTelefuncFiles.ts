@@ -19,17 +19,17 @@ function pluginTransformTelefuncFiles(): Plugin {
       isDev = true
     },
     transform: {
-    async handler(code, id, options) {
-      if (!id.includes('.telefunc.')) {
-        return
-      }
-      const isClientSide = !options?.ssr
-      if (isClientSide) {
-        return await transformTelefuncFileClientSide(code, id, root)
-      } else {
-        return await transformTelefuncFileServerSide(code, id, root, isDev)
-      }
+      async handler(code, id, options) {
+        if (!id.includes('.telefunc.')) {
+          return
+        }
+        const isClientSide = !options?.ssr
+        if (isClientSide) {
+          return await transformTelefuncFileClientSide(code, id, root)
+        } else {
+          return await transformTelefuncFileServerSide(code, id, root, isDev)
+        }
+      },
     },
-    }
   }
 }
