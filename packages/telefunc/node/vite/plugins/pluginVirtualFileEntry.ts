@@ -1,13 +1,13 @@
 export { pluginVirtualFileEntry }
 
 import type { Plugin } from 'vite'
-import { escapeRegex, javaScriptFileExtensionPattern } from '../utils.js'
+import { assert, escapeRegex, javaScriptFileExtensionPattern } from '../utils.js'
 import { VIRTUAL_FILE_ENTRY_ID } from './pluginVirtualFileEntry/VIRTUAL_FILE_ENTRY_ID.js'
+const resolvedId = '\0' + VIRTUAL_FILE_ENTRY_ID
 
 const moduleContent = `export const telefuncFilesGlob = import.meta.glob("/**/*.telefunc.${javaScriptFileExtensionPattern}");`
 
 function pluginVirtualFileEntry(): Plugin {
-  const resolvedId = '\0' + VIRTUAL_FILE_ENTRY_ID
   return {
     name: 'telefunc:pluginVirtualFileEntry',
     resolveId: {
@@ -15,15 +15,15 @@ function pluginVirtualFileEntry(): Plugin {
         id: new RegExp(`^${escapeRegex(VIRTUAL_FILE_ENTRY_ID)}$`),
       },
       handler(id) {
-        return id === VIRTUAL_FILE_ENTRY_ID ? resolvedId : undefined
+        assert(id === VIRTUAL_FILE_ENTRY_ID)
+        return resolvedId
       },
     },
     load: {
-      filter: {
-        id: resolvedId,
-      },
+      filter: {},
       handler(id) {
-        return id === resolvedId ? moduleContent : undefined
+        assert(id === resolvedId)
+        return moduleContent
       },
     },
   }
