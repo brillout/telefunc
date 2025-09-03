@@ -24,12 +24,10 @@ function pluginTransformTelefuncFiles(): Plugin {
     },
     transform: {
       filter: {
-        id: /\.telefunc\./,
+        id: '**/*.telefunc.*',
       },
       async handler(code, id, options) {
-        if (!id.includes('.telefunc.')) {
-          return
-        }
+        assert(id.includes('.telefunc'))
         const isClientSide = !options?.ssr
         if (isClientSide) {
           return await transformTelefuncFileClientSide(code, id, root)
