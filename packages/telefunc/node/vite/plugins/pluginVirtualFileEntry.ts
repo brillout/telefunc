@@ -21,6 +21,7 @@ function pluginVirtualFileEntry(): Plugin {
     load: {
       filter: {
         // id: [resolvedId, VIRTUAL_FILE_ENTRY_ID],
+        id: `**${resolvedId}**`,
       },
       handler(id) {
         return id === resolvedId ? moduleContent : undefined
