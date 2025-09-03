@@ -16,12 +16,15 @@ function pluginDistPackageJsonFile(): Plugin {
   return {
     name: 'telefunc:pluginDistPackageJsonFile',
     apply: 'build',
+    // Note: configResolved hook doesn't benefit from filters since it's called once per build session
     configResolved: {
       handler(config_) {
         config = config_
       },
     },
     generateBundle: {
+      // Note: We can't easily filter by server-side vs client-side at the filter level
+      // since it depends on runtime environment context, so we keep the runtime check
       handler(options, bundle) {
         if (!isViteServerSide(config, this.environment)) return
         const isEsm = rollupIsEsm(options)
