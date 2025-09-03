@@ -20,8 +20,10 @@ function pluginVirtualFileEntry(): Plugin {
     },
     load: {
       filter: {
-        // id: [resolvedId, VIRTUAL_FILE_ENTRY_ID],
-        id: `**${resolvedId}**`,
+        /* I don't know why this doesn't work:
+        id: resolvedId,
+        */
+        id: new RegExp(`^${escapeRegex(resolvedId)}$`),
       },
       handler(id) {
         return id === resolvedId ? moduleContent : undefined
