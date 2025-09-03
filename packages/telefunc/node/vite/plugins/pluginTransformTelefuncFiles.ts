@@ -18,7 +18,8 @@ function pluginTransformTelefuncFiles(): Plugin {
     configureServer() {
       isDev = true
     },
-    async transform(code, id, options) {
+    transform: {
+    async handler(code, id, options) {
       if (!id.includes('.telefunc.')) {
         return
       }
@@ -29,5 +30,6 @@ function pluginTransformTelefuncFiles(): Plugin {
         return await transformTelefuncFileServerSide(code, id, root, isDev)
       }
     },
+    }
   }
 }
