@@ -11,23 +11,29 @@ function pluginTransformTelefuncFiles(): Plugin {
   return {
     name: 'telefunc:pluginTransformTelefuncFiles',
     enforce: 'pre',
-    configResolved: (config) => {
-      root = toPosixPath(config.root)
-      assert(root)
+    configResolved: {
+      handler(config) {
+        root = toPosixPath(config.root)
+        assert(root)
+      },
     },
-    configureServer() {
-      isDev = true
+    configureServer: {
+      handler() {
+        isDev = true
+      },
     },
-    async transform(code, id, options) {
-      if (!id.includes('.telefunc.')) {
-        return
-      }
-      const isClientSide = !options?.ssr
-      if (isClientSide) {
-        return await transformTelefuncFileClientSide(code, id, root)
-      } else {
-        return await transformTelefuncFileServerSide(code, id, root, isDev)
-      }
+    transform: {
+      async handler(code, id, options) {
+        if (!id.includes('.telefunc.')) {
+          return
+        }
+        const isClientSide = !options?.ssr
+        if (isClientSide) {
+          return await transformTelefuncFileClientSide(code, id, root)
+        } else {
+          return await transformTelefuncFileServerSide(code, id, root, isDev)
+        }
+      },
     },
   }
 }

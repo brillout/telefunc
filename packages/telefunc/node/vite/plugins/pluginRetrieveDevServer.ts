@@ -6,8 +6,10 @@ import { setViteDevServer } from '../../server/globalContext.js'
 function pluginRetrieveDevServer(): Plugin {
   return {
     name: 'telefunc:pluginRetrieveDevServer',
-    configureServer(viteDevServer) {
-      setViteDevServer(viteDevServer)
+    configureServer: {
+      handler(viteDevServer) {
+        setViteDevServer(viteDevServer)
+      },
     },
   } as Plugin
 }
