@@ -10,11 +10,13 @@ function pluginPreview(): Plugin {
     apply: apply('preview'),
     // Ensure that SvelteKit's configurePreviewServer() has precedence, see https://github.com/brillout/telefunc/pull/54
     enforce: 'post',
-    configurePreviewServer(server) {
+    configurePreviewServer: {
+    handler(server) {
       return () => {
         ;(process.env as Record<string, string>).NODE_ENV = 'production'
         addTelefuncMiddleware(server.middlewares)
       }
+    }
     },
   }
 }

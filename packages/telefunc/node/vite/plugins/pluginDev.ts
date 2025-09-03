@@ -10,23 +10,29 @@ function pluginDev(): Plugin[] {
     {
       name: 'telefunc:pluginDev',
       apply: apply('dev'),
-      config: () => ({
-        optimizeDeps: {
-          include: [
-            'telefunc/client',
-            // Vite bug workaround. I don't know why, but Vite somehow thinks it needs to pre-optimize the `telefunc` module:
-            // ```
-            // 11:12:30 AM [vite] ✨ new dependencies optimized: telefunc
-            // 11:12:30 AM [vite] ✨ optimized dependencies changed. reloading
-            // ```
-            // (Vite correctly bundles `package.json#exports["."].browser` though.)
-            'telefunc',
-          ],
-        },
-      }),
-      async configResolved(config) {
+      config: {
+      handler() {
+        return {
+          optimizeDeps: {
+            include: [
+              'telefunc/client',
+              // Vite bug workaround. I don't know why, but Vite somehow thinks it needs to pre-optimize the `telefunc` module:
+              // ```
+              // 11:12:30 AM [vite] ✨ new dependencies optimized: telefunc
+              // 11:12:30 AM [vite] ✨ optimized dependencies changed. reloading
+              // ```
+              // (Vite correctly bundles `package.json#exports["."].browser` though.)
+              'telefunc',
+            ],
+          },
+        }
+      }
+      },
+      configResolved: {
+      async handler(config) {
         fixOptimizeDeps(config.optimizeDeps)
         await determineFsAllowList(config)
+      }
       },
     },
     {
@@ -34,10 +40,12 @@ function pluginDev(): Plugin[] {
       apply: apply('dev', { skipMiddlewareMode: true, onlyViteCli: true }),
       // Ensure that SvelteKit's configureServer() has precedence, see https://github.com/brillout/telefunc/pull/54
       enforce: 'post',
-      configureServer(server) {
+      configureServer: {
+      handler(server) {
         return () => {
           addTelefuncMiddleware(server.middlewares)
         }
+      }
       },
     },
   ]

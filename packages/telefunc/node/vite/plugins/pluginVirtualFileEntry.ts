@@ -10,7 +10,15 @@ function pluginVirtualFileEntry(): Plugin {
   const resolvedId = '\0' + VIRTUAL_FILE_ENTRY_ID
   return {
     name: 'telefunc:pluginVirtualFileEntry',
-    resolveId: (id) => (id === VIRTUAL_FILE_ENTRY_ID ? resolvedId : undefined),
-    load: (id) => (id === resolvedId ? moduleContent : undefined),
+    resolveId: {
+    handler(id) {
+      return id === VIRTUAL_FILE_ENTRY_ID ? resolvedId : undefined
+    }
+    },
+    load: {
+    handler(id) {
+      return id === resolvedId ? moduleContent : undefined
+    }
+    },
   }
 }

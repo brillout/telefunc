@@ -16,10 +16,13 @@ function pluginDistPackageJsonFile(): Plugin {
   return {
     name: 'telefunc:pluginDistPackageJsonFile',
     apply: 'build',
-    configResolved(config_) {
+    configResolved: {
+    handler(config_) {
       config = config_
+    }
     },
-    generateBundle(options, bundle) {
+    generateBundle: {
+    handler(options, bundle) {
       if (!isViteServerSide(config, this.environment)) return
       const isEsm = rollupIsEsm(options)
       const fileName = 'package.json'
@@ -29,6 +32,7 @@ function pluginDistPackageJsonFile(): Plugin {
         type: 'asset',
         source: getPackageJsonContent(isEsm),
       })
+    }
     },
   }
 }
