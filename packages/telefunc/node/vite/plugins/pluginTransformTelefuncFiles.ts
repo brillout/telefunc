@@ -12,15 +12,15 @@ function pluginTransformTelefuncFiles(): Plugin {
     name: 'telefunc:pluginTransformTelefuncFiles',
     enforce: 'pre',
     configResolved: {
-    handler(config) {
-      root = toPosixPath(config.root)
-      assert(root)
-    }
+      handler(config) {
+        root = toPosixPath(config.root)
+        assert(root)
+      },
     },
     configureServer: {
-    handler() {
-      isDev = true
-    }
+      handler() {
+        isDev = true
+      },
     },
     transform: {
       async handler(code, id, options) {

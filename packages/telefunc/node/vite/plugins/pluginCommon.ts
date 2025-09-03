@@ -6,11 +6,11 @@ function pluginCommon(): Plugin {
   return {
     name: 'telefunc:pluginCommon',
     config: {
-    handler() {
-      return {
-        ssr: { external: ['telefunc'] },
-      }
-    }
+      handler() {
+        return {
+          ssr: { external: ['telefunc'] },
+        }
+      },
     },
   }
 }

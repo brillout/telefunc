@@ -7,9 +7,9 @@ function pluginRetrieveDevServer(): Plugin {
   return {
     name: 'telefunc:pluginRetrieveDevServer',
     configureServer: {
-    handler(viteDevServer) {
-      setViteDevServer(viteDevServer)
-    }
+      handler(viteDevServer) {
+        setViteDevServer(viteDevServer)
+      },
     },
   } as Plugin
 }

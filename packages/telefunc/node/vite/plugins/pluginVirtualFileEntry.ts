@@ -11,14 +11,14 @@ function pluginVirtualFileEntry(): Plugin {
   return {
     name: 'telefunc:pluginVirtualFileEntry',
     resolveId: {
-    handler(id) {
-      return id === VIRTUAL_FILE_ENTRY_ID ? resolvedId : undefined
-    }
+      handler(id) {
+        return id === VIRTUAL_FILE_ENTRY_ID ? resolvedId : undefined
+      },
     },
     load: {
-    handler(id) {
-      return id === resolvedId ? moduleContent : undefined
-    }
+      handler(id) {
+        return id === resolvedId ? moduleContent : undefined
+      },
     },
   }
 }
