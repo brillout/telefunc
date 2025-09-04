@@ -11,6 +11,14 @@
 * use Vite hook filters ([#208](https://github.com/brillout/telefunc/issues/208)) ([28c6498](https://github.com/brillout/telefunc/commit/28c649808e6046440bb5a24bbffdda6194440f51))
 
 
+### MINOR BREAKING CHANGES
+
+> [!NOTE]
+> We recommend ignoring `MINOR BREAKING CHANGES` unless this version breaks your app, see [Vike Versioning](https://vike.dev/versioning).
+
+* Update to Vite `6.3.0` or above
+
+
 
 ## [0.2.11](https://github.com/brillout/telefunc/compare/v0.2.10...v0.2.11) (2025-08-25)
 
