@@ -27,6 +27,10 @@ async function loadTelefuncFilesUsingVite(
 
 // TODO/now rename func
 async function loadGlobEntryFile(failOnFailure: boolean) {
+  if (true as boolean) {
+    const moduleExports = await import('virtual:telefunc:entry' as string)
+    return { moduleExports, viteProvider: 'Vite' as const }
+  }
   const viteDevServer = getViteDevServer()
   if (viteDevServer) {
     const moduleExports = await viteDevServer.ssrLoadModule(VIRTUAL_FILE_ENTRY_ID, { fixStacktrace: true })
