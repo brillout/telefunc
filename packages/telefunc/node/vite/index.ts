@@ -10,7 +10,6 @@ import { pluginBuildEntry } from './plugins/pluginBuildEntry.js'
 import { pluginPreview } from './plugins/pluginPreview.js'
 import { pluginPrintShieldResult } from './plugins/pluginPrintShieldResult.js'
 import { pluginVirtualFileEntry } from './plugins/pluginVirtualFileEntry.js'
-import { pluginCloudflareIntegration } from './plugins/pluginCloudflareIntegration.js'
 import { config } from '../server/serverConfig.js'
 import type { Plugin } from 'vite'
 import type { ConfigUser } from '../server/serverConfig.js'
@@ -34,7 +33,6 @@ function plugin(
     ...pluginBuildEntry(),
     pluginPreview(),
     pluginPrintShieldResult(),
-    pluginCloudflareIntegration(),
   ]
   return plugins
 }
