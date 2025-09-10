@@ -6,7 +6,7 @@ import { telefunc } from 'telefunc/vite'
 
 export default defineConfig({
   plugins: [
-    // telefunc(),
+    telefunc(),
     react(),
     cloudflare({
       // Remove this line depending on the outcome of https://github.com/cloudflare/workers-sdk/issues/10120
