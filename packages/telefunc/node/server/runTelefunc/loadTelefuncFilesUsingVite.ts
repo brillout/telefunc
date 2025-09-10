@@ -25,6 +25,7 @@ async function loadTelefuncFilesUsingVite(
   return { telefuncFilesLoaded, viteProvider, telefuncFilesAll }
 }
 
+// TODO/now rename func
 async function loadGlobEntryFile(failOnFailure: boolean) {
   const viteDevServer = getViteDevServer()
   if (viteDevServer) {
