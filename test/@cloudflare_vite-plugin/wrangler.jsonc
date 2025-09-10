@@ -1,0 +1,7 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "compatibility_date": "2025-08-06",
+  "name": "vike_test_cloudflare_vite-plugin",
+  "vars": { "SOME_ENV_VAR": "some-value" },
+  "main": "./worker/index.ts"
+}
