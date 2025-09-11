@@ -22,10 +22,11 @@ function pluginNonRunnableDev(): Plugin[] {
       transform: {
         filter: {
           code: {
-            include: __TELEFUNC__IS_NON_RUNNABLE_DEV,
+            // include: __TELEFUNC__IS_NON_RUNNABLE_DEV,
           },
         },
         handler(code, id) {
+          console.log('id 1', id)
           if (isRunnableDevEnvironment(this.environment)) return
           const { magicString, getMagicStringResult } = getMagicString(code, id)
           magicString.replaceAll(__TELEFUNC__IS_NON_RUNNABLE_DEV, JSON.stringify(true))
@@ -39,10 +40,11 @@ function pluginNonRunnableDev(): Plugin[] {
       transform: {
         filter: {
           code: {
-            include: __TELEFUNC__DYNAMIC_IMPORT,
+            // include: __TELEFUNC__DYNAMIC_IMPORT,
           },
         },
         handler(code, id) {
+          console.log('id 2', id)
           if (isRunnableDevEnvironment(this.environment)) return
           const { magicString, getMagicStringResult } = getMagicString(code, id)
           magicString.replaceAll(__TELEFUNC__DYNAMIC_IMPORT, 'import')

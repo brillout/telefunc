@@ -20,10 +20,14 @@ async function loadTelefuncFilesUsingVite(runContext: { telefuncFilePath: string
 
 // TODO/now rename func
 async function loadGlobEntryFile(failOnFailure: boolean) {
+  console.log('l1', globalThis.__TELEFUNC__IS_NON_RUNNABLE_DEV)
+  console.log('l1 bis', typeof __TELEFUNC__IS_NON_RUNNABLE_DEV)
   if (globalThis.__TELEFUNC__IS_NON_RUNNABLE_DEV) {
+    console.log('l2')
     const moduleExports = await __TELEFUNC__DYNAMIC_IMPORT('virtual:telefunc:entry')
     return { moduleExports, viteProvider: 'Vite with `import()`' as const }
   }
+  console.log('l3')
   const viteDevServer = getViteDevServer()
   if (viteDevServer) {
     const moduleExports = await viteDevServer.ssrLoadModule(VIRTUAL_FILE_ENTRY_ID, { fixStacktrace: true })
@@ -33,6 +37,7 @@ async function loadGlobEntryFile(failOnFailure: boolean) {
     moduleExports = await loadTelefuncFilesWithImportBuild()
     if (moduleExports === null) {
       const tolerateDoesNotExist = !failOnFailure
+      assert(false as boolean, 'BAAAAAAAAAAAAAAAAAA')
       const success = await importServerProductionEntry({ tolerateDoesNotExist })
       moduleExports = await loadTelefuncFilesWithImportBuild()
       if (success === false) {
