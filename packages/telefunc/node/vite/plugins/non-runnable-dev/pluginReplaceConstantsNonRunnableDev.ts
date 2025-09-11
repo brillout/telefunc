@@ -12,7 +12,7 @@ const __TELEFUNC__IS_NON_RUNNABLE_DEV = '__TELEFUNC__IS_NON_RUNNABLE_DEV'
 
 declare global {
   var __TELEFUNC__DYNAMIC_IMPORT: (module: `virtual:${string}`) => Promise<Record<string, unknown>>
-  var __TELEFUNC__IS_NON_RUNNABLE_DEV: undefined | boolean
+  var __TELEFUNC__IS_NON_RUNNABLE_DEV: undefined | true
 }
 function pluginNonRunnableDev(): Plugin[] {
   return [
