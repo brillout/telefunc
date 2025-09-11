@@ -29,7 +29,7 @@ async function loadGlobEntryFile(failOnFailure: boolean) {
     //   // This line breaks the HMR of regular (runnable) apps, even though (as per the assert() above) it's never run. It seems to be a Vite bug: handleHotUpdate() receives an empty `modules` list.
     //   import('virtual:vike:global-entry:server')
     //   ```
-    const moduleExports = await __TELEFUNC__DYNAMIC_IMPORT('virtual:telefunc:entry')
+    const moduleExports = await __TELEFUNC__DYNAMIC_IMPORT('virtual:vite:telefunc:entry')
     return { moduleExports, viteProvider: 'Vite with `import()`' as const }
   }
   const viteDevServer = getViteDevServer()
