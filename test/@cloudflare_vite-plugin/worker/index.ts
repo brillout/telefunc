@@ -1,3 +1,5 @@
+export { TodoListDurableObject } from '../database/todoItems'
+
 import { handleSsr } from './ssr'
 import { telefunc, config } from 'telefunc'
 import { DurableObject, env } from 'cloudflare:workers'

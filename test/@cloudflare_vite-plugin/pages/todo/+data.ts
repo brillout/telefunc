@@ -1,10 +1,10 @@
 export { data }
-export type Data = ReturnType<typeof data>
+export type Data = Awaited<ReturnType<typeof data>>
 
-import { todoItems } from '../../database/todoItems'
+import { getTodoItems } from '../../database/todoItems'
 
-function data() {
-  const todoItemsInitial = todoItems
+async function data() {
+  const todoItemsInitial = await getTodoItems()
   return {
     todoItemsInitial,
   }

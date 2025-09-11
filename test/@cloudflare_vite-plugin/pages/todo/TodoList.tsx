@@ -2,7 +2,7 @@ export { TodoList }
 
 import React, { useState } from 'react'
 import { useData } from 'vike-react/useData'
-import { onNewTodo } from './TodoList.telefunc'
+import { onNewTodo, onReset } from './TodoList.telefunc'
 import type { Data } from './+data.js'
 
 function TodoList() {
@@ -29,6 +29,14 @@ function TodoList() {
           </form>
         </li>
       </ul>
+      <button
+        onClick={async () => {
+          const { todoItems } = await onReset()
+          setTodoItems(todoItems)
+        }}
+      >
+        Reset
+      </button>
     </>
   )
 }
