@@ -1,8 +1,8 @@
 {
   "scripts": {
     "dev": "vite",
-    "build": "vite build && pnpm run build:worker",
-    "build:worker": "build-worker --entry worker/index.ts --out dist/worker/index.js && node ./build-fix.js",
+    "build": "vite build && pnpm run build:worker && node ./build-fix.js",
+    "build:worker": "build-worker --entry worker/index.ts --out dist/worker/index.js --external virtual:telefunc:entry",
     "preview": "pnpm run build && vite preview",
     "deploy": "pnpm run build && wrangler deploy",
     "cf-typegen": "wrangler types"
