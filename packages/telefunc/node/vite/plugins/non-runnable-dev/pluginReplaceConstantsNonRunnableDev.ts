@@ -4,7 +4,7 @@ import type { Plugin } from 'vite'
 import { isRunnableDevEnvironment, isDevCheck } from '../../utils.js'
 import { getMagicString } from '../../../shared/getMagicString.js'
 
-// - We cannot use [`define`](https://vite.dev/config/shared-options.html#define) because we don't have access to `this.environment` and thus cannot call `isRunnableDevEnvironment(this.environment)` inside the configEnvironment() hook.
+// - We cannot use [`define`](https://vite.dev/config/shared-options.html#define) because we don't have access to `this.environment` and therefore we cannot call `isRunnableDevEnvironment(this.environment)` inside a configEnvironment() hook.
 // - We cannot use [`filter.id`](https://rolldown.rs/plugins/hook-filters) because Vite's optimizeDeps bundles packages (e.g. `vike`) into node_modules/.vite/deps_ssr/chunk-WBC5FHD7.js
 
 const __TELEFUNC__DYNAMIC_IMPORT = 'globalThis.__TELEFUNC__DYNAMIC_IMPORT'
