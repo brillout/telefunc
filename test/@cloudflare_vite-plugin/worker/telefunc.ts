@@ -1,8 +1,6 @@
 export { handleTelefunc }
 
 import { telefunc, config } from 'telefunc'
-// TODO/now remove
-config.disableNamingConvention = true
 
 async function handleTelefunc(request: Request) {
   const { pathname } = new URL(request.url)
