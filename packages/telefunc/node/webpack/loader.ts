@@ -1,6 +1,6 @@
 import { toPosixPath } from '../server/utils.js'
-import { transformTelefuncFileClientSide } from '../transformer/transformTelefuncFileClientSide.js'
-import { transformTelefuncFileServerSide } from '../transformer/transformTelefuncFileServerSide.js'
+import { transformTelefuncFileClientSide } from '../shared/transformer/transformTelefuncFileClientSide.js'
+import { transformTelefuncFileServerSide } from '../shared/transformer/transformTelefuncFileServerSide.js'
 import type { Loader } from './types.js'
 import { getInfo } from './getInfo.js'
 
@@ -11,7 +11,9 @@ export default async function (this: Loader, input: string): Promise<void> {
     const { code, map } = await transformTelefuncFileClientSide(input, toPosixPath(id), toPosixPath(root))
     this.callback(null, code, map)
   } else {
-    const { code, map } = await transformTelefuncFileServerSide(input, toPosixPath(id), toPosixPath(root), isDev)
+    const res = await transformTelefuncFileServerSide(input, toPosixPath(id), toPosixPath(root), isDev)
+    if (!res) return
+    const { code, map } = res
     this.callback(null, code, map)
   }
 }

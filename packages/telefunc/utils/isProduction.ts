@@ -1,6 +1,8 @@
-export { isProduction, getNodeEnv }
+export { isProduction }
+export { getNodeEnv }
 
-// TODO/now refactor & assert not browser
+import { assertIsNotBrowser } from './assertIsNotBrowser.js'
+assertIsNotBrowser()
 
 function isProduction(): boolean {
   if (globalThis.__TELEFUNC__IS_NON_RUNNABLE_DEV) return false
