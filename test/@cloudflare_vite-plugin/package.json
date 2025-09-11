@@ -8,7 +8,7 @@
     "cf-typegen": "wrangler types"
   },
   "dependencies": {
-    "build-worker": "^0.3.2",
+    "build-worker": "^0.3.3",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "telefunc": "0.2.12",
