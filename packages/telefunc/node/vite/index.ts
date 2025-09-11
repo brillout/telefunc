@@ -2,7 +2,6 @@ export { plugin as telefunc }
 export default plugin
 
 import { pluginTransformTelefuncFiles } from './plugins/pluginTransformTelefuncFiles.js'
-import { pluginCommon } from './plugins/pluginCommon.js'
 import { pluginDev } from './plugins/pluginDev.js'
 import { pluginRetrieveDevServer } from './plugins/pluginRetrieveDevServer.js'
 import { pluginDistPackageJsonFile } from './plugins/pluginDistPackageJsonFile.js'
@@ -27,7 +26,6 @@ function plugin(
     // TODO/now make each plugin in this list return Plugin[] instead of Plugin
     pluginVirtualFileEntry(),
     pluginTransformTelefuncFiles(),
-    pluginCommon(),
     ...pluginDev(),
     pluginRetrieveDevServer(),
     pluginDistPackageJsonFile(),
