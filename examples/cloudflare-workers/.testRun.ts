@@ -1,6 +1,6 @@
 export { testRun }
 
-import { page, test, expect, run, skip, fetchHtml, isCI, getServerUrl, autoRetry } from '@brillout/test-e2e'
+import { page, test, expect, run, skip, fetchHtml, isCI, getServerUrl, autoRetry, sleep } from '@brillout/test-e2e'
 
 function testRun(cmd: 'npm run dev' | 'npm run preview') {
   const isWrangler = cmd === 'npm run preview'
@@ -45,12 +45,11 @@ function testRun(cmd: 'npm run dev' | 'npm run preview') {
     expect(html).toContain('<div id="view">Loading...</div>')
   })
 
-  /*
   test('telefunction hello()', async () => {
     await page.goto(getServerUrl() + '/')
     await autoRetry(async () => {
       expect(await page.textContent('#view')).toBe('Welcome Eva')
     })
+    await sleep(60 * 1000)
   })
-  */
 }
