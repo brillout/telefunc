@@ -8,11 +8,7 @@ type CMD = 'npm run dev' | 'npm run preview'
 
 function testRun(cmd: CMD) {
   testCloudflareBindings()
-  testRunClassic(cmd, {
-    // TODO/now remove
-    tolerateError: (arg) =>
-      arg.logText.includes('The telefunction onNewTodo() (/pages/todo/TodoList.telefunc.ts) accepts arguments'),
-  })
+  testRunClassic(cmd)
   testTodolist()
 }
 
