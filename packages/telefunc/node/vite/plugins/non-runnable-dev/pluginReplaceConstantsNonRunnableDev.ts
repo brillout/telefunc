@@ -17,7 +17,7 @@ declare global {
 function pluginNonRunnableDev(): Plugin[] {
   return [
     {
-      name: 'brillout:pluginReplaceConstantsNonRunnableDev:1',
+      name: 'telefunc:pluginReplaceConstantsNonRunnableDev:1',
       apply: (_, configEnv) => isDevCheck(configEnv),
       transform: {
         filter: {
@@ -34,7 +34,7 @@ function pluginNonRunnableDev(): Plugin[] {
       },
     },
     {
-      name: 'brillout:pluginReplaceConstantsNonRunnableDev:2',
+      name: 'telefunc:pluginReplaceConstantsNonRunnableDev:2',
       apply: (_, configEnv) => isDevCheck(configEnv),
       transform: {
         filter: {
