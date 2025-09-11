@@ -13,4 +13,7 @@ export default defineConfig({
   vitePluginServerEntry: {
     disableAutoImport: true,
   },
+
+  // [Telefunc CI] Workaround what seems to be a SvelteKit issue
+  ssr: { external: ['telefunc'] },
 })
