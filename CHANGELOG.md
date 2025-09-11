@@ -1,3 +1,12 @@
+## [0.2.13](https://github.com/brillout/telefunc/compare/v0.2.12...v0.2.13) (2025-09-11)
+
+
+### Bug Fixes
+
+* support @cloudflare/vite-plugin ([#209](https://github.com/brillout/telefunc/issues/209)) ([b15355e](https://github.com/brillout/telefunc/commit/b15355ee8090bc5c6d9ebc945dc33f6079d82005))
+
+
+
 ## [0.2.12](https://github.com/brillout/telefunc/compare/v0.2.11...v0.2.12) (2025-09-03)
 
 
