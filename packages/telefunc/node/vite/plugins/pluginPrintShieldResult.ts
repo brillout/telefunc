@@ -6,9 +6,9 @@ import { projectInfo } from '../utils.js'
 import pc from '@brillout/picocolors'
 import { isViteServerSide_onlySsrEnv } from '../shared/isViteServerSide.js'
 
-function pluginPrintShieldResult(): Plugin {
+function pluginPrintShieldResult(): Plugin[] {
   let config: ResolvedConfig
-  return {
+  return [{
     name: 'telefunc:pluginPrintShieldResult',
     apply: 'build',
     configResolved: {
@@ -26,5 +26,5 @@ function pluginPrintShieldResult(): Plugin {
         }
       },
     },
-  }
+  }]
 }

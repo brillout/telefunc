@@ -6,8 +6,8 @@ import { VIRTUAL_FILE_ENTRY_ID } from './pluginVirtualFileEntry/VIRTUAL_FILE_ENT
 const moduleContent = `export const telefuncFilesGlob = import.meta.glob("/**/*.telefunc.${javaScriptFileExtensionPattern}");`
 const resolvedId = '\0' + VIRTUAL_FILE_ENTRY_ID
 
-function pluginVirtualFileEntry(): Plugin {
-  return {
+function pluginVirtualFileEntry(): Plugin[] {
+  return [{
     name: 'telefunc:pluginVirtualFileEntry',
     resolveId: {
       filter: {
@@ -29,5 +29,5 @@ function pluginVirtualFileEntry(): Plugin {
         return id === resolvedId ? moduleContent : undefined
       },
     },
-  }
+  }]
 }

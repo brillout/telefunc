@@ -5,10 +5,10 @@ import { transformTelefuncFileClientSide } from '../../shared/transformer/transf
 import { transformTelefuncFileServerSide } from '../../shared/transformer/transformTelefuncFileServerSide.js'
 import { assert, toPosixPath } from '../utils.js'
 
-function pluginTransformTelefuncFiles(): Plugin {
+function pluginTransformTelefuncFiles(): Plugin[] {
   let root: string
   let isDev: boolean = false
-  return {
+  return [{
     name: 'telefunc:pluginTransformTelefuncFiles',
     enforce: 'pre',
     configResolved: {
@@ -36,5 +36,5 @@ function pluginTransformTelefuncFiles(): Plugin {
         }
       },
     },
-  }
+  }]
 }
