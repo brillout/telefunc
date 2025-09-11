@@ -21,6 +21,14 @@ async function loadTelefuncFilesUsingVite(runContext: { telefuncFilePath: string
 // TODO/now rename func
 async function loadGlobEntryFile(failOnFailure: boolean) {
   if (globalThis.__TELEFUNC__IS_NON_RUNNABLE_DEV) {
+    // We don't directly use import() because:
+    // - Avoid Cloudflare Workers (without @cloudflare/vite-plugin) to try to bundle `import('virtual:id')`.
+    // - Using import() seems to lead to a Vite HMR bug:
+    //   ```js
+    //   assert(false)
+    //   // This line breaks the HMR of regular (runnable) apps, even though (as per the assert() above) it's never run. It seems to be a Vite bug: handleHotUpdate() receives an empty `modules` list.
+    //   import('virtual:vike:global-entry:server')
+    //   ```
     const moduleExports = await __TELEFUNC__DYNAMIC_IMPORT('virtual:telefunc:entry')
     return { moduleExports, viteProvider: 'Vite with `import()`' as const }
   }
