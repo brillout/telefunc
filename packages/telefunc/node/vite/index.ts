@@ -24,6 +24,7 @@ function plugin(
   Object.assign(config, configUser as undefined | ConfigUser)
 
   const plugins: Plugin[] = [
+    // TODO/now make each plugin in this list return Plugin[] instead of Plugin
     pluginVirtualFileEntry(),
     pluginTransformTelefuncFiles(),
     pluginCommon(),
