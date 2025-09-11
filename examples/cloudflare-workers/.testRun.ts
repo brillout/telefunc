@@ -40,12 +40,12 @@ function testRun(cmd: 'npm run dev' | 'npm run preview') {
     })
   }
 
-  /*
   test('frontend', async () => {
     const html = await fetchHtml('/')
     expect(html).toContain('<div id="view">Loading...</div>')
   })
 
+  /*
   test('telefunction hello()', async () => {
     await page.goto(getServerUrl() + '/')
     await autoRetry(async () => {
