@@ -1,5 +1,6 @@
 export { isProduction, getNodeEnv }
 
+// TODO/now: fix this check
 function isProduction(): boolean {
   // If the server environment isn't a Node.js server, then we assume an Edge environment (e.g. Cloudflare Workers)
   if (isNotNode()) return true
