@@ -9,7 +9,7 @@ export default defineConfig({
     telefunc(),
     react(),
     cloudflare({
-      // Remove this line depending on the outcome of https://github.com/cloudflare/workers-sdk/issues/10120
+      // TO-DO/eventuall: remove this line depending on the outcome of https://github.com/cloudflare/workers-sdk/issues/10120
       viteEnvironment: { name: 'ssr' },
     }),
     vike(),

@@ -1,6 +1,6 @@
 export { handleTelefunc }
 
-import { telefunc, config } from 'telefunc'
+import { telefunc } from 'telefunc'
 
 async function handleTelefunc(request: Request) {
   const { pathname } = new URL(request.url)
