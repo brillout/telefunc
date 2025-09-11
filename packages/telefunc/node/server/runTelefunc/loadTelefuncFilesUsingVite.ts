@@ -6,14 +6,7 @@ import { loadTelefuncFilesWithImportBuild } from './loadTelefuncFilesUsingVite/l
 import { getViteDevServer } from '../globalContext.js'
 import { VIRTUAL_FILE_ENTRY_ID } from '../../vite/plugins/pluginVirtualFileEntry/VIRTUAL_FILE_ENTRY_ID.js'
 
-async function loadTelefuncFilesUsingVite(
-  runContext: { telefuncFilePath: string },
-  failOnFailure: boolean,
-): Promise<null | {
-  telefuncFilesLoaded: Record<string, Record<string, unknown>>
-  telefuncFilesAll: string[]
-  viteProvider: 'Vite' | '@brillout/vite-plugin-server-entry'
-}> {
+async function loadTelefuncFilesUsingVite(runContext: { telefuncFilePath: string }, failOnFailure: boolean) {
   const res = await loadGlobEntryFile(failOnFailure)
   if (!res) return null
   const { moduleExports, viteProvider } = res
@@ -29,12 +22,12 @@ async function loadTelefuncFilesUsingVite(
 async function loadGlobEntryFile(failOnFailure: boolean) {
   if (globalThis.__TELEFUNC__IS_NON_RUNNABLE_DEV) {
     const moduleExports = await __TELEFUNC__DYNAMIC_IMPORT('virtual:telefunc:entry')
-    return { moduleExports, viteProvider: 'Vite' as const }
+    return { moduleExports, viteProvider: 'Vite with `import()`' as const }
   }
   const viteDevServer = getViteDevServer()
   if (viteDevServer) {
     const moduleExports = await viteDevServer.ssrLoadModule(VIRTUAL_FILE_ENTRY_ID, { fixStacktrace: true })
-    return { moduleExports, viteProvider: 'Vite' as const }
+    return { moduleExports, viteProvider: 'Vite with `ssrLoadModule()`' as const }
   } else {
     let moduleExports: unknown
     moduleExports = await loadTelefuncFilesWithImportBuild()
@@ -52,7 +45,7 @@ async function loadGlobEntryFile(failOnFailure: boolean) {
       assert(moduleExports)
     }
     assertProd()
-    return { moduleExports, viteProvider: '@brillout/vite-plugin-server-entry' as const }
+    return { moduleExports, viteProvider: 'Vite with `@brillout/vite-plugin-server-entry`' as const }
   }
 }
 
