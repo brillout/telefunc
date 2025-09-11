@@ -10,7 +10,8 @@
     "noUnusedParameters": true,
     "esModuleInterop": true,
     "noUncheckedIndexedAccess": true,
-    "lib": ["DOM", "ESNext"]
+    "lib": ["DOM", "ESNext"],
+    "types": ["vite/client"]
   },
   "include": ["client/**/*", "node/**/*"],
   "exclude": ["**/*.spec.ts"]

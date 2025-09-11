@@ -1,7 +1,14 @@
 {
   "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "files": {
-    "ignore": ["package.json", "dist/", "build/", ".svelte-kit/", ".next/"]
+    "ignore": [
+      "package.json",
+      "dist/",
+      "build/",
+      ".svelte-kit/",
+      ".next/",
+      ".wrangler/"
+    ]
   },
   "formatter": {
     "indentWidth": 2,

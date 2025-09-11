@@ -2,7 +2,6 @@ export { plugin as telefunc }
 export default plugin
 
 import { pluginTransformTelefuncFiles } from './plugins/pluginTransformTelefuncFiles.js'
-import { pluginCommon } from './plugins/pluginCommon.js'
 import { pluginDev } from './plugins/pluginDev.js'
 import { pluginRetrieveDevServer } from './plugins/pluginRetrieveDevServer.js'
 import { pluginDistPackageJsonFile } from './plugins/pluginDistPackageJsonFile.js'
@@ -13,6 +12,7 @@ import { pluginVirtualFileEntry } from './plugins/pluginVirtualFileEntry.js'
 import { config } from '../server/serverConfig.js'
 import type { Plugin } from 'vite'
 import type { ConfigUser } from '../server/serverConfig.js'
+import { pluginReplaceConstantsNonRunnableDev } from './plugins/non-runnable-dev/pluginReplaceConstantsNonRunnableDev.js'
 
 // Return as `any` to avoid Plugin type mismatches when there are multiple Vite versions installed
 function plugin(
@@ -24,15 +24,16 @@ function plugin(
   Object.assign(config, configUser as undefined | ConfigUser)
 
   const plugins: Plugin[] = [
+    // TODO/now make each plugin in this list return Plugin[] instead of Plugin
     pluginVirtualFileEntry(),
     pluginTransformTelefuncFiles(),
-    pluginCommon(),
     ...pluginDev(),
     pluginRetrieveDevServer(),
     pluginDistPackageJsonFile(),
     ...pluginBuildEntry(),
     pluginPreview(),
     pluginPrintShieldResult(),
+    ...pluginReplaceConstantsNonRunnableDev(),
   ]
   return plugins
 }
