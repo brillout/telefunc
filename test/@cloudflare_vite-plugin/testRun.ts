@@ -1,7 +1,7 @@
 export { testRun }
 export { testCloudflareBindings }
 
-import { autoRetry, expect, getServerUrl, page, sleep, test } from '@brillout/test-e2e'
+import { autoRetry, expect, getServerUrl, page, test } from '@brillout/test-e2e'
 import { testCounter, testRunClassic } from '../../test/utils'
 
 type CMD = 'npm run dev' | 'npm run preview'
@@ -18,7 +18,6 @@ function testRun(cmd: CMD) {
 
 function testCloudflareBindings() {
   test('Cloudflare Bindings', async () => {
-    await sleep(60 * 1000) // TODO/now
     await page.goto(getServerUrl() + '/')
     await testCounter()
     const bodyText = await page.textContent('body')
