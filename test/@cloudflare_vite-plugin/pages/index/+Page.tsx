@@ -4,13 +4,13 @@ import React, { useEffect } from 'react'
 import { Counter } from './Counter'
 import { usePageContext } from 'vike-react/usePageContext'
 // @ts-expect-error
-import { hello } from '../../hello.telefunc'
+import { hello2 } from '../../hello2.telefunc'
 
 function Page() {
   const pageContext = usePageContext()
   useEffect(() => {
     ;(async () => {
-      const msg = await hello({ name: 'Jon' })
+      const msg = await hello2({ name: 'Jon' })
       console.log(msg)
     })()
   })
