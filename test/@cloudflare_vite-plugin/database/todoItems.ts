@@ -1,8 +1,8 @@
 export { getTodoItems }
 export { addTodoItem }
 export { resetTodoItems }
-export type { TodoItem }
 export { TodoListDurableObject }
+export type { TodoItem }
 
 import { DurableObject, env } from 'cloudflare:workers'
 const todoItemsInit: readonly TodoItem[] = Object.freeze([{ text: 'Buy milk' }, { text: 'Buy strawberries' }])
