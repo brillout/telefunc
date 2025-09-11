@@ -14,6 +14,6 @@ export default defineConfig({
     disableAutoImport: true,
   },
 
-  // [Telefunc CI] Workaround what seems to be a SvelteKit issue
+  // [Telefunc CI] Workaround for what seems to be a SvelteKit issue
   ssr: { external: ['telefunc'] },
 })
