@@ -17,8 +17,10 @@ function testRun(cmd: CMD) {
 }
 
 function testCloudflareBindings() {
-  test('Cloudflare Bindings', async () => {
+  test('Cloudflare Bindings 1', async () => {
     await sleep(60 * 1000) // TODO/now
+  })
+  test('Cloudflare Bindings 2', async () => {
     await page.goto(getServerUrl() + '/')
     await testCounter()
     const bodyText = await page.textContent('body')
