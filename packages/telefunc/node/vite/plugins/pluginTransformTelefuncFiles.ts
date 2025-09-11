@@ -8,33 +8,35 @@ import { assert, toPosixPath } from '../utils.js'
 function pluginTransformTelefuncFiles(): Plugin[] {
   let root: string
   let isDev: boolean = false
-  return [{
-    name: 'telefunc:pluginTransformTelefuncFiles',
-    enforce: 'pre',
-    configResolved: {
-      handler(config) {
-        root = toPosixPath(config.root)
-        assert(root)
+  return [
+    {
+      name: 'telefunc:pluginTransformTelefuncFiles',
+      enforce: 'pre',
+      configResolved: {
+        handler(config) {
+          root = toPosixPath(config.root)
+          assert(root)
+        },
+      },
+      configureServer: {
+        handler() {
+          isDev = true
+        },
+      },
+      transform: {
+        filter: {
+          id: '**/*.telefunc.*',
+        },
+        async handler(code, id, options) {
+          assert(id.includes('.telefunc'))
+          const isClientSide = !options?.ssr
+          if (isClientSide) {
+            return await transformTelefuncFileClientSide(code, id, root)
+          } else {
+            return await transformTelefuncFileServerSide(code, id, root, isDev)
+          }
+        },
       },
     },
-    configureServer: {
-      handler() {
-        isDev = true
-      },
-    },
-    transform: {
-      filter: {
-        id: '**/*.telefunc.*',
-      },
-      async handler(code, id, options) {
-        assert(id.includes('.telefunc'))
-        const isClientSide = !options?.ssr
-        if (isClientSide) {
-          return await transformTelefuncFileClientSide(code, id, root)
-        } else {
-          return await transformTelefuncFileServerSide(code, id, root, isDev)
-        }
-      },
-    },
-  }]
+  ]
 }
