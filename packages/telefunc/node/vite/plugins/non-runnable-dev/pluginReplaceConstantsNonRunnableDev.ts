@@ -1,4 +1,4 @@
-export { pluginNonRunnableDev }
+export { pluginReplaceConstantsNonRunnableDev }
 
 import type { Plugin } from 'vite'
 import { isRunnableDevEnvironment, isDevCheck } from '../../utils.js'
@@ -14,7 +14,7 @@ declare global {
   var __TELEFUNC__DYNAMIC_IMPORT: (module: `virtual:${string}`) => Promise<Record<string, unknown>>
   var __TELEFUNC__IS_NON_RUNNABLE_DEV: undefined | true
 }
-function pluginNonRunnableDev(): Plugin[] {
+function pluginReplaceConstantsNonRunnableDev(): Plugin[] {
   return [
     {
       name: 'telefunc:pluginReplaceConstantsNonRunnableDev:1',

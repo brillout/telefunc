@@ -12,6 +12,7 @@ import { pluginVirtualFileEntry } from './plugins/pluginVirtualFileEntry.js'
 import { config } from '../server/serverConfig.js'
 import type { Plugin } from 'vite'
 import type { ConfigUser } from '../server/serverConfig.js'
+import { pluginReplaceConstantsNonRunnableDev } from './plugins/non-runnable-dev/pluginReplaceConstantsNonRunnableDev.js'
 
 // Return as `any` to avoid Plugin type mismatches when there are multiple Vite versions installed
 function plugin(
@@ -32,6 +33,7 @@ function plugin(
     ...pluginBuildEntry(),
     pluginPreview(),
     pluginPrintShieldResult(),
+    ...pluginReplaceConstantsNonRunnableDev(),
   ]
   return plugins
 }
