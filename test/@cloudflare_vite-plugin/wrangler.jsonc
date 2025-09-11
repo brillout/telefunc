@@ -9,17 +9,13 @@
       {
         "name": "TODO_LIST_DURABLE_OBJECTS",
         "class_name": "TodoListDurableObject"
-      },
-      {
-        "name": "COUNTERS",
-        "class_name": "Counter"
       }
     ]
   },
   "migrations": [
     {
       "tag": "v1",
-      "new_sqlite_classes": ["Counter", "TodoListDurableObject"]
+      "new_sqlite_classes": ["TodoListDurableObject"]
     }
   ]
 }
