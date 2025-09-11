@@ -27,8 +27,8 @@ async function loadTelefuncFilesUsingVite(
 
 // TODO/now rename func
 async function loadGlobEntryFile(failOnFailure: boolean) {
-  // @ts-ignore
-  if (globalThis.__VIKE__IS_DEV) {
+  // TODO/now: use import.meta.env.__TELEFUNC__IS_VITE
+  if (import.meta.env && import.meta.env.DEV) {
     const moduleExports = await import('virtual:telefunc:entry' as string)
     return { moduleExports, viteProvider: 'Vite' as const }
   }
