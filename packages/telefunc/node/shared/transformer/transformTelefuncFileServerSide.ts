@@ -3,8 +3,8 @@ export { transformTelefuncFileServerSide }
 import { ExportList, getExportList } from './getExportList.js'
 import { assertPosixPath, isNotNullish } from './utils.js'
 import { generateShield } from './generateShield/generateShield.js'
-import { getServerConfig } from '../server/serverConfig.js'
-import { getMagicString } from '../shared/getMagicString.js'
+import { getServerConfig } from '../../server/serverConfig.js'
+import { getMagicString } from '../../shared/getMagicString.js'
 
 async function transformTelefuncFileServerSide(src: string, id: string, appRootDir: string, isDev: boolean) {
   assertPosixPath(id)
