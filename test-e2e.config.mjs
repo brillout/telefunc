@@ -46,10 +46,6 @@ function getCiJobs() {
       setups: setupModern,
     },
     {
-      name: 'Cloudflare Workers',
-      setups: setupModern,
-    },
-    {
       name: 'Next.js',
       setups,
     },
