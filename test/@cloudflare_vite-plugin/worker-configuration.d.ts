@@ -5,7 +5,7 @@
 declare namespace Cloudflare {
   interface Env {
     SOME_ENV_VAR: 'some-value'
-    TODO_LIST_DURABLE_OBJECTS: DurableObjectNamespace<import('./worker/index').TodoListDurableObject>
+    TO_DO_LIST_DURABLE_OBJECTS: DurableObjectNamespace<import('./worker/index').TodoListDurableObject>
   }
 }
 interface Env extends Cloudflare.Env {}

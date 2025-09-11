@@ -7,7 +7,7 @@
   "durable_objects": {
     "bindings": [
       {
-        "name": "TODO_LIST_DURABLE_OBJECTS",
+        "name": "TO_DO_LIST_DURABLE_OBJECTS",
         "class_name": "TodoListDurableObject"
       }
     ]

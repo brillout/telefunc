@@ -22,14 +22,14 @@ async function addTodoItem(todoItem: TodoItem): Promise<TodoItem[]> {
 }
 
 async function resetTodoItems() {
-  const todoItemsData = env.TODO_LIST_DURABLE_OBJECTS.getByName('vike-todo-list-demo')
+  const todoItemsData = env.TO_DO_LIST_DURABLE_OBJECTS.getByName('vike-todo-list-demo')
   await todoItemsData.resetTodoItems()
   const todoItems = await todoItemsData.getTodoItems()
   return todoItems
 }
 
 async function getTodoItemsData() {
-  const todoItemsData = env.TODO_LIST_DURABLE_OBJECTS.getByName('vike-todo-list-demo')
+  const todoItemsData = env.TO_DO_LIST_DURABLE_OBJECTS.getByName('vike-todo-list-demo')
   return todoItemsData
 }
 
