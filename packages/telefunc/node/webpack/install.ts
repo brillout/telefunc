@@ -1,7 +1,7 @@
 export { install }
 
 import path, { resolve } from 'node:path'
-import { logResult } from '../transformer/generateShield/generateShield.js'
+import { logResult } from '../shared/transformer/generateShield/generateShield.js'
 import { getRoot } from './getInfo.js'
 import type { Compiler } from './types.js'
 import { fileURLToPath } from 'node:url'

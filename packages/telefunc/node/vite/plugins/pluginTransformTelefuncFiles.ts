@@ -1,8 +1,8 @@
 export { pluginTransformTelefuncFiles }
 
 import type { Plugin } from 'vite'
-import { transformTelefuncFileClientSide } from '../../transformer/transformTelefuncFileClientSide.js'
-import { transformTelefuncFileServerSide } from '../../transformer/transformTelefuncFileServerSide.js'
+import { transformTelefuncFileClientSide } from '../../shared/transformer/transformTelefuncFileClientSide.js'
+import { transformTelefuncFileServerSide } from '../../shared/transformer/transformTelefuncFileServerSide.js'
 import { assert, toPosixPath } from '../utils.js'
 
 function pluginTransformTelefuncFiles(): Plugin {

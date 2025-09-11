@@ -1,6 +1,6 @@
 import { toPosixPath } from '../server/utils.js'
-import { transformTelefuncFileClientSide } from '../transformer/transformTelefuncFileClientSide.js'
-import { transformTelefuncFileServerSide } from '../transformer/transformTelefuncFileServerSide.js'
+import { transformTelefuncFileClientSide } from '../shared/transformer/transformTelefuncFileClientSide.js'
+import { transformTelefuncFileServerSide } from '../shared/transformer/transformTelefuncFileServerSide.js'
 import type { Loader } from './types.js'
 import { getInfo } from './getInfo.js'
 
