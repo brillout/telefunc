@@ -41,7 +41,7 @@ async function loadTelefuncFiles(runContext: {
   // - Next.js
   // - Nuxt 2
   // - Vite in production if @brillout/vite-plugin-server-entry fails (see comment above)
-  if (false as boolean) {
+  {
     const telefuncFilesLoaded = loadTelefuncFilesUsingRegistration()
     if (telefuncFilesLoaded) {
       const telefuncFilesAll = Object.keys(telefuncFilesLoaded)
