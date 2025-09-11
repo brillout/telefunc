@@ -7,7 +7,7 @@ import { getViteDevServer } from '../globalContext.js'
 import { VIRTUAL_FILE_ENTRY_ID } from '../../vite/plugins/pluginVirtualFileEntry/VIRTUAL_FILE_ENTRY_ID.js'
 
 async function loadTelefuncFilesUsingVite(runContext: { telefuncFilePath: string }, failOnFailure: boolean) {
-  const res = await loadGlobEntryFile(failOnFailure)
+  const res = await loadVirtualFile(failOnFailure)
   if (!res) return null
   const { moduleExports, viteProvider } = res
   assert(isObject(moduleExports), { moduleExports, viteProvider })
@@ -18,8 +18,7 @@ async function loadTelefuncFilesUsingVite(runContext: { telefuncFilePath: string
   return { telefuncFilesLoaded, viteProvider, telefuncFilesAll }
 }
 
-// TODO/now rename func
-async function loadGlobEntryFile(failOnFailure: boolean) {
+async function loadVirtualFile(failOnFailure: boolean) {
   if (globalThis.__TELEFUNC__IS_NON_RUNNABLE_DEV) {
     // We don't directly use import() because:
     // - Avoid Cloudflare Workers (without @cloudflare/vite-plugin) to try to bundle `import('virtual:id')`.
