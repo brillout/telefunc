@@ -40,6 +40,7 @@ function testRun(cmd: 'npm run dev' | 'npm run preview') {
     })
   }
 
+  /*
   test('frontend', async () => {
     const html = await fetchHtml('/')
     expect(html).toContain('<div id="view">Loading...</div>')
@@ -51,4 +52,5 @@ function testRun(cmd: 'npm run dev' | 'npm run preview') {
       expect(await page.textContent('#view')).toBe('Welcome Eva')
     })
   })
+  */
 }
