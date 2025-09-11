@@ -42,7 +42,10 @@ function getCiJobs() {
       setups,
     },
     {
-      // TODO/now: rename
+      name: 'Cloudflare',
+      setups: setupModern,
+    },
+    {
       name: 'Cloudflare Workers',
       setups: setupModern,
     },
