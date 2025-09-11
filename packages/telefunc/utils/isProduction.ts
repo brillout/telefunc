@@ -2,6 +2,7 @@ export { isProduction, getNodeEnv }
 
 // TODO/now: fix this check
 function isProduction(): boolean {
+  if (globalThis.__TELEFUNC__IS_NON_RUNNABLE_DEV) return false
   // If the server environment isn't a Node.js server, then we assume an Edge environment (e.g. Cloudflare Workers)
   if (isNotNode()) return true
   const val = getNodeEnv()
