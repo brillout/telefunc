@@ -32,7 +32,7 @@ function getContext<Context extends object = Telefunc.Context>(): Context {
 }
 
 function provideTelefuncContext<Context extends object = Telefunc.Context>(context: Context): void {
-  /* TODO: check whether it's possible to deprecate Async Hooks for Nuxt.
+  /* TO-DO/eventually: check whether it's possible to deprecate Async Hooks for Nuxt.
   assertWarning(false, 'provideTelefuncContext() is deprecated', { onlyOnce: true })
   */
   assert(isObject(context))

@@ -62,7 +62,7 @@ function getCiJobs() {
 
 function tolerateError({ logSource, logText }) {
   return (
-    // TODO: move everything to this array
+    // TO-DO/eventually: move everything to this array
     [
       // TODO/now: remove after Vike supports Vite CLI again
       "Vite's CLI is deprecated",

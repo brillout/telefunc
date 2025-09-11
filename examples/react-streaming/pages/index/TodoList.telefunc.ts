@@ -1,7 +1,7 @@
 export { onNewTodo }
 export { onLoad }
 
-// TODO
+// TO-DO/soon
 import { getContext } from 'telefunc'
 
 const database: {

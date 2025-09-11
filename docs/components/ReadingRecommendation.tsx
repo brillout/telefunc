@@ -3,7 +3,7 @@ import { Link } from '@brillout/docpress'
 
 export { ReadingRecommendation }
 
-// TODO/eventually: remove
+// TO-DO/eventually: remove
 function ReadingRecommendation({ tour, links }: { tour?: true; links?: string[] }) {
   links ??= []
   if (!links.length) tour = true
