@@ -17,6 +17,7 @@ export default {
       return response
     }
 
+    // TODO/now move code
     if (['/increment', '/decrement', '/state'].includes(url.pathname)) {
       const name = url.searchParams.get('name')
       if (!name) {
@@ -66,7 +67,7 @@ export class Counter extends DurableObject {
   }
 
   async increment(amount = 1) {
-    let value = (await this.ctx.storage.get('value')) || 0
+    let value = (await this.ctx.storage.get('value')) as (undefined | number) || 0
     value += amount
     // You do not have to worry about a concurrent request having modified the value in storage.
     // "input gates" will automatically protect against unwanted concurrency.
@@ -76,7 +77,7 @@ export class Counter extends DurableObject {
   }
 
   async decrement(amount = 1) {
-    let value = (await this.ctx.storage.get('value')) || 0
+    let value = (await this.ctx.storage.get('value')) as (undefined | number) || 0
     value -= amount
     await this.ctx.storage.put('value', value)
     return value
