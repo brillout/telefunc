@@ -64,9 +64,6 @@ function tolerateError({ logSource, logText }) {
   return (
     // TO-DO/eventually: move everything to this array
     [
-      // TODO/now: remove after Vike supports Vite CLI again
-      "Vite's CLI is deprecated",
-
       // [22:41:29.864][\examples\next][npm run dev][stderr] Watchpack Error (initial scan): Error: EINVAL: invalid argument, lstat 'D:\DumpStack.log.tmp'
       'Watchpack Error (initial scan)',
       // Error: [DocPress][Warning] prop `text` is deprecated
