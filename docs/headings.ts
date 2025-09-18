@@ -1,13 +1,30 @@
 export { categories }
 export { headings }
 export { headingsDetached }
+export type { HeadingsURL }
 
-import type { Config, HeadingDefinition, HeadingDetachedDefinition } from '@brillout/docpress'
+import type {
+  Config,
+  HeadingDefinition,
+  HeadingDetachedDefinition as HeadingDetachedDefinition_,
+} from '@brillout/docpress'
 import { iconScroll, iconCompass, iconGear, iconSeedling } from '@brillout/docpress'
+type HeadingDetachedDefinition = Omit<HeadingDetachedDefinition_, 'category'> & {
+  category: CategoryNames | 'Miscellaneous'
+}
 
-const categories: Config['categories'] = ['Guides', 'API', 'Get Started', 'Overview']
+type ExtractHeadingUrl<C> = C extends { url: infer N extends string } ? N : C extends string ? C : never
+type HeadingsURL = ExtractHeadingUrl<(typeof headings)[number]> | ExtractHeadingUrl<(typeof headingsDetached)[number]>
+type ExtractCategoryName<C> = C extends { name: infer N extends string } ? N : C extends string ? C : never
+type CategoryNames = ExtractCategoryName<(typeof categories)[number]>
 
-const headingsDetached: HeadingDetachedDefinition[] = [
+const categories = ['Guides', 'API', 'Get Started', 'Overview', 'Miscellaneous'] as const satisfies Config['categories']
+
+const headingsDetached = [...misc()] satisfies HeadingDetachedDefinition[]
+
+function misc() {
+  return (
+    [
   {
     title: '`Abort()` vs `new Error()`',
     url: '/abort-vs-error',
@@ -32,9 +49,11 @@ const headingsDetached: HeadingDetachedDefinition[] = [
     title: 'Multiple Clients',
     url: '/multiple-clients',
   },
-]
+    ] as const
+  ).map((h) => ({ ...h, category: 'Miscellaneous' as const })) satisfies HeadingDetachedDefinition[]
+}
 
-const headings: HeadingDefinition[] = [
+const headings = [
   {
     level: 1,
     title: 'Overview',
@@ -249,4 +268,4 @@ const headings: HeadingDefinition[] = [
     title: 'Babel Plugin',
     url: '/babel-plugin',
   },
-]
+] as const satisfies HeadingDefinition[]
