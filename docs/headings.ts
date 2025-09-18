@@ -90,6 +90,11 @@ const headings: HeadingDefinition[] = [
   },
   {
     level: 2,
+    title: 'React Router',
+    url: '/react-router',
+  },
+  {
+    level: 2,
     title: 'Other installations',
     titleInNav: 'Other',
     url: '/install',
