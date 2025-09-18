@@ -104,11 +104,6 @@ const headings = [
   },
   {
     level: 2,
-    title: 'Remix',
-    url: '/remix',
-  },
-  {
-    level: 2,
     title: 'React Router',
     url: '/react-router',
   },
