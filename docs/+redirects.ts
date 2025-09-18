@@ -10,5 +10,5 @@ type RedirectsURL = RemoveHash<(typeof redirects)[keyof typeof redirects]>
 checkType<HeadingsURL>(0 as any as RedirectsURL)
 
 const redirects = {
-  '/remix': '/react-router'
+  '/remix': '/react-router',
 } as const satisfies Config['redirects']
