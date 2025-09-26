@@ -18,7 +18,8 @@ async function onNewTodo(text: string) {
 
   // With SQL
   await sql(
-    "INSERT INTO todo_items VALUES (:text, :authorId)",
-    { text, authorId: user.id })
+    'INSERT INTO todo_items VALUES (:text, :authorId)',
+    { text, authorId: user.id }
+  )
 }
 ```

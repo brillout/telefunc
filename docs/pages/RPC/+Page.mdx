@@ -12,8 +12,8 @@ This page explains:
 
 Telefunc enables functions defined on the server-side to be called remotely from the browser-side.
 
-```js
-// hello.telefunc.js
+```ts
+// hello.telefunc.ts
 // Environment: server
 
 export { hello }
@@ -50,8 +50,8 @@ The central aspect here is that `hello()` is always executed on the server side,
 
 As we have seen in the previous section, telefunctions always run on the server-side and can therefore use server utilities such as SQL and ORMs.
 
-```js
-// TodoList.telefunc.js
+```ts
+// TodoList.telefunc.ts
 // Environment: server
 
 export { onLoad }
@@ -60,7 +60,7 @@ async function onLoad() {
   // ORM
   const todoItems = await Task.findMany({ select: 'text' })
   // SQL
-  const todoItems = await execute("SELECT text FROM todo_items;")
+  // @detype-uncomment const todoItems = await execute("SELECT text FROM todo_items;")
 
   return todoItems
 }
@@ -68,8 +68,8 @@ async function onLoad() {
 
 > `.telefunc.js` files are guaranteed to be loaded only on the server-side. You can therefore save secret information, such as the database passwords, in `.telefunc.js` files.
 
-```jsx
-// TodoList.jsx
+```tsx
+// TodoList.tsx
 // Environment: client
 
 // This doesn't actually load CreateTodo.telefunc.js which we'll explain in the next section
@@ -79,9 +79,11 @@ async function TodoList() {
   // The frontend uses the telefunction onLoad() to retrieve data by executing a SQL/ORM query
   const todoItems = await onLoad()
   return (
-    <ul>{ todoItems.map(item =>
-      <li>{ item.text }</li>
-    )}</ul>
+    <ul>
+      {todoItems.map((item) => (
+        <li>{item.text}</li>
+      ))}
+    </ul>
   )
 }
 ```
@@ -92,8 +94,8 @@ async function TodoList() {
 
 Telefunctions can also be used to mutate data:
 
-```js
-// CreateTodo.telefunc.js
+```ts
+// CreateTodo.telefunc.ts
 // Environment: server
 
 export { onNewTodo }
@@ -108,15 +110,12 @@ async function onNewTodo(text) {
   await todoItem.save()
 
   // SQL
-  await execute(
-    "INSERT INTO todo_items VALUES (:text)",
-    { text }
-  )
+  await execute('INSERT INTO todo_items VALUES (:text)', { text })
 }
 ```
 
-```jsx
-// CreateTodo.jsx
+```tsx
+// CreateTodo.tsx
 // Environment: client
 
 import { onNewTodo } from './CreateTodo.telefunc.js'
@@ -151,8 +150,8 @@ RPC enables your frontend to tap directly into the full power of the server such
 
 Let's see what happens when a telefunction is called.
 
-```js
-// hello.telefunc.js
+```ts
+// hello.telefunc.ts
 // Environment: server
 
 export { hello }
@@ -163,7 +162,7 @@ async function hello({ name }) {
 }
 ```
 
-```js
+```ts
 // Environment: client
 
 import { hello } from './hello.telefunc.js'
@@ -173,10 +172,10 @@ const { message } = await hello('Eva')
 
 The `hello.telefunc.js` file is never loaded in the browser: instead Telefunc transforms `hello.telefunc.js` into the following:
 
-```js
+```ts
 // hello.telefunc.js (after Telefunc transformation)
 // Environment: Browser
-import { __internal_makeHttpRequest } 'telefunc/client'
+import { __internal_makeHttpRequest } from 'telefunc/client'
 export const hello = (...args) => __internal_makeHttpRequest('/hello.telefunc.js:hello', args)
 ```
 
@@ -190,15 +189,15 @@ When `hello('Eva')` is called in the browser-side, the following happens:
     }
     ```
  2. On the server-side, the Telefunc middleware:
-    ```js
-    // server.js
+    ```ts
+    // server.ts
 
     // Server (Express.js/Hono/Fastify/...)
 
     import { telefunc } from 'telefunc'
 
     // Telefunc middleware
-    app.use('/_telefunc', async (req, res) => {
+    app.use('/_telefunc', async (req: Request, res: Response) => {
       const httpResponse = await telefunc(req)
       res.send(httpResponse.body)
     })
@@ -235,8 +234,8 @@ curl https://your-website.com/_telefunc --data '{
 
 Thus, such telefunction is problematic:
 
-```js
-// sql.telefunc.js
+```ts
+// sql.telefunc.ts
 // Environment: server
 
 // run() is public: it can be called by anyone
@@ -267,8 +266,8 @@ In the sections below <Link href="#throw-abort"/> and <Link href="#shield" /> we
 As we've seen in the previous section,
 the following telefunction isn't safe.
 
-```js
-// run.telefunc.js
+```ts
+// run.telefunc.ts
 // Environment: server
 
 // run() is public: it can be called by anyone
@@ -281,8 +280,8 @@ async function run(sql) {
 
 But we can use `throw Abort()` to protect it:
 
-```js
-// run.telefunc.js
+```ts
+// run.telefunc.ts
 // Environment: server
 
 // run() is public: it can be called by anyone
@@ -304,8 +303,8 @@ async function run(sql) {
 
 We can use `throw Abort()` to avoid any forbidden telefunction call.
 
-```js
-// TodoList.telefunc.js
+```ts
+// TodoList.telefunc.ts
 // Environment: server
 
 export { onLoad }
@@ -335,8 +334,8 @@ async function onLoad() {
 
 Since telefunctions are public and can be called by anyone, we cannot assuming anything about arguments. We can use `throw Abort()` to ensure the type of telefunction arguments:
 
-```js
-// CreateTodo.telefunc.js
+```ts
+// CreateTodo.telefunc.ts
 // Environment: server
 
 export async function onNewTodo(text) {
@@ -358,8 +357,8 @@ export async function onNewTodo(text) {
 
 For more convenience, we can use `shield()` instead:
 
-```js
-// CreateTodo.telefunc.js
+```ts
+// CreateTodo.telefunc.ts
 // Environment: server
 
 import { shield } from 'telefunc'
@@ -371,8 +370,8 @@ export async function onNewTodo(text) {
 }
 ```
 
-```js
-// CreateTodo.telefunc.js
+```ts
+// CreateTodo.telefunc.ts
 // Environment: server
 
 import { shield } from 'telefunc'
@@ -395,8 +394,8 @@ Any of your telefunctions can be called by anyone, at any time, and with any arg
 
 You should always protect your telefunctions, even when your frontend calls a telefunction only in a certain way. For example:
 
-```jsx
-// Comment.jsx
+```tsx
+// Comment.tsx
 // Environment: client
 
 import { onDelete } from './Comment.telefunc.js'
@@ -405,18 +404,20 @@ function Comment({ id, text }) {
   const deleteButton =
     // The delete button is only shown to admins
     !user.isAdmin ? null : <button onClick={() => onDelete(id)}>Delete</button>
-  return <>
-    <p>{ text }</p>
-    { deleteButton }
-  </>
+  return (
+    <>
+      <p>{text}</p>
+      {deleteButton}
+    </>
+  )
 }
 ```
 
 Because the frontend shows the delete button only to admins, we can assume the user to be an admin whenever the frontend calls `onDelete()`.
 But we still need to use `throw Abort()` in order to protect the telefunction against calls that don't originate from the frontend.
 
-```js
-// Comment.telefunc.js
+```ts
+// Comment.telefunc.ts
 // Environment: server
 
 import { getContext, Abort, shield } from 'telefunc'
@@ -441,7 +442,7 @@ Since telefunctions are tailored to your frontend, you can make them send only t
 
 For example, the following doesn't send a single byte of superfluous information:
 
-```js
+```ts
 // TodoList.telefunc.ts
 // Environment: server
 

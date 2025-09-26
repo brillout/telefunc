@@ -5,8 +5,8 @@ import { ReadingRecommendation } from '../../components'
 
 You may wonder, why not use `throw new Error()` instead of `throw Abort()`?
 
-```js
-// TodoList.telefunc.js
+```ts
+// TodoList.telefunc.ts
 // Environment: server
 
 import { getContext } from 'telefunc'
@@ -36,11 +36,11 @@ The rule for a correct usage is:
 
 ## Example
 
-```js
+```ts
 // auth/getUser.ts
 // Environment: server
 
-// Note that `auth/getUser.ts` is not a `.telefunc.js` file (`getUser()` is
+// Note that `auth/getUser.ts` is not a `.telefunc.ts` file (`getUser()` is
 // not a telefunction but a so-called `getContext()` wrapper).
 export { getUser }
 
@@ -76,7 +76,7 @@ function getUser({ permission }) {
 
 > Such `getContext()` wrapper is a common Telefunc technique explained at <Link href="/permissions#getcontext-wrapping" doNotInferSectionTitle={true} />.
 
-```js
+```ts
 // components/Comment.telefunc.ts
 // Environment: server
 

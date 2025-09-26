@@ -4,12 +4,12 @@ import { Link } from '@brillout/docpress'
 
 The `onAbort()` hook is called whenever the browser makes a telefunction call that fails because the telefunction ran <Link text={<code>throw Abort()</code>} href="/Abort" />.
 
-```js
+```ts
 // Environment: client
 
 import { onAbort } from 'telefunc/client'
 
-onAbort(err => {
+onAbort((err) => {
   if (err.abortValue.notLoggedIn) {
     // Redirect user to login page
     window.location.href = '/login'
