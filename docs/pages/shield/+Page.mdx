@@ -5,8 +5,8 @@ import { Link } from '@brillout/docpress'
 We use `shield()` to guarantee the type of telefunction arguments. (As explained in <Link href="/RPC" />,
 telefunctions are public and need protection.)
 
-```ts
-// CreateTodo.telefunc.ts
+```js
+// CreateTodo.telefunc.js
 // Environment: server
 
 export { onNewTodo }
@@ -69,7 +69,7 @@ export const onNewTodo = shield(
 
 Note that the following doesn't work:
 
-```ts
+```ts ts-only
 import { shield } from 'telefunc'
 
 shield(onNewTodo, [shield.type.string])
@@ -84,8 +84,8 @@ export async function onNewTodo(text) {
 
 Examples showcasing the most common `shield()` types:
 
-```ts ts-only
-// TodoList.telefunc.ts
+```js
+// TodoList.telefunc.js
 // Environment: server
 
 import { shield } from 'telefunc'
