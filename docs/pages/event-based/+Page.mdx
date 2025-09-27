@@ -182,10 +182,15 @@ export async function updateTask(id: number, mods: Partial<typeof Task>) {
 
 import { updateTask } from '../database/actions/task'
 
-// Returns task.modifiedAt
-export const onTodoTextUpdate = async (id: number, text: string) => await updateTask(id, { text })
-// Doesn't return task.modifiedAt
-export const onTodoCompleted = async (id: number) => await updateTask(id, { completed: false })
+export const onTodoTextUpdate = async (id: number, text: string) => {
+  const task = await updateTask(id, { text })
+  // Returns task.modifiedAt
+  return task
+}
+export const onTodoCompleted = async (id: number) => {
+  await updateTask(id, { completed: false })
+  // Doesn't return task
+}
 ```
 
 It's slightly less DRY but, in exchange, you get a much clearer structure around security and performance.
