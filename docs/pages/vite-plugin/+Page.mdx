@@ -9,17 +9,18 @@ The plugin:
 
 We can pass Telefunc server configurations to the Vite plugin:
 
-```js
-// vite.config.js
+```ts
+// vite.config.ts
 
+import type { UserConfig } from 'vite';
 import { telefunc } from 'telefunc/vite'
 
 export default {
   plugins: [
     telefunc({
-      disableNamingConvention: true,
+      disableNamingConvention: true
       // ...
     })
   ]
-}
+} satisfies UserConfig
 ```

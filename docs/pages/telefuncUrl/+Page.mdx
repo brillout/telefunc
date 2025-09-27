@@ -14,7 +14,7 @@ You always need to set the value twice: on the server- and client-side.
 
 On the server-side:
 
-```js
+```ts
 // Environment: server
 
 import { config } from 'telefunc'
@@ -26,7 +26,7 @@ config.telefuncUrl = '/api/_telefunc'
 
 On the client-side:
 
-```js
+```ts
 // Environment: client
 
 import { config } from 'telefunc/client'
@@ -41,7 +41,7 @@ config.telefuncUrl = '/api/_telefunc'
 
 If you deploy your frontend and backend at different domain names, then do the following.
 
-```js
+```ts
 // Environment: client
 
 import { config } from 'telefunc/client'
@@ -53,7 +53,7 @@ import { config } from 'telefunc/client'
 config.telefuncUrl = 'https://example.org/api/_telefunc'
 ```
 
-```js
+```ts
 // Environment: server
 
 import { config } from 'telefunc'

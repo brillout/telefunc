@@ -12,7 +12,7 @@ export { onTextChange }
 
 import { getContext, Abort } from 'telefunc'
 
-function onTextChange(id: string, text: string) {
+async function onTextChange(id: string, text: string) {
   const { user } = getContext()
   if (!user) {
     // We return `notLoggedIn: true` so that the frontend can redirect the user to the login page
@@ -43,7 +43,7 @@ in this example we return `{ notLoggedIn: true }` instead of `throw Abort()` so 
 
 import { onTextChange } from './TodoItem.telefunc'
 
-function onChange(id: string, text: string) {
+async function onChange(id: string, text: string) {
   const res = await onTextChange(id, text)
   if (res?.notLoggedIn) {
     // Redirect user to login page
@@ -52,7 +52,9 @@ function onChange(id: string, text: string) {
 }
 
 function TodoItem({ id, text }: { id: string; text: string }) {
-  return <input input="text" value={text} onChange={(ev) => onChange(id, ev.target.value)} />
+  return (
+    <input input="text" value={text} onChange={async (ev) => await onChange(id, ev.target.value)} />
+  )
 }
 ```
 
@@ -93,12 +95,12 @@ function getUser() {
 }
 ```
 
-```js
+```ts
 // Environment: client
 
 import { onAbort } from 'telefunc/client'
 
-onAbort(err => {
+onAbort((err) => {
   if (err.abortValue.notLoggedIn) {
     // Redirect user to login page
     window.location.href = '/login'

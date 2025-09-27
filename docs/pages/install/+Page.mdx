@@ -7,24 +7,6 @@ Telefunc can be used in any JavaScript environment without using a transformer b
 
 ## Without transformer
 
-Without TypeScript:
-
-```js
-// TodoList.js
-// Environment: client
-
-import { defineTelefunction } from 'telefunc/client'
-const onNewTodo = defineTelefunction('TodoList.telefunc.js', 'onNewTodo')
-
-async function onClick(form) {
-  const text = form.input.value
-  // Exactly as usual
-  await onNewTodo({ text })
-}
-```
-
-With TypeScript:
-
 ```ts
 // TodoList.ts
 // Environment: client
@@ -46,14 +28,15 @@ async function onClick(form) {
 
 If we use Vite, we can transform `*.telefunc.js` files by using the Telefunc's Vite plugin:
 
-```js
-// vite.config.js
+```ts
+// vite.config.ts
 
 import { telefunc } from 'telefunc/vite'
+import { UserConfig } from 'vite'
 
 export default {
   plugins: [telefunc()]
-}
+} satisfies UserConfig
 ```
 
 ## Webpack plugin

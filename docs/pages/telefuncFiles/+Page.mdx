@@ -11,15 +11,13 @@ You do so by using:
  - `config.telefuncFiles`
  - <Link href="/root">`config.root`</Link>
 
-```js
+```ts
 // Environment: server
 
 import { config } from 'telefunc'
 
 // List of telefunc files
-config.telefuncFiles = [
-  require.resolve('./hello.telefunc.mjs')
-]
+config.telefuncFiles = [require.resolve('./hello.telefunc.mjs')]
 
 // The root directory of the project
 config.root = __dirname

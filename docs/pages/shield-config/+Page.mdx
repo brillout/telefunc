@@ -1,13 +1,13 @@
 import { Link, Warning } from '@brillout/docpress'
 import { ConfigWhereServer } from '../../components'
 
-**Environment**: server.  
-**Type**: `boolean | { dev?: boolean; prod?: boolean }`.  
-**Default**: `{ dev: false, prod: true }`.  
+**Environment**: server  
+**Type**: `boolean | { dev?: boolean; prod?: boolean }{:ts}`  
+**Default**: `{ dev: false, prod: true }{:ts}`  
 
 Whether to generate <Link href="/shield">`shield()`</Link> in development and/or when building for production.
 
-```js
+```ts
 // Environment: server
 
 import { config } from 'telefunc'
