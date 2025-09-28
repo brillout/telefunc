@@ -79,9 +79,11 @@ async function TodoList() {
   // The frontend uses the telefunction onLoad() to retrieve data by executing a SQL/ORM query
   const todoItems = await onLoad()
   return (
-    <ul>{ todoItems.map(item =>
-      <li>{ item.text }</li>
-    )}</ul>
+    <ul>
+      {todoItems.map((item) => (
+        <li>{item.text}</li>
+      ))}
+    </ul>
   )
 }
 ```
@@ -108,10 +110,7 @@ async function onNewTodo(text) {
   await todoItem.save()
 
   // SQL
-  await execute(
-    "INSERT INTO todo_items VALUES (:text)",
-    { text }
-  )
+  await execute('INSERT INTO todo_items VALUES (:text)', { text })
 }
 ```
 
@@ -176,7 +175,7 @@ The `hello.telefunc.js` file is never loaded in the browser: instead Telefunc tr
 ```js
 // hello.telefunc.js (after Telefunc transformation)
 // Environment: Browser
-import { __internal_makeHttpRequest } 'telefunc/client'
+import { __internal_makeHttpRequest } from 'telefunc/client'
 export const hello = (...args) => __internal_makeHttpRequest('/hello.telefunc.js:hello', args)
 ```
 
@@ -198,7 +197,7 @@ When `hello('Eva')` is called in the browser-side, the following happens:
     import { telefunc } from 'telefunc'
 
     // Telefunc middleware
-    app.use('/_telefunc', async (req, res) => {
+    app.use('/_telefunc', async (req: Request, res: Response) => {
       const httpResponse = await telefunc(req)
       res.send(httpResponse.body)
     })
@@ -405,10 +404,12 @@ function Comment({ id, text }) {
   const deleteButton =
     // The delete button is only shown to admins
     !user.isAdmin ? null : <button onClick={() => onDelete(id)}>Delete</button>
-  return <>
-    <p>{ text }</p>
-    { deleteButton }
-  </>
+  return (
+    <>
+      <p>{text}</p>
+      {deleteButton}
+    </>
+  )
 }
 ```
 
@@ -442,12 +443,13 @@ Since telefunctions are tailored to your frontend, you can make them send only t
 For example, the following doesn't send a single byte of superfluous information:
 
 ```js
-// TodoList.telefunc.ts
+// TodoList.telefunc.js
 // Environment: server
 
 import { getContext } from 'telefunc'
 
-export async function onTodoComplete(id: number) {
+shield(onTodoComplete, [shield.type.number])
+export async function onTodoComplete(id) {
   const { user } = getContext()
   await Task.update({ completed: true }).where({ id, author: user.id })
   // No data is returned: the HTTP response status code 200 is enough information for the client

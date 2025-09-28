@@ -115,12 +115,12 @@ components/TodoList.tsx # <TodoList> implementation
 import { onMarkAllAsCompleted } from './TodoList.telefunc.ts'
 
 function TodoList() {
-  return <>
-    {/* ... */}
-    <button onClick={onMarkAllAsCompleted}>
-      Mark all as completed
-    </button>
-  </>
+  return (
+    <>
+      {/* ... */}
+      <button onClick={onMarkAllAsCompleted}>Mark all as completed</button>
+    </>
+  )
 }
 ```
 
@@ -162,13 +162,14 @@ Generic telefunctions typically:
 
 We recommend the following instead:
 
-```js
+```ts
 // database/actions/task.ts
 
+import { Task } from '../models/Task'
 import { getContext } from 'telefunc'
 
 // This isn't a telefunction: it's a normal server-side function
-export async function updateTask(id: number, mods: Partial<Task>) {
+export async function updateTask(id: number, mods: Partial<typeof Task>) {
   const { user } = getContext() // Can also be used in normal functions
   const task = await Task.update(mods).where({ id, author: user.id })
   // Returns the updated value task.modifiedAt
@@ -176,15 +177,20 @@ export async function updateTask(id: number, mods: Partial<Task>) {
 }
 ```
 
-```js
+```ts
 // components/TodoList.telefunc.ts
 
 import { updateTask } from '../database/actions/task'
 
-// Returns task.modifiedAt
-export const onTodoTextUpdate = (id: number, text: string) => updateTask(id, { text })
-// Doesn't return task.modifiedAt
-export const onTodoCompleted = (id: number) => { await updateTask(id, { completed: false }) }
+export const onTodoTextUpdate = async (id: number, text: string) => {
+  const task = await updateTask(id, { text })
+  // Returns task.modifiedAt
+  return task
+}
+export const onTodoCompleted = async (id: number) => {
+  await updateTask(id, { completed: false })
+  // Doesn't return task
+}
 ```
 
 It's slightly less DRY but, in exchange, you get a much clearer structure around security and performance.
@@ -201,13 +207,13 @@ That's why we recommend event-based telefunctions, along with the naming convent
 > - It's a rare situation (UI components usually have slightly different requirements).
 > - Consider creating a new shared UI component used by these two components.
 > - Using the deduplication approach shown above, only one line of duplicated code remains:
->   ```js
->   // TodoItem.telefunc.js
+>   ```ts
+>   // TodoItem.telefunc.ts
 >   // Defined once for <TodoItem>
 >   export const onTodoTextUpdate = (id: number, text: string) => updateTask(id, { text })
 >   ```
->   ```js
->   // TodoList.telefunc.js
+>   ```ts
+>   // TodoList.telefunc.ts
 >   // Defined again for <TodoList> — the code duplication is only one line of code
 >   export const onTodoTextUpdate = (id: number, text: string) => updateTask(id, { text })
 >   ```

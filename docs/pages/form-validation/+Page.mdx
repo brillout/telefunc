@@ -2,7 +2,7 @@ When a user enters a form with invalid inputs, such as an invalid email address,
 
 We can pass information about invalid inputs to the frontend by using `return someValue`:
 
-```js
+```ts
 // SignUpForm.telefunc.ts
 // Environment: server
 
@@ -38,7 +38,7 @@ export async function onFormSubmit(email: string, password: string) {
 
 We can use `throw Abort(someValue)` instead of `return someValue`:
 
-```js
+```ts
 // SignUpForm.telefunc.ts
 // Environment: server
 
@@ -62,7 +62,7 @@ In general, we recommend using `return { someValue }` instead of `throw Abort(so
     ```ts
     try {
       /* ... */
-    } catch(err: unknown) {
+    } catch (err: unknown) {
       // err needs to be casted
       const errCasted = (err as ValidationError | SomeOtherError)
     }

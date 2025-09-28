@@ -4,15 +4,15 @@ import { Link } from '@brillout/docpress'
 
 We install Telefunc by using Telefunc's server middleware `telefunc()`:
 
-```js
-// server.js
+```ts
+// server.ts
 
 // Server (Express.js/Fastify/...)
 
 import { telefunc } from 'telefunc'
 
 // Telefunc middleware
-app.all('/_telefunc', async (req, res) => {
+app.all('/_telefunc', async (req: Request, res: Response) => {
   const httpResponse = await telefunc({
     // HTTP Request URL, which is '/_telefunc' if we didn't modify config.telefuncUrl
     url: req.url,

@@ -30,14 +30,14 @@ If we use TypeScript, then Telefunc automatically generates `shield()` for each 
 
 In other words: telefunction argument types are automatically validated at runtime:
 
-```ts
+```ts ts-only
 // hello.telefunc.ts
 
 // We don't need to define a shield() when using TypeScript: Telefunc automatically generates
 // it for us. For example here, Telefunc automatically aborts the telefunction call if the
 // argument is `hello({ name: 42 })` and throws an error that `name` should be a `number`.
 export async function hello({ name }: { name: string }) {
-   return `Welcome to Telefunc, ${name}.`
+  return `Welcome to Telefunc, ${name}.`
 }
 ```
 
@@ -56,7 +56,7 @@ With Telefunc, not only can we seamlessly re-use types across our frontend and b
 
 If we define `shield()` manually (instead of using Telefunc's automatic `shield()` generator as described in <Link href="#typescript-automatic" />), then note that we don't need to define the arguments type twice:
 
-```ts
+```ts ts-only
 import { shield } from 'telefunc'
 
 export const onNewTodo = shield(
@@ -69,7 +69,7 @@ export const onNewTodo = shield(
 
 Note that the following doesn't work:
 
-```ts
+```ts ts-only
 import { shield } from 'telefunc'
 
 shield(onNewTodo, [shield.type.string])

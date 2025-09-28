@@ -11,13 +11,13 @@ import { Link } from '@brillout/docpress'
 
 If a telefunction has a bug:
 
-```js
-// hello.telefunc.js
+```ts
+// hello.telefunc.ts
 // Environment: server
 
 export { hello }
 
-function hello(name) {
+async function hello(name: string) {
   // This telefunction has a bug: it should be `name` instead of `namee`
   return 'Hello ' + namee
 }
@@ -68,13 +68,13 @@ We can:
 
 We can propagate error information to the frontend like this:
 
-```js
+```ts
 import { validate } from 'some-library'
 
-function onFromSubmit(data) {
+function onFormSubmit(data) {
   try {
     validate(data)
-  } catch(err) {
+  } catch (err) {
     return {
       errorMessage: `Data is invalid: ${err.message}. Please enter valid data.`
     }
@@ -84,14 +84,14 @@ function onFromSubmit(data) {
 
 We can also use `throw Abort(someValue)`:
 
-```js
+```ts
 import { validate } from 'some-library'
 import { Abort } from 'telefunc'
 
-function onFromSubmit(data) {
+function onFormSubmit(data) {
   try {
     validate(data)
-  } catch(err) {
+  } catch (err) {
     throw Abort({
       errorMessage: `Data is invalid: ${err.message}. Please enter valid data.`
     })
@@ -111,15 +111,15 @@ Also see <Link href="/permissions#getcontext-wrapping" doNotInferSectionTitle={t
 
 We can handle the thrown error at our Telefunc server middleware:
 
-```js
-// server.js
+```ts
+// server.ts
 
 // Server (Express.js/Fastify/...)
 
 import { telefunc } from 'telefunc'
 
 // Telefunc middleware
-app.all('/_telefunc', async (req, res) => {
+app.all('/_telefunc', async (req: Request, res: Response) => {
   const httpResponse = await telefunc(/* ... */)
   // Telefunc exposes any error thrown by a telefunction at httpResponse.err
   if (httpResponse.err) {
