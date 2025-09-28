@@ -46,7 +46,7 @@ export { getUser }
 
 import { Abort, getContext } from 'telefunc'
 
-function getUser({ permission }) {
+function getUser({ permission }: { permission: string }) {
   if (!permission) {
     throw new Error('Wrong getUser() usage: missing permission')
   }

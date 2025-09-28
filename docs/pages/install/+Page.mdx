@@ -15,7 +15,7 @@ import { defineTelefunction } from 'telefunc/client'
 import type { onNewTodo as onNewTodoType } from './TodoList.telefunc.ts'
 const onNewTodo = defineTelefunction<typeof onNewTodoType>('TodoList.telefunc.ts', 'onNewTodo')
 
-async function onClick(form) {
+async function onClick(form: FormData) {
   const text = form.input.value
   // Exactly as usual, including TypeScript support
   await onNewTodo({ text })
