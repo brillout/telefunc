@@ -17,7 +17,7 @@ If a telefunction has a bug:
 
 export { hello }
 
-function hello(name) {
+async function hello(name: string) {
   // This telefunction has a bug: it should be `name` instead of `namee`
   return 'Hello ' + namee
 }
