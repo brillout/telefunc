@@ -71,7 +71,7 @@ We can propagate error information to the frontend like this:
 ```ts
 import { validate } from 'some-library'
 
-function onFormSubmit(data: FormData) {
+function onFormSubmit(data) {
   try {
     validate(data)
   } catch (err) {
@@ -88,7 +88,7 @@ We can also use `throw Abort(someValue)`:
 import { validate } from 'some-library'
 import { Abort } from 'telefunc'
 
-function onFormSubmit(data: FormData) {
+function onFormSubmit(data) {
   try {
     validate(data)
   } catch (err) {
