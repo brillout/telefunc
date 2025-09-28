@@ -60,7 +60,7 @@ async function onLoad() {
   // ORM
   const todoItems = await Task.findMany({ select: 'text' })
   // SQL
-  // @detype-uncomment const todoItems = await execute("SELECT text FROM todo_items;")
+  const todoItems = await execute("SELECT text FROM todo_items;")
 
   return todoItems
 }
