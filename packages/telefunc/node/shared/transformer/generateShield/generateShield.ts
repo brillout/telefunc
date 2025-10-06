@@ -60,6 +60,7 @@ function getProject(telefuncFilePath: string, telefuncFileCode: string, appRootD
     if (!tsConfigFilePath) {
       project = projects[key] = new Project({
         compilerOptions: {
+          // See assertUsage() comment
           strict: true,
         },
       })
@@ -71,9 +72,10 @@ function getProject(telefuncFilePath: string, telefuncFileCode: string, appRootD
         skipAddingFilesFromTsConfig: false,
       })
 
-      const compilerOptions = getCompilerOptionsFromTsConfig(tsConfigFilePath)
+      const compilerOptionsUser = getCompilerOptionsFromTsConfig(tsConfigFilePath)
+      // We need `compilerOptions.strict` to avoid `TS2589: Type instantiation is excessively deep and possibly infinite.`
       assertUsage(
-        compilerOptions.options.strict === true,
+        compilerOptionsUser.options.strict === true,
         `Set \`compilerOptions.strict\` to \`true\` in ${tsConfigFilePath} (needed for shield() generation)`,
       )
     }
@@ -163,7 +165,6 @@ function generate({
   // Add the dependent source files to the project
   project.resolveSourceFileDependencies()
 
-  // We need `compilerOptions.strict` to avoid `TS2589: Type instantiation is excessively deep and possibly infinite.`
   assert(project.compilerOptions.get().strict === true)
 
   for (const exportedFunction of exportList) {
