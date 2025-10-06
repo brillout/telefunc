@@ -8,12 +8,13 @@ export { errorPrefix }
 import { createErrorWithCleanStackTrace } from './createErrorWithCleanStackTrace.js'
 import { getGlobalObject } from './getGlobalObject.js'
 import { projectInfo } from './projectInfo.js'
+import pc from '@brillout/picocolors'
 
 const errorPrefix = `[telefunc@${projectInfo.projectVersion}]`
-const internalErrorPrefix = `${errorPrefix}[Bug]`
-const usageErrorPrefix = `${errorPrefix}[Wrong Usage]`
-const warningPrefix = `${errorPrefix}[Warning]`
-const infoPrefix = `${errorPrefix}[Info]`
+const internalErrorPrefix = red(`${errorPrefix}[Bug]`)
+const usageErrorPrefix = red(`${errorPrefix}[Wrong Usage]`)
+const warningPrefix = yellow(`${errorPrefix}[Warning]`)
+const infoPrefix = blue(`${errorPrefix}[Info]`)
 
 const numberOfStackTraceLinesToRemove = 2
 
@@ -105,4 +106,14 @@ function assertInfo(condition: unknown, errorMessage: string, { onlyOnce }: { on
     }
   }
   console.log(msg)
+}
+
+function red<Str extends string>(str: Str) {
+  return pc.red(pc.bold(str))
+}
+function yellow<Str extends string>(str: Str) {
+  return pc.yellow(pc.bold(str))
+}
+function blue<Str extends string>(str: Str) {
+  return pc.blue(pc.bold(str))
 }
