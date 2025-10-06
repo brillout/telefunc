@@ -53,7 +53,7 @@ function generateShield(
 function getProject(telefuncFilePath: string, telefuncFileCode: string, appRootDir: string, isTest?: true) {
   const tsConfigFilePath = isTest ? null : findTsConfig(telefuncFilePath, appRootDir)
   const key = tsConfigFilePath ?? '__no_tsconfig'
-  const typeToShieldFilePath = path.join(getFilesystemRoot(), '__telefunc_typeToShield.ts')
+  const typeToShieldFilePath = path.join(getFilesystemRoot(), '__telefunc_TypeToShield.ts')
   // When shield() generation fails, avoid showing unrelated errors in TypeScript diagnostics
   const tsConfigAddendum = { skipLibCheck: true }
 
@@ -302,18 +302,18 @@ function getShieldName(telefunctionName: string) {
   return `${telefunctionName}Shield` as const
 }
 
-let typeToShieldSrc: string | undefined
+let typeToShieldFileSrc: string | undefined
 function getTypeToShieldSrc() {
-  if (!typeToShieldSrc) {
+  if (!typeToShieldFileSrc) {
     try {
-      typeToShieldSrc = fs.readFileSync(`${__dirname_}/typeToShield.d.ts`).toString()
+      typeToShieldFileSrc = fs.readFileSync(`${__dirname_}/TypeToShield.d.ts`).toString()
     } catch {
-      typeToShieldSrc = fs.readFileSync(`${__dirname_}/typeToShield.ts`).toString()
+      typeToShieldFileSrc = fs.readFileSync(`${__dirname_}/TypeToShield.ts`).toString()
     }
   }
-  assert(typeToShieldSrc)
-  assert(typeToShieldSrc.includes('SimpleType'))
-  return typeToShieldSrc
+  assert(typeToShieldFileSrc)
+  assert(typeToShieldFileSrc.includes('SimpleType'))
+  return typeToShieldFileSrc
 }
 
 function findTsConfig(telefuncFilePath: string, appRootDir: string): string | null {

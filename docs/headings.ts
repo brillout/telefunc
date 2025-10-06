@@ -22,37 +22,6 @@ const categories = ['Guides', 'API', 'Get Started', 'Overview', 'Miscellaneous']
 
 const headingsDetached = [...misc()] satisfies HeadingDetachedDefinition[]
 
-function misc() {
-  return (
-    [
-      {
-        title: '`Abort()` vs `new Error()`',
-        url: '/abort-vs-error',
-      },
-      {
-        title: 'Telefunc Transformer',
-        url: '/transformer',
-      },
-      {
-        title: 'RPC vs GraphQL/REST',
-        url: '/RPC-vs-GraphQL-REST',
-      },
-      {
-        title: 'Initial Page Data',
-        url: '/initial-page-data',
-      },
-      {
-        title: 'Initial Data',
-        url: '/initial-data',
-      },
-      {
-        title: 'Multiple Clients',
-        url: '/multiple-clients',
-      },
-    ] as const
-  ).map((h) => ({ ...h, category: 'Miscellaneous' as const })) satisfies HeadingDetachedDefinition[]
-}
-
 const headings = [
   {
     level: 1,
@@ -264,3 +233,34 @@ const headings = [
     url: '/babel-plugin',
   },
 ] as const satisfies HeadingDefinition[]
+
+function misc() {
+  return (
+    [
+      {
+        title: '`Abort()` vs `new Error()`',
+        url: '/abort-vs-error',
+      },
+      {
+        title: 'Telefunc Transformer',
+        url: '/transformer',
+      },
+      {
+        title: 'RPC vs GraphQL/REST',
+        url: '/RPC-vs-GraphQL-REST',
+      },
+      {
+        title: 'Initial Page Data',
+        url: '/initial-page-data',
+      },
+      {
+        title: 'Initial Data',
+        url: '/initial-data',
+      },
+      {
+        title: 'Multiple Clients',
+        url: '/multiple-clients',
+      },
+    ] as const
+  ).map((h) => ({ ...h, category: 'Miscellaneous' as const })) satisfies HeadingDetachedDefinition[]
+}

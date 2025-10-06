@@ -181,7 +181,7 @@ export type TypeToShield<T> = T extends (...args: any) => any
   : // export isn't a function => do nothing
     never
 
-type _cases = [
+type _test = [
   Expect<Equals<ShieldStr<string>, '__telefunc_t.string'>>,
   Expect<Equals<ShieldStr<number>, '__telefunc_t.number'>>,
   Expect<Equals<ShieldStr<boolean>, '__telefunc_t.boolean'>>,
