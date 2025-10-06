@@ -11,7 +11,7 @@ function assertTelefunction(
 ): asserts exportValue is Telefunction {
   assertWarning(
     isCallable(exportValue),
-    `${pc.code(`export { ${exportName} }`)} of ${pc.bold(telefuncFilePath)} should be a function https://telefunc.com/warning/non-function-export`,
+    `${pc.code(`export { ${exportName} }`)} of ${pc.bold(telefuncFilePath)} should be a function ${pc.underline('https://telefunc.com/warning/non-function-export')}`,
     { onlyOnce: true },
   )
 }
