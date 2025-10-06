@@ -261,6 +261,10 @@ function misc() {
         title: 'Multiple Clients',
         url: '/multiple-clients',
       },
+      {
+        title: '❌ Non-function exports',
+        url: '/warning/non-function-export',
+      },
     ] as const
   ).map((h) => ({ ...h, category: 'Miscellaneous' as const })) satisfies HeadingDetachedDefinition[]
 }
