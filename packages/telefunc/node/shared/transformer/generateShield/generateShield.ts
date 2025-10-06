@@ -54,12 +54,15 @@ function getProject(telefuncFilePath: string, telefuncFileCode: string, appRootD
   const tsConfigFilePath = isTest ? null : findTsConfig(telefuncFilePath, appRootDir)
   const key = tsConfigFilePath ?? '__no_tsconfig'
   const typeToShieldFilePath = path.join(getFilesystemRoot(), '__telefunc_typeToShield.ts')
+  // When shield() generation fails, avoid showing unrelated errors in TypeScript diagnostics
+  const tsConfigAddendum = { skipLibCheck: true }
 
   if (!projects[key]) {
     let project: Project
     if (!tsConfigFilePath) {
       project = projects[key] = new Project({
         compilerOptions: {
+          ...tsConfigAddendum,
           // See assertUsage() comment
           strict: true,
         },
@@ -70,6 +73,9 @@ function getProject(telefuncFilePath: string, telefuncFileCode: string, appRootD
         // Add all project files, which is needed for picking up the Telefunc.Context value
         //  - What `Telefunc.Context` is, is explained at https://telefunc.com/getContext#typescript
         skipAddingFilesFromTsConfig: false,
+        compilerOptions: {
+          ...tsConfigAddendum,
+        },
       })
 
       const compilerOptionsUser = getCompilerOptionsFromTsConfig(tsConfigFilePath)
@@ -79,6 +85,10 @@ function getProject(telefuncFilePath: string, telefuncFileCode: string, appRootD
         `Set \`compilerOptions.strict\` to \`true\` in ${tsConfigFilePath} (needed for shield() generation)`,
       )
     }
+
+    const compilerOptionsResolved = project.compilerOptions.get()
+    assert(compilerOptionsResolved.strict === true)
+    assert(compilerOptionsResolved.skipLibCheck === true)
 
     // This source file is used for evaluating the template literal types' values
     project.createSourceFile(typeToShieldFilePath, getTypeToShieldSrc())
