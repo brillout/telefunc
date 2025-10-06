@@ -179,7 +179,7 @@ type ShieldArrStr<T extends any[], M = ShieldStrMap<T>> = M extends any[] ? `[${
 export type TypeToShield<T> = T extends (...args: any) => any
   ? ShieldArrStr<Parameters<T>>
   : // export isn't a function => do nothing
-    never
+    'NON_FUNCTION_EXPORT'
 
 type _test = [
   Expect<Equals<ShieldStr<string>, '__telefunc_t.string'>>,

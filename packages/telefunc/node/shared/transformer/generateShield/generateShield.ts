@@ -169,6 +169,8 @@ function generateShieldCode({
     const shieldStr = shieldStrType.getLiteralValue()
     assert(shieldStr === undefined || typeof shieldStr === 'string')
 
+    if (shieldStr === 'NON_FUNCTION_EXPORT') continue
+
     const failed = shieldStr === undefined
 
     generatedShields.push({
