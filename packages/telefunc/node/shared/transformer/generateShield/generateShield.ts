@@ -146,7 +146,7 @@ function generateShieldCode({
   for (const e of exportList) {
     shieldGenSource.addTypeAlias({
       name: getShieldName(e.exportName),
-      type: `TypeToShield<typeof ${e.exportName}>>`,
+      type: `TypeToShield<typeof ${e.exportName}>`,
     })
   }
 
