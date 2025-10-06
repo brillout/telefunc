@@ -1,3 +1,16 @@
+## [0.2.14](https://github.com/brillout/telefunc/compare/v0.2.13...v0.2.14) (2025-10-06)
+
+
+### Bug Fixes
+
+* colorize message prefix ([e6a91d0](https://github.com/brillout/telefunc/commit/e6a91d0c836cc470b863685b362bb96560d7d692))
+* don't add generated shield code to ts-morph project ([#215](https://github.com/brillout/telefunc/issues/215)) ([8feb6e9](https://github.com/brillout/telefunc/commit/8feb6e9c0be623d0dc83f838e28d33737273babb))
+* improve TypeScript error diagnostic upon shield() generation failure ([#215](https://github.com/brillout/telefunc/issues/215)) ([7154916](https://github.com/brillout/telefunc/commit/7154916f1ad0e994293b5858b82ad256615920f0))
+* tolerate non-function exports at build-time ([#215](https://github.com/brillout/telefunc/issues/215)) ([6c6104f](https://github.com/brillout/telefunc/commit/6c6104f040379065a538efbb53db548cf3f2cd54))
+* tolerate non-function exports but show a warning (fix [#215](https://github.com/brillout/telefunc/issues/215)) ([48de2a0](https://github.com/brillout/telefunc/commit/48de2a0d9010b781ab450fbd147a35fd7b154aee))
+
+
+
 ## [0.2.13](https://github.com/brillout/telefunc/compare/v0.2.12...v0.2.13) (2025-09-11)
 
 
