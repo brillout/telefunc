@@ -174,7 +174,12 @@ type ShieldStrMap<T extends any[]> = {
   [K in keyof T]-?: T[K] extends undefined ? never : ShieldStr<T[K]>
 }
 
-export type ShieldArrStr<T extends any[], M = ShieldStrMap<T>> = M extends any[] ? `[${JoinStrings<M>}]` : never
+type ShieldArrStr<T extends any[], M = ShieldStrMap<T>> = M extends any[] ? `[${JoinStrings<M>}]` : never
+
+export type TypeToShield<T> = T extends (...args: any) => any
+  ? ShieldArrStr<Parameters<T>>
+  : // export isn't a function => do nothing
+    never
 
 type _cases = [
   Expect<Equals<ShieldStr<string>, '__telefunc_t.string'>>,

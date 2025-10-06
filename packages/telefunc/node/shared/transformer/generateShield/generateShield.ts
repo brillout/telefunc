@@ -113,7 +113,7 @@ function getProject(telefuncFilePath: string, telefuncFileCode: string, appRootD
   const shieldGenSource = project.createSourceFile(shieldGenFilePath, undefined, { overwrite: true })
   shieldGenSource.addImportDeclaration({
     moduleSpecifier: getImportPath(shieldGenFilePath, typeToShieldFilePath),
-    namedImports: ['ShieldArrStr'],
+    namedImports: ['TypeToShield'],
   })
 
   const telefuncFileSource = project.getSourceFile(telefuncFilePath)
@@ -146,7 +146,7 @@ function generateShieldCode({
   for (const e of exportList) {
     shieldGenSource.addTypeAlias({
       name: getShieldName(e.exportName),
-      type: `ShieldArrStr<Parameters<typeof ${e.exportName}>>`,
+      type: `TypeToShield<typeof ${e.exportName}>>`,
     })
   }
 
