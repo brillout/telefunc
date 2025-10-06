@@ -166,9 +166,9 @@ type JoinStrings<T extends any[], Acc extends string = ''> = T extends [infer He
 
 type ShieldStr<T, Res = Shield<T>> = Res extends ShieldRes<any, any> ? WrapShieldRes<Res> : never
 
-export type Tail<L extends any[]> = L extends readonly [] ? [] : L extends readonly [any?, ...infer LTail] ? LTail : []
+type Tail<L extends any[]> = L extends readonly [] ? [] : L extends readonly [any?, ...infer LTail] ? LTail : []
 
-export type Head<L extends any[]> = L['length'] extends 0 ? never : L[0]
+type Head<L extends any[]> = L['length'] extends 0 ? never : L[0]
 
 type ShieldStrMap<T extends any[]> = {
   [K in keyof T]-?: T[K] extends undefined ? never : ShieldStr<T[K]>

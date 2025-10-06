@@ -299,7 +299,7 @@ function formatList(list: string[]): string {
 }
 
 function getShieldName(telefunctionName: string) {
-  return `${telefunctionName}Shield`
+  return `${telefunctionName}Shield` as const
 }
 
 let typeToShieldSrc: string | undefined
