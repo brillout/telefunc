@@ -7,9 +7,8 @@ import { callOnAbortListeners } from './onAbort.js'
 const method = 'POST'
 const STATUS_CODE_SUCCESS = 200
 const STATUS_CODE_ABORT = 403
-const STATUS_CODE_SHIELD_VALIDATION_FAILED = 400
+const STATUS_CODE_SHIELD_ERROR = 400
 const STATUS_CODE_BUG = 500
-const STATUS_CODE_INVALID = 400
 
 async function makeHttpRequest(callContext: {
   telefuncUrl: string
@@ -52,7 +51,7 @@ async function makeHttpRequest(callContext: {
     objectAssign(telefunctionCallError, { isAbort: true as const, abortValue })
     callOnAbortListeners(telefunctionCallError)
     throw telefunctionCallError
-  } else if (statusCode === STATUS_CODE_SHIELD_VALIDATION_FAILED) {
+  } else if (statusCode === STATUS_CODE_SHIELD_ERROR) {
     // Check if this is a shield validation failure (has abort flag) or a different 400 error
     const responseBody = await response.text()
     try {
@@ -109,7 +108,7 @@ async function parseResponseBody(response: Response, callContext: { telefuncUrl:
   const responseBodyParsed = parse(responseBody)
   assertUsage(isObject(responseBodyParsed) && 'ret' in responseBodyParsed, wrongInstallation({ method, callContext }))
   assert(
-    (response.status !== STATUS_CODE_ABORT && response.status !== STATUS_CODE_SHIELD_VALIDATION_FAILED) ||
+    (response.status === STATUS_CODE_ABORT || response.status === STATUS_CODE_SHIELD_ERROR) ===
       'abort' in responseBodyParsed,
   )
   const { ret } = responseBodyParsed
