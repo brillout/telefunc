@@ -45,7 +45,7 @@ function testRun(
       }
       {
         const resp = await makeTelefuncHttpRequest(1337)
-        expect(resp.status).toBe(403)
+        expect(resp.status).toBe(400)
         expect(await resp.text()).toBe('{"ret":"!undefined","abort":true}')
       }
     })

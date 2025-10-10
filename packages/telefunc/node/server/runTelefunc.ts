@@ -33,6 +33,10 @@ type HttpResponse = {
 const abortedRequestStatusCode = 403 // "Forbidden"
 
 // HTTP Response for:
+//  - Shield validation failures (bad arguments)
+const shieldValidationFailedStatusCode = 400 // "Bad Request"
+
+// HTTP Response for:
 // - User's telefunction threw an error that isn't `Abort()` (i.e. the telefunction has a bug).
 // - The `.telefunc.js` file exports a non-function value.
 // - The Telefunc code threw an error (i.e. Telefunc has a bug).
@@ -134,7 +138,7 @@ async function runTelefunc_(httpRequest: {
       })
       const httpResponseBody = serializeTelefunctionResult(runContext)
       return {
-        statusCode: abortedRequestStatusCode,
+        statusCode: shieldValidationFailedStatusCode,
         body: httpResponseBody,
         contentType: 'text/plain' as const,
         etag: null,
