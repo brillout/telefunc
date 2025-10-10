@@ -110,7 +110,7 @@ async function parseResponseBody(response: Response, callContext: { telefuncUrl:
   assertUsage(isObject(responseBodyParsed) && 'ret' in responseBodyParsed, wrongInstallation({ method, callContext }))
   assert(
     (response.status !== STATUS_CODE_ABORT && response.status !== STATUS_CODE_SHIELD_VALIDATION_FAILED) ||
-    'abort' in responseBodyParsed
+      'abort' in responseBodyParsed,
   )
   const { ret } = responseBodyParsed
   return { ret }
