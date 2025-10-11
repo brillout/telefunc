@@ -38,12 +38,19 @@ const abortedRequestStatusCode = 403 // "Forbidden"
 // HTTP Response for:
 //  - Shield validation failures (bad arguments)
 const shieldValidationFailedStatusCode = 422
+const shieldValidationFailed = {
+  statusCode: 422 as const, // "Unprocessable Content"
+  body: 'Internal Server Error',
+  contentType: 'text/plain' as const,
+  etag: null,
+}
 
 // HTTP Response for:
 // - User's telefunction threw an error that isn't `Abort()` (i.e. the telefunction has a bug).
 // - The `.telefunc.js` file exports a non-function value.
 // - The Telefunc code threw an error (i.e. Telefunc has a bug).
 const serverError = {
+  // TODO update comment
   statusCode: 500 as const, // "Internal Server Error"
   body: 'Internal Server Error',
   contentType: 'text/plain' as const,
@@ -139,13 +146,7 @@ async function runTelefunc_(httpRequest: {
         telefunctionAborted: true,
         telefunctionReturn: undefined,
       })
-      const httpResponseBody = serializeTelefunctionResult(runContext)
-      return {
-        statusCode: shieldValidationFailedStatusCode,
-        body: httpResponseBody,
-        contentType: 'text/plain' as const,
-        etag: null,
-      }
+      return shieldValidationFailed
     }
   }
 
