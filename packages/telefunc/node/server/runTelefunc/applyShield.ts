@@ -34,6 +34,7 @@ function applyShield(runContext: {
 
   let logShieldErrors = runContext.serverConfig.log.shieldErrors
   if ((logShieldErrors.dev && !isProduction()) || (logShieldErrors.prod && isProduction())) {
+    // TODO: don't show stack trace + add prefix 'Shield error:'
     const err = new Error(
       [
         `The arguments passed to the telefunction ${runContext.telefunctionName}() (${runContext.telefuncFilePath}) have the wrong type.`,
