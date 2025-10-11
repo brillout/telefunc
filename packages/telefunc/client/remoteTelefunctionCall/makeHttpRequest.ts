@@ -8,7 +8,9 @@ const method = 'POST'
 const STATUS_CODE_SUCCESS = 200
 const STATUS_CODE_ABORT = 403
 const STATUS_CODE_BUG = 500
+// TODO rename to STATUS_CODE_MALFORMED
 const STATUS_CODE_INVALID = 400
+const STATUS_CODE_SHIELD = 422
 
 async function makeHttpRequest(callContext: {
   telefuncUrl: string
@@ -52,10 +54,11 @@ async function makeHttpRequest(callContext: {
     callOnAbortListeners(telefunctionCallError)
     throw telefunctionCallError
   } else if (statusCode === STATUS_CODE_BUG) {
-    const responseBody = await response.text()
-    const errMsg = 'Internal Server Error'
-    assertUsage(responseBody === errMsg, wrongInstallation({ method, callContext }))
+    const errMsg = await getErrMsg('Internal Server Error', response, callContext)
     throw new Error(`${errMsg}. See server logs.`)
+  } else if (statusCode === STATUS_CODE_SHIELD) {
+    const errMsg = await getErrMsg('Shield Validation Error', response, callContext)
+    throw new Error(errMsg)
   } else if (statusCode === STATUS_CODE_INVALID) {
     const responseBody = await response.text()
     assertUsage(responseBody === 'Invalid Telefunc Request', wrongInstallation({ method, callContext }))
@@ -111,4 +114,14 @@ function wrongInstallation({
   msg.push(...[`: the HTTP ${method} \`${callContext.telefuncUrl}\` request returned `, reason])
   msg.push(`, see https://telefunc.com/install`)
   return msg.join('')
+}
+
+async function getErrMsg(
+  errMsg: 'Internal Server Error' | 'Shield Validation Error',
+  response: Response,
+  callContext: { telefuncUrl: string },
+) {
+  const responseBody = await response.text()
+  assertUsage(responseBody === errMsg, wrongInstallation({ method, callContext }))
+  return `${errMsg} — see server logs (if enabled: https://telefunc.com/log)` as const
 }

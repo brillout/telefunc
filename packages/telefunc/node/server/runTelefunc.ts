@@ -17,7 +17,8 @@ import { getServerConfig } from './serverConfig.js'
 /** The HTTP Response of a telefunction remote call HTTP Request */
 type HttpResponse = {
   /** HTTP Response Status Code */
-  statusCode: 200 | 403 | 500 | 400
+  // TODO re-order
+  statusCode: 200 | 403 | 500 | 400 | 422
   /** HTTP Response Body */
   body: string
   /** HTTP Response Header `Content-Type` */
@@ -28,16 +29,30 @@ type HttpResponse = {
   err?: unknown
 }
 
+// TODO dedupe
 // HTTP Response for:
 //  - `throw Abort()`
 const abortedRequestStatusCode = 403 // "Forbidden"
+
+// TODO dedupe
+// HTTP Response for:
+//  - shield() error
+const shieldValidationError = {
+  statusCode: 422 as const, // "Unprocessable Content"
+  // TODO dedupe
+  body: 'Shield Validation Error',
+  contentType: 'text/plain' as const,
+  etag: null,
+}
 
 // HTTP Response for:
 // - User's telefunction threw an error that isn't `Abort()` (i.e. the telefunction has a bug).
 // - The `.telefunc.js` file exports a non-function value.
 // - The Telefunc code threw an error (i.e. Telefunc has a bug).
 const serverError = {
+  // TODO dedupe
   statusCode: 500 as const, // "Internal Server Error"
+  // TODO dedupe
   body: 'Internal Server Error',
   contentType: 'text/plain' as const,
   etag: null,
@@ -132,13 +147,7 @@ async function runTelefunc_(httpRequest: {
         telefunctionAborted: true,
         telefunctionReturn: undefined,
       })
-      const httpResponseBody = serializeTelefunctionResult(runContext)
-      return {
-        statusCode: abortedRequestStatusCode,
-        body: httpResponseBody,
-        contentType: 'text/plain' as const,
-        etag: null,
-      }
+      return shieldValidationError
     }
   }
 
