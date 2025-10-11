@@ -7,8 +7,8 @@ import { callOnAbortListeners } from './onAbort.js'
 const method = 'POST'
 const STATUS_CODE_SUCCESS = 200
 const STATUS_CODE_ABORT = 403
-const STATUS_CODE_SHIELD_ERROR = 400
 const STATUS_CODE_BUG = 500
+const STATUS_CODE_INVALID = 400
 
 async function makeHttpRequest(callContext: {
   telefuncUrl: string
@@ -51,37 +51,19 @@ async function makeHttpRequest(callContext: {
     objectAssign(telefunctionCallError, { isAbort: true as const, abortValue })
     callOnAbortListeners(telefunctionCallError)
     throw telefunctionCallError
-  } else if (statusCode === STATUS_CODE_SHIELD_ERROR) {
-    // Check if this is a shield validation failure (has abort flag) or a different 400 error
+  } else if (statusCode === STATUS_CODE_BUG) {
     const responseBody = await response.text()
-    try {
-      const responseBodyParsed = parse(responseBody)
-      if (isObject(responseBodyParsed) && 'abort' in responseBodyParsed) {
-        // This is a shield validation failure - treat it like an abort
-        const { ret } = responseBodyParsed
-        const abortValue = ret
-        const telefunctionCallError = new Error(
-          `Shield validation failed for telefunction call ${callContext.telefunctionName}() (${callContext.telefuncFilePath}).`,
-        )
-        objectAssign(telefunctionCallError, { isAbort: true as const, abortValue })
-        callOnAbortListeners(telefunctionCallError)
-        throw telefunctionCallError
-      }
-    } catch {
-      // If parsing fails, fall through to treat as invalid request
-    }
-    // This is a different kind of 400 error (invalid request)
+    const errMsg = 'Internal Server Error'
+    assertUsage(responseBody === errMsg, wrongInstallation({ method, callContext }))
+    throw new Error(`${errMsg}. See server logs.`)
+  } else if (statusCode === STATUS_CODE_INVALID) {
+    const responseBody = await response.text()
     assertUsage(responseBody === 'Invalid Telefunc Request', wrongInstallation({ method, callContext }))
     /* With Next.js 12: when renaming a `.telefunc.js` file the client makes a request with the new `.telefunc.js` name while the server is still serving the old `.telefunc.js` name. Seems like a race condition: trying again seems to fix the error.
     // This should never happen as the Telefunc Client shouldn't make invalid requests
     assert(false)
     */
     assertUsage(false, 'Try again. You may need to reload the page. (The client and server are/was out-of-sync.)')
-  } else if (statusCode === STATUS_CODE_BUG) {
-    const responseBody = await response.text()
-    const errMsg = 'Internal Server Error'
-    assertUsage(responseBody === errMsg, wrongInstallation({ method, callContext }))
-    throw new Error(`${errMsg}. See server logs.`)
   } else {
     assertUsage(
       statusCode !== 404,
@@ -107,10 +89,7 @@ async function parseResponseBody(response: Response, callContext: { telefuncUrl:
   const responseBody = await response.text()
   const responseBodyParsed = parse(responseBody)
   assertUsage(isObject(responseBodyParsed) && 'ret' in responseBodyParsed, wrongInstallation({ method, callContext }))
-  assert(
-    (response.status === STATUS_CODE_ABORT || response.status === STATUS_CODE_SHIELD_ERROR) ===
-      'abort' in responseBodyParsed,
-  )
+  assert(response.status !== STATUS_CODE_ABORT || 'abort' in responseBodyParsed)
   const { ret } = responseBodyParsed
   return { ret }
 }
