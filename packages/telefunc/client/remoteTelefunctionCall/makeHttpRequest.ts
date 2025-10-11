@@ -8,6 +8,7 @@ const method = 'POST'
 const STATUS_CODE_SUCCESS = 200
 const STATUS_CODE_ABORT = 403
 const STATUS_CODE_BUG = 500
+// TODO rename to STATUS_CODE_MALFORMED
 const STATUS_CODE_INVALID = 400
 
 async function makeHttpRequest(callContext: {
