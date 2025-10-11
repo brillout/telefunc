@@ -53,7 +53,7 @@ async function makeHttpRequest(callContext: {
     objectAssign(telefunctionCallError, { isAbort: true as const, abortValue })
     callOnAbortListeners(telefunctionCallError)
     throw telefunctionCallError
-  } else if (statusCode === STATUS_CODE_BUG || statusCode === STATUS_CODE_SHIELD) {
+  } else if (statusCode === STATUS_CODE_BUG) {
     const errMsg = await getErrMsg('Internal Server Error', response, callContext)
     throw new Error(`${errMsg}. See server logs.`)
   } else if (statusCode === STATUS_CODE_SHIELD) {
