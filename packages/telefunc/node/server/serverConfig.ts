@@ -78,7 +78,7 @@ function getServerConfig(): ConfigResolved {
         return {
           dev: shieldErrors.dev ?? true,
           // TODO: set to true by default
-          prod: shieldErrors.prod ?? false,
+          prod: shieldErrors.prod ?? true,
         }
       })(),
     },
