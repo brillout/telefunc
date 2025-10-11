@@ -36,8 +36,8 @@ const abortedRequestStatusCode = 403 // "Forbidden"
 
 // TODO dedupe
 // HTTP Response for:
-//  - Shield validation failures (bad arguments)
-const shieldValidationFailed = {
+//  - shield() error
+const shieldValidationError = {
   statusCode: 422 as const, // "Unprocessable Content"
   // TODO dedupe
   body: 'Shield Validation Failed',
@@ -148,7 +148,7 @@ async function runTelefunc_(httpRequest: {
         telefunctionAborted: true,
         telefunctionReturn: undefined,
       })
-      return shieldValidationFailed
+      return shieldValidationError
     }
   }
 
