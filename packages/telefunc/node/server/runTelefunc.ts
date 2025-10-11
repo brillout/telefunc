@@ -17,7 +17,8 @@ import { getServerConfig } from './serverConfig.js'
 /** The HTTP Response of a telefunction remote call HTTP Request */
 type HttpResponse = {
   /** HTTP Response Status Code */
-  statusCode: 200 | 400 | 403 | 500
+  // TODO re-order
+  statusCode: 200 | 403 | 500 | 400 | 422
   /** HTTP Response Body */
   body: string
   /** HTTP Response Header `Content-Type` */
@@ -36,7 +37,7 @@ const abortedRequestStatusCode = 403 // "Forbidden"
 // TODO dedupe
 // HTTP Response for:
 //  - Shield validation failures (bad arguments)
-const shieldValidationFailedStatusCode = 400 // "Bad Request"
+const shieldValidationFailedStatusCode = 422
 
 // HTTP Response for:
 // - User's telefunction threw an error that isn't `Abort()` (i.e. the telefunction has a bug).

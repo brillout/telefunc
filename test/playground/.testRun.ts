@@ -38,7 +38,7 @@ function testRun(cmd: 'npm run dev' | 'npm run preview') {
       }
       {
         const resp = await makeTelefuncHttpRequest(1337)
-        expect(resp.status).toBe(400)
+        expect(resp.status).toBe(422)
         expect(await resp.text()).toBe('{"ret":"!undefined","abort":true}')
       }
     })
