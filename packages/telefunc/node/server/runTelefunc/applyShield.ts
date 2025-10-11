@@ -17,6 +17,7 @@ function applyShield(runContext: {
   const hasShield = !shieldIsMissing(telefunction)
   if (isProduction()) {
     assertWarning(
+      // TODO fix
       hasShield || telefunction.length === 0,
       `The telefunction ${runContext.telefunctionName}() (${runContext.telefuncFilePath}) accepts arguments yet is missing shield(), see https://telefunc.com/shield`,
       { onlyOnce: true },
