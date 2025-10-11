@@ -37,10 +37,10 @@ const abortedRequestStatusCode = 403 // "Forbidden"
 // TODO dedupe
 // HTTP Response for:
 //  - Shield validation failures (bad arguments)
-const shieldValidationFailedStatusCode = 422
 const shieldValidationFailed = {
   statusCode: 422 as const, // "Unprocessable Content"
-  body: 'Internal Server Error',
+  // TODO dedupe
+  body: 'Shield Validation Failed',
   contentType: 'text/plain' as const,
   etag: null,
 }
@@ -51,7 +51,9 @@ const shieldValidationFailed = {
 // - The Telefunc code threw an error (i.e. Telefunc has a bug).
 const serverError = {
   // TODO update comment
+  // TODO dedupe
   statusCode: 500 as const, // "Internal Server Error"
+  // TODO dedupe
   body: 'Internal Server Error',
   contentType: 'text/plain' as const,
   etag: null,
