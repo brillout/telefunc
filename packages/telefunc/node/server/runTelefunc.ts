@@ -50,7 +50,6 @@ const shieldError = {
 // - The `.telefunc.js` file exports a non-function value.
 // - The Telefunc code threw an error (i.e. Telefunc has a bug).
 const serverError = {
-  // TODO update comment
   // TODO dedupe
   statusCode: 500 as const, // "Internal Server Error"
   // TODO dedupe
