@@ -123,5 +123,5 @@ async function getErrMsg(
 ) {
   const responseBody = await response.text()
   assertUsage(responseBody === errMsg, wrongInstallation({ method, callContext }))
-  return `${errMsg}. See server logs.` as const
+  return `${errMsg} — see server logs (if enabled: https://telefunc.com/log)` as const
 }
