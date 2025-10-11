@@ -57,7 +57,7 @@ async function makeHttpRequest(callContext: {
     const errMsg = await getErrMsg('Internal Server Error', response, callContext)
     throw new Error(`${errMsg}. See server logs.`)
   } else if (statusCode === STATUS_CODE_SHIELD) {
-    const errMsg = await getErrMsg('Shield Error', response, callContext)
+    const errMsg = await getErrMsg('Shield Validation Error', response, callContext)
     throw new Error(errMsg)
   } else if (statusCode === STATUS_CODE_INVALID) {
     const responseBody = await response.text()
@@ -117,7 +117,7 @@ function wrongInstallation({
 }
 
 async function getErrMsg(
-  errMsg: 'Internal Server Error' | 'Shield Error',
+  errMsg: 'Internal Server Error' | 'Shield Validation Error',
   response: Response,
   callContext: { telefuncUrl: string },
 ) {

@@ -40,7 +40,7 @@ const abortedRequestStatusCode = 403 // "Forbidden"
 const shieldError = {
   statusCode: 422 as const, // "Unprocessable Content"
   // TODO dedupe
-  body: 'Shield Error',
+  body: 'Shield Validation Error',
   contentType: 'text/plain' as const,
   etag: null,
 }

@@ -46,7 +46,7 @@ function testRun(
       {
         const resp = await makeTelefuncHttpRequest(1337)
         expect(resp.status).toBe(422)
-        expect(await resp.text()).toBe('Shield Error')
+        expect(await resp.text()).toBe('Shield Validation Error')
       }
     })
   }
