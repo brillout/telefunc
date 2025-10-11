@@ -7,8 +7,7 @@ function Hello() {
   const [msg, setMsg] = useState<string | null>(null)
   useEffect(() => {
     ;(async () => {
-      // @ts-ignore
-      const { message } = await onLoad({ name: 'Eva', bla: true })
+      const { message } = await onLoad({ name: 'Eva' })
       setMsg(message)
     })()
   }, [])
