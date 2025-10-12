@@ -12,13 +12,12 @@ function applyShield(runContext: {
   telefunctionArgs: unknown[]
   serverConfig: Pick<ConfigResolved, 'log'>
 }): { isValidRequest: boolean } {
-  const { telefunction } = runContext
+  const { telefunction, telefunctionArgs } = runContext
 
   const hasShield = !shieldIsMissing(telefunction)
   if (isProduction()) {
     assertWarning(
-      // TODO fix
-      hasShield || telefunction.length === 0,
+      hasShield || telefunctionArgs.length === 0,
       `The telefunction ${runContext.telefunctionName}() (${runContext.telefuncFilePath}) accepts arguments yet is missing shield(), see https://telefunc.com/shield`,
       { onlyOnce: true },
     )
