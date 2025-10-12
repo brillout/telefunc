@@ -7,7 +7,7 @@ import { callOnAbortListeners } from './onAbort.js'
 const method = 'POST'
 const STATUS_CODE_SUCCESS = 200
 const STATUS_CODE_ABORT = 403
-const STATUS_CODE_BUG = 500
+const STATUS_CODE_INTERNAL_SERVER_ERROR = 500
 const STATUS_CODE_MALFORMED_REQUEST = 400
 const STATUS_CODE_SHIELD_VALIDATION_ERROR = 422
 
@@ -52,7 +52,7 @@ async function makeHttpRequest(callContext: {
     objectAssign(telefunctionCallError, { isAbort: true as const, abortValue })
     callOnAbortListeners(telefunctionCallError)
     throw telefunctionCallError
-  } else if (statusCode === STATUS_CODE_BUG) {
+  } else if (statusCode === STATUS_CODE_INTERNAL_SERVER_ERROR) {
     const errMsg = await getErrMsg('Internal Server Error', response, callContext)
     throw new Error(errMsg)
   } else if (statusCode === STATUS_CODE_SHIELD_VALIDATION_ERROR) {
