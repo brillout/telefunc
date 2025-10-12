@@ -17,7 +17,7 @@ import { getServerConfig } from './serverConfig.js'
 /** The HTTP Response of a telefunction remote call HTTP Request */
 type HttpResponse = {
   /** HTTP Response Status Code */
-  statusCode: 200 | 403 | 400 | 422 | 500
+  statusCode: 200 | 400 | 403 | 422 | 500
   /** HTTP Response Body */
   body: string
   /** HTTP Response Header `Content-Type` */
@@ -58,7 +58,7 @@ const serverError = {
 }
 
 // HTTP Response for:
-// - Some non-telefunc client makes a malformed HTTP request.
+// - Some non-telefunc client makes an invalid HTTP request.
 // - The telefunction couldn't be found.
 const invalidRequest = {
   statusCode: 400 as const, // "Bad Request"
