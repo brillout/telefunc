@@ -8,8 +8,7 @@ const method = 'POST'
 const STATUS_CODE_SUCCESS = 200
 const STATUS_CODE_ABORT = 403
 const STATUS_CODE_BUG = 500
-// TODO rename to STATUS_CODE_MALFORMED
-const STATUS_CODE_INVALID = 400
+const STATUS_CODE_INVALID_REQUEST = 400
 const STATUS_CODE_SHIELD = 422
 
 async function makeHttpRequest(callContext: {
@@ -64,7 +63,7 @@ async function makeHttpRequest(callContext: {
       ' (if enabled: https://telefunc.com/log)',
     )
     throw new Error(errMsg)
-  } else if (statusCode === STATUS_CODE_INVALID) {
+  } else if (statusCode === STATUS_CODE_INVALID_REQUEST) {
     const responseBody = await response.text()
     assertUsage(responseBody === 'Invalid Telefunc Request', wrongInstallation({ method, callContext }))
     /* With Next.js 12: when renaming a `.telefunc.js` file the client makes a request with the new `.telefunc.js` name while the server is still serving the old `.telefunc.js` name. Seems like a race condition: trying again seems to fix the error.
