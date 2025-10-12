@@ -6,10 +6,10 @@ import { callOnAbortListeners } from './onAbort.js'
 
 const method = 'POST'
 const STATUS_CODE_SUCCESS = 200
-const STATUS_CODE_ABORT = 403
-const STATUS_CODE_INTERNAL_SERVER_ERROR = 500
 const STATUS_CODE_MALFORMED_REQUEST = 400
+const STATUS_CODE_ABORT = 403
 const STATUS_CODE_SHIELD_VALIDATION_ERROR = 422
+const STATUS_CODE_INTERNAL_SERVER_ERROR = 500
 
 async function makeHttpRequest(callContext: {
   telefuncUrl: string
