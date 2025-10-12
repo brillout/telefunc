@@ -62,6 +62,7 @@ const serverError = {
 // - The telefunction couldn't be found.
 const malformedRequest = {
   statusCode: 400 as const, // "Bad Request"
+  // TODO dedupe
   body: 'Malformed Telefunc Request',
   contentType: 'text/plain' as const,
   etag: null,
