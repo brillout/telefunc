@@ -45,8 +45,8 @@ function testRun(
       }
       {
         const resp = await makeTelefuncHttpRequest(1337)
-        expect(resp.status).toBe(403)
-        expect(await resp.text()).toBe('{"ret":"!undefined","abort":true}')
+        expect(resp.status).toBe(422)
+        expect(await resp.text()).toBe('Shield Validation Error')
       }
     })
   }
