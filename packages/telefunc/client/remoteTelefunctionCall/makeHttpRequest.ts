@@ -65,7 +65,7 @@ async function makeHttpRequest(callContext: {
     throw new Error(errMsg)
   } else if (statusCode === STATUS_CODE_INVALID_REQUEST) {
     const responseBody = await response.text()
-    assertUsage(responseBody === 'Invalid Telefunc Request', wrongInstallation({ method, callContext }))
+    assertUsage(responseBody === 'Malformed Telefunc Request', wrongInstallation({ method, callContext }))
     /* With Next.js 12: when renaming a `.telefunc.js` file the client makes a request with the new `.telefunc.js` name while the server is still serving the old `.telefunc.js` name. Seems like a race condition: trying again seems to fix the error.
     // This should never happen as the Telefunc Client shouldn't make invalid requests
     assert(false)
