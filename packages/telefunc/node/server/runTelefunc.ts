@@ -112,7 +112,7 @@ async function runTelefunc_(httpRequest: {
   })
   {
     const parsed = parseHttpRequest(runContext)
-    if (parsed.isInvalidRequest) {
+    if (parsed.isMalformedRequest) {
       return invalidRequest
     }
     const { telefunctionKey, telefunctionArgs, telefuncFilePath, telefunctionName } = parsed
