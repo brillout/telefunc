@@ -51,7 +51,7 @@ function parseHttpRequest(runContext: {
     logParseError(
       [
         'The argument `body` passed to `telefunc({ body })`',
-        'could not be parsed',
+        "couldn't be parsed",
         `(\`body === '${bodyString}'\`).`,
         !hasProp(err, 'message') ? null : `Parse error: ${err.message}.`,
       ]
@@ -70,7 +70,7 @@ function parseHttpRequest(runContext: {
     logParseError(
       [
         'The argument `body` passed to `telefunc({ body })`',
-        'can be parsed but its content is invalid',
+        'can be parsed but its content is unexpected',
         `(\`body === '${bodyString}'\`).`,
       ].join(' '),
       runContext,
@@ -143,7 +143,7 @@ function assertUrl(runContext: { httpRequest: { url: string }; serverConfig: { t
 function logParseError(errMsg: string, runContext: { logMalformedRequests: boolean }) {
   const errMsgPrefix = 'Malformed request in development.'
   const errMsgSuffix =
-    'This is unexpected since, in development, all requests are expected to originate from the Telefunc Client and should therefore be valid.'
+    'This is unexpected since, in development, all requests are expected to originate from the Telefunc Client and should therefore be properly structured.'
   if (!isProduction()) {
     errMsg = `${errMsgPrefix} ${errMsg} ${errMsgSuffix}`
   }
