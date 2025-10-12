@@ -125,7 +125,7 @@ async function getErrMsg(
   errMsg: 'Internal Server Error' | 'Shield Validation Error',
   response: Response,
   callContext: { telefuncUrl: string },
-  errMsgAddendum?: ' (if enabled: https://telefunc.com/log)',
+  errMsgAddendum: ' (if enabled: https://telefunc.com/log)' | '' = '',
 ) {
   const responseBody = await response.text()
   assertUsage(responseBody === errMsg, wrongInstallation({ method, callContext }))
