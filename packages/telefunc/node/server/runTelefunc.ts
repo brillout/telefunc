@@ -58,9 +58,9 @@ const serverError = {
 }
 
 // HTTP Response for:
-// - Some non-telefunc client makes an invalid HTTP request.
+// - Some non-telefunc client makes a malformed HTTP request.
 // - The telefunction couldn't be found.
-const invalidRequest = {
+const malformedRequest = {
   statusCode: 400 as const, // "Bad Request"
   body: 'Invalid Telefunc Request',
   contentType: 'text/plain' as const,
@@ -113,7 +113,7 @@ async function runTelefunc_(httpRequest: {
   {
     const parsed = parseHttpRequest(runContext)
     if (parsed.isMalformedRequest) {
-      return invalidRequest
+      return malformedRequest
     }
     const { telefunctionKey, telefunctionArgs, telefuncFilePath, telefunctionName } = parsed
     objectAssign(runContext, {
@@ -133,7 +133,7 @@ async function runTelefunc_(httpRequest: {
   {
     const telefunction = await findTelefunction(runContext)
     if (!telefunction) {
-      return invalidRequest
+      return malformedRequest
     }
     objectAssign(runContext, { telefunction })
   }
