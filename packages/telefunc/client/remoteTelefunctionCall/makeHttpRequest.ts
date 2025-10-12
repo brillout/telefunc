@@ -9,7 +9,7 @@ const STATUS_CODE_SUCCESS = 200
 const STATUS_CODE_ABORT = 403
 const STATUS_CODE_BUG = 500
 const STATUS_CODE_MALFORMED_REQUEST = 400
-const STATUS_CODE_SHIELD = 422
+const STATUS_CODE_SHIELD_VALIDATION_ERROR = 422
 
 async function makeHttpRequest(callContext: {
   telefuncUrl: string
@@ -55,7 +55,7 @@ async function makeHttpRequest(callContext: {
   } else if (statusCode === STATUS_CODE_BUG) {
     const errMsg = await getErrMsg('Internal Server Error', response, callContext)
     throw new Error(errMsg)
-  } else if (statusCode === STATUS_CODE_SHIELD) {
+  } else if (statusCode === STATUS_CODE_SHIELD_VALIDATION_ERROR) {
     const errMsg = await getErrMsg(
       'Shield Validation Error',
       response,
