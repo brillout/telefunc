@@ -13,7 +13,7 @@ import {
 
 function parseHttpRequest(runContext: {
   httpRequest: { body: unknown; url: string; method: string }
-  logInvalidRequests: boolean
+  logMalformedRequests: boolean
   serverConfig: {
     telefuncUrl: string
   }
@@ -34,7 +34,7 @@ function parseHttpRequest(runContext: {
 
   const { body } = runContext.httpRequest
   if (typeof body !== 'string') {
-    if (runContext.logInvalidRequests) {
+    if (runContext.logMalformedRequests) {
       assertBody(body, runContext)
     } else {
       // In production `body` can be any value really.
@@ -116,7 +116,7 @@ function assertBody(body: unknown, runContext: { serverConfig: { telefuncUrl: st
   )
 }
 
-function isWrongMethod(runContext: { httpRequest: { method: string }; logInvalidRequests: boolean }) {
+function isWrongMethod(runContext: { httpRequest: { method: string }; logMalformedRequests: boolean }) {
   if (['POST', 'post'].includes(runContext.httpRequest.method)) {
     return false
   }
@@ -140,14 +140,14 @@ function assertUrl(runContext: { httpRequest: { url: string }; serverConfig: { t
   )
 }
 
-function logParseError(errMsg: string, runContext: { logInvalidRequests: boolean }) {
+function logParseError(errMsg: string, runContext: { logMalformedRequests: boolean }) {
   const errMsgPrefix = 'Malformed request in development.'
   const errMsgSuffix =
     'This is unexpected since, in development, all requests are expected to originate from the Telefunc Client and should therefore be valid.'
   if (!isProduction()) {
     errMsg = `${errMsgPrefix} ${errMsg} ${errMsgSuffix}`
   }
-  if (runContext.logInvalidRequests) {
+  if (runContext.logMalformedRequests) {
     console.error(getProjectError(errMsg))
   }
 }

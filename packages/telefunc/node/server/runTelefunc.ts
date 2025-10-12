@@ -103,8 +103,8 @@ async function runTelefunc_(httpRequest: {
   }
 
   {
-    const logInvalidRequests = !isProduction() /* || process.env.DEBUG.includes('telefunc') */
-    objectAssign(runContext, { logInvalidRequests })
+    const logMalformedRequests = !isProduction() /* || process.env.DEBUG.includes('telefunc') */
+    objectAssign(runContext, { logMalformedRequests })
   }
 
   objectAssign(runContext, {
