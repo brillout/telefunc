@@ -17,8 +17,7 @@ import { getServerConfig } from './serverConfig.js'
 /** The HTTP Response of a telefunction remote call HTTP Request */
 type HttpResponse = {
   /** HTTP Response Status Code */
-  // TODO re-order
-  statusCode: 200 | 403 | 500 | 400 | 422
+  statusCode: 200 | 403 | 400 | 422 | 500
   /** HTTP Response Body */
   body: string
   /** HTTP Response Header `Content-Type` */
