@@ -13,6 +13,7 @@ import { callBugListeners } from './runTelefunc/onBug.js'
 import { applyShield } from './runTelefunc/applyShield.js'
 import { findTelefunction } from './runTelefunc/findTelefunction.js'
 import { getServerConfig } from './serverConfig.js'
+import { STATUS_CODE_SHIELD_VALIDATION_ERROR } from '../../shared/constants.js'
 
 /** The HTTP Response of a telefunction remote call HTTP Request */
 type HttpResponse = {
@@ -37,7 +38,7 @@ const abortedRequestStatusCode = 403 // "Forbidden"
 // HTTP Response for:
 //  - shield() error
 const shieldValidationError = {
-  statusCode: 422 as const, // "Unprocessable Content"
+  statusCode: STATUS_CODE_SHIELD_VALIDATION_ERROR,
   // TODO dedupe
   body: 'Shield Validation Error',
   contentType: 'text/plain' as const,
