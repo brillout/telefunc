@@ -23,13 +23,13 @@ function parseHttpRequest(runContext: {
       telefunctionName: string
       telefunctionKey: string
       telefunctionArgs: unknown[]
-      isMalformed: false
+      isInvalidRequest: false
     }
-  | { isMalformed: true } {
+  | { isInvalidRequest: true } {
   assertUrl(runContext)
 
   if (isWrongMethod(runContext)) {
-    return { isMalformed: true }
+    return { isInvalidRequest: true }
   }
 
   const { body } = runContext.httpRequest
@@ -40,7 +40,7 @@ function parseHttpRequest(runContext: {
       // In production `body` can be any value really.
       // Therefore we `assertBody(body)` only development.
     }
-    return { isMalformed: true }
+    return { isInvalidRequest: true }
   }
   const bodyString: string = body
 
@@ -59,7 +59,7 @@ function parseHttpRequest(runContext: {
         .join(' '),
       runContext,
     )
-    return { isMalformed: true }
+    return { isInvalidRequest: true }
   }
 
   if (
@@ -75,7 +75,7 @@ function parseHttpRequest(runContext: {
       ].join(' '),
       runContext,
     )
-    return { isMalformed: true }
+    return { isInvalidRequest: true }
   }
 
   const telefuncFilePath = bodyParsed.file
@@ -88,7 +88,7 @@ function parseHttpRequest(runContext: {
     telefunctionName,
     telefunctionKey,
     telefunctionArgs,
-    isMalformed: false,
+    isInvalidRequest: false,
   }
 }
 
