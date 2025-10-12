@@ -55,9 +55,14 @@ async function makeHttpRequest(callContext: {
     throw telefunctionCallError
   } else if (statusCode === STATUS_CODE_BUG) {
     const errMsg = await getErrMsg('Internal Server Error', response, callContext)
-    throw new Error(`${errMsg}. See server logs.`)
+    throw new Error(errMsg)
   } else if (statusCode === STATUS_CODE_SHIELD) {
-    const errMsg = await getErrMsg('Shield Validation Error', response, callContext)
+    const errMsg = await getErrMsg(
+      'Shield Validation Error',
+      response,
+      callContext,
+      ' (if enabled: https://telefunc.com/log)',
+    )
     throw new Error(errMsg)
   } else if (statusCode === STATUS_CODE_INVALID) {
     const responseBody = await response.text()
@@ -120,8 +125,9 @@ async function getErrMsg(
   errMsg: 'Internal Server Error' | 'Shield Validation Error',
   response: Response,
   callContext: { telefuncUrl: string },
+  errMsgAddendum?: ' (if enabled: https://telefunc.com/log)',
 ) {
   const responseBody = await response.text()
   assertUsage(responseBody === errMsg, wrongInstallation({ method, callContext }))
-  return `${errMsg} — see server logs (if enabled: https://telefunc.com/log)` as const
+  return `${errMsg} — see server logs${errMsgAddendum}` as const
 }
