@@ -9,6 +9,9 @@ import {
   STATUS_CODE_MALFORMED_REQUEST,
   STATUS_CODE_SHIELD_VALIDATION_ERROR,
   STATUS_CODE_SUCCESS,
+  STATUS_BODY_INTERNAL_SERVER_ERROR,
+  STATUS_BODY_SHIELD_VALIDATION_ERROR,
+  STATUS_BODY_MALFORMED_REQUEST,
 } from '../../shared/constants.js'
 
 const method = 'POST'
@@ -55,11 +58,11 @@ async function makeHttpRequest(callContext: {
     callOnAbortListeners(telefunctionCallError)
     throw telefunctionCallError
   } else if (statusCode === STATUS_CODE_INTERNAL_SERVER_ERROR) {
-    const errMsg = await getErrMsg('Internal Server Error', response, callContext)
+    const errMsg = await getErrMsg(STATUS_BODY_INTERNAL_SERVER_ERROR, response, callContext)
     throw new Error(errMsg)
   } else if (statusCode === STATUS_CODE_SHIELD_VALIDATION_ERROR) {
     const errMsg = await getErrMsg(
-      'Shield Validation Error',
+      STATUS_BODY_SHIELD_VALIDATION_ERROR,
       response,
       callContext,
       ' (if enabled: https://telefunc.com/log)',
@@ -67,7 +70,7 @@ async function makeHttpRequest(callContext: {
     throw new Error(errMsg)
   } else if (statusCode === STATUS_CODE_MALFORMED_REQUEST) {
     const responseBody = await response.text()
-    assertUsage(responseBody === 'Malformed Telefunc Request', wrongInstallation({ method, callContext }))
+    assertUsage(responseBody === STATUS_BODY_MALFORMED_REQUEST, wrongInstallation({ method, callContext }))
     /* With Next.js 12: when renaming a `.telefunc.js` file the client makes a request with the new `.telefunc.js` name while the server is still serving the old `.telefunc.js` name. Seems like a race condition: trying again seems to fix the error.
     // This should never happen as the Telefunc Client shouldn't make invalid requests
     assert(false)
@@ -123,7 +126,7 @@ function wrongInstallation({
 }
 
 async function getErrMsg(
-  errMsg: 'Internal Server Error' | 'Shield Validation Error',
+  errMsg: typeof STATUS_BODY_INTERNAL_SERVER_ERROR | typeof STATUS_BODY_SHIELD_VALIDATION_ERROR,
   response: Response,
   callContext: { telefuncUrl: string },
   errMsgAddendum: ' (if enabled: https://telefunc.com/log)' | '' = '',

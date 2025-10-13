@@ -19,6 +19,9 @@ import {
   STATUS_CODE_INTERNAL_SERVER_ERROR,
   STATUS_CODE_MALFORMED_REQUEST,
   STATUS_CODE_SUCCESS,
+  STATUS_BODY_SHIELD_VALIDATION_ERROR,
+  STATUS_BODY_INTERNAL_SERVER_ERROR,
+  STATUS_BODY_MALFORMED_REQUEST,
 } from '../../shared/constants.js'
 
 /** The HTTP Response of a telefunction remote call HTTP Request */
@@ -37,8 +40,7 @@ type HttpResponse = {
 
 const shieldValidationError = {
   statusCode: STATUS_CODE_SHIELD_VALIDATION_ERROR,
-  // TODO dedupe
-  body: 'Shield Validation Error',
+  body: STATUS_BODY_SHIELD_VALIDATION_ERROR,
   contentType: 'text/plain' as const,
   etag: null,
 } as const
@@ -49,8 +51,7 @@ const shieldValidationError = {
 // - The Telefunc code threw an error (i.e. Telefunc has a bug).
 const serverError = {
   statusCode: STATUS_CODE_INTERNAL_SERVER_ERROR,
-  // TODO dedupe
-  body: 'Internal Server Error',
+  body: STATUS_BODY_INTERNAL_SERVER_ERROR,
   contentType: 'text/plain' as const,
   etag: null,
 } as const
@@ -60,8 +61,7 @@ const serverError = {
 // - The telefunction couldn't be found.
 const malformedRequest = {
   statusCode: STATUS_CODE_MALFORMED_REQUEST,
-  // TODO dedupe
-  body: 'Malformed Telefunc Request',
+  body: STATUS_BODY_MALFORMED_REQUEST,
   contentType: 'text/plain' as const,
   etag: null,
 } as const
