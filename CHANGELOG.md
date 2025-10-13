@@ -1,3 +1,14 @@
+## [0.2.15](https://github.com/brillout/telefunc/compare/v0.2.14...v0.2.15) (2025-10-13)
+
+
+### Bug Fixes
+
+* improve shield() validation error logging ([#57](https://github.com/brillout/telefunc/issues/57)) ([c8a657e](https://github.com/brillout/telefunc/commit/c8a657e9bee0cd3701cabd0bfc0e5a1e632e416e))
+* show `422` instead of `403` upon `shield()` validation error (fix [#57](https://github.com/brillout/telefunc/issues/57)) ([#216](https://github.com/brillout/telefunc/issues/216)) ([c3c2f15](https://github.com/brillout/telefunc/commit/c3c2f15ba16471f17d05556a6b3dc9bd058bcb85))
+* show shield() validation errors in production by default ([#57](https://github.com/brillout/telefunc/issues/57)) ([d7e0873](https://github.com/brillout/telefunc/commit/d7e087304a1cd1ed337052a8106cf9cbe707b59f))
+
+
+
 ## [0.2.14](https://github.com/brillout/telefunc/compare/v0.2.13...v0.2.14) (2025-10-06)
 
 
