@@ -4,7 +4,7 @@ import { parse } from '@brillout/json-serializer/parse'
 import { assert, assertUsage, isObject, objectAssign } from '../utils.js'
 import { callOnAbortListeners } from './onAbort.js'
 import {
-  STATUS_CODE_ABORT,
+  STATUS_CODE_THROW_ABORT,
   STATUS_CODE_INTERNAL_SERVER_ERROR,
   STATUS_CODE_MALFORMED_REQUEST,
   STATUS_CODE_SHIELD_VALIDATION_ERROR,
@@ -45,7 +45,7 @@ async function makeHttpRequest(callContext: {
     const { ret } = await parseResponseBody(response, callContext)
     const telefunctionReturn = ret
     return { telefunctionReturn }
-  } else if (statusCode === STATUS_CODE_ABORT) {
+  } else if (statusCode === STATUS_CODE_THROW_ABORT) {
     const { ret } = await parseResponseBody(response, callContext)
     const abortValue = ret
     const telefunctionCallError = new Error(
@@ -98,7 +98,7 @@ async function parseResponseBody(response: Response, callContext: { telefuncUrl:
   const responseBody = await response.text()
   const responseBodyParsed = parse(responseBody)
   assertUsage(isObject(responseBodyParsed) && 'ret' in responseBodyParsed, wrongInstallation({ method, callContext }))
-  assert(response.status !== STATUS_CODE_ABORT || 'abort' in responseBodyParsed)
+  assert(response.status !== STATUS_CODE_THROW_ABORT || 'abort' in responseBodyParsed)
   const { ret } = responseBodyParsed
   return { ret }
 }

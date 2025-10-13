@@ -13,7 +13,13 @@ import { callBugListeners } from './runTelefunc/onBug.js'
 import { applyShield } from './runTelefunc/applyShield.js'
 import { findTelefunction } from './runTelefunc/findTelefunction.js'
 import { getServerConfig } from './serverConfig.js'
-import { STATUS_CODE_ABORT, STATUS_CODE_SHIELD_VALIDATION_ERROR } from '../../shared/constants.js'
+import {
+  STATUS_CODE_THROW_ABORT,
+  STATUS_CODE_SHIELD_VALIDATION_ERROR,
+  STATUS_CODE_INTERNAL_SERVER_ERROR,
+  STATUS_CODE_MALFORMED_REQUEST,
+  STATUS_CODE_SUCCESS,
+} from '../../shared/constants.js'
 
 /** The HTTP Response of a telefunction remote call HTTP Request */
 type HttpResponse = {
@@ -46,23 +52,23 @@ const shieldValidationError = {
 // - The Telefunc code threw an error (i.e. Telefunc has a bug).
 const serverError = {
   // TODO dedupe
-  statusCode: 500 as const, // "Internal Server Error"
+  statusCode: STATUS_CODE_INTERNAL_SERVER_ERROR,
   // TODO dedupe
   body: 'Internal Server Error',
   contentType: 'text/plain' as const,
   etag: null,
-}
+} as const
 
 // HTTP Response for:
 // - Some non-telefunc client makes a malformed HTTP request.
 // - The telefunction couldn't be found.
 const malformedRequest = {
-  statusCode: 400 as const, // "Bad Request"
+  statusCode: STATUS_CODE_MALFORMED_REQUEST,
   // TODO dedupe
   body: 'Malformed Telefunc Request',
   contentType: 'text/plain' as const,
   etag: null,
-}
+} as const
 
 async function runTelefunc(runContext: Parameters<typeof runTelefunc_>[0]): Promise<HttpResponse> {
   try {
@@ -174,7 +180,7 @@ async function runTelefunc_(httpRequest: {
   // }
 
   return {
-    statusCode: runContext.telefunctionAborted ? STATUS_CODE_ABORT : 200,
+    statusCode: runContext.telefunctionAborted ? STATUS_CODE_THROW_ABORT : STATUS_CODE_SUCCESS,
     body: runContext.httpResponseBody,
     contentType: 'text/plain',
     // etag: runContext.httpResponseEtag,
