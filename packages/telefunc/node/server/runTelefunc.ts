@@ -35,9 +35,6 @@ type HttpResponse = {
   err?: unknown
 }
 
-// TODO dedupe
-// HTTP Response for:
-//  - shield() error
 const shieldValidationError = {
   statusCode: STATUS_CODE_SHIELD_VALIDATION_ERROR,
   // TODO dedupe
@@ -51,7 +48,6 @@ const shieldValidationError = {
 // - The `.telefunc.js` file exports a non-function value.
 // - The Telefunc code threw an error (i.e. Telefunc has a bug).
 const serverError = {
-  // TODO dedupe
   statusCode: STATUS_CODE_INTERNAL_SERVER_ERROR,
   // TODO dedupe
   body: 'Internal Server Error',
