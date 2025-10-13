@@ -13,7 +13,7 @@ import { callBugListeners } from './runTelefunc/onBug.js'
 import { applyShield } from './runTelefunc/applyShield.js'
 import { findTelefunction } from './runTelefunc/findTelefunction.js'
 import { getServerConfig } from './serverConfig.js'
-import { STATUS_CODE_SHIELD_VALIDATION_ERROR } from '../../shared/constants.js'
+import { STATUS_CODE_ABORT, STATUS_CODE_SHIELD_VALIDATION_ERROR } from '../../shared/constants.js'
 
 /** The HTTP Response of a telefunction remote call HTTP Request */
 type HttpResponse = {
@@ -28,11 +28,6 @@ type HttpResponse = {
   /** Error thrown by your telefunction */
   err?: unknown
 }
-
-// TODO dedupe
-// HTTP Response for:
-//  - `throw Abort()`
-const abortedRequestStatusCode = 403 // "Forbidden"
 
 // TODO dedupe
 // HTTP Response for:
@@ -179,7 +174,7 @@ async function runTelefunc_(httpRequest: {
   // }
 
   return {
-    statusCode: runContext.telefunctionAborted ? abortedRequestStatusCode : 200,
+    statusCode: runContext.telefunctionAborted ? STATUS_CODE_ABORT : 200,
     body: runContext.httpResponseBody,
     contentType: 'text/plain',
     // etag: runContext.httpResponseEtag,
