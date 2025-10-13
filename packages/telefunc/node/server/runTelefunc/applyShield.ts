@@ -12,14 +12,13 @@ function applyShield(runContext: {
   telefunctionArgs: unknown[]
   serverConfig: Pick<ConfigResolved, 'log'>
 }): { isValidRequest: boolean } {
-  const { telefunction } = runContext
+  const { telefunction, telefunctionArgs, telefunctionName, telefuncFilePath } = runContext
 
   const hasShield = !shieldIsMissing(telefunction)
   if (isProduction()) {
     assertWarning(
-      // TODO fix
-      hasShield || telefunction.length === 0,
-      `The telefunction ${runContext.telefunctionName}() (${runContext.telefuncFilePath}) accepts arguments yet is missing shield(), see https://telefunc.com/shield`,
+      hasShield || telefunctionArgs.length === 0,
+      `The telefunction ${telefunctionName}() (${telefuncFilePath}) accepts arguments yet is missing shield(), see https://telefunc.com/shield`,
       { onlyOnce: true },
     )
   }
@@ -27,7 +26,7 @@ function applyShield(runContext: {
     return { isValidRequest: true }
   }
 
-  const applyResult = shieldApply(telefunction, runContext.telefunctionArgs)
+  const applyResult = shieldApply(telefunction, telefunctionArgs)
   if (applyResult === true) {
     return { isValidRequest: true }
   }
@@ -37,8 +36,8 @@ function applyShield(runContext: {
     // TODO: don't show stack trace + add prefix 'Shield error:'
     const err = new Error(
       [
-        `The arguments passed to the telefunction ${runContext.telefunctionName}() (${runContext.telefuncFilePath}) have the wrong type.`,
-        `Arguments: \`${JSON.stringify(runContext.telefunctionArgs)}\`.`,
+        `The arguments passed to the telefunction ${telefunctionName}() (${telefuncFilePath}) have the wrong type.`,
+        `Arguments: \`${JSON.stringify(telefunctionArgs)}\`.`,
         `Wrong type: ${applyResult}`,
       ].join(' '),
     )

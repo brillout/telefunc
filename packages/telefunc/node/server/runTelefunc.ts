@@ -13,12 +13,21 @@ import { callBugListeners } from './runTelefunc/onBug.js'
 import { applyShield } from './runTelefunc/applyShield.js'
 import { findTelefunction } from './runTelefunc/findTelefunction.js'
 import { getServerConfig } from './serverConfig.js'
+import {
+  STATUS_CODE_THROW_ABORT,
+  STATUS_CODE_SHIELD_VALIDATION_ERROR,
+  STATUS_BODY_SHIELD_VALIDATION_ERROR,
+  STATUS_CODE_INTERNAL_SERVER_ERROR,
+  STATUS_BODY_INTERNAL_SERVER_ERROR,
+  STATUS_CODE_MALFORMED_REQUEST,
+  STATUS_BODY_MALFORMED_REQUEST,
+  STATUS_CODE_SUCCESS,
+} from '../../shared/constants.js'
 
 /** The HTTP Response of a telefunction remote call HTTP Request */
 type HttpResponse = {
   /** HTTP Response Status Code */
-  // TODO re-order
-  statusCode: 200 | 403 | 500 | 400 | 422
+  statusCode: 200 | 400 | 403 | 422 | 500
   /** HTTP Response Body */
   body: string
   /** HTTP Response Header `Content-Type` */
@@ -29,44 +38,33 @@ type HttpResponse = {
   err?: unknown
 }
 
-// TODO dedupe
-// HTTP Response for:
-//  - `throw Abort()`
-const abortedRequestStatusCode = 403 // "Forbidden"
-
-// TODO dedupe
-// HTTP Response for:
-//  - shield() error
 const shieldValidationError = {
-  statusCode: 422 as const, // "Unprocessable Content"
-  // TODO dedupe
-  body: 'Shield Validation Error',
+  statusCode: STATUS_CODE_SHIELD_VALIDATION_ERROR,
+  body: STATUS_BODY_SHIELD_VALIDATION_ERROR,
   contentType: 'text/plain' as const,
   etag: null,
-}
+} as const
 
 // HTTP Response for:
 // - User's telefunction threw an error that isn't `Abort()` (i.e. the telefunction has a bug).
 // - The `.telefunc.js` file exports a non-function value.
 // - The Telefunc code threw an error (i.e. Telefunc has a bug).
 const serverError = {
-  // TODO dedupe
-  statusCode: 500 as const, // "Internal Server Error"
-  // TODO dedupe
-  body: 'Internal Server Error',
+  statusCode: STATUS_CODE_INTERNAL_SERVER_ERROR,
+  body: STATUS_BODY_INTERNAL_SERVER_ERROR,
   contentType: 'text/plain' as const,
   etag: null,
-}
+} as const
 
 // HTTP Response for:
 // - Some non-telefunc client makes a malformed HTTP request.
 // - The telefunction couldn't be found.
-const invalidRequest = {
-  statusCode: 400 as const, // "Bad Request"
-  body: 'Invalid Telefunc Request',
+const malformedRequest = {
+  statusCode: STATUS_CODE_MALFORMED_REQUEST,
+  body: STATUS_BODY_MALFORMED_REQUEST,
   contentType: 'text/plain' as const,
   etag: null,
-}
+} as const
 
 async function runTelefunc(runContext: Parameters<typeof runTelefunc_>[0]): Promise<HttpResponse> {
   try {
@@ -104,8 +102,8 @@ async function runTelefunc_(httpRequest: {
   }
 
   {
-    const logInvalidRequests = !isProduction() /* || process.env.DEBUG.includes('telefunc') */
-    objectAssign(runContext, { logInvalidRequests })
+    const logMalformedRequests = !isProduction() /* || process.env.DEBUG.includes('telefunc') */
+    objectAssign(runContext, { logMalformedRequests })
   }
 
   objectAssign(runContext, {
@@ -113,8 +111,8 @@ async function runTelefunc_(httpRequest: {
   })
   {
     const parsed = parseHttpRequest(runContext)
-    if (parsed.isMalformed) {
-      return invalidRequest
+    if (parsed.isMalformedRequest) {
+      return malformedRequest
     }
     const { telefunctionKey, telefunctionArgs, telefuncFilePath, telefunctionName } = parsed
     objectAssign(runContext, {
@@ -134,7 +132,7 @@ async function runTelefunc_(httpRequest: {
   {
     const telefunction = await findTelefunction(runContext)
     if (!telefunction) {
-      return invalidRequest
+      return malformedRequest
     }
     objectAssign(runContext, { telefunction })
   }
@@ -178,7 +176,7 @@ async function runTelefunc_(httpRequest: {
   // }
 
   return {
-    statusCode: runContext.telefunctionAborted ? abortedRequestStatusCode : 200,
+    statusCode: runContext.telefunctionAborted ? STATUS_CODE_THROW_ABORT : STATUS_CODE_SUCCESS,
     body: runContext.httpResponseBody,
     contentType: 'text/plain',
     // etag: runContext.httpResponseEtag,

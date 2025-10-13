@@ -12,7 +12,7 @@ async function findTelefunction(runContext: {
   telefuncFilesLoaded: TelefuncFiles
   telefuncFilesAll: string[]
   telefunctionName: string
-  logInvalidRequests: boolean
+  logMalformedRequests: boolean
   appRootDir: null | string
   serverConfig: {
     disableNamingConvention: boolean
@@ -48,7 +48,7 @@ async function findTelefunction(runContext: {
   })()
 
   if (!telefunction) {
-    if (runContext.logInvalidRequests) {
+    if (runContext.logMalformedRequests) {
       const errMsg = getNotFoundErrMsg()
       console.error(`${projectErrorPrefix} ${errMsg}`)
     }
