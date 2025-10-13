@@ -77,8 +77,7 @@ function getServerConfig(): ConfigResolved {
         if (typeof shieldErrors === 'boolean') return { dev: true, prod: true }
         return {
           dev: shieldErrors.dev ?? true,
-          // TODO: set to true by default
-          prod: shieldErrors.prod ?? false,
+          prod: shieldErrors.prod ?? true,
         }
       })(),
     },
