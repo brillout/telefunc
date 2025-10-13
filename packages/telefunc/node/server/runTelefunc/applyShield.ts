@@ -33,15 +33,12 @@ function applyShield(runContext: {
 
   let logShieldErrors = runContext.serverConfig.log.shieldErrors
   if ((logShieldErrors.dev && !isProduction()) || (logShieldErrors.prod && isProduction())) {
-    // TODO: don't show stack trace + add prefix 'Shield error:'
-    const err = new Error(
-      [
-        `The arguments passed to the telefunction ${telefunctionName}() (${telefuncFilePath}) have the wrong type.`,
-        `Arguments: \`${JSON.stringify(telefunctionArgs)}\`.`,
-        `Wrong type: ${applyResult}`,
-      ].join(' '),
-    )
-    console.error(err)
+    const errMsg = [
+      `Shield Validation Error: the arguments passed to the telefunction ${telefunctionName}() (${telefuncFilePath}) have the wrong type.`,
+      `Arguments: \`${JSON.stringify(telefunctionArgs)}\`.`,
+      `Wrong type: ${applyResult}`,
+    ].join(' ')
+    console.error(errMsg)
   }
 
   return { isValidRequest: false }
