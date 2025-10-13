@@ -92,7 +92,8 @@ function getServerConfig(): ConfigResolved {
       })(),
       shieldSuperfluousProperties: (() => {
         const shieldSuperfluousProperties = configUser.log?.shieldSuperfluousProperties ?? {}
-        if (typeof shieldSuperfluousProperties === 'boolean') return { dev: shieldSuperfluousProperties, prod: shieldSuperfluousProperties }
+        if (typeof shieldSuperfluousProperties === 'boolean')
+          return { dev: shieldSuperfluousProperties, prod: shieldSuperfluousProperties }
         return {
           dev: shieldSuperfluousProperties.dev ?? true,
           prod: shieldSuperfluousProperties.prod ?? false,

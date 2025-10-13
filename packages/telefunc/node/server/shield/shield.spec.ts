@@ -153,11 +153,17 @@ describe('shield', () => {
       expect(shieldApply(telefunction, [{ name: 'John', age: 30, city: 'NYC', country: 'USA' }])).toBe(true)
 
       // Missing required properties should still fail
-      expect(shieldApply(telefunction, [{ name: 'John' }])).toBe('[root] > [tuple: element 0] > [object: value of key `age`] is `undefined` but should be `number`.')
-      expect(shieldApply(telefunction, [{ age: 30 }])).toBe('[root] > [tuple: element 0] > [object: value of key `name`] is `undefined` but should be `string`.')
+      expect(shieldApply(telefunction, [{ name: 'John' }])).toBe(
+        '[root] > [tuple: element 0] > [object: value of key `age`] is `undefined` but should be `number`.',
+      )
+      expect(shieldApply(telefunction, [{ age: 30 }])).toBe(
+        '[root] > [tuple: element 0] > [object: value of key `name`] is `undefined` but should be `string`.',
+      )
 
       // Wrong types should still fail
-      expect(shieldApply(telefunction, [{ name: 123, age: 30 }])).toBe('[root] > [tuple: element 0] > [object: value of key `name`] is `number` but should be `string`.')
+      expect(shieldApply(telefunction, [{ name: 123, age: 30 }])).toBe(
+        '[root] > [tuple: element 0] > [object: value of key `name`] is `number` but should be `string`.',
+      )
     }
 
     // Test nested objects
@@ -166,14 +172,18 @@ describe('shield', () => {
       shield(telefunction, [{ user: { name: t.string, profile: { age: t.number } } }])
 
       // Extra properties at different levels should be allowed
-      expect(shieldApply(telefunction, [{
-        user: {
-          name: 'John',
-          profile: { age: 30, bio: 'Developer' },
-          email: 'john@example.com'
-        },
-        metadata: { timestamp: Date.now() }
-      }])).toBe(true)
+      expect(
+        shieldApply(telefunction, [
+          {
+            user: {
+              name: 'John',
+              profile: { age: 30, bio: 'Developer' },
+              email: 'john@example.com',
+            },
+            metadata: { timestamp: Date.now() },
+          },
+        ]),
+      ).toBe(true)
     }
   })
 
@@ -212,13 +222,13 @@ describe('shield', () => {
 
       // Extra properties at root level
       expect(detectExtraProperties(shieldDef, [{ name: 'John', age: 30, city: 'NYC' }])).toEqual([
-        '[root] > [tuple: element 0] > [object: key `city`]'
+        '[root] > [tuple: element 0] > [object: key `city`]',
       ])
 
       // Multiple extra properties
       expect(detectExtraProperties(shieldDef, [{ name: 'John', age: 30, city: 'NYC', country: 'USA' }])).toEqual([
         '[root] > [tuple: element 0] > [object: key `city`]',
-        '[root] > [tuple: element 0] > [object: key `country`]'
+        '[root] > [tuple: element 0] > [object: key `country`]',
       ])
     }
 
@@ -227,17 +237,21 @@ describe('shield', () => {
       const shieldDef = [{ user: { name: t.string, profile: { age: t.number } } }]
 
       // Extra properties at different nesting levels
-      expect(detectExtraProperties(shieldDef, [{
-        user: {
-          name: 'John',
-          profile: { age: 30, bio: 'Developer' },
-          email: 'john@example.com'
-        },
-        metadata: { timestamp: Date.now() }
-      }])).toEqual([
+      expect(
+        detectExtraProperties(shieldDef, [
+          {
+            user: {
+              name: 'John',
+              profile: { age: 30, bio: 'Developer' },
+              email: 'john@example.com',
+            },
+            metadata: { timestamp: Date.now() },
+          },
+        ]),
+      ).toEqual([
         '[root] > [tuple: element 0] > [object: value of key `user`] > [object: value of key `profile`] > [object: key `bio`]',
         '[root] > [tuple: element 0] > [object: value of key `user`] > [object: key `email`]',
-        '[root] > [tuple: element 0] > [object: key `metadata`]'
+        '[root] > [tuple: element 0] > [object: key `metadata`]',
       ])
     }
   })

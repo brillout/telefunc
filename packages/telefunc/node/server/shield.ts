@@ -114,7 +114,7 @@ function detectExtraProperties(verifier: unknown, arg: unknown, breadcrumbs: str
         const nestedExtras = detectExtraProperties(
           verifier[key],
           arg[key],
-          `${breadcrumbs} > [object: value of key \`${key}\`]`
+          `${breadcrumbs} > [object: value of key \`${key}\`]`,
         )
         extraProps.push(...nestedExtras)
       }
@@ -130,11 +130,7 @@ function detectExtraProperties(verifier: unknown, arg: unknown, breadcrumbs: str
     // Recursively check elements within the expected range
     const maxLength = Math.min(verifier.length, arg.length)
     for (let i = 0; i < maxLength; i++) {
-      const nestedExtras = detectExtraProperties(
-        verifier[i],
-        arg[i],
-        `${breadcrumbs} > [tuple: element ${i}]`
-      )
+      const nestedExtras = detectExtraProperties(verifier[i], arg[i], `${breadcrumbs} > [tuple: element ${i}]`)
       extraProps.push(...nestedExtras)
     }
   }
