@@ -43,7 +43,7 @@ const shieldValidationError = {
   body: 'Shield Validation Error',
   contentType: 'text/plain' as const,
   etag: null,
-}
+} as const
 
 // HTTP Response for:
 // - User's telefunction threw an error that isn't `Abort()` (i.e. the telefunction has a bug).
