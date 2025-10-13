@@ -47,6 +47,15 @@ type ConfigUser = {
           /** Whether to log shield errors in development */
           dev?: boolean
         }
+    /** Whether to warn about superfluous properties in auto-generated shields */
+    shieldSuperfluousProperties?:
+      | boolean
+      | {
+          /** Whether to warn about superfluous properties in production */
+          prod?: boolean
+          /** Whether to warn about superfluous properties in development */
+          dev?: boolean
+        }
   }
 }
 type ConfigResolved = {
@@ -58,6 +67,7 @@ type ConfigResolved = {
   shield: { dev: boolean; prod: boolean }
   log: {
     shieldErrors: { dev: boolean; prod: boolean }
+    shieldSuperfluousProperties: { dev: boolean; prod: boolean }
   }
 }
 
@@ -78,6 +88,14 @@ function getServerConfig(): ConfigResolved {
         return {
           dev: shieldErrors.dev ?? true,
           prod: shieldErrors.prod ?? true,
+        }
+      })(),
+      shieldSuperfluousProperties: (() => {
+        const shieldSuperfluousProperties = configUser.log?.shieldSuperfluousProperties ?? {}
+        if (typeof shieldSuperfluousProperties === 'boolean') return { dev: shieldSuperfluousProperties, prod: shieldSuperfluousProperties }
+        return {
+          dev: shieldSuperfluousProperties.dev ?? true,
+          prod: shieldSuperfluousProperties.prod ?? false,
         }
       })(),
     },
@@ -154,6 +172,30 @@ function validateUserConfig(configUserUnwrapped: ConfigUser, prop: string, val: 
         assertUsage(
           false,
           'config.log.shieldErrors should be either a boolean or an object with dev and prod boolean properties',
+        )
+      }
+    }
+    if ('shieldSuperfluousProperties' in val) {
+      const shieldSuperfluousProperties = (val as { shieldSuperfluousProperties: unknown }).shieldSuperfluousProperties
+      if (typeof shieldSuperfluousProperties === 'boolean') {
+        // Boolean is valid
+      } else if (isObject(shieldSuperfluousProperties)) {
+        if ('dev' in shieldSuperfluousProperties) {
+          assertUsage(
+            typeof (shieldSuperfluousProperties as { dev: unknown }).dev === 'boolean',
+            'config.log.shieldSuperfluousProperties.dev should be a boolean',
+          )
+        }
+        if ('prod' in shieldSuperfluousProperties) {
+          assertUsage(
+            typeof (shieldSuperfluousProperties as { prod: unknown }).prod === 'boolean',
+            'config.log.shieldSuperfluousProperties.prod should be a boolean',
+          )
+        }
+      } else {
+        assertUsage(
+          false,
+          'config.log.shieldSuperfluousProperties should be either a boolean or an object with dev and prod boolean properties',
         )
       }
     }

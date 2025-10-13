@@ -51,6 +51,32 @@ With Telefunc, not only can we seamlessly re-use types across our frontend and b
 >
 > For stacks that don't transpile server-side code (e.g. React Native and Parcel), we need to define `shield()` manually ourselves: see <Link href="#typescript-manual" />.
 
+### TypeScript-Compatible Behavior
+
+Telefunc's shield validation is designed to be compatible with TypeScript's structural typing. This means:
+
+- **Extra properties are allowed**: Just like TypeScript, you can pass objects with additional properties that aren't defined in your interface
+- **Required properties are still validated**: All properties defined in your TypeScript interface must be present and have the correct type
+- **Warnings for extra properties**: When using auto-generated shields, Telefunc can warn you about extra properties to help keep your interfaces clean
+
+```ts ts-only
+// hello.telefunc.ts
+export async function updateUser({ name, age }: { name: string; age: number }) {
+  // This function expects name (string) and age (number)
+}
+
+// These calls work (TypeScript-compatible):
+updateUser({ name: "John", age: 30 })                    // ✅ Exact match
+updateUser({ name: "John", age: 30, city: "NYC" })       // ✅ Extra property allowed
+updateUser({ name: "John", age: 30, city: "NYC", country: "USA" }) // ✅ Multiple extra properties
+
+// These calls fail (required properties missing or wrong type):
+updateUser({ name: "John" })                             // ❌ Missing age
+updateUser({ name: 123, age: 30 })                       // ❌ Wrong type for name
+```
+
+You can configure whether to show warnings for extra properties using <Link href="/log">`config.log.shieldSuperfluousProperties`</Link>.
+
 
 ## TypeScript - Manual
 

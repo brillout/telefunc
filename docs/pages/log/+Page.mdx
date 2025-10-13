@@ -1,8 +1,12 @@
 import { Link, Warning } from '@brillout/docpress'
 import { ConfigWhereServer } from '../../components'
 
-**Environment**: server  
-**Default**: `{ shieldErrors: { dev: true, prod: false } }{:ts}`
+**Environment**: server
+**Default**: `{ shieldErrors: { dev: true, prod: false }, shieldSuperfluousProperties: { dev: true, prod: false } }{:ts}`
+
+Configure shield-related logging.
+
+## Shield Errors
 
 Whether to log shield validation errors.
 
@@ -15,5 +19,21 @@ config.log.shieldErrors = true
 // Or
 config.log.shieldErrors = { dev: true, prod: true }
 ```
+
+## Shield Superfluous Properties
+
+Whether to warn about extra properties in auto-generated shields. This helps identify when you're passing more data than your TypeScript interface defines, similar to how TypeScript would handle excess properties.
+
+```ts
+// Environment: server
+
+import { config } from 'telefunc'
+
+config.log.shieldSuperfluousProperties = true
+// Or
+config.log.shieldSuperfluousProperties = { dev: true, prod: false }
+```
+
+**Note**: Warnings are only shown for auto-generated shields, not manually defined ones. Extra properties are always allowed (TypeScript-compatible behavior), but warnings help you keep your interfaces clean.
 
 <ConfigWhereServer />
