@@ -190,7 +190,10 @@
 * publish as ESM only ([#154](https://github.com/brillout/telefunc/issues/154)) ([4ace609](https://github.com/brillout/telefunc/commit/4ace60983c8989beeb904c99c62ff979ed92f8e4))
 
 
-### BREAKING CHANGES
+### MINOR BREAKING CHANGES
+
+> [!NOTE]
+> We recommend ignoring `MINOR BREAKING CHANGES` unless this version breaks your app, see [Vike Versioning](https://vike.dev/versioning).
 
 * If your app is CJS then update Node.js to v23 or above (or v22 with the `--experimental-require-module` flag) in order to [be able to `require(esm)`](https://nodejs.org/en/blog/announcements/v22-release-announce#support-requireing-synchronous-esm-graphs) . If your app is ESM then you can keep using older Node.js versions.
 
