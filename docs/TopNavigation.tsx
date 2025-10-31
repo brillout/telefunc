@@ -10,7 +10,7 @@ function TopNavigation() {
         <img
           src={iconGear}
           width={18}
-          style={{ marginRight: 'calc(var(--icon-text-padding))', position: 'relative', top: -2 }}
+          style={{ marginRight: 'calc(var(--icon-text-padding))' }}
           className="decolorize-8"
         />{' '}
         API

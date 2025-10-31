@@ -10,7 +10,7 @@ function Page() {
     <>
       <div
         style={{
-          background: 'var(--bg-color)',
+          background: 'var(--color-bg-gray)',
           paddingTop: 50,
           paddingBottom: 80,
         }}
@@ -20,7 +20,7 @@ function Page() {
       </div>
       <div
         style={{
-          background: 'var(--bg-color)',
+          background: 'var(--color-bg-gray)',
           marginTop: 'var(--block-margin)',
           paddingTop: 60,
           paddingBottom: 120,
