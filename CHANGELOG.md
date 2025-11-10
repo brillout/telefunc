@@ -1,3 +1,12 @@
+## [0.2.16](https://github.com/brillout/telefunc/compare/v0.2.15...v0.2.16) (2025-11-10)
+
+
+### Bug Fixes
+
+* workaround Vite bug upon import picocolors in utils/assert.ts ([d9967bd](https://github.com/brillout/telefunc/commit/d9967bd1541d6f6eef7ffdf793ce9bff5e4a16c3))
+
+
+
 ## [0.2.15](https://github.com/brillout/telefunc/compare/v0.2.14...v0.2.15) (2025-10-13)
 
 
