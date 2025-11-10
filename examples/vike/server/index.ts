@@ -1,8 +1,7 @@
 export default startServer()
 
 import { Hono } from 'hono'
-import { apply } from 'vike-server/hono'
-import { serve } from 'vike-server/hono/serve'
+import { apply, serve } from '@photonjs/hono'
 
 function startServer() {
   const app = new Hono()
