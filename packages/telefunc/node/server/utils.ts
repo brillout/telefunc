@@ -23,3 +23,7 @@ export * from '../../utils/isNullish.js'
 export * from '../../utils/getRandomId.js'
 export * from '../../utils/rollupSourceMap.js'
 export * from '../../utils/isScriptFile.js'
+
+import pc from '@brillout/picocolors'
+import { setPicocolors } from '../../utils/assert.js'
+setPicocolors(pc)

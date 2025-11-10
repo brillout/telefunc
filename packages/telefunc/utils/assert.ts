@@ -4,17 +4,20 @@ export { assertWarning }
 export { assertInfo }
 export { getProjectError }
 export { errorPrefix }
+export { setPicocolors }
 
 import { createErrorWithCleanStackTrace } from './createErrorWithCleanStackTrace.js'
 import { getGlobalObject } from './getGlobalObject.js'
 import { projectInfo } from './projectInfo.js'
-import pc from '@brillout/picocolors'
+import type { default as pcType } from '@brillout/picocolors'
+type Pc = typeof pcType
 
 const errorPrefix = `[telefunc@${projectInfo.projectVersion}]`
 const internalErrorPrefix = red(`${errorPrefix}[Bug]`)
 const usageErrorPrefix = red(`${errorPrefix}[Wrong Usage]`)
 const warningPrefix = yellow(`${errorPrefix}[Warning]`)
 const infoPrefix = blue(`${errorPrefix}[Info]`)
+let pc: Pc
 
 const numberOfStackTraceLinesToRemove = 2
 
@@ -116,4 +119,8 @@ function yellow<Str extends string>(str: Str) {
 }
 function blue<Str extends string>(str: Str) {
   return pc.blue(pc.bold(str))
+}
+
+function setPicocolors(pc_: Pc) {
+  pc = pc_
 }

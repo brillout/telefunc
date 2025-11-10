@@ -5,3 +5,7 @@ export { onAbort, onTelefunctionRemoteCallError } from './remoteTelefunctionCall
 export type { TelefunctionError } from './TelefunctionError.js'
 
 export { remoteTelefunctionCall as __remoteTelefunctionCall } from './remoteTelefunctionCall.js'
+
+import pc from '@brillout/picocolors'
+import { setPicocolors } from '../utils/assert.js'
+setPicocolors(pc)
