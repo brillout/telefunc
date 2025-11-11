@@ -9,7 +9,7 @@ function TopNavigation() {
       <MenuToggle menuId={1}>
         <img
           src={iconGear}
-          width={18}
+          width={19}
           style={{ marginRight: 'calc(var(--icon-text-padding))' }}
           className="decolorize-8"
         />{' '}
