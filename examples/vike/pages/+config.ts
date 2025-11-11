@@ -1,10 +1,10 @@
 import vikeReact from 'vike-react/config'
-import vikeServer from 'vike-server/config'
+import vikePhoton from 'vike-photon/config'
 import type { Config } from 'vike/types'
 
 export default {
-  extends: [vikeReact, vikeServer],
-  server: {
-    entry: 'server/index.ts',
+  extends: [vikeReact, vikePhoton],
+  photon: {
+    server: 'server/index.ts',
   },
 } satisfies Config
