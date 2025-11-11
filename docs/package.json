@@ -7,15 +7,15 @@
   },
   "========= The telefunc dependency is a trick for triggering the docs to rebuild upon releasing a new Telefunc version (so that the Telefunc version shown on telefunc.com is up-to-date)": "",
   "dependencies": {
-    "@brillout/docpress": "^0.16.0",
-    "@types/react": "^19.1.8",
-    "@types/react-dom": "^19.1.6",
-    "@vitejs/plugin-react-swc": "^3.10.2",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
+    "@brillout/docpress": "^0.16.1",
+    "@types/react": "^19.2.2",
+    "@types/react-dom": "^19.2.2",
+    "@vitejs/plugin-react-swc": "^4.2.1",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
     "telefunc": "0.2.16",
-    "typescript": "^5.8.3",
-    "vike": "^0.4.240"
+    "typescript": "^5.9.3",
+    "vike": "0.4.246-commit-bb4b6db"
   },
   "type": "module"
 }
