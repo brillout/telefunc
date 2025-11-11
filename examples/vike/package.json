@@ -2,7 +2,7 @@
   "scripts": {
     "dev": "vike dev",
     "build": "vike build",
-    "preview": "vike build && cross-env NODE_ENV='production' node dist/server/index.js"
+    "preview": "vike build node dist/server/index.mjs"
   },
   "dependencies": {
     "@photonjs/hono": "^0.1.4",
@@ -10,7 +10,6 @@
     "@types/react-dom": "^19.2.2",
     "@universal-middleware/core": "^0.4.13",
     "@vitejs/plugin-react": "^5.1.0",
-    "cross-env": "^10.1.0",
     "hono": "^4.10.4",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
