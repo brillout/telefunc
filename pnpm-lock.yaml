@@ -288,9 +288,6 @@ importers:
       '@vitejs/plugin-react':
         specifier: ^5.1.0
         version: 5.1.0(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0))
-      cross-env:
-        specifier: ^10.1.0
-        version: 10.1.0
       hono:
         specifier: ^4.10.4
         version: 4.10.4
@@ -443,9 +440,6 @@ importers:
       '@vitejs/plugin-react':
         specifier: ^5.1.0
         version: 5.1.0(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0))
-      cross-env:
-        specifier: ^10.1.0
-        version: 10.1.0
       hono:
         specifier: ^4.10.4
         version: 4.10.4
@@ -462,14 +456,14 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
       vike:
-        specifier: ^0.4.245
-        version: 0.4.245(react-streaming@0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0))
+        specifier: ^0.4.246
+        version: 0.4.246(react-streaming@0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0))
       vike-photon:
         specifier: ^0.1.14
-        version: 0.1.14(@photonjs/core@0.1.5(@types/express@5.0.3)(hono@4.10.4)(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))(@photonjs/runtime@0.1.4(@types/express@5.0.3)(hono@4.10.4)(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))(@types/express@5.0.3)(hono@4.10.4)(vike@0.4.245(react-streaming@0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0))
+        version: 0.1.14(@photonjs/core@0.1.5(@types/express@5.0.3)(hono@4.10.4)(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))(@photonjs/runtime@0.1.4(@types/express@5.0.3)(hono@4.10.4)(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))(@types/express@5.0.3)(hono@4.10.4)(vike@0.4.246(react-streaming@0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0))
       vike-react:
         specifier: ^0.6.12
-        version: 0.6.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(vike@0.4.245(react-streaming@0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))
+        version: 0.6.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(vike@0.4.246(react-streaming@0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))
       vite:
         specifier: ^7.2.2
         version: 7.2.2(@types/node@24.0.10)(jiti@1.21.0)
@@ -1280,6 +1274,9 @@ packages:
   '@brillout/picocolors@1.0.28':
     resolution: {integrity: sha512-FBsirUdUlmjmeUlEuqfnUoKAZUt+d0VfMVBYUsFQrDFEV9Rm/QDyG69PSQtQbI6SZQNiZuAWuyhE5USflzx6iQ==}
 
+  '@brillout/picocolors@1.0.29':
+    resolution: {integrity: sha512-EKkqdFJD+CeP6GfpZNcWcCCXS5o0HFXhwISoN5JnHG/kplVE2MmF23eKtl4JRKU1rkR7s3kFIKiJf15aV/Uodg==}
+
   '@brillout/release-me@0.4.5':
     resolution: {integrity: sha512-U5SdlYZjl5bVWFzYiPgy6Sm+nq4OkNdLdpycl0NbICtScNwnejX2WYdXZ96gRYrchHpKxEmFSyspTQhzYETvzA==}
     hasBin: true
@@ -1437,9 +1434,6 @@ packages:
 
   '@emnapi/runtime@1.4.3':
     resolution: {integrity: sha512-pBPWdu6MLKROBX05wSNKcNb++m5Er+KQ9QkB+WVM+pW2Kx9hoSrVTnu3BdkI5eBLZoKu/J6mW/B6i6bJB2ytXQ==}
-
-  '@epic-web/invariant@1.0.0':
-    resolution: {integrity: sha512-lrTPqgvfFQtR/eY/qkIzp98OGdNJu0m5ji3q/nJI8v3SXkRKEnWiOxMmbvcSoAIzv/cGiuvRy57k4suKQSAdwA==}
 
   '@esbuild-plugins/node-modules-polyfill@0.2.2':
     resolution: {integrity: sha512-LXV7QsWJxRuMYvKbiznh+U1ilIop3g2TeKRzUxOG5X3YITc8JyyTa90BmLwqqv0YnX4v32CSlG+vsziZp9dMvA==}
@@ -3946,11 +3940,6 @@ packages:
   create-require@1.1.1:
     resolution: {integrity: sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==}
 
-  cross-env@10.1.0:
-    resolution: {integrity: sha512-GsYosgnACZTADcmEyJctkJIoqAhHjttw7RsFrVoJNXbsWWqaq6Ym+7kZjq6mS45O0jij6vtiReppKQEtqWy6Dw==}
-    engines: {node: '>=20'}
-    hasBin: true
-
   cross-env@7.0.3:
     resolution: {integrity: sha512-+/HKd6EgcQCJGh2PSjZuUitQBQynKor4wrFbRg4DtAgS1aWO+gU52xpH7M9ScGgXSYmAVS9bIJ8EzuaGw0oNAw==}
     engines: {node: '>=10.14', npm: '>=6', yarn: '>=1'}
@@ -6377,6 +6366,19 @@ packages:
       vite:
         optional: true
 
+  vike@0.4.246:
+    resolution: {integrity: sha512-hHYm0p6krBivZxUOHHEKGWsEj72lCAdGtGNvO/USQeg/x0TFxOkkxfio3lcLfdnGSy1wsw1a0Zy5yAHmd21GmQ==}
+    engines: {node: '>=20.19.0'}
+    hasBin: true
+    peerDependencies:
+      react-streaming: '>=0.3.42'
+      vite: '>=6.3.0'
+    peerDependenciesMeta:
+      react-streaming:
+        optional: true
+      vite:
+        optional: true
+
   vite-node@3.2.4:
     resolution: {integrity: sha512-EbKSKh+bh1E1IFxeO0pg1n4dvoOTt0UDiXMd/qn++r98+jPO1xtJilvXldeuQ8giIB5IkpjCgMleHMNEsGH6pg==}
     engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
@@ -7776,6 +7778,8 @@ snapshots:
 
   '@brillout/picocolors@1.0.28': {}
 
+  '@brillout/picocolors@1.0.29': {}
+
   '@brillout/release-me@0.4.5(conventional-commits-filter@5.0.0)':
     dependencies:
       '@brillout/picocolors': 1.0.28
@@ -7924,8 +7928,6 @@ snapshots:
     dependencies:
       tslib: 2.8.1
     optional: true
-
-  '@epic-web/invariant@1.0.0': {}
 
   '@esbuild-plugins/node-modules-polyfill@0.2.2(esbuild@0.25.9)':
     dependencies:
@@ -10097,11 +10099,6 @@ snapshots:
   core-util-is@1.0.3: {}
 
   create-require@1.1.1: {}
-
-  cross-env@10.1.0:
-    dependencies:
-      '@epic-web/invariant': 1.0.0
-      cross-spawn: 7.0.6
 
   cross-env@7.0.3:
     dependencies:
@@ -13467,12 +13464,44 @@ snapshots:
       - hono
       - srvx
 
+  vike-photon@0.1.14(@photonjs/core@0.1.5(@types/express@5.0.3)(hono@4.10.4)(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))(@photonjs/runtime@0.1.4(@types/express@5.0.3)(hono@4.10.4)(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))(@types/express@5.0.3)(hono@4.10.4)(vike@0.4.246(react-streaming@0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)):
+    dependencies:
+      '@brillout/picocolors': 1.0.28
+      '@brillout/vite-plugin-server-entry': 0.7.15
+      '@photonjs/core': 0.1.5(@types/express@5.0.3)(hono@4.10.4)(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0))
+      '@photonjs/runtime': 0.1.4(@types/express@5.0.3)(hono@4.10.4)(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0))
+      '@universal-middleware/compress': 0.2.33
+      '@universal-middleware/core': 0.4.13(@types/express@5.0.3)(hono@4.10.4)
+      '@universal-middleware/sirv': 0.1.23
+      esbuild: 0.25.12
+      pkg-types: 2.3.0
+      vike: 0.4.246(react-streaming@0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0))
+    optionalDependencies:
+      vite: 7.2.2(@types/node@24.0.10)(jiti@1.21.0)
+    transitivePeerDependencies:
+      - '@cloudflare/workers-types'
+      - '@hattip/core'
+      - '@types/express'
+      - '@webroute/route'
+      - elysia
+      - fastify
+      - h3
+      - hono
+      - srvx
+
   vike-react@0.6.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(vike@0.4.245(react-streaming@0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0))):
     dependencies:
       react: 19.2.0
       react-dom: 19.2.0(react@19.2.0)
       react-streaming: 0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       vike: 0.4.245(react-streaming@0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0))
+
+  vike-react@0.6.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(vike@0.4.246(react-streaming@0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0))):
+    dependencies:
+      react: 19.2.0
+      react-dom: 19.2.0(react@19.2.0)
+      react-streaming: 0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      vike: 0.4.246(react-streaming@0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0))
 
   vike-react@0.6.5(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(vike@0.4.240(react-streaming@0.4.12(react-dom@19.1.0(react@19.1.0))(react@19.1.0))(vite@7.1.5(@types/node@24.0.10)(jiti@1.21.0))):
     dependencies:
@@ -13558,6 +13587,28 @@ snapshots:
       cac: 6.7.14
       es-module-lexer: 1.7.0
       esbuild: 0.25.9
+      json5: 2.2.3
+      magic-string: 0.30.19
+      picomatch: 4.0.3
+      semver: 7.7.2
+      sirv: 3.0.1
+      source-map-support: 0.5.21
+      tinyglobby: 0.2.15
+    optionalDependencies:
+      react-streaming: 0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
+      vite: 7.2.2(@types/node@24.0.10)(jiti@1.21.0)
+
+  vike@0.4.246(react-streaming@0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)):
+    dependencies:
+      '@brillout/import': 0.2.6
+      '@brillout/json-serializer': 0.5.21
+      '@brillout/picocolors': 1.0.29
+      '@brillout/require-shim': 0.1.2
+      '@brillout/vite-plugin-server-entry': 0.7.15
+      acorn: 8.14.1
+      cac: 6.7.14
+      es-module-lexer: 1.7.0
+      esbuild: 0.25.12
       json5: 2.2.3
       magic-string: 0.30.19
       picomatch: 4.0.3
