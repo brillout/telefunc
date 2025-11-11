@@ -304,14 +304,14 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
       vike:
-        specifier: ^0.4.245
-        version: 0.4.245(react-streaming@0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0))
+        specifier: ^0.4.246
+        version: 0.4.246(react-streaming@0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0))
       vike-photon:
         specifier: ^0.1.14
-        version: 0.1.14(@photonjs/core@0.1.5(@types/express@5.0.3)(hono@4.10.4)(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))(@photonjs/runtime@0.1.4(@types/express@5.0.3)(hono@4.10.4)(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))(@types/express@5.0.3)(hono@4.10.4)(vike@0.4.245(react-streaming@0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0))
+        version: 0.1.14(@photonjs/core@0.1.5(@types/express@5.0.3)(hono@4.10.4)(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))(@photonjs/runtime@0.1.4(@types/express@5.0.3)(hono@4.10.4)(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))(@types/express@5.0.3)(hono@4.10.4)(vike@0.4.246(react-streaming@0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0))
       vike-react:
         specifier: ^0.6.12
-        version: 0.6.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(vike@0.4.245(react-streaming@0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))
+        version: 0.6.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(vike@0.4.246(react-streaming@0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))
       vite:
         specifier: ^7.2.2
         version: 7.2.2(@types/node@24.0.10)(jiti@1.21.0)
@@ -6353,19 +6353,6 @@ packages:
       vite:
         optional: true
 
-  vike@0.4.245:
-    resolution: {integrity: sha512-WqqVBO3y+1JHpFcie97MmuJ/Te22uRHyup5yFzTSSdNGA2p/TrGWuIMP5a60oVaQcxZ0t+5XnVcWQlQ87cc8gg==}
-    engines: {node: '>=20.19.0'}
-    hasBin: true
-    peerDependencies:
-      react-streaming: '>=0.3.42'
-      vite: '>=6.3.0'
-    peerDependenciesMeta:
-      react-streaming:
-        optional: true
-      vite:
-        optional: true
-
   vike@0.4.246:
     resolution: {integrity: sha512-hHYm0p6krBivZxUOHHEKGWsEj72lCAdGtGNvO/USQeg/x0TFxOkkxfio3lcLfdnGSy1wsw1a0Zy5yAHmd21GmQ==}
     engines: {node: '>=20.19.0'}
@@ -10598,7 +10585,7 @@ snapshots:
       '@typescript-eslint/parser': 8.26.1(eslint@9.28.0(jiti@1.21.0))(typescript@5.8.3)
       eslint: 9.28.0(jiti@1.21.0)
       eslint-import-resolver-node: 0.3.9
-      eslint-import-resolver-typescript: 3.8.7(eslint-plugin-import@2.31.0)(eslint@9.28.0(jiti@1.21.0))
+      eslint-import-resolver-typescript: 3.8.7(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.26.1(eslint@9.28.0(jiti@1.21.0))(typescript@5.8.3))(eslint@9.28.0(jiti@1.21.0)))(eslint@9.28.0(jiti@1.21.0))
       eslint-plugin-import: 2.31.0(@typescript-eslint/parser@8.26.1(eslint@9.28.0(jiti@1.21.0))(typescript@5.8.3))(eslint-import-resolver-typescript@3.8.7)(eslint@9.28.0(jiti@1.21.0))
       eslint-plugin-jsx-a11y: 6.10.2(eslint@9.28.0(jiti@1.21.0))
       eslint-plugin-react: 7.37.4(eslint@9.28.0(jiti@1.21.0))
@@ -10618,7 +10605,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-import-resolver-typescript@3.8.7(eslint-plugin-import@2.31.0)(eslint@9.28.0(jiti@1.21.0)):
+  eslint-import-resolver-typescript@3.8.7(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.26.1(eslint@9.28.0(jiti@1.21.0))(typescript@5.8.3))(eslint@9.28.0(jiti@1.21.0)))(eslint@9.28.0(jiti@1.21.0)):
     dependencies:
       '@nolyfill/is-core-module': 1.0.39
       debug: 4.4.0
@@ -10633,14 +10620,14 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-module-utils@2.12.0(@typescript-eslint/parser@8.26.1(eslint@9.28.0(jiti@1.21.0))(typescript@5.8.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.8.7)(eslint@9.28.0(jiti@1.21.0)):
+  eslint-module-utils@2.12.0(@typescript-eslint/parser@8.26.1(eslint@9.28.0(jiti@1.21.0))(typescript@5.8.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.8.7(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.26.1(eslint@9.28.0(jiti@1.21.0))(typescript@5.8.3))(eslint@9.28.0(jiti@1.21.0)))(eslint@9.28.0(jiti@1.21.0)))(eslint@9.28.0(jiti@1.21.0)):
     dependencies:
       debug: 3.2.7
     optionalDependencies:
       '@typescript-eslint/parser': 8.26.1(eslint@9.28.0(jiti@1.21.0))(typescript@5.8.3)
       eslint: 9.28.0(jiti@1.21.0)
       eslint-import-resolver-node: 0.3.9
-      eslint-import-resolver-typescript: 3.8.7(eslint-plugin-import@2.31.0)(eslint@9.28.0(jiti@1.21.0))
+      eslint-import-resolver-typescript: 3.8.7(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.26.1(eslint@9.28.0(jiti@1.21.0))(typescript@5.8.3))(eslint@9.28.0(jiti@1.21.0)))(eslint@9.28.0(jiti@1.21.0))
     transitivePeerDependencies:
       - supports-color
 
@@ -10655,7 +10642,7 @@ snapshots:
       doctrine: 2.1.0
       eslint: 9.28.0(jiti@1.21.0)
       eslint-import-resolver-node: 0.3.9
-      eslint-module-utils: 2.12.0(@typescript-eslint/parser@8.26.1(eslint@9.28.0(jiti@1.21.0))(typescript@5.8.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.8.7)(eslint@9.28.0(jiti@1.21.0))
+      eslint-module-utils: 2.12.0(@typescript-eslint/parser@8.26.1(eslint@9.28.0(jiti@1.21.0))(typescript@5.8.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.8.7(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.26.1(eslint@9.28.0(jiti@1.21.0))(typescript@5.8.3))(eslint@9.28.0(jiti@1.21.0)))(eslint@9.28.0(jiti@1.21.0)))(eslint@9.28.0(jiti@1.21.0))
       hasown: 2.0.2
       is-core-module: 2.16.1
       is-glob: 4.0.3
@@ -13439,31 +13426,6 @@ snapshots:
       - hono
       - supports-color
 
-  vike-photon@0.1.14(@photonjs/core@0.1.5(@types/express@5.0.3)(hono@4.10.4)(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))(@photonjs/runtime@0.1.4(@types/express@5.0.3)(hono@4.10.4)(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))(@types/express@5.0.3)(hono@4.10.4)(vike@0.4.245(react-streaming@0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)):
-    dependencies:
-      '@brillout/picocolors': 1.0.28
-      '@brillout/vite-plugin-server-entry': 0.7.15
-      '@photonjs/core': 0.1.5(@types/express@5.0.3)(hono@4.10.4)(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0))
-      '@photonjs/runtime': 0.1.4(@types/express@5.0.3)(hono@4.10.4)(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0))
-      '@universal-middleware/compress': 0.2.33
-      '@universal-middleware/core': 0.4.13(@types/express@5.0.3)(hono@4.10.4)
-      '@universal-middleware/sirv': 0.1.23
-      esbuild: 0.25.12
-      pkg-types: 2.3.0
-      vike: 0.4.245(react-streaming@0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0))
-    optionalDependencies:
-      vite: 7.2.2(@types/node@24.0.10)(jiti@1.21.0)
-    transitivePeerDependencies:
-      - '@cloudflare/workers-types'
-      - '@hattip/core'
-      - '@types/express'
-      - '@webroute/route'
-      - elysia
-      - fastify
-      - h3
-      - hono
-      - srvx
-
   vike-photon@0.1.14(@photonjs/core@0.1.5(@types/express@5.0.3)(hono@4.10.4)(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))(@photonjs/runtime@0.1.4(@types/express@5.0.3)(hono@4.10.4)(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))(@types/express@5.0.3)(hono@4.10.4)(vike@0.4.246(react-streaming@0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)):
     dependencies:
       '@brillout/picocolors': 1.0.28
@@ -13488,13 +13450,6 @@ snapshots:
       - h3
       - hono
       - srvx
-
-  vike-react@0.6.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(vike@0.4.245(react-streaming@0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0))):
-    dependencies:
-      react: 19.2.0
-      react-dom: 19.2.0(react@19.2.0)
-      react-streaming: 0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      vike: 0.4.245(react-streaming@0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0))
 
   vike-react@0.6.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(vike@0.4.246(react-streaming@0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0))):
     dependencies:
@@ -13575,28 +13530,6 @@ snapshots:
     optionalDependencies:
       react-streaming: 0.4.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       vite: 7.0.2(@types/node@24.0.10)(jiti@1.21.0)
-
-  vike@0.4.245(react-streaming@0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)):
-    dependencies:
-      '@brillout/import': 0.2.6
-      '@brillout/json-serializer': 0.5.21
-      '@brillout/picocolors': 1.0.28
-      '@brillout/require-shim': 0.1.2
-      '@brillout/vite-plugin-server-entry': 0.7.15
-      acorn: 8.14.1
-      cac: 6.7.14
-      es-module-lexer: 1.7.0
-      esbuild: 0.25.9
-      json5: 2.2.3
-      magic-string: 0.30.19
-      picomatch: 4.0.3
-      semver: 7.7.2
-      sirv: 3.0.1
-      source-map-support: 0.5.21
-      tinyglobby: 0.2.15
-    optionalDependencies:
-      react-streaming: 0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      vite: 7.2.2(@types/node@24.0.10)(jiti@1.21.0)
 
   vike@0.4.246(react-streaming@0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)):
     dependencies:
