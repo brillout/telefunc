@@ -5,8 +5,6 @@ import type { Config } from 'vike/types'
 export default {
   extends: [vikeReact, vikePhoton],
   photon: {
-    server: {
-      entry: 'server/index.ts',
-    },
+    server: 'server/index.ts',
   },
 } satisfies Config
