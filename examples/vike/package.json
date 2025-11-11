@@ -2,7 +2,7 @@
   "scripts": {
     "dev": "vike dev",
     "build": "vike build",
-    "preview": "vike build && node build/server/index.mjs"
+    "preview": "vike build && node dist/server/index.mjs"
   },
   "dependencies": {
     "@photonjs/hono": "^0.1.4",
