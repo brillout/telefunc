@@ -15,14 +15,8 @@ function pluginDev(): Plugin[] {
           return {
             optimizeDeps: {
               include: [
+                // TODO comment
                 'telefunc/client',
-                // Vite bug workaround. I don't know why, but Vite somehow thinks it needs to pre-optimize the `telefunc` module:
-                // ```
-                // 11:12:30 AM [vite] ✨ new dependencies optimized: telefunc
-                // 11:12:30 AM [vite] ✨ optimized dependencies changed. reloading
-                // ```
-                // (Vite correctly bundles `package.json#exports["."].browser` though.)
-                'telefunc',
               ],
             },
           }
