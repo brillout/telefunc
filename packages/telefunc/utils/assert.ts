@@ -8,9 +8,7 @@ export { errorPrefix }
 import { createErrorWithCleanStackTrace } from './createErrorWithCleanStackTrace.js'
 import { getGlobalObject } from './getGlobalObject.js'
 import { projectInfo } from './projectInfo.js'
-/* We cannot import it here because of what seems to be a Vite bug https://github.com/vitejs/vite/issues/21088
 import pc from '@brillout/picocolors'
-*/
 
 const errorPrefix = `[telefunc@${projectInfo.projectVersion}]`
 const internalErrorPrefix = red(`${errorPrefix}[Bug]`)
@@ -110,17 +108,6 @@ function assertInfo(condition: unknown, errorMessage: string, { onlyOnce }: { on
   console.log(msg)
 }
 
-//*
-function red<Str extends string>(str: Str) {
-  return str
-}
-function yellow<Str extends string>(str: Str) {
-  return str
-}
-function blue<Str extends string>(str: Str) {
-  return str
-}
-/*/
 function red<Str extends string>(str: Str) {
   return pc.red(pc.bold(str))
 }
@@ -130,4 +117,3 @@ function yellow<Str extends string>(str: Str) {
 function blue<Str extends string>(str: Str) {
   return pc.blue(pc.bold(str))
 }
-/*/
