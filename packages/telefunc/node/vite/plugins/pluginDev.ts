@@ -15,7 +15,7 @@ function pluginDev(): Plugin[] {
           return {
             optimizeDeps: {
               include: [
-                // TODO comment
+                // Vite pre-bundler doesn't discover 'telefunc/client' because it doesn't transform `.telefunc.js` imports => Vite will disover the 'telefunc/client' dependency only after Telefunc transforms `.telefunc.js` imports into the thin HTTP client using 'telefunc/client'
                 'telefunc/client',
               ],
             },
