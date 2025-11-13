@@ -1,3 +1,13 @@
+## [0.2.17](https://github.com/brillout/telefunc/compare/v0.2.16...v0.2.17) (2025-11-13)
+
+
+### Bug Fixes
+
+* remove 'telefunc' from optimizeDeps.include ([#223](https://github.com/brillout/telefunc/issues/223)) ([8075bda](https://github.com/brillout/telefunc/commit/8075bda0b9cb0dc85cad2d10e3e77d9edeea1e0c))
+* revert workaround Vite bug upon import picocolors in utils/assert.ts ([32e11e3](https://github.com/brillout/telefunc/commit/32e11e36f4b66c647ddfac11afb8b6b92a9486d2))
+
+
+
 ## [0.2.16](https://github.com/brillout/telefunc/compare/v0.2.15...v0.2.16) (2025-11-10)
 
 
