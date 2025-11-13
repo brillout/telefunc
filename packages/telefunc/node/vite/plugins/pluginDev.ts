@@ -15,14 +15,8 @@ function pluginDev(): Plugin[] {
           return {
             optimizeDeps: {
               include: [
+                // Vite pre-bundler doesn't discover 'telefunc/client' because it doesn't transform `.telefunc.js` imports => Vite will disover the 'telefunc/client' dependency only after Telefunc transforms `.telefunc.js` imports into the thin HTTP client using 'telefunc/client'
                 'telefunc/client',
-                // Vite bug workaround. I don't know why, but Vite somehow thinks it needs to pre-optimize the `telefunc` module:
-                // ```
-                // 11:12:30 AM [vite] ✨ new dependencies optimized: telefunc
-                // 11:12:30 AM [vite] ✨ optimized dependencies changed. reloading
-                // ```
-                // (Vite correctly bundles `package.json#exports["."].browser` though.)
-                'telefunc',
               ],
             },
           }
