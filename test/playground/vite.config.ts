@@ -10,6 +10,6 @@ export default {
     disableAutoImport: true,
   },
   build: {
-    outDir: 'build',
+    outDir: `${__dirname}/../../test/playground/dist/nested`,
   },
 } satisfies UserConfig
