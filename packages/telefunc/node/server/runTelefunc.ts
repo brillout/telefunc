@@ -23,6 +23,7 @@ import {
   STATUS_BODY_MALFORMED_REQUEST,
   STATUS_CODE_SUCCESS,
 } from '../../shared/constants.js'
+import { runOnBefore } from './runTelefunc/onBefore.js'
 
 /** The HTTP Response of a telefunction remote call HTTP Request */
 type HttpResponse = {
@@ -138,6 +139,13 @@ async function runTelefunc_(httpRequest: {
   }
 
   {
+    console.log('🧪 BEFORE runOnBefore')
+    await runOnBefore(runContext)
+    console.log('🧪 AFTER runOnBefore')
+  }
+
+  {
+    console.log('🛡️ applyShield')
     const { isValidRequest } = applyShield(runContext)
     objectAssign(runContext, { isValidRequest })
     if (!isValidRequest) {
