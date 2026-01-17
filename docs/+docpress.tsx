@@ -33,4 +33,10 @@ const config: Config = {
     position: 'relative',
     top: -1,
   },
+  choices: {
+    'pkg-manager': {
+      choices: ['npm', 'pnpm', 'yarn', 'bun'],
+      default: 'npm',
+    },
+  },
 } satisfies Config

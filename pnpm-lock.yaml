@@ -39,8 +39,8 @@ importers:
   docs:
     dependencies:
       '@brillout/docpress':
-        specifier: ^0.16.2
-        version: 0.16.2(@algolia/client-search@5.31.0)(@types/react@19.2.2)(@vitejs/plugin-react-swc@4.2.1(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(rollup@4.44.0)(search-insights@2.17.3)(typescript@5.9.3)(vike@0.4.246-commit-bb4b6db(react-streaming@0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0))
+        specifier: ^0.16.8
+        version: 0.16.8(@algolia/client-search@5.31.0)(@types/react@19.2.2)(@vitejs/plugin-react-swc@4.2.1(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(rollup@4.44.0)(search-insights@2.17.3)(typescript@5.9.3)(vike@0.4.246-commit-bb4b6db(react-streaming@0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0))
       '@types/react':
         specifier: ^19.2.2
         version: 19.2.2
@@ -1241,8 +1241,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@brillout/docpress@0.16.2':
-    resolution: {integrity: sha512-wSPNIr5jSB/36RNV0FYWw9q5ZlewCqWTIbSOCi6w800x/fzoRIqX4iX8565LUHSCauZDtBor1rF5dhrrQHhkjA==}
+  '@brillout/docpress@0.16.8':
+    resolution: {integrity: sha512-36fSlddEepc+Ywax3PIDMzyHpj2IRQFPiiFcIHYH/6xCYUUd86ipgpOxde9eiHp3cFJz9sHS5BLZCdcAxB9vEg==}
     peerDependencies:
       '@vitejs/plugin-react-swc': '>=3.0.0'
       react: '>=18.0.0'
@@ -4975,6 +4975,9 @@ packages:
     resolution: {integrity: sha512-/IXtbwEk5HTPyEwyKX6hGkYXxM9nbj64B+ilVJnC/R6B0pH5G4V3b0pVbL7DBj4tkhBAppbQUlf6F6Xl9LHu1g==}
     engines: {node: '>= 0.4'}
 
+  mdast-util-directive@3.1.0:
+    resolution: {integrity: sha512-I3fNFt+DHmpWCYAT7quoM6lHf9wuqtI+oCOfvILnoicNIqjh5E3dEJWiXuYME2gNe8vl1iMQwyUHa7bgFmak6Q==}
+
   mdast-util-find-and-replace@3.0.2:
     resolution: {integrity: sha512-Tmd1Vg/m3Xz43afeNxDIhWRtFZgM2VLyaf4vSTYwudTyeuTneoL3qtWMA5jeLyz/O1vDJmmV4QuScFCA2tBPwg==}
 
@@ -5055,6 +5058,9 @@ packages:
 
   micromark-core-commonmark@2.0.3:
     resolution: {integrity: sha512-RDBrHEMSxVFLg6xvnXmb1Ayr2WzLAWjeSATAoxwKYJV94TeNavgoIdA0a9ytzDSVzBy2YKFK+emCPOEibLeCrg==}
+
+  micromark-extension-directive@4.0.0:
+    resolution: {integrity: sha512-/C2nqVmXXmiseSSuCdItCMho7ybwwop6RrrRPk0KbOHW21JKoCldC+8rFOaundDoRBUWBnJJcxeA/Kvi34WQXg==}
 
   micromark-extension-gfm-autolink-literal@2.1.0:
     resolution: {integrity: sha512-oOg7knzhicgQ3t4QCjCWgTmfNhvQbDDnJeVu9v81r7NltNCVmhPy1fJRX27pISafdjL+SVc4d3l48Gb6pbRypw==}
@@ -5318,6 +5324,10 @@ packages:
   npm-run-path@4.0.1:
     resolution: {integrity: sha512-S48WzZW777zhNIrn7gxOlISNAqi9ZC/uQFnRdbeIHhZhCA6UqpkOT8T1G7BvfdgP4Er8gF4sUbaS0i7QvIfCWw==}
     engines: {node: '>=8'}
+
+  npm-to-yarn@3.0.1:
+    resolution: {integrity: sha512-tt6PvKu4WyzPwWUzy/hvPFqn+uwXO0K1ZHka8az3NnrhWJDmSqI8ncWq0fkL0k/lmmi5tAC11FXwXuh0rFbt1A==}
+    engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
 
   npmlog@5.0.1:
     resolution: {integrity: sha512-AqZtDUWOMKs1G/8lwylVjrdYgqA4d9nu8hc+0gzRxlDb1I10+FHBGMXs6aiQHFdCUUlqH99MUMuLfzWDNDtfxw==}
@@ -5656,6 +5666,9 @@ packages:
     engines: {node: '>=18'}
     peerDependencies:
       shiki: ^1.0.0
+
+  remark-directive@4.0.0:
+    resolution: {integrity: sha512-7sxn4RfF1o3izevPV1DheyGDD6X4c9hrGpfdUpm7uC++dqrnJxIZVkk7CoKqcLm0VUMAuOol7Mno3m6g8cfMuA==}
 
   remark-gfm@4.0.0:
     resolution: {integrity: sha512-U92vJgBPkbw4Zfu/IiW2oTZLSL3Zpv+uI7My2eq8JxKgqraFdU8YUGicEJCEgSbeaG+QDFqIcwwfMTOEelPxuA==}
@@ -7739,7 +7752,7 @@ snapshots:
   '@biomejs/cli-win32-x64@1.9.4':
     optional: true
 
-  '@brillout/docpress@0.16.2(@algolia/client-search@5.31.0)(@types/react@19.2.2)(@vitejs/plugin-react-swc@4.2.1(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(rollup@4.44.0)(search-insights@2.17.3)(typescript@5.9.3)(vike@0.4.246-commit-bb4b6db(react-streaming@0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0))':
+  '@brillout/docpress@0.16.8(@algolia/client-search@5.31.0)(@types/react@19.2.2)(@vitejs/plugin-react-swc@4.2.1(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(rollup@4.44.0)(search-insights@2.17.3)(typescript@5.9.3)(vike@0.4.246-commit-bb4b6db(react-streaming@0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0))':
     dependencies:
       '@brillout/picocolors': 1.0.29
       '@docsearch/css': 3.9.0
@@ -7749,9 +7762,11 @@ snapshots:
       '@mdx-js/rollup': 3.0.1(rollup@4.44.0)
       '@shikijs/transformers': 1.2.0
       detype: 1.1.3
+      npm-to-yarn: 3.0.1
       react: 19.2.0
       react-dom: 19.2.0(react@19.2.0)
       rehype-pretty-code: 0.13.0(shiki@1.2.0)
+      remark-directive: 4.0.0
       remark-gfm: 4.0.0
       shiki: 1.2.0
       typescript: 5.9.3
@@ -11559,6 +11574,20 @@ snapshots:
 
   math-intrinsics@1.1.0: {}
 
+  mdast-util-directive@3.1.0:
+    dependencies:
+      '@types/mdast': 4.0.4
+      '@types/unist': 3.0.3
+      ccount: 2.0.1
+      devlop: 1.1.0
+      mdast-util-from-markdown: 2.0.2
+      mdast-util-to-markdown: 2.1.2
+      parse-entities: 4.0.2
+      stringify-entities: 4.0.4
+      unist-util-visit-parents: 6.0.1
+    transitivePeerDependencies:
+      - supports-color
+
   mdast-util-find-and-replace@3.0.2:
     dependencies:
       '@types/mdast': 4.0.4
@@ -11756,6 +11785,16 @@ snapshots:
       micromark-util-subtokenize: 2.1.0
       micromark-util-symbol: 2.0.1
       micromark-util-types: 2.0.2
+
+  micromark-extension-directive@4.0.0:
+    dependencies:
+      devlop: 1.1.0
+      micromark-factory-space: 2.0.1
+      micromark-factory-whitespace: 2.0.1
+      micromark-util-character: 2.1.1
+      micromark-util-symbol: 2.0.1
+      micromark-util-types: 2.0.2
+      parse-entities: 4.0.2
 
   micromark-extension-gfm-autolink-literal@2.1.0:
     dependencies:
@@ -12185,6 +12224,8 @@ snapshots:
     dependencies:
       path-key: 3.1.1
 
+  npm-to-yarn@3.0.1: {}
+
   npmlog@5.0.1:
     dependencies:
       are-we-there-yet: 2.0.0
@@ -12568,6 +12609,15 @@ snapshots:
       shiki: 1.2.0
       unified: 11.0.5
       unist-util-visit: 5.0.0
+
+  remark-directive@4.0.0:
+    dependencies:
+      '@types/mdast': 4.0.4
+      mdast-util-directive: 3.1.0
+      micromark-extension-directive: 4.0.0
+      unified: 11.0.5
+    transitivePeerDependencies:
+      - supports-color
 
   remark-gfm@4.0.0:
     dependencies:
