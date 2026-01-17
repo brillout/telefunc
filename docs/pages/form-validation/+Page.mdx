@@ -58,7 +58,7 @@ export async function onFormSubmit(email: string, password: string) {
 
 In general, we recommend using `return { someValue }` instead of `throw Abort(someValue)` because:
  1. It makes the code's intent clearer: the reader of our code knows that `return someValue` is an expected case that will be handled by the frontend, whereas when throwing an error it isn't obvious whether/where/how the error will be handled by the frontend.
- 1. `return someValue` has better TypeScript DX, as TypeScript doesn't typecheck caught errors:
+ 2. `return someValue` has better TypeScript DX, as TypeScript doesn't typecheck caught errors:
     ```ts
     try {
       /* ... */
