@@ -31,7 +31,7 @@ Move non-function exports outside your `.telefunc.js` file:
 ```ts
 // components/NewsletterForm.telefunc.ts
 
-// @detype-replace isValidEmail2 isValidEmail
+// @docpress-replace isValidEmail2 isValidEmail
 import { isValidEmail2 } from './NewsletterForm/validation'// [!code ++]
 
 export async function onNewSubscription(email: string) {
