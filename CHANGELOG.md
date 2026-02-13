@@ -1,3 +1,12 @@
+## [0.2.18](https://github.com/brillout/telefunc/compare/v0.2.17...v0.2.18) (2026-02-13)
+
+
+### Bug Fixes
+
+* update glob pattern to work with Vite 8 ([a6c047b](https://github.com/brillout/telefunc/commit/a6c047bb527a5d1287f47e7fc2f795a97fae51d0))
+
+
+
 ## [0.2.17](https://github.com/brillout/telefunc/compare/v0.2.16...v0.2.17) (2025-11-13)
 
 
