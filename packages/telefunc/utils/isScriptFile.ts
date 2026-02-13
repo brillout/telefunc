@@ -59,4 +59,4 @@ const extTemplates = [
 const scriptFileExtensionList = [...extJsOrTs, ...extJsxOrTsx, ...extTemplates] as const
 
 const javaScriptFileExtensionList = [...extJsOrTs, ...extJsxOrTsx] as const
-const javaScriptFileExtensionPattern = '(' + javaScriptFileExtensionList.join('|') + ')'
+const javaScriptFileExtensionPattern = '{' + javaScriptFileExtensionList.join(',') + '}'
