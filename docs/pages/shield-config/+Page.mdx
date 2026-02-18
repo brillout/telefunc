@@ -13,7 +13,7 @@ Whether to generate <Link href="/shield">`shield()`</Link> in development and/or
 import { config } from 'telefunc'
 
 // Enable shield() generation during development
-config.shield.dev = true
+config.shield = { dev: true }
 ```
 
 <Warning>Enabling `shield()` generation during development can significantly slow down development speed. Depending on how large your app and how fast your computer is, the decreased development speed can range from unnoticeable to significant.</Warning>
