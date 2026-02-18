@@ -169,6 +169,9 @@ function generateShieldCode({
     const shieldStr = shieldStrType.getLiteralValue()
     assert(shieldStr === undefined || typeof shieldStr === 'string')
 
+    // Remove the type alias after extracting the type information to avoid TS6196 "declared but never used" errors
+    typeAlias.remove()
+
     if (shieldStr === 'NON_FUNCTION_EXPORT') continue
 
     const failed = shieldStr === undefined
