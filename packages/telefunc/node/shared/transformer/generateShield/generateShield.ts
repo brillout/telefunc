@@ -40,10 +40,10 @@ function generateShield(
   appRootDir: string,
   exportList: ExportList,
 ): string {
-  const { project, shieldGenSource } = getProject(telefuncFilePath, telefuncFileCode, appRootDir)
+  const { shieldGenSource, shieldGenProject } = getProject(telefuncFilePath, telefuncFileCode, appRootDir)
   const shieldCode = generateShieldCode({
-    project,
     shieldGenSource,
+    shieldGenProject,
     telefuncFilePath,
     exportList,
   })
@@ -106,10 +106,26 @@ function getProject(telefuncFilePath: string, telefuncFileCode: string, appRootD
     )
   }
 
-  // Use a virtual file path (not written to filesystem) to avoid TypeScript picking it up during builds
-  // This prevents TS6196 "declared but never used" errors for the temporary type aliases
+  // Create a separate isolated project for shieldGen to prevent it from appearing in user's TypeScript diagnostics
+  // This ensures the temporary type extraction file never leaks into the user's build
+  const shieldGenProject = new Project({
+    compilerOptions: {
+      strict: true,
+      skipLibCheck: true,
+    },
+  })
+  // Mark the isolated project with tsConfigFilePath to match the expected type
+  objectAssign(shieldGenProject, { tsConfigFilePath: null })
+
+  // Add TypeToShield to the isolated project
+  shieldGenProject.createSourceFile(typeToShieldFilePath, getTypeToShieldSrc())
+
+  // Add the telefunc file to the isolated project so shieldGen can import from it
+  shieldGenProject.createSourceFile(telefuncFilePath, telefuncFileCode, { overwrite: true })
+
+  // Create the shieldGen file in the isolated project
   const shieldGenFilePath = `virtual-shieldGen-${getRandomId()}.ts`
-  const shieldGenSource = project.createSourceFile(shieldGenFilePath, undefined, { overwrite: true })
+  const shieldGenSource = shieldGenProject.createSourceFile(shieldGenFilePath, undefined, { overwrite: true })
   shieldGenSource.addImportDeclaration({
     moduleSpecifier: getImportPath(shieldGenFilePath, typeToShieldFilePath),
     namedImports: ['TypeToShield'],
@@ -120,17 +136,17 @@ function getProject(telefuncFilePath: string, telefuncFileCode: string, appRootD
   // The code written in the file at `telefuncFilePath` isn't equal `telefuncFileCode` because of transforms
   telefuncFileSource.replaceWithText(telefuncFileCode)
 
-  return { project, shieldGenSource }
+  return { project, shieldGenSource, shieldGenProject }
 }
 
 function generateShieldCode({
-  project,
   shieldGenSource,
+  shieldGenProject,
   telefuncFilePath,
   exportList,
 }: {
-  project: Project & { tsConfigFilePath: null | string }
   shieldGenSource: SourceFile
+  shieldGenProject: Project & { tsConfigFilePath: null | string }
   telefuncFilePath: string
   // All exports of `.telefunc.js` files must be functions, thus we generate a shield() for each export.
   // If an export isn't a function then the error message is a bit ugly: https://github.com/brillout/telefunc/issues/142
@@ -154,10 +170,10 @@ function generateShieldCode({
     'const __telefunc_t = __telefunc_shield.type;',
   ].join('\n')
 
-  // Add the dependent source files to the project
-  project.resolveSourceFileDependencies()
+  // Add the dependent source files to the isolated project
+  shieldGenProject.resolveSourceFileDependencies()
 
-  assert(project.compilerOptions.get().strict === true)
+  assert(shieldGenProject.compilerOptions.get().strict === true)
 
   for (const exportedFunction of exportList) {
     const typeAliasName = getShieldName(exportedFunction.exportName)
@@ -173,7 +189,7 @@ function generateShieldCode({
     const failed = shieldStr === undefined
 
     generatedShields.push({
-      project,
+      project: shieldGenProject,
       telefuncFilePath,
       telefunctionName: exportedFunction.exportName,
       failed,
@@ -191,12 +207,17 @@ function generateShieldCode({
 
 async function testGenerateShield(telefuncFileCode: string): Promise<string> {
   const telefuncFilePath = `virtual-${getRandomId()}.telefunc.ts`
-  const { project, shieldGenSource } = getProject(telefuncFilePath, telefuncFileCode, '/fake-user-root-dir/', true)
-  objectAssign(project, { tsConfigFilePath: null })
+  const { shieldGenSource, shieldGenProject } = getProject(
+    telefuncFilePath,
+    telefuncFileCode,
+    '/fake-user-root-dir/',
+    true,
+  )
+  objectAssign(shieldGenProject, { tsConfigFilePath: null })
   const exportList = await getExportList(telefuncFileCode)
   const shieldCode = generateShieldCode({
-    project,
     shieldGenSource,
+    shieldGenProject,
     telefuncFilePath,
     exportList,
   })
