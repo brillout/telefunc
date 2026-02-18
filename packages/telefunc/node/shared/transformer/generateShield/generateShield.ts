@@ -148,8 +148,9 @@ function generateShieldCode({
       name: getShieldName(e.exportName),
       type: `TypeToShield<typeof ${e.exportName}>`,
     })
-    // This type is only used internally by the TypeScript compiler to evaluate the template literal type
-    shieldGenSource.insertText(typeAlias.getStart(), '// @ts-ignore - Used by TypeScript compiler for type inference\n')
+    // Add @ts-ignore comment to suppress "is declared but never used" error during build
+    // The type is only used internally to evaluate the template literal type
+    shieldGenSource.insertText(typeAlias.getStart(), '// @ts-ignore - Used by Telefunc internally for type inference, not in runtime code\n')
   }
 
   let shieldCode = [
