@@ -2,6 +2,9 @@ export { middlewareTelefunc as default }
 
 import { enhance, type UniversalMiddleware } from '@universal-middleware/core'
 import { telefunc } from 'telefunc'
+import { config } from 'telefunc'
+
+config.shield = { dev: true, prod: true }
 
 const telefuncUniversalMiddleware: UniversalMiddleware = async (request, context, runtime) => {
   const url = request.url.toString()

@@ -1,12 +1,15 @@
 {
   "compilerOptions": {
-    "strict": true,
-    "noUncheckedIndexedAccess": true,
     "module": "ES2022",
     "moduleResolution": "Bundler",
     "target": "ES2022",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "types": ["vite/client"],
-    "jsx": "react"
+    "jsx": "react",
+    // Strictness
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true
   }
 }
