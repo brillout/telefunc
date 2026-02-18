@@ -150,7 +150,10 @@ function generateShieldCode({
     })
     // Add @ts-ignore comment to suppress "is declared but never used" error during build
     // The type is only used internally to evaluate the template literal type
-    shieldGenSource.insertText(typeAlias.getStart(), '// @ts-ignore - Used by Telefunc internally for type inference, not in runtime code\n')
+    shieldGenSource.insertText(
+      typeAlias.getStart(),
+      '// @ts-ignore - Used by Telefunc internally for type inference, not in runtime code\n',
+    )
   }
 
   let shieldCode = [
