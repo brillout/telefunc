@@ -148,10 +148,8 @@ function generateShieldCode({
       name: getShieldName(e.exportName),
       type: `TypeToShield<typeof ${e.exportName}>`,
     })
-    // Add @ts-ignore to suppress "is declared but never used" error during build
     // This type is only used internally by the TypeScript compiler to evaluate the template literal type
-    const start = typeAlias.getStart()
-    shieldGenSource.insertText(start, '// @ts-ignore - Used by TypeScript compiler for type inference\n')
+    shieldGenSource.insertText(typeAlias.getStart(), '// @ts-ignore - Used by TypeScript compiler for type inference\n')
   }
 
   let shieldCode = [
