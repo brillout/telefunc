@@ -28,6 +28,29 @@ function testRun(cmd: 'npm run dev' | 'npm run preview') {
     await testCounter()
   })
 
+  test('file upload', async () => {
+    await page.goto(`${getServerUrl()}/`)
+    await autoRetry(async () => {
+      expect(await page.textContent('body')).toContain('File Upload')
+    })
+
+    const fileInput = page.locator('input[type="file"]')
+    await fileInput.setInputFiles({
+      name: 'test.txt',
+      mimeType: 'text/plain',
+      buffer: Buffer.from('hello from test file'),
+    })
+
+    await page.click('button[type="submit"]')
+
+    await autoRetry(async () => {
+      const body = await page.textContent('body')
+      expect(body).toContain('test.txt')
+      expect(body).toContain('text/plain')
+      expect(body).toContain('test upload')
+    })
+  })
+
   if (!isDev) {
     test('shield() generation', async () => {
       {

@@ -10,7 +10,7 @@ type TelefuncHttpRequest =
       url: string
       /** The method of the HTTP Request ('GET', 'POST', ...) */
       method: string
-      /** The body of HTTP Request. Pass a FormData for multipart file uploads. */
+      /** The body of HTTP Request. */
       body: string | FormData
       /** The context object, see https://telefunc.com/getContext  */
       context?: Telefunc.Context
