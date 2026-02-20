@@ -4,7 +4,7 @@ import { parse } from '@brillout/json-serializer/parse'
 import { hasProp, getTelefunctionKey } from '../../utils.js'
 import { logParseError, type ParseResult } from './utils.js'
 
-const FILE_PLACEHOLDER_KEY = '__telefunc_file'
+const MULTIPART_PLACEHOLDER_KEY = '__telefunc_multipart'
 
 function parseMultipartBody(formData: FormData, runContext: { logMalformedRequests: boolean }): ParseResult {
   const metaString = formData.get('__telefunc')
@@ -42,19 +42,11 @@ function parseMultipartBody(formData: FormData, runContext: { logMalformedReques
   const telefuncFilePath = bodyParsed.file
   const telefunctionName = bodyParsed.name
 
-  // Replace file placeholders with actual File/Blob objects from the FormData
+  // Replace multipart placeholders with actual File/Blob objects from the FormData
   const telefunctionArgs = bodyParsed.args.map((arg: unknown) => {
-    if (
-      arg !== null &&
-      typeof arg === 'object' &&
-      FILE_PLACEHOLDER_KEY in arg &&
-      typeof (arg as Record<string, unknown>)[FILE_PLACEHOLDER_KEY] === 'number'
-    ) {
-      const fileIndex = (arg as Record<string, unknown>)[FILE_PLACEHOLDER_KEY] as number
-      const file = formData.get(`${FILE_PLACEHOLDER_KEY}_${fileIndex}`)
-      return file
-    }
-    return arg
+    if (!hasProp(arg, MULTIPART_PLACEHOLDER_KEY, 'number')) return arg
+    const partIndex = arg[MULTIPART_PLACEHOLDER_KEY]
+    return formData.get(`${MULTIPART_PLACEHOLDER_KEY}_${partIndex}`)
   })
 
   const telefunctionKey = getTelefunctionKey(telefuncFilePath, telefunctionName)
