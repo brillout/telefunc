@@ -299,7 +299,24 @@ const type = (() => {
     verifier.toString = () => 'date'
     return verifier as any
   })()
-
+  const file = ((): File => {
+    const verifier = (input: unknown, breadcrumbs: string) =>
+      typeof File !== 'undefined' && input instanceof File
+        ? true
+        : errorMessage(breadcrumbs, getTypeName(input), 'file')
+    markVerifier(verifier)
+    verifier.toString = () => 'file'
+    return verifier as any
+  })()
+  const blob = ((): Blob => {
+    const verifier = (input: unknown, breadcrumbs: string) =>
+      typeof Blob !== 'undefined' && input instanceof Blob
+        ? true
+        : errorMessage(breadcrumbs, getTypeName(input), 'blob')
+    markVerifier(verifier)
+    verifier.toString = () => 'blob'
+    return verifier as any
+  })()
   const any = ((): any => {
     const verifier = () => true as const
     markVerifier(verifier)
@@ -312,6 +329,8 @@ const type = (() => {
     number,
     boolean,
     date,
+    file,
+    blob,
     array,
     object,
     or,
@@ -360,6 +379,12 @@ function getTypeName(thing: unknown): string {
     assert(thing !== null)
     if (thing.constructor === Date) {
       return 'date'
+    }
+    if (typeof File !== 'undefined' && thing instanceof File) {
+      return 'file'
+    }
+    if (typeof Blob !== 'undefined' && thing instanceof Blob) {
+      return 'blob'
     }
     if (Array.isArray(thing)) {
       return 'array'

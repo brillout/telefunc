@@ -12,8 +12,8 @@ async function telefunc(httpRequest: {
   url: string
   /** The method of the HTTP Request ('GET', 'POST', ...) */
   method: string
-  /** The body of HTTP Request */
-  body: string
+  /** The body of HTTP Request. Pass a FormData for multipart file uploads. */
+  body: string | FormData
   /** The context object, see https://telefunc.com/getContext  */
   context?: Telefunc.Context
 }): Promise<HttpResponse> {

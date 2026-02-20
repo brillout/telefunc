@@ -9,7 +9,9 @@ const telefuncUniversalMiddleware: UniversalMiddleware = async (request, context
   const httpResponse = await telefunc({
     url,
     method: request.method,
-    body: await request.text(),
+    body: request.headers.get('content-type')?.includes('multipart/form-data')
+      ? await request.formData()
+      : await request.text(),
     context: {
       ...context,
       ...runtime,

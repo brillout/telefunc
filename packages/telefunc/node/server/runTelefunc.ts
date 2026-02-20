@@ -4,7 +4,7 @@ export type { HttpResponse }
 import { assert, objectAssign, isProduction } from './utils.js'
 import { Telefunc } from './getContext.js'
 import { loadTelefuncFiles } from './runTelefunc/loadTelefuncFiles.js'
-import { parseHttpRequest } from './runTelefunc/parseHttpRequest.js'
+import { parseHttpRequest } from './runTelefunc/parseHttpRequest/parseHttpRequest.js'
 // import { getEtag } from './runTelefunc/getEtag.js'
 import { executeTelefunction } from './runTelefunc/executeTelefunction.js'
 import { serializeTelefunctionResult } from './runTelefunc/serializeTelefunctionResult.js'

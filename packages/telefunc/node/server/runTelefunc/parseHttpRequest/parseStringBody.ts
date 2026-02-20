@@ -1,38 +1,16 @@
-export { parseHttpRequest }
+export { parseStringBody }
 
 import { parse } from '@brillout/json-serializer/parse'
-import {
-  assertUsage,
-  hasProp,
-  getProjectError,
-  getUrlPathname,
-  assert,
-  getTelefunctionKey,
-  isProduction,
-} from '../utils.js'
+import { assertUsage, hasProp, getTelefunctionKey } from '../../utils.js'
+import { logParseError, type ParseResult } from './utils.js'
 
-function parseHttpRequest(runContext: {
-  httpRequest: { body: unknown; url: string; method: string }
-  logMalformedRequests: boolean
-  serverConfig: {
-    telefuncUrl: string
-  }
-}):
-  | {
-      telefuncFilePath: string
-      telefunctionName: string
-      telefunctionKey: string
-      telefunctionArgs: unknown[]
-      isMalformedRequest: false
-    }
-  | { isMalformedRequest: true } {
-  assertUrl(runContext)
-
-  if (isWrongMethod(runContext)) {
-    return { isMalformedRequest: true }
-  }
-
-  const { body } = runContext.httpRequest
+function parseStringBody(
+  body: unknown,
+  runContext: {
+    logMalformedRequests: boolean
+    serverConfig: { telefuncUrl: string }
+  },
+): ParseResult {
   if (typeof body !== 'string') {
     if (runContext.logMalformedRequests) {
       assertBody(body, runContext)
@@ -114,40 +92,4 @@ function assertBody(body: unknown, runContext: { serverConfig: { telefuncUrl: st
     body !== '{}',
     ["`telefunc({ body })`: argument `body` is an empty JSON object (`body === '{}'`).", errorNote].join(' '),
   )
-}
-
-function isWrongMethod(runContext: { httpRequest: { method: string }; logMalformedRequests: boolean }) {
-  if (['POST', 'post'].includes(runContext.httpRequest.method)) {
-    return false
-  }
-  assert(typeof runContext.httpRequest.method === 'string')
-  logParseError(
-    [
-      'The argument `method` passed to `telefunc({ method })`',
-      'should be `POST` (or `post`) but',
-      `\`method === '${runContext.httpRequest.method}'\`.`,
-    ].join(' '),
-    runContext,
-  )
-  return true
-}
-
-function assertUrl(runContext: { httpRequest: { url: string }; serverConfig: { telefuncUrl: string } }) {
-  const urlPathname = getUrlPathname(runContext.httpRequest.url)
-  assertUsage(
-    urlPathname === runContext.serverConfig.telefuncUrl,
-    `telefunc({ url }): The pathname of \`url\` is \`${urlPathname}\` but it's expected to be \`${runContext.serverConfig.telefuncUrl}\`. Either make sure that \`url\` is the HTTP request URL, or set \`config.telefuncUrl\` to \`${urlPathname}\`.`,
-  )
-}
-
-function logParseError(errMsg: string, runContext: { logMalformedRequests: boolean }) {
-  const errMsgPrefix = 'Malformed request in development.'
-  const errMsgSuffix =
-    'This is unexpected since, in development, all requests are expected to originate from the Telefunc Client and should therefore be properly structured.'
-  if (!isProduction()) {
-    errMsg = `${errMsgPrefix} ${errMsg} ${errMsgSuffix}`
-  }
-  if (runContext.logMalformedRequests) {
-    console.error(getProjectError(errMsg))
-  }
 }
