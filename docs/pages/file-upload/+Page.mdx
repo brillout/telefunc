@@ -1,3 +1,52 @@
-Using Telefunc to upload files is currently only supported by encoding the file as a string, for example as [Data URL](https://developer.mozilla.org/en-US/docs/Web/HTTP/Basics_of_HTTP/Data_URLs). You can use [`FileReader.readAsDataURL()`](https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsDataURL) to encode a `File` object to a Data URL. However, be aware that files encoded in this way are at least [33% larger](https://developer.mozilla.org/en-US/docs/Glossary/Base64#encoded_size_increase).
+Telefunc natively supports [`File`](https://developer.mozilla.org/en-US/docs/Web/API/File) and [`Blob`](https://developer.mozilla.org/en-US/docs/Web/API/Blob) arguments. When a telefunction is called with file arguments, Telefunc automatically uses [`multipart/form-data`](https://developer.mozilla.org/en-US/docs/Web/API/FormData) instead of the usual text-based serialization. No configuration needed.
 
-Another possibility is to use an endpoint separate from Telefunc to handle file uploads. For example, you can use [expressjs/multer](https://github.com/expressjs/multer) when using Node.js.
+## Example
+
+```ts
+// hello.telefunc.ts
+
+export async function onFileUpload(file: File, description: string) {
+  const content = await file.text()
+  console.log(file.name, file.size, file.type)
+  console.log(description)
+  // ...
+}
+```
+
+```tsx
+// FileUpload.tsx
+
+import { onFileUpload } from './hello.telefunc'
+
+async function handleSubmit(form: FormData) {
+  const file = form.get('file') as File
+  const description = form.get('description') as string
+  await onFileUpload(file, description)
+}
+```
+
+## How it works
+
+- `File` / `Blob` arguments are sent as separate binary parts in a `multipart/form-data` request
+- On the server, they are received as standard `File` / `Blob` objects
+- Non-file arguments are serialized as usual (preserving `Date` objects, etc.)
+
+## Server integration
+
+If you use `telefunc({ url, method, body })`, pass a `FormData` as `body` for multipart requests:
+
+```ts
+const httpResponse = await telefunc({
+  url,
+  method: request.method,
+  body: request.headers.get('content-type')?.includes('multipart/form-data')
+    ? await request.formData()
+    : await request.text(),
+})
+```
+
+Or pass the `Request` object directly:
+
+```ts
+const httpResponse = await telefunc({ request })
+```

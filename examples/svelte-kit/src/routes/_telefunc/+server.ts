@@ -3,9 +3,7 @@ import type { RequestHandler } from './$types'
 
 const GET: RequestHandler = async (event) => {
   const response = await telefunc({
-    url: event.request.url,
-    method: event.request.method,
-    body: await event.request.text(),
+    request: event.request,
     context: {
       // We pass the `context` object here, see https://telefunc.com/getContext
       someContext: 'hello',

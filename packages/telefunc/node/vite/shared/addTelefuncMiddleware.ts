@@ -55,6 +55,7 @@ function handleMultipart(req: IncomingMessage, res: ServerResponse, url: string)
   bodyPromise.then(async () => {
     const buffer = Buffer.concat(chunks)
     const webRequest = new Request('http://localhost', {
+      method: 'POST',
       headers: req.headers as Record<string, string>,
       body: buffer,
     })
