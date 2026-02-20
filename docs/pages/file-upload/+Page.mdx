@@ -3,7 +3,7 @@ Telefunc natively supports [`File`](https://developer.mozilla.org/en-US/docs/Web
 ## Example
 
 ```ts
-// hello.telefunc.ts
+// FileUpload.telefunc.ts
 
 export async function onFileUpload(file: File, description: string) {
   const content = await file.text()
@@ -16,7 +16,7 @@ export async function onFileUpload(file: File, description: string) {
 ```tsx
 // FileUpload.tsx
 
-import { onFileUpload } from './hello.telefunc'
+import { onFileUpload } from './FileUpload.telefunc'
 
 async function handleSubmit(form: FormData) {
   const file = form.get('file') as File
