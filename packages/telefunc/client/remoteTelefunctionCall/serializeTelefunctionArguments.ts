@@ -1,36 +1,64 @@
 export { serializeTelefunctionArguments }
+export { serializeMultipartTelefunctionArguments }
 
 import { stringify } from '@brillout/json-serializer/stringify'
 import { assert, assertUsage, lowercaseFirstLetter, hasProp } from '../utils.js'
+import { MULTIPART_PLACEHOLDER_KEY } from '../../shared/constants.js'
 
-function serializeTelefunctionArguments(callContext: {
+type CallContext = {
   telefuncFilePath: string
   telefunctionName: string
   telefunctionArgs: unknown[]
   telefuncUrl: string
-}) {
+}
+
+function serializeTelefunctionArguments(callContext: CallContext): string {
   const bodyParsed = {
     file: callContext.telefuncFilePath,
     name: callContext.telefunctionName,
     args: callContext.telefunctionArgs,
   }
-  assert(typeof callContext.telefuncFilePath === 'string')
-  assert(typeof callContext.telefunctionName === 'string')
-  assert(Array.isArray(callContext.telefunctionArgs))
-  let httpRequestBody: string
+  return serializeBody(bodyParsed, callContext)
+}
+
+function serializeMultipartTelefunctionArguments(callContext: CallContext): FormData {
+  const formData = new FormData()
+  const processedArgs: unknown[] = []
+
+  callContext.telefunctionArgs.forEach((arg, i) => {
+    if (arg instanceof File || arg instanceof Blob) {
+      processedArgs.push({ [MULTIPART_PLACEHOLDER_KEY]: i })
+      formData.append(`${MULTIPART_PLACEHOLDER_KEY}_${i}`, arg)
+    } else {
+      processedArgs.push(arg)
+    }
+  })
+
+  const bodyParsed = {
+    file: callContext.telefuncFilePath,
+    name: callContext.telefunctionName,
+    args: processedArgs,
+  }
+  formData.append('__telefunc', serializeBody(bodyParsed, callContext))
+
+  return formData
+}
+
+function serializeBody(bodyParsed: Record<string, unknown>, callContext: CallContext): string {
+  let serialized: string
   try {
-    httpRequestBody = stringify(bodyParsed, { forbidReactElements: true })
+    serialized = stringify(bodyParsed, { forbidReactElements: true })
   } catch (err) {
     assert(hasProp(err, 'message', 'string'))
     assertUsage(
       false,
       [
         `Cannot serialize arguments for telefunction ${callContext.telefunctionName}() (${callContext.telefuncFilePath}).`,
-        'Make sure that the arguments pass to telefunction calls are always serializable.',
+        'Make sure that the arguments passed to telefunction calls are always serializable.',
         `Serialization error: ${lowercaseFirstLetter(err.message)}`,
       ].join(' '),
     )
   }
-  assert(httpRequestBody)
-  return httpRequestBody
+  assert(serialized)
+  return serialized
 }
