@@ -30,4 +30,10 @@ app.all('/_telefunc', async (req: Request, res: Response) => {
 })
 ```
 
+Or pass the [`Request`](https://developer.mozilla.org/en-US/docs/Web/API/Request) object directly:
+
+```ts
+const httpResponse = await telefunc({ request })
+```
+
 The `context` parameter is optional and is only needed if we use `getContext()`, see <Link href="/getContext#provide" />.
