@@ -2,7 +2,6 @@ export { Page }
 
 import React, { useState } from 'react'
 import { Hello } from './Hello'
-import { FileUpload } from './FileUpload'
 
 function Page() {
   return (
@@ -10,7 +9,6 @@ function Page() {
       <h1>Welcome</h1>
       <Counter />
       <Hello />
-      <FileUpload />
     </>
   )
 }
