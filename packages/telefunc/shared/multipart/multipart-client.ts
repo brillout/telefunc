@@ -1,6 +1,6 @@
 export { createMultipartReplacer }
 
-import { TELEFUNC_FILE_PREFIX, TELEFUNC_BLOB_PREFIX, MULTIPART_PLACEHOLDER_KEY } from '../constants.js'
+import { TELEFUNC_FILE_PREFIX, TELEFUNC_BLOB_PREFIX, MULTIPART_PLACEHOLDER_KEY } from './constants.js'
 
 function constructMultipartKey(index: number): string {
   return `${MULTIPART_PLACEHOLDER_KEY}_${index}`

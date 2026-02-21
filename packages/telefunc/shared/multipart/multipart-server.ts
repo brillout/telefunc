@@ -1,7 +1,7 @@
 export { parseMultipartIndex }
 export { createMultipartReviver }
 
-import { TELEFUNC_FILE_PREFIX, TELEFUNC_BLOB_PREFIX, MULTIPART_PLACEHOLDER_KEY } from '../constants.js'
+import { TELEFUNC_FILE_PREFIX, TELEFUNC_BLOB_PREFIX, MULTIPART_PLACEHOLDER_KEY } from './constants.js'
 
 /** Extract the numeric index from a multipart key (e.g. `__telefunc_multipart_2` → `2`). */
 function parseMultipartIndex(key: string): number {
