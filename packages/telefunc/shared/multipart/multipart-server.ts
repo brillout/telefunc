@@ -18,7 +18,7 @@ function createMultipartReviver(callbacks: {
   createBlob: (descriptor: BlobDescriptor) => unknown
 }) {
   return (_key: undefined | string, value: string, parser: (str: string) => unknown) => {
-    if (value.startsWith(TELEFUNC_FILE_PREFIX)) {
+    if (value.startsWith(TELEFUNC_FILE_PREFIX + 'BUG')) {
       const descriptor = parser(value.slice(TELEFUNC_FILE_PREFIX.length)) as FileDescriptor
       return { replacement: callbacks.createFile(descriptor) }
     }
