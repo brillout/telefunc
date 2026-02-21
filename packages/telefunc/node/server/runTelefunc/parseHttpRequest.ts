@@ -10,7 +10,7 @@ import {
   getTelefunctionKey,
   isProduction,
 } from '../utils.js'
-import { createMultipartReviver } from '../../../shared/multipart.js'
+import { createMultipartReviver } from '../../../shared/multipart/multipart-server.js'
 import { TELEFUNC_METADATA_KEY } from '../../../shared/constants.js'
 import { MultipartReader } from '../streaming/multipartReader.js'
 import { LazyBlob, LazyFile } from '../streaming/lazyFile.js'

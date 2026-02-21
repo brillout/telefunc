@@ -2,7 +2,7 @@ export { MultipartReader }
 
 import { MultipartParser } from './multipartParser.js'
 import type { MultipartEvent } from './multipartParser.js'
-import { parseMultipartIndex } from '../../../shared/multipart.js'
+import { parseMultipartIndex } from '../../../shared/multipart/multipart-server.js'
 import { assert, assertUsage, assertWarning } from '../../../utils/assert.js'
 
 const decoder = new TextDecoder()

@@ -2,7 +2,7 @@ export { serializeTelefunctionArguments }
 
 import { stringify } from '@brillout/json-serializer/stringify'
 import { assert, assertUsage, lowercaseFirstLetter, hasProp } from '../utils.js'
-import { createMultipartReplacer } from '../../shared/multipart.js'
+import { createMultipartReplacer } from '../../shared/multipart/multipart-client.js'
 import { TELEFUNC_METADATA_KEY } from '../../shared/constants.js'
 
 type CallContext = {
