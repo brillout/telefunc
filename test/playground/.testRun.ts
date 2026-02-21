@@ -32,6 +32,7 @@ function testRun(cmd: 'npm run dev' | 'npm run preview') {
     await testCounter()
   })
 
+  // TODO/ai move test file to test/playground/pages/file-upload/e2e-test.ts
   test('file upload: single file + text arg', async () => {
     await page.goto(`${getServerUrl()}/`)
     await autoRetry(async () => {
