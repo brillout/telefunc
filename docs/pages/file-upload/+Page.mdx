@@ -1,11 +1,12 @@
-Telefunc natively supports [`File`](https://developer.mozilla.org/en-US/docs/Web/API/File) and [`Blob`](https://developer.mozilla.org/en-US/docs/Web/API/Blob) arguments — just pass them to a telefunction like any other argument. Any signature works: single file, multiple files, `File[]` arrays, mixed with other arguments — it's completely transparent.
+Telefunc supports [`File`](https://developer.mozilla.org/en-US/docs/Web/API/File) and [`Blob`](https://developer.mozilla.org/en-US/docs/Web/API/Blob) arguments — just pass them to a telefunction like any other argument. Any signature works: single file, multiple files, `File[]` arrays, mixed with other arguments — it's completely transparent.
 
-When a telefunction call contains files, Telefunc automatically switches from JSON to [`multipart/form-data`](https://developer.mozilla.org/en-US/docs/Web/API/FormData). No configuration needed.
+> When a telefunction call contains files, Telefunc automatically switches from JSON to [`multipart/form-data`](https://developer.mozilla.org/en-US/docs/Web/API/FormData).
 
 ## Example
 
 ```ts
-// upload.telefunc.ts
+// FileUpload.telefunc.ts
+// Environment: server
 
 import fs from 'node:fs'
 
@@ -22,9 +23,10 @@ export async function onUpload(file: File, description: string) {
 ```
 
 ```tsx
-// Upload.tsx
+// FileUpload.tsx
+// Environment: client
 
-import { onUpload } from './upload.telefunc'
+import { onUpload } from './FileUpload.telefunc'
 
 function UploadForm() {
   return (
@@ -45,6 +47,7 @@ function UploadForm() {
 }
 ```
 
+{/* @brillout TODO/after-PR-merge move this section further below */}
 ## How it works
 
 Telefunc uses a custom streaming multipart parser — files are **not** buffered into memory on the server.
@@ -55,7 +58,7 @@ Telefunc uses a custom streaming multipart parser — files are **not** buffered
 
 This means file bytes only flow through memory **when you read them** — and if you stream to disk, constant memory is used regardless of file size.
 
-## Reading methods
+## Reading strategies
 
 Each file argument is a standard [`File`](https://developer.mozilla.org/en-US/docs/Web/API/File) / [`Blob`](https://developer.mozilla.org/en-US/docs/Web/API/Blob) object:
 
