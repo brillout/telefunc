@@ -1,4 +1,3 @@
-export { constructMultipartKey }
 export { parseMultipartIndex }
 export { createMultipartReplacer }
 export { createMultipartReviver }
