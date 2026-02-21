@@ -2,11 +2,10 @@ export { addTelefuncMiddleware }
 
 import { telefunc } from '../../server/index.js'
 import type { ViteDevServer } from 'vite'
-import type { IncomingMessage, ServerResponse } from 'node:http'
 
 type ConnectServer = ViteDevServer['middlewares']
 function addTelefuncMiddleware(middlewares: ConnectServer) {
-  middlewares.use((req, res, next) => {
+  middlewares.use(async (req, res, next) => {
     if (res.headersSent) return next()
 
     const url = req.originalUrl || req.url
@@ -14,55 +13,22 @@ function addTelefuncMiddleware(middlewares: ConnectServer) {
 
     if (url !== '/_telefunc') return next()
 
-    if ((req.headers['content-type'] || '').includes('multipart/form-data')) {
-      return handleMultipart(req, res, url)
-    }
-
-    // https://stackoverflow.com/questions/12497358/handling-text-plain-in-express-via-connect/12497793#12497793
-    // Alternative: https://www.npmjs.com/package/raw-body
-    let body = ''
-    let bodyPromiseResolve: () => void
-    let bodyPromise = new Promise((r) => (bodyPromiseResolve = () => r(undefined)))
-    req.setEncoding('utf8')
-    req.on('data', function (chunk) {
-      body += chunk
+    const body = new ReadableStream({
+      start(controller) {
+        req.on('data', (chunk: Buffer) => controller.enqueue(new Uint8Array(chunk)))
+        req.on('end', () => controller.close())
+        req.on('error', (err) => controller.error(err))
+      },
     })
-    req.on('end', () => {
-      bodyPromiseResolve()
-    })
-
-    bodyPromise.then(async () => {
-      const httpResponse = await telefunc({ url, method: req.method!, body })
-
-      res.setHeader('Content-Type', httpResponse.contentType)
-      res.statusCode = httpResponse.statusCode
-      res.end(httpResponse.body)
-    })
-  })
-}
-
-function handleMultipart(req: IncomingMessage, res: ServerResponse, url: string) {
-  const chunks: Buffer[] = []
-  let bodyPromiseResolve: () => void
-  let bodyPromise = new Promise((r) => (bodyPromiseResolve = () => r(undefined)))
-  req.on('data', (chunk: Buffer) => {
-    chunks.push(chunk)
-  })
-  req.on('end', () => {
-    bodyPromiseResolve()
-  })
-
-  bodyPromise.then(async () => {
-    const buffer = Buffer.concat(chunks)
-    const webRequest = new Request('http://localhost', {
-      method: 'POST',
+    const request = new Request('http://localhost/_telefunc', {
+      method: req.method!,
       headers: req.headers as Record<string, string>,
-      body: buffer,
+      body,
+      // @ts-ignore duplex required for streaming request bodies
+      duplex: 'half',
     })
-    const formData = await webRequest.formData()
 
-    const httpResponse = await telefunc({ url, method: req.method!, body: formData })
-
+    const httpResponse = await telefunc({ request })
     res.setHeader('Content-Type', httpResponse.contentType)
     res.statusCode = httpResponse.statusCode
     res.end(httpResponse.body)

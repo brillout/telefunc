@@ -11,7 +11,7 @@ type TelefuncHttpRequest =
       /** The method of the HTTP Request ('GET', 'POST', ...) */
       method: string
       /** The body of HTTP Request. */
-      body: string | FormData
+      body: string
       /** The context object, see https://telefunc.com/getContext  */
       context?: Telefunc.Context
     }
@@ -34,17 +34,17 @@ async function telefunc(httpRequest: TelefuncHttpRequest): Promise<HttpResponse>
 
 async function resolveHttpRequest(
   httpRequest: TelefuncHttpRequest,
-): Promise<{ url: string; method: string; body: string | FormData; context?: Telefunc.Context }> {
+): Promise<{ request: Request; context?: Telefunc.Context }> {
   if ('request' in httpRequest) {
-    const { request } = httpRequest
-    const url = request.url.toString()
-    const method = request.method
-    const body = request.headers.get('content-type')?.includes('multipart/form-data')
-      ? await request.formData()
-      : await request.text()
-    return { url, method, body, context: httpRequest.context }
+    return { request: httpRequest.request, context: httpRequest.context }
   }
-  return httpRequest
+  // Backward compat: construct a Request from primitives
+  const request = new Request('http://localhost' + httpRequest.url, {
+    method: httpRequest.method,
+    body: httpRequest.body,
+    headers: { 'content-type': 'text/plain' },
+  })
+  return { request, context: httpRequest.context }
 }
 
 function assertHttpRequest(httpRequest: unknown, numberOfArguments: number) {

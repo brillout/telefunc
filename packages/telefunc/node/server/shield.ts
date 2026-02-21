@@ -4,6 +4,7 @@ export { shieldApply }
 export { shieldToHumandReadable }
 
 import { isPlainObject, unique, isCallable, assert, assertUsage } from './utils.js'
+import { isLazyFile, isLazyBlob } from './streaming/lazyFile.js'
 
 const shieldKey = '__telefunc_shield'
 const isVerifierKey = '__telefunc_isVerifier'
@@ -301,18 +302,14 @@ const type = (() => {
   })()
   const file = ((): File => {
     const verifier = (input: unknown, breadcrumbs: string) =>
-      typeof File !== 'undefined' && input instanceof File
-        ? true
-        : errorMessage(breadcrumbs, getTypeName(input), 'file')
+      isLazyFile(input) ? true : errorMessage(breadcrumbs, getTypeName(input), 'file')
     markVerifier(verifier)
     verifier.toString = () => 'file'
     return verifier as any
   })()
   const blob = ((): Blob => {
     const verifier = (input: unknown, breadcrumbs: string) =>
-      typeof Blob !== 'undefined' && input instanceof Blob
-        ? true
-        : errorMessage(breadcrumbs, getTypeName(input), 'blob')
+      isLazyBlob(input) ? true : errorMessage(breadcrumbs, getTypeName(input), 'blob')
     markVerifier(verifier)
     verifier.toString = () => 'blob'
     return verifier as any
@@ -380,10 +377,10 @@ function getTypeName(thing: unknown): string {
     if (thing.constructor === Date) {
       return 'date'
     }
-    if (typeof File !== 'undefined' && thing instanceof File) {
+    if (isLazyFile(thing) || (typeof File !== 'undefined' && thing instanceof File)) {
       return 'file'
     }
-    if (typeof Blob !== 'undefined' && thing instanceof Blob) {
+    if (isLazyBlob(thing) || (typeof Blob !== 'undefined' && thing instanceof Blob)) {
       return 'blob'
     }
     if (Array.isArray(thing)) {

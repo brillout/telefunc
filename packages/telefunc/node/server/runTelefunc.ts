@@ -80,9 +80,7 @@ async function runTelefunc(runContext: Parameters<typeof runTelefunc_>[0]): Prom
 }
 
 async function runTelefunc_(httpRequest: {
-  url: string
-  method: string
-  body: unknown
+  request: Request
   context?: Telefunc.Context
 }): Promise<HttpResponse> {
   const runContext = {}
@@ -90,7 +88,7 @@ async function runTelefunc_(httpRequest: {
     // TO-DO/eventually: remove? Since `serverConfig` is global I don't think we need to set it to `runContext`, see for example https://github.com/brillout/telefunc/commit/5e3367d2d463b72e805e75ddfc68ef7f177a35c0
     const serverConfig = getServerConfig()
     objectAssign(runContext, {
-      httpRequest,
+      request: httpRequest.request,
       serverConfig: {
         disableNamingConvention: serverConfig.disableNamingConvention,
         telefuncUrl: serverConfig.telefuncUrl,
@@ -110,7 +108,7 @@ async function runTelefunc_(httpRequest: {
     providedContext: httpRequest.context || null,
   })
   {
-    const parsed = parseHttpRequest(runContext)
+    const parsed = await parseHttpRequest(runContext)
     if (parsed.isMalformedRequest) {
       return malformedRequest
     }

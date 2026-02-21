@@ -1,16 +1,9 @@
 export { remoteTelefunctionCall }
 
 import { makeHttpRequest } from './remoteTelefunctionCall/makeHttpRequest.js'
-import {
-  serializeTelefunctionArguments,
-  serializeMultipartTelefunctionArguments,
-} from './remoteTelefunctionCall/serializeTelefunctionArguments.js'
+import { serializeTelefunctionArguments } from './remoteTelefunctionCall/serializeTelefunctionArguments.js'
 import { resolveClientConfig } from './clientConfig.js'
 import { objectAssign, assertUsage, isBrowser } from './utils.js'
-
-function hasFileArgs(args: unknown[]): boolean {
-  return args.some((arg) => arg instanceof File || arg instanceof Blob)
-}
 
 async function remoteTelefunctionCall(
   telefuncFilePath: string,
@@ -31,9 +24,7 @@ async function remoteTelefunctionCall(
   objectAssign(callContext, resolveClientConfig())
 
   {
-    const httpRequestBody = hasFileArgs(telefunctionArgs)
-      ? serializeMultipartTelefunctionArguments(callContext)
-      : serializeTelefunctionArguments(callContext)
+    const httpRequestBody = serializeTelefunctionArguments(callContext)
     objectAssign(callContext, { httpRequestBody })
   }
 

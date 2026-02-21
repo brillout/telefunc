@@ -1,9 +1,9 @@
 export { serializeTelefunctionArguments }
-export { serializeMultipartTelefunctionArguments }
 
 import { stringify } from '@brillout/json-serializer/stringify'
 import { assert, assertUsage, lowercaseFirstLetter, hasProp } from '../utils.js'
-import { constructMultipartKey } from '../../shared/multipart.js'
+import { createMultipartReplacer } from '../../shared/multipart.js'
+import { TELEFUNC_METADATA_KEY } from '../../shared/constants.js'
 
 type CallContext = {
   telefuncFilePath: string
@@ -12,43 +12,36 @@ type CallContext = {
   telefuncUrl: string
 }
 
-function serializeTelefunctionArguments(callContext: CallContext): string {
+function serializeTelefunctionArguments(callContext: CallContext): string | FormData {
   const bodyParsed = {
     file: callContext.telefuncFilePath,
     name: callContext.telefunctionName,
     args: callContext.telefunctionArgs,
   }
-  return serializeBody(bodyParsed, callContext)
-}
 
-function serializeMultipartTelefunctionArguments(callContext: CallContext): FormData {
-  const formData = new FormData()
-  const processedArgs: unknown[] = []
-
-  callContext.telefunctionArgs.forEach((arg, i) => {
-    if (arg instanceof File || arg instanceof Blob) {
-      const key = constructMultipartKey(i)
-      processedArgs.push(key)
-      formData.append(key, arg)
-    } else {
-      processedArgs.push(arg)
-    }
+  const fileParts: { key: string; value: File | Blob }[] = []
+  const replacer = createMultipartReplacer({
+    onFile: (key, file) => fileParts.push({ key, value: file }),
+    onBlob: (key, blob) => fileParts.push({ key, value: blob }),
   })
+  const serialized = serializeBody(bodyParsed, callContext, replacer)
 
-  const bodyParsed = {
-    file: callContext.telefuncFilePath,
-    name: callContext.telefunctionName,
-    args: processedArgs,
+  if (fileParts.length === 0) return serialized
+
+  // __telefunc metadata MUST come first — the streaming parser needs it before file data
+  const formData = new FormData()
+  formData.append(TELEFUNC_METADATA_KEY, serialized)
+  for (const { key, value } of fileParts) {
+    formData.append(key, value)
   }
-  formData.append('__telefunc', serializeBody(bodyParsed, callContext))
-
   return formData
 }
 
-function serializeBody(bodyParsed: Record<string, unknown>, callContext: CallContext): string {
+type Replacer = Parameters<typeof stringify>[1] extends infer O ? (O extends { replacer?: infer R } ? R : never) : never
+function serializeBody(bodyParsed: Record<string, unknown>, callContext: CallContext, replacer?: Replacer): string {
   let serialized: string
   try {
-    serialized = stringify(bodyParsed, { forbidReactElements: true })
+    serialized = stringify(bodyParsed, { forbidReactElements: true, replacer })
   } catch (err) {
     assert(hasProp(err, 'message', 'string'))
     assertUsage(
