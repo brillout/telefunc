@@ -10,7 +10,7 @@ import {
   getTelefunctionKey,
   isProduction,
 } from '../utils.js'
-import { MULTIPART_PLACEHOLDER_KEY } from '../../../shared/constants.js'
+import { isMultipartKey } from '../../../shared/multipart.js'
 
 type ParseResult =
   | {
@@ -88,9 +88,8 @@ function parseMultipartBody(formData: FormData, runContext: { logMalformedReques
 
   // Replace multipart placeholders with actual File/Blob objects from the FormData
   const telefunctionArgs = bodyParsed.args.map((arg: unknown) => {
-    if (!hasProp(arg, MULTIPART_PLACEHOLDER_KEY, 'number')) return arg
-    const partIndex = arg[MULTIPART_PLACEHOLDER_KEY]
-    return formData.get(`${MULTIPART_PLACEHOLDER_KEY}_${partIndex}`)
+    if (!isMultipartKey(arg)) return arg
+    return formData.get(arg)
   })
 
   const telefunctionKey = getTelefunctionKey(telefuncFilePath, telefunctionName)

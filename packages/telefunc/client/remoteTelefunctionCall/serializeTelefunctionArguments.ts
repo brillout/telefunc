@@ -3,7 +3,7 @@ export { serializeMultipartTelefunctionArguments }
 
 import { stringify } from '@brillout/json-serializer/stringify'
 import { assert, assertUsage, lowercaseFirstLetter, hasProp } from '../utils.js'
-import { MULTIPART_PLACEHOLDER_KEY } from '../../shared/constants.js'
+import { constructMultipartKey } from '../../shared/multipart.js'
 
 type CallContext = {
   telefuncFilePath: string
@@ -27,8 +27,9 @@ function serializeMultipartTelefunctionArguments(callContext: CallContext): Form
 
   callContext.telefunctionArgs.forEach((arg, i) => {
     if (arg instanceof File || arg instanceof Blob) {
-      processedArgs.push({ [MULTIPART_PLACEHOLDER_KEY]: i })
-      formData.append(`${MULTIPART_PLACEHOLDER_KEY}_${i}`, arg)
+      const key = constructMultipartKey(i)
+      processedArgs.push(key)
+      formData.append(key, arg)
     } else {
       processedArgs.push(arg)
     }
