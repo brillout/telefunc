@@ -6,6 +6,7 @@ export const STATUS_CODE_SHIELD_VALIDATION_ERROR = 422 // "Unprocessable Content
 export const STATUS_BODY_SHIELD_VALIDATION_ERROR = 'Shield Validation Error'
 export const STATUS_CODE_INTERNAL_SERVER_ERROR = 500 // "Internal Server Error"
 export const STATUS_BODY_INTERNAL_SERVER_ERROR = 'Internal Server Error'
+// TODO/ai: move to multipart/constants.ts
 export const TELEFUNC_METADATA_KEY = '__telefunc'
 export const MULTIPART_PLACEHOLDER_KEY = '__telefunc_multipart'
 export const TELEFUNC_FILE_PREFIX = '!TelefuncFile:'
