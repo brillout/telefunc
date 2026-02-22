@@ -37,8 +37,8 @@ async function makeHttpRequest(callContext: {
       body: callContext.httpRequestBody,
       credentials: 'same-origin',
       headers: {
-        ...callContext.httpHeaders,
         ...contentType,
+        ...callContext.httpHeaders,
       },
     })
   } catch (_) {
