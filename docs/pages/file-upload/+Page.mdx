@@ -62,11 +62,16 @@ This means file bytes only flow through memory **when you read them** — and if
 
 Each file argument is a standard [`File`](https://developer.mozilla.org/en-US/docs/Web/API/File) / [`Blob`](https://developer.mozilla.org/en-US/docs/Web/API/Blob) object:
 
-| Method | Memory | Use case |
+| Method | Memory usage | Use case |
 |---|---|---|
-| `file.stream()` | **O(chunk)** — constant | Pipe to disk, S3, etc. |
-| `file.arrayBuffer()` | **O(file size)** — full buffer | Process in memory |
-| `file.text()` | **O(file size)** — full buffer | Read text content |
+| `file.stream()` | Low — chunk size<sup>(1)</sup> | Pipe to disk, S3, etc. |
+| `file.arrayBuffer()` | High — file size<sup>(2)</sup> | Process in memory |
+| `file.text()` | High — file size<sup>(2)</sup> | Read text content |
+
+<div style={{fontSize: '0.94em', color: '#64748b'}}>
+(1): Only one file chunk at a time is loaded in memory. Thus, memory consumption is low and constant (the chunk size). Recommended if files are expected to be large.  
+(2): The whole file is loaded in memory. For large files (e.g. a large video) this leads to prohibitively high memory usage.
+</div>
 
 ## Limitations
 
