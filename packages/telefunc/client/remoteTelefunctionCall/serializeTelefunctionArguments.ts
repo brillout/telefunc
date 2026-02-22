@@ -1,7 +1,9 @@
 export { serializeTelefunctionArguments }
 
 import { stringify } from '@brillout/json-serializer/stringify'
-import { assert, assertUsage, lowercaseFirstLetter, hasProp } from '../utils.js'
+import { assert, assertUsage } from '../../utils/assert.js'
+import { hasProp } from '../../utils/hasProp.js'
+import { lowercaseFirstLetter } from '../../utils/lowercaseFirstLetter.js'
 import { createMultipartReplacer } from '../../shared/multipart/serializer-client.js'
 import { FORM_DATA_MAIN_FIELD } from '../../shared/multipart/constants.js'
 

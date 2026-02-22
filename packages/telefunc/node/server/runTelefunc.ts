@@ -1,7 +1,9 @@
 export { runTelefunc }
 export type { HttpResponse }
 
-import { assert, objectAssign, isProduction } from './utils.js'
+import { assert } from '../../utils/assert.js'
+import { isProduction } from '../../utils/isProduction.js'
+import { objectAssign } from '../../utils/objectAssign.js'
 import { Telefunc } from './getContext.js'
 import { loadTelefuncFiles } from './runTelefunc/loadTelefuncFiles.js'
 import { parseHttpRequest } from './runTelefunc/parseHttpRequest.js'

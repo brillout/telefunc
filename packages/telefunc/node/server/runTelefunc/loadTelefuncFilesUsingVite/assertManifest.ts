@@ -1,7 +1,10 @@
 export { assertManifest }
 export type { Manifest }
 
-import { assertUsage, projectInfo, assert, hasProp, checkType } from '../../utils.js'
+import { assertUsage, assert } from '../../../../utils/assert.js'
+import { checkType } from '../../../../utils/checkType.js'
+import { hasProp } from '../../../../utils/hasProp.js'
+import { projectInfo } from '../../../../utils/projectInfo.js'
 
 type Manifest = { version: string; config: Record<string, unknown> }
 

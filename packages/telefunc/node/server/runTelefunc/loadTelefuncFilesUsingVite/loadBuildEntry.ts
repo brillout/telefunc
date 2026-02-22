@@ -2,7 +2,7 @@ export { loadTelefuncFilesWithImportBuild }
 export { setTelefuncLoaders }
 
 import { config } from '../../serverConfig.js'
-import { getGlobalObject } from '../../utils.js'
+import { getGlobalObject } from '../../../../utils/getGlobalObject.js'
 import { assertManifest } from './assertManifest.js'
 
 const globalObject = getGlobalObject<{

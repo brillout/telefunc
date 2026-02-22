@@ -1,15 +1,11 @@
 export { parseHttpRequest }
 
 import { parse, type Reviver } from '@brillout/json-serializer/parse'
-import {
-  assertUsage,
-  hasProp,
-  getProjectError,
-  getUrlPathname,
-  assert,
-  getTelefunctionKey,
-  isProduction,
-} from '../utils.js'
+import { assertUsage, getProjectError, assert } from '../../../utils/assert.js'
+import { getTelefunctionKey } from '../../../utils/getTelefunctionKey.js'
+import { getUrlPathname } from '../../../utils/getUrlPathname.js'
+import { hasProp } from '../../../utils/hasProp.js'
+import { isProduction } from '../../../utils/isProduction.js'
 import { createMultipartReviver } from '../../../shared/multipart/serializer-server.js'
 import { FORM_DATA_MAIN_FIELD } from '../../../shared/multipart/constants.js'
 import { MultipartReader } from '../multipart/MultipartReader.js'

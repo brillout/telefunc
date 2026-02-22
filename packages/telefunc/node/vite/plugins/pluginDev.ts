@@ -3,7 +3,7 @@ export { pluginDev }
 import type { Plugin, ResolvedConfig } from 'vite'
 import { apply } from '../shared/apply.js'
 import { addTelefuncMiddleware } from '../shared/addTelefuncMiddleware.js'
-import { getPackageNodeModulesDirectory } from '../utils.js'
+import { getPackageNodeModulesDirectory } from '../../../utils/requireResolve.js'
 
 function pluginDev(): Plugin[] {
   return [

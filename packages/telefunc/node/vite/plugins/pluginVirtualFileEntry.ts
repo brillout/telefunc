@@ -1,7 +1,9 @@
 export { pluginVirtualFileEntry }
 
 import type { Plugin } from 'vite'
-import { assert, escapeRegex, javaScriptFileExtensionPattern } from '../utils.js'
+import { assert } from '../../../utils/assert.js'
+import { escapeRegex } from '../../../utils/escapeRegex.js'
+import { javaScriptFileExtensionPattern } from '../../../utils/isScriptFile.js'
 import { VIRTUAL_FILE_ENTRY_ID } from './pluginVirtualFileEntry/VIRTUAL_FILE_ENTRY_ID.js'
 const moduleContent = `export const telefuncFilesGlob = import.meta.glob("/**/*.telefunc.${javaScriptFileExtensionPattern}");`
 const resolvedId = '\0' + VIRTUAL_FILE_ENTRY_ID

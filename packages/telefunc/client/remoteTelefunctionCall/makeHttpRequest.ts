@@ -1,7 +1,9 @@
 export { makeHttpRequest }
 
 import { parse } from '@brillout/json-serializer/parse'
-import { assert, assertUsage, isObject, objectAssign } from '../utils.js'
+import { assert, assertUsage } from '../../utils/assert.js'
+import { isObject } from '../../utils/isObject.js'
+import { objectAssign } from '../../utils/objectAssign.js'
 import { callOnAbortListeners } from './onAbort.js'
 import {
   STATUS_CODE_THROW_ABORT,

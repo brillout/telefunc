@@ -1,7 +1,11 @@
 export { loadTelefuncFilesUsingVite }
 
 import { importServerProductionEntry } from '@brillout/vite-plugin-server-entry/runtime'
-import { assert, assertWarning, getNodeEnv, hasProp, isObject, isProduction, isTelefuncFilePath } from '../utils.js'
+import { assert, assertWarning } from '../../../utils/assert.js'
+import { hasProp } from '../../../utils/hasProp.js'
+import { isObject } from '../../../utils/isObject.js'
+import { getNodeEnv, isProduction } from '../../../utils/isProduction.js'
+import { isTelefuncFilePath } from '../../../utils/isTelefuncFilePath.js'
 import { loadTelefuncFilesWithImportBuild } from './loadTelefuncFilesUsingVite/loadBuildEntry.js'
 import { getViteDevServer } from '../globalContext.js'
 import { VIRTUAL_FILE_ENTRY_ID } from '../../vite/plugins/pluginVirtualFileEntry/VIRTUAL_FILE_ENTRY_ID.js'

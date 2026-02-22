@@ -1,7 +1,7 @@
 export { apply }
 
 import type { UserConfig } from 'vite'
-import { assert } from '../utils.js'
+import { assert } from '../../../utils/assert.js'
 import { isViteCliCall } from './isViteCliCall.js'
 
 function apply(

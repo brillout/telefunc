@@ -2,7 +2,7 @@ export { decorateTelefunction }
 
 import { assertTelefunction } from './assertTelefunction.js'
 import { registerTelefunction } from './loadTelefuncFilesUsingRegistration.js'
-import { getTelefunctionKey } from '../utils.js'
+import { getTelefunctionKey } from '../../../utils/getTelefunctionKey.js'
 import type { Telefunction } from '../types.js'
 
 function decorateTelefunction(

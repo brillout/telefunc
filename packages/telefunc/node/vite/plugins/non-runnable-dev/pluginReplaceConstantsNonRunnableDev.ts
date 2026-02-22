@@ -1,6 +1,7 @@
 export { pluginReplaceConstantsNonRunnableDev }
 
-import { isRunnableDevEnvironment, isDevCheck } from '../../utils.js'
+import { isDevCheck } from '../../../../utils/isDev.js'
+import { isRunnableDevEnvironment } from '../../../../utils/isRunnableDevEnvironment.js'
 import { getMagicString } from '../../../shared/getMagicString.js'
 import type { Plugin } from 'vite'
 

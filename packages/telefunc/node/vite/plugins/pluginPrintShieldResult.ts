@@ -2,7 +2,7 @@ export { pluginPrintShieldResult }
 
 import type { Plugin, ResolvedConfig } from 'vite'
 import { logResult } from '../../shared/transformer/generateShield/generateShield.js'
-import { projectInfo } from '../utils.js'
+import { projectInfo } from '../../../utils/projectInfo.js'
 import pc from '@brillout/picocolors'
 import { isViteServerSide_onlySsrEnv } from '../shared/isViteServerSide.js'
 

@@ -2,7 +2,7 @@ export { pluginBuildEntry }
 
 import { serverProductionEntryPlugin } from '@brillout/vite-plugin-server-entry/plugin'
 import type { Plugin } from 'vite'
-import { projectInfo } from '../utils.js'
+import { projectInfo } from '../../../utils/projectInfo.js'
 import { VIRTUAL_FILE_ENTRY_ID } from './pluginVirtualFileEntry/VIRTUAL_FILE_ENTRY_ID.js'
 import { config } from '../../server/serverConfig.js'
 import { assertManifest, type Manifest } from '../../server/runTelefunc/loadTelefuncFilesUsingVite/assertManifest.js'

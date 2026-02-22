@@ -1,7 +1,9 @@
 export { assertNamingConvention }
 
 import { import_ } from '@brillout/import'
-import { assertWarning, isProduction, assertPosixPath } from '../utils.js'
+import { assertWarning } from '../../../utils/assert.js'
+import { isProduction } from '../../../utils/isProduction.js'
+import { assertPosixPath } from '../../../utils/path.js'
 import type * as fsType from 'node:fs'
 import type * as pathType from 'node:path'
 

@@ -6,7 +6,9 @@ export { isAsyncMode }
 export type { Telefunc }
 
 import { getContext_sync, provideTelefuncContext_sync, restoreContext_sync } from './getContext/sync.js'
-import { assert, isObject, getGlobalObject } from './utils.js'
+import { assert } from '../../utils/assert.js'
+import { getGlobalObject } from '../../utils/getGlobalObject.js'
+import { isObject } from '../../utils/isObject.js'
 import type { Telefunc } from './getContext/TelefuncNamespace.js'
 
 type GetContext = () => Telefunc.Context

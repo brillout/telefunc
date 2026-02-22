@@ -1,7 +1,10 @@
 export { transformTelefuncFileClientSideSync }
 
 import { posix } from 'node:path'
-import { assert, assertPosixPath, assertUsage, getTelefunctionKey, rollupSourceMapRemove } from './utils.js'
+import { assert, assertUsage } from '../../../utils/assert.js'
+import { getTelefunctionKey } from '../../../utils/getTelefunctionKey.js'
+import { assertPosixPath } from '../../../utils/path.js'
+import { rollupSourceMapRemove } from '../../../utils/rollupSourceMap.js'
 
 function transformTelefuncFileClientSideSync(id: string, appRootDir: string, exportNames: string[]) {
   assertPosixPath(id)

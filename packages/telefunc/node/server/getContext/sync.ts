@@ -2,7 +2,9 @@ export { getContext_sync }
 export { provideTelefuncContext_sync }
 export { restoreContext_sync }
 
-import { assert, isObject, getGlobalObject, assertUsage } from '../utils.js'
+import { assert, assertUsage } from '../../../utils/assert.js'
+import { getGlobalObject } from '../../../utils/getGlobalObject.js'
+import { isObject } from '../../../utils/isObject.js'
 import type { Telefunc } from './TelefuncNamespace.js'
 
 const globalObject = getGlobalObject<{

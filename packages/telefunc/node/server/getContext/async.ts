@@ -2,7 +2,9 @@ export { getContext_async }
 export { provideTelefuncContext_async }
 
 import { AsyncLocalStorage } from 'node:async_hooks'
-import { assert, assertWarning, isObject, getGlobalObject, assertUsage } from '../utils.js'
+import { assert, assertWarning, assertUsage } from '../../../utils/assert.js'
+import { getGlobalObject } from '../../../utils/getGlobalObject.js'
+import { isObject } from '../../../utils/isObject.js'
 import { installAsyncMode } from '../getContext.js'
 import type { Telefunc } from './TelefuncNamespace.js'
 

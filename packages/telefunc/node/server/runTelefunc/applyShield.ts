@@ -1,7 +1,8 @@
 export { applyShield }
 
 import { shieldApply, shieldIsMissing } from '../shield.js'
-import { assertWarning, isProduction } from '../utils.js'
+import { assertWarning } from '../../../utils/assert.js'
+import { isProduction } from '../../../utils/isProduction.js'
 import type { Telefunction } from '../types.js'
 import type { ConfigResolved } from '../serverConfig.js'
 

@@ -1,7 +1,7 @@
 export { configUser as config }
 export { resolveClientConfig }
 
-import { assertUsage } from './utils.js'
+import { assertUsage } from '../utils/assert.js'
 
 /** Telefunc Client Configuration */
 type ConfigUser = {

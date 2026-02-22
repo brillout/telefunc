@@ -1,4 +1,4 @@
-import { toPosixPath } from '../utils.js'
+import { toPosixPath } from '../../../utils/path.js'
 
 export { isViteCliCall }
 

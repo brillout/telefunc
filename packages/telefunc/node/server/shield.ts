@@ -3,7 +3,10 @@ export { shieldIsMissing }
 export { shieldApply }
 export { shieldToHumandReadable }
 
-import { isPlainObject, unique, isCallable, assert, assertUsage } from './utils.js'
+import { assert, assertUsage } from '../../utils/assert.js'
+import { isCallable } from '../../utils/isCallable.js'
+import { isPlainObject } from '../../utils/isPlainObject.js'
+import { unique } from '../../utils/unique.js'
 import { isLazyFile, isLazyBlob } from './multipart/LazyFile.js'
 
 const shieldKey = '__telefunc_shield'

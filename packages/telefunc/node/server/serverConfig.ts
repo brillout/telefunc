@@ -3,7 +3,11 @@ export { getServerConfig }
 export type { ConfigUser }
 export type { ConfigResolved }
 
-import { assertUsage, hasProp, toPosixPath, isTelefuncFilePath, pathIsAbsolute, isObject } from './utils.js'
+import { assertUsage } from '../../utils/assert.js'
+import { hasProp } from '../../utils/hasProp.js'
+import { isObject } from '../../utils/isObject.js'
+import { isTelefuncFilePath } from '../../utils/isTelefuncFilePath.js'
+import { toPosixPath, pathIsAbsolute } from '../../utils/path.js'
 
 /** Telefunc Server Configuration */
 type ConfigUser = {

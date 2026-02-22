@@ -1,7 +1,7 @@
 export { handleError }
 
 import type { ViteDevServer } from 'vite'
-import { hasProp } from '../utils.js'
+import { hasProp } from '../../../utils/hasProp.js'
 import { getViteDevServer } from '../globalContext.js'
 
 function handleError(err: unknown) {

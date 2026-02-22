@@ -1,7 +1,10 @@
 export { loadTelefuncFiles }
 
 import type { TelefuncFiles } from '../types.js'
-import { assertUsage, assert, hasProp, isWebpack, isVikeApp } from '../utils.js'
+import { assertUsage, assert } from '../../../utils/assert.js'
+import { hasProp } from '../../../utils/hasProp.js'
+import { isVikeApp } from '../../../utils/isVikeApp.js'
+import { isWebpack } from '../../../utils/isWebpack.js'
 import { loadTelefuncFilesUsingVite } from './loadTelefuncFilesUsingVite.js'
 import { loadTelefuncFilesUsingRegistration } from './loadTelefuncFilesUsingRegistration.js'
 import { loadTelefuncFilesFromConfig } from './loadTelefuncFilesFromConfig.js'

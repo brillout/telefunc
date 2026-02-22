@@ -1,7 +1,8 @@
 export { transformTelefuncFileServerSide }
 
 import { ExportList, getExportList } from './getExportList.js'
-import { assertPosixPath, isNotNullish } from './utils.js'
+import { isNotNullish } from '../../../utils/isNullish.js'
+import { assertPosixPath } from '../../../utils/path.js'
 import { generateShield } from './generateShield/generateShield.js'
 import { getServerConfig } from '../../server/serverConfig.js'
 import { getMagicString } from '../../shared/getMagicString.js'
