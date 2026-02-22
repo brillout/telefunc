@@ -4,6 +4,8 @@ export { createMultipartReviver }
 import type { Reviver } from '@brillout/json-serializer/parse'
 import type { LazyBlob, LazyFile } from '../../node/server/multipart/LazyFile.js'
 import { SERIALIZER_PREFIX_FILE, SERIALIZER_PREFIX_BLOB, SERIALIZER_PLACEHOLDER_KEY } from './constants.js'
+import { assertIsNotBrowser } from '../../utils/assertIsNotBrowser.js'
+assertIsNotBrowser()
 
 /** Extract the numeric index from a multipart key (e.g. `__telefunc_multipart_2` → `2`). */
 function parseMultipartIndex(key: string): number {

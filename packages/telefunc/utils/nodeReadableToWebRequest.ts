@@ -1,6 +1,8 @@
 export { nodeReadableToWebRequest }
 
 import type { Readable } from 'node:stream'
+import { assertIsNotBrowser } from './assertIsNotBrowser.js'
+assertIsNotBrowser()
 
 function nodeReadableToWebRequest(
   readable: Readable,
