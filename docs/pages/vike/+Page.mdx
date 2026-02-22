@@ -3,6 +3,82 @@ import { MostlyMutations } from '../../components'
 
 Using Telefunc with [Vike](https://vike.dev/).
 
+> You can use [vike.dev/new](https://vike.dev/new) to scaffold a new Vike app that uses Telefunc.
+
+## 1. Install
+
+```bash
+npm install telefunc
+```
+
+## 2. Vite plugin
+
+```js
+// vite.config.js
+
+import react from '@vitejs/plugin-react'
+import vike from 'vike/plugin'
+import telefunc from 'telefunc/vite'
+
+export default {
+  plugins: [react(), vike(), telefunc()],
+}
+```
+
+## 3. Server integration
+
+Install Telefunc's server middleware <Link href="/telefunc">`telefunc()`</Link>, for example if you use Hono:
+
+```ts
+// server.ts
+// Environment: server
+
+import { Hono } from 'hono'
+import { telefunc } from 'telefunc'
+
+const app = new Hono()
+
+app.all('/_telefunc', async (c) => {
+  const httpResponse = await telefunc({ request: c.req.raw })
+  return new Response(httpResponse.body, {
+    status: httpResponse.statusCode,
+    headers: { 'content-type': httpResponse.contentType },
+  })
+})
+```
+
+## 4. Create a telefunction
+
+Create your first telefunction, for example:
+
+```ts
+// pages/index/TodoList.telefunc.ts
+// Environment: server
+
+export async function onNewTodo({ text }: { text: string }) {
+  todoItems.push({ text })
+  return { todoItems }
+}
+```
+
+Call it from the client:
+
+```tsx
+// pages/index/TodoList.tsx
+// Environment: client
+
+import { onNewTodo } from './TodoList.telefunc'
+
+function TodoList() {
+  const onSubmit = async (text: string) => {
+    const { todoItems } = await onNewTodo({ text })
+    // ...
+  }
+}
+```
+
+> To pass contextual information (e.g. the logged-in user) to your telefunctions, see <Link href="/getContext" />.
+
 ## Examples
 
 - <RepoLink path="/examples/vike" />
@@ -11,13 +87,13 @@ Using Telefunc with [Vike](https://vike.dev/).
 ## Initial Data
 
 <MostlyMutations
-  toolName="VPS"
+  toolName="Vike"
   builtInMechanism={
     <p>
-      For example, we can use VPS's <code>onBeforeRender()</code> hook to fetch initial data directly from a database,
+      For example, we can use Vike's <code>+data()</code> hook to fetch initial data directly from a database,
       see{' '}
-      <a href="https://vike.dev/data-fetching#onbeforerender">
-        vike.dev &gt; Data Fetching &gt; <code>onBeforeRender()</code>
+      <a href="https://vike.dev/data-fetching">
+        vike.dev &gt; Data Fetching
       </a>
       {'.'}
     </p>

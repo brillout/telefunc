@@ -3,9 +3,116 @@ import { MostlyMutations } from '../../components'
 
 Using Telefunc with [Next.js](https://nextjs.org).
 
+## 1. Install
+
+```shell
+npm install telefunc
+```
+
+## 2. Next.js config
+
+```ts
+// next.config.ts
+
+import type { NextConfig } from 'next'
+import withTelefunc from 'telefunc/next'
+
+let nextConfig: NextConfig = {}
+nextConfig = withTelefunc(nextConfig)
+
+export default nextConfig
+```
+
+## 3. Server integration
+
+```ts
+// app/api/telefunc/route.ts
+// Environment: server
+
+import { telefunc, config } from 'telefunc'
+
+config.telefuncUrl = '/api/telefunc'
+
+async function handler(request: Request) {
+  const httpResponse = await telefunc({ request })
+  return new Response(httpResponse.body, {
+    status: httpResponse.statusCode,
+    headers: { 'content-type': httpResponse.contentType },
+  })
+}
+export { handler as GET, handler as POST }
+```
+
+## 4. Client config
+
+Since the route handler is at `/api/telefunc` instead of the default `/_telefunc`, set the client-side URL using a `'use client'` provider:
+
+```tsx
+// app/client-providers.tsx
+// Environment: client
+
+'use client'
+
+import { config } from 'telefunc/client'
+
+config.telefuncUrl = '/api/telefunc'
+
+export function ClientProviders({ children }: { children: React.ReactNode }) {
+  return <>{children}</>
+}
+```
+
+```tsx
+// app/layout.tsx
+
+import { ClientProviders } from './client-providers'
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html>
+      <body>
+        <ClientProviders>{children}</ClientProviders>
+      </body>
+    </html>
+  )
+}
+```
+
+## 5. Create a telefunction
+
+Create your first telefunction, for example:
+
+```ts
+// components/TodoList.telefunc.ts
+// Environment: server
+
+export async function onNewTodo({ text }: { text: string }) {
+  await db.todo.create({ data: { text } })
+  return db.todo.findMany()
+}
+```
+
+Call it from the client:
+
+```tsx
+// components/TodoList.tsx
+// Environment: client & server
+
+import { onNewTodo } from './TodoList.telefunc'
+
+function TodoList() {
+  const onSubmit = async (text: string) => {
+    const todos = await onNewTodo({ text })
+    // ...
+  }
+}
+```
+
+> To pass contextual information (e.g. the logged-in user) to your telefunctions, see <Link href="/getContext" />.
+
 ## Example
 
-- <RepoLink path="/examples/next" />
+<RepoLink path="/examples/next" />
 
 ## Initial Data
 
@@ -13,10 +120,10 @@ Using Telefunc with [Next.js](https://nextjs.org).
   toolName="Next.js"
   builtInMechanism={
     <p>
-      For example, we can use Next.js's <code>getServerSideProps</code> to fetch initial data directly from a database,
+      For example, we can use Next.js Server Components to fetch initial data directly from a database,
       see{' '}
-      <a href="https://nextjs.org/docs/basic-features/data-fetching/get-server-side-props">
-        Next.js Docs &gt; Data Fetching &gt; getServerSideProps
+      <a href="https://nextjs.org/docs/app/building-your-application/data-fetching">
+        Next.js Docs &gt; Data Fetching
       </a>
       {'.'}
     </p>

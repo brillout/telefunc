@@ -1,6 +1,6 @@
 export { parseHttpRequest }
 
-import { parse } from '@brillout/json-serializer/parse'
+import { parse, type Reviver } from '@brillout/json-serializer/parse'
 import {
   assertUsage,
   hasProp,
@@ -10,14 +10,12 @@ import {
   getTelefunctionKey,
   isProduction,
 } from '../utils.js'
+import { createMultipartReviver } from '../../../shared/multipart/serializer-server.js'
+import { FORM_DATA_MAIN_FIELD } from '../../../shared/multipart/constants.js'
+import { MultipartReader } from '../multipart/MultipartReader.js'
+import { LazyBlob, LazyFile } from '../multipart/LazyFile.js'
 
-function parseHttpRequest(runContext: {
-  httpRequest: { body: unknown; url: string; method: string }
-  logMalformedRequests: boolean
-  serverConfig: {
-    telefuncUrl: string
-  }
-}):
+type ParseResult =
   | {
       telefuncFilePath: string
       telefunctionName: string
@@ -25,34 +23,51 @@ function parseHttpRequest(runContext: {
       telefunctionArgs: unknown[]
       isMalformedRequest: false
     }
-  | { isMalformedRequest: true } {
+  | { isMalformedRequest: true }
+
+async function parseHttpRequest(runContext: {
+  request: Request
+  logMalformedRequests: boolean
+  serverConfig: {
+    telefuncUrl: string
+  }
+}): Promise<ParseResult> {
   assertUrl(runContext)
 
   if (isWrongMethod(runContext)) {
     return { isMalformedRequest: true }
   }
 
-  const { body } = runContext.httpRequest
-  if (typeof body !== 'string') {
-    if (runContext.logMalformedRequests) {
-      assertBody(body, runContext)
-    } else {
-      // In production `body` can be any value really.
-      // Therefore we `assertBody(body)` only development.
-    }
-    return { isMalformedRequest: true }
+  const { request } = runContext
+  const contentType = request.headers.get('content-type') || ''
+  const isMultipart = contentType.includes('multipart/form-data')
+  if (!isMultipart) {
+    const text = await request.text()
+    return parseTelefuncPayload(text, runContext)
+  } else {
+    assert(request.body)
+    const boundary = getBoundary(contentType)
+    assert(boundary, 'The multipart request is missing a boundary in the Content-Type header.')
+    return parseMultipartBody(request.body, boundary, runContext)
   }
-  const bodyString: string = body
+}
 
-  let bodyParsed: unknown
+// ===== Main parsing =====
+
+/** Parse main payload, validate shape, and build a ParseResult. */
+function parseTelefuncPayload(
+  text: string,
+  runContext: { logMalformedRequests: boolean },
+  reviver?: Reviver,
+): ParseResult {
+  let parsed: unknown
   try {
-    bodyParsed = parse(bodyString)
+    parsed = parse(text, { reviver })
   } catch (err: unknown) {
     logParseError(
       [
-        'The argument `body` passed to `telefunc({ body })`',
-        "couldn't be parsed",
-        `(\`body === '${bodyString}'\`).`,
+        //
+        "Telefunc request body couldn't be parsed.",
         !hasProp(err, 'message') ? null : `Parse error: ${err.message}.`,
       ]
         .filter(Boolean)
@@ -62,78 +77,70 @@ function parseHttpRequest(runContext: {
     return { isMalformedRequest: true }
   }
 
-  if (
-    !hasProp(bodyParsed, 'file', 'string') ||
-    !hasProp(bodyParsed, 'name', 'string') ||
-    !hasProp(bodyParsed, 'args', 'array')
-  ) {
-    logParseError(
-      [
-        'The argument `body` passed to `telefunc({ body })`',
-        'can be parsed but its content is unexpected',
-        `(\`body === '${bodyString}'\`).`,
-      ].join(' '),
-      runContext,
-    )
+  if (!hasProp(parsed, 'file', 'string') || !hasProp(parsed, 'name', 'string') || !hasProp(parsed, 'args', 'array')) {
+    logParseError('Telefunc request body has unexpected content', runContext)
     return { isMalformedRequest: true }
   }
 
-  const telefuncFilePath = bodyParsed.file
-  const telefunctionName = bodyParsed.name
-  const telefunctionArgs = bodyParsed.args
-  const telefunctionKey = getTelefunctionKey(telefuncFilePath, telefunctionName)
-
+  const telefunctionKey = getTelefunctionKey(parsed.file, parsed.name)
   return {
-    telefuncFilePath,
-    telefunctionName,
+    telefuncFilePath: parsed.file,
+    telefunctionName: parsed.name,
     telefunctionKey,
-    telefunctionArgs,
+    telefunctionArgs: parsed.args,
     isMalformedRequest: false,
   }
 }
 
-function assertBody(body: unknown, runContext: { serverConfig: { telefuncUrl: string } }) {
-  const errorNote = [
-    `Make sure that \`body\` is the HTTP body string of the request HTTP POST \`Content-Type: text/plain\` \`${runContext.serverConfig.telefuncUrl}\`.`,
-    'Note that with some server frameworks, such as Express.js, a server middleware is needed to process the HTTP body of `Content-Type: text/plain` requests.',
-  ].join(' ')
-  assertUsage(
-    body !== undefined && body !== null,
-    ['`telefunc({ body })`: argument `body` should be a string but', `\`body === ${body}\`.`, errorNote].join(' '),
-  )
-  assertUsage(
-    typeof body === 'string',
-    [
-      '`telefunc({ body })`: argument `body` should be a string but',
-      `\`typeof body === '${typeof body}'\`.`,
-      errorNote,
-    ].join(' '),
-  )
-  assertUsage(
-    // Express.js sets `req.body === '{}'` upon wrong Content-Type
-    body !== '{}',
-    ["`telefunc({ body })`: argument `body` is an empty JSON object (`body === '{}'`).", errorNote].join(' '),
-  )
+// ===== Multipart parsing =====
+
+async function parseMultipartBody(
+  bodyStream: ReadableStream<Uint8Array>,
+  boundary: string,
+  runContext: { logMalformedRequests: boolean },
+): Promise<ParseResult> {
+  const reader = new MultipartReader(bodyStream, boundary)
+
+  const metaText = await reader.readNextPartAsText(FORM_DATA_MAIN_FIELD)
+  if (metaText === null) {
+    logParseError(`The multipart request body is missing the ${FORM_DATA_MAIN_FIELD} field.`, runContext)
+    return { isMalformedRequest: true }
+  }
+
+  const reviver = createMultipartReviver({
+    createFile: (fileMetadata) => new LazyFile(reader, fileMetadata.key, fileMetadata),
+    createBlob: (blobMetadata) => new LazyBlob(reader, blobMetadata.key, blobMetadata),
+  })
+  return parseTelefuncPayload(metaText, runContext, reviver)
 }
 
-function isWrongMethod(runContext: { httpRequest: { method: string }; logMalformedRequests: boolean }) {
-  if (['POST', 'post'].includes(runContext.httpRequest.method)) {
+// ===== Helpers =====
+
+function getBoundary(contentType: string): string | null {
+  const match = contentType.match(/boundary=(?:"([^"]+)"|([^\s;]+))/)
+  return match ? match[1] || match[2] || null : null
+}
+
+function isWrongMethod(runContext: { request: Request; logMalformedRequests: boolean }) {
+  const { method } = runContext.request
+  if (['POST', 'post'].includes(method)) {
     return false
   }
-  assert(typeof runContext.httpRequest.method === 'string')
+  assert(typeof method === 'string')
   logParseError(
     [
-      'The argument `method` passed to `telefunc({ method })`',
+      //
+      'The HTTP request method',
       'should be `POST` (or `post`) but',
-      `\`method === '${runContext.httpRequest.method}'\`.`,
+      `\`method === '${method}'\`.`,
     ].join(' '),
     runContext,
   )
   return true
 }
 
-function assertUrl(runContext: { httpRequest: { url: string }; serverConfig: { telefuncUrl: string } }) {
-  const urlPathname = getUrlPathname(runContext.httpRequest.url)
+function assertUrl(runContext: { request: Request; serverConfig: { telefuncUrl: string } }) {
+  const urlPathname = getUrlPathname(runContext.request.url)
   assertUsage(
     urlPathname === runContext.serverConfig.telefuncUrl,
     `telefunc({ url }): The pathname of \`url\` is \`${urlPathname}\` but it's expected to be \`${runContext.serverConfig.telefuncUrl}\`. Either make sure that \`url\` is the HTTP request URL, or set \`config.telefuncUrl\` to \`${urlPathname}\`.`,

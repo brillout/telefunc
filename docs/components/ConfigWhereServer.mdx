@@ -1,13 +1,15 @@
-> You usually define server-side configs (`import { config } from 'telefunc'`) at your server entry. For example if you use [Express.js](https://expressjs.com/):
+> You usually define server-side configs (`import { config } from 'telefunc'`) at your server entry. For example:
 > ```ts
 > // /server/index.ts
 > // Environment: server
 >
-> import express from 'express'
 > import { config } from 'telefunc'
 >
-> const app = express()
+> const app = express() // If you use Express.js
+> // @docpress-replace app2 app
+> const app2 = new Hono() // If you use Hono
+> // ...
 >
-> // Config values can be set here
+> // Server configs can be set here
 > config.someServerSideSetting = 'some-value'
 > ```

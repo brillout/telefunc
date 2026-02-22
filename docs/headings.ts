@@ -47,6 +47,10 @@ const headings = [
     color: '#74d717',
   },
   {
+    level: 4,
+    title: 'Framework integration',
+  },
+  {
     level: 2,
     title: 'Next.js',
     url: '/next',
@@ -77,9 +81,22 @@ const headings = [
     url: '/react-router',
   },
   {
+    level: 4,
+    title: 'Server integration',
+  },
+  {
     level: 2,
-    title: 'Other installations',
-    titleInNav: 'Other',
+    title: 'Server (Hono, Express, ...)',
+    url: '/server',
+  },
+  {
+    level: 4,
+    title: 'Bundler integration',
+  },
+  {
+    level: 2,
+    title: 'Custom bundler',
+    titleInNav: 'Custom bundler',
     url: '/install',
   },
   {

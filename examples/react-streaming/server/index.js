@@ -17,12 +17,17 @@ async function startServer() {
     app.use(devMiddleware)
   }
 
-  app.use(express.text()) // Parse & make HTTP request body available at `req.body`
   app.all('/_telefunc', async (req, res) => {
     const context = {}
-    const httpResponse = await telefunc({ url: req.originalUrl, method: req.method, body: req.body, context })
-    const { body, statusCode, contentType } = httpResponse
-    res.status(statusCode).type(contentType).send(body)
+    const httpResponse = await telefunc({
+      url: req.originalUrl,
+      method: req.method,
+      readable: req,
+      contentType: req.headers['content-type'] || '',
+      context,
+    })
+    const { body, statusCode, contentType: type } = httpResponse
+    res.status(statusCode).type(type).send(body)
   })
 
   app.get('*', async (req, res, next) => {

@@ -2,9 +2,14 @@ export { testRun }
 
 import { page, test, expect, expectLog, run, getServerUrl, autoRetry, fetchHtml } from '@brillout/test-e2e'
 import { testCounter } from '../utils'
+import { testFileUpload } from './pages/file-upload/e2e-test'
 
 function testRun(cmd: 'npm run dev' | 'npm run preview') {
-  run(cmd)
+  run(cmd, {
+    tolerateError(log) {
+      return log.logText.includes('File arguments are being consumed out of order')
+    },
+  })
 
   const isDev = cmd === 'npm run dev'
 
@@ -27,6 +32,8 @@ function testRun(cmd: 'npm run dev' | 'npm run preview') {
   test('counter', async () => {
     await testCounter()
   })
+
+  testFileUpload()
 
   if (!isDev) {
     test('shield() generation', async () => {

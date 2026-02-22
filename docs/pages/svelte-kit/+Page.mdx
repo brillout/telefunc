@@ -3,20 +3,82 @@ import { MostlyMutations } from '../../components'
 
 Using Telefunc with [SvelteKit](https://svelte.dev/docs/kit).
 
+## 1. Install
+
+```bash
+npm install telefunc
+```
+
+## 2. Vite plugin
+
+```ts
+// vite.config.ts
+
+import { sveltekit } from '@sveltejs/kit/vite'
+import { telefunc } from 'telefunc/vite'
+import { defineConfig } from 'vite'
+
+export default defineConfig({
+  plugins: [sveltekit(), telefunc()],
+})
+```
+
+## 3. Server integration
+
+```ts
+// src/routes/_telefunc/+server.ts
+// Environment: server
+
+import { telefunc } from 'telefunc'
+import type { RequestHandler } from './$types'
+
+const handler: RequestHandler = async (event) => {
+  const httpResponse = await telefunc({ request: event.request })
+  return new Response(httpResponse.body, {
+    headers: new Headers({ 'content-type': httpResponse.contentType }),
+    status: httpResponse.statusCode,
+  })
+}
+export { handler as GET, handler as POST }
+```
+
+## 4. Create a telefunction
+
+Create your first telefunction, for example:
+
+```ts
+// src/routes/Counter.telefunc.ts
+// Environment: server
+
+export async function onIncrement(diff: number) {
+  database.value += diff
+  return database.value
+}
+```
+
+> `.telefunc.ts` files are always server-only, regardless of where they are located. You don't need `$lib/server` or `.server`.
+
+Call it from the client:
+
+```svelte
+<!-- src/routes/Counter.svelte -->
+<!-- Environment: client -->
+
+<script lang="ts">
+import { onIncrement } from './Counter.telefunc'
+
+let count = 0
+</script>
+
+<button on:click={async () => { count = await onIncrement(+1) }}>+1</button>
+<span>{count}</span>
+```
+
+> To pass contextual information (e.g. the logged-in user) to your telefunctions, see <Link href="/getContext" />.
+
 ## Example
 
-- <RepoLink path="/examples/svelte-kit" />
-
-## Add to existing app
-
-See example of adding Telefunc to an existing app: [`d31fc02`](https://github.com/brillout/telefunc/commit/d31fc028135820281141e75a5f86025bbc0a47c1).
-
-1. `npm install telefunc` (or `pnpm`/`yarn`)
-2. Add Telefunc's Vite plugin ([example `vite.config.ts`](https://github.com/brillout/telefunc/commit/d31fc028135820281141e75a5f86025bbc0a47c1#diff-47944bdcd0c53cfef019b731e51d5de7f52adc433ee42e23d70d2786df2ccb86))
-3. Add Telefunc's server middleware ([example `src/routes/_telefunc/+server.ts`](https://github.com/brillout/telefunc/commit/d31fc028135820281141e75a5f86025bbc0a47c1#diff-90d1561bb0ebcba840e0f56681c3583bc775311dac1e4489983ce3d961ac4a0c))
-4. Define your first `.telefunc.js` file ([example `src/routes/Counter.telefunc.ts`](https://github.com/brillout/telefunc/commit/d31fc028135820281141e75a5f86025bbc0a47c1#diff-175c619bea5e129b791fa88edbdb23eb0db7630bde74b99661c363972db39b25))
-   > `.telefunc.js` files are always server-only, regardless of where they are located. You don't need to place them in `$lib/server` nor add `.server`.
-5. Optionally: globally define the type your `context` object ([example `src/telefunc.d.ts`](https://github.com/brillout/telefunc/commit/d31fc028135820281141e75a5f86025bbc0a47c1#diff-3105d009403392ee3729824908f17d97f6c8e046e1b77e060555e9c26f39d099))
+<RepoLink path="/examples/svelte-kit" />
 
 ## Initial Data
 

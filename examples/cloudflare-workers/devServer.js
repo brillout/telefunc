@@ -17,11 +17,14 @@ function start(app) {
 }
 
 function installTelefunc(app) {
-  app.use(express.text())
   config.disableNamingConvention = true
   app.all('/_telefunc', async (req, res) => {
-    const { originalUrl: url, method, body } = req
-    const httpResponse = await telefunc({ url, method, body })
+    const httpResponse = await telefunc({
+      url: req.originalUrl,
+      method: req.method,
+      readable: req,
+      contentType: req.headers['content-type'] || '',
+    })
     res.status(httpResponse.statusCode).type(httpResponse.contentType).send(httpResponse.body)
   })
 }

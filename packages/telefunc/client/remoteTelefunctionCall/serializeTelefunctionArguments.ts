@@ -2,35 +2,57 @@ export { serializeTelefunctionArguments }
 
 import { stringify } from '@brillout/json-serializer/stringify'
 import { assert, assertUsage, lowercaseFirstLetter, hasProp } from '../utils.js'
+import { createMultipartReplacer } from '../../shared/multipart/serializer-client.js'
+import { FORM_DATA_MAIN_FIELD } from '../../shared/multipart/constants.js'
 
-function serializeTelefunctionArguments(callContext: {
+type CallContext = {
   telefuncFilePath: string
   telefunctionName: string
   telefunctionArgs: unknown[]
   telefuncUrl: string
-}) {
-  const bodyParsed = {
+}
+
+function serializeTelefunctionArguments(callContext: CallContext): string | FormData {
+  const dataMain = {
     file: callContext.telefuncFilePath,
     name: callContext.telefunctionName,
     args: callContext.telefunctionArgs,
   }
-  assert(typeof callContext.telefuncFilePath === 'string')
-  assert(typeof callContext.telefunctionName === 'string')
-  assert(Array.isArray(callContext.telefunctionArgs))
-  let httpRequestBody: string
+
+  const files: { key: string; value: File | Blob }[] = []
+  const replacer = createMultipartReplacer({
+    onFile: (key, file) => files.push({ key, value: file }),
+    onBlob: (key, blob) => files.push({ key, value: blob }),
+  })
+
+  const dataMainSerialized = serialize(dataMain, callContext, replacer)
+  if (files.length === 0) return dataMainSerialized
+
+  const formData = new FormData()
+  // dataMainSerialized MUST come first — it contains the files metadata, which streaming needs before the files data
+  formData.append(FORM_DATA_MAIN_FIELD, dataMainSerialized)
+  for (const { key, value } of files) {
+    formData.append(key, value)
+  }
+  return formData
+}
+
+type Replacer = Parameters<typeof stringify>[1] extends infer O ? (O extends { replacer?: infer R } ? R : never) : never
+function serialize(dataMain: Record<string, unknown>, callContext: CallContext, replacer?: Replacer): string {
+  let serialized: string
   try {
-    httpRequestBody = stringify(bodyParsed, { forbidReactElements: true })
+    serialized = stringify(dataMain, { forbidReactElements: true, replacer })
   } catch (err) {
     assert(hasProp(err, 'message', 'string'))
     assertUsage(
       false,
       [
         `Cannot serialize arguments for telefunction ${callContext.telefunctionName}() (${callContext.telefuncFilePath}).`,
-        'Make sure that the arguments pass to telefunction calls are always serializable.',
+        'Make sure that the arguments passed to telefunction calls are always serializable.',
         `Serialization error: ${lowercaseFirstLetter(err.message)}`,
       ].join(' '),
     )
   }
-  assert(httpRequestBody)
-  return httpRequestBody
+  assert(serialized)
+  return serialized
 }

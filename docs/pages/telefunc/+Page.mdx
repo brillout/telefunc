@@ -2,32 +2,53 @@ import { Link } from '@brillout/docpress'
 
 **Environment**: server.
 
-We install Telefunc by using Telefunc's server middleware `telefunc()`:
+The `telefunc()` function enables you to <Link href="/server">install a Telefunc middleware into any server</Link>.
 
-```ts
-// server.ts
+> It's a pure function (no side effects).
 
-// Server (Express.js/Fastify/...)
+You can pass the [web standard `Request` object](https://developer.mozilla.org/en-US/docs/Web/API/Request):
 
-import { telefunc } from 'telefunc'
+```js
+const httpResponse = await telefunc({
+  // Required
+  request,
 
-// Telefunc middleware
-app.all('/_telefunc', async (req: Request, res: Response) => {
-  const httpResponse = await telefunc({
-    // HTTP Request URL, which is '/_telefunc' if we didn't modify config.telefuncUrl
-    url: req.url,
-    // HTTP Request Method (GET, POST, ...)
-    method: req.method,
-    // HTTP Request Body, which can be a string, buffer, or stream
-    body: req.body,
-    // Optional
-    context: {
-      /* Some context */
-    }
-  })
-  const { body, statusCode, contentType } = httpResponse
-  res.status(statusCode).type(contentType).send(body)
+  // Optional
+  context: {
+    /* Some context */
+  }
 })
 ```
 
-The `context` parameter is optional and is only needed if we use `getContext()`, see <Link href="/getContext#provide" />.
+> The `context` parameter is optional and is only needed if we use `getContext()`, see <Link href="/getContext#provide" />.
+
+Or the [Node.js `req` readable stream](https://nodejs.org/api/http.html#http_class_http_incomingmessage):
+
+```js
+const httpResponse = await telefunc({
+  // Required
+  url: req.originalUrl,
+  method: req.method,
+  readable: req,
+  contentType: req.headers['content-type'] || '',
+
+  // Optional
+  context: {
+    /* Some context */
+  }
+})
+```
+
+The return value `httpResponse` is a plain JavaScript object with all the information needed to generate the HTTP response, for exampe using the [web standard `Response` object](https://developer.mozilla.org/en-US/docs/Web/API/Response):
+
+```js
+const response = new Response(httpResponse.body, {
+  status: httpResponse.statusCode,
+  headers: { 'content-type': httpResponse.contentType },
+})
+```
+
+## See also
+
+- <Link href="/server" />
+- <Link href="/getContext" />

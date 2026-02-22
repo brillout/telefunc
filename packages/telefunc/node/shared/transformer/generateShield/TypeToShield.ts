@@ -25,6 +25,10 @@ type SimpleType<T, Acc extends any[] = []> = Equals<T, string> extends true
   ? ShieldRes<'__telefunc_t.boolean', Acc>
   : Equals<T, Date> extends true
   ? ShieldRes<'__telefunc_t.date', Acc>
+  : Equals<T, File> extends true
+  ? ShieldRes<'__telefunc_t.file', Acc>
+  : Equals<T, Blob> extends true
+  ? ShieldRes<'__telefunc_t.blob', Acc>
   : Equals<T, any> extends true
   ? ShieldRes<'__telefunc_t.any', Acc>
   : false

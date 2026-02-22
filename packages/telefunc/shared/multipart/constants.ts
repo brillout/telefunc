@@ -1,0 +1,4 @@
+export const FORM_DATA_MAIN_FIELD = '__telefunc_main'
+export const SERIALIZER_PLACEHOLDER_KEY = '__telefunc_multipart'
+export const SERIALIZER_PREFIX_FILE = '!TelefuncFile:'
+export const SERIALIZER_PREFIX_BLOB = '!TelefuncBlob:'

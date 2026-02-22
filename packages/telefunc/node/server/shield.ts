@@ -4,6 +4,7 @@ export { shieldApply }
 export { shieldToHumandReadable }
 
 import { isPlainObject, unique, isCallable, assert, assertUsage } from './utils.js'
+import { isLazyFile, isLazyBlob } from './multipart/LazyFile.js'
 
 const shieldKey = '__telefunc_shield'
 const isVerifierKey = '__telefunc_isVerifier'
@@ -299,11 +300,24 @@ const type = (() => {
     verifier.toString = () => 'date'
     return verifier as any
   })()
-
+  const file = ((): File => {
+    const verifier = (input: unknown, breadcrumbs: string) =>
+      isLazyFile(input) ? true : errorMessage(breadcrumbs, getTypeName(input), 'file')
+    markVerifier(verifier)
+    verifier.toString = () => 'file'
+    return verifier as any
+  })()
+  const blob = ((): Blob => {
+    const verifier = (input: unknown, breadcrumbs: string) =>
+      isLazyBlob(input) ? true : errorMessage(breadcrumbs, getTypeName(input), 'blob')
+    markVerifier(verifier)
+    verifier.toString = () => 'blob'
+    return verifier as any
+  })()
   const any = ((): any => {
     const verifier = () => true as const
     markVerifier(verifier)
-    verifier.toString = () => 'date'
+    verifier.toString = () => 'any'
     return verifier as any
   })()
 
@@ -312,6 +326,8 @@ const type = (() => {
     number,
     boolean,
     date,
+    file,
+    blob,
     array,
     object,
     or,
@@ -360,6 +376,12 @@ function getTypeName(thing: unknown): string {
     assert(thing !== null)
     if (thing.constructor === Date) {
       return 'date'
+    }
+    if (isLazyFile(thing) || (typeof File !== 'undefined' && thing instanceof File)) {
+      return 'file'
+    }
+    if (isLazyBlob(thing) || (typeof Blob !== 'undefined' && thing instanceof Blob)) {
+      return 'blob'
     }
     if (Array.isArray(thing)) {
       return 'array'
