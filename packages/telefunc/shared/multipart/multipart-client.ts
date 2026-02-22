@@ -1,10 +1,6 @@
 export { createMultipartReplacer }
 
-import {
-  TELEFUNC_SERIALIZE_PREFIX_FILE,
-  TELEFUNC_SERIALIZE_PREFIX_BLOB,
-  MULTIPART_PLACEHOLDER_KEY,
-} from './constants.js'
+import { SERIALIZER_PREFIX_FILE, SERIALIZER_PREFIX_BLOB, MULTIPART_PLACEHOLDER_KEY } from './constants.js'
 
 function constructMultipartKey(index: number): string {
   return `${MULTIPART_PLACEHOLDER_KEY}_${index}`
@@ -29,7 +25,7 @@ function createMultipartReplacer(callbacks: {
         lastModified: value.lastModified,
       }
       return {
-        replacement: TELEFUNC_SERIALIZE_PREFIX_FILE + serializer(fileMetadata),
+        replacement: SERIALIZER_PREFIX_FILE + serializer(fileMetadata),
         resolved: true,
       }
     }
@@ -38,7 +34,7 @@ function createMultipartReplacer(callbacks: {
       callbacks.onBlob(key, value)
       const fileMetadata = { key, size: value.size, type: value.type }
       return {
-        replacement: TELEFUNC_SERIALIZE_PREFIX_BLOB + serializer(fileMetadata),
+        replacement: SERIALIZER_PREFIX_BLOB + serializer(fileMetadata),
         resolved: true,
       }
     }
