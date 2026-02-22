@@ -30,7 +30,7 @@ Before we can use `getContext()`, we need to provide the `context` object to the
 - <Link href="/server" />
 - <Link href="/telefunc" />
 
-For example with Hono:
+For example, with Hono or Express.js:
 
 ```ts
 // server.ts
@@ -41,27 +41,37 @@ import { telefunc } from 'telefunc'
 
 const app = new Hono()
 
-// Some auth middleware — sets the user on Hono's context
-app.use(async (c, next) => {
-  const user = await getUser(c)
-  c.set('user', user)
-  await next()
-})
-
 app.all('/_telefunc', async (c) => {
   const httpResponse = await telefunc({
     request: c.req.raw,
     // We provide the context object here:
     context: {
-      user: c.get('user'),
-    },
+      user: c.get('user')
+    }
   })
   return new Response(httpResponse.body, {
     status: httpResponse.statusCode,
-    headers: { 'content-type': httpResponse.contentType },
+    headers: { 'content-type': httpResponse.contentType }
   })
 })
+
+// Some authentication middleware — sets the user on Hono's context
+app.use(async (c, next) => {
+  const userId = c.req.cookie('user-id')
+  const user = await getUserFromDatabase(userId)
+
+  // Or using a third-party authentication provider (e.g. Auth0):
+  // @docpress-replace user2 user
+  const user2 = await authProviderApi.getUser(c.req.headers)
+
+  // Authentication middlewares usually provide information
+  // about the logged-in user on the context object:
+  c.set('user', user)
+  await next()
+})
 ```
+> See also:
+> - [Hono Guides > Middleware > Extending the Context in Middleware](https://hono.dev/docs/guides/middleware#extending-the-context-in-middleware)
 
 
 ## Access

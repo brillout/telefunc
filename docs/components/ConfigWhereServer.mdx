@@ -3,11 +3,13 @@
 > // /server/index.ts
 > // Environment: server
 >
-> import { Hono } from 'hono'
 > import { config } from 'telefunc'
 >
-> const app = new Hono()
+> const app = express() // If you use Express.js
+> // @docpress-replace app2 app
+> const app2 = new Hono() // If you use Hono
+> // ...
 >
-> // Config values can be set here
+> // Server configs can be set here
 > config.someServerSideSetting = 'some-value'
 > ```
