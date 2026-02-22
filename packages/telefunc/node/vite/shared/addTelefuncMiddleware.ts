@@ -1,7 +1,7 @@
 export { addTelefuncMiddleware }
 
 import { telefunc } from '../../server/index.js'
-import { nodeReadableToWebRequest } from '../../server/streaming/nodeReadableToWebRequest.js'
+import { nodeReadableToWebRequest } from '../../../utils/nodeReadableToWebRequest.js'
 import type { ViteDevServer } from 'vite'
 
 type ConnectServer = ViteDevServer['middlewares']

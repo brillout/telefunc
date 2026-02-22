@@ -3,7 +3,7 @@ export { telefunc }
 import { runTelefunc, HttpResponse } from './runTelefunc.js'
 import { Telefunc } from './getContext.js'
 import { assertUsage, hasProp, isObject } from './utils.js'
-import { nodeReadableToWebRequest } from './streaming/nodeReadableToWebRequest.js'
+import { nodeReadableToWebRequest } from '../../utils/nodeReadableToWebRequest.js'
 import type { Readable } from 'node:stream'
 
 type TelefuncHttpRequest =
