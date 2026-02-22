@@ -25,6 +25,10 @@ async function makeHttpRequest(callContext: {
   fetch: typeof globalThis.fetch | null
 }): Promise<{ telefunctionReturn: unknown }> {
   const isMultipart = typeof callContext.httpRequestBody !== 'string'
+  const contentType = isMultipart
+    ? // Don't set Content-Type for FormData — browser sets multipart/form-data with boundary automatically
+      null
+    : { 'Content-Type': 'text/plain' }
   let response: Response
   try {
     const fetch = callContext.fetch ?? window.fetch
@@ -34,8 +38,7 @@ async function makeHttpRequest(callContext: {
       credentials: 'same-origin',
       headers: {
         ...callContext.httpHeaders,
-        // Don't set Content-Type for FormData — browser sets multipart/form-data with boundary automatically
-        ...(!isMultipart ? { 'Content-Type': 'text/plain' } : {}),
+        ...contentType,
       },
     })
   } catch (_) {
