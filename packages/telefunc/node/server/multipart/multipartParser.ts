@@ -1,12 +1,12 @@
+export { MultipartParser }
+export type { MultipartEvent }
+
 /**
  * Minimal streaming multipart parser tailored for telefunc's use case.
  *
  * Design informed by @mjackson/multipart-parser (https://github.com/mjackson/multipart-parser)
  * — precomputed boundary patterns, single-pass state machine, no per-chunk allocations.
  */
-
-export { MultipartParser }
-export type { MultipartEvent }
 
 type MultipartEvent =
   | { type: 'part-begin'; name: string; filename: string | null; contentType: string }
