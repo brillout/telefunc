@@ -65,7 +65,11 @@ function parseTelefuncPayload(
     parsed = parse(text, { reviver })
   } catch (err: unknown) {
     logParseError(
-      ["Telefunc request body couldn't be parsed.", !hasProp(err, 'message') ? null : `Parse error: ${err.message}.`]
+      [
+        //
+        "Telefunc request body couldn't be parsed.",
+        !hasProp(err, 'message') ? null : `Parse error: ${err.message}.`,
+      ]
         .filter(Boolean)
         .join(' '),
       runContext,
