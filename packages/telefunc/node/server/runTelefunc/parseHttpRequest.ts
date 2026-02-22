@@ -90,7 +90,7 @@ function parseTelefuncPayload(
   }
 }
 
-// ===== Multipart (streaming) body =====
+// ===== Multipart parsing =====
 
 async function parseMultipartBody(
   bodyStream: ReadableStream<Uint8Array>,
