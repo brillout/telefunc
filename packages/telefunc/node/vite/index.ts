@@ -13,6 +13,8 @@ import { config } from '../server/serverConfig.js'
 import type { Plugin } from 'vite'
 import type { ConfigUser } from '../server/serverConfig.js'
 import { pluginReplaceConstantsNonRunnableDev } from './plugins/non-runnable-dev/pluginReplaceConstantsNonRunnableDev.js'
+import { onLoad } from './onLoad.js'
+onLoad()
 
 // Return as `any` to avoid Plugin type mismatches when there are multiple Vite versions installed
 function plugin(
