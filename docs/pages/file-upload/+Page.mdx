@@ -74,7 +74,7 @@ Each file argument is a standard [`File`](https://developer.mozilla.org/en-US/do
 
 **One-shot reads.** Each file can only be read once. Calling `.stream()`, `.text()`, or `.arrayBuffer()` a second time throws an error — the bytes have already been consumed from the HTTP stream. If you need the data multiple times, buffer it into a variable first.
 
-**Read in order.** When a telefunction has multiple file arguments, they must be consumed in the order they appear in the function signature — all files share a single forward-only HTTP stream, so reading file2 before file1 would require buffering file1 in memory. Reading out of order causes file1 to be discarded (with a warning). You don't need to `await` each file before starting the next — you can kick off reads concurrently (e.g. `Promise.all([file1.text(), file2.text()])`) and they will be automatically serialized in the correct order.
+**Read in order.** When a telefunction has multiple file arguments (e.g. `file1` and `file2`), they must be consumed in the order they appear in the function signature — all files share a single forward-only HTTP stream (reading `file2` before `file1` would require buffering `file1` in memory). Reading out of order causes `file1` to be discarded (with a warning). You don't need to `await` each file before starting the next — you can kick off reads concurrently (e.g. `Promise.all([file1.text(), file2.text()])`) and they will be automatically streamed in the correct order.
 
 ## Server integration
 
