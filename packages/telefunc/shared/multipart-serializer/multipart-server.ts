@@ -3,11 +3,11 @@ export { createMultipartReviver }
 
 import type { Reviver } from '@brillout/json-serializer/parse'
 import type { LazyBlob, LazyFile } from '../../node/server/multipart/LazyFile.js'
-import { SERIALIZER_PREFIX_FILE, SERIALIZER_PREFIX_BLOB, MULTIPART_PLACEHOLDER_KEY } from './constants.js'
+import { SERIALIZER_PREFIX_FILE, SERIALIZER_PREFIX_BLOB, SERIALIZER_PLACEHOLDER_KEY } from './constants.js'
 
 /** Extract the numeric index from a multipart key (e.g. `__telefunc_multipart_2` → `2`). */
 function parseMultipartIndex(key: string): number {
-  return parseInt(key.slice(MULTIPART_PLACEHOLDER_KEY.length + 1), 10)
+  return parseInt(key.slice(SERIALIZER_PLACEHOLDER_KEY.length + 1), 10)
 }
 
 type FileMetadata = { key: string; name: string; size: number; type: string; lastModified: number }

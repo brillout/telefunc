@@ -1,9 +1,9 @@
 export { createMultipartReplacer }
 
-import { SERIALIZER_PREFIX_FILE, SERIALIZER_PREFIX_BLOB, MULTIPART_PLACEHOLDER_KEY } from './constants.js'
+import { SERIALIZER_PREFIX_FILE, SERIALIZER_PREFIX_BLOB, SERIALIZER_PLACEHOLDER_KEY } from './constants.js'
 
 function constructMultipartKey(index: number): string {
-  return `${MULTIPART_PLACEHOLDER_KEY}_${index}`
+  return `${SERIALIZER_PLACEHOLDER_KEY}_${index}`
 }
 
 /**
