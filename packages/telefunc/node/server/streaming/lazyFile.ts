@@ -122,33 +122,33 @@ class SlicedBlob extends BaseStreamBlob {
   }
 
   stream(): ReadableStream<Uint8Array<ArrayBuffer>> {
-    const parentReader = this.#parent.stream().getReader()
+    let parentReader: ReadableStreamDefaultReader<Uint8Array>
     let pos = 0
     const start = this.#start
     const end = start + this.size
     return new ReadableStream<Uint8Array<ArrayBuffer>>({
+      start: () => {
+        parentReader = this.#parent.stream().getReader()
+      },
       pull: async (controller) => {
-        while (true) {
-          const { done, value } = await parentReader.read()
-          if (done) {
-            controller.close()
-            return
-          }
-          const from = Math.max(start - pos, 0)
-          const to = Math.min(end - pos, value.byteLength)
-          pos += value.byteLength
-          if (to > from) {
-            controller.enqueue(value.subarray(from, to) as Uint8Array<ArrayBuffer>)
-          }
-          if (pos >= end) {
-            controller.close()
-            await parentReader.cancel()
-            return
-          }
+        const { done, value } = await parentReader.read()
+        if (done) {
+          controller.close()
+          return
+        }
+        const from = Math.max(start - pos, 0)
+        const to = Math.min(end - pos, value.byteLength)
+        pos += value.byteLength
+        if (to > from) {
+          controller.enqueue(value.subarray(from, to) as Uint8Array<ArrayBuffer>)
+        }
+        if (pos >= end) {
+          controller.close()
+          await parentReader.cancel()
         }
       },
       cancel: async () => {
-        await parentReader.cancel()
+        await parentReader?.cancel()
       },
     })
   }
