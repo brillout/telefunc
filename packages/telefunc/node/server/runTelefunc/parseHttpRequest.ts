@@ -69,7 +69,7 @@ async function parseMultipartBody(
 
   const metaText = await reader.readNextPartAsText(FORM_DATA_MAIN_FIELD)
   if (metaText === null) {
-    logParseError('The multipart request body is missing the `__telefunc` field.', runContext)
+    logParseError(`The multipart request body is missing the ${FORM_DATA_MAIN_FIELD} field.`, runContext)
     return { isMalformedRequest: true }
   }
 
