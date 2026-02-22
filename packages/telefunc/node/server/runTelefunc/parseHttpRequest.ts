@@ -52,28 +52,6 @@ async function parseHttpRequest(runContext: {
   }
 }
 
-// ===== Multipart (streaming) body =====
-
-async function parseMultipartBody(
-  bodyStream: ReadableStream<Uint8Array>,
-  boundary: string,
-  runContext: { logMalformedRequests: boolean },
-): Promise<ParseResult> {
-  const reader = new MultipartReader(bodyStream, boundary)
-
-  const metaText = await reader.readNextPartAsText(FORM_DATA_MAIN_FIELD)
-  if (metaText === null) {
-    logParseError(`The multipart request body is missing the ${FORM_DATA_MAIN_FIELD} field.`, runContext)
-    return { isMalformedRequest: true }
-  }
-
-  const reviver = createMultipartReviver({
-    createFile: (fileMetadata) => new LazyFile(reader, fileMetadata.key, fileMetadata),
-    createBlob: (blobMetadata) => new LazyBlob(reader, blobMetadata.key, blobMetadata),
-  })
-  return parseTelefuncPayload(metaText, runContext, reviver)
-}
-
 // ===== Main parsing =====
 
 type Reviver = Parameters<typeof parse>[1] extends infer O ? (O extends { reviver?: infer R } ? R : never) : never
@@ -110,6 +88,28 @@ function parseTelefuncPayload(
     telefunctionArgs: parsed.args,
     isMalformedRequest: false,
   }
+}
+
+// ===== Multipart (streaming) body =====
+
+async function parseMultipartBody(
+  bodyStream: ReadableStream<Uint8Array>,
+  boundary: string,
+  runContext: { logMalformedRequests: boolean },
+): Promise<ParseResult> {
+  const reader = new MultipartReader(bodyStream, boundary)
+
+  const metaText = await reader.readNextPartAsText(FORM_DATA_MAIN_FIELD)
+  if (metaText === null) {
+    logParseError(`The multipart request body is missing the ${FORM_DATA_MAIN_FIELD} field.`, runContext)
+    return { isMalformedRequest: true }
+  }
+
+  const reviver = createMultipartReviver({
+    createFile: (fileMetadata) => new LazyFile(reader, fileMetadata.key, fileMetadata),
+    createBlob: (blobMetadata) => new LazyBlob(reader, blobMetadata.key, blobMetadata),
+  })
+  return parseTelefuncPayload(metaText, runContext, reviver)
 }
 
 // ===== Helpers =====
