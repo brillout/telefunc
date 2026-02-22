@@ -26,7 +26,11 @@ It's most commonly used for implementing permissions, see <Link href="/permissio
 
 ## Provide
 
-Before we can use `getContext()`, we need to provide the `context` object to <Link text="Telefunc's Server Middleware" href="/telefunc" />:
+Before we can use `getContext()`, we need to provide the `context` object to the Telefunc server middleware, see:
+- <Link href="/server" />
+- <Link href="/telefunc" />
+
+For example with Hono:
 
 ```ts
 // server.ts
@@ -37,7 +41,7 @@ import { telefunc } from 'telefunc'
 
 const app = new Hono()
 
-// Auth middleware — sets the user on Hono's context
+// Some auth middleware — sets the user on Hono's context
 app.use(async (c, next) => {
   const user = await getUser(c)
   c.set('user', user)
@@ -145,3 +149,8 @@ export async function someTelefunction() {
   const { userId } = getContext<Context>()
 }
 ```
+
+## See also
+
+- <Link href="/server" />
+- <Link href="/getContext" />

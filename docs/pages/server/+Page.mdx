@@ -25,9 +25,14 @@ app.all('/_telefunc', async (c) => {
   return new Response(httpResponse.body, {
     status: httpResponse.statusCode,
     headers: { 'content-type': httpResponse.contentType },
+    context: {
+      // You can add any arbitrary contextual information here
+    },
   })
 })
 ```
+
+> You can access `context` inside your telefunctions via <Link href="/getContext">`getContext()`</Link>.
 
 
 ## Node.js `req`
@@ -50,7 +55,18 @@ app.all('/_telefunc', async (req, res) => {
     method: req.method,
     readable: req,
     contentType: req.headers['content-type'] || '',
+    context: {
+      // You can add any arbitrary contextual information here
+    },
   })
   res.status(httpResponse.statusCode).type(httpResponse.contentType).send(httpResponse.body)
 })
 ```
+
+> You can access `context` inside your telefunctions via <Link href="/getContext">`getContext()`</Link>.
+
+
+## See also
+
+- <Link href="/telefunc" />
+- <Link href="/getContext" />
