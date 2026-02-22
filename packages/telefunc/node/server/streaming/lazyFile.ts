@@ -39,7 +39,7 @@ class LazyBlob implements Blob {
 
   async arrayBuffer(): Promise<ArrayBuffer> {
     const bytes = await this.bytes()
-    return bytes.buffer as ArrayBuffer
+    return bytes.buffer
   }
 
   async bytes(): Promise<Uint8Array<ArrayBuffer>> {
@@ -59,7 +59,7 @@ class LazyBlob implements Blob {
       result.set(c, offset)
       offset += c.byteLength
     }
-    return result as Uint8Array<ArrayBuffer>
+    return result
   }
 
   async text(): Promise<string> {
