@@ -75,7 +75,7 @@ async function parseMultipartBody(
 
   const reviver = createMultipartReviver({
     createFile: (fileMetadata) => new LazyFile(reader, fileMetadata.key, fileMetadata),
-    createBlob: (fileMetadata) => new LazyBlob(reader, fileMetadata.key, fileMetadata),
+    createBlob: (blobMetadata) => new LazyBlob(reader, blobMetadata.key, blobMetadata),
   })
   return parseTelefuncPayload(metaText, runContext, reviver)
 }
