@@ -24,8 +24,8 @@ function serializeTelefunctionArguments(callContext: CallContext): string | Form
     onFile: (key, file) => fileParts.push({ key, value: file }),
     onBlob: (key, blob) => fileParts.push({ key, value: blob }),
   })
-  const serialized = serializeBody(bodyParsed, callContext, replacer)
 
+  const serialized = serialize(bodyParsed, callContext, replacer)
   if (fileParts.length === 0) return serialized
 
   // __telefunc metadata MUST come first — the streaming parser needs it before file data
@@ -38,7 +38,7 @@ function serializeTelefunctionArguments(callContext: CallContext): string | Form
 }
 
 type Replacer = Parameters<typeof stringify>[1] extends infer O ? (O extends { replacer?: infer R } ? R : never) : never
-function serializeBody(bodyParsed: Record<string, unknown>, callContext: CallContext, replacer?: Replacer): string {
+function serialize(bodyParsed: Record<string, unknown>, callContext: CallContext, replacer?: Replacer): string {
   let serialized: string
   try {
     serialized = stringify(bodyParsed, { forbidReactElements: true, replacer })
