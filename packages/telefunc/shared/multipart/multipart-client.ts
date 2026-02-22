@@ -6,7 +6,7 @@ function constructMultipartKey(index: number): string {
   return `${MULTIPART_PLACEHOLDER_KEY}_${index}`
 }
 
-/** Creates a stringify replacer that serializes File/Blob → prefixed string descriptors.
+/** Creates a stringify replacer that serializes File/Blob → prefixed string fileMetadatas.
  *  `onFile`/`onBlob` are called to collect the binary parts for the FormData. */
 function createMultipartReplacer(callbacks: {
   onFile: (key: string, file: File) => void

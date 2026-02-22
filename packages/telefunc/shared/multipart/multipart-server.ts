@@ -11,20 +11,20 @@ function parseMultipartIndex(key: string): number {
 type FileMetadata = { key: string; name: string; size: number; type: string; lastModified: number }
 type BlobMetadata = { key: string; size: number; type: string }
 
-/** Creates a parse reviver that deserializes prefixed string descriptors → lazy file objects.
+/** Creates a parse reviver that deserializes prefixed string fileMetadatas → lazy file objects.
  *  `createFile`/`createBlob` construct the platform-specific lazy objects. */
 function createMultipartReviver(callbacks: {
-  createFile: (descriptor: FileMetadata) => unknown
-  createBlob: (descriptor: BlobMetadata) => unknown
+  createFile: (fileMetadata: FileMetadata) => unknown
+  createBlob: (fileMetadata: BlobMetadata) => unknown
 }) {
   return (_key: undefined | string, value: string, parser: (str: string) => unknown) => {
     if (value.startsWith(SERIALIZER_PREFIX_FILE)) {
-      const descriptor = parser(value.slice(SERIALIZER_PREFIX_FILE.length)) as FileMetadata
-      return { replacement: callbacks.createFile(descriptor) }
+      const fileMetadata = parser(value.slice(SERIALIZER_PREFIX_FILE.length)) as FileMetadata
+      return { replacement: callbacks.createFile(fileMetadata) }
     }
     if (value.startsWith(SERIALIZER_PREFIX_BLOB)) {
-      const descriptor = parser(value.slice(SERIALIZER_PREFIX_BLOB.length)) as BlobMetadata
-      return { replacement: callbacks.createBlob(descriptor) }
+      const fileMetadata = parser(value.slice(SERIALIZER_PREFIX_BLOB.length)) as BlobMetadata
+      return { replacement: callbacks.createBlob(fileMetadata) }
     }
     return undefined
   }
