@@ -47,10 +47,8 @@ const headings = [
     color: '#74d717',
   },
   {
-    level: 2,
-    title: 'Hono / Express / Fastify',
-    titleInNav: 'Hono',
-    url: '/hono',
+    level: 4,
+    title: 'Framework integration',
   },
   {
     level: 2,
@@ -81,6 +79,19 @@ const headings = [
     level: 2,
     title: 'React Router',
     url: '/react-router',
+  },
+  {
+    level: 4,
+    title: 'Server integration',
+  },
+  {
+    level: 2,
+    title: 'Server (Hono, Express, ...)',
+    url: '/server',
+  },
+  {
+    level: 4,
+    title: 'Bundler integration',
   },
   {
     level: 2,
