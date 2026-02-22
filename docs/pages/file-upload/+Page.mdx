@@ -70,7 +70,7 @@ Each file argument is a standard [`File`](https://developer.mozilla.org/en-US/do
 
 ## Limitations
 
-> Nothing is buffered internally — file bytes flow directly from the HTTP stream to your code. If you don't read a file argument, its bytes never leave the sender. This zero-buffering design comes with a few inherent trade-offs:
+> For best performance and efficiency, nothing is buffered internally — file bytes flow directly from the HTTP stream to your code. If you don't read a file argument, the file bytes never leave the sender (the user's browser). This zero-buffering design comes with following inherent limitations.
 
 **One-shot reads.** Each file can only be read once. Calling `.stream()`, `.text()`, or `.arrayBuffer()` a second time throws an error — the bytes have already been consumed from the HTTP stream. If you need the data multiple times, buffer it into a variable first.
 
