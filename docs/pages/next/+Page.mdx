@@ -5,7 +5,7 @@ Using Telefunc with [Next.js](https://nextjs.org).
 
 ## 1. Install
 
-```bash
+```shell
 npm install telefunc
 ```
 
@@ -17,7 +17,7 @@ npm install telefunc
 import type { NextConfig } from 'next'
 import withTelefunc from 'telefunc/next'
 
-let nextConfig: NextConfig = { reactStrictMode: true }
+let nextConfig: NextConfig = {}
 nextConfig = withTelefunc(nextConfig)
 
 export default nextConfig
@@ -48,7 +48,7 @@ export { handler as GET, handler as POST }
 Since the route handler is at `/api/telefunc` instead of the default `/_telefunc`, set the client-side URL using a `'use client'` provider:
 
 ```tsx
-// app/providers.tsx
+// app/client-providers.tsx
 // Environment: client
 
 'use client'
@@ -57,7 +57,7 @@ import { config } from 'telefunc/client'
 
 config.telefuncUrl = '/api/telefunc'
 
-export function Providers({ children }: { children: React.ReactNode }) {
+export function ClientProviders({ children }: { children: React.ReactNode }) {
   return <>{children}</>
 }
 ```
@@ -65,13 +65,13 @@ export function Providers({ children }: { children: React.ReactNode }) {
 ```tsx
 // app/layout.tsx
 
-import { Providers } from './providers'
+import { ClientProviders } from './client-providers'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html>
       <body>
-        <Providers>{children}</Providers>
+        <ClientProviders>{children}</ClientProviders>
       </body>
     </html>
   )
@@ -79,6 +79,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 ```
 
 ## 5. Create a telefunction
+
+Create your first telefunction, for example:
 
 ```ts
 // components/TodoList.telefunc.ts
@@ -90,11 +92,11 @@ export async function onNewTodo({ text }: { text: string }) {
 }
 ```
 
-## 6. Call it from the client
+Call it from the client:
 
 ```tsx
 // components/TodoList.tsx
-// Environment: client
+// Environment: client & server
 
 import { onNewTodo } from './TodoList.telefunc'
 
