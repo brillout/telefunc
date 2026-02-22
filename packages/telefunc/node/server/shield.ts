@@ -317,8 +317,7 @@ const type = (() => {
   const any = ((): any => {
     const verifier = () => true as const
     markVerifier(verifier)
-    // TODO/now: date? Is that a bug?
-    verifier.toString = () => 'date'
+    verifier.toString = () => 'any'
     return verifier as any
   })()
 
