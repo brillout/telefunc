@@ -29,7 +29,7 @@ function serializeTelefunctionArguments(callContext: CallContext): string | Form
   if (files.length === 0) return dataMainSerialized
 
   const formData = new FormData()
-  // The FORM_DATA_MAIN_FIELD field MUST come first — the streaming parser needs it before the files metadata
+  // dataMainSerialized MUST come first — it contains the files metadata, which streaming needs before the files data
   formData.append(FORM_DATA_MAIN_FIELD, dataMainSerialized)
   for (const { key, value } of files) {
     formData.append(key, value)
