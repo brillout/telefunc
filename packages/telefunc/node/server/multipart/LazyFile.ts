@@ -3,7 +3,7 @@ export { LazyFile }
 export { isLazyBlob }
 export { isLazyFile }
 
-import type { MultipartReader } from './multipartReader.js'
+import type { MultipartReader } from './MultipartReader.js'
 import { assertUsage } from '../../../utils/assert.js'
 
 const LAZY_BLOB_BRAND = Symbol.for('telefunc.LazyBlob')
