@@ -18,7 +18,7 @@ type TelefuncHttpRequest =
       context?: Telefunc.Context
     }
   | {
-      /** A standard Request object. */
+      /** The request object. */
       request: Request
       /** The context object, see https://telefunc.com/getContext  */
       context?: Telefunc.Context
@@ -28,7 +28,7 @@ type TelefuncHttpRequest =
       url: string
       /** The method of the HTTP Request ('GET', 'POST', ...) */
       method: string
-      /** A Node.js Readable stream (e.g. from Express/Fastify req). */
+      /** The Node.js `req` readable stream. */
       readable: Readable
       /** The Content-Type header value */
       contentType: string
