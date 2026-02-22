@@ -6,37 +6,30 @@ We install Telefunc by using Telefunc's server middleware `telefunc()`:
 
 ```ts
 // server.ts
+// Environment: server
 
-// Server (Express.js/Fastify/...)
-
+import { Hono } from 'hono'
 import { telefunc } from 'telefunc'
 
-// Telefunc middleware
-app.all('/_telefunc', async (req: Request, res: Response) => {
+const app = new Hono()
+
+app.all('/_telefunc', async (c) => {
   const httpResponse = await telefunc({
-    // HTTP Request URL, which is '/_telefunc' if we didn't modify config.telefuncUrl
-    url: req.url,
-    // HTTP Request Method (GET, POST, ...)
-    method: req.method,
-    // HTTP Request Body, which can be a string, buffer, or stream
-    body: req.body,
+    // Pass the web standard Request object
+    request: c.req.raw,
     // Optional
     context: {
       /* Some context */
     }
   })
-  const { body, statusCode, contentType } = httpResponse
-  res.status(statusCode).type(contentType).send(body)
+  return new Response(httpResponse.body, {
+    status: httpResponse.statusCode,
+    headers: { 'content-type': httpResponse.contentType },
+  })
 })
 ```
 
-Or pass the [`Request`](https://developer.mozilla.org/en-US/docs/Web/API/Request) object directly:
-
-```ts
-const httpResponse = await telefunc({ request })
-```
-
-Or pass a Node.js [`Readable`](https://nodejs.org/api/stream.html#readable-streams) stream (useful for file uploads with Express/Fastify):
+With Express/Fastify, pass a Node.js [`Readable`](https://nodejs.org/api/stream.html#readable-streams) stream:
 
 ```ts
 const httpResponse = await telefunc({

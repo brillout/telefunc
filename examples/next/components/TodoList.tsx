@@ -1,3 +1,5 @@
+'use client'
+
 export { TodoList }
 
 import React, { useState } from 'react'

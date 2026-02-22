@@ -48,6 +48,12 @@ const headings = [
   },
   {
     level: 2,
+    title: 'Hono / Express / Fastify',
+    titleInNav: 'Hono',
+    url: '/hono',
+  },
+  {
+    level: 2,
     title: 'Next.js',
     url: '/next',
   },
@@ -78,8 +84,8 @@ const headings = [
   },
   {
     level: 2,
-    title: 'Other installations',
-    titleInNav: 'Other',
+    title: 'Custom bundler',
+    titleInNav: 'Custom bundler',
     url: '/install',
   },
   {

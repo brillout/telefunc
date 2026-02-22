@@ -4,8 +4,8 @@ import { telefunc, config } from 'telefunc'
 
 config.disableNamingConvention = true
 
-async function handleTelefunc({ url, method, body }) {
-  const httpResponse = await telefunc({ url, method, body })
+async function handleTelefunc(request) {
+  const httpResponse = await telefunc({ request })
   return new Response(httpResponse.body, {
     headers: { 'content-type': httpResponse.contentType },
     status: httpResponse.statusCode,

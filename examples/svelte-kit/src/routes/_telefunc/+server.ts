@@ -1,7 +1,7 @@
 import { telefunc } from 'telefunc'
 import type { RequestHandler } from './$types'
 
-const GET: RequestHandler = async (event) => {
+const handler: RequestHandler = async (event) => {
   const response = await telefunc({
     request: event.request,
     context: {
@@ -10,9 +10,8 @@ const GET: RequestHandler = async (event) => {
     },
   })
   return new Response(response.body, {
-    headers: new Headers({ contentType: response.contentType }),
+    headers: new Headers({ 'content-type': response.contentType }),
     status: response.statusCode,
   })
 }
-
-export { GET, GET as POST }
+export { handler as GET, handler as POST }

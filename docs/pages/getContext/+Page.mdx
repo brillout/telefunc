@@ -30,31 +30,32 @@ Before we can use `getContext()`, we need to provide the `context` object to <Li
 
 ```ts
 // server.ts
+// Environment: server
 
-// Server (Express.js/Fastify/...)
-
+import { Hono } from 'hono'
 import { telefunc } from 'telefunc'
 
-// Telefunc middleware
-app.all('/_telefunc', async (req: Request, res: Response) => {
-  // Authentication middlewares (e.g. Passport.js or Grant) usually provide information
-  // about the logged-in user on the `req` object:
-  const user = req.user
-  // Or when using a third-party authentication provider (e.g. Auth0):
-  // @docpress-uncomment const user = await authProviderApi.getUser(req.headers)
+const app = new Hono()
 
+// Auth middleware — sets the user on Hono's context
+app.use(async (c, next) => {
+  const user = await getUser(c)
+  c.set('user', user)
+  await next()
+})
+
+app.all('/_telefunc', async (c) => {
   const httpResponse = await telefunc({
+    request: c.req.raw,
     // We provide the context object here:
     context: {
-      user
+      user: c.get('user'),
     },
-    url: req.url,
-    method: req.method,
-    body: req.body
   })
-
-  const { body, statusCode, contentType } = httpResponse
-  res.status(statusCode).type(contentType).send(body)
+  return new Response(httpResponse.body, {
+    status: httpResponse.statusCode,
+    headers: { 'content-type': httpResponse.contentType },
+  })
 })
 ```
 

@@ -1,12 +1,12 @@
-> You usually define server-side configs (`import { config } from 'telefunc'`) at your server entry. For example if you use [Express.js](https://expressjs.com/):
+> You usually define server-side configs (`import { config } from 'telefunc'`) at your server entry. For example:
 > ```ts
 > // /server/index.ts
 > // Environment: server
 >
-> import express from 'express'
+> import { Hono } from 'hono'
 > import { config } from 'telefunc'
 >
-> const app = express()
+> const app = new Hono()
 >
 > // Config values can be set here
 > config.someServerSideSetting = 'some-value'
