@@ -54,8 +54,6 @@ async function parseHttpRequest(runContext: {
 
 // ===== Main parsing =====
 
-type Reviver = Parameters<typeof parse>[1] extends infer O ? (O extends { reviver?: infer R } ? R : never) : never
-
 /** Parse main payload, validate shape, and build a ParseResult. */
 function parseTelefuncPayload(
   text: string,
@@ -89,6 +87,7 @@ function parseTelefuncPayload(
     isMalformedRequest: false,
   }
 }
+type Reviver = Parameters<typeof parse>[1] extends infer O ? (O extends { reviver?: infer R } ? R : never) : never
 
 // ===== Multipart parsing =====
 
