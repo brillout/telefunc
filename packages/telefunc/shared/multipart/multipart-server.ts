@@ -1,7 +1,7 @@
 export { parseMultipartIndex }
 export { createMultipartReviver }
 
-import { TELEFUNC_FILE_PREFIX, TELEFUNC_BLOB_PREFIX, MULTIPART_PLACEHOLDER_KEY } from './constants.js'
+import { TELEFUNC_SERIALIZE_PREFIX_FILE, TELEFUNC_BLOB_PREFIX, MULTIPART_PLACEHOLDER_KEY } from './constants.js'
 
 /** Extract the numeric index from a multipart key (e.g. `__telefunc_multipart_2` → `2`). */
 function parseMultipartIndex(key: string): number {
@@ -18,8 +18,8 @@ function createMultipartReviver(callbacks: {
   createBlob: (descriptor: BlobDescriptor) => unknown
 }) {
   return (_key: undefined | string, value: string, parser: (str: string) => unknown) => {
-    if (value.startsWith(TELEFUNC_FILE_PREFIX)) {
-      const descriptor = parser(value.slice(TELEFUNC_FILE_PREFIX.length)) as FileDescriptor
+    if (value.startsWith(TELEFUNC_SERIALIZE_PREFIX_FILE)) {
+      const descriptor = parser(value.slice(TELEFUNC_SERIALIZE_PREFIX_FILE.length)) as FileDescriptor
       return { replacement: callbacks.createFile(descriptor) }
     }
     if (value.startsWith(TELEFUNC_BLOB_PREFIX)) {
