@@ -10,8 +10,8 @@ import {
   getTelefunctionKey,
   isProduction,
 } from '../utils.js'
-import { createMultipartReviver } from '../../../shared/multipart/multipart-server.js'
-import { FORM_DATA_MAIN_FIELD } from '../../../shared/multipart/constants.js'
+import { createMultipartReviver } from '../../../shared/multipart-serializer/multipart-server.js'
+import { FORM_DATA_MAIN_FIELD } from '../../../shared/multipart-serializer/constants.js'
 import { MultipartReader } from '../streaming/multipartReader.js'
 import { LazyBlob, LazyFile } from '../streaming/lazyFile.js'
 
