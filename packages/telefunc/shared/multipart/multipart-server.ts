@@ -1,6 +1,7 @@
 export { parseMultipartIndex }
 export { createMultipartReviver }
 
+import type { Reviver } from '@brillout/json-serializer/parse'
 import type { LazyBlob, LazyFile } from '../../node/server/streaming/lazyFile.js'
 import { SERIALIZER_PREFIX_FILE, SERIALIZER_PREFIX_BLOB, MULTIPART_PLACEHOLDER_KEY } from './constants.js'
 
@@ -20,7 +21,7 @@ type BlobMetadata = { key: string; size: number; type: string }
 function createMultipartReviver(callbacks: {
   createFile: (fileMetadata: FileMetadata) => LazyFile
   createBlob: (blobMetadata: BlobMetadata) => LazyBlob
-}) {
+}): Reviver {
   return (_key: undefined | string, value: string, parser: (str: string) => unknown) => {
     if (value.startsWith(SERIALIZER_PREFIX_FILE)) {
       const fileMetadata = parser(value.slice(SERIALIZER_PREFIX_FILE.length)) as FileMetadata

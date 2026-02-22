@@ -1,6 +1,6 @@
 export { parseHttpRequest }
 
-import { parse } from '@brillout/json-serializer/parse'
+import { parse, type Reviver } from '@brillout/json-serializer/parse'
 import {
   assertUsage,
   hasProp,
@@ -87,7 +87,6 @@ function parseTelefuncPayload(
     isMalformedRequest: false,
   }
 }
-type Reviver = Parameters<typeof parse>[1] extends infer O ? (O extends { reviver?: infer R } ? R : never) : never
 
 // ===== Multipart parsing =====
 
