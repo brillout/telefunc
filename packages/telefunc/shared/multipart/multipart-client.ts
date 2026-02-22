@@ -17,18 +17,24 @@ function createMultipartReplacer(callbacks: {
     if (value instanceof File) {
       const key = constructMultipartKey(nextIndex++)
       callbacks.onFile(key, value)
+      const fileMetadata = {
+        key,
+        name: value.name,
+        size: value.size,
+        type: value.type,
+        lastModified: value.lastModified,
+      }
       return {
-        replacement:
-          TELEFUNC_FILE_PREFIX +
-          serializer({ key, name: value.name, size: value.size, type: value.type, lastModified: value.lastModified }),
+        replacement: TELEFUNC_FILE_PREFIX + serializer(fileMetadata),
         resolved: true,
       }
     }
     if (value instanceof Blob) {
       const key = constructMultipartKey(nextIndex++)
       callbacks.onBlob(key, value)
+      const fileMetadata = { key, size: value.size, type: value.type }
       return {
-        replacement: TELEFUNC_BLOB_PREFIX + serializer({ key, size: value.size, type: value.type }),
+        replacement: TELEFUNC_BLOB_PREFIX + serializer(fileMetadata),
         resolved: true,
       }
     }
