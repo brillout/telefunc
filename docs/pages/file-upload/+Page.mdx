@@ -70,11 +70,61 @@ Each file argument is a standard [`File`](https://developer.mozilla.org/en-US/do
 
 ## Limitations
 
-> For best performance and efficiency, nothing is buffered internally — file bytes flow directly from the HTTP stream to your code. If you don't read a file argument, the file bytes never leave the sender (the user's browser). This zero-buffering design comes with following inherent limitations.
+For best performance and efficiency, nothing is buffered internally — file bytes flow directly from the HTTP stream to your code. If you don't read a file argument, the file bytes never leave the sender (the user's browser).
 
-**One-shot reads.** Each file can only be read once. Calling `.stream()`, `.text()`, or `.arrayBuffer()` a second time throws an error — the bytes have already been consumed from the HTTP stream. If you need the data multiple times, buffer it into a variable first.
+This zero-buffering design comes with the following inherent limitations.
 
-**Read in order.** When a telefunction has multiple file arguments (e.g. `file1` and `file2`), they must be consumed in the order they appear in the function signature — all files share a single forward-only HTTP stream (reading `file2` before `file1` would require buffering `file1` in memory). Reading out of order causes `file1` to be discarded (with a warning). You don't need to `await` each file before starting the next — you can kick off reads concurrently (e.g. `Promise.all([file1.text(), file2.text()])`) and they will be automatically streamed in the correct order.
+### One-shot reads
+
+Each file can only be read once — calling `.stream()`, `.text()`, or `.arrayBuffer()` a second time throws an error.
+
+> For efficiency, the HTTP stream isn't buffered and can therefore only be consumed once.
+
+If you need the data multiple times, buffer it into a variable first.
+
+### Read in order
+
+When a telefunction has multiple file arguments (e.g. `file1` and `file2`), they must be read in the order they appear in the function signature.
+
+> Reading out of order causes `file1` to be discarded (with a warning).
+
+> That's because all files share a single forward-only HTTP stream (reading `file2` before `file1` would require buffering `file1` in memory).
+
+That said, you don't need to `await` each file before starting reading the next — you can kick off reads concurrently (e.g. `Promise.all([file1.text(), file2.text()])`) and they will be automatically streamed in the correct order.
+
+
+```js
+// ✅ Works
+await file1.text()
+await file2.text()
+
+// ❌ Doesn't work
+await file2.text()
+await file1.text()
+```
+```js
+// ✅ Works
+file1.text()
+file2.text()
+
+// ❌ Doesn't work
+file2.text()
+file1.text()
+```
+```js
+// ✅ Works
+await Promise.all([
+  file1.stream().pipeTo(..)
+  file2.stream().pipeTo(..)
+])
+
+// ❌ Doesn't work
+await Promise.all([
+  file2.stream().pipeTo(..)
+  file1.stream().pipeTo(..)
+])
+```
+
 
 ## Server integration
 
