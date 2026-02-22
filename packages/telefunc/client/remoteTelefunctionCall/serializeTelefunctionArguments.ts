@@ -13,7 +13,7 @@ type CallContext = {
 }
 
 function serializeTelefunctionArguments(callContext: CallContext): string | FormData {
-  const bodyParsed = {
+  const dataObject = {
     file: callContext.telefuncFilePath,
     name: callContext.telefunctionName,
     args: callContext.telefunctionArgs,
@@ -25,12 +25,12 @@ function serializeTelefunctionArguments(callContext: CallContext): string | Form
     onBlob: (key, blob) => fileParts.push({ key, value: blob }),
   })
 
-  const serialized = serialize(bodyParsed, callContext, replacer)
-  if (fileParts.length === 0) return serialized
+  const dataObjectSerialized = serialize(dataObject, callContext, replacer)
+  if (fileParts.length === 0) return dataObjectSerialized
 
   // __telefunc metadata MUST come first — the streaming parser needs it before file data
   const formData = new FormData()
-  formData.append(TELEFUNC_METADATA_KEY, serialized)
+  formData.append(TELEFUNC_METADATA_KEY, dataObjectSerialized)
   for (const { key, value } of fileParts) {
     formData.append(key, value)
   }
