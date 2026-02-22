@@ -47,18 +47,6 @@ function FileUpload() {
 }
 ```
 
-{/* @brillout TODO/after-PR-merge move this section further below */}
-## How it works
-
-> You can skip reading this section. Read this only if you're curious.
-
-Telefunc uses a custom multipart stream parser — files are **not** buffered into memory on the server.
-
-1. The client serializes the telefunction call into a `multipart/form-data` request. File/Blob arguments are replaced with placeholder descriptors and sent as separate binary parts.
-2. On the server, Telefunc parses the metadata first, then creates lazy `File`/`Blob` objects that **reference the HTTP body stream** without reading it yet.
-3. When your telefunction calls `file.stream()`, `file.text()`, or `file.arrayBuffer()`, the bytes are pulled directly from the HTTP stream on demand.
-
-This means **file bytes only flow through memory when you read them** — and if you stream to disk, memory consumption is constant regardless of file size.
 
 ## Reading strategies
 
@@ -167,3 +155,16 @@ app.all('/_telefunc', async (req, res) => {
   res.status(httpResponse.statusCode).type(httpResponse.contentType).send(httpResponse.body)
 })
 ```
+
+
+## How it works
+
+> You can skip reading this section. Read this only if you're curious.
+
+Telefunc uses a custom multipart stream parser — files are **not** buffered into memory on the server.
+
+1. The client serializes the telefunction call into a `multipart/form-data` request. File/Blob arguments are replaced with placeholder descriptors and sent as separate binary parts.
+2. On the server, Telefunc parses the metadata first, then creates lazy `File`/`Blob` objects that **reference the HTTP body stream** without reading it yet.
+3. When your telefunction calls `file.stream()`, `file.text()`, or `file.arrayBuffer()`, the bytes are pulled directly from the HTTP stream on demand.
+
+This means **file bytes only flow through memory when you read them** — and if you stream to disk, memory consumption is constant regardless of file size.
