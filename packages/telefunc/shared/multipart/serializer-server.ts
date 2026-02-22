@@ -25,7 +25,7 @@ function createMultipartReviver(callbacks: {
   createBlob: (blobMetadata: BlobMetadata) => LazyBlob
 }): Reviver {
   return (_key: undefined | string, value: string, parser: (str: string) => unknown) => {
-    if (value.startsWith(SERIALIZER_PREFIX_FILE + 'BUG')) {
+    if (value.startsWith(SERIALIZER_PREFIX_FILE)) {
       const fileMetadata = parser(value.slice(SERIALIZER_PREFIX_FILE.length)) as FileMetadata
       return { replacement: callbacks.createFile(fileMetadata) }
     }
