@@ -278,7 +278,7 @@ async function run(sql) {
 }
 ```
 
-But we can use `throw Abort()` to protect it:
+But you can use `throw Abort()` to protect it:
 
 ```js
 // run.telefunc.js
@@ -301,7 +301,7 @@ async function run(sql) {
 
 > Telefunctions can access contextual information by using <Link href="/getContext">`getContext()`</Link>.
 
-We can use `throw Abort()` to avoid any forbidden telefunction call.
+You can use `throw Abort()` to avoid any forbidden telefunction call.
 
 ```js
 // TodoList.telefunc.js
@@ -332,7 +332,7 @@ async function onLoad() {
 
 ## `shield()`
 
-Since telefunctions are public and can be called by anyone, we cannot assuming anything about arguments. We can use `throw Abort()` to ensure the type of telefunction arguments:
+Since telefunctions are public and can be called by anyone, we cannot assuming anything about arguments. You can use `throw Abort()` to ensure the type of telefunction arguments:
 
 ```js
 // CreateTodo.telefunc.js
@@ -355,7 +355,7 @@ export async function onNewTodo(text) {
 }
 ```
 
-For more convenience, we can use `shield()` instead:
+For more convenience, you can use `shield()` instead:
 
 ```js
 // CreateTodo.telefunc.js
@@ -413,7 +413,7 @@ function Comment({ id, text }) {
 }
 ```
 
-Because the frontend shows the delete button only to admins, we can assume the user to be an admin whenever the frontend calls `onDelete()`.
+Because the frontend shows the delete button only to admins, you can assume the user to be an admin whenever the frontend calls `onDelete()`.
 But we still need to use `throw Abort()` in order to protect the telefunction against calls that don't originate from the frontend.
 
 ```js

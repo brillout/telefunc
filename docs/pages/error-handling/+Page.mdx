@@ -58,7 +58,7 @@ For example:
  - Some authentication libraries throw an error if the user isn't logged in.
  - Some validation libraries throw errors upon invalid data.
 
-We can:
+You can:
  1. Propagate the error to the frontend, or
  2. handle the error on the server-side.
 
@@ -66,7 +66,7 @@ We can:
 
 **1. Propagate the error to the frontend.**
 
-We can propagate error information to the frontend like this:
+You can propagate error information to the frontend like this:
 
 ```ts
 import { validate } from 'some-library'
@@ -82,7 +82,7 @@ function onFormSubmit(data) {
 }
 ```
 
-We can also use `throw Abort(someValue)`:
+You can also use `throw Abort(someValue)`:
 
 ```ts
 import { validate } from 'some-library'
@@ -109,7 +109,7 @@ Also see <Link href="/permissions#getcontext-wrapping" doNotInferSectionTitle={t
 
 **2. Handle the error on the server-side.**
 
-We can handle the thrown error at our Telefunc server middleware:
+You can handle the thrown error at our Telefunc server middleware:
 
 ```ts
 // server.ts

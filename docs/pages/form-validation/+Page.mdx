@@ -1,6 +1,6 @@
 When a user enters a form with invalid inputs, such as an invalid email address, then we want our UI to tell the user what went wrong.
 
-We can pass information about invalid inputs to the frontend by using `return someValue`:
+You can pass information about invalid inputs to the frontend by using `return someValue`:
 
 ```ts
 // SignUpForm.telefunc.ts
@@ -36,7 +36,7 @@ export async function onFormSubmit(email: string, password: string) {
 
 ## `throw Abort(someValue)`
 
-We can use `throw Abort(someValue)` instead of `return someValue`:
+You can use `throw Abort(someValue)` instead of `return someValue`:
 
 ```ts
 // SignUpForm.telefunc.ts

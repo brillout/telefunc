@@ -25,7 +25,7 @@ async function onTextChange(id: string, text: string) {
     throw Abort()
   }
 
-  // We can easily programmatically implement advanced permissions such
+  // You can easily programmatically implement advanced permissions such
   // as "only allow the author or admins to modify a to-do item".
   if (todoItem.authorId !== user.id && !user.isAdmin) {
     throw Abort()
@@ -65,7 +65,7 @@ function TodoItem({ id, text }: { id: string; text: string }) {
 
 ## `getContext()` wrapping
 
-To implement permission logic once and re-use it, we can define a `getContext()` wrapper:
+To implement permission logic once and re-use it, you can define a `getContext()` wrapper:
 
 ```ts
 // components/TodoItem.telefunc.ts

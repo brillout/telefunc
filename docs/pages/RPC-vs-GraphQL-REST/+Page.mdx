@@ -9,9 +9,9 @@ A GraphQL/RESTful API is only needed if:
  - We want to give third parties access to our database.
  - We are a very large company with highly complex databases.
 
-Otherwise, we can use RPC for a significant increase in development speed.
+Otherwise, you can use RPC for a significant increase in development speed.
 
-Contrary to common belief, we can use RPC while having
+Contrary to common belief, you can use RPC while having
 a decoupled frontend-backend development.
 </NoteWithoutIcon>
 
@@ -52,7 +52,7 @@ as we have seen in the last section,
 a GraphQL/RESTful API is generic which
 means that the frontend team can develop independently of the backend team.
 
-But we can as well achieve a decoupled frontend-backend development with RPC by using what we call a *Telefunc Server*.
+But you can as well achieve a decoupled frontend-backend development with RPC by using what we call a *Telefunc Server*.
 
 
 ## Telefunc Server
@@ -96,7 +96,7 @@ This means that the frontend developers need to make changes to the Node.js serv
 If we are a small team of full-stack developers, then such frontend-backend coupling is not a problem.
 But, as we grow, we may want to have a frontend team that develops independently of a backend team.
 
-We can achieve a decoupling by using a Telefunc Server: a dedicated Node.js server with the sole purpose of serving telefunctions.
+You can achieve a decoupling by using a Telefunc Server: a dedicated Node.js server with the sole purpose of serving telefunctions.
 
 The frontend and the Telefunc server are developed & deployed hand-in-hand,
 while the backend (another Node.js server, Ruby on Rails, ...) can be developed & deployed independently.
@@ -106,7 +106,7 @@ while the backend (another Node.js server, Ruby on Rails, ...) can be developed 
 
 Another common misbelief is that GraphQL/REST is required to develop several frontends.
 
-We can develop multiple frontends as well with RPC by having one [Telefunc Server](#telefunc-server) per frontend.
+You can develop multiple frontends as well with RPC by having one [Telefunc Server](#telefunc-server) per frontend.
 
 > The rise of edge computing,
 > such as Cloudflare Workers,
@@ -130,7 +130,7 @@ We essentially use GraphQL to abstract away the complexities of our databases.
 For performance-critical apps deployed at large scale,
 such as Twitter or Facebook,
 it is common to use several database technologies at once.
-We can then even use GraphQL to simplify the life of
+You can then even use GraphQL to simplify the life of
 not only the frontend developers but also the backend developers:
 the backend developers then also use the GraphQL API instead of directly accessing our databases.
 
@@ -144,8 +144,8 @@ which can become a crucial strategy at scale.
 ## Which one to choose?
 
 RPC enables our frontend to directly use ORM/SQL queries which is not only a fundamentally simpler approach,
-but also more powerful (we can achieve more with ORM/SQL queries than with GraphQL/RESTful queries).
-So we should use RPC whenever we can for a significant increase in development speed.
+but also more powerful (you can achieve more with ORM/SQL queries than with GraphQL/RESTful queries).
+So we should use RPC whenever you can for a significant increase in development speed.
 
 Also, RPC is a natural fit for the increasingly ubiquitous practice of full-stack development with frameworks such as Next.js.
 
