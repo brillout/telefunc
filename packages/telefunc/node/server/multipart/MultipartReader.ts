@@ -1,7 +1,7 @@
 export { MultipartReader }
 
-import { MultipartParser } from './multipartParser.js'
-import type { MultipartEvent } from './multipartParser.js'
+import { MultipartParser } from './MultipartParser.js'
+import type { MultipartEvent } from './MultipartParser.js'
 import { parseMultipartIndex } from '../../../shared/multipart-serializer/multipart-server.js'
 import { assert, assertUsage, assertWarning } from '../../../utils/assert.js'
 
