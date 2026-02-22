@@ -2,8 +2,8 @@ export { serializeTelefunctionArguments }
 
 import { stringify } from '@brillout/json-serializer/stringify'
 import { assert, assertUsage, lowercaseFirstLetter, hasProp } from '../utils.js'
-import { createMultipartReplacer } from '../../shared/multipart-serializer/serializer-client.js'
-import { FORM_DATA_MAIN_FIELD } from '../../shared/multipart-serializer/constants.js'
+import { createMultipartReplacer } from '../../shared/multipart/serializer-client.js'
+import { FORM_DATA_MAIN_FIELD } from '../../shared/multipart/constants.js'
 
 type CallContext = {
   telefuncFilePath: string
