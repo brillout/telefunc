@@ -3,6 +3,8 @@ import { MostlyMutations } from '../../components'
 
 Using Telefunc with [Vike](https://vike.dev/).
 
+> You can use [vike.dev/new](https://vike.dev/new) to scaffold a new Vike app that uses Telefunc.
+
 ## 1. Install
 
 ```bash
@@ -23,9 +25,9 @@ export default {
 }
 ```
 
-## 3. Server middleware
+## 3. Server integration
 
-With Vike, the Telefunc middleware is typically added as a universal middleware or directly in your server:
+Install Telefunc's server middleware <Link href="/telefunc">`telefunc()`</Link>, for example if you use Hono:
 
 ```ts
 // server.ts
@@ -47,6 +49,8 @@ app.all('/_telefunc', async (c) => {
 
 ## 4. Create a telefunction
 
+Create your first telefunction, for example:
+
 ```ts
 // pages/index/TodoList.telefunc.ts
 // Environment: server
@@ -57,7 +61,7 @@ export async function onNewTodo({ text }: { text: string }) {
 }
 ```
 
-## 5. Call it from the client
+Call it from the client:
 
 ```tsx
 // pages/index/TodoList.tsx
@@ -86,7 +90,7 @@ function TodoList() {
   toolName="Vike"
   builtInMechanism={
     <p>
-      For example, we can use Vike's <code>data()</code> hook to fetch initial data directly from a database,
+      For example, we can use Vike's <code>+data()</code> hook to fetch initial data directly from a database,
       see{' '}
       <a href="https://vike.dev/data-fetching">
         vike.dev &gt; Data Fetching

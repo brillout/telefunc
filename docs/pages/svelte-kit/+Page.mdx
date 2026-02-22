@@ -23,7 +23,7 @@ export default defineConfig({
 })
 ```
 
-## 3. Server middleware
+## 3. Server integration
 
 ```ts
 // src/routes/_telefunc/+server.ts
@@ -44,6 +44,8 @@ export { handler as GET, handler as POST }
 
 ## 4. Create a telefunction
 
+Create your first telefunction, for example:
+
 ```ts
 // src/routes/Counter.telefunc.ts
 // Environment: server
@@ -56,7 +58,7 @@ export async function onIncrement(diff: number) {
 
 > `.telefunc.ts` files are always server-only, regardless of where they are located. You don't need `$lib/server` or `.server`.
 
-## 5. Call it from the client
+Call it from the client:
 
 ```svelte
 <!-- src/routes/Counter.svelte -->
