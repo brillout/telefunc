@@ -12,8 +12,8 @@ import {
 } from '../utils.js'
 import { createMultipartReviver } from '../../../shared/multipart-serializer/multipart-server.js'
 import { FORM_DATA_MAIN_FIELD } from '../../../shared/multipart-serializer/constants.js'
-import { MultipartReader } from '../streaming/multipartReader.js'
-import { LazyBlob, LazyFile } from '../streaming/lazyFile.js'
+import { MultipartReader } from '../multipart/multipartReader.js'
+import { LazyBlob, LazyFile } from '../multipart/lazyFile.js'
 
 type ParseResult =
   | {
