@@ -12,17 +12,17 @@ function MostlyMutations({
   return (
     <>
       <p>
-        For fetching the initial data of pages (SSR data) we use {toolName}
-        's built-in data fetching mechanism instead of Telefunc.
+        For fetching the initial data of pages (SSR data), {toolName}
+        's built-in data fetching mechanism is used instead of Telefunc.
       </p>
       {builtInMechanism}
       <p>
-        We still use Telefunc for fetching data but only after the initial rendering of the page, for example for
+        Telefunc is still used for fetching data but only after the initial rendering of the page, for example for
         pagination or infinite scroll.
       </p>
       <blockquote>
         <p>
-          <b>In case you're curious</b>: we cannot use Telefunc for server-side rendered (SSR) data because only the
+          <b>In case you're curious</b>: you cannot use Telefunc for server-side rendered (SSR) data because only the
           framework can pass SSR data from the server to the client-side (which is needed for hydration). This is common
           to all SSR frameworks like {toolName}.
         </p>

@@ -102,7 +102,7 @@ export { onNewTodo }
 
 import { shield } from 'telefunc'
 
-// We'll talk about shield() later
+// shield() is explained later
 shield(onNewTodo, [shield.type.string])
 async function onNewTodo(text) {
   // ORM
@@ -314,7 +314,7 @@ import { Abort, getContext } from 'telefunc'
 async function onLoad() {
   const { user } = getContext()
 
-  // We forbid onLoad() to be called by a user that isn't logged-in
+  // Forbid onLoad() to be called by a user that isn't logged-in
   if (!user) throw Abort()
 
   const todoList = await Task.findMany({ authorId: user.id })
@@ -323,7 +323,7 @@ async function onLoad() {
 ```
 
 > Use `throw Abort()` to implement permission: only a logged-in user is allowed to fetch its to-do items.
-> We talk more about permissions at <Link href="/permissions" />.
+> More about permissions at <Link href="/permissions" />.
 
 > In principle, you could also `throw new Error()` instead of `throw Abort()` as it also interrupts the telefunction call. But it's recommended to use `throw Abort()` as it comes with many conveniences.
 

@@ -22,7 +22,7 @@ export async function getTodoList() {
 }
 ```
 
-By using `throw Abort()`, we are telling Telefunc that this is an error that is **expected** to happen (when a third-party makes an invalid or unprivileged telefunction call). Whereas `throw new Error()` is **unexpected**: it should never happen and, if it does happen, then it's a bug in your backend code.
+By using `throw Abort()`, you are telling Telefunc that this is an error that is **expected** to happen (when a third-party makes an invalid or unprivileged telefunction call). Whereas `throw new Error()` is **unexpected**: it should never happen and, if it does happen, then it's a bug in your backend code.
 
 For example, `throw Abort()` doesn't trigger `onBug()`, see <Link href="/error-handling#error-tracking" />.
 
@@ -50,7 +50,7 @@ function getUser({ permission }: { permission: string }) {
   if (!permission) {
     throw new Error('Wrong getUser() usage: missing permission')
   }
-  // We avoid typos (a typo like `admni` could have dramatic consequences)
+  // Avoids typos (a typo like `admni` could have dramatic consequences)
   if (!['public', 'admin'].includes(permission)) {
     throw new Error('Wrong getUser() usage: unknown permission ' + permission)
   }

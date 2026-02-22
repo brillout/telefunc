@@ -8,10 +8,11 @@ function EventBasedRecommendation({ samePage }: { samePage?: boolean }) {
     <>
       <blockquote>
         <p>
-          Opting out of the naming convention is perfectly fine, though we recommend having a clear reason for doing so.
+          Opting out of the naming convention is perfectly fine, though it's recommended to have a clear reason for
+          doing so.
         </p>
         <p>
-          We recommend reading{' '}
+          It's recommended to read{' '}
           {samePage ? <Link href="#example">the example above</Link> : <Link href="/event-based" />} before opting out.
           It explains why event-based telefunctions lead to increased:
         </p>
