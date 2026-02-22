@@ -1,6 +1,7 @@
 export { addTelefuncMiddleware }
 
 import { telefunc } from '../../server/index.js'
+import { nodeReadableToWebRequest } from '../../server/streaming/nodeReadableToWebRequest.js'
 import type { ViteDevServer } from 'vite'
 
 type ConnectServer = ViteDevServer['middlewares']
@@ -13,20 +14,7 @@ function addTelefuncMiddleware(middlewares: ConnectServer) {
 
     if (url !== '/_telefunc') return next()
 
-    const body = new ReadableStream({
-      start(controller) {
-        req.on('data', (chunk: Buffer) => controller.enqueue(new Uint8Array(chunk)))
-        req.on('end', () => controller.close())
-        req.on('error', (err) => controller.error(err))
-      },
-    })
-    const request = new Request('http://localhost/_telefunc', {
-      method: req.method!,
-      headers: req.headers as Record<string, string>,
-      body,
-      // @ts-ignore duplex required for streaming request bodies
-      duplex: 'half',
-    })
+    const request = nodeReadableToWebRequest(req, 'http://localhost/_telefunc', req.method!, req.headers)
 
     const httpResponse = await telefunc({ request })
     res.setHeader('Content-Type', httpResponse.contentType)
