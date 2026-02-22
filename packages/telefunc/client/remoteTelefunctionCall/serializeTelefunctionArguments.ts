@@ -13,25 +13,25 @@ type CallContext = {
 }
 
 function serializeTelefunctionArguments(callContext: CallContext): string | FormData {
-  const dataObject = {
+  const dataMain = {
     file: callContext.telefuncFilePath,
     name: callContext.telefunctionName,
     args: callContext.telefunctionArgs,
   }
 
-  const fileParts: { key: string; value: File | Blob }[] = []
+  const files: { key: string; value: File | Blob }[] = []
   const replacer = createMultipartReplacer({
-    onFile: (key, file) => fileParts.push({ key, value: file }),
-    onBlob: (key, blob) => fileParts.push({ key, value: blob }),
+    onFile: (key, file) => files.push({ key, value: file }),
+    onBlob: (key, blob) => files.push({ key, value: blob }),
   })
 
-  const dataObjectSerialized = serialize(dataObject, callContext, replacer)
-  if (fileParts.length === 0) return dataObjectSerialized
+  const dataMainSerialized = serialize(dataMain, callContext, replacer)
+  if (files.length === 0) return dataMainSerialized
 
   // __telefunc metadata MUST come first — the streaming parser needs it before file data
   const formData = new FormData()
-  formData.append(FORM_DATA_MAIN_FIELD, dataObjectSerialized)
-  for (const { key, value } of fileParts) {
+  formData.append(FORM_DATA_MAIN_FIELD, dataMainSerialized)
+  for (const { key, value } of files) {
     formData.append(key, value)
   }
   return formData
