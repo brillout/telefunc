@@ -39,21 +39,20 @@ class LazyBlob implements Blob {
 
   async arrayBuffer(): Promise<ArrayBuffer> {
     const bytes = await this.bytes()
-    return bytes.buffer.slice(bytes.byteOffset, bytes.byteOffset + bytes.byteLength) as ArrayBuffer
+    return bytes.buffer as ArrayBuffer
   }
 
   async bytes(): Promise<Uint8Array<ArrayBuffer>> {
     const stream = this.stream()
     const reader = stream.getReader()
-    const chunks: Uint8Array[] = []
     let total = 0
+    const chunks: Uint8Array[] = []
     while (true) {
       const { done, value } = await reader.read()
       if (done) break
       chunks.push(value)
       total += value.byteLength
     }
-    if (chunks.length === 1) return chunks[0] as Uint8Array<ArrayBuffer>
     const result = new Uint8Array(total)
     let offset = 0
     for (const c of chunks) {
