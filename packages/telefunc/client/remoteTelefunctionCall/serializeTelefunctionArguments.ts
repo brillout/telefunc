@@ -38,10 +38,10 @@ function serializeTelefunctionArguments(callContext: CallContext): string | Form
 }
 
 type Replacer = Parameters<typeof stringify>[1] extends infer O ? (O extends { replacer?: infer R } ? R : never) : never
-function serialize(bodyParsed: Record<string, unknown>, callContext: CallContext, replacer?: Replacer): string {
+function serialize(dataMain: Record<string, unknown>, callContext: CallContext, replacer?: Replacer): string {
   let serialized: string
   try {
-    serialized = stringify(bodyParsed, { forbidReactElements: true, replacer })
+    serialized = stringify(dataMain, { forbidReactElements: true, replacer })
   } catch (err) {
     assert(hasProp(err, 'message', 'string'))
     assertUsage(
