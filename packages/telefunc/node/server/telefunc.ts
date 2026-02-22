@@ -6,7 +6,7 @@ import { assertUsage, hasProp, isObject } from './utils.js'
 import { nodeReadableToWebRequest } from '../../utils/nodeReadableToWebRequest.js'
 import type { Readable } from 'node:stream'
 
-type TelefuncHttpRequest =
+type HttpRequest =
   | {
       /** The URL of the HTTP Request */
       url: string
@@ -39,7 +39,7 @@ type TelefuncHttpRequest =
 /** Get HTTP Response for a telefunction remote call HTTP Request.
  * @returns HTTP Response
  */
-async function telefunc(httpRequest: TelefuncHttpRequest): Promise<HttpResponse> {
+async function telefunc(httpRequest: HttpRequest): Promise<HttpResponse> {
   assertHttpRequest(httpRequest, arguments.length)
   const httpRequestResolved = await resolveHttpRequest(httpRequest)
   const httpResponse = await runTelefunc(httpRequestResolved)
@@ -47,7 +47,7 @@ async function telefunc(httpRequest: TelefuncHttpRequest): Promise<HttpResponse>
 }
 
 async function resolveHttpRequest(
-  httpRequest: TelefuncHttpRequest,
+  httpRequest: HttpRequest,
 ): Promise<{ request: Request; context?: Telefunc.Context }> {
   if ('request' in httpRequest) {
     return { request: httpRequest.request, context: httpRequest.context }
