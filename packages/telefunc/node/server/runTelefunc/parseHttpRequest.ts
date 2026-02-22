@@ -84,7 +84,7 @@ async function parseMultipartBody(
 
 type Reviver = Parameters<typeof parse>[1] extends infer O ? (O extends { reviver?: infer R } ? R : never) : never
 
-/** Parse the __telefunc JSON payload, validate shape, and build a ParseResult. */
+/** Parse FORM_DATA_MAIN_FIELD payload, validate shape, and build a ParseResult. */
 function parseTelefuncPayload(
   text: string,
   runContext: { logMalformedRequests: boolean },

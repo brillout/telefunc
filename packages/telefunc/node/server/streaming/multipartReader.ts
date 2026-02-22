@@ -23,7 +23,7 @@ class MultipartReader {
   #bodyReader: ReadableStreamDefaultReader<Uint8Array>
   #eventQueue: MultipartEvent[] = []
   #streamDone = false
-  /** Index of the next file part expected on the wire (0-based, excludes the __telefunc metadata part). */
+  /** Index of the next file part expected on the wire (0-based, excludes FORM_DATA_MAIN_FIELD). */
   #nextPartIndex = 0
   /** Promise chain that serializes concurrent consumePart() calls. */
   #queue: Promise<void> = Promise.resolve()
