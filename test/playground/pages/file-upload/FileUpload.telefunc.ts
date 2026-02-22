@@ -7,6 +7,7 @@ export {
   onReadTwice,
   onUploadOutOfOrder,
   onUploadBackpressure,
+  onUploadSlice,
 }
 
 /** Single file + text argument */
@@ -81,6 +82,14 @@ const onUploadBackpressure = async (file: File) => {
   }
   const elapsed = Date.now() - start
   return { totalBytes, chunkCount, elapsed }
+}
+
+/** Read a slice of a file */
+const onUploadSlice = async (file: File) => {
+  // 'hello world' (11 bytes) → slice(0,5) = 'hello'
+  const slice = file.slice(0, 5)
+  const content = await slice.text()
+  return { content, sliceSize: slice.size, originalSize: file.size }
 }
 
 /** Read files out of order — file1 should be drained and unreadable */

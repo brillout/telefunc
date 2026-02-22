@@ -14,32 +14,14 @@ function isLazyFile(value: unknown): value is LazyFile {
   return typeof value === 'object' && value !== null && (value as any)[LAZY_FILE_BRAND] === true
 }
 
-/**
- * A Blob backed by a pull-based MultipartReader.
- *
- * `size` and `type` are available immediately from metadata.
- * Body data is pulled from the stream on demand — no background pump.
- * Each instance is **one-shot**: once consumed, further reads throw.
- */
-class LazyBlob implements Blob {
-  readonly size: number
-  readonly type: string
-  readonly [LAZY_BLOB_BRAND] = true
-
-  #reader: MultipartReader
-  #partKey: string
-  #consumed = false
-
-  constructor(reader: MultipartReader, partKey: string, metadata: { size: number; type: string }) {
-    this.#reader = reader
-    this.#partKey = partKey
-    this.size = metadata.size
-    this.type = metadata.type
-  }
+/** Shared Blob implementation — subclasses only provide `stream()`. */
+abstract class BaseStreamBlob implements Blob {
+  abstract readonly size: number
+  abstract readonly type: string
+  abstract stream(): ReadableStream<Uint8Array<ArrayBuffer>>
 
   async arrayBuffer(): Promise<ArrayBuffer> {
-    const bytes = await this.bytes()
-    return bytes.buffer
+    return (await this.bytes()).buffer
   }
 
   async bytes(): Promise<Uint8Array<ArrayBuffer>> {
@@ -63,14 +45,49 @@ class LazyBlob implements Blob {
   }
 
   async text(): Promise<string> {
-    const bytes = await this.bytes()
-    return new TextDecoder().decode(bytes)
+    return new TextDecoder().decode(await this.bytes())
+  }
+
+  slice(start?: number, end?: number, contentType?: string): Blob {
+    const size = this.size
+    const relStart = start === undefined ? 0 : start < 0 ? Math.max(size + start, 0) : Math.min(start, size)
+    const relEnd = end === undefined ? size : end < 0 ? Math.max(size + end, 0) : Math.min(end, size)
+    const sliceSize = Math.max(relEnd - relStart, 0)
+    return new SlicedBlob(this, relStart, sliceSize, contentType ?? '')
+  }
+
+  get [Symbol.toStringTag](): string {
+    return 'Blob'
+  }
+}
+
+/**
+ * A Blob backed by a pull-based MultipartReader.
+ *
+ * `size` and `type` are available immediately from metadata.
+ * Body data is pulled from the stream on demand — no background pump.
+ * Each instance is **one-shot**: once consumed, further reads throw.
+ */
+class LazyBlob extends BaseStreamBlob {
+  readonly size: number
+  readonly type: string
+  readonly [LAZY_BLOB_BRAND] = true
+
+  #reader: MultipartReader
+  #partKey: string
+  #consumed = false
+
+  constructor(reader: MultipartReader, partKey: string, metadata: { size: number; type: string }) {
+    super()
+    this.#reader = reader
+    this.#partKey = partKey
+    this.size = metadata.size
+    this.type = metadata.type
   }
 
   stream(): ReadableStream<Uint8Array<ArrayBuffer>> {
     assertUsage(!this.#consumed, 'Stream has already been consumed. Each streaming Blob/File can only be read once.')
     this.#consumed = true
-    // consumePart() returns a Promise<ReadableStream> — unwrap it lazily
     let inner: ReadableStreamDefaultReader<Uint8Array>
     return new ReadableStream<Uint8Array<ArrayBuffer>>({
       start: async () => {
@@ -86,16 +103,54 @@ class LazyBlob implements Blob {
       },
     })
   }
+}
 
-  slice(_start?: number, _end?: number, _contentType?: string): Blob {
-    assertUsage(
-      false,
-      'slice() is not supported on streaming file uploads. Use arrayBuffer() or text() to read the full content first, then create a new Blob to slice.',
-    )
+/** A byte-range view over a parent stream blob. Consuming the slice consumes the parent. */
+class SlicedBlob extends BaseStreamBlob {
+  readonly size: number
+  readonly type: string
+
+  #parent: BaseStreamBlob
+  #start: number
+
+  constructor(parent: BaseStreamBlob, start: number, size: number, type: string) {
+    super()
+    this.#parent = parent
+    this.#start = start
+    this.size = size
+    this.type = type
   }
 
-  get [Symbol.toStringTag](): string {
-    return 'Blob'
+  stream(): ReadableStream<Uint8Array<ArrayBuffer>> {
+    const parentReader = this.#parent.stream().getReader()
+    let pos = 0
+    const start = this.#start
+    const end = start + this.size
+    return new ReadableStream<Uint8Array<ArrayBuffer>>({
+      pull: async (controller) => {
+        while (true) {
+          const { done, value } = await parentReader.read()
+          if (done) {
+            controller.close()
+            return
+          }
+          const from = Math.max(start - pos, 0)
+          const to = Math.min(end - pos, value.byteLength)
+          pos += value.byteLength
+          if (to > from) {
+            controller.enqueue(value.subarray(from, to) as Uint8Array<ArrayBuffer>)
+          }
+          if (pos >= end) {
+            controller.close()
+            await parentReader.cancel()
+            return
+          }
+        }
+      },
+      cancel: async () => {
+        await parentReader.cancel()
+      },
+    })
   }
 }
 

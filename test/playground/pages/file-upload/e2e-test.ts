@@ -61,6 +61,14 @@ function testFileUpload() {
     })
   })
 
+  test('file upload: file.slice()', async () => {
+    await page.click('#test-slice')
+    await autoRetry(async () => {
+      const result = JSON.parse((await page.textContent('#upload-result'))!)
+      expect(result).deep.equal({ content: 'hello', sliceSize: 5, originalSize: 11 })
+    })
+  })
+
   test('file upload: one-shot read (read twice throws)', async () => {
     await page.click('#test-read-twice')
     await autoRetry(async () => {

@@ -10,6 +10,7 @@ import {
   onReadTwice,
   onUploadOutOfOrder,
   onUploadBackpressure,
+  onUploadSlice,
 } from './FileUpload.telefunc'
 
 function FileUpload() {
@@ -89,6 +90,16 @@ function FileUpload() {
         }}
       >
         Backpressure
+      </button>
+
+      <button
+        id="test-slice"
+        onClick={async () => {
+          const res = await onUploadSlice(file('slice.txt', 'hello world'))
+          setResult(JSON.stringify(res))
+        }}
+      >
+        file.slice()
       </button>
 
       <button

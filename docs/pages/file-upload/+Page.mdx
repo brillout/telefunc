@@ -70,13 +70,11 @@ Each file argument is a standard [`File`](https://developer.mozilla.org/en-US/do
 
 ## Limitations
 
-**One-shot reads.** Each file can only be read once. Calling `.stream()`, `.text()`, or `.arrayBuffer()` a second time throws an error. If you need the data multiple times, buffer it into a variable first.
+> Nothing is buffered internally — file bytes flow directly from the HTTP stream to your code. If you don't read a file argument, its bytes never leave the sender. This zero-buffering design comes with a few inherent trade-offs:
 
-**Read in order.** When a telefunction has multiple file arguments, they must be read in the order they appear in the function signature. This is because all files share a single forward-only HTTP stream — reading file2 before file1 causes file1 to be discarded (with a warning).
+**One-shot reads.** Each file can only be read once. Calling `.stream()`, `.text()`, or `.arrayBuffer()` a second time throws an error — the bytes have already been consumed from the HTTP stream. If you need the data multiple times, buffer it into a variable first.
 
-**No `slice()`.** `file.slice()` is not supported on streaming files. Buffer the content first if you need slicing.
-
-**Sequential streaming.** Multiple files are streamed one after another. You can start both streams concurrently and they will be automatically serialized.
+**Read in order.** When a telefunction has multiple file arguments, they must be consumed in the order they appear in the function signature — all files share a single forward-only HTTP stream, so reading file2 before file1 would require buffering file1 in memory. Reading out of order causes file1 to be discarded (with a warning). You don't need to `await` each file before starting the next — you can kick off reads concurrently (e.g. `Promise.all([file1.text(), file2.text()])`) and they will be automatically serialized in the correct order.
 
 ## Server integration
 
@@ -84,4 +82,18 @@ Pass the [`Request`](https://developer.mozilla.org/en-US/docs/Web/API/Request) o
 
 ```ts
 const httpResponse = await telefunc({ request })
+```
+
+With Express, Fastify, or any Node.js framework, you can pass the request as a [`Readable`](https://nodejs.org/api/stream.html#readable-streams) stream along with the `Content-Type` header:
+
+```ts
+app.all('/_telefunc', async (req, res) => {
+  const httpResponse = await telefunc({
+    url: req.originalUrl,
+    method: req.method,
+    readable: req,
+    contentType: req.headers['content-type'] || '',
+  })
+  res.status(httpResponse.statusCode).type(httpResponse.contentType).send(httpResponse.body)
+})
 ```
