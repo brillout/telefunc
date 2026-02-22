@@ -3,7 +3,7 @@ export { serializeTelefunctionArguments }
 import { stringify } from '@brillout/json-serializer/stringify'
 import { assert, assertUsage, lowercaseFirstLetter, hasProp } from '../utils.js'
 import { createMultipartReplacer } from '../../shared/multipart/multipart-client.js'
-import { TELEFUNC_METADATA_KEY } from '../../shared/multipart/constants.js'
+import { FORM_DATA_MAIN_FIELD } from '../../shared/multipart/constants.js'
 
 type CallContext = {
   telefuncFilePath: string
@@ -30,7 +30,7 @@ function serializeTelefunctionArguments(callContext: CallContext): string | Form
 
   // __telefunc metadata MUST come first — the streaming parser needs it before file data
   const formData = new FormData()
-  formData.append(TELEFUNC_METADATA_KEY, dataObjectSerialized)
+  formData.append(FORM_DATA_MAIN_FIELD, dataObjectSerialized)
   for (const { key, value } of fileParts) {
     formData.append(key, value)
   }

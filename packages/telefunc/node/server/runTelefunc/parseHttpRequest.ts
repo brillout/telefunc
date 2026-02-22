@@ -11,7 +11,7 @@ import {
   isProduction,
 } from '../utils.js'
 import { createMultipartReviver } from '../../../shared/multipart/multipart-server.js'
-import { TELEFUNC_METADATA_KEY } from '../../../shared/multipart/constants.js'
+import { FORM_DATA_MAIN_FIELD } from '../../../shared/multipart/constants.js'
 import { MultipartReader } from '../streaming/multipartReader.js'
 import { LazyBlob, LazyFile } from '../streaming/lazyFile.js'
 
@@ -67,7 +67,7 @@ async function parseMultipartBody(
 ): Promise<ParseResult> {
   const reader = new MultipartReader(bodyStream, boundary)
 
-  const metaText = await reader.readNextPartAsText(TELEFUNC_METADATA_KEY)
+  const metaText = await reader.readNextPartAsText(FORM_DATA_MAIN_FIELD)
   if (metaText === null) {
     logParseError('The multipart request body is missing the `__telefunc` field.', runContext)
     return { isMalformedRequest: true }
