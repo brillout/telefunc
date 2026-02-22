@@ -1,4 +1,7 @@
-export { LazyBlob, LazyFile, isLazyBlob, isLazyFile }
+export { LazyBlob }
+export { LazyFile }
+export { isLazyBlob }
+export { isLazyFile }
 
 import type { MultipartReader } from './multipartReader.js'
 import { assertUsage } from '../../../utils/assert.js'
