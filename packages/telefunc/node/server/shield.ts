@@ -4,7 +4,7 @@ export { shieldApply }
 export { shieldToHumandReadable }
 
 import { isPlainObject, unique, isCallable, assert, assertUsage } from './utils.js'
-import { isLazyFile, isLazyBlob } from './multipart/lazyFile.js'
+import { isLazyFile, isLazyBlob } from './multipart/LazyFile.js'
 
 const shieldKey = '__telefunc_shield'
 const isVerifierKey = '__telefunc_isVerifier'
