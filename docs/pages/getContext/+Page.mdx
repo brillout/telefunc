@@ -1,4 +1,6 @@
 import { Link, CodeBlockTransformer } from '@brillout/docpress'
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs'
+import '../../components/tabs.css'
 
 **Environment**: server.
 
@@ -30,9 +32,14 @@ Before we can use `getContext()`, we need to provide the `context` object to the
 - <Link href="/server" />
 - <Link href="/telefunc" />
 
-// TODO/ai use react-tabs to toggle between Hono and Express.js — see https://github.com/vikejs/vike/blob/3faa3d308366e583e479385fafd42a171d81dcc8/docs/pages/migration/vike-photon/+Page.mdx#L2-L3
+For example:
 
-For example, with Hono or Express.js:
+<Tabs>
+  <TabList>
+    <Tab>Hono</Tab>
+    <Tab>Express.js</Tab>
+  </TabList>
+  <TabPanel>
 
 ```ts
 // server/index.ts
@@ -77,6 +84,9 @@ app.use(async (c, next) => {
 > See also:
 > - [Hono Guides > Middleware > Extending the Context in Middleware](https://hono.dev/docs/guides/middleware#extending-the-context-in-middleware)
 
+  </TabPanel>
+  <TabPanel>
+
 ```ts
 // server/index.ts
 // Environment: server
@@ -112,6 +122,9 @@ app.all('/_telefunc', async (req: Request, res: Response) => {
   res.status(statusCode).type(contentType).send(body)
 })
 ```
+
+  </TabPanel>
+</Tabs>
 
 ## Access
 

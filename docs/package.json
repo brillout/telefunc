@@ -13,6 +13,7 @@
     "@vitejs/plugin-react-swc": "^4.2.1",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "react-tabs": "^6.1.0",
     "telefunc": "0.2.18",
     "typescript": "^5.9.3",
     "vike": "0.4.246-commit-bb4b6db"
