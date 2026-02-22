@@ -2,7 +2,7 @@ import { Link } from '@brillout/docpress'
 
 **Environment**: server.
 
-We use `shield()` to guarantee the type of telefunction arguments. (As explained in <Link href="/RPC" />,
+You use `shield()` to guarantee the type of telefunction arguments. (As explained in <Link href="/RPC" />,
 telefunctions are public and need protection.)
 
 ```js
@@ -21,27 +21,27 @@ async function onNewTodo(text) {
 }
 ```
 
-> If we use TypeScript, then Telefunc automatically defines `shield()`, see <Link href="#typescript-automatic" />.
+> If you use TypeScript, then Telefunc automatically defines `shield()`, see <Link href="#typescript-automatic" />.
 
 
 ## TypeScript - Automatic
 
-If we use TypeScript, then Telefunc automatically generates `shield()` for each telefunction.
+If you use TypeScript, then Telefunc automatically generates `shield()` for each telefunction.
 
 In other words: telefunction argument types are automatically validated at runtime:
 
 ```ts ts-only
 // hello.telefunc.ts
 
-// We don't need to define a shield() when using TypeScript: Telefunc automatically generates
-// it for us. For example here, Telefunc automatically aborts the telefunction call if the
+// No need to define a shield() when using TypeScript: Telefunc automatically generates
+// it. For example here, Telefunc automatically aborts the telefunction call if the
 // argument is `hello({ name: 42 })` and throws an error that `name` should be a `number`.
 export async function hello({ name }: { name: string }) {
   return `Welcome to Telefunc, ${name}.`
 }
 ```
 
-With Telefunc, not only can we seamlessly re-use types across our frontend and backend code, but we also get automatic type-safety at runtime. If we use a TypeScript ORM (e.g. [Prisma](https://www.prisma.io/)) or SQL builder (e.g. [Kysely](https://github.com/koskimas/kysely) and [others](https://github.com/stars/brillout/lists/sql)), then we get end-to-end type safety all the way from database to frontend.
+With Telefunc, not only can you seamlessly re-use types across your frontend and backend code, but you also get automatic type-safety at runtime. If you use a TypeScript ORM (e.g. [Prisma](https://www.prisma.io/)) or SQL builder (e.g. [Kysely](https://github.com/koskimas/kysely) and [others](https://github.com/stars/brillout/lists/sql)), then you get end-to-end type safety all the way from database to frontend.
 
 > For a faster development, Telefunc doesn't generate `shield()` and your telefunction arguments aren't validated during development.
 > Telefunc only generates `shield()` upon building your app for production.
@@ -49,12 +49,12 @@ With Telefunc, not only can we seamlessly re-use types across our frontend and b
 
 > Telefunc's automatic `shield()` generation only works for stacks that transpile server-side code (Next.js, Vite, Vike, SvelteKit, Nuxt, etc.).
 >
-> For stacks that don't transpile server-side code (e.g. React Native and Parcel), we need to define `shield()` manually ourselves: see <Link href="#typescript-manual" />.
+> For stacks that don't transpile server-side code (e.g. React Native and Parcel), you need to define `shield()` manually: see <Link href="#typescript-manual" />.
 
 
 ## TypeScript - Manual
 
-If we define `shield()` manually (instead of using Telefunc's automatic `shield()` generator as described in <Link href="#typescript-automatic" />), then note that we don't need to define the arguments type twice:
+If you define `shield()` manually (instead of using Telefunc's automatic `shield()` generator as described in <Link href="#typescript-automatic" />), then note that you don't need to define the arguments type twice:
 
 ```ts ts-only
 import { shield } from 'telefunc'

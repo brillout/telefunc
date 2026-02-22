@@ -6,8 +6,8 @@ import { Link, NoteWithoutIcon, NoteWithCustomIcon } from '@brillout/docpress'
 <b>TL;DR</b>
 
 A GraphQL/RESTful API is only needed if:
- - We want to give third parties access to our database.
- - We are a very large company with highly complex databases.
+ - You want to give third parties access to your database.
+ - You are a very large company with highly complex databases.
 
 Otherwise, you can use RPC for a significant increase in development speed.
 
@@ -19,7 +19,7 @@ a decoupled frontend-backend development.
 ## Third Parties
 
 The most eminent use case for REST and GraphQL is giving
-third parties access to our database.
+third parties access to your database.
 
 For example, Facebook's API is used by ~200k third parties.
 It makes sense that Facebook uses (and invented) GraphQL,
@@ -30,14 +30,14 @@ GraphQL/RESTful APIs are generic:
 they are meant to serve frontends without knowing the frontends' data query/mutation requirements.
 
 In contrast,
-as we discussed in <Link href="/event-based" />,
-telefunctions (RPC endpoints) are tailored to our frontend's UI components.
-This means that our telefunctions are only useful for our frontend and
+as discussed in <Link href="/event-based" />,
+telefunctions (RPC endpoints) are tailored to your frontend's UI components.
+This means that your telefunctions are only useful for your frontend and
 third parties cannot use them to build third-party frontends.
 
 <NoteWithCustomIcon icon={<span style={{fontSize: "1.1em"}}>⚗️</span>}>
   <b>Research Area</b>.
-  It is theoretically possible to also use RPC for giving third parties access to our database,
+  It is theoretically possible to also use RPC for giving third parties access to your database,
   but this has not been done so far.
   Reach out to the Telefunc maintainers if you are interested in exploring this topic.
 </NoteWithCustomIcon>
@@ -48,17 +48,17 @@ third parties cannot use them to build third-party frontends.
 A common misbelief is that GraphQL/REST is required to decouple the frontend development from the backend development.
 
 It is true that GraphQL/REST induces a decoupling:
-as we have seen in the last section,
+as seen in the last section,
 a GraphQL/RESTful API is generic which
 means that the frontend team can develop independently of the backend team.
 
-But you can as well achieve a decoupled frontend-backend development with RPC by using what we call a *Telefunc Server*.
+But you can as well achieve a decoupled frontend-backend development with RPC by using what is called a *Telefunc Server*.
 
 
 ## Telefunc Server
 
-We usually install Telefunc as a Node.js server middleware.
-This induces a tight coupling between our frontend and our Node.js server.
+You usually install Telefunc as a Node.js server middleware.
+This induces a tight coupling between your frontend and your Node.js server.
 
 For example, let's consider this telefunction:
 
@@ -88,13 +88,13 @@ export async function getInitialData() {
 }
 ~~~
 
-If we change our `<TodoList>` component to also show the to-do items' creation date,
-then we need to change the SQL query of our `getInitialData()` telefunction from `SELECT id, text` to `SELECT id, text, created_at`.
+If you change your `<TodoList>` component to also show the to-do items' creation date,
+then you need to change the SQL query of your `getInitialData()` telefunction from `SELECT id, text` to `SELECT id, text, created_at`.
 
 This means that the frontend developers need to make changes to the Node.js server and re-deploy it.
 
-If we are a small team of full-stack developers, then such frontend-backend coupling is not a problem.
-But, as we grow, we may want to have a frontend team that develops independently of a backend team.
+If you are a small team of full-stack developers, then such frontend-backend coupling is not a problem.
+But, as you grow, you may want to have a frontend team that develops independently of a backend team.
 
 You can achieve a decoupling by using a Telefunc Server: a dedicated Node.js server with the sole purpose of serving telefunctions.
 
@@ -124,15 +124,15 @@ The databases of large companies can become too complex for
 the frontend team.
 
 Instead of the frontend team directly accessing the databases with Telefunc & SQL/ORM queries,
-we create a GraphQL API that is simpler to use.
-We essentially use GraphQL to abstract away the complexities of our databases.
+you can create a GraphQL API that is simpler to use.
+You essentially use GraphQL to abstract away the complexities of your databases.
 
 For performance-critical apps deployed at large scale,
 such as Twitter or Facebook,
 it is common to use several database technologies at once.
 You can then even use GraphQL to simplify the life of
 not only the frontend developers but also the backend developers:
-the backend developers then also use the GraphQL API instead of directly accessing our databases.
+the backend developers then also use the GraphQL API instead of directly accessing your databases.
 
 A GraphQL API enables an independent database development
 which can become a crucial strategy at scale.
@@ -143,14 +143,14 @@ which can become a crucial strategy at scale.
 
 ## Which one to choose?
 
-RPC enables our frontend to directly use ORM/SQL queries which is not only a fundamentally simpler approach,
+RPC enables your frontend to directly use ORM/SQL queries which is not only a fundamentally simpler approach,
 but also more powerful (you can achieve more with ORM/SQL queries than with GraphQL/RESTful queries).
-So we should use RPC whenever you can for a significant increase in development speed.
+So you should use RPC whenever you can for a significant increase in development speed.
 
 Also, RPC is a natural fit for the increasingly ubiquitous practice of full-stack development with frameworks such as Next.js.
 
-On the other hand, we need GraphQL/REST if we need to
-give third parties access to our database.
+On the other hand, you need GraphQL/REST if you need to
+give third parties access to your database.
 
 Also, using a GraphQL API can be a crucial strategy for very large companies with highly complex databases.
 

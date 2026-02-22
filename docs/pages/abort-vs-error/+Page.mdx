@@ -22,7 +22,7 @@ export async function getTodoList() {
 }
 ```
 
-By using `throw Abort()`, we are telling Telefunc that this is an error that is **expected** to happen (when a third-party makes an invalid or unprivileged telefunction call). Whereas `throw new Error()` is **unexpected**: it should never happen and, if it does happen, then it's a bug in our backend code.
+By using `throw Abort()`, we are telling Telefunc that this is an error that is **expected** to happen (when a third-party makes an invalid or unprivileged telefunction call). Whereas `throw new Error()` is **unexpected**: it should never happen and, if it does happen, then it's a bug in your backend code.
 
 For example, `throw Abort()` doesn't trigger `onBug()`, see <Link href="/error-handling#error-tracking" />.
 
@@ -30,8 +30,8 @@ For example, `throw Abort()` doesn't trigger `onBug()`, see <Link href="/error-h
 ## Rule
 
 The rule for a correct usage is:
- - We use **`throw Abort()`** for errors originating from a **wrong public usage** of a telefunction.
- - We use **`throw new Error()`** for errors originating from a **wrong internal usage** of a function.
+ - Use **`throw Abort()`** for errors originating from a **wrong public usage** of a telefunction.
+ - Use **`throw new Error()`** for errors originating from a **wrong internal usage** of a function.
 
 
 ## Example
@@ -92,4 +92,4 @@ export async function onCommentDelete(id: number) {
 
 It is expected that `throw Abort()` can occur, since `onCommentDelete()` is a public function anyone can call while not being an admin.
 
-Whereas `throw new Error('Wrong getUser() usage')` is expected to *not* occur: if we make a typo and call `getUser({ permission: 'admni' })` then it's an internal bug in our backend that we should fix.
+Whereas `throw new Error('Wrong getUser() usage')` is expected to *not* occur: if you make a typo and call `getUser({ permission: 'admni' })` then it's an internal bug in your backend that you should fix.

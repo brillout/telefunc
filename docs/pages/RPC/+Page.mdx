@@ -48,7 +48,7 @@ The central aspect here is that `hello()` is always executed on the server side,
 
 ## ORM & SQL
 
-As we have seen in the previous section, telefunctions always run on the server-side and can therefore use server utilities such as SQL and ORMs.
+As seen in the previous section, telefunctions always run on the server-side and can therefore use server utilities such as SQL and ORMs.
 
 ```js
 // TodoList.telefunc.js
@@ -72,7 +72,7 @@ async function onLoad() {
 // TodoList.jsx
 // Environment: client
 
-// This doesn't actually load CreateTodo.telefunc.js which we'll explain in the next section
+// This doesn't actually load CreateTodo.telefunc.js — explained in the next section
 import { onLoad } from './TodoList.telefunc.js'
 
 async function TodoList() {
@@ -88,7 +88,7 @@ async function TodoList() {
 }
 ```
 
-> We name and co-locate `TodoList.telefunc.js` next to `TodoList.jsx` — a practice explained at <Link href="/event-based" />.
+> Name and co-locate `TodoList.telefunc.js` next to `TodoList.jsx` — a practice explained at <Link href="/event-based" />.
 
 > While the examples here use JSX, Telefunc works with any UI framework (React, Vue, Svelte, Solid, ...).
 
@@ -223,7 +223,7 @@ while the browser-side can remotely call it in a seamless fashion.
 
 Anyone — not just your frontend — can remotely call your telefunctions.
 
-For example, anyone can call the `hello()` telefunction we've seen in the previous section by opening a Linux terminal and making this HTTP request:
+For example, anyone can call the `hello()` telefunction seen in the previous section by opening a Linux terminal and making this HTTP request:
 
 ```bash
 curl https://your-website.com/_telefunc --data '{
@@ -258,12 +258,12 @@ curl https://your-website.com/_telefunc --data '{
 
 Always keep in mind that your **telefunctions are public** and you must **always protect your telefunctions**.
 
-In the sections below <Link href="#throw-abort"/> and <Link href="#shield" /> we explain how to achieve that.
+In the sections below <Link href="#throw-abort"/> and <Link href="#shield" /> it's explained how to achieve that.
 
 
 ## `throw Abort()`
 
-As we've seen in the previous section,
+As seen in the previous section,
 the following telefunction isn't safe.
 
 ```js
@@ -322,17 +322,17 @@ async function onLoad() {
 }
 ```
 
-> We essentially use `throw Abort()` to implement permission: only a logged-in user is allowed to fetch its to-do items.
+> Use `throw Abort()` to implement permission: only a logged-in user is allowed to fetch its to-do items.
 > We talk more about permissions at <Link href="/permissions" />.
 
-> In principle, we could also `throw new Error()` instead of `throw Abort()` as it also interrupts the telefunction call. But we recommend `throw Abort()` as it comes with many conveniences.
+> In principle, you could also `throw new Error()` instead of `throw Abort()` as it also interrupts the telefunction call. But it's recommended to use `throw Abort()` as it comes with many conveniences.
 
 > If, upon aborting a telefunction call, you want to pass information to the frontend then use `return someValue` or `throw Abort(someValue)`, see <Link href="/permissions" />.
 
 
 ## `shield()`
 
-Since telefunctions are public and can be called by anyone, we cannot assuming anything about arguments. You can use `throw Abort()` to ensure the type of telefunction arguments:
+Since telefunctions are public and can be called by anyone, you cannot assume anything about arguments. You can use `throw Abort()` to ensure the type of telefunction arguments:
 
 ```js
 // CreateTodo.telefunc.js
@@ -347,7 +347,7 @@ export async function onNewTodo(text) {
   // because onNewTodo() is public, anyone can call onNewTodo(undefined) instead.
   text = text.toUpperCase()
 
-  // ✅ We ensure `text` is a string
+  // ✅ Ensures `text` is a string
   if (typeof text !== 'string') {
     throw Abort()
   }
@@ -383,7 +383,7 @@ export async function onNewTodo({ text, isCompleted }) {
 }
 ```
 
-Not only does `shield()` call `throw Abort()` on our behalf, but it also infers the type of the arguments for TypeScript and IntelliSense.
+Not only does `shield()` call `throw Abort()` on your behalf, but it also infers the type of the arguments for TypeScript and IntelliSense.
 
 <Link href="/shield#typescript-automatic">When using TypeScript, Telefunc can automatically generate `shield()` for each telefunction.</Link>
 
@@ -414,7 +414,7 @@ function Comment({ id, text }) {
 ```
 
 Because the frontend shows the delete button only to admins, you can assume the user to be an admin whenever the frontend calls `onDelete()`.
-But we still need to use `throw Abort()` in order to protect the telefunction against calls that don't originate from the frontend.
+But you still need to use `throw Abort()` in order to protect the telefunction against calls that don't originate from the frontend.
 
 ```js
 // Comment.telefunc.js
@@ -427,7 +427,7 @@ export async function onDelete(id) {
   const { user } = getContext()
 
   // onDelete() is public and anyone can call it without being an admin.
-  // We must abort if that happens.
+  // Abort if that happens.
   if (!user.isAdmin) throw Abort()
 
   // ...
@@ -460,6 +460,6 @@ export async function onTodoComplete(id) {
 
 > Even with GraphQL, the client must specify and send the list of fields that the server needs to return. This isn't needed with RPC — that information is implicitly defined by the telefunction name (i.e. the information is compressed).
 
-For efficient telefunctions, we recommend creating tailored telefunctions instead of generic ones — see <Link href="/event-based" />.
+For efficient telefunctions, it's recommended to create tailored telefunctions instead of generic ones — see <Link href="/event-based" />.
 
 > Telefunc newcomers often make the mistake of creating generic telefunctions — a habit that comes from using REST or GraphQL.

@@ -15,7 +15,7 @@ import { getContext, Abort } from 'telefunc'
 async function onTextChange(id: string, text: string) {
   const { user } = getContext()
   if (!user) {
-    // We return `notLoggedIn: true` so that the frontend can redirect the user to the login page
+    // Return `notLoggedIn: true` so that the frontend can redirect the user to the login page
     return { notLoggedIn: true }
   }
 
@@ -34,8 +34,8 @@ async function onTextChange(id: string, text: string) {
 }
 ```
 
-In general, we use `throw Abort()` upon permission denials but, sometimes, the frontend needs to know why the the telefunction call failed:
-in this example we return `{ notLoggedIn: true }` instead of `throw Abort()` so that the frontend can perform a redirection:
+In general, use `throw Abort()` upon permission denials but, sometimes, the frontend needs to know why the the telefunction call failed:
+in this example returning `{ notLoggedIn: true }` instead of `throw Abort()` so that the frontend can perform a redirection:
 
 ```tsx
 // TodoItem.tsx

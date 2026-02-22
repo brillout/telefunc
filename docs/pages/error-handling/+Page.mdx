@@ -99,9 +99,9 @@ function onFormSubmit(data) {
 }
 ```
 
-In general, we recommend using `return { someValue }` instead of `throw Abort(someValue)`, see explanation at <Link href="/form-validation#throw-abort-somevalue" doNotInferSectionTitle={true} />.
+In general, it's recommended to use `return { someValue }` instead of `throw Abort(someValue)`, see explanation at <Link href="/form-validation#throw-abort-somevalue" doNotInferSectionTitle={true} />.
 
-> We need to catch the error and use `throw Abort(someValue)` because Telefunc doesn't send the original `Error` object to the frontend (in order to avoid leaking sensitive information).
+> The error needs to be caught and `throw Abort(someValue)` used because Telefunc doesn't send the original `Error` object to the frontend (in order to avoid leaking sensitive information).
 
 Also see <Link href="/permissions#getcontext-wrapping" doNotInferSectionTitle={true} />.
 
@@ -109,7 +109,7 @@ Also see <Link href="/permissions#getcontext-wrapping" doNotInferSectionTitle={t
 
 **2. Handle the error on the server-side.**
 
-You can handle the thrown error at our Telefunc server middleware:
+You can handle the thrown error at your Telefunc server middleware:
 
 ```ts
 // server.ts
@@ -123,7 +123,7 @@ app.all('/_telefunc', async (req: Request, res: Response) => {
   const httpResponse = await telefunc(/* ... */)
   // Telefunc exposes any error thrown by a telefunction at httpResponse.err
   if (httpResponse.err) {
-    // Our error handling
+    // Error handling
   }
 })
 ```
@@ -133,7 +133,7 @@ Also see <Link href="/getContext#provide" />.
 
 ## Network Errors
 
-If the user's browser can't connect to our server:
+If the user's browser can't connect to your server:
 
 ```html
 <!-- index.html -->
@@ -150,7 +150,7 @@ If the user's browser can't connect to our server:
         if (err.isConnectionError) {
           // There is a network problem:
           //  - the user isn't connected to the internet, or
-          //  - our server is down.
+          //  - your server is down.
           console.log(err.message) // Prints 'No Server Connection'
         }
       }

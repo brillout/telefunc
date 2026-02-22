@@ -55,7 +55,7 @@ const app = new Hono()
 app.all('/_telefunc', async (c) => {
   const httpResponse = await telefunc({
     request: c.req.raw,
-    // We provide the context object here:
+    // Provide the context object here:
     context: {
       user: c.get('user')
     }
@@ -109,7 +109,7 @@ app.all('/_telefunc', async (req: Request, res: Response) => {
   const user2 = await authProviderApi.getUser(req.headers)
 
   const httpResponse = await telefunc({
-    // We provide the context object here:
+    // Provide the context object here:
     context: {
       user
     },
@@ -143,7 +143,7 @@ Then this means that `getContext()` was called after an `await` operator:
 
 export async function myTelefunction() {
   await something()
-  // ❌ Bad: we should call getContext() before `await something()`
+  // ❌ Bad: call getContext() before `await something()`
   const context = getContext()
 }
 ```
@@ -154,7 +154,7 @@ Make sure to call `getContext()` before any `await` operators:
 // TodoList.telefunc.ts
 
 export async function myTelefunction() {
-  // ✅ Good: we call getContext() before `await`
+  // ✅ Good: call getContext() before `await`
   const context = getContext()
   await something()
 }

@@ -19,7 +19,7 @@ With Telefunc, it's usually the opposite — telefunctions are:
 
 This inversion is at the cornerstone of using Telefunc proficiently.
 
-You may be tempted to create generic telefunctions but we recommend against it. Instead, we recommend implementing what we call *event-based telefunctions*.
+You may be tempted to create generic telefunctions but it's recommended against it. Instead, implement what is called *event-based telefunctions*.
 
 ```ts
 // database/todo.telefunc.ts
@@ -43,8 +43,8 @@ export async function onTodoCompleted(id: number) {
 }
 ```
 
-In the example below, we explain why event-based telefunctions lead to increased:
- - Development speed (while we explain how to keep telefunctions DRY)
+In the example below, the reasons why event-based telefunctions lead to increased:
+ - Development speed (while keeping telefunctions DRY)
  - Security
  - Performance
 
@@ -100,10 +100,10 @@ The telefunction `onMarkAllAsCompleted()` is tailored: it's created specifically
 
 #### Convention
 
-We recommend naming telefunctions `onSomeEvent()` (see <Link href="#naming-convention"/>), because telefunction calls are always triggered by some kind of event — typically a user action, such as the user clicking on a button.
+It's recommended to name telefunctions `onSomeEvent()` (see <Link href="#naming-convention"/>), because telefunction calls are always triggered by some kind of event — typically a user action, such as the user clicking on a button.
 
 ```shell
-# Also: we recommend co-locating .telefunc.js files
+# Also: co-locate .telefunc.js files
 components/TodoList.telefunc.ts # telefunctions for <TodoList>
 components/TodoList.tsx # <TodoList> implementation
 ```
@@ -201,7 +201,7 @@ When a telefunction is tightly coupled with a component:
  - The telefunction can allow only what is strictly required by the component.
    > A cornerstone of security is to grant only the permissions that are strictly required.
 
-That's why we recommend event-based telefunctions, along with the naming convention to ensure telefunctions are tightly coupled to components.
+That's why event-based telefunctions are recommended, along with the naming convention to ensure telefunctions are tightly coupled to components.
 
 > If there are two UI components that could use the exact same telefunction — wouldn't it be nice to create a single telefunction instead of duplicating the same telefunction?
 > - It's a rare situation (UI components usually have slightly different requirements).
@@ -221,7 +221,7 @@ That's why we recommend event-based telefunctions, along with the naming convent
 
 ## Naming convention
 
-As explained in <Link href="#example">the example above</Link>, for a clear structure and proficient Telefunc usage, we recommend the following convention.
+As explained in <Link href="#example">the example above</Link>, for a clear structure and proficient Telefunc usage, the following convention is recommended.
 
 Name telefunctions `onSomeEvent()`:
 
