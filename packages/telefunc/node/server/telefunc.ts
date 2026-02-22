@@ -6,6 +6,11 @@ import { assertUsage, hasProp, isObject } from './utils.js'
 import { nodeReadableToWebRequest } from '../../utils/nodeReadableToWebRequest.js'
 import type { Readable } from 'node:stream'
 
+type HttpRequestResolved = {
+  request: Request
+  context?: Telefunc.Context
+}
+
 type HttpRequest =
   | {
       /** The URL of the HTTP Request */
@@ -46,9 +51,7 @@ async function telefunc(httpRequest: HttpRequest): Promise<HttpResponse> {
   return httpResponse
 }
 
-async function resolveHttpRequest(
-  httpRequest: HttpRequest,
-): Promise<{ request: Request; context?: Telefunc.Context }> {
+async function resolveHttpRequest(httpRequest: HttpRequest): Promise<HttpRequestResolved> {
   if ('request' in httpRequest) {
     return { request: httpRequest.request, context: httpRequest.context }
   }

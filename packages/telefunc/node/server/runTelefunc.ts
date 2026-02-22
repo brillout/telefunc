@@ -66,9 +66,9 @@ const malformedRequest = {
   etag: null,
 } as const
 
-async function runTelefunc(runContext: Parameters<typeof runTelefunc_>[0]): Promise<HttpResponse> {
+async function runTelefunc(httpRequestResolved: Parameters<typeof runTelefunc_>[0]): Promise<HttpResponse> {
   try {
-    return await runTelefunc_(runContext)
+    return await runTelefunc_(httpRequestResolved)
   } catch (err: unknown) {
     callBugListeners(err)
     handleError(err)
