@@ -41,8 +41,8 @@ type TelefuncHttpRequest =
  */
 async function telefunc(httpRequest: TelefuncHttpRequest): Promise<HttpResponse> {
   assertHttpRequest(httpRequest, arguments.length)
-  const resolved = await resolveHttpRequest(httpRequest)
-  const httpResponse = await runTelefunc(resolved)
+  const httpRequestResolved = await resolveHttpRequest(httpRequest)
+  const httpResponse = await runTelefunc(httpRequestResolved)
   return httpResponse
 }
 

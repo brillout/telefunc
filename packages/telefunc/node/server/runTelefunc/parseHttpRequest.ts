@@ -32,30 +32,24 @@ async function parseHttpRequest(runContext: {
     telefuncUrl: string
   }
 }): Promise<ParseResult> {
-  const { request } = runContext
+  assertUrl(runContext)
 
-  assertUrl(request, runContext)
-
-  if (isWrongMethod(request, runContext)) {
+  if (isWrongMethod(runContext)) {
     return { isMalformedRequest: true }
   }
 
+  const { request } = runContext
   const contentType = request.headers.get('content-type') || ''
   const isMultipart = contentType.includes('multipart/form-data')
-  if (isMultipart) {
+  if (!isMultipart) {
+    const text = await request.text()
+    return parseTelefuncPayload(text, runContext)
+  } else {
     assert(request.body)
     const boundary = getBoundary(contentType)
     assert(boundary, 'The multipart request is missing a boundary in the Content-Type header.')
     return parseMultipartBody(request.body, boundary, runContext)
   }
-
-  const text = await request.text()
-  return parseTelefuncPayload(text, runContext)
-}
-
-function getBoundary(contentType: string): string | null {
-  const match = contentType.match(/boundary=(?:"([^"]+)"|([^\s;]+))/)
-  return match ? match[1] || match[2] || null : null
 }
 
 // ===== Multipart (streaming) body =====
@@ -80,11 +74,11 @@ async function parseMultipartBody(
   return parseTelefuncPayload(metaText, runContext, reviver)
 }
 
-// ===== Shared parsing =====
+// ===== Main parsing =====
 
 type Reviver = Parameters<typeof parse>[1] extends infer O ? (O extends { reviver?: infer R } ? R : never) : never
 
-/** Parse FORM_DATA_MAIN_FIELD payload, validate shape, and build a ParseResult. */
+/** Parse main payload, validate shape, and build a ParseResult. */
 function parseTelefuncPayload(
   text: string,
   runContext: { logMalformedRequests: boolean },
@@ -95,10 +89,7 @@ function parseTelefuncPayload(
     parsed = parse(text, { reviver })
   } catch (err: unknown) {
     logParseError(
-      [
-        "The telefunc request body couldn't be parsed.",
-        !hasProp(err, 'message') ? null : `Parse error: ${err.message}.`,
-      ]
+      ["Telefunc request body couldn't be parsed.", !hasProp(err, 'message') ? null : `Parse error: ${err.message}.`]
         .filter(Boolean)
         .join(' '),
       runContext,
@@ -107,7 +98,7 @@ function parseTelefuncPayload(
   }
 
   if (!hasProp(parsed, 'file', 'string') || !hasProp(parsed, 'name', 'string') || !hasProp(parsed, 'args', 'array')) {
-    logParseError('The telefunc request body has unexpected content.', runContext)
+    logParseError('Telefunc request body has unexpected content', runContext)
     return { isMalformedRequest: true }
   }
 
@@ -121,21 +112,33 @@ function parseTelefuncPayload(
   }
 }
 
-// ===== Shared helpers =====
+// ===== Helpers =====
 
-function isWrongMethod(request: Request, runContext: { logMalformedRequests: boolean }) {
-  if (['POST', 'post'].includes(request.method)) {
+function getBoundary(contentType: string): string | null {
+  const match = contentType.match(/boundary=(?:"([^"]+)"|([^\s;]+))/)
+  return match ? match[1] || match[2] || null : null
+}
+
+function isWrongMethod(runContext: { request: Request; logMalformedRequests: boolean }) {
+  const { method } = runContext.request
+  if (['POST', 'post'].includes(method)) {
     return false
   }
+  assert(typeof method === 'string')
   logParseError(
-    ['The HTTP request method', 'should be `POST` (or `post`) but', `\`method === '${request.method}'\`.`].join(' '),
+    [
+      //
+      'The HTTP request method',
+      'should be `POST` (or `post`) but',
+      `\`method === '${method}'\`.`,
+    ].join(' '),
     runContext,
   )
   return true
 }
 
-function assertUrl(request: Request, runContext: { serverConfig: { telefuncUrl: string } }) {
-  const urlPathname = getUrlPathname(request.url)
+function assertUrl(runContext: { request: Request; serverConfig: { telefuncUrl: string } }) {
+  const urlPathname = getUrlPathname(runContext.request.url)
   assertUsage(
     urlPathname === runContext.serverConfig.telefuncUrl,
     `telefunc({ url }): The pathname of \`url\` is \`${urlPathname}\` but it's expected to be \`${runContext.serverConfig.telefuncUrl}\`. Either make sure that \`url\` is the HTTP request URL, or set \`config.telefuncUrl\` to \`${urlPathname}\`.`,
