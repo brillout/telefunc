@@ -63,7 +63,7 @@ In general, we recommend using `return { someValue }` instead of `throw Abort(so
     try {
       /* ... */
     } catch (err: unknown) {
-      // cast err
+      // err needs to be casted
       const errCasted = (err as ValidationError | SomeOtherError)
     }
     ```
