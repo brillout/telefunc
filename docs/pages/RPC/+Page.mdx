@@ -72,7 +72,7 @@ async function onLoad() {
 // TodoList.jsx
 // Environment: client
 
-// This doesn't actually load CreateTodo.telefunc.js — explained in the next section
+// This doesn't actually load CreateTodo.telefunc.js which we'll explain in the next section
 import { onLoad } from './TodoList.telefunc.js'
 
 async function TodoList() {
@@ -88,7 +88,7 @@ async function TodoList() {
 }
 ```
 
-> Name and co-locate `TodoList.telefunc.js` next to `TodoList.jsx` — a practice explained at <Link href="/event-based" />.
+> `TodoList.telefunc.js` is named and co-located next to `TodoList.jsx` — a practice explained at <Link href="/event-based" />.
 
 > While the examples here use JSX, Telefunc works with any UI framework (React, Vue, Svelte, Solid, ...).
 
@@ -102,7 +102,7 @@ export { onNewTodo }
 
 import { shield } from 'telefunc'
 
-// shield() is explained later
+// We'll explain shield() later
 shield(onNewTodo, [shield.type.string])
 async function onNewTodo(text) {
   // ORM
@@ -223,7 +223,7 @@ while the browser-side can remotely call it in a seamless fashion.
 
 Anyone — not just your frontend — can remotely call your telefunctions.
 
-For example, anyone can call the `hello()` telefunction seen in the previous section by opening a Linux terminal and making this HTTP request:
+For example, anyone can call the `hello()` telefunction we've seen in the previous section by opening a Linux terminal and making this HTTP request:
 
 ```bash
 curl https://your-website.com/_telefunc --data '{
@@ -258,12 +258,12 @@ curl https://your-website.com/_telefunc --data '{
 
 Always keep in mind that your **telefunctions are public** and you must **always protect your telefunctions**.
 
-In the sections below <Link href="#throw-abort"/> and <Link href="#shield" /> it's explained how to achieve that.
+In the sections below <Link href="#throw-abort"/> and <Link href="#shield" /> we explain how to achieve that.
 
 
 ## `throw Abort()`
 
-As seen in the previous section,
+As explained in the previous section above,
 the following telefunction isn't safe.
 
 ```js

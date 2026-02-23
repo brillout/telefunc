@@ -7,7 +7,7 @@ import { Link, NoteWithoutIcon, NoteWithCustomIcon } from '@brillout/docpress'
 
 A GraphQL/RESTful API is only needed if:
  - You want to give third parties access to your database.
- - You are a very large company with highly complex databases.
+ - You are a very large company with very complex databases.
 
 Otherwise, you can use RPC for a significant increase in development speed.
 
@@ -52,7 +52,7 @@ as seen in the last section,
 a GraphQL/RESTful API is generic which
 means that the frontend team can develop independently of the backend team.
 
-But you can as well achieve a decoupled frontend-backend development with RPC by using what is called a *Telefunc Server*.
+But you can as well achieve a decoupled frontend-backend development with RPC by using what we call a *Telefunc Server*.
 
 
 ## Telefunc Server
@@ -111,7 +111,7 @@ You can develop multiple frontends as well with RPC by having one [Telefunc Serv
 > The rise of edge computing,
 > such as Cloudflare Workers,
 > makes Telefunc Servers
-> highly performant,
+> very performant,
 > cheap (with generous free tiers),
 > and easy to set up.
 
@@ -124,7 +124,7 @@ The databases of large companies can become too complex for
 the frontend team.
 
 Instead of the frontend team directly accessing the databases with Telefunc & SQL/ORM queries,
-you can create a GraphQL API that is simpler to use.
+you create a GraphQL API that is simpler to use.
 You essentially use GraphQL to abstract away the complexities of your databases.
 
 For performance-critical apps deployed at large scale,
@@ -152,6 +152,6 @@ Also, RPC is a natural fit for the increasingly ubiquitous practice of full-stac
 On the other hand, you need GraphQL/REST if you need to
 give third parties access to your database.
 
-Also, using a GraphQL API can be a crucial strategy for very large companies with highly complex databases.
+Also, using a GraphQL API can be a crucial strategy for very large companies with very complex databases.
 
 In general, a sensible default is to start with RPC and use GraphQL/REST only when the need arises.

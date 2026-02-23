@@ -34,8 +34,8 @@ async function onTextChange(id: string, text: string) {
 }
 ```
 
-In general, use `throw Abort()` upon permission denials but, sometimes, the frontend needs to know why the the telefunction call failed:
-in this example returning `{ notLoggedIn: true }` instead of `throw Abort()` so that the frontend can perform a redirection:
+In general, use `throw Abort()` upon permission denials but, sometimes, the frontend needs to know why the telefunction call failed:
+in this example `{ notLoggedIn: true }` is returned instead of `throw Abort()` so that the frontend can perform a redirection:
 
 ```tsx
 // TodoItem.tsx

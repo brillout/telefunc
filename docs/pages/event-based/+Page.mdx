@@ -43,8 +43,8 @@ export async function onTodoCompleted(id: number) {
 }
 ```
 
-In the example below, the reasons why event-based telefunctions lead to increased:
- - Development speed (while keeping telefunctions DRY)
+In the example below, we explain why event-based telefunctions lead to increased:
+ - Development speed (while we explain how to keep telefunctions DRY)
  - Security
  - Performance
 
@@ -103,7 +103,7 @@ The telefunction `onMarkAllAsCompleted()` is tailored: it's created specifically
 We recommend naming telefunctions `onSomeEvent()` (see <Link href="#naming-convention"/>), because telefunction calls are always triggered by some kind of event — typically a user action, such as the user clicking on a button.
 
 ```shell
-# Also: co-locate .telefunc.js files
+# Also: we recommend co-locating .telefunc.js files
 components/TodoList.telefunc.ts # telefunctions for <TodoList>
 components/TodoList.tsx # <TodoList> implementation
 ```
