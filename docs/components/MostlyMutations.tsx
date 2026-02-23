@@ -12,12 +12,12 @@ function MostlyMutations({
   return (
     <>
       <p>
-        For fetching the initial data of pages (SSR data), {toolName}
-        's built-in data fetching mechanism is used instead of Telefunc.
+        For fetching the initial data of pages (SSR data) use {toolName}
+        's built-in data fetching mechanism instead of Telefunc.
       </p>
       {builtInMechanism}
       <p>
-        Telefunc is still used for fetching data but only after the initial rendering of the page, for example for
+        You can still use Telefunc for fetching data but only after the initial rendering of the page, for example for
         pagination or infinite scroll.
       </p>
       <blockquote>

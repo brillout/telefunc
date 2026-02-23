@@ -101,7 +101,7 @@ function onFormSubmit(data) {
 
 In general, we recommend using `return { someValue }` instead of `throw Abort(someValue)`, see explanation at <Link href="/form-validation#throw-abort-somevalue" doNotInferSectionTitle={true} />.
 
-> The error needs to be caught and `throw Abort(someValue)` used because Telefunc doesn't send the original `Error` object to the frontend (in order to avoid leaking sensitive information).
+> You need to catch the error and use `throw Abort(someValue)` because Telefunc doesn't send the original `Error` object to the frontend (in order to avoid leaking sensitive information).
 
 Also see <Link href="/permissions#getcontext-wrapping" doNotInferSectionTitle={true} />.
 
