@@ -325,7 +325,7 @@ async function onLoad() {
 > Use `throw Abort()` to implement permission: only a logged-in user is allowed to fetch its to-do items.
 > More about permissions at <Link href="/permissions" />.
 
-> In principle, you could also `throw new Error()` instead of `throw Abort()` as it also interrupts the telefunction call. But it's recommended to use `throw Abort()` as it comes with many conveniences.
+> In principle, you could also `throw new Error()` instead of `throw Abort()` as it also interrupts the telefunction call. But we recommend `throw Abort()` as it comes with many conveniences.
 
 > If, upon aborting a telefunction call, you want to pass information to the frontend then use `return someValue` or `throw Abort(someValue)`, see <Link href="/permissions" />.
 
@@ -460,6 +460,6 @@ export async function onTodoComplete(id) {
 
 > Even with GraphQL, the client must specify and send the list of fields that the server needs to return. This isn't needed with RPC — that information is implicitly defined by the telefunction name (i.e. the information is compressed).
 
-For efficient telefunctions, it's recommended to create tailored telefunctions instead of generic ones — see <Link href="/event-based" />.
+For efficient telefunctions, we recommend creating tailored telefunctions instead of generic ones — see <Link href="/event-based" />.
 
 > Telefunc newcomers often make the mistake of creating generic telefunctions — a habit that comes from using REST or GraphQL.
