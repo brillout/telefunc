@@ -40,7 +40,7 @@ importers:
     dependencies:
       '@brillout/docpress':
         specifier: ^0.16.17
-        version: 0.16.17(@algolia/client-search@5.31.0)(@types/react@19.2.2)(@vitejs/plugin-react-swc@4.2.1(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(rollup@4.44.0)(search-insights@2.17.3)(typescript@5.9.3)(vike@0.4.246-commit-bb4b6db(react-streaming@0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0))
+        version: 0.16.17(@algolia/client-search@5.31.0)(@types/react@19.2.2)(@vitejs/plugin-react-swc@4.2.1(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(rollup@4.44.0)(search-insights@2.17.3)(typescript@5.9.3)(vike@0.4.254(react-streaming@0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0))
       '@types/react':
         specifier: ^19.2.2
         version: 19.2.2
@@ -66,8 +66,8 @@ importers:
         specifier: ^5.9.3
         version: 5.9.3
       vike:
-        specifier: 0.4.246-commit-bb4b6db
-        version: 0.4.246-commit-bb4b6db(react-streaming@0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0))
+        specifier: ^0.4.254
+        version: 0.4.254(react-streaming@0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0))
 
   examples/authentication:
     dependencies:
@@ -1341,6 +1341,9 @@ packages:
 
   '@brillout/picocolors@1.0.29':
     resolution: {integrity: sha512-EKkqdFJD+CeP6GfpZNcWcCCXS5o0HFXhwISoN5JnHG/kplVE2MmF23eKtl4JRKU1rkR7s3kFIKiJf15aV/Uodg==}
+
+  '@brillout/picocolors@1.0.30':
+    resolution: {integrity: sha512-xJjdgyN1H0qh2nB2xlzazIipiDixuUd9oD5msh/Qv5bXJG9j8MSD/m4lREt6Z10ej6FF31b8vB4tdT7lDUbiyA==}
 
   '@brillout/release-me@0.4.5':
     resolution: {integrity: sha512-U5SdlYZjl5bVWFzYiPgy6Sm+nq4OkNdLdpycl0NbICtScNwnejX2WYdXZ96gRYrchHpKxEmFSyspTQhzYETvzA==}
@@ -6455,8 +6458,8 @@ packages:
       vite:
         optional: true
 
-  vike@0.4.246-commit-bb4b6db:
-    resolution: {integrity: sha512-bs34Zz1Hjq1wbJfeOwhlZ64vXpveLULcGYuPkHeXoYioj7mJWnskxOEp/6re0Ksv01biT5nnr/cLBoqJ5Qfatw==}
+  vike@0.4.254:
+    resolution: {integrity: sha512-SAOMSguscIg8HUDfufdpQd+lfiso8MhD9SyCUO9DqpMPS5KErPd8EvE5fxiMfLOeuQLzXNdBK8zpE6vSHXt/LA==}
     engines: {node: '>=20.19.0'}
     hasBin: true
     peerDependencies:
@@ -7932,7 +7935,7 @@ snapshots:
   '@biomejs/cli-win32-x64@1.9.4':
     optional: true
 
-  '@brillout/docpress@0.16.17(@algolia/client-search@5.31.0)(@types/react@19.2.2)(@vitejs/plugin-react-swc@4.2.1(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(rollup@4.44.0)(search-insights@2.17.3)(typescript@5.9.3)(vike@0.4.246-commit-bb4b6db(react-streaming@0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0))':
+  '@brillout/docpress@0.16.17(@algolia/client-search@5.31.0)(@types/react@19.2.2)(@vitejs/plugin-react-swc@4.2.1(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(rollup@4.44.0)(search-insights@2.17.3)(typescript@5.9.3)(vike@0.4.254(react-streaming@0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0))':
     dependencies:
       '@brillout/picocolors': 1.0.29
       '@docsearch/css': 3.9.0
@@ -7952,7 +7955,7 @@ snapshots:
       shiki: 1.2.0
       typescript: 5.9.3
       unist-util-visit: 5.0.0
-      vike: 0.4.246-commit-bb4b6db(react-streaming@0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0))
+      vike: 0.4.254(react-streaming@0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0))
     optionalDependencies:
       '@vitejs/plugin-react-swc': 4.2.1(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0))
       vite: 7.2.2(@types/node@24.0.10)(jiti@1.21.0)
@@ -7978,6 +7981,8 @@ snapshots:
   '@brillout/picocolors@1.0.28': {}
 
   '@brillout/picocolors@1.0.29': {}
+
+  '@brillout/picocolors@1.0.30': {}
 
   '@brillout/release-me@0.4.5(conventional-commits-filter@5.0.0)':
     dependencies:
@@ -13733,19 +13738,19 @@ snapshots:
       react-streaming: 0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       vite: 7.2.2(@types/node@24.0.10)(jiti@1.21.0)
 
-  vike@0.4.246-commit-bb4b6db(react-streaming@0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)):
+  vike@0.4.254(react-streaming@0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)):
     dependencies:
+      '@babel/core': 7.29.0
+      '@babel/types': 7.29.0
       '@brillout/import': 0.2.6
-      '@brillout/json-serializer': 0.5.21
-      '@brillout/picocolors': 1.0.29
-      '@brillout/require-shim': 0.1.2
-      '@brillout/vite-plugin-server-entry': 0.7.15
-      acorn: 8.14.1
+      '@brillout/json-serializer': 0.5.22
+      '@brillout/picocolors': 1.0.30
+      '@brillout/vite-plugin-server-entry': 0.7.18
       cac: 6.7.14
       es-module-lexer: 1.7.0
       esbuild: 0.25.12
       json5: 2.2.3
-      magic-string: 0.30.19
+      magic-string: 0.30.21
       picomatch: 4.0.3
       semver: 7.7.2
       sirv: 3.0.1
@@ -13754,6 +13759,8 @@ snapshots:
     optionalDependencies:
       react-streaming: 0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       vite: 7.2.2(@types/node@24.0.10)(jiti@1.21.0)
+    transitivePeerDependencies:
+      - supports-color
 
   vite-node@3.2.4(@types/node@24.0.10)(jiti@1.21.0):
     dependencies:
