@@ -39,8 +39,8 @@ importers:
   docs:
     dependencies:
       '@brillout/docpress':
-        specifier: ^0.16.17
-        version: 0.16.17(@algolia/client-search@5.31.0)(@types/react@19.2.2)(@vitejs/plugin-react-swc@4.2.1(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(rollup@4.44.0)(search-insights@2.17.3)(typescript@5.9.3)(vike@0.4.254(react-streaming@0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0))
+        specifier: ^0.16.18
+        version: 0.16.18(@algolia/client-search@5.31.0)(@types/react@19.2.2)(@vitejs/plugin-react-swc@4.2.1(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(rollup@4.44.0)(search-insights@2.17.3)(typescript@5.9.3)(vike@0.4.254(react-streaming@0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0))
       '@types/react':
         specifier: ^19.2.2
         version: 19.2.2
@@ -1303,8 +1303,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@brillout/docpress@0.16.17':
-    resolution: {integrity: sha512-FutPOUAdFnQOWnd7Lvxlz34CP383QM5JszbX+A060jNFe5nFz7MA7npwEzu+QwGierGfhPWNHQm69YhQrGCdbw==}
+  '@brillout/docpress@0.16.18':
+    resolution: {integrity: sha512-jNfzhwafPFGTaxldn4SanIDaIk3m8gkBy0FixHmb2yUgkpdmHdTUz/W6A/Xz8fh8WfhFjmvWTxjtgMb4hXQFnw==}
     peerDependencies:
       '@vitejs/plugin-react-swc': '>=3.0.0'
       react: '>=18.0.0'
@@ -3564,9 +3564,6 @@ packages:
   '@vitest/utils@3.2.4':
     resolution: {integrity: sha512-fB2V0JFrQSMsCo9HiSq3Ezpdv4iYaXRG1Sx8edX3MwxfyNn83mKiGzOcH+Fkxt4MHxr3y42fQi1oeAInqgX2QA==}
 
-  '@vue/compiler-core@3.5.22':
-    resolution: {integrity: sha512-jQ0pFPmZwTEiRNSb+i9Ow/I/cHv2tXYqsnHKKyCQ08irI2kdF5qmYedmF8si8mA7zepUFmJ2hqzS8CQmNOWOkQ==}
-
   '@vue/compiler-core@3.5.29':
     resolution: {integrity: sha512-cuzPhD8fwRHk8IGfmYaR4eEe4cAyJEL66Ove/WZL7yWNL134nqLddSLwNRIsFlnnW1kK+p8Ck3viFnC0chXCXw==}
 
@@ -3578,9 +3575,6 @@ packages:
 
   '@vue/compiler-ssr@3.5.29':
     resolution: {integrity: sha512-Y/ARJZE6fpjzL5GH/phJmsFwx3g6t2KmHKHx5q+MLl2kencADKIrhH5MLF6HHpRMmlRAYBRSvv347Mepf1zVNw==}
-
-  '@vue/shared@3.5.22':
-    resolution: {integrity: sha512-F4yc6palwq3TT0u+FYf0Ns4Tfl9GRFURDN2gWG7L1ecIaS/4fCIuFOjMTnCyjsu/OK6vaDKLCrGAa+KvvH+h4w==}
 
   '@vue/shared@3.5.29':
     resolution: {integrity: sha512-w7SR0A5zyRByL9XUkCfdLs7t9XOHUyJ67qPGQjOou3p6GvBeBW+AVjUUmlxtZ4PIYaRvE+1LmK44O4uajlZwcg==}
@@ -4185,10 +4179,6 @@ packages:
   enhanced-resolve@5.18.1:
     resolution: {integrity: sha512-ZSW3ma5GkcQBIpwZTSRAI8N71Uuwgs93IezB7mf7R60tC8ZbJideoDNKjHn2O9KIlx6rkGTTEk1xUCK2E1Y2Yg==}
     engines: {node: '>=10.13.0'}
-
-  entities@4.5.0:
-    resolution: {integrity: sha512-V0hjH4dGPh9Ao5p0MoRY6BVqtwCjhz6vI5LT8AJ55H+4g9/4vbHx1I54fS0XuclLhDHArPQCiMjDxjaL8fPxhw==}
-    engines: {node: '>=0.12'}
 
   entities@6.0.1:
     resolution: {integrity: sha512-aN97NXWF6AWBTahfVOIrB/NShkzi5H7F9r1s9mD3cDj4Ko5f2qhhVoYMibXF7GlLveb/D2ioWay8lxI97Ven3g==}
@@ -7174,15 +7164,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/helper-module-transforms@7.28.3(@babel/core@7.29.0)':
-    dependencies:
-      '@babel/core': 7.29.0
-      '@babel/helper-module-imports': 7.27.1
-      '@babel/helper-validator-identifier': 7.27.1
-      '@babel/traverse': 7.28.4
-    transitivePeerDependencies:
-      - supports-color
-
   '@babel/helper-module-transforms@7.28.6(@babel/core@7.29.0)':
     dependencies:
       '@babel/core': 7.29.0
@@ -7447,7 +7428,7 @@ snapshots:
   '@babel/plugin-syntax-jsx@7.27.1(@babel/core@7.29.0)':
     dependencies:
       '@babel/core': 7.29.0
-      '@babel/helper-plugin-utils': 7.27.1
+      '@babel/helper-plugin-utils': 7.28.6
 
   '@babel/plugin-syntax-logical-assignment-operators@7.10.4(@babel/core@7.27.4)':
     dependencies:
@@ -7603,8 +7584,8 @@ snapshots:
   '@babel/plugin-transform-modules-commonjs@7.27.1(@babel/core@7.29.0)':
     dependencies:
       '@babel/core': 7.29.0
-      '@babel/helper-module-transforms': 7.28.3(@babel/core@7.29.0)
-      '@babel/helper-plugin-utils': 7.27.1
+      '@babel/helper-module-transforms': 7.28.6(@babel/core@7.29.0)
+      '@babel/helper-plugin-utils': 7.28.6
     transitivePeerDependencies:
       - supports-color
 
@@ -7825,7 +7806,7 @@ snapshots:
   '@babel/preset-typescript@7.28.5(@babel/core@7.29.0)':
     dependencies:
       '@babel/core': 7.29.0
-      '@babel/helper-plugin-utils': 7.27.1
+      '@babel/helper-plugin-utils': 7.28.6
       '@babel/helper-validator-option': 7.27.1
       '@babel/plugin-syntax-jsx': 7.27.1(@babel/core@7.29.0)
       '@babel/plugin-transform-modules-commonjs': 7.27.1(@babel/core@7.29.0)
@@ -7935,9 +7916,9 @@ snapshots:
   '@biomejs/cli-win32-x64@1.9.4':
     optional: true
 
-  '@brillout/docpress@0.16.17(@algolia/client-search@5.31.0)(@types/react@19.2.2)(@vitejs/plugin-react-swc@4.2.1(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(rollup@4.44.0)(search-insights@2.17.3)(typescript@5.9.3)(vike@0.4.254(react-streaming@0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0))':
+  '@brillout/docpress@0.16.18(@algolia/client-search@5.31.0)(@types/react@19.2.2)(@vitejs/plugin-react-swc@4.2.1(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(rollup@4.44.0)(search-insights@2.17.3)(typescript@5.9.3)(vike@0.4.254(react-streaming@0.4.12(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0))':
     dependencies:
-      '@brillout/picocolors': 1.0.29
+      '@brillout/picocolors': 1.0.30
       '@docsearch/css': 3.9.0
       '@docsearch/react': 3.9.0(@algolia/client-search@5.31.0)(@types/react@19.2.2)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)(search-insights@2.17.3)
       '@mdx-js/mdx': 3.0.1
@@ -8004,7 +7985,7 @@ snapshots:
 
   '@brillout/shell@0.2.1':
     dependencies:
-      '@brillout/picocolors': 1.0.29
+      '@brillout/picocolors': 1.0.30
 
   '@brillout/spellcheck@0.1.2':
     dependencies:
@@ -9811,14 +9792,6 @@ snapshots:
       loupe: 3.2.0
       tinyrainbow: 2.0.0
 
-  '@vue/compiler-core@3.5.22':
-    dependencies:
-      '@babel/parser': 7.28.4
-      '@vue/shared': 3.5.22
-      entities: 4.5.0
-      estree-walker: 2.0.2
-      source-map-js: 1.2.1
-
   '@vue/compiler-core@3.5.29':
     dependencies:
       '@babel/parser': 7.29.0
@@ -9849,19 +9822,17 @@ snapshots:
       '@vue/compiler-dom': 3.5.29
       '@vue/shared': 3.5.29
 
-  '@vue/shared@3.5.22': {}
-
   '@vue/shared@3.5.29': {}
 
   '@vuedx/compiler-sfc@0.7.1':
     dependencies:
-      '@vue/compiler-core': 3.5.22
+      '@vue/compiler-core': 3.5.29
       lru-cache: 6.0.0
       source-map: 0.6.1
 
   '@vuedx/template-ast-types@0.7.1':
     dependencies:
-      '@vue/compiler-core': 3.5.22
+      '@vue/compiler-core': 3.5.29
 
   abbrev@1.1.1: {}
 
@@ -10468,8 +10439,6 @@ snapshots:
     dependencies:
       graceful-fs: 4.2.11
       tapable: 2.2.1
-
-  entities@4.5.0: {}
 
   entities@6.0.1: {}
 
@@ -12634,7 +12603,7 @@ snapshots:
     dependencies:
       '@brillout/import': 0.2.6
       '@brillout/json-serializer': 0.5.22
-      '@brillout/picocolors': 1.0.29
+      '@brillout/picocolors': 1.0.30
       isbot-fast: 1.2.0
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
@@ -12644,7 +12613,7 @@ snapshots:
     dependencies:
       '@brillout/import': 0.2.6
       '@brillout/json-serializer': 0.5.22
-      '@brillout/picocolors': 1.0.29
+      '@brillout/picocolors': 1.0.30
       isbot-fast: 1.2.0
       react: 19.2.0
       react-dom: 19.2.0(react@19.2.0)
@@ -12671,7 +12640,7 @@ snapshots:
     dependencies:
       '@brillout/import': 0.2.6
       '@brillout/json-serializer': 0.5.22
-      '@brillout/picocolors': 1.0.29
+      '@brillout/picocolors': 1.0.30
       isbot-fast: 1.2.0
       react: 19.1.0
       react-dom: 19.1.0(react@19.1.0)
