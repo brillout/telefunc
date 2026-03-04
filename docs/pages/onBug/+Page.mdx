@@ -18,7 +18,7 @@ This allows you, for example, to install the tracker code of some tracking servi
  - When a telefunction throws an error **that is not `Abort()`**. (The telefunction has a bug.)
  - When Telefunc throws an error. (Telefunc has a bug.)
 
-> `throw Abort()` does *not* trigger `onBug()`. Telefunc handles `Abort` as a known exception, and returns the message (if any) as part of a >= `4xx` response. See <Link href="/abort-vs-error" />.
+> `throw Abort()` does *not* trigger `onBug()`. Telefunc handles `Abort` as a known exception, and returns the error data (if any) as part of a >= `4xx` response. See <Link href="/abort-vs-error" />.
 
 ## See also
 
