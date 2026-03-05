@@ -2,10 +2,11 @@ import { Link } from '@brillout/docpress'
 
 **Environment**: server.
 
-You use `throw Abort()` for implementing permissions, see <Link href="/permissions" />.
+Use `throw Abort()` to implement permissions and other guards, see <Link href="/permissions" />.
+
+> `Abort` is Telefunc's way of identifying expected errors, and passing error data to the client. Other errors (e.g., `throw new Error()`) are treated as unexpected (bugs), see <Link href="/abort-vs-error" />.
 
 You can also call `throw Abort(someValue)` for implementing `getContext()` wrappers, see <Link href="/permissions#getcontext-wrapping" doNotInferSectionTitle={true} />.
-
 
 ## See also
 
