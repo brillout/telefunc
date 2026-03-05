@@ -20,7 +20,6 @@ function Header() {
       </div>
       <div id="header-tagline">
         Remote Functions.
-        <br id="header-tagline-newline" /> Instead of API.
       </div>
     </CenterHorizontal>
   )

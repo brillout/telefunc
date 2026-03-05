@@ -11,7 +11,7 @@ const config: Config = {
   name: 'Telefunc',
   version: PROJECT_VERSION,
   url: 'https://telefunc.com',
-  tagline: 'Remote Functions. Instead of API.',
+  tagline: 'Remote Functions.',
   logo,
 
   github: 'https://github.com/brillout/telefunc',

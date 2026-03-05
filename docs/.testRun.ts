@@ -7,7 +7,7 @@ function testRun(cmd: 'pnpm run dev' | 'pnpm run preview') {
 
   test('HTML', async () => {
     const html = await fetchHtml('/')
-    expect(html).toContain('<meta name="description" content="Remote Functions. Instead of API." />')
+    expect(html).toContain('<meta name="description" content="Remote Functions." />')
     expect(html).toMatch(partRegex`<h2>${/[^\/]+/}Simple</h2>`)
     expect(html).toMatch(partRegex`<h2>${/[^\/]+/}Rock-solid</h2>`)
     expect(html).toContain('no known bug')

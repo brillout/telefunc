@@ -148,7 +148,7 @@
     "fullstack",
     "typescript"
   ],
-  "description": "Remote functions. Instead of API.",
+  "description": "Remote functions.",
   "repository": "https://github.com/brillout/telefunc",
   "homepage": "https://telefunc.com",
   "license": "MIT"

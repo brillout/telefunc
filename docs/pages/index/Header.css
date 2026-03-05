@@ -11,9 +11,6 @@
   font-size: 2em;
   margin: 20px 0;
 }
-#header-tagline-newline {
-  display: none;
-}
 @container (max-width: 799px) {
   #header-logo {
     display: none !important;
@@ -43,9 +40,6 @@
 @container (max-width: 450px) {
   #header-tagline {
     font-size: 2.4em;
-  }
-  #header-tagline-newline {
-    display: block;
   }
 }
 @container (max-width: 400px) {
