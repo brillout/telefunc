@@ -28,6 +28,7 @@ const config: Config = {
   },
 
   topNavigation: <TopNavigation />,
+  navMaxWidth: 950 + 20 * 2,
   navLogoSize: 36,
   navLogoStyle: {
     position: 'relative',

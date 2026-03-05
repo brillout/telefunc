@@ -17,16 +17,16 @@ function CodePreview() {
         ].join(' ')}
       >
         <div className="code-preview_code-block">
-          <CodePreviewBlockLeft />
           <div className="code-preview_code-block_description">
             <em>Server</em>
           </div>
+          <CodePreviewBlockLeft />
         </div>
         <div className="code-preview_code-block code-preview_code-block_right">
-          <CodePreviewBlockRight />
           <div className="code-preview_code-block_description">
             <em>Browser</em>
           </div>
+          <CodePreviewBlockRight />
         </div>
       </div>
     </CenterHorizontal>
