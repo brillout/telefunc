@@ -22,7 +22,7 @@ function EventBasedRecommendation({ samePage }: { samePage?: boolean }) {
           <li>Performance </li>
         </ul>
         <p>
-          <a href="https://github.com/brillout/telefunc/issues/new">Feel free to reach out</a> if you have questions.
+          <a href="https://github.com/telefunc/telefunc/issues/new">Feel free to reach out</a> if you have questions.
         </p>
       </blockquote>
     </>

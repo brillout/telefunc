@@ -14,7 +14,7 @@ const config: Config = {
   tagline: 'Remote Functions.',
   logo,
 
-  github: 'https://github.com/brillout/telefunc',
+  github: 'https://github.com/telefunc/telefunc',
   twitter: '@brillout',
 
   headings,
