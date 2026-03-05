@@ -1,6 +1,6 @@
 # 🟡 Telefunc
 
-*Remote Functions. Instead of API.*
+*Remote Functions.*
 
 ## Monorepo
 
