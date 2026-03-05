@@ -325,7 +325,7 @@ async function onLoad() {
 > Use `throw Abort()` to implement permission: only a logged-in user is allowed to fetch its to-do items.
 > More about permissions at <Link href="/permissions" />.
 
-> Don't use `throw new Error()` instead of `throw Abort()`. While `throw new Error()` also interrupts the telefunction call, Telefunc treats it as a bug, see <Link href="/abort-vs-error" />.
+> Don't use `throw new Error()` instead of `throw Abort()`. While `throw new Error()` also interrupts the telefunction call, Telefunc interprets it as a bug, see <Link href="/abort-vs-error" />.
 
 > If, upon aborting a telefunction call, you want to pass information to the frontend then use `return someValue` or `throw Abort(someValue)`, see <Link href="/permissions" />.
 
