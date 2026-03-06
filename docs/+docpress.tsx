@@ -15,6 +15,7 @@ const config: Config = {
   logo,
 
   github: 'https://github.com/telefunc/telefunc',
+  discord: 'https://discord.gg/VJKjMNMguV',
   twitter: '@brillout',
 
   headings,
