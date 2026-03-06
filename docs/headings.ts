@@ -8,7 +8,7 @@ import type {
   HeadingDefinition,
   HeadingDetachedDefinition as HeadingDetachedDefinition_,
 } from '@brillout/docpress'
-import { iconScroll, iconCompass, iconGear, iconSeedling } from '@brillout/docpress' with { type: 'vike:pointer' }
+import { iconScroll, iconEyes, iconGear, iconSeedling } from '@brillout/docpress' with { type: 'vike:pointer' }
 type HeadingDetachedDefinition = Omit<HeadingDetachedDefinition_, 'category'> & {
   category: CategoryNames | 'Miscellaneous'
 }
@@ -25,9 +25,15 @@ const headingsDetached = [...misc()] satisfies HeadingDetachedDefinition[]
 const headings = [
   {
     level: 1,
-    title: 'Overview',
-    titleIcon: iconCompass,
-    color: '#e1a524',
+    title: 'Learn',
+    titleIcon: iconEyes,
+    color: '#bd55dd',
+    titleIconStyle: {
+      width: 30,
+      height: 30,
+      position: 'relative',
+      top: -2,
+    },
   },
   {
     level: 2,
