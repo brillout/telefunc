@@ -1,11 +1,12 @@
 {
   "scripts": {
-    "dev": "vike dev",
+    "dev": "rm -rf ./node_modules/.vite && vike dev",
     "build": "vike build",
     "preview": "vike build && node dist/nested/server/index.mjs"
   },
   "dependencies": {
     "@photonjs/hono": "^0.1.4",
+    "@tailwindcss/vite": "^4.2.1",
     "@types/react": "^19.2.2",
     "@types/react-dom": "^19.2.2",
     "@universal-middleware/core": "^0.4.13",
@@ -13,11 +14,12 @@
     "hono": "^4.10.4",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "tailwindcss": "^4.2.1",
     "telefunc": "0.2.19",
     "typescript": "^5.9.3",
-    "vike": "^0.4.246",
+    "vike": "^0.4.253",
     "vike-photon": "^0.1.14",
-    "vike-react": "^0.6.12",
+    "vike-react": "^0.6.20",
     "vite": "^7.2.2"
   },
   "type": "module"

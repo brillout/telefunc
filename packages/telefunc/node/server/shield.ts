@@ -7,7 +7,7 @@ import { assert, assertUsage } from '../../utils/assert.js'
 import { isCallable } from '../../utils/isCallable.js'
 import { isPlainObject } from '../../utils/isPlainObject.js'
 import { unique } from '../../utils/unique.js'
-import { isLazyFile, isLazyBlob } from './multipart/LazyFile.js'
+import { isLazyFile, isLazyBlob } from '../../wire-protocol/server/request/LazyFile.js'
 
 const shieldKey = '__telefunc_shield'
 const isVerifierKey = '__telefunc_isVerifier'
@@ -317,6 +317,13 @@ const type = (() => {
     verifier.toString = () => 'blob'
     return verifier as any
   })()
+  const function_ = ((): Function => {
+    const verifier = (input: unknown, breadcrumbs: string) =>
+      isCallable(input) ? true : errorMessage(breadcrumbs, getTypeName(input), 'function')
+    markVerifier(verifier)
+    verifier.toString = () => 'function'
+    return verifier as any
+  })()
   const any = ((): any => {
     const verifier = () => true as const
     markVerifier(verifier)
@@ -331,6 +338,7 @@ const type = (() => {
     date,
     file,
     blob,
+    function: function_,
     array,
     object,
     or,

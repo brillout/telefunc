@@ -144,6 +144,21 @@ const headings = [
     url: '/file-upload',
   },
   {
+    level: 2,
+    title: 'Streaming',
+    url: '/streaming',
+  },
+  {
+    level: 2,
+    title: 'Real-time (WebSocket)',
+    url: '/channels',
+  },
+  {
+    level: 2,
+    title: 'Cancellation',
+    url: '/cancellation',
+  },
+  {
     level: 1,
     title: 'API',
     titleIcon: iconGear,
@@ -167,6 +182,7 @@ const headings = [
     level: 2,
     title: '`throw Abort()`',
     url: '/Abort',
+    sectionTitles: ['Mid-stream abort'],
   },
   {
     level: 2,
@@ -182,6 +198,20 @@ const headings = [
     level: 2,
     title: '`telefunc()',
     url: '/telefunc',
+  },
+  {
+    level: 2,
+    title: '`telefuncWebSocket()`',
+    url: '/telefuncWebSocket',
+  },
+  {
+    level: 4,
+    title: 'Channels',
+  },
+  {
+    level: 2,
+    title: '`createChannel()`',
+    url: '/createChannel',
   },
   {
     level: 4,
@@ -215,6 +245,11 @@ const headings = [
     level: 2,
     title: '`httpHeaders`',
     url: '/httpHeaders',
+  },
+  {
+    level: 2,
+    title: '`transport`',
+    url: '/transport',
   },
   {
     level: 2,
