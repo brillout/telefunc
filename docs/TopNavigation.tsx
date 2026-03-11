@@ -6,7 +6,7 @@ import React from 'react'
 function TopNavigation() {
   return (
     <>
-      <MenuToggle menuId={1}>
+      {/* <MenuToggle menuId={1}>
         <img
           src={iconGear}
           width={19}
@@ -14,7 +14,7 @@ function TopNavigation() {
           className="decolorize-8"
         />{' '}
         API
-      </MenuToggle>
+      </MenuToggle> */}
       {/*
       <a
         className="colorize-on-hover"

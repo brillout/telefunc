@@ -19,8 +19,8 @@ const config: Config = {
   twitter: '@brillout',
 
   headings,
-  headingsDetached,
-  categories,
+  headingsDetached: [],
+  categories: [],
 
   algolia: {
     appId: 'NONXS2JSTL',
@@ -28,7 +28,7 @@ const config: Config = {
     indexName: 'telefunc',
   },
 
-  topNavigation: <TopNavigation />,
+  // topNavigation: <TopNavigation />,
   navMaxWidth: 950 + 20 * 2,
   navLogoSize: 36,
   navLogoStyle: {

@@ -4,7 +4,6 @@ Telefunc can be used in any JavaScript environment without using a transformer b
 
 > Telefunc plugins transform `*.telefunc.js` browser-side imports into a thin HTTP client.
 
-
 ## Without transformer
 
 ```ts
@@ -26,7 +25,10 @@ async function onClick(form) {
 
 ## Vite plugin
 
-If you use Vite, you can transform `*.telefunc.js` files by using the Telefunc's Vite plugin:
+See <Link href="/vite-plugin" />
+
+If you use Vite, you can transform `*.telefunc.js` files by using Telefunc's Vite plugin.
+
 
 ```ts
 // vite.config.ts
@@ -40,6 +42,8 @@ export default {
 ```
 
 ## Webpack plugin
+
+See <Link href="/webpack-plugin" />
 
 If you use webpack, you can transform `*.telefunc.js` files by using the Telefunc's webpack plugin:
 
@@ -57,6 +61,7 @@ module.exports = {
 
 ## Babel plugin
 
-Telefunc's Babel plugin is work-in-progress.
+See <Link href="/babel-plugin" />
 
-> Reach out on GitHub if you want to use the Babel plugin.
+Telefunc's [Babel](https://babeljs.io) plugin adds the <Link text="Telefunc Transformer" href="/how-it-works#transformer" /> to Babel apps, such as:
+ - <Link href="/react-native" />

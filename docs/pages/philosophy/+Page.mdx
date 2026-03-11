@@ -1,0 +1,208 @@
+import { Link, Warning } from '@brillout/docpress'
+
+Telefunc is an RPC framework you can attach to your server. It enables full-stack teams to adopt development patterns that:
+- Improve application security and performance,
+- And allow for rapid and flexible iteration.
+
+Telefunc makes it easy to add RPC to your server, but it's up to you to take advantage of the benefits it has to offer.
+  
+> A [remote procedure call](https://en.wikipedia.org/wiki/Remote_procedure_call) (RPC) is when a \[...] computer programmer writes essentially the same code whether the subroutine is local to the executing program, or remote.
+  
+RPC is a pattern for calling a remote function as if it were colocated with the client. No adapters or injection needed.
+1. Create named Telefunctions to call the database or do other backend work.
+2. Import and call the function from your frontend, passing any required arguments (e.g., `await onNewTodo(text)`).
+3. Telefunc creates a lightweight HTTP client to call your Telefunction, which returns only what the caller needs.
+
+> The term RPC is often used loosely to denote RPC-like approaches, like creating JSON endpoints. _RPC-like describes an API that is schemaless — in contrast to RESTful and GraphQL APIs that always have a schema._
+ 
+In simple terms:
+- Write code for the server,
+- Call like it's on the client, and get type-safe results.
+
+RPC abstracts away the protocol details so you can focus on developing.
+
+## Couple code, not environments
+Telefunctions always run on the server, so you can safely access environment secrets and use server-side tools (like ORMs or database clients). For most use-cases Telefunc is simpler, more flexible, and more performant than REST or GraphQL.
+
+> While the examples here use JSX, Telefunc works with any UI framework (React, Vue, Svelte, Solid, ...), or just plain HTML!
+
+```js
+// Todos.telefunc.js
+// Environment: server
+
+export async function onLoad() {
+  const todoItems = await db.query(
+    'SELECT id, text FROM todo_items;'
+  )
+
+  return todoItems
+}
+```
+
+Just import and call `onMarkComplete` from your UI. Telefunc does the rest.
+
+```jsx
+// /Todos.jsx
+// Environment: client
+
+import { onLoad } from './Todos.telefunc.js'
+
+async function TodoList() {
+  // No need for an adapter, or "server only" flag
+  const todoItems = await onLoad()
+
+  return (
+    <ul>
+      {todoItems.map((item) => (
+        <li key={item.id}>{item.text}</li>
+      ))}
+    </ul>
+  )
+}
+```
+
+Telefunctions run on the server. Under the hood, Telefunc converts telefunction calls into an HTTP request to your server.
+
+The `telefunc` middleware catches the request, attaches global context, and executes the called Telefunction. You can think of RPC as a type-safe `fetch` call to a registered server-side function.
+
+## Securing resources
+
+<Warning>
+    Always keep in mind that your **telefuncs are public**. A simple HTTP request could be used to extract, modify, or destroy user secrets or business-critical data from an unprotected function.
+</Warning>
+  
+Add guards to Telefunctions to prevent illegitimate access.
+- Use <Link href="/Abort" /> (or return early) if the client is unauthenticated or doesn't have permission to access the requested resource.
+- Use <Link href="/shield" /> to validate telefunction call arguments.
+  
+```js
+// Todos.telefunc.js
+// Environment: server
+
+import { getContext, shield } from 'telefunc'
+// When using TypeScript, Telefunc automatically generates
+// shield for argument type inference and runtime validation
+shield(onNewTodo, [shield.type.string]) // [!code--]
+
+export async function onNewTodo(text: string) {
+    const { user } = getContext()
+    if (!user) {
+        throw Abort()
+    }
+
+    await db.execute(
+        'INSERT INTO todos VALUES (:text)',
+        { text }
+    )
+}
+```
+
+> For end-to-end type safety, use a TypeScript ORM SQL builder (e.g. [Drizzle](https://orm.drizzle.team), [Kysely](https://github.com/koskimas/kysely), or [others](https://github.com/stars/brillout/lists/sql)).
+
+Since RPC functions can be customized to a specific page, display component, or interaction, they:
+- Can perform complex queries with a single round-trip,
+- And only need to return what the calling UI needs.
+  
+```js
+// Todos.telefunc.js
+// Environment: server
+
+import { getContext } from 'telefunc'
+import { db } from '~/server/db'
+
+export async function onMarkAllComplete() {
+    const { user } = getContext()
+    if (!user) {
+        throw Abort()
+    }
+
+    await db.query(
+        'UPDATE todo_items SET is_completed = TRUE WHERE userId = :userId;',
+        { userId: user.id }
+    )
+};
+```
+
+If you want to add a "Mark all to-dos completed" button to your UI, simply write a telefunction that makes the SQL query. Telefunctions have scoped access to your server environment.
+	
+> Operations like these are notoriously problematic with REST (often called the "N+1 problem"). With Telefunc, it's just SQL.
+> Using database-native queries is always more powerful than REST or GraphQL.
+
+```jsx
+// /MarkAllComplete.jsx
+// Environment: client
+
+import { onMarkAllComplete } from './MarkAllComplete.telefunc.js'
+
+// Telefunc converts this to a lightweight HTTP call.
+export async function MarkAllComplete() {
+  return (
+    <button onClick={onMarkAllComplete}>
+      Mark all complete
+    </button>
+  )
+}
+```
+
+To the consumer, these are all just functions, that do some async work: RPC abstracts away the request management.
+
+This is nice, but the real value comes from the (framework-agnostic) colocation of browser and server code it enables. You can write a Telefunction for each view and interaction, just as if you were loading data from local storage, but with all the power of a remote server.
+
+## Design patterns
+
+Telefunc employs a full-stack pattern, and projects that use a monorepo will get the most out of the acceleration it has to offer.
+
+It allows you to colocate (and codevelop) highly-tailored server functions with client code.
+  
+```jsx
+// /Todos.jsx
+// Environment: client
+
+import {
+  onLoad,
+  onNewTodo,
+  onMarkAllComplete,
+} from './Todos.telefunc.js'
+
+async function TodoList() {
+  // No need for an adapter, or "server only" flag
+  const todoItems = await onLoad()
+
+  async function onClick(form) {
+    const text = form.input.value
+    // Invoke server-side logic like it's local
+    await onNewTodo(text)
+  }
+  
+  return (
+    <main>
+      <div>
+        <form>
+          <input input="text" />
+          <button onClick={onClick}>
+            Add To-Do
+          </button>
+        </form>
+        <button onClick={onMarkAllComplete}>
+          Mark all complete
+        </button>
+      </div>
+      <ul>
+        {todoItems.map((item) => (
+          <li key={item.id}>{item.text}</li>
+        ))}
+      </ul>
+    </main>
+  )
+}
+```
+
+The naming convention enforces coupling, which is a cornerstone of keeping RPC calls lithe (i.e., avoiding function scope creep).
+
+> Opting out of the naming convention is perfectly fine, though we recommend having a clear reason for doing so.
+
+Accordingly, RPC versioning is typically equivalent to project versioning. You will need a custom solution if you choose to use RPC with a monorepo.
+
+### Next
+
+<Link href="/best-practices" />
