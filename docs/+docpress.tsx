@@ -19,8 +19,8 @@ const config: Config = {
   twitter: '@brillout',
 
   headings,
-  headingsDetached,
-  categories,
+  headingsDetached: [],
+  categories: [],
 
   algolia: {
     appId: 'NONXS2JSTL',
@@ -30,7 +30,7 @@ const config: Config = {
 
   umamiId: 'd03d0873-19dc-42c4-a250-cf8500171a9e',
 
-  topNavigation: <TopNavigation />,
+  // topNavigation: <TopNavigation />,
   navMaxWidth: 950 + 20 * 2,
   navLogoSize: 36,
   navLogoStyle: {

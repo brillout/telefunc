@@ -20,20 +20,16 @@ type CategoryNames = ExtractCategoryName<(typeof categories)[number]>
 
 const categories = ['Guides', 'API', 'Get Started', 'Overview', 'Miscellaneous'] as const satisfies Config['categories']
 
-const headingsDetached = [...misc()] satisfies HeadingDetachedDefinition[]
+const headingsDetached = [
+  // ...misc(),
+] satisfies HeadingDetachedDefinition[]
 
 const headings = [
   {
     level: 1,
-    title: 'Learn',
-    titleIcon: iconEyes,
-    color: '#bd55dd',
-    titleIconStyle: {
-      width: 30,
-      height: 30,
-      position: 'relative',
-      top: -2,
-    },
+    title: 'Get started',
+    titleIcon: iconSeedling,
+    color: '#74d717',
   },
   {
     level: 2,
@@ -43,23 +39,24 @@ const headings = [
   },
   {
     level: 2,
-    title: 'RPC',
-    url: '/RPC',
+    title: 'Quick Start',
+    url: '/start',
+    sectionTitles: ['My first telefunction'],
+  },
+
+  // #region Server Integration
+  {
+    level: 4,
+    title: 'Server frameworks',
   },
   {
     level: 2,
-    title: 'RPC vs GraphQL/REST',
-    url: '/RPC-vs-GraphQL-REST',
-  },
-  {
-    level: 1,
-    title: 'Get Started',
-    titleIcon: iconSeedling,
-    color: '#74d717',
+    title: 'Hono, Express, etc.',
+    url: '/server',
   },
   {
     level: 4,
-    title: 'Framework integration',
+    title: 'Metaframeworks',
   },
   {
     level: 2,
@@ -83,26 +80,21 @@ const headings = [
   },
   {
     level: 2,
-    title: 'React Native',
-    url: '/react-native',
-  },
-  {
-    level: 2,
     title: 'React Router',
     url: '/react-router',
   },
   {
     level: 4,
-    title: 'Server integration',
+    title: 'Native',
   },
   {
     level: 2,
-    title: 'Server (Hono, Express, ...)',
-    url: '/server',
+    title: 'React Native',
+    url: '/react-native',
   },
   {
     level: 4,
-    title: 'Bundler integration',
+    title: 'Bundlers',
   },
   {
     level: 2,
@@ -111,57 +103,38 @@ const headings = [
     url: '/install',
   },
   {
-    level: 1,
-    title: 'Guides',
-    titleIcon: iconScroll,
-    color: '#ffd511',
+    level: 2,
+    title: 'Vite',
+    url: '/vite-plugin',
   },
   {
     level: 2,
-    title: 'Permissions',
-    url: '/permissions',
-    sectionTitles: ['`getContext()` wrapping'],
+    title: 'Webpack',
+    url: '/webpack-plugin',
   },
   {
     level: 2,
-    title: 'Error handling',
-    url: '/error-handling',
+    title: 'Babel',
+    url: '/babel-plugin',
   },
-  {
-    level: 2,
-    title: 'Form validation',
-    url: '/form-validation',
-    sectionTitles: ['`throw Abort(someValue)`'],
-  },
-  {
-    level: 2,
-    title: 'Event-based telefunctions',
-    url: '/event-based',
-  },
-  {
-    level: 2,
-    title: 'File upload',
-    url: '/file-upload',
-  },
+  // #endregion
+
+  // #region API
   {
     level: 1,
     title: 'API',
     titleIcon: iconGear,
     color: '#80c1db',
-    menuModalFullWidth: true,
+    // menuModalFullWidth: true,
   },
   {
     level: 4,
-    title: 'Context',
+    title: 'Server',
   },
   {
     level: 2,
-    title: '`getContext()`',
-    url: '/getContext',
-  },
-  {
-    level: 4,
-    title: 'Protection',
+    title: '`telefunc()',
+    url: '/telefunc',
   },
   {
     level: 2,
@@ -170,28 +143,25 @@ const headings = [
   },
   {
     level: 2,
-    title: '`shield()`',
-    url: '/shield',
-    sectionTitles: ['TypeScript - Automatic', 'TypeScript - Manual'],
-  },
-  {
-    level: 4,
-    title: 'Server Middleware',
+    title: '`getContext()`',
+    url: '/getContext',
   },
   {
     level: 2,
-    title: '`telefunc()',
-    url: '/telefunc',
-  },
-  {
-    level: 4,
-    title: 'Error Handling',
+    title: '`shield()`',
+    url: '/shield',
+    sectionTitles: ['Automatic (from TypeScript)', 'Manual'],
   },
   {
     level: 2,
     title: '`onBug()`',
     url: '/onBug',
   },
+  {
+    level: 4,
+    title: 'Client',
+  },
+
   {
     level: 2,
     title: '`onAbort()`',
@@ -241,54 +211,80 @@ const headings = [
     title: '`log`',
     url: '/log',
   },
-  {
-    level: 4,
-    title: 'Plugins',
-  },
-  {
-    level: 2,
-    title: 'Vite Plugin',
-    url: '/vite-plugin',
-  },
-  {
-    level: 2,
-    title: 'Webpack Plugin',
-    url: '/webpack-plugin',
-  },
-  {
-    level: 2,
-    title: 'Babel Plugin',
-    url: '/babel-plugin',
-  },
-] as const satisfies HeadingDefinition[]
+  // #endregion
 
-function misc() {
-  return (
-    [
-      {
-        title: '`throw Abort()` vs `throw new Error()`',
-        url: '/abort-vs-error',
-      },
-      {
-        title: 'Telefunc Transformer',
-        url: '/transformer',
-      },
-      {
-        title: 'Initial Page Data',
-        url: '/initial-page-data',
-      },
-      {
-        title: 'Initial Data',
-        url: '/initial-data',
-      },
-      {
-        title: 'Multiple Clients',
-        url: '/multiple-clients',
-      },
-      {
-        title: '❌ Non-function exports',
-        url: '/warning/non-function-export',
-      },
-    ] as const
-  ).map((h) => ({ ...h, category: 'Miscellaneous' as const })) satisfies HeadingDetachedDefinition[]
-}
+  // #region Guides
+  {
+    level: 1,
+    title: 'Guides',
+    titleIcon: iconScroll,
+    color: '#ffd511',
+  },
+  {
+    level: 2,
+    title: 'Initial Data',
+    url: '/initial-data',
+  },
+  {
+    level: 2,
+    title: 'Permissions',
+    url: '/permissions',
+    sectionTitles: ['DRY Permissions'],
+  },
+  {
+    level: 2,
+    title: 'Validation',
+    url: '/form-validation',
+  },
+  {
+    level: 2,
+    title: 'Error handling',
+    url: '/error-handling',
+  },
+  {
+    level: 2,
+    title: 'File uploads',
+    url: '/file-upload',
+  },
+  // #endregion
+
+  // #region Concepts
+  {
+    level: 1,
+    title: 'Concepts',
+    titleIcon: iconEyes,
+    color: '#bd55dd',
+    titleIconStyle: {
+      width: 30,
+      height: 30,
+      position: 'relative',
+      top: -2,
+    },
+  },
+  {
+    level: 2,
+    title: 'Design philosophy',
+    url: '/philosophy',
+    // sectionTitles: ['Why', 'RPC', 'Event-Based', 'Security'],
+  },
+  {
+    level: 2,
+    title: 'Best Practices',
+    url: '/best-practices',
+    // sectionTitles: ['Initial Data'],
+  },
+  {
+    level: 2,
+    title: 'How it works',
+    url: '/how-it-works',
+    sectionTitles: ['Transformer'],
+    // sectionTitles: ['Server integration', 'Context],
+  },
+  {
+    level: 2,
+    title: 'FAQ',
+    url: '/faq',
+    // sectionTitles: ['RPC vs GraphQL/REST', 'Why Telefunc?', 'Should we use it?'],
+  },
+  // #endregion
+]
