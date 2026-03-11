@@ -1,6 +1,8 @@
+import { Link } from '@brillout/docpress'
+
 When a user enters a form with invalid inputs, such as an invalid email address, then you want your UI to tell the user what went wrong.
 
-You can pass information about invalid inputs to the frontend by using `return someValue`:
+Simply return early with an error result, including any message the UI should display to the user.
 
 ```ts
 // SignUpForm.telefunc.ts
@@ -23,47 +25,22 @@ export async function onFormSubmit(email: string, password: string) {
   }
 
   if (Object.keys(inputErrors).length > 0) {
-    // Instead of `throw Abort()`
     return { inputErrors }
   }
 
-  // Some ORM/SQL query
-  const user = await User.create({ email, password })
+  // IRL we'd want to hash the password first
+  const user = await db.execute(
+    'INSERT INTO todos VALUES (:email, :password)',
+    { email, password },
+  )
 
   return { user }
 }
 ```
 
-## `throw Abort(someValue)`
+> You can also exit early and return error data with `throw Abort(errorData)` instead of `return errorData`. This hides the control flow though, and prevents Telefunc from distinguishing between app errors and request errors. See <Link href="/error-handling" />.
 
-You can use `throw Abort(someValue)` instead of `return someValue`:
+## See also
 
-```ts
-// SignUpForm.telefunc.ts
-// Environment: server
-
-import { Abort } from 'telefunc'
-
-export async function onFormSubmit(email: string, password: string) {
-  if (!email) {
-    throw Abort({
-      inputErrors: {
-        email: 'Please enter your email.'
-      }
-    })
-  }
-  /* ... */
-}
-```
-
-In general, we recommend using `return { someValue }` instead of `throw Abort(someValue)` because:
- 1. It makes the code's intent clearer: the reader of your code knows that `return someValue` is an expected case that will be handled by the frontend, whereas when throwing an error it isn't obvious whether/where/how the error will be handled by the frontend.
- 2. `return someValue` has better TypeScript DX, as TypeScript doesn't typecheck caught errors:
-    ```ts
-    try {
-      /* ... */
-    } catch (err: unknown) {
-      // err needs to be casted
-      const errCasted = (err as ValidationError | SomeOtherError)
-    }
-    ```
+- <Link href="/onAbort" />
+- <Link href="/onBug" />
