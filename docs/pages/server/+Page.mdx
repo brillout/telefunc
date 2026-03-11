@@ -1,18 +1,23 @@
 import { Link } from '@brillout/docpress'
 
-You can integrate Telefunc into any server, most notably servers that use:
-- The [standard `Request` object](https://developer.mozilla.org/en-US/docs/Web/API/Request)
-- The [Node.js `req` object](https://nodejs.org/api/http.html#http_class_http_incomingmessage)
+Using Telefunc with standalone servers
 
+## 1. Install
 
-## Standard `Request`
+```shell
+npm install telefunc
+```
 
-You can integrate Telefunc into any server that uses the standard `Request` object such as [Hono](https://hono.dev), [Next.js](https://nextjs.org), [Nitro](https://nitro.build), [Nuxt](https://nuxt.com), and [SvelteKit](https://svelte.dev/docs/kit).
+## 2. Add Telefunc middleware
 
-For example Hono:
+The Telefunc middleware intercepts and executes telefunction calls. This is also your opportunity to set any data you'd like available in the Telefunc request context. For more info, see <Link href="/getContext" />.
 
-```ts
-// server.ts
+You can add Telefunc to any server that uses the standard `Request` object, including [Hono](https://hono.dev), [Next.js](https://nextjs.org), [Nitro](https://nitro.build), [Nuxt](https://nuxt.com), and [SvelteKit](https://svelte.dev/docs/kit).
+
+You can also add Telefunc to servers that use the Node.js `req` readable stream, like [Express](https://expressjs.com) or [Fastify](https://fastify.dev).
+
+```js choice=Hono
+// server.js
 // Environment: server
 
 import { Hono } from 'hono'
@@ -22,6 +27,7 @@ const app = new Hono()
 
 app.all('/_telefunc', async (c) => {
   const httpResponse = await telefunc({ request: c.req.raw })
+
   return new Response(httpResponse.body, {
     status: httpResponse.statusCode,
     headers: { 'content-type': httpResponse.contentType },
@@ -32,16 +38,8 @@ app.all('/_telefunc', async (c) => {
 })
 ```
 
-> You can access `context` inside your telefunctions via <Link href="/getContext">`getContext()`</Link>.
-
-
-## Node.js `req`
-
-You can integrate Telefunc into any server that uses the Node.js `req` readable stream, such as [Express](https://expressjs.com) and [Fastify](https://fastify.dev).
-
-For example Express:
-
-```ts
+```js choice=Express
+// server.js
 // Environment: server
 
 import express from 'express'
@@ -59,14 +57,12 @@ app.all('/_telefunc', async (req, res) => {
       // You can add any arbitrary contextual information here
     },
   })
+
   res.status(httpResponse.statusCode).type(httpResponse.contentType).send(httpResponse.body)
 })
 ```
 
-> You can access `context` inside your telefunctions via <Link href="/getContext">`getContext()`</Link>.
-
-
 ## See also
 
-- <Link href="/telefunc" />
 - <Link href="/getContext" />
+- <Link href="/telefunc" />
