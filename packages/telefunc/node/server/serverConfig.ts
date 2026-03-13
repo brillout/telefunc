@@ -52,6 +52,15 @@ type ConfigUser = {
           dev?: boolean
         }
   }
+  /**
+   * Path to the tsconfig.json file used for shield() generation.
+   * Can be absolute or relative to `root`.
+   *
+   * When not set, Telefunc auto-discovers tsconfig.json by walking up from each `.telefunc.ts` file.
+   *
+   * https://telefunc.com/shield
+   */
+  tsconfig?: string
 }
 type ConfigResolved = {
   telefuncUrl: string
@@ -63,6 +72,7 @@ type ConfigResolved = {
   log: {
     shieldErrors: { dev: boolean; prod: boolean }
   }
+  tsconfig: string | null
 }
 
 const configUser: ConfigUser = new Proxy({}, { set: validateUserConfig })
@@ -99,6 +109,7 @@ function getServerConfig(): ConfigResolved {
       if (typeof process == 'undefined' || !hasProp(process, 'cwd')) return null
       return toPosixPath(process.cwd())
     })(),
+    tsconfig: configUser.tsconfig ?? null,
   }
 }
 
@@ -161,6 +172,9 @@ function validateUserConfig(configUserUnwrapped: ConfigUser, prop: string, val: 
         )
       }
     }
+    configUserUnwrapped[prop] = val
+  } else if (prop === 'tsconfig') {
+    assertUsage(typeof val === 'string', 'config.tsconfig should be a string')
     configUserUnwrapped[prop] = val
   } else {
     assertUsage(false, `Unknown config.${prop}`)

@@ -35,8 +35,9 @@ function generateShield(
   telefuncFilePath: string,
   appRootDir: string,
   exportList: ExportList,
+  tsConfigFilePathOverride?: string | null,
 ): string {
-  const { project, shieldGenSource } = getProject(telefuncFilePath, telefuncFileCode, appRootDir)
+  const { project, shieldGenSource } = getProject(telefuncFilePath, telefuncFileCode, appRootDir, undefined, tsConfigFilePathOverride)
   const shieldCode = generateShieldCode({
     project,
     shieldGenSource,
@@ -46,8 +47,8 @@ function generateShield(
   return shieldCode
 }
 
-function getProject(telefuncFilePath: string, telefuncFileCode: string, appRootDir: string, isTest?: true) {
-  const tsConfigFilePath = isTest ? null : findTsConfig(telefuncFilePath, appRootDir)
+function getProject(telefuncFilePath: string, telefuncFileCode: string, appRootDir: string, isTest?: true, tsConfigFilePathOverride?: string | null) {
+  const tsConfigFilePath = isTest ? null : (tsConfigFilePathOverride ? resolveTsConfigPath(tsConfigFilePathOverride, appRootDir) : findTsConfig(telefuncFilePath, appRootDir))
   const key = tsConfigFilePath ?? '__no_tsconfig'
   const typeToShieldFilePath = path.join(getFilesystemRoot(), '__telefunc_TypeToShield.ts')
   // When shield() generation fails, avoid showing unrelated errors in TypeScript diagnostics
@@ -321,6 +322,13 @@ function getTypeToShieldSrc() {
   assert(typeToShieldFileSrc)
   assert(typeToShieldFileSrc.includes('SimpleType'))
   return typeToShieldFileSrc
+}
+
+function resolveTsConfigPath(tsconfig: string, appRootDir: string): string {
+  if (path.isAbsolute(tsconfig)) {
+    return tsconfig
+  }
+  return path.join(appRootDir, tsconfig)
 }
 
 function findTsConfig(telefuncFilePath: string, appRootDir: string): string | null {
