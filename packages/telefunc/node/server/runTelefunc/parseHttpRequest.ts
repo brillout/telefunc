@@ -6,10 +6,10 @@ import { getTelefunctionKey } from '../../../utils/getTelefunctionKey.js'
 import { getUrlPathname } from '../../../utils/getUrlPathname.js'
 import { hasProp } from '../../../utils/hasProp.js'
 import { isProduction } from '../../../utils/isProduction.js'
-import { createMultipartReviver } from '../../../shared/multipart/serializer-server.js'
-import { FORM_DATA_MAIN_FIELD } from '../../../shared/multipart/constants.js'
-import { MultipartReader } from '../multipart/MultipartReader.js'
-import { LazyBlob, LazyFile } from '../multipart/LazyFile.js'
+import { createRequestReviver } from '../../../wire-protocol/server/request/registry.js'
+import { StreamReader } from '../../../wire-protocol/server/request/StreamReader.js'
+import type { RequestBodyReader } from '../../../wire-protocol/request-types.js'
+import { TRANSPORT, DEFAULT_TRANSPORT, type Transport } from '../../../wire-protocol/constants.js'
 
 type ParseResult =
   | {
@@ -17,6 +17,7 @@ type ParseResult =
       telefunctionName: string
       telefunctionKey: string
       telefunctionArgs: unknown[]
+      transport: Transport
       isMalformedRequest: false
     }
   | { isMalformedRequest: true }
@@ -36,19 +37,24 @@ async function parseHttpRequest(runContext: {
 
   const { request } = runContext
   const contentType = request.headers.get('content-type') || ''
-  const isMultipart = contentType.includes('multipart/form-data')
-  if (!isMultipart) {
+  const isBinaryFrame = contentType.includes('application/octet-stream')
+  if (!isBinaryFrame) {
     const text = await request.text()
-    return parseTelefuncPayload(text, runContext)
+    const reviver = createRequestReviver(noopReader)
+    return parseTelefuncPayload(text, runContext, reviver)
   } else {
     assert(request.body)
-    const boundary = getBoundary(contentType)
-    assert(boundary, 'The multipart request is missing a boundary in the Content-Type header.')
-    return parseMultipartBody(request.body, boundary, runContext)
+    return parseBinaryFrameBody(request.body, runContext)
   }
 }
 
 // ===== Main parsing =====
+
+/** No-op reader used when there is no binary frame (plain JSON requests). */
+const noopReader: RequestBodyReader = {
+  registerFile: () => {},
+  consumeFile: () => Promise.reject(new Error('No binary frame')),
+}
 
 /** Parse main payload, validate shape, and build a ParseResult. */
 function parseTelefuncPayload(
@@ -79,43 +85,34 @@ function parseTelefuncPayload(
   }
 
   const telefunctionKey = getTelefunctionKey(parsed.file, parsed.name)
+  const transport: Transport =
+    hasProp(parsed, 'transport', 'string') && (parsed.transport === TRANSPORT.SSE || parsed.transport === TRANSPORT.WS)
+      ? parsed.transport
+      : DEFAULT_TRANSPORT
   return {
     telefuncFilePath: parsed.file,
     telefunctionName: parsed.name,
     telefunctionKey,
     telefunctionArgs: parsed.args,
+    transport,
     isMalformedRequest: false,
   }
 }
 
-// ===== Multipart parsing =====
+// ===== Binary frame parsing =====
 
-async function parseMultipartBody(
+async function parseBinaryFrameBody(
   bodyStream: ReadableStream<Uint8Array>,
-  boundary: string,
   runContext: { logMalformedRequests: boolean },
 ): Promise<ParseResult> {
-  const reader = new MultipartReader(bodyStream, boundary)
+  const reader = new StreamReader(bodyStream)
+  const metaText = await reader.readMetadata()
 
-  const metaText = await reader.readNextPartAsText(FORM_DATA_MAIN_FIELD)
-  if (metaText === null) {
-    logParseError(`The multipart request body is missing the ${FORM_DATA_MAIN_FIELD} field.`, runContext)
-    return { isMalformedRequest: true }
-  }
-
-  const reviver = createMultipartReviver({
-    createFile: (fileMetadata) => new LazyFile(reader, fileMetadata),
-    createBlob: (blobMetadata) => new LazyBlob(reader, blobMetadata),
-  })
+  const reviver = createRequestReviver(reader)
   return parseTelefuncPayload(metaText, runContext, reviver)
 }
 
 // ===== Helpers =====
-
-function getBoundary(contentType: string): string | null {
-  const match = contentType.match(/boundary=(?:"([^"]+)"|([^\s;]+))/)
-  return match ? match[1] || match[2] || null : null
-}
 
 function isWrongMethod(runContext: { request: Request; logMalformedRequests: boolean }) {
   const { method } = runContext.request

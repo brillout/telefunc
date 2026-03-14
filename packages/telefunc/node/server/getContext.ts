@@ -6,9 +6,10 @@ export { isAsyncMode }
 export type { Telefunc }
 
 import { getContext_sync, provideTelefuncContext_sync, restoreContext_sync } from './getContext/sync.js'
-import { assert } from '../../utils/assert.js'
+import { assert, assertWarning } from '../../utils/assert.js'
 import { getGlobalObject } from '../../utils/getGlobalObject.js'
 import { isObject } from '../../utils/isObject.js'
+import { getRequestContext } from './requestContext.js'
 import type { Telefunc } from './getContext/TelefuncNamespace.js'
 
 type GetContext = () => Telefunc.Context
@@ -27,10 +28,27 @@ const globalObject = getGlobalObject<{
   isAsyncMode: false,
 })
 
-function getContext<Context extends object = Telefunc.Context>(): Context {
+function getContext<Context extends object = Telefunc.Context>(): Context & TelefuncBuiltins {
   const context = globalObject.getContext()
   assert(isObject(context))
-  return context as Context
+  augmentContext(context)
+  return context as Context & TelefuncBuiltins
+}
+
+type TelefuncBuiltins = {
+  /** Register a callback that fires when the request lifecycle ends for any reason
+   *  (response sent, stream complete, or client disconnect). Fires exactly once. */
+  onClose: (cb: () => void) => void
+}
+
+function augmentContext(context: Record<string, unknown>): void {
+  const reqCtx = getRequestContext()
+  if (!reqCtx) {
+    // SSR implementation not trivial
+    context.onClose = () => {}
+    return
+  }
+  context.onClose = (cb: () => void) => reqCtx.onClose(cb)
 }
 
 function provideTelefuncContext<Context extends object = Telefunc.Context>(context: Context): void {

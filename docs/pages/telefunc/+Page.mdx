@@ -30,7 +30,7 @@ const httpResponse = await telefunc({
   url: req.originalUrl,
   method: req.method,
   readable: req,
-  contentType: req.headers['content-type'] || '',
+  headers: req.headers,
 
   // Optional
   context: {
@@ -42,9 +42,9 @@ const httpResponse = await telefunc({
 The return value `httpResponse` is a plain JavaScript object with all the information needed to generate the HTTP response, for exampe using the [web standard `Response` object](https://developer.mozilla.org/en-US/docs/Web/API/Response):
 
 ```js
-const response = new Response(httpResponse.body, {
+const response = new Response(httpResponse.getReadableWebStream(), {
   status: httpResponse.statusCode,
-  headers: { 'content-type': httpResponse.contentType },
+  headers: httpResponse.headers,
 })
 ```
 

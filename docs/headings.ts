@@ -20,7 +20,14 @@ type CategoryNames = ExtractCategoryName<(typeof categories)[number]>
 
 const categories = ['Guides', 'API', 'Get Started', 'Overview', 'Miscellaneous'] as const satisfies Config['categories']
 
-const headingsDetached = [...misc()] satisfies HeadingDetachedDefinition[]
+const headingsDetached = [
+  {
+    title: 'Cloudflare Workers',
+    url: '/telefuncWebSocketCloudflare',
+    category: 'API',
+  },
+  ...misc(),
+] satisfies HeadingDetachedDefinition[]
 
 const headings = [
   {
@@ -144,6 +151,16 @@ const headings = [
     url: '/file-upload',
   },
   {
+    level: 2,
+    title: 'Stream',
+    url: '/stream',
+  },
+  {
+    level: 2,
+    title: 'Real-Time',
+    url: '/real-time',
+  },
+  {
     level: 1,
     title: 'API',
     titleIcon: iconGear,
@@ -184,6 +201,20 @@ const headings = [
     url: '/telefunc',
   },
   {
+    level: 2,
+    title: '`telefuncWebSocket()`',
+    url: '/telefuncWebSocket',
+  },
+  {
+    level: 4,
+    title: 'Channels',
+  },
+  {
+    level: 2,
+    title: '`createChannel()`',
+    url: '/createChannel',
+  },
+  {
     level: 4,
     title: 'Error Handling',
   },
@@ -215,6 +246,11 @@ const headings = [
     level: 2,
     title: '`httpHeaders`',
     url: '/httpHeaders',
+  },
+  {
+    level: 2,
+    title: '`transport`',
+    url: '/transport',
   },
   {
     level: 2,
