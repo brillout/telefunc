@@ -1,0 +1,28 @@
+```tsx ts-only
+// Upload.tsx
+
+import { onUpload } from './Upload.telefunc.ts'
+
+function Upload() {
+  const [progress, setProgress] = createSignal(0)
+
+  async function onChange(event) {
+    const file = event.target.files[0]
+    // Arguments are validated server-side by
+    // a `shield` generated from your types
+    await onUpload(file, (percent) => {
+      // This callback runs in the browser,
+      // called by the server over WebSocket.
+      setProgress(percent)
+    })
+  }
+
+  return (
+    <div>
+      <label>Upload file</label>
+      <input type="file" onChange={onChange} />
+      <div style={{ width: progress }} />
+    </div>
+  )
+}
+```

@@ -18,7 +18,7 @@ function Header() {
               margin: 0,
             }}
           >
-            Remote Functions.
+            Telefunc(tions)
           </div>
           <div
             id="tagline-secondary"
@@ -31,11 +31,22 @@ function Header() {
               maxWidth: 800,
             }}
           >
-            <span style={{ whiteSpace: 'nowrap' }}>Defined on the server,</span>{' '}
-            <span style={{ whiteSpace: 'nowrap' }}>callable in the browser.</span>
+            <span>
+              End-to-end type-safety without the schema.
+            </span>
           </div>
         </CenterHorizontal>
       </h1>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          columnGap: 20,
+        }}
+      >
+        <CTALink href="/start">Quick Start</CTALink>
+        <CTALink href="/RPC" variant="secondary">Learn More</CTALink>
+      </div>
     </div>
   )
 }
@@ -111,5 +122,65 @@ function Replaces() {
         */}
       </div>
     </div>
+  )
+}
+
+function CTALink({
+  href,
+  variant,
+  children,
+}: {
+  href: string
+  variant?: 'primary' | 'secondary'
+  children: React.ReactNode
+}) {
+  const theme = variant === 'secondary'
+    ? {
+      backgroundColor: 'var(--color-text)',
+      color: '#eee',
+    }
+    : {
+      backgroundColor: 'rgb(247, 224, 24)',
+      color: 'var(--color-text)',
+    }
+
+  return (
+    <a
+      href={href}
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+      }}
+    >
+      <div
+        style={{
+          display: 'inline-flex',
+          marginTop: -6,
+          marginBottom: 6,
+          overflow: 'hidden',
+          border: '1px solid #d1d5db',
+          borderRadius: 6,
+          boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12)',
+          fontSize: 16,
+          fontWeight: 600,
+        }}
+      >
+        <div
+          style={{
+            padding: 8,
+            paddingRight: 16,
+            paddingLeft: 16,
+            display: 'flex',
+            alignItems: 'center',
+            letterSpacing: '0.05em',
+            lineHeight: 1.3,
+            ...theme,
+          }}
+        >
+          {children}
+        </div>
+      </div>
+    </a>
   )
 }

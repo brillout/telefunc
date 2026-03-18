@@ -1,7 +1,7 @@
 import React from 'react'
 import './CodePreview.css'
-import CodePreviewBlockLeft from './CodePreviewBlockLeft.mdx'
-import CodePreviewBlockRight from './CodePreviewBlockRight.mdx'
+import CodePreviewBlockServer from './CodePreviewBlockServer.mdx'
+import CodePreviewBlockBrowser from './CodePreviewBlockBrowser.mdx'
 
 export { CodePreview }
 
@@ -18,15 +18,15 @@ function CodePreview() {
       >
         <div className="code-preview_code-block">
           <div className="code-preview_code-block_description">
-            <em>Server</em>
+            <em>Called in the browser,</em>
           </div>
-          <CodePreviewBlockLeft />
+          <CodePreviewBlockBrowser />
         </div>
         <div className="code-preview_code-block code-preview_code-block_right">
           <div className="code-preview_code-block_description">
-            <em>Browser</em>
+            <em>Run on the server.</em>
           </div>
-          <CodePreviewBlockRight />
+          <CodePreviewBlockServer />
         </div>
       </div>
     </CenterHorizontal>
