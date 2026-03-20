@@ -1,0 +1,159 @@
+import { Link } from '@brillout/docpress'
+
+**Environment**: server.
+
+Create a bidirectional channel for real-time communication with the client.
+
+- Use a channel when both sides keep sending messages after the initial telefunction call.
+- If you only need a short-lived callback, function passing is usually simpler. See <Link href="/real-time" />.
+
+```ts
+import { createChannel } from 'telefunc'
+
+type ClientToServer = (message: string) => void
+type ServerToClient = (message: string) => void
+
+export async function onChat() {
+  const channel = createChannel<ClientToServer, ServerToClient>()
+  channel.listen((msg) => {
+    channel.send(`echo: ${msg}`)
+  })
+  return { channel: channel.client }
+}
+```
+
+Return `channel.client` to the client — it serializes into a `ClientChannel` on the other side. Use `channel` directly on the server for `send()`, `listen()`, and other operations.
+
+By default, channels use SSE and work without extra server setup. Use `config.channel.transport = 'ws'` only if you want the WebSocket backend. See <Link href="/transport" /> and <Link text={<code>telefuncWebSocket()</code>} href="/telefuncWebSocket" />.
+
+
+## Methods
+
+| Method | Description |
+|---|---|
+| `channel.client` | The client-side end of the channel. Return this from a telefunction. |
+| `send(data)` | Send a message. |
+| `send(data, { ack: true })` | Send a message and wait for the receiver to acknowledge it. |
+| `send(data, { ack: false })` | Opt out of acknowledgements for a single send on an ack-default channel. |
+| `sendBinary(data)` | Send binary data as `Uint8Array`. |
+| `listen(cb)` | Receive messages. Return a value to acknowledge the sender. |
+| `listenBinary(cb)` | Receive binary messages. |
+| `onOpen(cb)` | Run when the channel becomes usable. |
+| `onClose(cb)` | Run when the channel closes. |
+| `close()` | Cleanly close the channel from either side. |
+| `isClosed` | Whether the channel is already closed. |
+
+
+## TypeScript
+
+`createChannel<ClientToServer, ServerToClient>()` is generic.
+
+Each type is a function signature:
+- Its argument is the message type.
+- Its return type is the acknowledgement type.
+
+```ts
+// Room.telefunc.ts
+// Environment: server
+
+import { createChannel } from 'telefunc'
+
+type ServerMessage =
+  | { type: 'system'; text: string }
+  | { type: 'chat'; text: string }
+
+type ClientMessage =
+  | { type: 'join'; roomId: string }
+  | { type: 'chat'; text: string }
+
+type ClientToServer = (message: ClientMessage) => { accepted: true }
+type ServerToClient = (message: ServerMessage) => { delivered: true }
+
+export async function onJoinRoom() {
+  const channel = createChannel<ClientToServer, ServerToClient>({ ack: true })
+
+  channel.listen((message) => {
+    if (message.type === 'join') {
+      channel.send({ type: 'system', text: `Joined ${message.roomId}` })
+      return { accepted: true }
+    }
+
+    channel.send({ type: 'chat', text: `echo: ${message.text}` })
+    return { accepted: true }
+  })
+
+  return { channel: channel.client }
+}
+```
+
+```ts
+// Room.tsx
+// Environment: client
+
+import { onJoinRoom } from './Room.telefunc'
+
+const { channel } = await onJoinRoom()
+
+channel.listen((message) => {
+  if (message.type === 'system') {
+    console.log(message.text)
+    return { delivered: true }
+  }
+
+  console.log(message.text)
+  return { delivered: true }
+})
+
+const ack = await channel.send({ type: 'join', roomId: 'general' })
+ack.accepted // true
+```
+
+On the server, `channel.send()` uses `ServerMessage` and resolves to `{ delivered: true }`, while `channel.listen()` receives `ClientMessage` and returns `{ accepted: true }`.
+
+On the client, the same channel is inferred with both directions flipped automatically.
+
+### Acknowledgements
+
+Pass `{ ack: true }` to enable acknowledged sends:
+
+```ts
+// All sends return a Promise — listener return value is the ack
+type ClientMsg = { type: 'refund' }
+type ServerMsg = { type: 'status'; text: string }
+
+type ClientToServer = (data: ClientMsg) => void
+type ServerToClient = (data: ServerMsg) => { delivered: true }
+
+const channel = createChannel<ClientToServer, ServerToClient>({ ack: true })
+```
+
+You can also opt in per-send without `{ ack: true }` on the channel:
+
+```ts
+type ClientMsg = { type: 'refund' }
+type ServerMsg = { type: 'status'; text: string }
+
+type ClientToServer = (data: ClientMsg) => void
+type ServerToClient = (data: ServerMsg) => { delivered: true }
+
+const channel = createChannel<ClientToServer, ServerToClient>()
+const ack = await channel.send({ type: 'status', text: 'Refund approved' }, { ack: true })
+ack.delivered // true
+```
+
+And opt out for a single send on an ack-default channel:
+
+```ts
+channel.send(data, { ack: false }) // void, no ack
+```
+
+Acknowledgement types come from the function return types.
+
+
+## See also
+
+- <Link href="/stream" />
+- <Link href="/real-time" />
+- <Link href="/file-upload" />
+- <Link href="/telefuncWebSocket" />
+- <Link href="/transport" />

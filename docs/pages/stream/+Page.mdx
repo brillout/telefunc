@@ -1,0 +1,231 @@
+import { Link } from '@brillout/docpress'
+
+Telefunctions can stream values with [`AsyncGenerator`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/AsyncGenerator), [`ReadableStream`](https://developer.mozilla.org/en-US/docs/Web/API/ReadableStream), or `Promise`s nested inside the returned value.
+
+> A single telefunction can return a mix of `AsyncGenerator`, `ReadableStream`, and `Promise` values.
+
+## Which one should you use?
+
+- Use `AsyncGenerator` for progressive app-level values such as AI tokens, notifications, or progress updates.
+- Use `ReadableStream` for raw bytes such as downloads or media.
+- Use nested `Promise`s when part of the result can arrive later but you still want the rest of the response immediately.
+
+
+## `AsyncGenerator`
+
+`AsyncGenerator` is the usual choice for incremental values.
+
+```ts
+// Chat.telefunc.ts
+// Environment: server
+
+export async function* onChat(prompt: string): AsyncGenerator<string> {
+  const stream = await ai.streamText({ prompt })
+  for await (const token of stream) {
+    yield token
+  }
+}
+```
+
+```tsx
+// Chat.tsx
+// Environment: client
+
+import { onChat } from './Chat.telefunc'
+
+const gen = onChat('Tell me a joke')
+for await (const token of gen) {
+  console.log(token) // Each token arrives as it's yielded
+}
+```
+
+
+## `ReadableStream`
+
+Use `ReadableStream` when you want to stream bytes instead of structured values.
+
+```ts
+// Download.telefunc.ts
+// Environment: server
+
+import fs from 'node:fs'
+import { Readable } from 'node:stream'
+
+export function onDownload(fileName: string): ReadableStream<Uint8Array> {
+  return Readable.toWeb(fs.createReadStream(`./files/${fileName}`)) as ReadableStream<Uint8Array>
+}
+```
+
+```ts
+// Download.tsx
+// Environment: client
+
+import { onDownload } from './Download.telefunc'
+
+const stream = await onDownload('report.pdf')
+const reader = stream.getReader()
+while (true) {
+  const { done, value } = await reader.read()
+  if (done) break
+  // Process raw bytes
+}
+```
+
+## `Promise`
+
+A `Promise` nested inside the returned value is delivered lazily: the server can send the surrounding response immediately while that promise resolves in parallel.
+
+```ts
+// Dashboard.telefunc.ts
+// Environment: server
+
+export async function onLoadDashboard() {
+  return {
+    // Plain values are delivered immediately
+    title: 'Dashboard',
+    // Promises resolve independently — the client gets each as it settles
+    summary: fetchSummary(), // fast promise
+    report: fetchExtensiveReport(), // slow promise
+  }
+}
+```
+
+```tsx
+// Dashboard.tsx
+// Environment: client
+
+import { onLoadDashboard } from './Dashboard.telefunc'
+
+const res = await onLoadDashboard()
+
+// Plain values are available right away
+console.log(res.title) // 'Dashboard'
+
+// Await each promise when you need it
+const summary = await res.summary
+const report = await res.report
+```
+
+> Awaiting a promise blocks the entire telefunction call:
+> ```ts
+> export async function onLoadDashboard() {
+>   await prepare() // Blocks the entire telefunction call
+>   return {
+>     // ⚠️  Delivered delayed by `await prepare()`
+>     title: 'Dashboard',
+>     /* ... */
+>   }
+> }
+> ```
+> If that isn't what you want, then return the `prepare()` promise instead of awaiting it:
+> ```ts
+> export async function onLoadDashboard() {
+>   const promise = prepare() // Starts immediately without delaying the response
+>   return {
+>     // ✅ Delivered immediately
+>     title: 'Dashboard',
+>     promise,
+>     /* ... */
+>   }
+> }
+> ```
+
+## Mixed
+
+A telefunction can return an object containing any combination of generators, streams, and promises.
+
+> All streamed values are multiplexed over a single response and delivered concurrently as they become available.
+
+```ts
+// Dashboard.telefunc.ts
+// Environment: server
+
+export async function onLoadDashboard() {
+  async function* notifications(): AsyncGenerator<string> {
+    for (const n of await fetchNotifications()) {
+      yield n.text
+    }
+  }
+
+  return {
+    stream: notifications(),
+    // Promises resolve independently — fast resolves before slow
+    fast: Promise.resolve({ count: 42 }),
+    slow: fetchExtensiveReport(),
+    // Plain values are delivered immediately
+    title: 'Dashboard',
+  }
+}
+```
+
+```tsx
+// Dashboard.tsx
+// Environment: client
+
+import { onLoadDashboard } from './Dashboard.telefunc'
+
+const res = await onLoadDashboard()
+
+// Plain values available immediately
+console.log(res.title) // 'Dashboard'
+
+// Consume the generator
+for await (const notification of res.stream) {
+  console.log(notification)
+}
+
+// Promises resolve independently — await whenever you need them
+const fast = await res.fast  // Resolves first
+const slow = await res.slow  // Resolves when ready
+```
+
+
+## Transport
+
+By default, streamed values are sent as raw binary chunks over HTTP (`application/octet-stream`). You can switch streamed-value transport globally or per call:
+
+| Transport | Description |
+|---|---|
+| `'binary-inline'` (default) | Raw binary chunked HTTP response. Usually the best default. |
+| `'sse-inline'` | Base64url-encoded Server-Sent Events — works through proxies that buffer binary responses |
+| `'channel'` | Send streamed values using the configured channel transport (`'sse'` or `'ws'`) |
+
+- Prefer `'binary-inline'` unless you have a concrete reason to change it.
+- Use `'sse-inline'` when a proxy or CDN buffers binary HTTP responses, or when you need a more proxy-friendly inline transport.
+- Use `'channel'` when you want streamed values to use the same transport as Telefunc channels. The channel backend is `'sse'` or `'ws'` depending on `config.channel.transport` (or, when unset, Telefunc's runtime default).
+
+```ts
+// Environment: client
+
+import { config } from 'telefunc/client'
+
+config.stream.transport = 'channel'
+config.channel.transport = 'ws'
+```
+
+See <Link href="/transport" /> for details.
+
+For a side-by-side strengths and weaknesses comparison, see <Link href="/transport" />.
+
+
+## Error handling
+
+If a generator or stream throws a regular error, the client receives an error and any values already delivered remain available.
+
+See <Link href="/error-handling" /> for details.
+
+
+## Cleanup
+
+Use `onClose()` to detect when the stream lifecycle ends, for example when the client disconnects, the stream finishes, or the response closes. This is the right place to cancel upstream work or release resources.
+
+See <Link href="/getContext" /> for details.
+
+
+## See also
+
+- <Link href="/real-time" />
+- <Link href="/file-upload" />
+- <Link href="/createChannel" />
+- <Link href="/telefuncWebSocket" />
+- <Link href="/transport" />

@@ -1,4 +1,4 @@
-export { telefunc }
+export { serve, telefunc }
 
 import { runTelefunc, HttpResponse } from './runTelefunc.js'
 import { Telefunc } from './getContext.js'
@@ -37,8 +37,8 @@ type HttpRequest =
       method: string
       /** The Node.js `req` readable stream. */
       readable: Readable
-      /** The Content-Type header value */
-      contentType: string
+      /** The HTTP request headers */
+      headers: Record<string, string | string[] | undefined> | [string, string][]
       /** The context object, see https://telefunc.com/getContext  */
       context?: Telefunc.Context
     }
@@ -46,11 +46,16 @@ type HttpRequest =
 /** Get HTTP Response for a telefunction remote call HTTP Request.
  * @returns HTTP Response
  */
-async function telefunc(httpRequest: HttpRequest): Promise<HttpResponse> {
+async function serve(httpRequest: HttpRequest): Promise<HttpResponse> {
   assertHttpRequest(httpRequest, arguments.length)
   const httpRequestResolved = await resolveHttpRequest(httpRequest)
   const httpResponse = await runTelefunc(httpRequestResolved)
   return httpResponse
+}
+
+/** @deprecated Use serve() instead. */
+async function telefunc(httpRequest: HttpRequest): Promise<HttpResponse> {
+  return serve(httpRequest)
 }
 
 async function resolveHttpRequest(httpRequest: HttpRequest): Promise<HttpRequestResolved> {
@@ -58,11 +63,11 @@ async function resolveHttpRequest(httpRequest: HttpRequest): Promise<HttpRequest
     return { request: httpRequest.request, context: httpRequest.context }
   }
   if ('readable' in httpRequest) {
-    const request = nodeReadableToWebRequest(
+    const request = await nodeReadableToWebRequest(
       httpRequest.readable,
       'http://localhost' + httpRequest.url,
       httpRequest.method,
-      { 'content-type': httpRequest.contentType },
+      httpRequest.headers,
     )
     return { request, context: httpRequest.context }
   }
@@ -76,54 +81,44 @@ async function resolveHttpRequest(httpRequest: HttpRequest): Promise<HttpRequest
 }
 
 function assertHttpRequest(httpRequest: unknown, numberOfArguments: number) {
-  assertUsage(numberOfArguments === 1, '`telefunc()`: all arguments should be passed as a single argument object.')
-  assertUsage(httpRequest, '`telefunc(httpRequest)`: argument `httpRequest` is missing.')
-  assertUsage(isObject(httpRequest), '`telefunc(httpRequest)`: argument `httpRequest` should be an object.')
+  assertUsage(numberOfArguments === 1, '`serve()`: all arguments should be passed as a single argument object.')
+  assertUsage(httpRequest, '`serve(httpRequest)`: argument `httpRequest` is missing.')
+  assertUsage(isObject(httpRequest), '`serve(httpRequest)`: argument `httpRequest` should be an object.')
   const hasRequest = hasProp(httpRequest, 'request')
   const hasReadable = hasProp(httpRequest, 'readable')
   if (hasRequest) {
     assertUsage(
       httpRequest.request instanceof Request,
-      '`telefunc({ request })`: argument `request` should be a Web Request object.',
+      '`serve({ request })`: argument `request` should be a Web Request object.',
     )
   } else if (hasReadable) {
-    assertUsage(hasProp(httpRequest, 'url'), '`telefunc({ url })`: argument `url` is missing.')
-    assertUsage(hasProp(httpRequest, 'url', 'string'), '`telefunc({ url })`: argument `url` should be a string.')
-    assertUsage(hasProp(httpRequest, 'method'), '`telefunc({ method })`: argument `method` is missing.')
-    assertUsage(
-      hasProp(httpRequest, 'method', 'string'),
-      '`telefunc({ method })`: argument `method` should be a string.',
-    )
-    assertUsage(hasProp(httpRequest, 'contentType'), '`telefunc({ contentType })`: argument `contentType` is missing.')
-    assertUsage(
-      hasProp(httpRequest, 'contentType', 'string'),
-      '`telefunc({ contentType })`: argument `contentType` should be a string.',
-    )
+    assertUsage(hasProp(httpRequest, 'url'), '`serve({ url })`: argument `url` is missing.')
+    assertUsage(hasProp(httpRequest, 'url', 'string'), '`serve({ url })`: argument `url` should be a string.')
+    assertUsage(hasProp(httpRequest, 'method'), '`serve({ method })`: argument `method` is missing.')
+    assertUsage(hasProp(httpRequest, 'method', 'string'), '`serve({ method })`: argument `method` should be a string.')
+    assertUsage(hasProp(httpRequest, 'headers'), '`serve({ headers })`: argument `headers` is missing.')
   } else {
-    assertUsage(hasProp(httpRequest, 'url'), '`telefunc({ url })`: argument `url` is missing.')
-    assertUsage(hasProp(httpRequest, 'url', 'string'), '`telefunc({ url })`: argument `url` should be a string.')
-    assertUsage(hasProp(httpRequest, 'method'), '`telefunc({ method })`: argument `method` is missing.')
-    assertUsage(
-      hasProp(httpRequest, 'method', 'string'),
-      '`telefunc({ method })`: argument `method` should be a string.',
-    )
-    assertUsage(hasProp(httpRequest, 'body'), '`telefunc({ body })`: argument `body` is missing.')
+    assertUsage(hasProp(httpRequest, 'url'), '`serve({ url })`: argument `url` is missing.')
+    assertUsage(hasProp(httpRequest, 'url', 'string'), '`serve({ url })`: argument `url` should be a string.')
+    assertUsage(hasProp(httpRequest, 'method'), '`serve({ method })`: argument `method` is missing.')
+    assertUsage(hasProp(httpRequest, 'method', 'string'), '`serve({ method })`: argument `method` should be a string.')
+    assertUsage(hasProp(httpRequest, 'body'), '`serve({ body })`: argument `body` is missing.')
     assertUsage(
       hasProp(httpRequest, 'body', 'string'),
-      '`telefunc({ body })`: argument `body` should be a string. Make sure `body` is the HTTP body string of the request. Note that with some server frameworks, such as Express.js, a server middleware is needed to parse the HTTP body of `Content-Type: text/plain` requests.',
+      '`serve({ body })`: argument `body` should be a string. Make sure `body` is the HTTP body string of the request. Note that with some server frameworks, such as Express.js, a server middleware is needed to parse the HTTP body of `Content-Type: text/plain` requests.',
     )
   }
   assertUsage(
     !('context' in httpRequest) || hasProp(httpRequest, 'context', 'object'),
-    '`telefunc({ context })`: argument `context` should be an object.',
+    '`serve({ context })`: argument `context` should be an object.',
   )
   const allowedKeys = hasRequest
     ? ['request', 'context']
     : hasReadable
-      ? ['url', 'method', 'readable', 'contentType', 'context']
+      ? ['url', 'method', 'readable', 'headers', 'context']
       : ['url', 'method', 'body', 'context']
   Object.keys(httpRequest).forEach((key) => {
-    assertUsage(allowedKeys.includes(key), '`telefunc({ ' + key + ' })`: Unknown argument `' + key + '`.')
+    assertUsage(allowedKeys.includes(key), '`serve({ ' + key + ' })`: Unknown argument `' + key + '`.')
   })
   // We further assert the `httpRequest` in `./runTelefunc/parseHttpRequest.ts`
 }

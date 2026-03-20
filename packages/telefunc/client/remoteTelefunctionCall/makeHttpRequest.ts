@@ -3,70 +3,83 @@ export { makeHttpRequest }
 import { parse } from '@brillout/json-serializer/parse'
 import { assert, assertUsage } from '../../utils/assert.js'
 import { isObject } from '../../utils/isObject.js'
-import { objectAssign } from '../../utils/objectAssign.js'
-import { callOnAbortListeners } from './onAbort.js'
+import { parseResponse } from '../../wire-protocol/client/response/parse.js'
+import { REQUEST_KIND, REQUEST_KIND_HEADER, getMarkedRequestUrl } from '../../wire-protocol/request-kind.js'
+import { throwAbortError, throwBugError } from './errors.js'
+import { ConnectionError } from '../ConnectionError.js'
+import { setShardInfo } from '../../wire-protocol/client/shard-registry.js'
+import type { ChannelTransports } from '../../wire-protocol/constants.js'
 import {
-  STATUS_CODE_THROW_ABORT,
-  STATUS_CODE_INTERNAL_SERVER_ERROR,
-  STATUS_BODY_INTERNAL_SERVER_ERROR,
-  STATUS_CODE_MALFORMED_REQUEST,
-  STATUS_BODY_MALFORMED_REQUEST,
-  STATUS_CODE_SHIELD_VALIDATION_ERROR,
-  STATUS_BODY_SHIELD_VALIDATION_ERROR,
   STATUS_CODE_SUCCESS,
+  STATUS_CODE_THROW_ABORT,
+  STATUS_CODE_MALFORMED_REQUEST,
+  STATUS_CODE_INTERNAL_SERVER_ERROR,
+  STATUS_CODE_SHIELD_VALIDATION_ERROR,
+  STATUS_BODY_MALFORMED_REQUEST,
+  STATUS_BODY_INTERNAL_SERVER_ERROR,
+  STATUS_BODY_SHIELD_VALIDATION_ERROR,
 } from '../../shared/constants.js'
 
 const method = 'POST'
 
 async function makeHttpRequest(callContext: {
   telefuncUrl: string
-  httpRequestBody: string | FormData
+  telefuncUrlBase: string
+  httpRequestBody: string | Blob
   telefunctionName: string
   telefuncFilePath: string
-  httpHeaders: Record<string, string> | null
+  headers: Record<string, string> | null
   fetch: typeof globalThis.fetch | null
-}): Promise<{ telefunctionReturn: unknown }> {
-  const isMultipart = typeof callContext.httpRequestBody !== 'string'
-  const contentType = isMultipart
-    ? // Don't set Content-Type for FormData — browser sets multipart/form-data with boundary automatically
-      null
-    : { 'Content-Type': 'text/plain' }
+  abortController: AbortController
+  channel: { transports: ChannelTransports }
+}): Promise<unknown> {
+  const isBinaryFrame = typeof callContext.httpRequestBody !== 'string'
+  const requestKind = isBinaryFrame ? REQUEST_KIND.BINARY : REQUEST_KIND.TEXT
+  const requestUrl = getMarkedRequestUrl(callContext.telefuncUrl, requestKind)
+  const contentType = isBinaryFrame ? { 'Content-Type': 'application/octet-stream' } : { 'Content-Type': 'text/plain' }
+  const requestKindHeader = { [REQUEST_KIND_HEADER]: requestKind }
   let response: Response
   try {
     const fetch = callContext.fetch ?? window.fetch
-    response = await fetch(callContext.telefuncUrl, {
+    response = await fetch(requestUrl, {
       method,
       body: callContext.httpRequestBody,
       credentials: 'same-origin',
       headers: {
         ...contentType,
-        ...callContext.httpHeaders,
+        ...requestKindHeader,
+        ...callContext.headers,
       },
+      signal: callContext.abortController.signal,
     })
-  } catch (_) {
-    const telefunctionCallError = new Error('No Server Connection')
-    objectAssign(telefunctionCallError, { isConnectionError: true as const })
-    throw telefunctionCallError
+  } catch (err) {
+    if (callContext.abortController.signal.aborted) {
+      throwAbortError(callContext.telefunctionName, callContext.telefuncFilePath, undefined)
+    }
+    throw new ConnectionError()
   }
 
   const statusCode = response.status
+  const shard = response.headers.get('x-telefunc-shard') ?? undefined
+  const sticky = response.headers.get('x-telefunc-sticky') === 'true'
+
+  // Always record shard + stickiness so channels can open to the right DO
+  // and POST URLs can be pinned when the server opts in to sticky sharding.
+  if (shard) setShardInfo(callContext.telefuncUrlBase, shard, sticky)
 
   if (statusCode === STATUS_CODE_SUCCESS) {
-    const { ret } = await parseResponseBody(response, callContext)
-    const telefunctionReturn = ret
-    return { telefunctionReturn }
+    const parsed = await parseResponse(response, callContext, shard)
+    assertUsage(isObject(parsed) && 'ret' in parsed, wrongInstallation({ method, callContext }))
+    return parsed.ret
   } else if (statusCode === STATUS_CODE_THROW_ABORT) {
-    const { ret } = await parseResponseBody(response, callContext)
-    const abortValue = ret
-    const telefunctionCallError = new Error(
-      `Aborted telefunction call ${callContext.telefunctionName}() (${callContext.telefuncFilePath}).`,
-    )
-    objectAssign(telefunctionCallError, { isAbort: true as const, abortValue })
-    callOnAbortListeners(telefunctionCallError)
-    throw telefunctionCallError
+    const responseBody = await response.text()
+    const parsed: unknown = parse(responseBody)
+    assertUsage(isObject(parsed) && 'ret' in parsed, wrongInstallation({ method, callContext }))
+    assert('abort' in parsed)
+    throwAbortError(callContext.telefunctionName, callContext.telefuncFilePath, (parsed as { ret: unknown }).ret)
   } else if (statusCode === STATUS_CODE_INTERNAL_SERVER_ERROR) {
     const errMsg = await getErrMsg(STATUS_BODY_INTERNAL_SERVER_ERROR, response, callContext)
-    throw new Error(errMsg)
+    throwBugError(errMsg)
   } else if (statusCode === STATUS_CODE_SHIELD_VALIDATION_ERROR) {
     const errMsg = await getErrMsg(
       STATUS_BODY_SHIELD_VALIDATION_ERROR,
@@ -104,14 +117,7 @@ async function makeHttpRequest(callContext: {
   }
 }
 
-async function parseResponseBody(response: Response, callContext: { telefuncUrl: string }): Promise<{ ret: unknown }> {
-  const responseBody = await response.text()
-  const responseBodyParsed = parse(responseBody)
-  assertUsage(isObject(responseBodyParsed) && 'ret' in responseBodyParsed, wrongInstallation({ method, callContext }))
-  assert(response.status !== STATUS_CODE_THROW_ABORT || 'abort' in responseBodyParsed)
-  const { ret } = responseBodyParsed
-  return { ret }
-}
+// ===== Helpers =====
 
 function wrongInstallation({
   reason = 'an HTTP response body that Telefunc never generates',
