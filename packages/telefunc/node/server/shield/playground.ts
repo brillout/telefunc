@@ -5,13 +5,13 @@ import { shield, shieldApply, shieldToHumandReadable } from '../shield.js'
 const t = shield.type
 
 {
-  shield(telefunction, [t.string])
+  shield([t.string], telefunction)
   function telefunction(...[]: any) {}
   console.log(shieldApply(telefunction, ['a']))
 }
 
 {
-  shield(telefunction, [t.string, t.optional(t.number)])
+  shield([t.string, t.optional(t.number)], telefunction)
   function telefunction(...[]: any) {}
   console.log(shieldApply(telefunction, ['a', undefined, undefined]))
 }

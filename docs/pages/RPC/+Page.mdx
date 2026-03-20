@@ -103,7 +103,7 @@ export { onNewTodo }
 import { shield } from 'telefunc'
 
 // We'll explain shield() later
-shield(onNewTodo, [shield.type.string])
+shield([shield.type.string], onNewTodo)
 async function onNewTodo(text) {
   // ORM
   const todoItem = new Task({ text })
@@ -364,7 +364,7 @@ For more convenience, you can use `shield()` instead:
 import { shield } from 'telefunc'
 const t = shield.type
 
-shield(onNewTodo, [t.string])
+shield([t.string], onNewTodo)
 export async function onNewTodo(text) {
   // ...
 }
@@ -377,7 +377,7 @@ export async function onNewTodo(text) {
 import { shield } from 'telefunc'
 const t = shield.type
 
-shield(onNewTodo, [{ text: t.string, isCompleted: t.boolean }])
+shield([{ text: t.string, isCompleted: t.boolean }], onNewTodo)
 export async function onNewTodo({ text, isCompleted }) {
   // ...
 }
@@ -422,7 +422,7 @@ But you still need to use `throw Abort()` in order to protect the telefunction a
 
 import { getContext, Abort, shield } from 'telefunc'
 
-shield(onDelete, [shield.type.number])
+shield([shield.type.number], onDelete)
 export async function onDelete(id) {
   const { user } = getContext()
 
@@ -448,7 +448,7 @@ For example, the following doesn't send a single byte of superfluous information
 
 import { getContext } from 'telefunc'
 
-shield(onTodoComplete, [shield.type.number])
+shield([shield.type.number], onTodoComplete)
 export async function onTodoComplete(id) {
   const { user } = getContext()
   await Task.update({ completed: true }).where({ id, author: user.id })

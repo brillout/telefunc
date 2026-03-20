@@ -14,7 +14,7 @@ export { onNewTodo }
 import { shield } from 'telefunc'
 const t = shield.type
 
-shield(onNewTodo, [t.string])
+shield([t.string], onNewTodo)
 async function onNewTodo(text) {
   // `text` is guaranteed to be a `string`: if `onNewTodo(42)` is called then Telefunc
   // throws an error that `text` should be a `string` (instead of a `number`)
@@ -72,7 +72,7 @@ Note that the following doesn't work:
 ```ts ts-only
 import { shield } from 'telefunc'
 
-shield(onNewTodo, [shield.type.string])
+shield([shield.type.string], onNewTodo)
 // TypeScript cannot infer the type of named functions by design.
 export async function onNewTodo(text) {
   // ❌ TypeScript doesn't know that `text` is of type `string`
@@ -91,39 +91,39 @@ Examples showcasing the most common `shield()` types:
 import { shield } from 'telefunc'
 const t = shield.type
 
-shield(onTextChange, [t.number, t.string])
+shield([t.number, t.string], onTextChange)
 async function onTextChange(id, text) {
   // typeof id === 'number'
   // typeof text === 'string'
 }
 
-shield(onCompletedToggle, [{ id: t.number, isCompleted: t.boolean }])
+shield([{ id: t.number, isCompleted: t.boolean }], onCompletedToggle)
 async function onCompletedToggle({ id, isCompleted }) {
   // typeof id === 'number'
   // typeof isCompleted === 'boolean'
 }
 
-shield(onTagListChange, [t.array(t.string)])
+shield([t.array(t.string)], onTagListChange)
 async function onTagListChange(tagList) {
   // tagList.every(tagName => typeof tagName === 'string')
 }
 
-shield(onNewMilestone, [{
+shield([{
   name: t.string,
   deadline: t.nullable(t.date),
   ownerId: t.optional(t.number)
-}])
+}], onNewMilestone)
 async function onNewMilestone({ name, deadline, ownerId }) {
   // typeof name === 'string'
   // deadline === null || deadline.constructor === Date
   // ownerId === undefined || typeof ownerId === 'number'
 }
 
-shield(onStatusChange, [t.or(
+shield([t.or(
   t.const('DONE'),
   t.const('PROGRESS'),
   t.const('POSTPONED')
-)])
+)], onStatusChange)
 async function onStatusChange(status) {
   // status === 'DONE' || status === 'PROGRESS' || status === 'POSTPONED'
 }
