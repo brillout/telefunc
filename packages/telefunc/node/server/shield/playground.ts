@@ -5,24 +5,24 @@ import { shield, shieldApply, shieldToHumandReadable } from '../shield.js'
 const t = shield.type
 
 {
-  shield([t.string], telefunction)
+  shield(telefunction, [t.string])
   function telefunction(...[]: any) {}
   console.log(shieldApply(telefunction, ['a']))
 }
 
 {
-  shield([t.string, t.optional(t.number)], telefunction)
+  shield(telefunction, [t.string, t.optional(t.number)])
   function telefunction(...[]: any) {}
   console.log(shieldApply(telefunction, ['a', undefined, undefined]))
 }
 
 {
-  const telefunction = shield([t.string, t.optional(t.number)], (_a, _b) => {})
+  const telefunction = shield((_a, _b) => {}, [t.string, t.optional(t.number)])
   console.log(shieldApply(telefunction, ['a', 42, undefined]))
 }
 
 {
-  const telefunction = shield([{ a: { b: { c: t.const(42) } } }], (_a) => {})
+  const telefunction = shield((_a) => {}, [{ a: { b: { c: t.const(42) } } }])
   console.log(shieldApply(telefunction, [{ a: { b: { c: 42 } } }]))
 }
 
