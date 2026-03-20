@@ -26,7 +26,9 @@ function shield<
   return telefunction
 }
 
-type Telefunction = Function
+type Telefunction = Function & {
+  [K in typeof shieldKey]?: unknown
+}
 
 function assertShield(telefunctionShield: unknown): asserts telefunctionShield is TelefunctionShield {
   assertUsage(
@@ -44,13 +46,18 @@ function isTelefunction(thing: unknown): thing is Telefunction {
   return isCallable(thing) && !isVerifier(thing)
 }
 
-function installShield(telefunction: Function, telefunctionShield: any, generated: boolean) {
-  const installedShield = (telefunction as any as Record<any, unknown>)[shieldKey as any]
-  if (installedShield && generated) {
-    // another shield is already installed, so not installing generated shield
+function installShield(telefunction: Telefunction, verifiers: unknown[], isGeneration: boolean): void {
+  let installedShield: unknown = undefined
+  if (shieldKey in telefunction) {
+    installedShield = telefunction[shieldKey]
+  }
+
+  if (installedShield && isGeneration) {
+    // A shield is already defined, skip auto-generation.
     return
   }
-  ;(telefunction as any as Record<any, unknown>)[shieldKey as any] = telefunctionShield
+
+  telefunction[shieldKey] = verifiers
 }
 
 function shieldIsMissing(telefunction: Telefunction): boolean {
