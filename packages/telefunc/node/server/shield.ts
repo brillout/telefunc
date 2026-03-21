@@ -3,6 +3,8 @@ export { shieldIsMissing }
 export { shieldApply }
 export { shieldToHumandReadable }
 
+// TODO/now-ish make variable naming in this file more consistent https://github.com/telefunc/telefunc/pull/247
+
 import { assert, assertUsage } from '../../utils/assert.js'
 import { isCallable } from '../../utils/isCallable.js'
 import { isPlainObject } from '../../utils/isPlainObject.js'
