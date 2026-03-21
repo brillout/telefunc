@@ -47,16 +47,8 @@ function isTelefunction(thing: unknown): thing is Telefunction {
 }
 
 function installShield(telefunction: Telefunction, verifiers: unknown[], isGeneration: boolean): void {
-  let installedShield: unknown = undefined
-  if (shieldKey in telefunction) {
-    installedShield = telefunction[shieldKey]
-  }
-
-  if (installedShield && isGeneration) {
-    // A shield is already defined, skip auto-generation.
-    return
-  }
-
+  // A shield is already defined, skip auto-generation.
+  if (telefunction[shieldKey] && isGeneration) return
   telefunction[shieldKey] = verifiers
 }
 
