@@ -26,6 +26,9 @@ importers:
       '@brillout/test-types':
         specifier: ^0.1.13
         version: 0.1.13(typescript@5.9.3)
+      playwright-chromium:
+        specifier: 1.57.0
+        version: 1.57.0
       vitest:
         specifier: ^3.2.4
         version: 3.2.4(@types/debug@4.1.12)(@types/node@24.0.10)(jiti@1.21.0)
@@ -5559,14 +5562,14 @@ packages:
   pkg-types@2.3.0:
     resolution: {integrity: sha512-SIqCzDRg0s9npO5XQ3tNZioRY1uK06lA41ynBC1YmFTmnY6FjUjVt6s4LoADmwoig1qqD0oK8h1p/8mlMx8Oig==}
 
-  playwright-chromium@1.25.1:
-    resolution: {integrity: sha512-X/B6ycySwV4L+smHu9t+rytPnBLCLI5RAV5TpjVwInv6RPYF6TWZ62zymwiSLxYXeNkyyx0pxTS7jqeOEmMM2g==}
-    engines: {node: '>=14'}
+  playwright-chromium@1.57.0:
+    resolution: {integrity: sha512-GCVVTbmIDrZuBxWYoQ70rehRXMb3Q7ccENe63a+rGTWwypeVAgh/DD5o5QQ898oer5pdIv3vGINUlEkHtOZQEw==}
+    engines: {node: '>=18'}
     hasBin: true
 
-  playwright-core@1.25.1:
-    resolution: {integrity: sha512-lSvPCmA2n7LawD2Hw7gSCLScZ+vYRkhU8xH0AapMyzwN+ojoDqhkH/KIEUxwNu2PjPoE/fcE0wLAksdOhJ2O5g==}
-    engines: {node: '>=14'}
+  playwright-core@1.57.0:
+    resolution: {integrity: sha512-agTcKlMw/mjBWOnD6kFZttAAGHgi/Nw0CZ2o6JqWSbMlI219lAFLZZCyqByTsvVAJq5XA5H8cA6PrvBRpBWEuQ==}
+    engines: {node: '>=18'}
     hasBin: true
 
   pngjs@6.0.0:
@@ -8000,7 +8003,7 @@ snapshots:
       esbuild: 0.23.1
       fast-glob: 3.3.3
       pixelmatch: 5.3.0
-      playwright-chromium: 1.25.1
+      playwright-chromium: 1.57.0
       pngjs: 6.0.0
       source-map-support: 0.5.21
       strip-ansi: 6.0.1
@@ -12511,11 +12514,11 @@ snapshots:
       exsolve: 1.0.7
       pathe: 2.0.3
 
-  playwright-chromium@1.25.1:
+  playwright-chromium@1.57.0:
     dependencies:
-      playwright-core: 1.25.1
+      playwright-core: 1.57.0
 
-  playwright-core@1.25.1: {}
+  playwright-core@1.57.0: {}
 
   pngjs@6.0.0: {}
 
