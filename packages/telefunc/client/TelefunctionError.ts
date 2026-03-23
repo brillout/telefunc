@@ -1,7 +1,13 @@
 export type { TelefunctionError }
 export type { TelefunctionCallAbort }
 
-type TelefunctionError = TelefunctionCallErrorSsr | TelefunctionCallErrorConnection | TelefunctionCallAbort
+import { ValidationError } from "../shared/ValidationError.js"
+
+type TelefunctionError = 
+  | TelefunctionCallErrorSsr
+  | TelefunctionCallErrorConnection
+  | TelefunctionCallAbort
+  | ValidationError
 
 type TelefunctionCallErrorSsr = Error & {
   isConnectionError?: undefined
