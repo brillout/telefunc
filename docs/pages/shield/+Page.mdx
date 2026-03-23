@@ -54,28 +54,31 @@ With Telefunc, not only can you seamlessly re-use types across your frontend and
 
 ## TypeScript - Manual
 
-If you define `shield()` manually (instead of using Telefunc's automatic `shield()` generator as described in <Link href="#typescript-automatic" />), then note that you don't need to define the arguments type twice:
-
-```ts ts-only
-import { shield } from 'telefunc'
-
-export const onNewTodo = shield(
-  [shield.type.string],
-  async function (text) {
-    // ✅ TypeScript knows that `text` is of type `string`
-  }
-)
-```
-
-Note that the following doesn't work:
+If you define `shield()` manually (instead of using Telefunc's automatic `shield()` generator as described in <Link href="#typescript-automatic" />), then use Telefunc's decorator-style API:
 
 ```ts ts-only
 import { shield } from 'telefunc'
 
 shield(onNewTodo, [shield.type.string])
-// TypeScript cannot infer the type of named functions by design.
-export async function onNewTodo(text) {
-  // ❌ TypeScript doesn't know that `text` is of type `string`
+export async function onNewTodo(text: string) {
+  // ✅ TypeScript knows that `text` is of type `string`
+}
+```
+
+Automatic TypeScript `shield()` generation remains the default and most transparent option. Manual `shield()` is mainly useful for JavaScript users, for stacks that don't transpile server-side code, or when bringing your own runtime validator.
+
+For example, you can bring a Zod-like or <a href="https://standardschema.dev" target="_blank">Standard Schema</a>-compatible validator without an extra wrapper:
+
+```ts ts-only
+import { shield } from 'telefunc'
+import { z } from 'zod'
+
+const TodoSchema = z.object({ text: z.string() })
+type Todo = z.infer<typeof TodoSchema>
+
+shield(onNewTodo, [TodoSchema])
+export async function onNewTodo(todo: Todo) {
+  // `todo` is validated at runtime by Zod.
 }
 ```
 
