@@ -64,6 +64,7 @@ type ZodLikeSchema<Output = unknown> = {
         }
       }
 }
+type ZodLikeSchemaResult<Output = unknown> = ReturnType<ZodLikeSchema<Output>['safeParse']>
 type SchemaLike<T = unknown> = StandardSchema<T> | ZodLikeSchema<T>
 type ShieldDefinition<T> = T | SchemaLike<T>
 
@@ -433,6 +434,10 @@ function verifySchema(schema: SchemaLike, input: unknown, breadcrumbs: string): 
   }
   if (isZodLikeSchema(schema)) {
     const result = schema.safeParse(input)
+    assertUsage(
+      isZodLikeSchemaResult(result),
+      '[shield()] A Zod-like schema `safeParse()` should return an object with a boolean `success` property.',
+    )
     return result.success ? true : getSchemaValidationError(result.error?.issues, 'zod', breadcrumbs)
   }
   assert(false)
@@ -453,12 +458,21 @@ function getSchemaValidationError(
     path && path.length > 0
       ? `${breadcrumbs} > [${vendor} schema path \`${path.map((segment) => String(segment)).join('.')}\`]`
       : breadcrumbs
-  const message = typeof issue?.message === 'string' && issue.message ? issue.message : 'validation failed.'
+  const message = typeof issue?.message === 'string' && issue.message ? issue.message : 'validation failed'
   return `${pathBreadcrumbs} ${message}`
 }
 
 function isPromiseLike(thing: unknown): thing is PromiseLike<unknown> {
   return !!thing && typeof (thing as PromiseLike<unknown>).then === 'function'
+}
+
+function isZodLikeSchemaResult(thing: unknown): thing is ZodLikeSchemaResult {
+  return (
+    isPlainObject(thing) &&
+    'success' in thing &&
+    typeof thing.success === 'boolean' &&
+    (thing.success || ('error' in thing && isPlainObject(thing.error)))
+  )
 }
 
 function getSchemaName(schema: SchemaLike): string {

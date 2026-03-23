@@ -185,7 +185,7 @@ describe('shield', () => {
     function onNewTodoItem(_text: string) {}
   }
 
-  function testTypescriptSchemaIntegrations() {
+  function testTypescriptSchemaIntegration() {
     type ZodLikeSchema<Output> = {
       safeParse(
         value: unknown,
@@ -235,7 +235,7 @@ describe('shield', () => {
   // Let TS believe that `testTypescript*` are not dangling
   if (1 !== 1) {
     testTypescriptBasics()
-    testTypescriptSchemaIntegrations()
+    testTypescriptSchemaIntegration()
     testTypescriptFull()
   }
 })
