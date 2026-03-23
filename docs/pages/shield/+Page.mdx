@@ -65,9 +65,13 @@ export async function onNewTodo(text: string) {
 }
 ```
 
-Automatic TypeScript `shield()` generation remains the default and most transparent option. Manual `shield()` is mainly useful for JavaScript users, for stacks that don't transpile server-side code, or when bringing your own runtime validator.
+Automatic TypeScript `shield()` generation remains the default and most transparent option. Manual `shield()` is mainly useful for JavaScript users, for stacks that don't transpile server-side code, or when you want Telefunc to validate with a specific runtime schema.
 
-Automatic `shield()` generation is based on your telefunction's TypeScript signature. It doesn't inspect Zod schemas or other runtime validators: if you bring your own validator, keep the telefunction's TypeScript type in sync with it.
+If you write `type Todo = z.infer<typeof TodoSchema>` and then `export async function onNewTodo(todo: Todo)`, automatic `shield()` generation can use that TypeScript type. In other words, `z.infer` works fine here.
+
+The difference is that automatic `shield()` generation sees the resulting TypeScript type, while `shield(onNewTodo, [TodoSchema])` uses the actual Zod schema at runtime. So:
+- if the TypeScript type is enough, you can rely on automatic `shield()` generation alone
+- if you want Telefunc to run the Zod schema itself, including its schema-specific validation details, pass the schema explicitly with `shield(onNewTodo, [TodoSchema])`
 
 For example, you can bring a Zod-like or <a href="https://standardschema.dev" target="_blank">Standard Schema</a>-compatible validator without an extra wrapper:
 
