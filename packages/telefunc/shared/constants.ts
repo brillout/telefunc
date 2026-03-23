@@ -8,4 +8,4 @@ export const STATUS_CODE_INTERNAL_SERVER_ERROR = 500 as const // "Internal Serve
 export const STATUS_BODY_INTERNAL_SERVER_ERROR = 'Internal Server Error' as const
 
 /** values: `detailed` */
-export const DETAILED_VALIDATION_ERROR_REUEST_HEADER = 'x-telefunc-errors' as const
+export const DETAILED_VALIDATION_ERROR_REQUEST_HEADER = 'x-telefunc-errors' as const

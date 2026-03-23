@@ -24,7 +24,7 @@ import {
   STATUS_CODE_MALFORMED_REQUEST,
   STATUS_BODY_MALFORMED_REQUEST,
   STATUS_CODE_SUCCESS,
-  DETAILED_VALIDATION_ERROR_REUEST_HEADER,
+  DETAILED_VALIDATION_ERROR_REQUEST_HEADER,
 } from '../../shared/constants.js'
 import { stringify } from '@brillout/json-serializer/stringify'
 import { ValidationError } from '../../shared/ValidationError.js'
@@ -195,7 +195,7 @@ async function runTelefunc_({
 }
 
 function createValidationErrorResponse(request: Request, validationError: ValidationError) {
-  const errorMode = request.headers.get(DETAILED_VALIDATION_ERROR_REUEST_HEADER)
+  const errorMode = request.headers.get(DETAILED_VALIDATION_ERROR_REQUEST_HEADER)
   if (errorMode === 'detailed') {
     return {
       ...shieldValidationError,
