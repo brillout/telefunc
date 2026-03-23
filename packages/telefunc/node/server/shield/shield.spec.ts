@@ -7,9 +7,13 @@ describe('shield', () => {
   it('shield - basic', () => {
     shield(onNewTodoItem, [shield.type.string])
     function onNewTodoItem(_text: string) {}
-    expect(shieldApply(onNewTodoItem, ['a'])).toStrictEqual({ validatedArguments: ['a']})
-    expect(shieldApply(onNewTodoItem, [1]).error?.message).toBe('[root] > [tuple: element 0] is `number` but should be `string`.')
-    expect(shieldApply(onNewTodoItem, []).error?.message).toBe('[root] > [tuple: element 0] is `undefined` but should be `string`.')
+    expect(shieldApply(onNewTodoItem, ['a'])).toStrictEqual({ validatedArguments: ['a'] })
+    expect(shieldApply(onNewTodoItem, [1]).error?.message).toBe(
+      '[root] > [tuple: element 0] is `number` but should be `string`.',
+    )
+    expect(shieldApply(onNewTodoItem, []).error?.message).toBe(
+      '[root] > [tuple: element 0] is `undefined` but should be `string`.',
+    )
   })
 
   it('shield - human readable', () => {
@@ -31,9 +35,13 @@ describe('shield', () => {
 
       expect(shieldApply(telefunction, ['a', 1])).toStrictEqual({ validatedArguments: ['a', 1] })
       expect(shieldApply(telefunction, ['a', undefined])).toStrictEqual({ validatedArguments: ['a', undefined] })
-      expect(shieldApply(telefunction, ['a', undefined, undefined])).toStrictEqual({ validatedArguments: ['a', undefined, undefined] })
+      expect(shieldApply(telefunction, ['a', undefined, undefined])).toStrictEqual({
+        validatedArguments: ['a', undefined, undefined],
+      })
       expect(shieldApply(telefunction, ['a'])).toStrictEqual({ validatedArguments: ['a'] })
-      expect(shieldApply(telefunction, ['a', false]).error?.message).toBe('[root] > [tuple: element 1] is of wrong type')
+      expect(shieldApply(telefunction, ['a', false]).error?.message).toBe(
+        '[root] > [tuple: element 1] is of wrong type',
+      )
     }
 
     {
@@ -41,8 +49,12 @@ describe('shield', () => {
       shield(telefunction, [t.string, t.nullable(t.number)])
       expect(shieldApply(telefunction, ['a', 1])).toStrictEqual({ validatedArguments: ['a', 1] })
       expect(shieldApply(telefunction, ['a', null])).toStrictEqual({ validatedArguments: ['a', null] })
-      expect(shieldApply(telefunction, ['a', null, undefined])).toStrictEqual({ validatedArguments: ['a', null, undefined] })
-      expect(shieldApply(telefunction, ['a', undefined]).error?.message).toBe('[root] > [tuple: element 1] is of wrong type')
+      expect(shieldApply(telefunction, ['a', null, undefined])).toStrictEqual({
+        validatedArguments: ['a', null, undefined],
+      })
+      expect(shieldApply(telefunction, ['a', undefined]).error?.message).toBe(
+        '[root] > [tuple: element 1] is of wrong type',
+      )
       expect(shieldApply(telefunction, ['a']).error?.message).toBe('[root] > [tuple: element 1] is of wrong type')
     }
 
@@ -51,7 +63,9 @@ describe('shield', () => {
       shield(telefunction, [t.or(t.string, t.number)])
       expect(shieldApply(telefunction, ['a'])).toStrictEqual({ validatedArguments: ['a'] })
       expect(shieldApply(telefunction, [1])).toStrictEqual({ validatedArguments: [1] })
-      expect(shieldApply(telefunction, [1, 1]).error?.message).toBe('[root] > [tuple: element 1] is `1` but should be `undefined`.')
+      expect(shieldApply(telefunction, [1, 1]).error?.message).toBe(
+        '[root] > [tuple: element 1] is `1` but should be `undefined`.',
+      )
     }
 
     {
@@ -100,26 +114,26 @@ describe('shield', () => {
               }
 
               return { issues: [{ message: 'value must be a string' }] }
-            }
-          }
+            },
+          },
         },
         {
-        ['~standard']: {
-          version: 1 as const,
-          vendor: 'mock',
-          validate: (value, options) => {
-            if (value === undefined || typeof value === 'number') {
-              console.log(value, value === undefined)
-              return { value } as const
-            }
+          ['~standard']: {
+            version: 1 as const,
+            vendor: 'mock',
+            validate: (value, options) => {
+              if (value === undefined || typeof value === 'number') {
+                console.log(value, value === undefined)
+                return { value } as const
+              }
 
-            return { issues: [{ message: 'value must be a number' }] }
-          }
-        }
-      }
+              return { issues: [{ message: 'value must be a number' }] }
+            },
+          },
+        },
       ]
 
-      const telefunction = (str: string, num?: number) => { }
+      const telefunction = (str: string, num?: number) => {}
       shield(telefunction, schema)
       expect(shieldApply(telefunction, ['a', 1])).toStrictEqual({ validatedArguments: ['a', 1] })
       expect(shieldApply(telefunction, ['a', 'false']).error?.message).toBe('[root] value must be a number')
@@ -139,7 +153,7 @@ describe('shield', () => {
     shield(myTelefunction, myTelefunctionShield)
     function myTelefunction(...[]: any) {}
 
-    [
+    ;[
       [{ a: 1 }, 'b', [22, 33]],
       [{ a: 0 }, null, []],
       [{ a: -Infinity }, { b: 42, arr: [1, undefined, true] }, [22, 33, 44]],
@@ -148,12 +162,16 @@ describe('shield', () => {
       expect(shieldApply(myTelefunction, args)).toStrictEqual({ validatedArguments: args })
     })
 
-    expect(shieldApply(myTelefunction, [{ a: 1 }, 'b', [22, 33]])).toStrictEqual({ validatedArguments: [{ a: 1 }, 'b', [22, 33]] })
+    expect(shieldApply(myTelefunction, [{ a: 1 }, 'b', [22, 33]])).toStrictEqual({
+      validatedArguments: [{ a: 1 }, 'b', [22, 33]],
+    })
     expect(shieldApply(myTelefunction, [{ a: '' }]).error?.message).toBe(
       '[root] > [tuple: element 0] > [object: value of key `a`] is `string` but should be `number`.',
     )
     expect(shieldApply(myTelefunction, [{ a: 0 }]).error?.message).toBe('[root] > [tuple: element 1] is of wrong type')
-    expect(shieldApply(myTelefunction, []).error?.message).toBe('[root] > [tuple: element 0] is `undefined` but should be `object`.')
+    expect(shieldApply(myTelefunction, []).error?.message).toBe(
+      '[root] > [tuple: element 0] is `undefined` but should be `object`.',
+    )
   })
 
   function testTypescriptBasics() {

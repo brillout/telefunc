@@ -13,6 +13,11 @@
     "lib": ["DOM", "ESNext"],
     "types": ["vite/client"]
   },
-  "include": ["client/**/*", "node/**/*", "standard-schema.d.ts", "shared/ValidationError.ts"],
+  "include": [
+    "client/**/*",
+    "node/**/*",
+    "standard-schema.d.ts",
+    "shared/ValidationError.ts"
+  ],
   "exclude": ["**/*.spec.ts"]
 }

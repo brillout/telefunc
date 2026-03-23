@@ -93,12 +93,14 @@ function shieldIsMissing(telefunction: Telefunction): boolean {
   return telefunctionShield === null
 }
 
-type ShieldResult<Args extends unknown[]> = {
-  readonly validatedArguments: Args
-  readonly error?: never
-} | {
-  readonly error: ValidationError
-}
+type ShieldResult<Args extends unknown[]> =
+  | {
+      readonly validatedArguments: Args
+      readonly error?: never
+    }
+  | {
+      readonly error: ValidationError
+    }
 
 function shieldApply<Args extends unknown[]>(telefunction: Telefunction, args: Args): ShieldResult<Args> {
   const telefunctionShield = getTelefunctionShield(telefunction)
@@ -161,7 +163,7 @@ function verifyOuter<Args extends unknown[]>(verifier: unknown, args: Args): Shi
       error: new ValidationError({
         vendor: 'telefunc',
         message: argsAreValid,
-      })
+      }),
     }
   }
 
@@ -456,7 +458,7 @@ function isStandardSchema(thing: unknown): thing is StandardSchemaV1 {
   if (!('version' in standard) || standard.version !== 1) {
     return false
   }
-  
+
   if (!('vendor' in standard)) {
     return false
   }
@@ -502,10 +504,10 @@ function standardValidate<
 
     const result = schema['~standard'].validate(args[i])
     assert(
-      !(result instanceof Promise), 
-    `[shield()] Async standard schemas aren't supported yet. Use a synchronous schema with \`shield()\`.`
+      !(result instanceof Promise),
+      `[shield()] Async standard schemas aren't supported yet. Use a synchronous schema with \`shield()\`.`,
     )
-    
+
     if (result.issues) {
       allIssues.push(result.issues)
     } else {
@@ -519,18 +521,14 @@ function standardValidate<
   // could early-exit instead
   // but this way all issues are found + returned
   if (allIssues.some((issues) => issues?.length)) {
-    const firstIssue = allIssues
-      .find((issues) => issues?.length)
-      ?.find((issue) => issue)
+    const firstIssue = allIssues.find((issues) => issues?.length)?.find((issue) => issue)
 
     // we know there's at least one issue, but `path` is nullish,
     // so the extra check doesn't cost us anything
     const dotPath = firstIssue?.path?.map((segment) => String(segment)).join('.')
 
     const vendor = schemas.at(0)?.['~standard'].vendor
-    const crumbs = dotPath
-      ? `${breadcrumbs} > [${vendor} schema path \`${dotPath}\`]`
-      : breadcrumbs
+    const crumbs = dotPath ? `${breadcrumbs} > [${vendor} schema path \`${dotPath}\`]` : breadcrumbs
 
     // todo: why include issue message at all?
     const message = firstIssue?.message ?? 'invalid argument'
@@ -540,7 +538,7 @@ function standardValidate<
         vendor: schemas.at(0)?.['~standard'].vendor!,
         message: `${crumbs} ${message}`,
         issues: allIssues,
-      })
+      }),
     }
   }
 
