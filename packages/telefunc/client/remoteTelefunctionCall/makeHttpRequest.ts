@@ -14,6 +14,7 @@ import {
   STATUS_CODE_SHIELD_VALIDATION_ERROR,
   STATUS_BODY_SHIELD_VALIDATION_ERROR,
   STATUS_CODE_SUCCESS,
+  DETAILED_VALIDATION_ERROR_REQUEST_HEADER,
 } from '../../shared/constants.js'
 import { ValidationError } from '../../shared/ValidationError.js'
 
@@ -41,6 +42,7 @@ async function makeHttpRequest(callContext: {
       credentials: 'same-origin',
       headers: {
         ...contentType,
+        [DETAILED_VALIDATION_ERROR_REQUEST_HEADER]: 'detailed',
         ...callContext.httpHeaders,
       },
     })
@@ -135,14 +137,16 @@ async function createServerError({
   response,
   callContext,
   includeLogAddendum = false,
+  responseBody,
 }: {
   message: typeof STATUS_BODY_INTERNAL_SERVER_ERROR | typeof STATUS_BODY_SHIELD_VALIDATION_ERROR
   response: Response
   callContext: { telefuncUrl: string }
   includeLogAddendum?: boolean
+  responseBody?: string
 }) {
-  const responseBody = await response.text()
-  assertUsage(responseBody === message, wrongInstallation({ method, callContext }))
+  const responseBodyActual = responseBody ?? (await response.text())
+  assertUsage(responseBodyActual === message, wrongInstallation({ method, callContext }))
   const logAddendum = includeLogAddendum ? ' (if enabled: https://telefunc.com/log)' : ''
 
   return new Error(`${message} — see server logs${logAddendum}` as const)
@@ -163,6 +167,7 @@ async function parseValidationError(
       response,
       callContext,
       includeLogAddendum: true,
+      responseBody,
     })
   }
 
