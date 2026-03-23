@@ -136,7 +136,7 @@ async function createServerError({
   message,
   response,
   callContext,
-  includeLogAddendum = false
+  includeLogAddendum = false,
 }: {
   message: typeof STATUS_BODY_INTERNAL_SERVER_ERROR | typeof STATUS_BODY_SHIELD_VALIDATION_ERROR
   response: Response
@@ -145,30 +145,26 @@ async function createServerError({
 }) {
   const responseBody = await response.text()
   assertUsage(responseBody === message, wrongInstallation({ method, callContext }))
-  const logAddendum = includeLogAddendum
-    ? ' (if enabled: https://telefunc.com/log)'
-    : ''
+  const logAddendum = includeLogAddendum ? ' (if enabled: https://telefunc.com/log)' : ''
 
-  return new Error(
-    `${message} — see server logs${logAddendum}` as const
-  )
+  return new Error(`${message} — see server logs${logAddendum}` as const)
 }
 
 async function parseValidationError(
   response: Response,
   callContext: {
-    telefuncUrl: string;
+    telefuncUrl: string
   },
 ): Promise<ValidationError | Error> {
   assert(response.status === STATUS_CODE_SHIELD_VALIDATION_ERROR)
   const responseBody = await response.text()
-  
+
   if (responseBody === STATUS_BODY_SHIELD_VALIDATION_ERROR) {
     return await createServerError({
       message: STATUS_BODY_SHIELD_VALIDATION_ERROR,
       response,
       callContext,
-      includeLogAddendum: true
+      includeLogAddendum: true,
     })
   }
 
@@ -186,10 +182,7 @@ async function parseValidationError(
     )
   }
 
-  assertUsage(
-    ValidationError.isValidationErrorData(validationError),
-    wrongInstallation({ method, callContext })
-  )
-  
+  assertUsage(ValidationError.isValidationErrorData(validationError), wrongInstallation({ method, callContext }))
+
   return new ValidationError(validationError)
 }

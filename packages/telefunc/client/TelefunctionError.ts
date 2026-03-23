@@ -1,9 +1,9 @@
 export type { TelefunctionError }
 export type { TelefunctionCallAbort }
 
-import { ValidationError } from "../shared/ValidationError.js"
+import { ValidationError } from '../shared/ValidationError.js'
 
-type TelefunctionError = 
+type TelefunctionError =
   | TelefunctionCallErrorSsr
   | TelefunctionCallErrorConnection
   | TelefunctionCallAbort

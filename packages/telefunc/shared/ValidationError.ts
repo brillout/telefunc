@@ -4,7 +4,7 @@ import { StandardSchemaV1 } from '../standard-schema.js'
 import { assert } from '../utils/assert.js'
 import { isObject } from '../utils/isObject.js'
 
-type ArgIssues = (readonly StandardSchemaV1.Issue[] | undefined)
+type ArgIssues = readonly StandardSchemaV1.Issue[] | undefined
 
 type ValidationErrorData = {
   vendor: string
@@ -27,10 +27,10 @@ class ValidationError extends Error {
 
   static isValidationErrorData(thing: unknown): thing is ValidationErrorData {
     return (
-      isObject(thing)
-      && thing.version === 1
-      && typeof thing.vendor === 'string'
-      && (!thing.issues || Array.isArray(thing.issues))
+      isObject(thing) &&
+      thing.version === 1 &&
+      typeof thing.vendor === 'string' &&
+      (!thing.issues || Array.isArray(thing.issues))
     )
   }
 }
