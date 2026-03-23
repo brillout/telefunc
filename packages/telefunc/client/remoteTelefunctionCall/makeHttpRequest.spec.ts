@@ -21,7 +21,7 @@ describe('makeHttpRequest', () => {
       ),
     )
 
-    const err = await getThrownError(fetch)
+    const err = await getExpectedError(fetch)
 
     expect(fetch).toHaveBeenCalledOnce()
     const requestInit = fetch.mock.calls[0]?.[1]
@@ -39,14 +39,14 @@ describe('makeHttpRequest', () => {
       }),
     )
 
-    const err = await getThrownError(fetch)
+    const err = await getExpectedError(fetch)
 
     expect(err).not.toBeInstanceOf(ValidationError)
     expect(err.message).toBe('Shield Validation Error — see server logs (if enabled: https://telefunc.com/log)')
   })
 })
 
-async function getThrownError(fetch: typeof globalThis.fetch) {
+async function getExpectedError(fetch: typeof globalThis.fetch) {
   try {
     await makeHttpRequest({
       telefuncUrl: '/_telefunc',
