@@ -67,6 +67,8 @@ export async function onNewTodo(text: string) {
 
 Automatic TypeScript `shield()` generation remains the default and most transparent option. Manual `shield()` is mainly useful for JavaScript users, for stacks that don't transpile server-side code, or when bringing your own runtime validator.
 
+Automatic `shield()` generation is based on your telefunction's TypeScript signature. It doesn't inspect Zod schemas or other runtime validators: if you bring your own validator, keep the telefunction's TypeScript type in sync with it.
+
 For example, you can bring a Zod-like or <a href="https://standardschema.dev" target="_blank">Standard Schema</a>-compatible validator without an extra wrapper:
 
 ```ts ts-only
@@ -79,8 +81,17 @@ type Todo = z.infer<typeof TodoSchema>
 shield(onNewTodo, [TodoSchema])
 export async function onNewTodo(todo: Todo) {
   // `todo` is validated at runtime by Zod.
+  // If validation fails, Telefunc rejects the call with the schema's message.
 }
 ```
+
+On the client, Telefunc throws a `ValidationError` with an `.issues` array for shield validation failures. This is separate from `Abort()`: shield validation still rejects the call with HTTP 422, while `Abort()` remains the way to intentionally abort a telefunction call.
+
+This also keeps Telefunc's validation philosophy consistent:
+- use `shield()` (or automatic TypeScript `shield()` generation) for transport-level contract validation such as wrong input types or malformed calls
+- return issues from your telefunction for business/domain validation
+
+In other words: `ValidationError` is for callers breaking the telefunction contract before your telefunction runs, while returned issues are for expected application-level validation once your telefunction logic starts.
 
 
 ## Common types

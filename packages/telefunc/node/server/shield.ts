@@ -6,6 +6,8 @@ export { shieldToHumandReadable }
 // TODO/now-ish make variable naming in this file more consistent https://github.com/telefunc/telefunc/pull/247
 
 import { assert, assertUsage } from '../../utils/assert.js'
+import { createShieldValidationError } from '../../shared/shieldValidationError.js'
+import type { ShieldValidationErrorPayload, ShieldValidationIssue } from '../../shared/shieldValidationError.js'
 import { isCallable } from '../../utils/isCallable.js'
 import { isPlainObject } from '../../utils/isPlainObject.js'
 import { unique } from '../../utils/unique.js'
@@ -32,12 +34,8 @@ type Telefunction = Function & {
   [K in typeof shieldKey]?: unknown
 }
 
-type SchemaIssue = {
-  message?: unknown
-  path?: readonly (string | number)[]
-}
 type StandardSchemaResult = {
-  issues?: readonly SchemaIssue[]
+  issues?: readonly ShieldValidationIssue[]
   value?: unknown
 }
 type StandardSchema<Input = unknown> = {
@@ -60,7 +58,7 @@ type ZodLikeSchema<Output = unknown> = {
     | {
         success: false
         error: {
-          issues?: readonly SchemaIssue[]
+          issues?: readonly ShieldValidationIssue[]
         }
       }
 }
@@ -95,7 +93,7 @@ function shieldIsMissing(telefunction: Telefunction): boolean {
   return telefunctionShield === null
 }
 
-function shieldApply(telefunction: Telefunction, args: unknown[]): true | string {
+function shieldApply(telefunction: Telefunction, args: unknown[]): true | string | ShieldValidationErrorPayload {
   const telefunctionShield = getTelefunctionShield(telefunction)
   assert(telefunctionShield !== null)
   return verifyOuter(telefunctionShield, args)
@@ -133,7 +131,7 @@ function StringBetter(thing: unknown): string {
   return String(thing)
 }
 
-function verifyOuter(verifier: unknown, args: unknown): true | string {
+function verifyOuter(verifier: unknown, args: unknown): true | string | ShieldValidationErrorPayload {
   assert(Array.isArray(args))
   if (Array.isArray(verifier)) {
     verifier = shield.type.tuple(...verifier)
@@ -144,7 +142,11 @@ function verifyOuter(verifier: unknown, args: unknown): true | string {
   }
   assert(false)
 }
-function verifyRecursive(verifier: unknown, arg: unknown, breadcrumbs: string): true | string {
+function verifyRecursive(
+  verifier: unknown,
+  arg: unknown,
+  breadcrumbs: string,
+): true | string | ShieldValidationErrorPayload {
   assert(breadcrumbs.startsWith('[root]'))
 
   if (isVerifier(verifier)) {
@@ -180,7 +182,11 @@ function verifyRecursive(verifier: unknown, arg: unknown, breadcrumbs: string): 
   )
 }
 
-function verifyObject(obj: Record<string, unknown>, arg: unknown, breadcrumbs: string): true | string {
+function verifyObject(
+  obj: Record<string, unknown>,
+  arg: unknown,
+  breadcrumbs: string,
+): true | string | ShieldValidationErrorPayload {
   if (!isPlainObject(arg)) {
     return errorMessage(breadcrumbs, getTypeName(arg), 'object')
   }
@@ -361,7 +367,7 @@ function errorMessage(breadcrumbs: string, is: string, should: string) {
   return `${breadcrumbs} is \`${is}\` but should be \`${should}\`.`
 }
 
-type Verifier = ((input: unknown, breadcrumbs: string) => true | string) & {
+type Verifier = ((input: unknown, breadcrumbs: string) => true | string | ShieldValidationErrorPayload) & {
   [isVerifierKey]?: true
   [isVerifierTupleKey]?: true
 }
@@ -423,7 +429,7 @@ function isZodLikeSchema(thing: unknown): thing is ZodLikeSchema {
   return isPlainObject(thing) && typeof thing.safeParse === 'function'
 }
 
-function verifySchema(schema: SchemaLike, input: unknown, breadcrumbs: string): true | string {
+function verifySchema(schema: SchemaLike, input: unknown, breadcrumbs: string): true | ShieldValidationErrorPayload {
   if (isStandardSchema(schema)) {
     const result = schema['~standard'].validate(input)
     assertUsage(
@@ -443,15 +449,20 @@ function verifySchema(schema: SchemaLike, input: unknown, breadcrumbs: string): 
   assert(false)
 }
 
-function getSchemaValidationResult(result: StandardSchemaResult, vendor: string, breadcrumbs: string): true | string {
+function getSchemaValidationResult(
+  result: StandardSchemaResult,
+  vendor: string,
+  breadcrumbs: string,
+): true | ShieldValidationErrorPayload {
   return result.issues && result.issues.length > 0 ? getSchemaValidationError(result.issues, vendor, breadcrumbs) : true
 }
 
 function getSchemaValidationError(
-  issues: readonly SchemaIssue[] | undefined,
+  issues: readonly ShieldValidationIssue[] | undefined,
   vendor: string,
   breadcrumbs: string,
-): string {
+): ShieldValidationErrorPayload {
+  // Keep `error.message` concise by using the first issue while preserving all issues in `.issues`.
   const issue = issues?.[0]
   const path = issue?.path
   const pathBreadcrumbs =
@@ -459,7 +470,11 @@ function getSchemaValidationError(
       ? `${breadcrumbs} > [${vendor} schema path \`${path.map((segment) => String(segment)).join('.')}\`]`
       : breadcrumbs
   const message = typeof issue?.message === 'string' && issue.message ? issue.message : 'validation failed'
-  return `${pathBreadcrumbs} ${message}`
+  return createShieldValidationError({
+    message: `${pathBreadcrumbs} ${message}`,
+    issues,
+    validator: vendor,
+  })
 }
 
 function isPromiseLike(thing: unknown): thing is PromiseLike<unknown> {

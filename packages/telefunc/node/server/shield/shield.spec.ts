@@ -1,4 +1,5 @@
 import { checkType } from '../../../utils/checkType.js'
+import { createShieldValidationError } from '../../../shared/shieldValidationError.js'
 import { shield, shieldApply, shieldToHumandReadable } from '../shield.js'
 import { expect, describe, it } from 'vitest'
 
@@ -33,7 +34,13 @@ describe('shield', () => {
     shield(onNewTodo, [stringSchema])
 
     expect(shieldApply(onNewTodo, ['Write docs'])).toBe(true)
-    expect(shieldApply(onNewTodo, [42])).toBe('[root] > [tuple: element 0] Expected string')
+    expect(shieldApply(onNewTodo, [42])).toEqual(
+      createShieldValidationError({
+        message: '[root] > [tuple: element 0] Expected string',
+        issues: [{ message: 'Expected string' }],
+        validator: 'zod',
+      }),
+    )
   })
 
   it('accepts Standard Schema validators', () => {
@@ -66,8 +73,50 @@ describe('shield', () => {
     shield(onNewTodo, [todoSchema])
 
     expect(shieldApply(onNewTodo, [{ text: 'Ship it' }])).toBe(true)
-    expect(shieldApply(onNewTodo, [{}])).toBe(
-      '[root] > [tuple: element 0] > [test-schema schema path `text`] Text is required',
+    expect(shieldApply(onNewTodo, [{}])).toEqual(
+      createShieldValidationError({
+        message: '[root] > [tuple: element 0] > [test-schema schema path `text`] Text is required',
+        issues: [{ message: 'Text is required', path: ['text'] }],
+        validator: 'test-schema',
+      }),
+    )
+  })
+
+  it('rejects async Standard Schema validators', () => {
+    const asyncSchema = {
+      '~standard': {
+        version: 1,
+        vendor: 'test-schema',
+        async validate(value: unknown) {
+          return { value }
+        },
+        types: {
+          input: null as unknown as { text: string },
+          output: null as unknown as { text: string },
+        },
+      },
+    }
+
+    function onNewTodo(todo: { text: string }) {}
+    shield(onNewTodo, [asyncSchema])
+
+    expect(() => shieldApply(onNewTodo, [{ text: 'Ship it' }])).toThrow(
+      "Async standard schemas aren't supported yet. Use a synchronous schema with `shield()`.",
+    )
+  })
+
+  it('rejects malformed zod-like schema results', () => {
+    const malformedSchema = {
+      safeParse() {
+        return { ok: false }
+      },
+    }
+
+    function onNewTodo(_text: string) {}
+    shield(onNewTodo, [malformedSchema as any])
+
+    expect(() => shieldApply(onNewTodo, ['Write docs'])).toThrow(
+      'A Zod-like schema `safeParse()` should return an object with a boolean `success` property.',
     )
   })
 
