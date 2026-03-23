@@ -6,6 +6,3 @@ export const STATUS_CODE_SHIELD_VALIDATION_ERROR = 422 as const // "Unprocessabl
 export const STATUS_BODY_SHIELD_VALIDATION_ERROR = 'Shield Validation Error' as const
 export const STATUS_CODE_INTERNAL_SERVER_ERROR = 500 as const // "Internal Server Error"
 export const STATUS_BODY_INTERNAL_SERVER_ERROR = 'Internal Server Error' as const
-
-/** values: `detailed` */
-export const DETAILED_VALIDATION_ERROR_REQUEST_HEADER = 'x-telefunc-errors' as const

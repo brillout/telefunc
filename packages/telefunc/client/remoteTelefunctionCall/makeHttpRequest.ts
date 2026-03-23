@@ -14,7 +14,6 @@ import {
   STATUS_CODE_SHIELD_VALIDATION_ERROR,
   STATUS_BODY_SHIELD_VALIDATION_ERROR,
   STATUS_CODE_SUCCESS,
-  DETAILED_VALIDATION_ERROR_REQUEST_HEADER,
 } from '../../shared/constants.js'
 import { ValidationError } from '../../shared/ValidationError.js'
 
@@ -42,7 +41,6 @@ async function makeHttpRequest(callContext: {
       credentials: 'same-origin',
       headers: {
         ...contentType,
-        [DETAILED_VALIDATION_ERROR_REQUEST_HEADER]: 'detailed',
         ...callContext.httpHeaders,
       },
     })

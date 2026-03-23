@@ -46,7 +46,10 @@ function testRun(cmd: 'npm run dev' | 'npm run preview') {
       {
         const resp = await makeTelefuncHttpRequest(1337)
         expect(resp.status).toBe(422)
-        expect(await resp.text()).toBe('Shield Validation Error')
+        const body = await resp.text()
+        expect(body).toContain('"version":1')
+        expect(body).toContain('"vendor":"telefunc"')
+        expect(body).toContain('have the wrong type')
         // [14:10:31.724][/.test-preview.test.ts][npm run preview][stderr] Shield Validation Error: the arguments passed to the telefunction onLoad() (/pages/index/Hello.telefunc.ts) have the wrong type. Arguments: `[{"name":1337}]`. Wrong type: [root] > [tuple: element 0] > [object: value of key `name`] is `number` but should be `string`.
         expectLog('Shield Validation Error', {
           filter: (log) =>
