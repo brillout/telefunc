@@ -10,10 +10,10 @@ async function executeTelefunction(runContext: {
   telefunction: Telefunction
   telefunctionName: string
   telefuncFilePath: string
-  telefunctionArgs: unknown[]
+  validatedArgs: unknown[]
   providedContext: Telefunc.Context | null
 }) {
-  const { telefunction, telefunctionArgs } = runContext
+  const { telefunction, validatedArgs } = runContext
 
   restoreContext(runContext.providedContext)
 
@@ -41,7 +41,7 @@ async function executeTelefunction(runContext: {
 
   let resultSync: unknown
   try {
-    resultSync = telefunction.apply(null, telefunctionArgs)
+    resultSync = telefunction.apply(null, validatedArgs)
   } catch (err: unknown) {
     onError(err)
   }

@@ -1,18 +1,18 @@
 export { applyShield }
 
-import { shieldApply, shieldIsMissing } from '../shield.js'
+import { shieldApply, shieldIsMissing, type ShieldResult } from '../shield.js'
 import { assertWarning } from '../../../utils/assert.js'
 import { isProduction } from '../../../utils/isProduction.js'
 import type { Telefunction } from '../types.js'
 import type { ConfigResolved } from '../serverConfig.js'
 
-function applyShield(runContext: {
+function applyShield<Args extends unknown[]>(runContext: {
   telefunction: Telefunction
   telefunctionName: string
   telefuncFilePath: string
-  telefunctionArgs: unknown[]
+  telefunctionArgs: Args
   serverConfig: Pick<ConfigResolved, 'log'>
-}): { isValidRequest: boolean } {
+}): ShieldResult<Args> {
   const { telefunction, telefunctionArgs, telefunctionName, telefuncFilePath } = runContext
 
   const hasShield = !shieldIsMissing(telefunction)
@@ -24,12 +24,12 @@ function applyShield(runContext: {
     )
   }
   if (!hasShield) {
-    return { isValidRequest: true }
+    return { validatedArguments: telefunctionArgs }
   }
 
   const applyResult = shieldApply(telefunction, telefunctionArgs)
-  if (applyResult === true) {
-    return { isValidRequest: true }
+  if (!applyResult.error) {
+    return { validatedArguments: applyResult.validatedArguments }
   }
 
   let logShieldErrors = runContext.serverConfig.log.shieldErrors
@@ -37,10 +37,10 @@ function applyShield(runContext: {
     const errMsg = [
       `Shield Validation Error: the arguments passed to the telefunction ${telefunctionName}() (${telefuncFilePath}) have the wrong type.`,
       `Arguments: \`${JSON.stringify(telefunctionArgs)}\`.`,
-      `Wrong type: ${applyResult}`,
+      `Wrong type: ${applyResult.error.message}`,
     ].join(' ')
     console.error(errMsg)
   }
 
-  return { isValidRequest: false }
+  return { error: applyResult.error }
 }
