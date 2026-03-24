@@ -152,7 +152,6 @@ describe('shield', () => {
   it('shield - full', () => {
     shield(myTelefunction, myTelefunctionShield)
     function myTelefunction(...[]: any) {}
-
     ;[
       [{ a: 1 }, 'b', [22, 33]],
       [{ a: 0 }, null, []],
