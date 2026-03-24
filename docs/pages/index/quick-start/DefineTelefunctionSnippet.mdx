@@ -3,7 +3,7 @@
 // Environment: client
 
 // `shield` generated automatically from type
-export function onUpdateTodoText(text: string) {
+export async function onUpdateTodoText(text: string) {
   const { user } = getContext()
   if (!user) {
     // `throw Abort` to reject requests

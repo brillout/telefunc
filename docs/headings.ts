@@ -8,7 +8,7 @@ import type {
   HeadingDefinition,
   HeadingDetachedDefinition as HeadingDetachedDefinition_,
 } from '@brillout/docpress'
-import { iconScroll, iconEyes, iconGear, iconSeedling } from '@brillout/docpress' with { type: 'vike:pointer' }
+import { iconGear, iconSeedling } from '@brillout/docpress' with { type: 'vike:pointer' }
 type HeadingDetachedDefinition = Omit<HeadingDetachedDefinition_, 'category'> & {
   category: CategoryNames | 'Miscellaneous'
 }
@@ -21,10 +21,11 @@ type CategoryNames = ExtractCategoryName<(typeof categories)[number]>
 const categories = ['Guides', 'API', 'Get Started', 'Overview', 'Miscellaneous'] as const satisfies Config['categories']
 
 const headingsDetached = [
-  // ...misc(),
+  ...serverIntegration(),
 ] satisfies HeadingDetachedDefinition[]
 
-const headings = [
+const headings: HeadingDefinition[] = [
+  // #region Onboarding
   {
     level: 1,
     title: 'Get started',
@@ -43,79 +44,75 @@ const headings = [
     url: '/start',
     sectionTitles: ['My first telefunction'],
   },
+  {
+    level: 2,
+    title: 'Concepts',
+    url: '/concepts',
+    // sectionTitles: ['Why', 'RPC', 'Event-Based', 'Security'],
+  },
+  {
+    level: 2,
+    title: 'Best Practices',
+    url: '/best-practices',
+    // sectionTitles: ['Initial Data'],
+  },
+  // #region Guides
+  {
+    level: 4,
+    title: 'Guides',
+  },
 
   // #region Server Integration
   {
-    level: 4,
-    title: 'Server frameworks',
+    level: 2,
+    title: 'Server Integration',
+    url: '/server-integration',
+  },
+  // #endregion
+
+  {
+    level: 2,
+    title: 'Initial Data',
+    url: '/initial-data',
   },
   {
     level: 2,
-    title: 'Hono, Express, etc.',
-    url: '/server',
-  },
-  {
-    level: 4,
-    title: 'Metaframeworks',
+    title: 'Permissions',
+    url: '/permissions',
+    sectionTitles: ['DRY Permissions'],
   },
   {
     level: 2,
-    title: 'Next.js',
-    url: '/next',
+    title: 'Validation',
+    url: '/validation',
+  },
+    {
+    level: 2,
+    title: 'File uploads',
+    url: '/file-upload',
   },
   {
     level: 2,
-    title: 'SvelteKit',
-    url: '/svelte-kit',
+    title: 'Error handling',
+    url: '/error-handling',
   },
-  {
-    level: 2,
-    title: 'Vike',
-    url: '/vike',
-  },
-  {
-    level: 2,
-    title: 'Nuxt',
-    url: '/nuxt',
-  },
-  {
-    level: 2,
-    title: 'React Router',
-    url: '/react-router',
-  },
+  // #endregion
+
   {
     level: 4,
-    title: 'Native',
+    title: 'Learn More',
   },
   {
     level: 2,
-    title: 'React Native',
-    url: '/react-native',
-  },
-  {
-    level: 4,
-    title: 'Bundlers',
+    title: 'Why Schemaless?',
+    url: '/schemaless',
+    sectionTitles: ['Schemaless vs schema-full', 'RPC vs GraphQL/REST'],
   },
   {
     level: 2,
-    title: 'Custom bundler',
-    titleInNav: 'Custom bundler',
-    url: '/install',
-  },
-  {
-    level: 2,
-    title: 'Vite',
-    url: '/vite-plugin',
-  },
-  {
-    level: 2,
-    title: 'Webpack',
-    url: '/webpack-plugin',
-  },
-  {
-    level: 2,
-    title: 'Babel',
-    url: '/babel-plugin',
+    title: 'How it works',
+    url: '/how-it-works',
+    sectionTitles: ['Transformer', 'Telefunction lifecycle'],
   },
   // #endregion
 
@@ -125,7 +122,6 @@ const headings = [
     title: 'API',
     titleIcon: iconGear,
     color: '#80c1db',
-    // menuModalFullWidth: true,
   },
   {
     level: 4,
@@ -213,78 +209,75 @@ const headings = [
   },
   // #endregion
 
-  // #region Guides
-  {
-    level: 1,
-    title: 'Guides',
-    titleIcon: iconScroll,
-    color: '#ffd511',
-  },
-  {
-    level: 2,
-    title: 'Initial Data',
-    url: '/initial-data',
-  },
-  {
-    level: 2,
-    title: 'Permissions',
-    url: '/permissions',
-    sectionTitles: ['DRY Permissions'],
-  },
-  {
-    level: 2,
-    title: 'Validation',
-    url: '/form-validation',
-  },
-  {
-    level: 2,
-    title: 'Error handling',
-    url: '/error-handling',
-  },
-  {
-    level: 2,
-    title: 'File uploads',
-    url: '/file-upload',
-  },
-  // #endregion
-
-  // #region Concepts
-  {
-    level: 1,
-    title: 'Concepts',
-    titleIcon: iconEyes,
-    color: '#bd55dd',
-    titleIconStyle: {
-      width: 30,
-      height: 30,
-      position: 'relative',
-      top: -2,
-    },
-  },
-  {
-    level: 2,
-    title: 'Design philosophy',
-    url: '/philosophy',
-    // sectionTitles: ['Why', 'RPC', 'Event-Based', 'Security'],
-  },
-  {
-    level: 2,
-    title: 'Best Practices',
-    url: '/best-practices',
-    // sectionTitles: ['Initial Data'],
-  },
-  {
-    level: 2,
-    title: 'How it works',
-    url: '/how-it-works',
-    sectionTitles: ['Transformer'],
-    // sectionTitles: ['Server integration', 'Context],
-  },
-  {
-    level: 2,
-    title: 'FAQ',
-    url: '/faq',
-    // sectionTitles: ['RPC vs GraphQL/REST', 'Why Telefunc?', 'Should we use it?'],
-  },
-  // #endregion
 ]
+
+function serverIntegration(): HeadingDetachedDefinition[] {
+  return [
+    // {
+    //   level: 4,
+    //   title: 'Server frameworks',
+    // },
+    // {
+    //   level: 4,
+    //   title: 'Metaframeworks',
+    // },
+    {
+      category: 'Get Started',
+      title: 'Next.js',
+      url: '/next',
+    },
+    {
+      category: 'Get Started',
+      title: 'SvelteKit',
+      url: '/svelte-kit',
+    },
+    {
+      category: 'Get Started',
+      title: 'Vike',
+      url: '/vike',
+    },
+    {
+      category: 'Get Started',
+      title: 'Nuxt',
+      url: '/nuxt',
+    },
+    {
+      category: 'Get Started',
+      title: 'React Router',
+      url: '/react-router',
+    },
+    // {
+    //   level: 4,
+    //   title: 'Native',
+    // },
+    {
+      category: 'Get Started',
+      title: 'React Native',
+      url: '/react-native',
+    },
+    // {
+    //   level: 4,
+    //   title: 'Bundlers',
+    // },
+    {
+      category: 'Get Started',
+      title: 'Custom bundler',
+      url: '/bundler',
+    },
+    {
+      category: 'Get Started',
+      title: 'Vite',
+      url: '/vite-plugin',
+    },
+    {
+      category: 'Get Started',
+      title: 'Webpack',
+      url: '/webpack-plugin',
+    },
+    {
+      category: 'Get Started',
+      title: 'Babel',
+      url: '/babel-plugin',
+    },
+  ]
+}

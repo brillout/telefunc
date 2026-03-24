@@ -2,7 +2,7 @@ import { Link } from '@brillout/docpress'
 
 This page is about handling bugs, expected errors, and network errors.
  - To block unauthorized access, see: <Link href="/permissions" />
- - To handle invalid `<form>` values, see: <Link href="/form-validation" />
+ - To handle invalid `<form>` values, see: <Link href="/validation" />
  - To install error tracking, see: <Link href="/onBug" />
 
 > To prevent leaking sensitive information, Telefunc never forwards unexpected server errors to the client.
@@ -75,6 +75,10 @@ app.all('/_telefunc', async (req: Request, res: Response) => {
   }
 })
 ```
+
+### Next
+
+<Link href="/schemaless" />
 
 ## See also
 

@@ -1,4 +1,6 @@
-import { Link } from '@brillout/docpress'
+import { Link, Warning } from '@brillout/docpress'
+
+need to address validation + other stuff
 
 ## Set up Telefunc
 
@@ -60,21 +62,46 @@ After adding the `telefunc` middleware to your server, create a new file for you
 
 By convention, telefunctions are named after the events they handle (e.g., `onNewTodo`). This ensures close coupling between telefunctions and the UI that calls them.
 
-```js telefunction
-// components/TodoList.telefunc.js
+```ts
+// components/TodoList.telefunc.ts
 // Environment: server
 
-/**
- * @param {string} text
- * @returns {{ id: string; text: string; }[]}
- */
-export async function onNewTodo(text) {
-  await db.execute('INSERT INTO todos VALUES (:text)', { text })
-  return await db.execute('SELECT id, text FROM todos')
+export async function onNewTodo(title: string, text: string) {
+  await db.execute('INSERT INTO todos VALUES (:title,:text)', { title, text })
+  return await db.execute('SELECT id, title, text FROM todos')
 }
 ```
 
 > Coupling telefunctions to specific data views or interactions **keeps arguments and return values minimal**. This is **required** to take advantage of the performance and security benefits Telefunc offers.
+
+### Secure your telefunction
+
+<Warning>
+    Always keep in mind that your **telefuncs are public**. A simple HTTP request could be used to extract, modify, or destroy user secrets or business-critical data from an unprotected function.
+</Warning>
+  
+Add guards to Telefunctions to prevent illegitimate access.
+- Use <Link href="/Abort" /> (or return early) if the client is unauthenticated or doesn't have permission to access the requested resource.
+- Use <Link href="/shield" /> to validate telefunction call arguments.
+  
+```ts
+// Todos.telefunc.ts
+// Environment: server
+
+import { getContext, shield } from 'telefunc'
+// When using TypeScript, Telefunc automatically generates
+// shield for argument type inference and runtime validation
+shield(onNewTodo, [shield.type.string]) // [!code--]
+
+export async function onNewTodo(title: string, text: string) {
+  const { user } = getContext()
+  if (!user) {
+    throw Abort()
+  }
+
+  // ...
+}
+```
 
 ### Call your telefunction
 
@@ -214,7 +241,7 @@ You can still use Telefunc to fetch or mutate data client-side (e.g., for page n
 
 ### Next
 
-<Link href="/philosophy" />
+<Link href="/concepts" />
 
 ## See also
 

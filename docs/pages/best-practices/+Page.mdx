@@ -18,11 +18,22 @@ Telefunctions can change as fast as your UI, so deploying frontend and backend a
 
 The naming convention (e.g., `onSomeEvent`) is meant to reinforce that telefunctions are event handlers. It also helps enforce coupling and prevent scope creep.
 
+> By default, telfunction versioning is typically equivalent to project versioning. You will need a custom solution if you choose to use Telefunc with a monorepo.
+
 You can opt-out at any time by setting <Link href="/disableNamingConvention"><code>config.disableNamingConvention</code></Link>, but we recommend having a clear reason for doing so.
 
 ### `*.telefunc.js` scope
 
 `*.telefunc.js` files are a minimal adapter between the frontend and backend. They should only export functions.
+
+> Exporting shared or similarly-scoped telefunctions from the same file can improve call performance with some bundlers.
+> ```
+> ├── Todos
+>    ├── AddTodo.tsx // imports 
+>    ├── todos.telefunc.ts // exports `onAddTodo` and `onLoadTodoList`
+>    ├── TodoList.tsx // imports 
+>    └── Todos.tsx
+> ```
 
 Non-function exports increase the chance of scope creep, 
 
@@ -67,4 +78,4 @@ If your telefunctions are used by multiple clients, we recommend deploying one T
 
 ### Next
 
-<Link href="/how-it-works" />
+<Link href="/initial-data" />

@@ -12,4 +12,5 @@ checkType<HeadingsURL>(0 as any as RedirectsURL)
 const redirects = {
   '/remix': '/react-router',
   '/initial-page-data': '/initial-data',
+  '/install': '/bundler',
 } as const satisfies Config['redirects']
