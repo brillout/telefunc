@@ -1,22 +1,21 @@
-
 .setup-info {
-        max-width: 40%;
-    }
+  max-width: 40%;
+}
 
 @media screen and (max-width: 500px) {
-    .setup-info {
-        max-width: 100%;
-    }
-    .setup-step {
-        flex-direction: column;
-    }
+  .setup-info {
+    max-width: 100%;
+  }
+  .setup-step {
+    flex-direction: column;
+  }
 }
 
 @media screen and (max-width: 700px) {
-    .setup-info {
-        max-width: 100%;
-    }
-    .setup-step {
-        flex-direction: column;
-    }
+  .setup-info {
+    max-width: 100%;
+  }
+  .setup-step {
+    flex-direction: column;
+  }
 }

@@ -23,9 +23,8 @@ function Features() {
         </h2>
         <>
           <p>
-            Telefunc <b>automatically generates runtime shields</b> from argument types.
-
-            type inference and autocompletion.
+            Telefunc <b>automatically generates runtime shields</b> from argument types. type inference and
+            autocompletion.
           </p>
         </>
       </div>
@@ -35,7 +34,8 @@ function Features() {
         </h2>
         <>
           <p>
-            Iterate flexibly and rapidly. <b>Add telefunctions as you go,</b> instead of getting bogged down with a back-end API schema.
+            Iterate flexibly and rapidly. <b>Add telefunctions as you go,</b> instead of getting bogged down with a
+            back-end API schema.
           </p>
         </>
       </div>
@@ -55,7 +55,8 @@ function Features() {
         </h2>
         <>
           <p>
-            Telefunc isn't just small, it lets you write small. <b>Send only the data you need</b> for optimal performance and security.
+            Telefunc isn't just small, it lets you write small. <b>Send only the data you need</b> for optimal
+            performance and security.
           </p>
         </>
       </div>
@@ -65,7 +66,8 @@ function Features() {
         </h2>
         <>
           <p>
-            <b>Couple code, not environments.</b> Telefunctions let you call server-side tools like databases or third-party clients without worrying about the boilerplate.
+            <b>Couple code, not environments.</b> Telefunctions let you call server-side tools like databases or
+            third-party clients without worrying about the boilerplate.
           </p>
         </>
       </div>
@@ -75,7 +77,8 @@ function Features() {
         </h2>
         <>
           <p>
-            It works out-of-box with <b>Next.js, Nuxt, SvelteKit, Vike, and React Native</b>, as well as bundlers like Vite, Webpack, Babel, or Parcel.
+            It works out-of-box with <b>Next.js, Nuxt, SvelteKit, Vike, and React Native</b>, as well as bundlers like
+            Vite, Webpack, Babel, or Parcel.
           </p>
         </>
       </div>

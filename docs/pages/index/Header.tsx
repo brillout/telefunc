@@ -31,9 +31,7 @@ function Header() {
               maxWidth: 800,
             }}
           >
-            <span>
-              End-to-end type-safety without the schema.
-            </span>
+            <span>End-to-end type-safety without the schema.</span>
           </div>
         </CenterHorizontal>
       </h1>
@@ -45,7 +43,9 @@ function Header() {
         }}
       >
         <CTALink href="/start">Quick Start</CTALink>
-        <CTALink href="/RPC" variant="secondary">Learn More</CTALink>
+        <CTALink href="/RPC" variant="secondary">
+          Learn More
+        </CTALink>
       </div>
     </div>
   )
@@ -134,15 +134,16 @@ function CTALink({
   variant?: 'primary' | 'secondary'
   children: React.ReactNode
 }) {
-  const theme = variant === 'secondary'
-    ? {
-      backgroundColor: 'var(--color-text)',
-      color: '#eee',
-    }
-    : {
-      backgroundColor: 'rgb(247, 224, 24)',
-      color: 'var(--color-text)',
-    }
+  const theme =
+    variant === 'secondary'
+      ? {
+          backgroundColor: 'var(--color-text)',
+          color: '#eee',
+        }
+      : {
+          backgroundColor: 'rgb(247, 224, 24)',
+          color: 'var(--color-text)',
+        }
 
   return (
     <a

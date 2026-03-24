@@ -20,9 +20,7 @@ type CategoryNames = ExtractCategoryName<(typeof categories)[number]>
 
 const categories = ['Guides', 'API', 'Get Started', 'Overview', 'Miscellaneous'] as const satisfies Config['categories']
 
-const headingsDetached = [
-  ...serverIntegration(),
-] satisfies HeadingDetachedDefinition[]
+const headingsDetached = [...serverIntegration()] satisfies HeadingDetachedDefinition[]
 
 const headings: HeadingDefinition[] = [
   // #region Onboarding
@@ -86,7 +84,7 @@ const headings: HeadingDefinition[] = [
     title: 'Validation',
     url: '/validation',
   },
-    {
+  {
     level: 2,
     title: 'File uploads',
     url: '/file-upload',
@@ -208,7 +206,6 @@ const headings: HeadingDefinition[] = [
     url: '/log',
   },
   // #endregion
-
 ]
 
 function serverIntegration(): HeadingDetachedDefinition[] {

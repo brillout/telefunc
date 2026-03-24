@@ -1,5 +1,5 @@
-export { 
-    CodeComparison,
-    CodeComparisonLeft,
-    CodeComparisonRight
+export {
+  CodeComparison,
+  CodeComparisonLeft,
+  CodeComparisonRight,
 } from './CodeComparison'
