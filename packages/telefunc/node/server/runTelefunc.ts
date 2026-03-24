@@ -1,7 +1,10 @@
 export { runTelefunc }
 export type { HttpResponse }
 
+import { stringify } from '@brillout/json-serializer/stringify'
 import { assert } from '../../utils/assert.js'
+import { wantsDetailedShieldValidationErrors } from '../../shared/shieldValidationError.js'
+import type { ShieldValidationErrorPayload } from '../../shared/shieldValidationError.js'
 import { isProduction } from '../../utils/isProduction.js'
 import { objectAssign } from '../../utils/objectAssign.js'
 import { Telefunc } from './getContext.js'
@@ -141,14 +144,14 @@ async function runTelefunc_({
   }
 
   {
-    const { isValidRequest } = applyShield(runContext)
-    objectAssign(runContext, { isValidRequest })
-    if (!isValidRequest) {
+    const shieldValidationResult = applyShield(runContext)
+    objectAssign(runContext, { isValidRequest: shieldValidationResult.isValidRequest })
+    if (!shieldValidationResult.isValidRequest) {
       objectAssign(runContext, {
         telefunctionAborted: true,
         telefunctionReturn: undefined,
       })
-      return shieldValidationError
+      return getShieldValidationErrorHttpResponse(request, shieldValidationResult.validationError)
     }
   }
 
@@ -184,5 +187,18 @@ async function runTelefunc_({
     contentType: 'text/plain',
     // etag: runContext.httpResponseEtag,
     etag: null,
+  }
+}
+
+function getShieldValidationErrorHttpResponse(
+  request: Request,
+  validationError: ShieldValidationErrorPayload,
+): HttpResponse {
+  if (!wantsDetailedShieldValidationErrors(request)) {
+    return shieldValidationError
+  }
+  return {
+    ...shieldValidationError,
+    body: stringify(validationError, { forbidReactElements: true }),
   }
 }

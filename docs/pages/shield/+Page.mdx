@@ -54,30 +54,59 @@ With Telefunc, not only can you seamlessly re-use types across your frontend and
 
 ## TypeScript - Manual
 
-If you define `shield()` manually (instead of using Telefunc's automatic `shield()` generator as described in <Link href="#typescript-automatic" />), then note that you don't need to define the arguments type twice:
-
-```ts ts-only
-import { shield } from 'telefunc'
-
-export const onNewTodo = shield(
-  [shield.type.string],
-  async function (text) {
-    // ✅ TypeScript knows that `text` is of type `string`
-  }
-)
-```
-
-Note that the following doesn't work:
+If you define `shield()` manually (instead of using Telefunc's automatic `shield()` generator as described in <Link href="#typescript-automatic" />), then use Telefunc's decorator-style API:
 
 ```ts ts-only
 import { shield } from 'telefunc'
 
 shield(onNewTodo, [shield.type.string])
-// TypeScript cannot infer the type of named functions by design.
-export async function onNewTodo(text) {
-  // ❌ TypeScript doesn't know that `text` is of type `string`
+export async function onNewTodo(text: string) {
+  // ✅ TypeScript knows that `text` is of type `string`
 }
 ```
+
+Automatic TypeScript `shield()` generation remains the default and most transparent option. Manual `shield()` is mainly useful for JavaScript users, for stacks that don't transpile server-side code, or when you want Telefunc to execute a specific runtime validator.
+
+If you write `type Todo = z.infer<typeof TodoSchema>` and then `export async function onNewTodo(todo: Todo)`, automatic `shield()` generation can use `Todo` directly. The `z.infer` pattern works fine here. Telefunc reads the telefunction's resulting TypeScript signature and generates a `shield()` from that type.
+
+That means the TypeScript signature alone is enough whenever the runtime contract you want Telefunc to enforce is fully described by the resulting TypeScript type. In that case, you can rely on automatic `shield()` generation and you don't need to pass `TodoSchema` manually.
+
+Passing `shield(onNewTodo, [TodoSchema])` adds something extra: Telefunc runs the schema itself at runtime. This is useful when you want schema-specific runtime behavior, such as validator-defined checks or the validator's own issue details, instead of only the shape that TypeScript exposes after inference.
+
+Concretely, consider these two cases:
+- if your schema is `z.object({ text: z.string() })`, then `type Todo = z.infer<typeof TodoSchema>` and `shield(onNewTodo, [TodoSchema])` effectively describe the same runtime shape for Telefunc's purposes
+- if your schema is `z.object({ text: z.string().min(1) })`, then automatic TypeScript `shield()` generation still sees `text: string`, while manually passing `TodoSchema` also runs Zod's `.min(1)` check
+
+The same clarification applies if the value comes from Zustand on the client. Zustand itself doesn't change how Telefunc validates inputs; it only changes where the client-side value is stored. For example, if a Zustand store contains `draftTodo: Todo` and you call `onNewTodo(useTodoStore.getState().draftTodo)`, then automatic TypeScript `shield()` generation validates the incoming argument from the telefunction's `Todo` type. If you instead want Telefunc to run `TodoSchema` itself for that Zustand value, then pass `TodoSchema` manually with `shield(onNewTodo, [TodoSchema])`.
+
+In summary:
+- automatic TypeScript `shield()` generation is enough when the telefunction's TypeScript signature already expresses the full contract you want Telefunc to validate at runtime
+- manually passing a Zod-like or Standard Schema validator adds that validator's own runtime checks and issue details
+- Zustand is orthogonal here: whether the client value comes from Zustand, React state, a form library, or any other source, Telefunc still validates according to the telefunction signature unless you explicitly give Telefunc a runtime schema to execute
+
+For example, you can bring a Zod-like or <a href="https://standardschema.dev" target="_blank">Standard Schema</a>-compatible validator without an extra wrapper:
+
+```ts ts-only
+import { shield } from 'telefunc'
+import { z } from 'zod'
+
+const TodoSchema = z.object({ text: z.string() })
+type Todo = z.infer<typeof TodoSchema>
+
+shield(onNewTodo, [TodoSchema])
+export async function onNewTodo(todo: Todo) {
+  // `todo` is validated at runtime by Zod.
+  // If validation fails, Telefunc rejects the call with the schema's message.
+}
+```
+
+On the client, Telefunc throws a `ValidationError` with an `.issues` array for shield validation failures. This is separate from `Abort()`: shield validation still rejects the call with HTTP 422, while `Abort()` remains the way to intentionally abort a telefunction call.
+
+This also keeps Telefunc's validation philosophy consistent:
+- use `shield()` (or automatic TypeScript `shield()` generation) for transport-level contract validation such as wrong input types or malformed calls
+- return issues from your telefunction for business/domain validation
+
+In other words: `ValidationError` is for callers breaking the telefunction contract before your telefunction runs, while returned issues are for expected application-level validation once your telefunction logic starts.
 
 
 ## Common types

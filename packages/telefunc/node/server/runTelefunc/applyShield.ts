@@ -1,5 +1,7 @@
 export { applyShield }
 
+import { createShieldValidationError } from '../../../shared/shieldValidationError.js'
+import type { ShieldValidationErrorPayload } from '../../../shared/shieldValidationError.js'
 import { shieldApply, shieldIsMissing } from '../shield.js'
 import { assertWarning } from '../../../utils/assert.js'
 import { isProduction } from '../../../utils/isProduction.js'
@@ -12,7 +14,7 @@ function applyShield(runContext: {
   telefuncFilePath: string
   telefunctionArgs: unknown[]
   serverConfig: Pick<ConfigResolved, 'log'>
-}): { isValidRequest: boolean } {
+}): { isValidRequest: true } | { isValidRequest: false; validationError: ShieldValidationErrorPayload } {
   const { telefunction, telefunctionArgs, telefunctionName, telefuncFilePath } = runContext
 
   const hasShield = !shieldIsMissing(telefunction)
@@ -31,16 +33,18 @@ function applyShield(runContext: {
   if (applyResult === true) {
     return { isValidRequest: true }
   }
+  const validationError =
+    typeof applyResult === 'string' ? createShieldValidationError({ message: applyResult }) : applyResult
 
   let logShieldErrors = runContext.serverConfig.log.shieldErrors
   if ((logShieldErrors.dev && !isProduction()) || (logShieldErrors.prod && isProduction())) {
     const errMsg = [
       `Shield Validation Error: the arguments passed to the telefunction ${telefunctionName}() (${telefuncFilePath}) have the wrong type.`,
       `Arguments: \`${JSON.stringify(telefunctionArgs)}\`.`,
-      `Wrong type: ${applyResult}`,
+      `Wrong type: ${validationError.message}`,
     ].join(' ')
     console.error(errMsg)
   }
 
-  return { isValidRequest: false }
+  return { isValidRequest: false, validationError }
 }

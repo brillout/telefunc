@@ -1,6 +1,11 @@
 export { makeHttpRequest }
 
 import { parse } from '@brillout/json-serializer/parse'
+import {
+  detailedShieldValidationErrorsRequestHeader,
+  isShieldValidationErrorPayload,
+} from '../../shared/shieldValidationError.js'
+import { ValidationError } from '../ValidationError.js'
 import { assert, assertUsage } from '../../utils/assert.js'
 import { isObject } from '../../utils/isObject.js'
 import { objectAssign } from '../../utils/objectAssign.js'
@@ -40,6 +45,7 @@ async function makeHttpRequest(callContext: {
       credentials: 'same-origin',
       headers: {
         ...contentType,
+        [detailedShieldValidationErrorsRequestHeader]: 'true',
         ...callContext.httpHeaders,
       },
     })
@@ -68,13 +74,7 @@ async function makeHttpRequest(callContext: {
     const errMsg = await getErrMsg(STATUS_BODY_INTERNAL_SERVER_ERROR, response, callContext)
     throw new Error(errMsg)
   } else if (statusCode === STATUS_CODE_SHIELD_VALIDATION_ERROR) {
-    const errMsg = await getErrMsg(
-      STATUS_BODY_SHIELD_VALIDATION_ERROR,
-      response,
-      callContext,
-      ' (if enabled: https://telefunc.com/log)',
-    )
-    throw new Error(errMsg)
+    throw await getShieldValidationError(response, callContext)
   } else if (statusCode === STATUS_CODE_MALFORMED_REQUEST) {
     const responseBody = await response.text()
     assertUsage(responseBody === STATUS_BODY_MALFORMED_REQUEST, wrongInstallation({ method, callContext }))
@@ -141,4 +141,38 @@ async function getErrMsg(
   const responseBody = await response.text()
   assertUsage(responseBody === errMsg, wrongInstallation({ method, callContext }))
   return `${errMsg} — see server logs${errMsgAddendum}` as const
+}
+
+async function getShieldValidationError(
+  response: Response,
+  callContext: {
+    telefuncUrl: string
+    telefunctionName: string
+    telefuncFilePath: string
+  },
+): Promise<Error> {
+  const responseBody = await response.text()
+  if (responseBody === STATUS_BODY_SHIELD_VALIDATION_ERROR) {
+    const errMsg =
+      `${STATUS_BODY_SHIELD_VALIDATION_ERROR} — see server logs (if enabled: https://telefunc.com/log)` as const
+    return new Error(errMsg)
+  }
+
+  let responseBodyParsed: unknown
+  try {
+    responseBodyParsed = parse(responseBody)
+  } catch {
+    assertUsage(
+      false,
+      wrongInstallation({
+        reason: 'a shield validation response body that Telefunc cannot parse',
+        method,
+        callContext,
+      }),
+    )
+  }
+  assertUsage(isShieldValidationErrorPayload(responseBodyParsed), wrongInstallation({ method, callContext }))
+
+  const validationError = responseBodyParsed
+  return new ValidationError(validationError)
 }
