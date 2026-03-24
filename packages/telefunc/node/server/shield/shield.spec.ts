@@ -123,7 +123,6 @@ describe('shield', () => {
             vendor: 'mock',
             validate: (value, options) => {
               if (value === undefined || typeof value === 'number') {
-                console.log(value, value === undefined)
                 return { value } as const
               }
 
