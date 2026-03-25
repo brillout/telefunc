@@ -41,10 +41,10 @@ If you use TypeScript, Telefunc automatically generates `shield()` for each tele
 // CreateTodo.telefunc.ts
 // Environment: server
 
-import { shield } from 'telefunc' // [!code--]
-const t = shield.type // [!code--]
+import { shield } from 'telefunc' // [!code --]
+const t = shield.type // [!code --]
 
-shield(onNewTodo, [t.string]) // [!code--]
+shield(onNewTodo, [t.string]) // [!code --]
 export async function onNewTodo(text) {
   // `text` is guaranteed to be a `string`
 }

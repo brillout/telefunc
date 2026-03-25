@@ -77,7 +77,7 @@ Add guards to Telefunctions to prevent illegitimate access.
 import { getContext, shield } from 'telefunc'
 // When using TypeScript, Telefunc automatically generates
 // shield for argument type inference and runtime validation
-shield(onNewTodo, [shield.type.string]) // [!code--]
+// shield(onNewTodo, [shield.type.string]) // [!code --]
 
 export async function onNewTodo(title: string, text: string) {
   const { user } = getContext()
