@@ -24,25 +24,22 @@ export function CTALink({
           color: 'var(--color-text)',
         }
 
-    const something = size === 'lg'
-        ? {
-            padding: '16px 32px',
-            letterSpacing: '0.05em',
-            lineHeight: 1.3,
+  const something =
+    size === 'lg'
+      ? {
+          padding: '16px 32px',
+          letterSpacing: '0.05em',
+          lineHeight: 1.3,
         }
-        : {
-            padding: '8px 16px',
-            letterSpacing: '0.05em',
-            lineHeight: 1.3,
+      : {
+          padding: '8px 16px',
+          letterSpacing: '0.05em',
+          lineHeight: 1.3,
         }
 
-    const fontSize = size === 'lg'
-        ? 20
-        : 16
+  const fontSize = size === 'lg' ? 20 : 16
 
-    const fontWeight = size === 'lg'
-        ? 700
-        : 600
+  const fontWeight = size === 'lg' ? 700 : 600
 
   return (
     <a

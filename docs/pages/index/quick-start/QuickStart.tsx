@@ -61,8 +61,8 @@ function Quickstart() {
             the request and response as needed.
           </p>
           <p style={{ lineHeight: 2 }}>
-            This is also our opportunity to populate the Telefunc <code>Context</code>, e.g., with <em>required</em> server
-            request context.&nbsp;
+            This is also our opportunity to populate the Telefunc <code>Context</code>, e.g., with <em>required</em>{' '}
+            server request context.&nbsp;
             <b>Remember, Telefunc is all about keeping things small: security and performance through omission.</b>
           </p>
           <p style={{ lineHeight: 2 }}>
@@ -87,8 +87,8 @@ function Quickstart() {
             With Telefunc added to our server, we just need to import and call our telefunction!
           </p>
           <p style={{ lineHeight: 2 }}>
-            By defining telefunctions in a <code>*.telefunc.ts</code> file next to the component that calls them, we get type
-            inference and autocompletion for free.
+            By defining telefunctions in a <code>*.telefunc.ts</code> file next to the component that calls them, we get
+            type inference and autocompletion for free.
           </p>
           <p style={{ lineHeight: 2 }}>
             Likewise, naming telefunctions <code>onSomeEvent</code> is an easy wasy to prevent scope keep. That way our
@@ -131,8 +131,12 @@ function Quickstart() {
           margin: '36px 0px',
         }}
       >
-        <CTALink href="/start" size="lg">Start calling!</CTALink>
-        <CTALink href="/schemaless" size="lg" variant="secondary">Learn more</CTALink>
+        <CTALink href="/start" size="lg">
+          Start calling!
+        </CTALink>
+        <CTALink href="/schemaless" size="lg" variant="secondary">
+          Learn more
+        </CTALink>
       </div>
     </div>
   )
