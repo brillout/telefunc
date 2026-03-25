@@ -114,15 +114,15 @@ const onSubmit = async (text) => {
   const result = await onNewTodo(text)
   if (result.code) {
     // Error
+  } else {
+    // Ok
   }
-
-  // ...
 }
 ```
 
 ## DRY Permissions
 
-To implement reusable permissions logic, define helper functions that call <Link href="/getContext" />.
+To implement reusable permissions logic, define helper functions that call <Link href="/getContext" text={(<code>getContext()</code>)}/>.
 
 ```ts
 // auth/getUser.ts

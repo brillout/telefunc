@@ -67,8 +67,8 @@ export async function onNewTodo(title: string, text: string) {
 </Warning>
   
 Add guards to Telefunctions to prevent illegitimate access.
-- Use <Link href="/Abort" /> (or return early) if the client is unauthenticated or doesn't have permission to access the requested resource.
-- Use <Link href="/shield" /> to validate telefunction call arguments.
+- Use <b><Link href="/Abort" text={(<code>throw Abort()</code>)} /></b> (or return early) if the client is unauthenticated or doesn't have permission to access the requested resource.
+- Use <b><Link href="/shield" text={(<code>shield()</code>)} /></b> to validate telefunction call arguments.
   
 ```ts
 // Todos.telefunc.ts
@@ -176,14 +176,14 @@ import { telefunc } from 'telefunc'
 
 const app = new Hono()
 app.all('/_telefunc', async (c) => {
-    const httpResponse = await telefunc({
-        // ...
-        // Data added here is available in all telefunctions
-        context: {
-            headers: c.req.raw.headers,
-            user: await getUser(),
-        }
-    })
+  const httpResponse = await telefunc({
+    // ...
+    // Data added here is available in all telefunctions
+    context: {
+      headers: c.req.raw.headers,
+      user: await getUser(),
+    }
+  })
 })
 ```
 

@@ -23,8 +23,8 @@ function Features() {
         </h2>
         <>
           <p>
-            Telefunc <b>automatically generates runtime shields</b> from argument types. type inference and
-            autocompletion.
+            Telefunc <b>automatically generates runtime shields</b> from argument types. Inference and
+            autocompletion are default.
           </p>
         </>
       </div>
@@ -34,8 +34,7 @@ function Features() {
         </h2>
         <>
           <p>
-            Iterate flexibly and rapidly. <b>Add telefunctions as you go,</b> instead of getting bogged down with a
-            back-end API schema.
+            <b>The types are the contract.</b> Just import and call telefunctions like any other function. Telefunc does the rest.
           </p>
         </>
       </div>
@@ -45,7 +44,8 @@ function Features() {
         </h2>
         <>
           <p>
-            <b>The types are the contract.</b> Just import and call your function, Telefunc does the rest.
+            Iterate flexibly and rapidly. <b>Add telefunctions as you go,</b> instead of getting bogged down with a
+            back-end API schema.
           </p>
         </>
       </div>

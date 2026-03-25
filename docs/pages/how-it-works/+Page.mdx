@@ -48,7 +48,7 @@ Telefunc plugins also automatically crawl your `.telefunc.js` files (so that you
 
 ## Telefunction lifecycle
 
-When hello('Eva') is called in the browser-side,
+When `hello('Eva')` is called in the browser,
 1. The HTTP client (`__internal_makeHttpRequest`) serializes the call and makes an HTTP request to the `/_telefunc` route on your server.
 ```sh
 POST /_telefunc HTTP/1.1
