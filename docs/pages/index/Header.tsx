@@ -43,7 +43,7 @@ function Header() {
         }}
       >
         <CTALink href="/start">Quick Start</CTALink>
-        <CTALink href="/RPC" variant="secondary">
+        <CTALink href="/concepts" variant="secondary">
           Learn More
         </CTALink>
       </div>

@@ -17,8 +17,8 @@ const config: Config = {
   twitter: '@brillout',
 
   headings,
-  headingsDetached: [],
-  categories: [],
+  headingsDetached,
+  categories,
 
   algolia: {
     appId: 'NONXS2JSTL',

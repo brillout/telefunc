@@ -1,7 +1,7 @@
 export { Features }
 
 import React from 'react'
-import { Emoji, Link } from '@brillout/docpress'
+import { Emoji } from '@brillout/docpress'
 import './Features.css'
 
 function Features() {

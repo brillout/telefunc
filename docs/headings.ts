@@ -18,7 +18,7 @@ type HeadingsURL = ExtractHeadingUrl<(typeof headings)[number]> | ExtractHeading
 type ExtractCategoryName<C> = C extends { name: infer N extends string } ? N : C extends string ? C : never
 type CategoryNames = ExtractCategoryName<(typeof categories)[number]>
 
-const categories = ['Guides', 'API', 'Get Started', 'Overview', 'Miscellaneous'] as const satisfies Config['categories']
+const categories = ['Get Started', 'API'] as const satisfies Config['categories']
 
 const headingsDetached = [...serverIntegration()] satisfies HeadingDetachedDefinition[]
 
