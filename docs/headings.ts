@@ -222,19 +222,19 @@ function serverIntegration(): HeadingDetachedDefinition[] {
       category: 'Get Started',
       title: 'Next.js',
       url: '/next',
-      sectionTitles: ['5. Initial Data'],
+      sectionTitles: ['5. Initial data'],
     },
     {
       category: 'Get Started',
       title: 'SvelteKit',
       url: '/svelte-kit',
-      sectionTitles: ['4. Initial Data'],
+      sectionTitles: ['4. Initial data'],
     },
     {
       category: 'Get Started',
       title: 'Vike',
       url: '/vike',
-      sectionTitles: ['4. Initial Data'],
+      sectionTitles: ['4. Initial data'],
     },
     {
       category: 'Get Started',
