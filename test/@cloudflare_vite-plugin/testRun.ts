@@ -4,8 +4,9 @@ export { testCloudflareBindings }
 import { autoRetry, expect, getServerUrl, page, sleep, test } from '@brillout/test-e2e'
 import { testCounter, testRunClassic } from '../../test/utils'
 
-function testRun(cmd: 'npm run dev' | 'npm run preview') {
-  const isDev = cmd === 'npm run dev'
+// TODO/ai use pnpm in every test file inside the whole monorepo
+function testRun(cmd: 'pnpm run dev' | 'pnpm run preview') {
+  const isDev = cmd === 'pnpm run dev'
   testCloudflareBindings()
   testRunClassic(cmd)
   testTodolist(isDev)
