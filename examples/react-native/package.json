@@ -11,7 +11,7 @@
   "dependencies": {
     "@babel/core": "^7.12.9",
     "@expo/webpack-config": "^0.16.18",
-    "@types/react": "~17.0.21",
+    "@types/react": "^19.2.14",
     "@types/react-native": "~0.64.12",
     "cors": "^2.8.5",
     "expo": "~44.0.0",
