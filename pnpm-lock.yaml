@@ -117,8 +117,8 @@ importers:
         specifier: ^19.2.4
         version: 19.2.4(react@19.2.4)
       react-streaming:
-        specifier: ^0.4.2
-        version: 0.4.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+        specifier: ^0.4.17
+        version: 0.4.17(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       telefunc:
         specifier: link:../../packages/telefunc
         version: link:../../packages/telefunc
@@ -130,10 +130,10 @@ importers:
         version: 5.8.3
       vike:
         specifier: ^0.4.240
-        version: 0.4.240(react-streaming@0.4.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(vite@7.0.2(@types/node@24.0.10)(jiti@1.21.0)(lightningcss@1.32.0))
+        version: 0.4.240(react-streaming@0.4.17(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(vite@7.0.2(@types/node@24.0.10)(jiti@1.21.0)(lightningcss@1.32.0))
       vike-node:
         specifier: ^0.3.7
-        version: 0.3.7(encoding@0.1.13)(hono@4.10.4)(vike@0.4.240(react-streaming@0.4.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(vite@7.0.2(@types/node@24.0.10)(jiti@1.21.0)(lightningcss@1.32.0)))(vite@7.0.2(@types/node@24.0.10)(jiti@1.21.0)(lightningcss@1.32.0))
+        version: 0.3.7(encoding@0.1.13)(hono@4.10.4)(vike@0.4.240(react-streaming@0.4.17(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(vite@7.0.2(@types/node@24.0.10)(jiti@1.21.0)(lightningcss@1.32.0)))(vite@7.0.2(@types/node@24.0.10)(jiti@1.21.0)(lightningcss@1.32.0))
       vite:
         specifier: ^7.0.2
         version: 7.0.2(@types/node@24.0.10)(jiti@1.21.0)(lightningcss@1.32.0)
@@ -238,8 +238,8 @@ importers:
         specifier: ^19.2.4
         version: 19.2.4(react@19.2.4)
       react-streaming:
-        specifier: ^0.4.2
-        version: 0.4.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+        specifier: ^0.4.17
+        version: 0.4.17(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       telefunc:
         specifier: link:../../packages/telefunc
         version: link:../../packages/telefunc
@@ -248,7 +248,7 @@ importers:
         version: 5.8.3
       vike:
         specifier: ^0.4.240
-        version: 0.4.240(react-streaming@0.4.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(vite@7.0.2(@types/node@24.0.10)(jiti@1.21.0)(lightningcss@1.32.0))
+        version: 0.4.240(react-streaming@0.4.17(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(vite@7.0.2(@types/node@24.0.10)(jiti@1.21.0)(lightningcss@1.32.0))
       vite:
         specifier: ^7.0.2
         version: 7.0.2(@types/node@24.0.10)(jiti@1.21.0)(lightningcss@1.32.0)
@@ -380,8 +380,8 @@ importers:
         specifier: ^19.2.4
         version: 19.2.4
       react-streaming:
-        specifier: ^0.4.2
-        version: 0.4.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+        specifier: ^0.4.17
+        version: 0.4.17(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       typescript:
         specifier: ^5.8.3
         version: 5.8.3
@@ -1326,9 +1326,6 @@ packages:
 
   '@brillout/import@0.2.6':
     resolution: {integrity: sha512-1GUTmADc8trUC1YSW2lp9r6PmwluMoEyHajnE1kxVdbKGD0wJOlq/DvTWMUqLtBDCnQR+n//qgMtz6HwA/lotA==}
-
-  '@brillout/json-serializer@0.5.15':
-    resolution: {integrity: sha512-iLAyV1HNC3nG07ypBwCJohFrajY1HeZdfBBgGuRtMH/JPddgG9bPmoSI18A1RBx67vRmY6/8rgisjR5YfTvZHA==}
 
   '@brillout/json-serializer@0.5.20':
     resolution: {integrity: sha512-RjRm7siy3VEB248gYudtWB4FZyoIL4kuA/HF3mM4ViAd1LT6Tl9eZsp5n0/hB5uM/C9JKICCNsJ6slNGgjdetA==}
@@ -6145,20 +6142,8 @@ packages:
     resolution: {integrity: sha512-QgT5//D3jfjJb6Gsjxv0Slpj23ip+HtOpnNgnb2S5zU3CB26G/IDPGoy4RJB42wzFE46DRsstbW6tKHoKbhAxw==}
     engines: {node: '>=0.10.0'}
 
-  react-streaming@0.4.12:
-    resolution: {integrity: sha512-OvIKK8MooiQ15KdCjmiNxpNP26k3oq5HmI8a0r4pPZAndyfh9MRbebP+0z2x1UCDO4bbjVzgD2A8+I85xJaNhA==}
-    peerDependencies:
-      react: '>=19'
-      react-dom: '>=19'
-
   react-streaming@0.4.17:
     resolution: {integrity: sha512-FgY2BSqqgpLv0Gw5wrX3kPZttBW50vSHFZCirFbgz8AT6lZHFjhOqlhP+x7zdzAv57aD9gclAYCnTafobOJEJw==}
-    peerDependencies:
-      react: '>=19'
-      react-dom: '>=19'
-
-  react-streaming@0.4.2:
-    resolution: {integrity: sha512-b192E9E0TnE9wWdc8uZg00MMY36btQmFV25cDOGcWQwl5qF8vzNcQPVJwWkljLOec5qIJWumH9cvEvAL1JlAGg==}
     peerDependencies:
       react: '>=19'
       react-dom: '>=19'
@@ -8467,8 +8452,6 @@ snapshots:
       - supports-color
 
   '@brillout/import@0.2.6': {}
-
-  '@brillout/json-serializer@0.5.15': {}
 
   '@brillout/json-serializer@0.5.20': {}
 
@@ -11517,7 +11500,7 @@ snapshots:
       '@typescript-eslint/parser': 8.26.1(eslint@9.28.0(jiti@1.21.0))(typescript@5.8.3)
       eslint: 9.28.0(jiti@1.21.0)
       eslint-import-resolver-node: 0.3.9
-      eslint-import-resolver-typescript: 3.8.7(eslint-plugin-import@2.31.0)(eslint@9.28.0(jiti@1.21.0))
+      eslint-import-resolver-typescript: 3.8.7(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.26.1(eslint@9.28.0(jiti@1.21.0))(typescript@5.8.3))(eslint@9.28.0(jiti@1.21.0)))(eslint@9.28.0(jiti@1.21.0))
       eslint-plugin-import: 2.31.0(@typescript-eslint/parser@8.26.1(eslint@9.28.0(jiti@1.21.0))(typescript@5.8.3))(eslint-import-resolver-typescript@3.8.7)(eslint@9.28.0(jiti@1.21.0))
       eslint-plugin-jsx-a11y: 6.10.2(eslint@9.28.0(jiti@1.21.0))
       eslint-plugin-react: 7.37.4(eslint@9.28.0(jiti@1.21.0))
@@ -11537,7 +11520,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-import-resolver-typescript@3.8.7(eslint-plugin-import@2.31.0)(eslint@9.28.0(jiti@1.21.0)):
+  eslint-import-resolver-typescript@3.8.7(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.26.1(eslint@9.28.0(jiti@1.21.0))(typescript@5.8.3))(eslint@9.28.0(jiti@1.21.0)))(eslint@9.28.0(jiti@1.21.0)):
     dependencies:
       '@nolyfill/is-core-module': 1.0.39
       debug: 4.4.0
@@ -11552,14 +11535,14 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-module-utils@2.12.0(@typescript-eslint/parser@8.26.1(eslint@9.28.0(jiti@1.21.0))(typescript@5.8.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.8.7)(eslint@9.28.0(jiti@1.21.0)):
+  eslint-module-utils@2.12.0(@typescript-eslint/parser@8.26.1(eslint@9.28.0(jiti@1.21.0))(typescript@5.8.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.8.7(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.26.1(eslint@9.28.0(jiti@1.21.0))(typescript@5.8.3))(eslint@9.28.0(jiti@1.21.0)))(eslint@9.28.0(jiti@1.21.0)))(eslint@9.28.0(jiti@1.21.0)):
     dependencies:
       debug: 3.2.7
     optionalDependencies:
       '@typescript-eslint/parser': 8.26.1(eslint@9.28.0(jiti@1.21.0))(typescript@5.8.3)
       eslint: 9.28.0(jiti@1.21.0)
       eslint-import-resolver-node: 0.3.9
-      eslint-import-resolver-typescript: 3.8.7(eslint-plugin-import@2.31.0)(eslint@9.28.0(jiti@1.21.0))
+      eslint-import-resolver-typescript: 3.8.7(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.26.1(eslint@9.28.0(jiti@1.21.0))(typescript@5.8.3))(eslint@9.28.0(jiti@1.21.0)))(eslint@9.28.0(jiti@1.21.0))
     transitivePeerDependencies:
       - supports-color
 
@@ -11574,7 +11557,7 @@ snapshots:
       doctrine: 2.1.0
       eslint: 9.28.0(jiti@1.21.0)
       eslint-import-resolver-node: 0.3.9
-      eslint-module-utils: 2.12.0(@typescript-eslint/parser@8.26.1(eslint@9.28.0(jiti@1.21.0))(typescript@5.8.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.8.7)(eslint@9.28.0(jiti@1.21.0))
+      eslint-module-utils: 2.12.0(@typescript-eslint/parser@8.26.1(eslint@9.28.0(jiti@1.21.0))(typescript@5.8.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.8.7(eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.26.1(eslint@9.28.0(jiti@1.21.0))(typescript@5.8.3))(eslint@9.28.0(jiti@1.21.0)))(eslint@9.28.0(jiti@1.21.0)))(eslint@9.28.0(jiti@1.21.0))
       hasown: 2.0.2
       is-core-module: 2.16.1
       is-glob: 4.0.3
@@ -13400,29 +13383,11 @@ snapshots:
 
   react-refresh@0.18.0: {}
 
-  react-streaming@0.4.12(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
-    dependencies:
-      '@brillout/import': 0.2.6
-      '@brillout/json-serializer': 0.5.22
-      '@brillout/picocolors': 1.0.30
-      isbot-fast: 1.2.0
-      react: 19.2.4
-      react-dom: 19.2.4(react@19.2.4)
-
   react-streaming@0.4.17(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
     dependencies:
       '@brillout/import': 0.2.6
       '@brillout/json-serializer': 0.5.22
       '@brillout/picocolors': 1.0.30
-      isbot-fast: 1.2.0
-      react: 19.2.4
-      react-dom: 19.2.4(react@19.2.4)
-
-  react-streaming@0.4.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4):
-    dependencies:
-      '@brillout/import': 0.2.6
-      '@brillout/json-serializer': 0.5.15
-      '@brillout/picocolors': 1.0.28
       isbot-fast: 1.2.0
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)
@@ -14412,7 +14377,7 @@ snapshots:
       '@types/unist': 3.0.3
       vfile-message: 4.0.2
 
-  vike-node@0.3.7(encoding@0.1.13)(hono@4.10.4)(vike@0.4.240(react-streaming@0.4.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(vite@7.0.2(@types/node@24.0.10)(jiti@1.21.0)(lightningcss@1.32.0)))(vite@7.0.2(@types/node@24.0.10)(jiti@1.21.0)(lightningcss@1.32.0)):
+  vike-node@0.3.7(encoding@0.1.13)(hono@4.10.4)(vike@0.4.240(react-streaming@0.4.17(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(vite@7.0.2(@types/node@24.0.10)(jiti@1.21.0)(lightningcss@1.32.0)))(vite@7.0.2(@types/node@24.0.10)(jiti@1.21.0)(lightningcss@1.32.0)):
     dependencies:
       '@brillout/picocolors': 1.0.28
       '@nitedani/shrink-ray-current': 4.3.0
@@ -14423,7 +14388,7 @@ snapshots:
       resolve-from: 5.0.0
       sirv: 3.0.1
       unenv-nightly: 2.0.0-20241015-162228-03257ee
-      vike: 0.4.240(react-streaming@0.4.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(vite@7.0.2(@types/node@24.0.10)(jiti@1.21.0)(lightningcss@1.32.0))
+      vike: 0.4.240(react-streaming@0.4.17(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(vite@7.0.2(@types/node@24.0.10)(jiti@1.21.0)(lightningcss@1.32.0))
     optionalDependencies:
       vite: 7.0.2(@types/node@24.0.10)(jiti@1.21.0)(lightningcss@1.32.0)
     transitivePeerDependencies:
@@ -14466,7 +14431,7 @@ snapshots:
     dependencies:
       react: 19.2.4
       react-dom: 19.2.4(react@19.2.4)
-      react-streaming: 0.4.12(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      react-streaming: 0.4.17(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       vike: 0.4.246(react-streaming@0.4.17(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)(lightningcss@1.32.0))
 
   vike-react@0.6.21(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(vike@0.4.255(react-streaming@0.4.17(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(vite@8.0.3(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.1)(@types/node@24.0.10)(esbuild@0.25.9)(jiti@1.21.0))):
@@ -14476,7 +14441,7 @@ snapshots:
       react-streaming: 0.4.17(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       vike: 0.4.255(react-streaming@0.4.17(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(vite@8.0.3(@emnapi/core@1.9.1)(@emnapi/runtime@1.9.1)(@types/node@24.0.10)(esbuild@0.25.9)(jiti@1.21.0))
 
-  vike@0.4.240(react-streaming@0.4.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(vite@7.0.2(@types/node@24.0.10)(jiti@1.21.0)(lightningcss@1.32.0)):
+  vike@0.4.240(react-streaming@0.4.17(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(vite@7.0.2(@types/node@24.0.10)(jiti@1.21.0)(lightningcss@1.32.0)):
     dependencies:
       '@brillout/import': 0.2.6
       '@brillout/json-serializer': 0.5.20
@@ -14495,7 +14460,7 @@ snapshots:
       source-map-support: 0.5.21
       tinyglobby: 0.2.15
     optionalDependencies:
-      react-streaming: 0.4.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
+      react-streaming: 0.4.17(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       vite: 7.0.2(@types/node@24.0.10)(jiti@1.21.0)(lightningcss@1.32.0)
 
   vike@0.4.246(react-streaming@0.4.17(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(vite@7.2.2(@types/node@24.0.10)(jiti@1.21.0)(lightningcss@1.32.0)):
