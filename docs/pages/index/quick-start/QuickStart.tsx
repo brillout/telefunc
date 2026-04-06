@@ -105,7 +105,7 @@ function Quickstart() {
           <blockquote>Premature optimization is the root of all evil.</blockquote>
           <figcaption style={{ display: 'flex', justifyContent: 'flex-end' }}>
             <small>
-              <em>Turing Award winner, Donal Knuth</em>
+              <em>Turing Award winner, Donald Knuth</em>
             </small>
           </figcaption>
         </figure>
