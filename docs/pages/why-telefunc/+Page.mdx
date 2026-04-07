@@ -1,5 +1,5 @@
 import { Link, Warning } from '@brillout/docpress'
-import { CodeComparison, CodeComparisonLeft, CodeComparisonRight } from '../../components/CodeComparison'
+import { CodeComparison } from '../../components/CodeComparison'
 
 Telefunc is an RPC framework you can attach to your server. It **abstracts away the HTTP protocol**
 so you can **couple code, not environments, and focus on developing.**
@@ -31,46 +31,42 @@ Since telefunctions can be customized to a specific page, display component, or 
 - And only need to return what the calling UI needs.
 
 <CodeComparison>
-    <CodeComparisonLeft>
-      ```ts ts-only
-      // MarkAllDone.telefunc.ts
-      // Environment: server
+  ```ts ts-only
+  // MarkAllDone.telefunc.ts
+  // Environment: server
 
-      import { getContext } from 'telefunc'
+  import { getContext } from 'telefunc'
 
-      async function onMarkAllDone() {
-        const { user } = getContext()
-        if (!getContext().user) {
-          throw Abort()
-        }
+  async function onMarkAllDone() {
+    const { user } = getContext()
+    if (!getContext().user) {
+      throw Abort()
+    }
 
-        await db.query(
-          'UPDATE todo_items SET is_completed = TRUE WHERE userId = :userId;',
-          { userId: user.id }
-        )
-      };
-      ```
-    </CodeComparisonLeft>
-    <CodeComparisonRight>
-      ```tsx ts-only
-      // MarkAllDone.tsx
-      // Environment: client
+    await db.query(
+      'UPDATE todo_items SET is_completed = TRUE WHERE userId = :userId;',
+      { userId: user.id }
+    )
+  };
+  ```
+  ```tsx ts-only
+  // MarkAllDone.tsx
+  // Environment: client
 
-      import { onMarkAllDone } from './MarkAllDone.telefunc.js'
+  import { onMarkAllDone } from './MarkAllDone.telefunc.js'
 
-      function MarkAllDone() {
-        // () => Promise<void>
-        const onClick = onMarkAllDone
+  function MarkAllDone() {
+    // () => Promise<void>
+    const onClick = onMarkAllDone
 
-        return (
-          <button onClick={onClick}>
-            Complete All
-          </button>
-        )
-      }
+    return (
+      <button onClick={onClick}>
+        Complete All
+      </button>
+    )
+  }
 
-      ```
-    </CodeComparisonRight>
+  ```
 </CodeComparison>
 
 ### Couple code, not environments

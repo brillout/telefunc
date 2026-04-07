@@ -93,7 +93,7 @@ const headings = [
     level: 2,
     title: 'How it works',
     url: '/how-it-works',
-    sectionTitles: ['Transformer', 'Telefunction lifecycle'],
+    sectionTitles: ['Telefunction lifecycle'],
   },
   // #endregion
 
