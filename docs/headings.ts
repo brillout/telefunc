@@ -1,28 +1,19 @@
 export { categories }
 export { headings }
-export { headingsDetached }
 export type { HeadingsURL }
 
 import type {
   Config,
   HeadingDefinition,
-  HeadingDetachedDefinition as HeadingDetachedDefinition_,
 } from '@brillout/docpress'
 import { iconGear, iconPlug, iconSeedling } from '@brillout/docpress' with { type: 'vike:pointer' }
-type HeadingDetachedDefinition = Omit<HeadingDetachedDefinition_, 'category'> & {
-  category: CategoryNames | 'Miscellaneous'
-}
 
 type ExtractHeadingUrl<C> = C extends { url: infer N extends string } ? N : C extends string ? C : never
-type HeadingsURL = ExtractHeadingUrl<(typeof headings)[number]> | ExtractHeadingUrl<(typeof headingsDetached)[number]>
-type ExtractCategoryName<C> = C extends { name: infer N extends string } ? N : C extends string ? C : never
-type CategoryNames = ExtractCategoryName<(typeof categories)[number]>
+type HeadingsURL = ExtractHeadingUrl<(typeof headings)[number]>
 
 const categories = ['Basics', 'Integrations', 'API'] as const satisfies Config['categories']
 
-const headingsDetached = [] satisfies HeadingDetachedDefinition[]
-
-const headings: HeadingDefinition[] = [
+const headings = [
   // #region Onboarding
   {
     level: 1,
@@ -52,20 +43,17 @@ const headings: HeadingDefinition[] = [
     title: 'Best Practices',
     url: '/best-practices',
   },
+  
   // #region Guides
   {
     level: 4,
     title: 'Guides',
   },
-
-  // #region Server Integration
   {
     level: 2,
     title: 'Server Integration',
     url: '/server-integration',
   },
-  // #endregion
-
   {
     level: 2,
     title: 'Initial Data',
@@ -233,7 +221,6 @@ const headings: HeadingDefinition[] = [
     level: 4,
     title: 'Client',
   },
-
   {
     level: 2,
     title: '`onAbort()`',
@@ -284,4 +271,4 @@ const headings: HeadingDefinition[] = [
     url: '/log',
   },
   // #endregion
-]
+] satisfies HeadingDefinition[];
