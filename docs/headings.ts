@@ -2,10 +2,7 @@ export { categories }
 export { headings }
 export type { HeadingsURL }
 
-import type {
-  Config,
-  HeadingDefinition,
-} from '@brillout/docpress'
+import type { Config, HeadingDefinition } from '@brillout/docpress'
 import { iconGear, iconPlug, iconSeedling } from '@brillout/docpress' with { type: 'vike:pointer' }
 
 type ExtractHeadingUrl<C> = C extends { url: infer N extends string } ? N : C extends string ? C : never
@@ -43,7 +40,7 @@ const headings = [
     title: 'Best Practices',
     url: '/best-practices',
   },
-  
+
   // #region Guides
   {
     level: 4,
@@ -271,4 +268,4 @@ const headings = [
     url: '/log',
   },
   // #endregion
-] satisfies HeadingDefinition[];
+] satisfies HeadingDefinition[]
