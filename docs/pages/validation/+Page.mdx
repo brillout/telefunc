@@ -1,6 +1,14 @@
 import { Link } from '@brillout/docpress'
 
-When a user enters a form with invalid inputs, such as an invalid email address, then you want your UI to tell the user what went wrong.
+Telefunc guarantees argument types at runtime with a <Link href="/shield" text={(<code>shield()</code>)} />. **This is generated automatically if you're using TypeScript.**
+
+> If you aren't using TypeScript, or want to define the `shield` yourself, you can also <Link href="/shield#manual">define the <code>shield</code> manually</Link>.
+
+The `shield` rejects telefunction calls with invalid argument types using <Link href="/Abort" text={(<code>throw Abort()</code>)} />. 
+
+## Validating non-type rules
+
+Argument rules like email validity or maximum number value must be checked manually in the telefunction body.
 
 Simply return early with an error result, including any message the UI should display to the user.
 
@@ -42,7 +50,7 @@ export async function onFormSubmit(email: string, password: string) {
 
 ### Next
 
-<Link href="/file-upload" />
+<Link href="/error-handling" />
 
 ## See also
 

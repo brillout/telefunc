@@ -4,6 +4,39 @@ Always keep in mind that your **telefuncs are public**. A simple HTTP request co
 
 Add authorization checks to telefunctions using guard expressions in the function body.
 
+## DRY Permissions
+
+To implement reusable permissions logic, define helper functions that call <Link href="/getContext" text={(<code>getContext()</code>)}/>.
+
+```ts
+// auth/getUser.ts
+// Environment: server
+
+import { getContext, Abort } from 'telefunc'
+
+export function getUser() {
+  const { user } = getContext()
+  if (!user) {
+    throw Abort({ code: 'unauthenticated' })
+  }
+  return user
+}
+```
+
+Then use as needed in your telefunctions.
+
+```ts
+// components/TodoItem.telefunc.ts
+// Environment: server
+
+import { getUser } from '../auth/getUser'
+
+export function onTextChange(id: string, text: string) {
+  const user = getUser()
+  /* ... */
+}
+```
+
 ## Abort requests
 
 To reject a request for any reason, simply <Link href="/Abort" />. This is equivalent to a status code of `403`. Include error data like a code to trigger a redirect or a message to display to the user.
@@ -117,39 +150,6 @@ const onSubmit = async (text) => {
   } else {
     // Ok
   }
-}
-```
-
-## DRY Permissions
-
-To implement reusable permissions logic, define helper functions that call <Link href="/getContext" text={(<code>getContext()</code>)}/>.
-
-```ts
-// auth/getUser.ts
-// Environment: server
-
-import { getContext, Abort } from 'telefunc'
-
-export function getUser() {
-  const { user } = getContext()
-  if (!user) {
-    throw Abort({ code: 'unauthenticated' })
-  }
-  return user
-}
-```
-
-Then use as needed in your telefunctions.
-
-```ts
-// components/TodoItem.telefunc.ts
-// Environment: server
-
-import { getUser } from '../auth/getUser'
-
-export function onTextChange(id: string, text: string) {
-  const user = getUser()
-  /* ... */
 }
 ```
 

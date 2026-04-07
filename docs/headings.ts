@@ -8,7 +8,7 @@ import type {
   HeadingDefinition,
   HeadingDetachedDefinition as HeadingDetachedDefinition_,
 } from '@brillout/docpress'
-import { iconGear, iconSeedling } from '@brillout/docpress' with { type: 'vike:pointer' }
+import { iconGear, iconPlug, iconSeedling } from '@brillout/docpress' with { type: 'vike:pointer' }
 type HeadingDetachedDefinition = Omit<HeadingDetachedDefinition_, 'category'> & {
   category: CategoryNames | 'Miscellaneous'
 }
@@ -18,15 +18,15 @@ type HeadingsURL = ExtractHeadingUrl<(typeof headings)[number]> | ExtractHeading
 type ExtractCategoryName<C> = C extends { name: infer N extends string } ? N : C extends string ? C : never
 type CategoryNames = ExtractCategoryName<(typeof categories)[number]>
 
-const categories = ['Get Started', 'API'] as const satisfies Config['categories']
+const categories = ['Basics', 'Integrations', 'API'] as const satisfies Config['categories']
 
-const headingsDetached = [...serverIntegration()] satisfies HeadingDetachedDefinition[]
+const headingsDetached = [] satisfies HeadingDetachedDefinition[]
 
 const headings: HeadingDefinition[] = [
   // #region Onboarding
   {
     level: 1,
-    title: 'Get started',
+    title: 'Basics',
     titleIcon: iconSeedling,
     color: '#74d717',
   },
@@ -38,21 +38,19 @@ const headings: HeadingDefinition[] = [
   },
   {
     level: 2,
-    title: 'Quick Start',
+    title: 'Get Started',
     url: '/start',
     sectionTitles: ['My first telefunction'],
   },
   {
     level: 2,
-    title: 'Concepts',
-    url: '/concepts',
-    // sectionTitles: ['Why', 'RPC', 'Event-Based', 'Security'],
+    title: 'Why Telefunc?',
+    url: '/why-telefunc',
   },
   {
     level: 2,
     title: 'Best Practices',
     url: '/best-practices',
-    // sectionTitles: ['Initial Data'],
   },
   // #region Guides
   {
@@ -86,13 +84,13 @@ const headings: HeadingDefinition[] = [
   },
   {
     level: 2,
-    title: 'File uploads',
-    url: '/file-upload',
+    title: 'Error handling',
+    url: '/error-handling',
   },
   {
     level: 2,
-    title: 'Error handling',
-    url: '/error-handling',
+    title: 'File uploads',
+    url: '/file-upload',
   },
   // #endregion
 
@@ -111,6 +109,86 @@ const headings: HeadingDefinition[] = [
     title: 'How it works',
     url: '/how-it-works',
     sectionTitles: ['Transformer', 'Telefunction lifecycle'],
+  },
+  // #endregion
+
+  // #region Integrations
+  {
+    level: 1,
+    title: 'Integrations',
+    titleIcon: iconPlug,
+    color: '#ffd511',
+  },
+  {
+    level: 4,
+    title: 'Server frameworks',
+  },
+  {
+    level: 2,
+    title: 'Hono, Express, etc.',
+    url: '/server',
+  },
+  {
+    level: 4,
+    title: 'Metaframeworks',
+  },
+  {
+    level: 2,
+    title: 'Next.js',
+    url: '/next',
+  },
+  {
+    level: 2,
+    title: 'SvelteKit',
+    url: '/svelte-kit',
+  },
+  {
+    level: 2,
+    title: 'Vike',
+    url: '/vike',
+  },
+  {
+    level: 2,
+    title: 'Nuxt',
+    url: '/nuxt',
+  },
+  {
+    level: 2,
+    title: 'React Router',
+    url: '/react-router',
+  },
+  {
+    level: 4,
+    title: 'Native',
+  },
+  {
+    level: 2,
+    title: 'React Native',
+    url: '/react-native',
+  },
+  {
+    level: 4,
+    title: 'Bundlers',
+  },
+  {
+    level: 2,
+    title: 'Custom bundler',
+    url: '/bundler',
+  },
+  {
+    level: 2,
+    title: 'Vite',
+    url: '/vite-plugin',
+  },
+  {
+    level: 2,
+    title: 'Webpack',
+    url: '/webpack-plugin',
+  },
+  {
+    level: 2,
+    title: 'Babel',
+    url: '/babel-plugin',
   },
   // #endregion
 
@@ -207,77 +285,3 @@ const headings: HeadingDefinition[] = [
   },
   // #endregion
 ]
-
-function serverIntegration(): HeadingDetachedDefinition[] {
-  return [
-    // {
-    //   level: 4,
-    //   title: 'Server frameworks',
-    // },
-    // {
-    //   level: 4,
-    //   title: 'Metaframeworks',
-    // },
-    {
-      category: 'Get Started',
-      title: 'Next.js',
-      url: '/next',
-      sectionTitles: ['5. Initial data'],
-    },
-    {
-      category: 'Get Started',
-      title: 'SvelteKit',
-      url: '/svelte-kit',
-      sectionTitles: ['4. Initial data'],
-    },
-    {
-      category: 'Get Started',
-      title: 'Vike',
-      url: '/vike',
-      sectionTitles: ['4. Initial data'],
-    },
-    {
-      category: 'Get Started',
-      title: 'Nuxt',
-      url: '/nuxt',
-    },
-    {
-      category: 'Get Started',
-      title: 'React Router',
-      url: '/react-router',
-    },
-    // {
-    //   level: 4,
-    //   title: 'Native',
-    // },
-    {
-      category: 'Get Started',
-      title: 'React Native',
-      url: '/react-native',
-    },
-    // {
-    //   level: 4,
-    //   title: 'Bundlers',
-    // },
-    {
-      category: 'Get Started',
-      title: 'Custom bundler',
-      url: '/bundler',
-    },
-    {
-      category: 'Get Started',
-      title: 'Vite',
-      url: '/vite-plugin',
-    },
-    {
-      category: 'Get Started',
-      title: 'Webpack',
-      url: '/webpack-plugin',
-    },
-    {
-      category: 'Get Started',
-      title: 'Babel',
-      url: '/babel-plugin',
-    },
-  ]
-}

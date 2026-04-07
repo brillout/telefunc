@@ -84,6 +84,12 @@ To the consumer, these are all just functions, that do some async work: RPC abst
 > Operations like these are notoriously problematic with REST (often called the "N+1 problem"). With Telefunc, it's just SQL.
 > Using database-native queries is always more powerful than REST or GraphQL.
 
+## Schemaless architecture
+
+REST and GraphQL establish stable (but rigid) long-term data contracts. This makes it easier for third-parties to predictably consume your API, but gets in the way of prototyping, and forces the server to respond generically to clients:
+
+Telefunc creates unique data contracts between specific pieces of UI and the server-side logic they call. This allows components to invoke server-side logic as if it was local.
+
 ## Full-stack design
 
 Telefunc employs a full-stack pattern, and projects that combine front- and back-end in the same project will get the most out of the acceleration it has to offer.

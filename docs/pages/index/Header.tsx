@@ -44,7 +44,7 @@ function Header() {
         }}
       >
         <CTALink href="/start">Quick Start</CTALink>
-        <CTALink href="/concepts" variant="secondary">
+        <CTALink href="/why-telefunc" variant="secondary">
           Learn More
         </CTALink>
       </div>

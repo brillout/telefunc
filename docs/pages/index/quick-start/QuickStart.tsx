@@ -29,16 +29,8 @@ function Quickstart() {
             Telefunctions are slim server functions that are scoped to UI events or interactions.
           </p>
           <p style={{ lineHeight: 2 }}>
-            To invoke them remotely, Telefunc wraps front-end calls with a lightweight HTTP client that handles the
-            request boilerplate. Server-side, Telefunc middleware intercepts the call and runs our function.
-          </p>
-          <p style={{ lineHeight: 2 }}>
-            Telefunc automatically generates a runtime **shield** from your argument types, so we don't need to worry
+            Telefunc automatically generates a runtime <b>shield</b> from your argument types, so we don't need to worry
             about validation. In this example, we just need to check user permissions, then run our SQL.
-          </p>
-          <p style={{ lineHeight: 2 }}>
-            Since our telefunction is scoped to a specific event, we only need to return the data our UI needs (in this
-            case, nothing).
           </p>
         </div>
         <div>
@@ -56,21 +48,11 @@ function Quickstart() {
             <code>req</code>-compatible server.
           </p>
           <p style={{ lineHeight: 2 }}>
-            This includes metaframeworks like Next.js, Nuxt, or Vike, backend servers like Hono or Express, and bundlers
-            or frameworks like Vite or Cloudflare Workers. We simply add middleware at <code>/_telefunc</code> to adapt
-            the request and response as needed.
-          </p>
-          <p style={{ lineHeight: 2 }}>
-            This is also our opportunity to populate the Telefunc <code>Context</code>, e.g., with <em>required</em>{' '}
-            server request context.&nbsp;
-            <b>Remember, Telefunc is all about keeping things small: security and performance through omission.</b>
-          </p>
-          <p style={{ lineHeight: 2 }}>
-            The Telefunc middleware supports standard JSON and <code>File</code> data, and&nbsp;
+            Both standard JSON and <code>File</code> data are fully-supported, and&nbsp;
             <a href="https://github.com/telefunc/telefunc/pull/236" style={{ fontWeight: 'bold' }}>
               streaming is coming soon
             </a>
-            .
+            !
           </p>
         </div>
         <div>
@@ -85,14 +67,6 @@ function Quickstart() {
           </div>
           <p style={{ lineHeight: 2 }}>
             With Telefunc added to our server, we just need to import and call our telefunction!
-          </p>
-          <p style={{ lineHeight: 2 }}>
-            By defining telefunctions in a <code>*.telefunc.ts</code> file next to the component that calls them, we get
-            type inference and autocompletion for free.
-          </p>
-          <p style={{ lineHeight: 2 }}>
-            Likewise, naming telefunctions <code>onSomeEvent</code> is an easy wasy to prevent scope keep. That way our
-            app is more secure and performant by design.
           </p>
         </div>
         <div>
