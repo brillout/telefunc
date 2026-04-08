@@ -1,0 +1,64 @@
+import { Link } from '@unterberg/nivel'
+import ConfigWhereClient from '../../components/ConfigWhereClient.mdx'
+import ConfigWhereServer from '../../components/ConfigWhereServer.mdx'
+
+**Environment**: server, client.<br/>
+
+By default, Telefunc uses the URL pathname `/_telefunc` to communicate between client and server.
+
+You can use `config.telefuncUrl` to change that URL.
+
+
+## Basic usage
+
+You always need to set the value twice: on the server- and client-side.
+
+On the server-side:
+
+```ts
+// Environment: server
+
+import { config } from 'telefunc'
+
+config.telefuncUrl = '/api/_telefunc'
+```
+
+<ConfigWhereServer />
+
+On the client-side:
+
+```ts
+// Environment: client
+
+import { config } from 'telefunc/client'
+
+config.telefuncUrl = '/api/_telefunc'
+```
+
+<ConfigWhereClient />
+
+
+## Different domain
+
+If you deploy your frontend and backend at different domain names, then do the following.
+
+```ts
+// Environment: client
+
+import { config } from 'telefunc/client'
+
+// The client-side value can be:
+// - a URL pathname (such as '/_telefunc')
+// - a URL with origin (such as 'https://example.org/api/_telefunc')
+// - an IP address (such as '192.158.1.38')
+config.telefuncUrl = 'https://example.org/api/_telefunc'
+```
+
+```ts
+// Environment: server
+
+import { config } from 'telefunc'
+
+// The server-side value always needs to be a URL pathname (such as '/_telefunc')
+config.telefuncUrl = '/api/_telefunc'
+```

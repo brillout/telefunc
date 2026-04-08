@@ -1,0 +1,17 @@
+```tsx title="CreateTodo.tsx" env=client
+import { onNewTodo } from './CreateTodo.telefunc.ts'
+
+const onClick = async (form) => {
+  const text = form.input.value
+  await onNewTodo(text)
+}
+
+const CreateTodo = () => {
+  return (
+    <form>
+      <input type="text" />
+      <button onClick={onClick}>Add To-Do</button>
+    </form>
+  )
+}
+```

@@ -1,0 +1,92 @@
+.doc-code-pre > code {
+  @apply grid bg-base-200!;
+  color: var(--color-base-content);
+  padding: 0 !important;
+}
+
+.doc-code-pre {
+  @apply m-0 overflow-x-auto bg-transparent!;
+}
+
+.doc-code-pre [data-line] {
+  @apply block px-0;
+}
+
+.doc-code-pre [style*='--shiki-light'] {
+  color: var(--shiki-light);
+  font-style: var(--shiki-light-font-style, inherit);
+  font-weight: var(--shiki-light-font-weight, inherit);
+  text-decoration: var(--shiki-light-text-decoration, inherit);
+}
+
+:is([data-theme='telefunc-dark']) .doc-code-pre [style*='--shiki-dark'] {
+  color: var(--shiki-dark);
+  font-style: var(--shiki-dark-font-style, inherit);
+  font-weight: var(--shiki-dark-font-weight, inherit);
+  text-decoration: var(--shiki-dark-text-decoration, inherit);
+}
+
+figure[data-rehype-pretty-code-figure] {
+  @apply min-w-0 h-full;
+}
+
+figure[data-rehype-pretty-code-figure] pre {
+  background-color: transparent !important;
+}
+
+.doc-code-pre .highlighted,
+.doc-code-pre .highlighted-word {
+  background: color-mix(in oklab, var(--color-primary) 18%, transparent);
+}
+
+.doc-code-pre.has-diff [data-line].diff,
+[data-file-state='added'] .doc-code-pre [data-line],
+[data-file-state='removed'] .doc-code-pre [data-line],
+.doc-code-file-state .doc-code-pre [data-line] {
+  @apply relative pl-4;
+}
+
+.doc-code-pre.has-diff .diff.add,
+[data-file-state='added'] .doc-code-pre [data-line],
+.doc-code-file-added .doc-code-pre [data-line] {
+  background: color-mix(in oklab, var(--color-success) 18%, transparent);
+}
+
+.doc-code-pre.has-diff .diff.remove,
+[data-file-state='removed'] .doc-code-pre [data-line],
+.doc-code-file-removed .doc-code-pre [data-line] {
+  background: color-mix(in oklab, var(--color-error) 18%, transparent);
+}
+
+.doc-code-pre.has-diff .diff::before,
+[data-file-state='added'] .doc-code-pre [data-line]::before,
+[data-file-state='removed'] .doc-code-pre [data-line]::before,
+.doc-code-file-state .doc-code-pre [data-line]::before {
+  @apply absolute left-0 top-1 font-semibold rounded w-3 h-3 flex items-center justify-center;
+}
+
+[data-file-state='added'] .doc-code-pre [data-line]::before {
+  @apply bg-success/40 text-success-content!;
+}
+/*  */
+
+.doc-code-pre.has-diff .diff.add::before,
+[data-file-state='added'] .doc-code-pre [data-line]::before,
+.doc-code-file-added .doc-code-pre [data-line]::before {
+  @apply content-['+'];
+}
+
+.doc-code-pre.has-diff .diff.remove::before,
+[data-file-state='removed'] .doc-code-pre [data-line]::before,
+.doc-code-file-removed .doc-code-pre [data-line]::before {
+  @apply content-['-'];
+}
+
+.with-line-break_white-space code,
+.with-line-break_break-word code {
+  @apply whitespace-pre-wrap;
+}
+
+.with-line-break_break-word code {
+  @apply break-words;
+}

@@ -1,0 +1,23 @@
+.landing-code-samples [data-code-block-content] {
+  height: 100%;
+  margin-bottom: 0 !important;
+  padding-top: 1rem !important;
+  font-size: 12.5px !important;
+}
+
+.landing-code-samples [data-rehype-pretty-code-figure] {
+  height: 100%;
+}
+
+.landing-code-samples [data-code-block-frame] {
+  height: 100%;
+}
+
+/* .landing-code-samples [data-code-block-header],
+.landing-code-samples [data-choice-group-header] {
+  display: none !important;
+} */
+
+.landing-code-samples [data-choice-group-outer] {
+  margin-top: 0 !important;
+}

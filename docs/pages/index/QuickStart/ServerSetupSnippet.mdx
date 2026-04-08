@@ -1,0 +1,23 @@
+```ts
+// index.ts
+// Environment: server
+
+const app = new Hono()
+
+// ... middleware, API, etc.
+
+app.all('/_telefunc', async (c) => {
+	// make sure to pass raw request
+	const httpResponse = await telefunc({ request: c.req.raw })
+  
+	return new Response(httpResponse.body, {
+	    status: httpResponse.statusCode,
+	    headers: { 'content-type': httpResponse.contentType },
+	    context: {
+	      // Share any needed request info
+	    },
+	})
+})
+
+export default app
+```

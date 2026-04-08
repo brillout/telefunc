@@ -1,0 +1,109 @@
+import { Alert, Link } from '@unterberg/nivel'
+
+**Environment**: server.
+
+`getContext()` allows telefunctions to type-safely access the Telefunc request context.
+
+<Alert type="warning">
+    You must populate `Telefunc.Context` using the <Link href="/telefunc" /> before trying to access it with `getContext()`.
+</Alert>
+
+It's most commonly used for implementing permissions, see <Link href="/permissions" />.
+
+```ts
+// TodoList.telefunc.ts
+// Environment: server
+
+import { Abort, getContext } from 'telefunc'
+
+export async function onLoad() {
+  const { userId } = getContext()
+  if (!userId) {
+    throw Abort()
+  }
+  
+  // ...
+}
+```
+
+## Type safety
+
+You can use a generic type argument to set the type locally...
+
+```ts ts-only
+// *.telefunc.ts
+
+import { getContext } from 'telefunc'
+
+type UserContext = { user: string }
+
+export async function someTelefunction() {
+  // TypeScript knows that `userId` is a `string`
+  const { userId } = getContext<UserContext>()
+}
+```
+
+...or declare the `Telefunc.Context` type globally.
+
+```ts ts-only
+// TelefuncContext.d.ts
+
+import 'telefunc'
+
+declare module 'telefunc' {
+  namespace Telefunc {
+    interface Context {
+      userId: null | string
+    }
+  }
+}
+```
+
+```ts ts-only
+// *.telefunc.ts
+
+import { getContext } from 'telefunc'
+
+export async function someTelefunction() {
+  // TypeScript still knows that `user.id` is a `string`
+  // const { userId } = getContext<UserContext>() // [!code --]
+  const { userId } = getContext() // [!code ++]
+}
+```
+
+## Call order
+
+Make sure to call `getContext()` before any `await` operators:
+
+```ts
+// TodoList.telefunc.ts
+
+export async function myTelefunction() {
+  // ✅ Good: getContext() is called before `await`
+  const context = getContext()
+  await something()
+}
+```
+
+If you call `getContext()` called after an `await` operator...
+
+```ts
+// TodoList.telefunc.ts
+
+export async function myTelefunction() {
+  await something()
+  // ❌ Wrong: getContext() must be called before `await something()`
+  const context = getContext()
+}
+```
+
+...you will see this error:
+
+```
+[telefunc][Wrong Usage][getContext()] Cannot access context object, see https://telefunc.com/getContext#access
+```
+
+## See also
+
+- <Link href="/server-integration">Server Integration</Link>
+- <Link href="/permissions">Permissions</Link>

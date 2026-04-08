@@ -1,0 +1,23 @@
+import { Link } from '@unterberg/nivel'
+import ConfigWhereClient from '../../components/ConfigWhereClient.mdx'
+
+**Environment**: client.
+
+You can specify the fetch function that Telefunc uses for making HTTP requests on the client side.
+
+This is useful for customizing the request and response behavior.
+
+```ts
+// Environment: client
+
+import { config } from 'telefunc/client'
+import { customFetch } from '../path/to/custom-fetch'
+
+config.fetch = customFetch
+```
+
+<ConfigWhereClient />
+
+## See also
+
+- <Link href="/httpHeaders"><code>httpHeaders</code></Link>

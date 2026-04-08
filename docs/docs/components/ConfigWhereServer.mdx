@@ -1,0 +1,16 @@
+import { Alert } from '@unterberg/nivel'
+
+<Alert>
+You usually define server-side configs (`import { config } from 'telefunc'`) at your server entry. For example:
+```ts
+// /server/index.ts
+// Environment: server
+import { config } from 'telefunc'
+const app = express() // If you use Express.js
+// @docpress-replace app2 app
+const app2 = new Hono() // If you use Hono
+// ...
+// Server configs can be set here
+config.someServerSideSetting = 'some-value'
+```
+</Alert>

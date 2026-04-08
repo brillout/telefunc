@@ -1,0 +1,23 @@
+import { Alert, Link } from '@unterberg/nivel'
+import ConfigWhereServer from '../../components/ConfigWhereServer.mdx'
+
+**Environment**: server  
+**Type**: `boolean | { dev?: boolean; prod?: boolean }{:ts}`  
+**Default**: `{ dev: false, prod: true }{:ts}`  
+
+Whether to generate <Link href="/shield">`shield()`</Link> in development and/or when building for production.
+
+```ts
+// Environment: server
+
+import { config } from 'telefunc'
+
+// Enable shield() generation during development
+config.shield = { dev: true }
+```
+
+<Alert type="warning">
+    Enabling `shield()` generation during development can significantly slow down development speed. Depending on how large your app and how fast your computer is, the decreased development speed can range from unnoticeable to significant.
+</Alert>
+
+<ConfigWhereServer />

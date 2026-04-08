@@ -1,0 +1,121 @@
+@custom-variant dark (&:where(
+    [data-theme='telefunc-dark'],
+    [data-theme='telefunc-dark'] *
+  ));
+
+@plugin 'daisyui/theme' {
+  name: 'telefunc-light';
+  default: true;
+  prefersdark: false;
+  color-scheme: 'light';
+  --color-base-100: #f5f5f5;
+  --color-base-200: oklch(95% 0 0);
+  --color-base-300: oklch(92% 0 0);
+  --color-base-content: oklch(20% 0 0);
+  --color-primary: #c18b28;
+  --color-primary-content: oklch(95% 0 0);
+  --color-secondary: #f7e018;
+  --color-secondary-content: oklch(20% 0 0);
+  --color-accent: #3d3da5;
+  --color-accent-content: oklch(95% 0 0);
+  --color-neutral: oklch(20% 0 0);
+  --color-neutral-content: oklch(95% 0 0);
+  --color-info: oklch(60% 0.126 221.723);
+  --color-info-content: oklch(95% 0 0);
+  --color-success: oklch(62% 0.194 149.214);
+  --color-success-content: oklch(95% 0 0);
+  --color-warning: oklch(85% 0.199 91.936);
+  --color-warning-content: oklch(20% 0 0);
+  --color-error: oklch(57% 0.245 27.325);
+  --color-error-content: oklch(95% 0 0);
+  --radius-selector: 0.25rem;
+  --radius-field: 0.5rem;
+  --radius-box: 1rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 1;
+}
+
+@plugin 'daisyui/theme' {
+  name: 'telefunc-dark';
+  default: false;
+  prefersdark: false;
+  color-scheme: 'dark';
+  --color-base-100: oklch(17% 0 0);
+  --color-base-200: oklch(20% 0 0);
+  --color-base-300: oklch(30% 0 0);
+  --color-base-content: oklch(85% 0 0);
+  --color-primary: #e2a431;
+  --color-primary-content: oklch(15% 0 0);
+  --color-secondary: #f7e018;
+  --color-secondary-content: oklch(15% 0 0);
+  --color-accent: #3d3da5;
+  --color-accent-content: oklch(85% 0 0);
+  --color-neutral: oklch(85% 0 0);
+  --color-neutral-content: oklch(13% 0 0);
+  --color-info: oklch(62.616% 0.143 240.033);
+  --color-info-content: oklch(12.523% 0.028 240.033);
+  --color-success: oklch(70.226% 0.094 156.596);
+  --color-success-content: oklch(14.045% 0.018 156.596);
+  --color-warning: oklch(77.482% 0.115 81.519);
+  --color-warning-content: oklch(15.496% 0.023 81.519);
+  --color-error: oklch(57% 0.245 27.325);
+  --color-error-content: oklch(85% 0 0);
+  --radius-selector: 0.25rem;
+  --radius-field: 0.5rem;
+  --radius-box: 1rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+@theme inline {
+  --color-base-muted: color-mix(
+    in oklab,
+    var(--color-base-content) 65%,
+    transparent
+  );
+  --color-base-muted-medium: color-mix(
+    in oklab,
+    var(--color-base-content) 40%,
+    transparent
+  );
+  --color-base-muted-light: color-mix(
+    in oklab,
+    var(--color-base-content) 12%,
+    transparent
+  );
+  --color-base-muted-superlight: color-mix(
+    in oklab,
+    var(--color-base-content) 5%,
+    transparent
+  );
+  --color-primary-muted: color-mix(
+    in oklab,
+    var(--color-primary) 80%,
+    transparent
+  );
+  --color-primary-muted-medium: color-mix(
+    in oklab,
+    var(--color-primary) 50%,
+    transparent
+  );
+  --color-primary-muted-light: color-mix(
+    in oklab,
+    var(--color-primary) 20%,
+    transparent
+  );
+  --color-primary-muted-superlight: color-mix(
+    in oklab,
+    var(--color-primary) 5%,
+    transparent
+  );
+  --font-sans: 'Inter', 'Helvetica Neue', sans-serif;
+  --font-mono:
+    'Monaco', 'SF Mono', SF Mono, SF Mono Regular, Consolas, 'Liberation Mono',
+    Menlo, Courier, monospace;
+}

@@ -1,0 +1,96 @@
+import { Alert, Link } from '@unterberg/nivel'
+
+Using Telefunc with [Next.js](https://nextjs.org).
+
+## 1. Install
+
+```shell
+npm install telefunc
+```
+
+## 2. Next.js config
+
+```ts
+// next.config.ts
+
+import type { NextConfig } from 'next'
+import withTelefunc from 'telefunc/next'
+
+let nextConfig: NextConfig = {}
+nextConfig = withTelefunc(nextConfig)
+
+export default nextConfig
+```
+
+## 3. Add Telefunc middleware
+
+The Telefunc middleware intercepts and executes telefunction calls. This is also your opportunity to set any data you'd like available in the Telefunc request context. For more info, see <Link href="/getContext" />.
+
+```ts
+// app/api/telefunc/route.ts
+// Environment: server
+
+import { telefunc, config } from 'telefunc'
+
+config.telefuncUrl = '/api/telefunc'
+
+async function handler(request: Request) {
+  const httpResponse = await telefunc({
+    request:{
+      context: { /** */ }
+    }
+  })
+
+  return new Response(httpResponse.body, {
+    status: httpResponse.statusCode,
+    headers: { 'content-type': httpResponse.contentType },
+  })
+}
+
+export { handler as GET, handler as POST }
+```
+
+## 4. Client config
+
+Since the route handler is at `/api/telefunc` instead of the default `/_telefunc`, set the client-side URL using a `'use client'` provider:
+
+```tsx
+// app/client-providers.tsx
+// Environment: client
+
+'use client'
+
+import { config } from 'telefunc/client'
+
+config.telefuncUrl = '/api/telefunc'
+
+export function ClientProviders({ children }: { children: React.ReactNode }) {
+  return <>{children}</>
+}
+```
+
+```tsx
+// app/layout.tsx
+
+import { ClientProviders } from './client-providers'
+
+export default function RootLayout({ children }: { children: React.ReactNode }) {
+  return (
+    <html>
+      <body>
+        <ClientProviders>{children}</ClientProviders>
+      </body>
+    </html>
+  )
+}
+```
+
+## 5. Initial data
+
+Telefunc <Link href="/initial-data">can't write to the initial data load</Link>, but can be used for any requests (e.g., for pagination or infinite scroll) after the first render.
+
+Use Next.js Server Components to fetch initial data directly from a database, see [Next.js Docs > Data Fetching](https://nextjs.org/docs/app/building-your-application/data-fetching).
+
+## Example
+
+- <Link href="https://github.com/telefunc/telefunc/blob/main/examples/next"><code>/examples/next</code></Link>

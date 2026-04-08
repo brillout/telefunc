@@ -1,0 +1,25 @@
+import { Alert, Link } from '@unterberg/nivel'
+
+**Environment**: server.
+
+Unexpected errors trigger the server-side `onBug()` hook. These may be bugs in your telefunction, or in the Telefunc library.
+
+<Alert type="warning">
+    The `onBug()` hook is **not** called when <Link href="/Abort" /> is used, and **cannot** be used to implement control flow.
+</Alert>
+
+Use `onBug()` to integrate with logging and monitoring tools like [Sentry](https://sentry.io/), [Bugsnag](https://www.bugsnag.com/), or [Rollbar](https://rollbar.com/).
+
+```ts
+import { onBug } from 'telefunc'
+
+onBug((error) => {
+  // type of error is `unknown`
+  console.error(error)
+  // ...
+})
+```
+
+## See also
+
+- <Link href="/error-handling">Error Handling</Link>

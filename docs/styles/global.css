@@ -1,0 +1,84 @@
+@import 'tailwindcss';
+@import '@unterberg/nivel/tailwind-sources.css';
+@import './theme.css';
+@import './code.css';
+
+@source '../pages';
+@source '../docs';
+
+@plugin '@tailwindcss/typography';
+
+@plugin 'daisyui' {
+  exclude: rootcolor;
+  themes: false;
+}
+
+@layer base {
+  html,
+  body {
+    @apply bg-base-100 text-base-content font-sans antialiased md:subpixel-antialiased;
+  }
+
+  .prose-container {
+    @apply prose prose-neutral max-w-none dark:prose-invert;
+
+    /* links */
+    @apply prose-a:text-primary;
+
+    /* code */
+    @apply prose-pre:bg-base-200!;
+    @apply prose-code:rounded!;
+    @apply prose-code:dark:inset-shadow-2xs;
+    @apply prose-code:bg-primary/5!;
+    @apply prose-code:border-primary/15!;
+    @apply prose-code:dark:bg-primary/10!;
+    @apply prose-code:dark:border-primary/20!;
+
+    @apply prose-p:leading-[200%];
+    @apply prose-li:leading-[200%];
+
+    /* table */
+    @apply prose-table:my-8;
+    @apply prose-table:w-full;
+    @apply prose-table:text-sm;
+    @apply prose-th:align-top;
+    @apply prose-th:font-semibold;
+    @apply prose-td:align-top;
+
+    @apply prose-td:bg-base-200;
+    @apply prose-th:bg-base-muted-superlight;
+    @apply prose-table:rounded-box;
+    @apply prose-table:shadow;
+    @apply prose-table:overflow-hidden;
+    @apply prose-thead:overflow-hidden;
+    @apply prose-thead:border-base-muted-light;
+    @apply prose-thead:rounded-t-box;
+    @apply prose-tr:border-base-muted-light;
+
+    @apply [&_table_code]:whitespace-nowrap;
+
+    @apply prose-td:p-3;
+    @apply prose-th:p-3;
+
+    @apply prose-p:after:content-none;
+    @apply prose-p:before:content-none;
+    @apply prose-blockquote:not-italic;
+    @apply prose-blockquote:bg-base-200;
+    @apply prose-blockquote:py-2;
+    @apply prose-li:my-1;
+    @apply prose-figure:mb-0;
+    @apply [&_figure_*]:mb-0;
+    @apply [&_blockquote_p]:mt-0;
+    @apply [&_blockquote_p]:mb-2;
+    @apply [&_blockquote_ul]:mb-0;
+
+    @apply [&_blockquote_ul]:pl-4;
+    @apply [&_blockquote_ul]:mt-2;
+    @apply [&_blockquote_li]:mt-2;
+    @apply [&_blockquote_blockquote]:mt-2;
+    @apply [&_blockquote_blockquote]:mb-0;
+    @apply [&_blockquote_blockquote]:bg-base-300/40;
+    @apply [&_blockquote_blockquote]:pt-2;
+    @apply [&_blockquote_blockquote]:pb-1;
+  }
+}
