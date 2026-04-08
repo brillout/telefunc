@@ -49,7 +49,7 @@ export const docsGraph = {
               kind: 'group',
               id: 'server-guides',
               title: 'Server Integration',
-              href: '/docs/server-integration/',
+              href: '/server-integration/',
               collapsible: {
                 isDefaultOpen: false,
               },

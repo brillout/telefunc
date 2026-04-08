@@ -5,7 +5,8 @@ const docsConfig = defineDocsConfig({
   graph: docsGraph,
   siteTitle: 'telefunc',
   siteDescription: 'telefunc documentation',
-  basePath: '/docs',
+  basePath: '/',
+  contentDir: 'docs',
   theme: {
     light: 'telefunc-light',
     dark: 'telefunc-dark',
