@@ -1,0 +1,77 @@
+import { Link } from '@unterberg/nivel'
+
+Using Telefunc with standalone servers
+
+## 1. Install
+
+```shell
+npm install telefunc
+```
+
+## 2. Add Telefunc middleware
+
+The Telefunc middleware intercepts and executes telefunction calls. This is also your opportunity to set any data you'd like available in the Telefunc request context. For more info, see <Link href="/getContext" />.
+
+You can add Telefunc to any server that uses the standard `Request` object, including [Hono](https://hono.dev), [Next.js](https://nextjs.org), [Nitro](https://nitro.build), [Nuxt](https://nuxt.com), and [SvelteKit](https://svelte.dev/docs/kit).
+See configuration guide for:
+
+- <Link href="/next">Next.js</Link>
+- <Link href="/svelte-kit">SvelteKit</Link>
+- <Link href="/vike">Vike</Link>
+- <Link href="/nuxt">Nuxt</Link>
+- <Link href="/react-router">React Router</Link>
+- <Link href="/react-native">React Native</Link>
+- <Link href="/bundler">Custom bundler</Link>
+
+You can also add Telefunc to servers that use the Node.js `req` readable stream, like [Express](https://expressjs.com) or [Fastify](https://fastify.dev).
+
+```js choice=Hono
+// server.js
+// Environment: server
+
+import { Hono } from 'hono'
+import { telefunc } from 'telefunc'
+
+const app = new Hono()
+
+app.all('/_telefunc', async (c) => {
+  const httpResponse = await telefunc({ request: c.req.raw })
+
+  return new Response(httpResponse.body, {
+    status: httpResponse.statusCode,
+    headers: { 'content-type': httpResponse.contentType },
+    context: {
+      // You can add any arbitrary contextual information here
+    },
+  })
+})
+```
+
+```js choice=Express
+// server.js
+// Environment: server
+
+import express from 'express'
+import { telefunc } from 'telefunc'
+
+const app = express()
+
+app.all('/_telefunc', async (req, res) => {
+  const httpResponse = await telefunc({
+    url: req.originalUrl,
+    method: req.method,
+    readable: req,
+    contentType: req.headers['content-type'] || '',
+    context: {
+      // You can add any arbitrary contextual information here
+    },
+  })
+
+  res.status(httpResponse.statusCode).type(httpResponse.contentType).send(httpResponse.body)
+})
+```
+
+## See also
+
+- <Link href="/getContext"><code>getContext()</code></Link>
+- <Link href="/telefunc"><code>telefunc()</code></Link>

@@ -1,0 +1,71 @@
+import { Alert, Link } from '@unterberg/nivel'
+
+You can think of telefunction calls as a type-safe `fetch` call to a registered server-side function.
+Under the hood, Telefunc converts telefunction calls into an HTTP request to your server.
+
+Let's see what happens when a telefunction is called.
+
+```js
+// hello.telefunc.js
+// Environment: server
+
+export { hello }
+
+async function hello({ name }) {
+  const message = 'Welcome ' + name
+  return { message }
+}
+```
+
+```js
+// Environment: client
+
+import { hello } from './hello.telefunc.js'
+
+const { message } = await hello('Eva')
+```
+
+The `hello.telefunc.js` file is never loaded in the browser: instead Telefunc transforms `hello.telefunc.js` into the following:
+
+```js
+// hello.telefunc.js (after Telefunc transformation)
+// Environment: Browser
+import { __internal_makeHttpRequest } from 'telefunc/client'
+export const hello = (...args) => __internal_makeHttpRequest('/hello.telefunc.js:hello', args)
+```
+
+## Transformer
+
+Telefunc uses plugins to transform `.telefunc.js` files for:
+
+- The client-side, replacing `.telefunc.js` imports with a thin HTTP client.
+- The server-side, for <Link href="/shield#automatic-from-typescript" text="automatic TypeScript runtime validation"  
+doNotInferSectionTitle={true} />.
+
+Telefunc plugins also automatically crawl your `.telefunc.js` files (so that you don't have to use <Link href="/telefuncFiles" text={(<code>config.telefuncFiles</code>)} />).
+
+<Alert>
+  There is work-in-progress to be able to use Telefunc without any transformer, see [#52](https://github.com/telefunc/telefunc/issues/52).
+</Alert>
+
+## Telefunction lifecycle
+
+When `hello('Eva')` is called in the browser,
+1. The HTTP client (`__internal_makeHttpRequest`) serializes the call and makes an HTTP request to the `/_telefunc` route on your server.
+```sh
+POST /_telefunc HTTP/1.1
+{
+  "path": "/hello.telefunc.js:hello",
+  "args": [{"name": "Eva"}]
+}
+```
+2. The <Link href="/telefunc" text={(<code>telefunc</code>)} /> middleware on your server intercepts the request, executes the telefunction call, and returns the (serialized) result.
+```sh
+HTTP/1.1 200 OK
+{
+  "return": {
+    "message": "Welcome Eva"
+  }
+}
+```
+3. The HTTP client parses the response and type-safely returns the result, as though the control flow never left the browser.

@@ -1,23 +1,32 @@
 {
+  "name": "telefunc-docs",
+  "private": true,
+  "type": "module",
   "scripts": {
+    "generate:docs": "nivel prepare",
+    "predev": "pnpm run generate:docs",
     "dev": "vike dev",
+    "prebuild": "pnpm run generate:docs",
     "build": "vike build",
-    "preview": "vike build && vike preview",
-    "typecheck": "tsc --noEmit --watch"
+    "pretypecheck": "pnpm run generate:docs",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
   },
-  "========= The telefunc dependency is a trick for triggering the docs to rebuild upon releasing a new Telefunc version (so that the Telefunc version shown on telefunc.com is up-to-date)": "",
   "dependencies": {
-    "@brillout/docpress": "^0.16.25",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react-swc": "^4.2.1",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4",
-    "react-tabs": "^6.1.0",
-    "telefunc": "0.2.19",
-    "vite": "^7.2.2",
-    "typescript": "^5.9.3",
-    "vike": "^0.4.256"
+    "@unterberg/nivel": "0.1.2",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
+    "vike": "^0.4.255",
+    "vike-react": "^0.6.21"
   },
-  "type": "module"
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.19",
+    "@tailwindcss/vite": "^4.1.12",
+    "@types/react": "^19.1.12",
+    "@types/react-dom": "^19.1.9",
+    "daisyui": "^5.5.19",
+    "tailwindcss": "^4.1.12",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.3",
+    "vite": "^7.3.1"
+  }
 }

@@ -1,0 +1,27 @@
+import { Alert, Link } from '@unterberg/nivel'
+import ConfigWhereServer from '../../components/ConfigWhereServer.mdx'
+
+**Environment**: server.
+
+Opt out of the <Link href="/best-practices#naming-convention">naming convention for event-based telefunctions</Link> (removes all related warnings).
+
+```ts
+// Environment: server
+
+import { config } from 'telefunc'
+
+config.disableNamingConvention = true
+```
+
+<Alert type="warning">
+Opting out of the naming convention is perfectly fine, though we recommend having a clear reason for doing so.
+
+We recommend reading <Link href="/best-practices" /> before opting out. It explains why event-based telefunctions lead to increased:
+- Development speed
+- Security
+- Performance
+
+[Feel free to reach out](https://github.com/telefunc/telefunc/issues/new) if you have questions.
+</Alert>
+
+<ConfigWhereServer />

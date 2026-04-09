@@ -1,0 +1,63 @@
+import { Link } from '@unterberg/nivel'
+
+Using Telefunc with [Vike](https://vike.dev/).
+- server integration
+
+> Use [vike.dev/new](https://vike.dev/new) to scaffold a new Vike app that uses Telefunc.
+
+## 1. Install Telefunc
+
+```bash
+npm install telefunc
+```
+
+## 2. Plugin to Vite
+
+```ts
+// vite.config.ts
+
+import react from '@vitejs/plugin-react'
+import vike from 'vike/plugin'
+import telefunc from 'telefunc/vite'
+
+export default {
+  plugins: [react(), vike(), telefunc()],
+}
+```
+
+## 3. Add Telefunc middleware
+
+The Telefunc middleware intercepts and executes telefunction calls. This is also your opportunity to set any data you'd like available in the Telefunc request context. For more info, see <Link href="/getContext" />.
+
+```ts
+// server.ts
+// Environment: server
+
+import { Hono } from 'hono'
+import { telefunc } from 'telefunc'
+
+const app = new Hono()
+
+app.all('/_telefunc', async (c) => {
+  const httpResponse = await telefunc({ request: c.req.raw })
+  return new Response(httpResponse.body, {
+    status: httpResponse.statusCode,
+    headers: { 'content-type': httpResponse.contentType },
+  })
+})
+```
+
+## 4. Initial data
+
+Telefunc <Link href="/initial-data">can't write to the initial data load</Link>, but can be used for any requests (e.g., for pagination or infinite scroll) after the first render.
+
+Use Next.js Server Components to fetch initial data directly from a database, see [vike.dev > Data Fetching](https://vike.dev/data-fetching).
+
+## Next
+
+<Link href="/start#my-first-telefunction" />
+
+## Examples
+
+- <Link href="https://github.com/telefunc/telefunc/blob/main/examples/vike" />
+- <Link href="https://github.com/telefunc/telefunc/blob/main/examples/react-streaming" />

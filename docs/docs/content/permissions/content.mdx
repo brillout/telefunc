@@ -1,0 +1,160 @@
+import { Link } from '@unterberg/nivel'
+
+Always keep in mind that your **telefuncs are public**. A simple HTTP request could be used to extract, modify, or destroy user secrets or business-critical data from an unprotected function.
+
+Add authorization checks to telefunctions using guard expressions in the function body.
+
+## Abort requests
+
+To reject a request for any reason, simply <Link href="/Abort" />. This is equivalent to a status code of `403`. Include error data like a code to trigger a redirect or a message to display to the user.
+
+```js
+// TodoItem.telefunc.js
+// Environment: server
+
+import { getContext, Abort } from 'telefunc'
+
+/**
+ * @param {string} todoId
+ * @param {string} text
+ * @returns {Promise<{ todos: Todo[] }>}
+ */
+export async function onTextChange(todoId, text) {
+  const { user } = getContext()
+  if (!user) {
+    // Code tells frontend to redirect to /login
+    throw Abort({ code: 'unauthenticated' })
+  }
+
+  const todo = await db.query(
+    'SELECT id, text FROM todos WHERE id = :id LIMIT 1',
+    { id }
+  )
+
+  if (!todo) {
+    // Technically 403, but can be used for any rejection
+    throw Abort({ code: 'invalid_id' })
+  }
+
+  // Easily implement advanced permissions schemes
+  if (todoItem.authorId !== user.id || !user.isAdmin) {
+    throw Abort({ code: 'unauthorized' })
+  }
+
+  // ...
+
+  return { todo }
+}
+```
+
+Use `throw Abort()` to when rejecting access to a resource, or if a telefunction call is otherwise invalid.
+
+On the frontend, use the <Link href="/onAbort" /> hook to handle redirects.
+
+```js
+// Environment: client
+ 
+import { onAbort } from 'telefunc/client'
+ 
+onAbort((err) => {
+  if (err.abortValue.code === 'unauthorized') {
+    // Redirect user to login page
+    window.location.href = '/login'
+  }
+})
+```
+
+## Early returns
+
+Not every failed request is an error though. To bypass the `onAbort` control flow, return early with an error code or message.
+
+We can update the previous example to use a `code` property instead of `throw Abort()` to trigger the redirect.
+
+```js
+// TodoItem.telefunc.js
+// Environment: server
+
+import { getContext, Abort } from 'telefunc'
+
+/**
+ * @param {string} text
+ * @returns {Promise<OnTextChangeResult>}
+ */
+export async function onNewTodo(text) {
+  const { user } = getContext()
+  if (!user) {
+    // Code tells frontend to redirect to /login
+    return { code: 'unauthenticated' } // [!code ++]
+    throw Abort({ code: 'unauthenticated' }) // [!code --]
+  }
+
+  // ...
+
+  return { todos }
+}
+```
+
+Use the error code or message property to discriminate the response type.
+
+```ts ts-only
+type OnNewTodoResult = {
+  code: 'unauthenticated' | 'unauthorized' | 'invalid_id'
+} | {
+  todos: Todo[]
+  code?: undefined
+}
+```
+
+```jsx
+// TodoItem.jsx
+// Environment: client
+
+/** @param {string} text */
+const onSubmit = async (text) => {
+  const result = await onNewTodo(text)
+  if (result.code) {
+    // Error
+  } else {
+    // Ok
+  }
+}
+```
+
+## DRY Permissions
+
+To implement reusable permissions logic, define helper functions that call <Link href="/getContext" text={(<code>getContext()</code>)}/>.
+
+```ts
+// auth/getUser.ts
+// Environment: server
+
+import { getContext, Abort } from 'telefunc'
+
+export function getUser() {
+  const { user } = getContext()
+  if (!user) {
+    throw Abort({ code: 'unauthenticated' })
+  }
+  return user
+}
+```
+
+Then use as needed in your telefunctions.
+
+```ts
+// components/TodoItem.telefunc.ts
+// Environment: server
+
+import { getUser } from '../auth/getUser'
+
+export function onTextChange(id: string, text: string) {
+  const user = getUser()
+  /* ... */
+}
+```
+
+## See also
+
+ - <Link href="/onAbort"><code>onAbort()</code></Link>
+ - <Link href="/Abort"><code>throw Abort()</code></Link>
+ - <Link href="/getContext"><code>getContext()</code></Link>

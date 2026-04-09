@@ -1,0 +1,34 @@
+import { Alert, Link } from '@unterberg/nivel'
+import ConfigWhereServer from '../../components/ConfigWhereServer.mdx'
+
+**Environment**: server.
+
+<Alert type="warning">This is a beta feature.</Alert>
+
+If you don't use Telefunc's transformer on your server-side (see <Link href="/how-it-works#transformer" />) then you need to provide the list of your `.telefunc.js` files to Telefunc.
+
+You do so by using:
+ - `config.telefuncFiles`
+ - <Link href="/root">`config.root`</Link>
+
+```ts
+// Environment: server
+
+import { config } from 'telefunc'
+
+// List of telefunc files
+config.telefuncFiles = [require.resolve('./hello.telefunc.mjs')]
+
+// The root directory of the project
+config.root = __dirname
+```
+
+See also <Link href="/root">`config.root`</Link>.
+
+<ConfigWhereServer />
+
+
+## See also
+
+- <Link href="/root"><code>root</code></Link>
+- <Link href="/root#monorepo"><code>root</code> > Monorepo</Link>

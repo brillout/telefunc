@@ -1,0 +1,19 @@
+import { Link } from '@unterberg/nivel'
+import ConfigWhereServer from '../../components/ConfigWhereServer.mdx'
+
+**Environment**: server  
+**Default**: `{ shieldErrors: { dev: true, prod: false } }{:ts}`
+
+Whether to log shield validation errors.
+
+```ts
+// Environment: server
+
+import { config } from 'telefunc'
+
+config.log.shieldErrors = true
+// Or
+config.log.shieldErrors = { dev: true, prod: true }
+```
+
+<ConfigWhereServer />
