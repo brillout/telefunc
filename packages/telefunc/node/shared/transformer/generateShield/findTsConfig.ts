@@ -10,6 +10,7 @@ const cache: Record<string, string | null> = {}
 
 // Matches the TypeScript language server algorithm: walk up to find the nearest tsconfig,
 // then check project references to find a more specific tsconfig that claims the file.
+// https://github.com/telefunc/telefunc/pull/241
 function findTsConfig(telefuncFilePath: string, appRootDir: string): string | null {
   assert(fs.existsSync(telefuncFilePath))
   assertPosixPath(telefuncFilePath)
