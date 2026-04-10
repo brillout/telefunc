@@ -1,17 +1,9 @@
-@import 'tailwindcss';
-@import '@unterberg/nivel/tailwind-sources.css';
+@import '@unterberg/nivel/tailwind.css';
 @import './theme.css';
 @import './code.css';
 
 @source '../pages';
 @source '../docs';
-
-@plugin '@tailwindcss/typography';
-
-@plugin 'daisyui' {
-  exclude: rootcolor;
-  themes: false;
-}
 
 @layer base {
   html,
@@ -24,6 +16,7 @@
 
     /* links */
     @apply prose-a:text-primary;
+    @apply prose-a:visited:text-accent;
 
     /* code */
     @apply prose-pre:bg-base-200!;
@@ -35,6 +28,7 @@
     @apply prose-code:dark:border-primary/20!;
 
     @apply prose-p:leading-[200%];
+    @apply prose-p:my-6;
     @apply prose-li:leading-[200%];
 
     /* table */

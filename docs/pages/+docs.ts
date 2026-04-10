@@ -32,6 +32,11 @@ const docsConfig = defineDocsConfig({
     faviconIco: '/favicon.ico',
     appleTouchIcon: '/apple-touch-icon.png',
   },
+  social: {
+    github: 'https://github.com/telefunc/telefunc',
+    discord: 'https://discord.com/invite/VJKjMNMguV',
+    x: 'https://discord.com/invite/VJKjMNMguV',
+  },
   partners: {
     primary: [
       {

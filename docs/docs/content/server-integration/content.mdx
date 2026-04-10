@@ -1,4 +1,4 @@
-import { Link } from '@unterberg/nivel'
+import { Link, Overview } from '@unterberg/nivel'
 
 Using Telefunc with standalone servers
 
@@ -15,13 +15,23 @@ The Telefunc middleware intercepts and executes telefunction calls. This is also
 You can add Telefunc to any server that uses the standard `Request` object, including [Hono](https://hono.dev), [Next.js](https://nextjs.org), [Nitro](https://nitro.build), [Nuxt](https://nuxt.com), and [SvelteKit](https://svelte.dev/docs/kit).
 See configuration guide for:
 
-- <Link href="/next">Next.js</Link>
+{/* - <Link href="/next">Next.js</Link>
 - <Link href="/svelte-kit">SvelteKit</Link>
 - <Link href="/vike">Vike</Link>
 - <Link href="/nuxt">Nuxt</Link>
 - <Link href="/react-router">React Router</Link>
 - <Link href="/react-native">React Native</Link>
-- <Link href="/bundler">Custom bundler</Link>
+- <Link href="/bundler">Custom bundler</Link> */}
+
+<Overview compact items={[
+    "next",
+    "svelteKit",
+    "vike",
+    "nuxt",
+    "reactRouter",
+    "reactNative",
+    'bundler'
+]} />
 
 You can also add Telefunc to servers that use the Node.js `req` readable stream, like [Express](https://expressjs.com) or [Fastify](https://fastify.dev).
 

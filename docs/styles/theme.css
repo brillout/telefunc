@@ -3,7 +3,7 @@
     [data-theme='telefunc-dark'] *
   ));
 
-@plugin 'daisyui/theme' {
+@plugin '@unterberg/nivel/daisyui-theme' {
   name: 'telefunc-light';
   default: true;
   prefersdark: false;
@@ -16,7 +16,7 @@
   --color-primary-content: oklch(95% 0 0);
   --color-secondary: #f7e018;
   --color-secondary-content: oklch(20% 0 0);
-  --color-accent: #3d3da5;
+  --color-accent: #ad8032;
   --color-accent-content: oklch(95% 0 0);
   --color-neutral: oklch(20% 0 0);
   --color-neutral-content: oklch(95% 0 0);
@@ -38,7 +38,7 @@
   --noise: 1;
 }
 
-@plugin 'daisyui/theme' {
+@plugin '@unterberg/nivel/daisyui-theme' {
   name: 'telefunc-dark';
   default: false;
   prefersdark: false;
@@ -51,7 +51,7 @@
   --color-primary-content: oklch(15% 0 0);
   --color-secondary: #f7e018;
   --color-secondary-content: oklch(15% 0 0);
-  --color-accent: #3d3da5;
+  --color-accent: #cc9639;
   --color-accent-content: oklch(85% 0 0);
   --color-neutral: oklch(85% 0 0);
   --color-neutral-content: oklch(13% 0 0);

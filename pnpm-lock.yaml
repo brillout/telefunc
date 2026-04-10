@@ -42,45 +42,33 @@ importers:
   docs:
     dependencies:
       '@unterberg/nivel':
-        specifier: 0.1.2
-        version: 0.1.2(@types/react@19.2.14)(rollup@4.44.0)(vike@0.4.256(react-streaming@0.4.17(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(vite@7.3.2(@types/node@24.0.10)(jiti@2.6.1)(lightningcss@1.32.0)(tsx@4.21.0)))(vite@7.3.2(@types/node@24.0.10)(jiti@2.6.1)(lightningcss@1.32.0)(tsx@4.21.0))
+        specifier: 0.1.5
+        version: 0.1.5(@types/react@19.2.14)(rollup@4.44.0)(vike@0.4.256(react-streaming@0.4.17(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(vite@7.3.2(@types/node@24.0.10)(jiti@2.6.1)(lightningcss@1.32.0)(tsx@4.21.0)))(vite@7.3.2(@types/node@24.0.10)(jiti@2.6.1)(lightningcss@1.32.0)(tsx@4.21.0))
       react:
-        specifier: ^19.1.1
+        specifier: ^19.2.4
         version: 19.2.4
       react-dom:
-        specifier: ^19.1.1
+        specifier: ^19.2.4
         version: 19.2.4(react@19.2.4)
       vike:
-        specifier: ^0.4.255
+        specifier: ^0.4.256
         version: 0.4.256(react-streaming@0.4.17(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(vite@7.3.2(@types/node@24.0.10)(jiti@2.6.1)(lightningcss@1.32.0)(tsx@4.21.0))
       vike-react:
         specifier: ^0.6.21
         version: 0.6.21(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(vike@0.4.256(react-streaming@0.4.17(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(vite@7.3.2(@types/node@24.0.10)(jiti@2.6.1)(lightningcss@1.32.0)(tsx@4.21.0)))
     devDependencies:
-      '@tailwindcss/typography':
-        specifier: ^0.5.19
-        version: 0.5.19(tailwindcss@4.2.2)
-      '@tailwindcss/vite':
-        specifier: ^4.1.12
-        version: 4.2.2(vite@7.3.2(@types/node@24.0.10)(jiti@2.6.1)(lightningcss@1.32.0)(tsx@4.21.0))
+      '@classmatejs/react':
+        specifier: ^0.2.1
+        version: 0.2.1(react@19.2.4)
       '@types/react':
-        specifier: ^19.1.12
+        specifier: ^19.2.14
         version: 19.2.14
       '@types/react-dom':
-        specifier: ^19.1.9
+        specifier: ^19.2.3
         version: 19.2.3(@types/react@19.2.14)
-      daisyui:
-        specifier: ^5.5.19
-        version: 5.5.19
-      tailwindcss:
-        specifier: ^4.1.12
-        version: 4.2.2
-      tsx:
-        specifier: ^4.20.5
-        version: 4.21.0
       typescript:
-        specifier: ^5.9.3
-        version: 5.9.3
+        specifier: ^6.0.2
+        version: 6.0.2
       vite:
         specifier: ^7.3.1
         version: 7.3.2(@types/node@24.0.10)(jiti@2.6.1)(lightningcss@1.32.0)(tsx@4.21.0)
@@ -3913,8 +3901,8 @@ packages:
   '@universal-middleware/srvx@0.1.1':
     resolution: {integrity: sha512-nTy4BZvaEI+rFO8sWEVvZrZWwFuqEXlXPNvIBAfl16+nKcorwiwm1x+qzuDrSqLd/kr5LSsGR3/KenTvESS9dQ==}
 
-  '@unterberg/nivel@0.1.2':
-    resolution: {integrity: sha512-2z09a2aPUeqqR7u9Y5jzj06FMLU4Yq6hb8FwnVc5WFnJylOaS1becgZuuXnOcW49B3pDOHheIgxN7QfeOCqqTQ==}
+  '@unterberg/nivel@0.1.5':
+    resolution: {integrity: sha512-t8c7aL0KqWadpX3173qsZjZWmAJlTeFuPbV7IuTE5MKwsp4tc8P5P+aj/Trh+/AexaPfvGu6im7g5l9l4QKywQ==}
     hasBin: true
     peerDependencies:
       vike: ^0.4.256
@@ -10490,13 +10478,16 @@ snapshots:
       - hono
       - srvx
 
-  '@unterberg/nivel@0.1.2(@types/react@19.2.14)(rollup@4.44.0)(vike@0.4.256(react-streaming@0.4.17(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(vite@7.3.2(@types/node@24.0.10)(jiti@2.6.1)(lightningcss@1.32.0)(tsx@4.21.0)))(vite@7.3.2(@types/node@24.0.10)(jiti@2.6.1)(lightningcss@1.32.0)(tsx@4.21.0))':
+  '@unterberg/nivel@0.1.5(@types/react@19.2.14)(rollup@4.44.0)(vike@0.4.256(react-streaming@0.4.17(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(vite@7.3.2(@types/node@24.0.10)(jiti@2.6.1)(lightningcss@1.32.0)(tsx@4.21.0)))(vite@7.3.2(@types/node@24.0.10)(jiti@2.6.1)(lightningcss@1.32.0)(tsx@4.21.0))':
     dependencies:
       '@brillout/shiki-transformers': 4.0.2
       '@classmatejs/react': 0.2.1(react@19.2.4)
       '@mdx-js/rollup': 3.1.1(rollup@4.44.0)
       '@shikijs/transformers': 4.0.2
+      '@tailwindcss/typography': 0.5.19(tailwindcss@4.2.2)
+      '@tailwindcss/vite': 4.2.2(vite@7.3.2(@types/node@24.0.10)(jiti@2.6.1)(lightningcss@1.32.0)(tsx@4.21.0))
       '@tanstack/react-query': 5.96.2(react@19.2.4)
+      daisyui: 5.5.19
       detype: 2.0.7
       estree-util-value-to-estree: 3.5.0
       lucide-react: 0.543.0(react@19.2.4)
@@ -10508,6 +10499,7 @@ snapshots:
       remark-directive: 4.0.0
       remark-gfm: 4.0.1
       shiki: 4.0.2
+      tailwindcss: 4.2.2
       tsx: 4.21.0
       unist-util-visit: 5.1.0
       vike: 0.4.256(react-streaming@0.4.17(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(vite@7.3.2(@types/node@24.0.10)(jiti@2.6.1)(lightningcss@1.32.0)(tsx@4.21.0))

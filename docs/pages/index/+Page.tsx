@@ -12,7 +12,7 @@ import './landing-code-samples.css'
 const Page = () => {
   return (
     <div className="landing-code-samples">
-      <div className="overflow-x-clip min-h-[calc(100svh-16*var(--spacing))] flex flex-col justify-center py-16 w-full">
+      <div className="overflow-x-clip min-h-[calc(100svh-20*var(--spacing))] flex flex-col justify-center py-16 w-full">
         <LayoutComponent className="relative">
           <div className="text-center mx-auto z-2 relative">
             {/* <div className="flex rounded-field justify-center w-fit mx-auto shadow border border-base-muted-medium/50 overflow-hidden">
