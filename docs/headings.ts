@@ -14,9 +14,13 @@ const headings = [
   // #region Onboarding
   {
     level: 1,
-    title: 'Basics',
+    title: 'Guides',
     titleIcon: iconSeedling,
     color: '#74d717',
+  },
+  {
+    level: 4,
+    title: 'Overview',
   },
   {
     level: 2,
@@ -41,10 +45,10 @@ const headings = [
     url: '/best-practices',
   },
 
-  // #region Guides
+  // #region Basics
   {
     level: 4,
-    title: 'Guides',
+    title: 'Basics',
   },
   {
     level: 2,
@@ -72,6 +76,13 @@ const headings = [
     title: 'Error handling',
     url: '/error-handling',
   },
+  // #endregion
+
+  // #region Features
+  {
+    level: 4,
+    title: 'Features',
+  },
   {
     level: 2,
     title: 'File uploads',
@@ -79,6 +90,7 @@ const headings = [
   },
   // #endregion
 
+  // #region Learn More
   {
     level: 4,
     title: 'Learn More',
