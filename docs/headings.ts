@@ -71,11 +71,6 @@ const headings = [
     title: 'Validation',
     url: '/validation',
   },
-  {
-    level: 2,
-    title: 'Error handling',
-    url: '/error-handling',
-  },
   // #endregion
 
   // #region Features
@@ -87,6 +82,12 @@ const headings = [
     level: 2,
     title: 'File uploads',
     url: '/file-upload',
+  },
+  {
+    level: 2,
+    title: 'Error tracking',
+    // TODO: move page to /error-tracking
+    url: '/error-handling',
   },
   // #endregion
 
