@@ -6,6 +6,8 @@ import { assertPosixPath } from '../../../../utils/path.js'
 import fs from 'node:fs'
 import path from 'node:path'
 
+const cache: Record<string, string | null> = {}
+
 // Matches the TypeScript language server algorithm: walk up to find the nearest tsconfig,
 // then check project references to find a more specific tsconfig that claims the file.
 function findTsConfig(telefuncFilePath: string, appRootDir: string): string | null {
@@ -14,12 +16,20 @@ function findTsConfig(telefuncFilePath: string, appRootDir: string): string | nu
   assertPosixPath(appRootDir)
   assert(telefuncFilePath.startsWith(appRootDir))
 
-  const nearestTsConfig = findNearestTsConfig(telefuncFilePath, appRootDir)
-  if (!nearestTsConfig) return null
+  const dir = path.dirname(telefuncFilePath)
+  if (dir in cache) return cache[dir]!
 
-  const realFilePath = cachedRealpathSync(telefuncFilePath)
+  const nearestTsConfig = findNearestTsConfig(telefuncFilePath, appRootDir)
+  if (!nearestTsConfig) {
+    cache[dir] = null
+    return null
+  }
+
+  const realFilePath = realpathSync(telefuncFilePath)
   const referencedTsConfig = findOwningReference(nearestTsConfig, realFilePath)
-  return referencedTsConfig ?? nearestTsConfig
+  const result = referencedTsConfig ?? nearestTsConfig
+  cache[dir] = result
+  return result
 }
 
 function findNearestTsConfig(filePath: string, appRootDir: string): string | null {
@@ -39,7 +49,7 @@ function findOwningReference(
   realFilePath: string,
   visited: Set<string> = new Set(),
 ): string | null {
-  const realTsConfigPath = cachedRealpathSync(tsConfigPath)
+  const realTsConfigPath = realpathSync(tsConfigPath)
   if (visited.has(realTsConfigPath)) return null
   visited.add(realTsConfigPath)
 
@@ -50,6 +60,7 @@ function findOwningReference(
 
   for (const ref of references) {
     const refTsConfigPath = resolveReferencePath(tsConfigPath, ref.path)
+    if (!refTsConfigPath) continue
 
     if (tsConfigIncludesFile(refTsConfigPath, realFilePath)) {
       return refTsConfigPath
@@ -62,49 +73,35 @@ function findOwningReference(
   return null
 }
 
-const realpathCache: Record<string, string> = {}
-
-function cachedRealpathSync(filePath: string): string {
-  realpathCache[filePath] ??= fs.realpathSync(filePath)
-  return realpathCache[filePath]!
+function realpathSync(filePath: string): string {
+  return fs.realpathSync(filePath)
 }
-
-const tsConfigReadCache: Record<string, { config: any } | null> = {}
 
 function readTsConfig(realTsConfigPath: string): any | null {
-  if (!(realTsConfigPath in tsConfigReadCache)) {
-    const configFile = ts.readConfigFile(realTsConfigPath, ts.sys.readFile)
-    tsConfigReadCache[realTsConfigPath] = configFile.error ? null : { config: configFile.config }
-  }
-  return tsConfigReadCache[realTsConfigPath]?.config ?? null
+  const configFile = ts.readConfigFile(realTsConfigPath, ts.sys.readFile)
+  return configFile.error ? null : configFile.config
 }
 
-function resolveReferencePath(fromTsConfig: string, refPath: string): string {
+function resolveReferencePath(fromTsConfig: string, refPath: string): string | null {
   const resolved = path.resolve(path.dirname(fromTsConfig), refPath)
   try {
     if (fs.statSync(resolved).isDirectory()) {
       return path.join(resolved, 'tsconfig.json')
     }
+    return resolved
   } catch (err: any) {
-    if (err?.code !== 'ENOENT' && err?.code !== 'ENOTDIR') throw err
+    if (err?.code === 'ENOENT' || err?.code === 'ENOTDIR') return null
+    throw err
   }
-  return resolved
 }
 
-const parsedTsConfigFileCache: Record<string, Set<string>> = {}
-
 function tsConfigIncludesFile(tsConfigPath: string, realFilePath: string): boolean {
-  const realTsConfigPath = cachedRealpathSync(tsConfigPath)
+  const realTsConfigPath = realpathSync(tsConfigPath)
   const config = readTsConfig(realTsConfigPath)
   if (!config) return false
 
-  if (!parsedTsConfigFileCache[realTsConfigPath]) {
-    const configDir = path.dirname(realTsConfigPath)
-    const parsed = ts.parseJsonConfigFileContent(config, ts.sys, configDir)
-    parsedTsConfigFileCache[realTsConfigPath] = new Set(
-      parsed.fileNames.map((f) => cachedRealpathSync(path.resolve(f))),
-    )
-  }
-
-  return parsedTsConfigFileCache[realTsConfigPath]!.has(realFilePath)
+  const configDir = path.dirname(realTsConfigPath)
+  const parsed = ts.parseJsonConfigFileContent(config, ts.sys, configDir)
+  const fileNames = new Set(parsed.fileNames.map((f) => realpathSync(path.resolve(f))))
+  return fileNames.has(realFilePath)
 }
