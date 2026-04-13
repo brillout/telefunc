@@ -4,7 +4,7 @@
 
 const app = new Hono()
 
-// ... middleware, API, etc.
+// ... auth, rate limiting, etc.
 
 app.all('/_telefunc', async (c) => {
 	// make sure to pass raw request
@@ -14,7 +14,7 @@ app.all('/_telefunc', async (c) => {
 	    status: httpResponse.statusCode,
 	    headers: { 'content-type': httpResponse.contentType },
 	    context: {
-	      // Share any needed request info
+	      user: c.user, // Pass permissions from server context
 	    },
 	})
 })

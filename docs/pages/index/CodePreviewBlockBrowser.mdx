@@ -1,28 +1,21 @@
 ```tsx ts-only
-// Upload.tsx
+// UpdateTodo.tsx
 
-import { onUpload } from './Upload.telefunc.ts'
+import { onUpdateTodoText } from './UpdateTodo.telefunc.ts'
 
-function Upload() {
-  const [progress, setProgress] = createSignal(0)
-
-  async function onChange(event) {
-    const file = event.target.files[0]
-    // Arguments are validated server-side by
-    // a `shield` generated from your types
-    await onUpload(file, (percent) => {
-      // This callback runs in the browser,
-      // called by the server over WebSocket.
-      setProgress(percent)
-    })
+export function CreateTodo() {
+  async function onAddTodo(event: SubmitEvent) {
+    const text = new FormData(event).get('text')
+    await onNewTodo(text)
   }
-
+  
   return (
-    <div>
-      <label>Upload file</label>
-      <input type="file" onChange={onChange} />
-      <div style={{ width: progress }} />
-    </div>
+    <form onSubmit={onAddTodo}>
+      <input input="text" />
+      <button>
+        Add To-do
+      </button>
+    </form>
   )
 }
 ```
