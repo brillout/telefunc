@@ -8,13 +8,13 @@ import { iconGear, iconPlug, iconSeedling } from '@brillout/docpress' with { typ
 type ExtractHeadingUrl<C> = C extends { url: infer N extends string } ? N : C extends string ? C : never
 type HeadingsURL = ExtractHeadingUrl<(typeof headings)[number]>
 
-const categories = ['Basics', 'Integrations', 'API'] as const satisfies Config['categories']
+const categories = ['Guides', 'Integrations', 'API'] as const satisfies Config['categories']
 
 const headings = [
   // #region Onboarding
   {
     level: 1,
-    title: 'Basics',
+    title: 'Guides',
     titleIcon: iconSeedling,
     color: '#74d717',
   },
@@ -32,6 +32,16 @@ const headings = [
   },
   {
     level: 2,
+    title: 'Server Integration',
+    url: '/server-integration',
+  },
+  {
+    level: 2,
+    title: 'Initial Data',
+    url: '/initial-data',
+  },
+  {
+    level: 2,
     title: 'Why Telefunc?',
     url: '/why-telefunc',
   },
@@ -40,21 +50,11 @@ const headings = [
     title: 'Best Practices',
     url: '/best-practices',
   },
-
+  
   // #region Guides
   {
     level: 4,
-    title: 'Guides',
-  },
-  {
-    level: 2,
-    title: 'Server Integration',
-    url: '/server-integration',
-  },
-  {
-    level: 2,
-    title: 'Initial Data',
-    url: '/initial-data',
+    title: 'Basics',
   },
   {
     level: 2,
