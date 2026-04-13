@@ -10,11 +10,15 @@ npm install telefunc
 
 ### Add Telefunc to your server
 
-Telefunc is built on [Web Standards](https://www.w3.org/standards/). You can add Telefunc to any server that exposes [`Request`](https://developer.mozilla.org/en-US/docs/Web/API/Request) or [Node.js `req`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
+Telefunc is built on [Web Standards](https://www.w3.org/standards/).
+You can add Telefunc to any server that exposes [`Request`](https://developer.mozilla.org/en-US/docs/Web/API/Request) or [Node.js `req`](https://nodejs.org/api/http.html#http_class_http_incomingmessage).
 This includes server frameworks like [Hono](https://hono.dev) or [Express](https://expressjs.com), and metaframeworks like [Next.js](https://nextjs.org) and [SvelteKit](https://svelte.dev/docs/kit).
 
-> The <Link href="/telefunc"><code>telefunc()</code></Link> middleware intercepts and executes telefunction calls. This is also your opportunity to set any data you'd like available in the Telefunc request context.
-For more info, see <Link href="/getContext"><code>getContext()</code></Link>.
+> Check out the <Link href="/server-integration">setup guide for your framework of choice</Link> for integration and configuration steps.
+
+The <Link href="/telefunc"><code>telefunc()</code></Link> middleware intercepts and executes telefunction calls.
+When calling `telefunc`, you can pass any contextual data from your server to the Telefunc request context.
+You can then type-safely access these values downstream, <Link href="/start#secure-your-telefunction">to check user permissions</Link>, for example.
 
 ```js
 // server.js
@@ -40,7 +44,7 @@ app.all('/_telefunc', async (c) => {
 })
 ```
 
-> Check out the setup guide for your framework of choice for integration and configuration steps.
+> For more info on getting or setting context, see <Link href="/getContext"><code>getContext()</code></Link>.
 
 ## My first telefunction
 
@@ -88,6 +92,8 @@ export async function onNewTodo(title: string, text: string) {
   // ...
 }
 ```
+
+> To learn more about validating business rules (e.g., emails, regex patterns, etc.), see <Link href="/validation" />.
 
 ### Call your telefunction
 
