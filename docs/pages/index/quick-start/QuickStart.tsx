@@ -1,7 +1,7 @@
 import React from 'react'
-import DefineTelefunctionSnippet from './DefineTelefunctionSnippet.mdx'
-import ServerSetupSnippet from './ServerSetupSnippet.mdx'
-import SimpleQuerySnippet from './SimpleQuerySnippet.mdx'
+import DefineTelefunctionSnippet from './SnippetA.mdx'
+import ServerSetupSnippet from './SnippetB.mdx'
+import SimpleQuerySnippet from './SnippetC.mdx'
 import './QuickStart.css'
 import { CTALink } from '../../../components/CTALink'
 
@@ -23,7 +23,7 @@ function Quickstart() {
         <div className="setup-info">
           <div style={{ display: 'flex', alignItems: 'center', marginBottom: 4 }}>
             <Digit value={1} />
-            <h2 style={{ margin: 0 }}>Define your telefunction</h2>
+            <h2 style={{ margin: 0 }}>They're just functions!</h2>
           </div>
           <p style={{ lineHeight: 2 }}>
             Telefunctions are slim server functions that are scoped to UI events or interactions.
@@ -41,10 +41,10 @@ function Quickstart() {
         <div className="setup-info">
           <div style={{ display: 'flex', alignItems: 'center', marginBottom: 4 }}>
             <Digit value={2} />
-            <h2 style={{ margin: 0 }}>Add to your server</h2>
+            <h2 style={{ margin: 0 }}>Built on Web Standards</h2>
           </div>
           <p style={{ lineHeight: 2 }}>
-            Telefunc is built on Web Standards, and works out-of-box with any <code>Request</code>- or Node.js-
+            Telefunc works out-of-box with any <code>Request</code>- or Node.js-
             <code>req</code>-compatible server.
           </p>
           <p style={{ lineHeight: 2 }}>
@@ -63,7 +63,7 @@ function Quickstart() {
         <div className="setup-info">
           <div style={{ display: 'flex', alignItems: 'center', marginBottom: 4 }}>
             <Digit value={3} />
-            <h2 style={{ margin: 0 }}>Start querying</h2>
+            <h2 style={{ margin: 0 }}>Minus the boilerplate</h2>
           </div>
           <p style={{ lineHeight: 2 }}>
             With Telefunc added to our server, we just need to import and call our telefunction!
@@ -108,7 +108,7 @@ function Quickstart() {
         <CTALink href="/start" size="lg">
           Start calling!
         </CTALink>
-        <CTALink href="/schemaless" size="lg" variant="secondary">
+        <CTALink href="/why-telefunc" size="lg" variant="secondary">
           Learn more
         </CTALink>
       </div>
