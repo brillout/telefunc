@@ -19,10 +19,16 @@ function Page() {
         }}
       >
         <Header />
-        <CodeComparison headings={['Called in the browser,', 'Run on the server.']}>
-          <CodePreviewBlockBrowser />
-          <CodePreviewBlockServer />
+        <div>
+          <CodeComparison headings={['Called in the browser,', 'Run on the server.']}>
+          <div className="hero-block">
+            <CodePreviewBlockBrowser />
+          </div>
+          <div className="hero-block">
+            <CodePreviewBlockServer />
+          </div>
         </CodeComparison>
+        </div>
       </div>
       <div
         style={{
