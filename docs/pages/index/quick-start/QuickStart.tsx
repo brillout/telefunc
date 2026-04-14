@@ -11,6 +11,7 @@ function Quickstart() {
   return (
     <div
       style={{
+        padding: '0px 20px',
         display: 'flex',
         flexDirection: 'column',
         maxWidth: 1000,
@@ -33,7 +34,7 @@ function Quickstart() {
             about validation. In this example, we just need to check user permissions, then run our SQL.
           </p>
         </div>
-        <div>
+        <div style={{ flexGrow: 1 }}>
           <DefineTelefunctionSnippet />
         </div>
       </div>
@@ -55,7 +56,7 @@ function Quickstart() {
             !
           </p>
         </div>
-        <div>
+        <div style={{ flexGrow: 1 }}>
           <ServerSetupSnippet />
         </div>
       </div>
@@ -69,7 +70,7 @@ function Quickstart() {
             With Telefunc added to our server, we just need to import and call our telefunction!
           </p>
         </div>
-        <div>
+        <div style={{ flexGrow: 1 }}>
           <SimpleQuerySnippet />
         </div>
       </div>
@@ -98,11 +99,13 @@ function Quickstart() {
         </p>
       </div>
       <div
+        className="cta-stack"
         style={{
           display: 'flex',
           justifyContent: 'center',
           columnGap: 20,
-          margin: '36px 0px',
+          rowGap: 20,
+          marginTop: 30,
         }}
       >
         <CTALink href="/start" size="lg">
@@ -124,10 +127,11 @@ function Digit({ value }: { value: number }) {
         height: 36,
         background: 'rgb(247, 224, 24)',
         borderRadius: '50%',
-        padding: '6px 13px',
         margin: 4,
         marginRight: 16,
         textAlign: 'center',
+        verticalAlign: 'middle',
+        lineHeight: 2.25,
         fontWeight: 'bold',
         float: 'left',
       }}
