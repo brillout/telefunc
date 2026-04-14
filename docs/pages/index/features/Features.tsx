@@ -41,7 +41,7 @@ function Features() {
       </div>
       <div>
         <h2>
-          <Emoji name="dizzy" /> Full-stack development
+          <SaucerEmoji /> Build without constraints
         </h2>
         <>
           <p>
@@ -63,7 +63,7 @@ function Features() {
       </div>
       <div>
         <h2>
-          <Emoji name="shield" /> Separation of concerns
+          <Emoji name="dizzy" /> Remote made simple
         </h2>
         <>
           <p>
@@ -74,7 +74,7 @@ function Features() {
       </div>
       <div>
         <h2>
-          <Emoji name="plug" /> Framework agnostic
+          <Emoji name="plug" /> Plug in to any server
         </h2>
         <>
           <p>
@@ -83,6 +83,31 @@ function Features() {
           </p>
         </>
       </div>
+    </div>
+  )
+}
+
+function SaucerEmoji() {
+  const emoji = () => {
+    try {
+      return String.fromCodePoint(0x1F6F8)
+    } catch {
+      // fall-back to rocket
+      return String.fromCodePoint(0x1F680)
+    }
+  }
+
+  return (
+    <div
+      style={{
+        width: '1.15em',
+        display: 'inline',
+        verticalAlign: 'text-top',
+        fontFamily: 'emoji',
+        fontSize: '1em',
+      }}
+    >
+      {emoji()}
     </div>
   )
 }
