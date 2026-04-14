@@ -36,6 +36,7 @@ import { telefunc } from 'telefunc'
 const app = new Hono()
 
 app.all('/_telefunc', async (c) => {
+  // make sure to pass raw request
   const httpResponse = await telefunc({ request: c.req.raw })
 
   return new Response(httpResponse.body, {
