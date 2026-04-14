@@ -42,22 +42,22 @@ export function CTALink({
   const fontWeight = size === 'lg' ? 700 : 600
 
   return (
-      <a
-        href={href}
-        style={{
-          display: 'inline-flex',
-          justifyContent: 'center',
-          overflow: 'hidden',
-          border: '1px solid #d1d5db',
-          borderRadius: 6,
-          boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12)',
-          fontSize,
-          fontWeight,
-          ...spacing,
-          ...theme,
-        }}
-      >
-        {children}
-      </a>
+    <a
+      href={href}
+      style={{
+        display: 'inline-flex',
+        justifyContent: 'center',
+        overflow: 'hidden',
+        border: '1px solid #d1d5db',
+        borderRadius: 6,
+        boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12)',
+        fontSize,
+        fontWeight,
+        ...spacing,
+        ...theme,
+      }}
+    >
+      {children}
+    </a>
   )
 }

@@ -90,10 +90,10 @@ function Features() {
 function SaucerEmoji() {
   const emoji = () => {
     try {
-      return String.fromCodePoint(0x1F6F8)
+      return String.fromCodePoint(0x1f6f8)
     } catch {
       // fall-back to rocket
-      return String.fromCodePoint(0x1F680)
+      return String.fromCodePoint(0x1f680)
     }
   }
 

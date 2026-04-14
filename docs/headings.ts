@@ -50,7 +50,7 @@ const headings = [
     title: 'Best Practices',
     url: '/best-practices',
   },
-  
+
   // #region Guides
   {
     level: 4,
