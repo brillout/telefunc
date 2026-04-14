@@ -1,23 +1,29 @@
 ```ts
-// index.ts
+// Upload.telefunc.ts
 // Environment: server
 
-const app = new Hono()
+import { Abort, getContext } from 'telefunc'
 
-// ... auth, rate limiting, etc.
+export async function onUpload(
+  file: File,
+  onProgress: (percent: number) => void,
+): void {
+  const { user } = getContext()
 
-app.all('/_telefunc', async (c) => {
-	// make sure to pass raw request
-	const httpResponse = await telefunc({ request: c.req.raw })
-  
-	return new Response(httpResponse.body, {
-	    status: httpResponse.statusCode,
-	    headers: { 'content-type': httpResponse.contentType },
-	    context: {
-	      user: c.user, // Pass permissions from server context
-	    },
-	})
-})
+  if (!user || !user.permissions.includes('write')) {
+    throw Abort({ /** Shared with client */ })
+  }
 
-export default app
+  const dest = fs.createWriteStream(/** */)
+  const total = file.size
+  let loaded = 0
+
+  for await (const chunk of file.stream()) {
+    dest.write(chunk)
+    loaded += chunk.byteLength
+    onProgress(Math.round(loaded / total * 100))
+  }
+
+  dest.end()
+}
 ```
