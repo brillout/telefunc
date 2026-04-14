@@ -24,7 +24,7 @@ export function CTALink({
           color: 'var(--color-text)',
         }
 
-  const something =
+  const spacing =
     size === 'lg'
       ? {
           padding: '16px 32px',
@@ -42,38 +42,22 @@ export function CTALink({
   const fontWeight = size === 'lg' ? 700 : 600
 
   return (
-    <a
-      href={href}
-      style={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-      }}
-    >
-      <div
+      <a
+        href={href}
         style={{
           display: 'inline-flex',
-          marginTop: -6,
-          marginBottom: 6,
+          justifyContent: 'center',
           overflow: 'hidden',
           border: '1px solid #d1d5db',
           borderRadius: 6,
           boxShadow: '0 1px 3px rgba(0, 0, 0, 0.12)',
           fontSize,
           fontWeight,
+          ...spacing,
+          ...theme,
         }}
       >
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            ...something,
-            ...theme,
-          }}
-        >
-          {children}
-        </div>
-      </div>
-    </a>
+        {children}
+      </a>
   )
 }
