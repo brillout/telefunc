@@ -1,4 +1,5 @@
 import React from 'react'
+import { NoteWithCustomIcon } from '@brillout/docpress'
 import DefineTelefunctionSnippet from './SnippetA.mdx'
 import ServerSetupSnippet from './SnippetB.mdx'
 import SimpleQuerySnippet from './SnippetC.mdx'
@@ -48,13 +49,13 @@ function Quickstart() {
             Telefunc works out-of-box with any <code>Request</code>- or Node.js-
             <code>req</code>-compatible server.
           </p>
-          <p style={{ lineHeight: 2 }}>
+          <NoteWithCustomIcon style={{ lineHeight: 2 }} icon={'ℹ️'}>
             Both standard JSON and <code>File</code> data are fully-supported, and&nbsp;
             <a href="https://github.com/telefunc/telefunc/pull/236" style={{ fontWeight: 'bold' }}>
               streaming is coming soon
             </a>
             !
-          </p>
+          </NoteWithCustomIcon>
         </div>
         <div style={{ flexGrow: 1 }}>
           <ServerSetupSnippet />
