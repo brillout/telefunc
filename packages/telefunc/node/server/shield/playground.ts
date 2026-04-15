@@ -17,12 +17,12 @@ const t = shield.type
 }
 
 {
-  const telefunction = shield([t.string, t.optional(t.number)], (_a, _b) => {})
+  const telefunction = shield((_a, _b) => {}, [t.string, t.optional(t.number)])
   console.log(shieldApply(telefunction, ['a', 42, undefined]))
 }
 
 {
-  const telefunction = shield([{ a: { b: { c: t.const(42) } } }], (_a) => {})
+  const telefunction = shield((_a) => {}, [{ a: { b: { c: t.const(42) } } }])
   console.log(shieldApply(telefunction, [{ a: { b: { c: 42 } } }]))
 }
 

@@ -62,25 +62,25 @@ describe('shield', () => {
     }
 
     {
-      const telefunction = shield([t.object(t.number)], (_a) => {})
+      const telefunction = shield((_a) => {}, [t.object(t.number)])
       expect(shieldApply(telefunction, [{ k: 'some string' }])).toBe(
         '[root] > [tuple: element 0] > [object: value of key `k`] is `string` but should be `number`.',
       )
     }
     {
-      const telefunction = shield([{ a: { b: { c: t.const(42) } } }], (_a) => {})
+      const telefunction = shield((_a) => {}, [{ a: { b: { c: t.const(42) } } }])
       expect(shieldApply(telefunction, [{ a: { b: { c: 'some string' } } }])).toBe(
         '[root] > [tuple: element 0] > [object: value of key `a`] > [object: value of key `b`] > [object: value of key `c`] is `some string` but should be `42`.',
       )
     }
     {
-      const telefunction = shield([{ a: { b: { c: t.const(42) } } }], (_a) => {})
+      const telefunction = shield((_a) => {}, [{ a: { b: { c: t.const(42) } } }])
       expect(shieldApply(telefunction, [{ a: { b: { d: 42 } } }])).toBe(
         '[root] > [tuple: element 0] > [object: value of key `a`] > [object: value of key `b`] > [object: value of key `c`] is `undefined` but should be `42`.',
       )
     }
     {
-      const telefunction = shield([{ a: { b: { c: t.const(42) } } }], (_a) => {})
+      const telefunction = shield((_a) => {}, [{ a: { b: { c: t.const(42) } } }])
       expect(shieldApply(telefunction, [{ a: { b: { c: 42, d: 42 } } }])).toBe(
         '[root] > [tuple: element 0] > [object: value of key `a`] > [object: value of key `b`] > [object: value of key `d`] is `42` but should be `undefined`.',
       )
