@@ -14,7 +14,9 @@ import {
   STATUS_CODE_SHIELD_VALIDATION_ERROR,
   STATUS_BODY_SHIELD_VALIDATION_ERROR,
   STATUS_CODE_SUCCESS,
+  DETAILED_VALIDATION_ERROR_REQUEST_HEADER,
 } from '../../shared/constants.js'
+import { ValidationError } from '../../shared/ValidationError.js'
 
 const method = 'POST'
 
@@ -40,6 +42,7 @@ async function makeHttpRequest(callContext: {
       credentials: 'same-origin',
       headers: {
         ...contentType,
+        [DETAILED_VALIDATION_ERROR_REQUEST_HEADER]: 'detailed',
         ...callContext.httpHeaders,
       },
     })
@@ -65,16 +68,13 @@ async function makeHttpRequest(callContext: {
     callOnAbortListeners(telefunctionCallError)
     throw telefunctionCallError
   } else if (statusCode === STATUS_CODE_INTERNAL_SERVER_ERROR) {
-    const errMsg = await getErrMsg(STATUS_BODY_INTERNAL_SERVER_ERROR, response, callContext)
-    throw new Error(errMsg)
-  } else if (statusCode === STATUS_CODE_SHIELD_VALIDATION_ERROR) {
-    const errMsg = await getErrMsg(
-      STATUS_BODY_SHIELD_VALIDATION_ERROR,
+    throw await createServerError({
+      message: STATUS_BODY_INTERNAL_SERVER_ERROR,
       response,
       callContext,
-      ' (if enabled: https://telefunc.com/log)',
-    )
-    throw new Error(errMsg)
+    })
+  } else if (statusCode === STATUS_CODE_SHIELD_VALIDATION_ERROR) {
+    throw await parseValidationError(response, callContext)
   } else if (statusCode === STATUS_CODE_MALFORMED_REQUEST) {
     const responseBody = await response.text()
     assertUsage(responseBody === STATUS_BODY_MALFORMED_REQUEST, wrongInstallation({ method, callContext }))
@@ -132,13 +132,57 @@ function wrongInstallation({
   return msg.join('')
 }
 
-async function getErrMsg(
-  errMsg: typeof STATUS_BODY_INTERNAL_SERVER_ERROR | typeof STATUS_BODY_SHIELD_VALIDATION_ERROR,
-  response: Response,
-  callContext: { telefuncUrl: string },
-  errMsgAddendum: ' (if enabled: https://telefunc.com/log)' | '' = '',
-) {
+async function createServerError({
+  message,
+  response,
+  callContext,
+  includeLogAddendum = false,
+}: {
+  message: typeof STATUS_BODY_INTERNAL_SERVER_ERROR | typeof STATUS_BODY_SHIELD_VALIDATION_ERROR
+  response: Response
+  callContext: { telefuncUrl: string }
+  includeLogAddendum?: boolean
+}) {
   const responseBody = await response.text()
-  assertUsage(responseBody === errMsg, wrongInstallation({ method, callContext }))
-  return `${errMsg} — see server logs${errMsgAddendum}` as const
+  assertUsage(responseBody === message, wrongInstallation({ method, callContext }))
+  const logAddendum = includeLogAddendum ? ' (if enabled: https://telefunc.com/log)' : ''
+
+  return new Error(`${message} — see server logs${logAddendum}` as const)
+}
+
+async function parseValidationError(
+  response: Response,
+  callContext: {
+    telefuncUrl: string
+  },
+): Promise<ValidationError | Error> {
+  assert(response.status === STATUS_CODE_SHIELD_VALIDATION_ERROR)
+  const responseBody = await response.text()
+
+  if (responseBody === STATUS_BODY_SHIELD_VALIDATION_ERROR) {
+    return await createServerError({
+      message: STATUS_BODY_SHIELD_VALIDATION_ERROR,
+      response,
+      callContext,
+      includeLogAddendum: true,
+    })
+  }
+
+  let validationError: unknown
+  try {
+    validationError = parse(responseBody)
+  } catch {
+    assertUsage(
+      false,
+      wrongInstallation({
+        reason: 'a shield validation response body that Telefunc cannot parse',
+        method,
+        callContext,
+      }),
+    )
+  }
+
+  assertUsage(ValidationError.isValidationErrorData(validationError), wrongInstallation({ method, callContext }))
+
+  return new ValidationError(validationError)
 }

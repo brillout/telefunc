@@ -24,7 +24,10 @@ import {
   STATUS_CODE_MALFORMED_REQUEST,
   STATUS_BODY_MALFORMED_REQUEST,
   STATUS_CODE_SUCCESS,
+  DETAILED_VALIDATION_ERROR_REQUEST_HEADER,
 } from '../../shared/constants.js'
+import { stringify } from '@brillout/json-serializer/stringify'
+import { ValidationError } from '../../shared/ValidationError.js'
 
 /** The HTTP Response of a telefunction remote call HTTP Request */
 type HttpResponse = {
@@ -141,15 +144,19 @@ async function runTelefunc_({
   }
 
   {
-    const { isValidRequest } = applyShield(runContext)
-    objectAssign(runContext, { isValidRequest })
-    if (!isValidRequest) {
+    const shieldResult = applyShield(runContext)
+    const validationError = shieldResult.error
+    objectAssign(runContext, { isValidRequest: !validationError })
+    if (validationError) {
       objectAssign(runContext, {
         telefunctionAborted: true,
         telefunctionReturn: undefined,
       })
-      return shieldValidationError
+
+      return createValidationErrorResponse(request, validationError)
     }
+    // if no issues, add validated arguments to context
+    objectAssign(runContext, { validatedArgs: shieldResult.validatedArguments })
   }
 
   {
@@ -185,4 +192,16 @@ async function runTelefunc_({
     // etag: runContext.httpResponseEtag,
     etag: null,
   }
+}
+
+function createValidationErrorResponse(request: Request, validationError: ValidationError) {
+  const errorMode = request.headers.get(DETAILED_VALIDATION_ERROR_REQUEST_HEADER)
+  if (errorMode === 'detailed') {
+    return {
+      ...shieldValidationError,
+      body: stringify(validationError, { forbidReactElements: true }),
+    }
+  }
+
+  return shieldValidationError
 }
