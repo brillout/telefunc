@@ -14,6 +14,7 @@ import { type ExportList, getExportList } from '../getExportList.js'
 import { findTsConfig } from './findTsConfig.js'
 import fs from 'node:fs'
 import path from 'node:path'
+import { createHash } from 'node:crypto'
 import pc from '@brillout/picocolors'
 import { fileURLToPath } from 'node:url'
 const __dirname_ = path.dirname(fileURLToPath(import.meta.url))
@@ -30,12 +31,53 @@ const generatedShields: GeneratedShield[] = []
 let resultAlreadyLogged = false
 const projects: Record<string, Project> = {}
 
-function generateShield(
+// Per-file shield code cache populated by `runBatch`. Keyed by absolute
+// telefunc file path. The cached `code` is the source the shield was
+// generated against; we only return the cache hit when the incoming
+// `telefuncFileCode` still matches it (so HMR-style edits in dev fall
+// back to the per-file path automatically).
+const shieldCache: Map<string, { code: string; shield: string }> = new Map()
+
+// Promise-based dedupe so concurrent transform() calls collapse onto
+// one batch per tsconfig. Vite fires transform handlers in parallel; the
+// first telefunc file we see for a given tsconfig kicks off the batch,
+// every subsequent one awaits the same in-flight promise.
+const batchPromises: Map<string, Promise<void>> = new Map()
+
+async function generateShield(
   telefuncFileCode: string,
   telefuncFilePath: string,
   appRootDir: string,
   exportList: ExportList,
-): string {
+): Promise<string> {
+  // Fast path: this file was processed in a batch and its content
+  // hasn't changed since.
+  const cached = shieldCache.get(telefuncFilePath)
+  if (cached && cached.code === telefuncFileCode) return cached.shield
+
+  // Discover the tsconfig that owns this file (same logic the per-file
+  // path would use). If we can resolve one, kick off (or await) a batch
+  // for every telefunc file that tsconfig already loaded into the
+  // project — this lets one TypeChecker handle them all instead of
+  // each file paying the rebuild cost separately. Files that aren't
+  // matched by any tsconfig (virtual / outside the project) skip the
+  // batch and go straight to the per-file path.
+  const tsConfigFilePath = findTsConfig(telefuncFilePath, appRootDir)
+  if (tsConfigFilePath) {
+    let p = batchPromises.get(tsConfigFilePath)
+    if (!p) {
+      p = runBatchForTsConfig(tsConfigFilePath)
+      batchPromises.set(tsConfigFilePath, p)
+    }
+    await p
+    const c2 = shieldCache.get(telefuncFilePath)
+    if (c2 && c2.code === telefuncFileCode) return c2.shield
+  }
+
+  // Fallback: per-file path. Reached when (a) no tsconfig owns the
+  // file, (b) the batch couldn't include the file (e.g. parse error in
+  // its export list), or (c) the file content changed after the batch
+  // ran (HMR / another plugin's transform output).
   const { project, shieldGenSource } = getProject(telefuncFilePath, telefuncFileCode, appRootDir)
   const shieldCode = generateShieldCode({
     project,
@@ -46,50 +88,56 @@ function generateShield(
   return shieldCode
 }
 
-function getProject(telefuncFilePath: string, telefuncFileCode: string, appRootDir: string, isTest?: true) {
-  const tsConfigFilePath = isTest ? null : findTsConfig(telefuncFilePath, appRootDir)
+function ensureProject(tsConfigFilePath: string | null): Project {
   const key = tsConfigFilePath ?? '__no_tsconfig'
-  const typeToShieldFilePath = path.join(getFilesystemRoot(), '__telefunc_TypeToShield.ts')
+  if (projects[key]) return projects[key]!
+
   // When shield() generation fails, avoid showing unrelated errors in TypeScript diagnostics
   const tsConfigAddendum = { skipLibCheck: true }
+  let project: Project
+  if (!tsConfigFilePath) {
+    project = projects[key] = new Project({
+      compilerOptions: {
+        ...tsConfigAddendum,
+        // See assertUsage() comment
+        strict: true,
+      },
+    })
+  } else {
+    project = projects[key] = new Project({
+      tsConfigFilePath,
+      // Add all project files, which is needed for picking up the Telefunc.Context value
+      //  - What `Telefunc.Context` is, is explained at https://telefunc.com/getContext#typescript
+      skipAddingFilesFromTsConfig: false,
+      compilerOptions: {
+        ...tsConfigAddendum,
+      },
+    })
 
-  if (!projects[key]) {
-    let project: Project
-    if (!tsConfigFilePath) {
-      project = projects[key] = new Project({
-        compilerOptions: {
-          ...tsConfigAddendum,
-          // See assertUsage() comment
-          strict: true,
-        },
-      })
-    } else {
-      project = projects[key] = new Project({
-        tsConfigFilePath,
-        // Add all project files, which is needed for picking up the Telefunc.Context value
-        //  - What `Telefunc.Context` is, is explained at https://telefunc.com/getContext#typescript
-        skipAddingFilesFromTsConfig: false,
-        compilerOptions: {
-          ...tsConfigAddendum,
-        },
-      })
-
-      const compilerOptionsUser = getCompilerOptionsFromTsConfig(tsConfigFilePath)
-      // We need `compilerOptions.strict` to avoid `TS2589: Type instantiation is excessively deep and possibly infinite.`
-      assertUsage(
-        compilerOptionsUser.options.strict === true,
-        `Set \`compilerOptions.strict\` to \`true\` in ${tsConfigFilePath} (needed for shield() generation)`,
-      )
-    }
-
-    const compilerOptionsResolved = project.compilerOptions.get()
-    assert(compilerOptionsResolved.strict === true)
-    assert(compilerOptionsResolved.skipLibCheck === true)
-
-    // This source file is used for evaluating the template literal types' values
-    project.createSourceFile(typeToShieldFilePath, getTypeToShieldSrc())
+    const compilerOptionsUser = getCompilerOptionsFromTsConfig(tsConfigFilePath)
+    // We need `compilerOptions.strict` to avoid `TS2589: Type instantiation is excessively deep and possibly infinite.`
+    assertUsage(
+      compilerOptionsUser.options.strict === true,
+      `Set \`compilerOptions.strict\` to \`true\` in ${tsConfigFilePath} (needed for shield() generation)`,
+    )
   }
-  const project = projects[key]!
+
+  const compilerOptionsResolved = project.compilerOptions.get()
+  assert(compilerOptionsResolved.strict === true)
+  assert(compilerOptionsResolved.skipLibCheck === true)
+
+  // This source file is used for evaluating the template literal types' values
+  const typeToShieldFilePath = path.join(getFilesystemRoot(), '__telefunc_TypeToShield.ts')
+  project.createSourceFile(typeToShieldFilePath, getTypeToShieldSrc())
+
+  return project
+}
+
+function getProject(telefuncFilePath: string, telefuncFileCode: string, appRootDir: string, isTest?: true) {
+  const tsConfigFilePath = isTest ? null : findTsConfig(telefuncFilePath, appRootDir)
+  const typeToShieldFilePath = path.join(getFilesystemRoot(), '__telefunc_TypeToShield.ts')
+
+  const project = ensureProject(tsConfigFilePath)
   objectAssign(project, { tsConfigFilePath })
 
   if (!tsConfigFilePath) {
@@ -114,8 +162,15 @@ function getProject(telefuncFilePath: string, telefuncFileCode: string, appRootD
 
   const telefuncFileSource = project.getSourceFile(telefuncFilePath)
   assertTelefuncFilesSource(telefuncFileSource, { project, telefuncFilePath, tsConfigFilePath, appRootDir })
-  // The code written in the file at `telefuncFilePath` isn't equal `telefuncFileCode` because of transforms
-  telefuncFileSource.replaceWithText(telefuncFileCode)
+  // The code written in the file at `telefuncFilePath` isn't always equal
+  // to `telefuncFileCode` (e.g. another plugin may have transformed it
+  // before us). Skip the write when it does match — `replaceWithText`
+  // marks the source file dirty in the ts-morph Project, which forces
+  // TypeScript to re-resolve every consumer's imports and rebuild the
+  // TypeChecker on the next type query.
+  if (telefuncFileSource.getFullText() !== telefuncFileCode) {
+    telefuncFileSource.replaceWithText(telefuncFileCode)
+  }
 
   return { project, shieldGenSource }
 }
@@ -193,6 +248,173 @@ function generateShieldCode({
 
   shieldCode += '\n'
   return shieldCode
+}
+
+/**
+ * Generate shield() code for every `*.telefunc.ts` already loaded into
+ * the ts-morph Project for `tsConfigFilePath`, in a single pass that
+ * reuses one TypeChecker.
+ *
+ * Why this exists
+ * ---------------
+ * The per-file path mutates the Project on every shield call (it adds
+ * a fresh `__telefunc_shieldGen_<file>.ts` per call). Each Project
+ * mutation invalidates the TypeScript Program, and TypeScript builds a
+ * brand-new TypeChecker for each new Program — there is no incremental
+ * TypeChecker API. Instrumented timings on a 456-telefunc-file app
+ * show ~1.3s per file, every file, with the floor never dropping —
+ * each fresh checker has to walk the type graph for `typeof <fn>`
+ * from scratch. Projected wall time was ~10 minutes.
+ *
+ * What this does instead
+ * ----------------------
+ * Build ONE aggregate `__telefunc_shieldGen_BATCH.ts` containing
+ * renaming-aliased imports (`import { foo as foo__<tag> } from '…'`)
+ * and uniquely-named type aliases for every export of every telefunc
+ * file the project already knows about, then call
+ * `getType().getLiteralValue()` for every alias. The first call
+ * triggers ONE program build + ONE TypeChecker; subsequent reads make
+ * no AST mutations, so the same checker is reused and its internal
+ * type cache warms up across files instead of being thrown away.
+ *
+ * Discovery uses `project.getSourceFiles()` — the ts-morph Project is
+ * the authority on which files belong to this tsconfig (its `include`
+ * already matched them). No filesystem glob, no `appRootDir` heuristic,
+ * and naturally supports per-tsconfig batches in repos that route
+ * different telefunc files to different tsconfigs via project
+ * references.
+ *
+ * Files we couldn't include here (not in the project, parse error,
+ * etc.) get no cache entry and fall back to the per-file path inside
+ * `generateShield`.
+ */
+async function runBatchForTsConfig(tsConfigFilePath: string): Promise<void> {
+  const debug = process.env.TELEFUNC_SHIELD_DEBUG
+  const _t0 = Date.now()
+  const project = ensureProject(tsConfigFilePath)
+  objectAssign(project, { tsConfigFilePath })
+
+  const telefuncSources = project
+    .getSourceFiles()
+    .filter((sf) => sf.getFilePath().endsWith('.telefunc.ts'))
+  if (telefuncSources.length === 0) return
+  if (debug) {
+    process.stderr.write(
+      `[telefunc] batch start: tsconfig=${tsConfigFilePath} telefuncFiles=${telefuncSources.length}\n`,
+    )
+  }
+
+  const aggFilePath = path.join(getFilesystemRoot(), '__telefunc_shieldGen_BATCH.ts')
+  const aggSource = project.createSourceFile(aggFilePath, undefined, { overwrite: true })
+
+  const typeToShieldFilePath = path.join(getFilesystemRoot(), '__telefunc_TypeToShield.ts')
+  aggSource.addImportDeclaration({
+    moduleSpecifier: getImportPath(aggFilePath, typeToShieldFilePath),
+    namedImports: ['TypeToShield'],
+  })
+
+  type FilePlan = {
+    filePath: string
+    code: string
+    exportList: ExportList
+    fileTag: string
+  }
+  const plans: FilePlan[] = []
+
+  for (const sf of telefuncSources) {
+    const filePath = sf.getFilePath()
+    const code = sf.getFullText()
+    let exportList: ExportList
+    try {
+      exportList = await getExportList(code)
+    } catch {
+      // Parse error — leave to per-file path so the user gets the
+      // original error message.
+      continue
+    }
+    if (exportList.length === 0) continue
+
+    // Tag is derived from the file path so identical export names
+    // across files (very common: `useFoo`, `getX`) don't collide.
+    const fileTag = makeFileTag(filePath)
+    aggSource.addImportDeclaration({
+      moduleSpecifier: getImportPath(aggFilePath, filePath).replace(/\.ts$/, ''),
+      namedImports: exportList.map((e) => ({
+        name: e.exportName,
+        alias: `${e.exportName}__${fileTag}`,
+      })),
+    })
+    for (const e of exportList) {
+      const ta = aggSource.addTypeAlias({
+        name: `${getShieldName(e.exportName)}__${fileTag}`,
+        type: `TypeToShield<typeof ${e.exportName}__${fileTag}>`,
+      })
+      // Suppress TS6196 "is declared but never used" — see issue 229.
+      aggSource.insertText(
+        ta.getStart(),
+        '// @ts-ignore Used internally by Telefunc at compile time (not runtime)\n',
+      )
+    }
+    plans.push({ filePath, code, exportList, fileTag })
+  }
+
+  // One walk for the whole batch. After this, no AST mutations happen
+  // until the loop below finishes — so all the type reads share the
+  // same TypeChecker.
+  project.resolveSourceFileDependencies()
+  assert(project.compilerOptions.get().strict === true)
+
+  for (const { filePath, code, exportList, fileTag } of plans) {
+    let shieldCode = [
+      'import { shield as __telefunc_shield } from "telefunc";',
+      'const __telefunc_t = __telefunc_shield.type;',
+    ].join('\n')
+
+    for (const exportedFunction of exportList) {
+      const aliasName = `${getShieldName(exportedFunction.exportName)}__${fileTag}`
+      const ta = aggSource.getTypeAlias(aliasName)
+      assert(ta, `Failed to get type alias \`${aliasName}\`.`)
+
+      const shieldStrType = ta.getType()
+      const shieldStr = shieldStrType.getLiteralValue()
+      assert(shieldStr === undefined || typeof shieldStr === 'string')
+
+      if (shieldStr === 'NON_FUNCTION_EXPORT') continue
+
+      const failed = shieldStr === undefined
+      generatedShields.push({
+        project: project as Project & { tsConfigFilePath: null | string },
+        telefuncFilePath: filePath,
+        telefunctionName: exportedFunction.exportName,
+        failed,
+      })
+
+      if (failed) continue
+
+      shieldCode += '\n'
+      shieldCode += `__telefunc_shield(${
+        exportedFunction.localName || exportedFunction.exportName
+      }, ${shieldStr}, { __autoGenerated: true });`
+    }
+    shieldCode += '\n'
+    shieldCache.set(filePath, { code, shield: shieldCode })
+  }
+
+  // Drop the aggregate. Any later per-file fallback gets a clean slate
+  // (no leftover aliased imports referencing files that may have been
+  // edited since the batch ran).
+  aggSource.delete()
+
+  if (debug) {
+    process.stderr.write(
+      `[telefunc] batch done: tsconfig=${tsConfigFilePath} ` +
+        `cached=${shieldCache.size} elapsedMs=${Date.now() - _t0}\n`,
+    )
+  }
+}
+
+function makeFileTag(filePath: string): string {
+  return createHash('sha256').update(filePath).digest('hex').slice(0, 8)
 }
 
 async function testGenerateShield(telefuncFileCode: string): Promise<string> {
